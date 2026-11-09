@@ -118,4 +118,12 @@
    - 舊 CMS `admin.hkcmereye.com` 已淘汰。
 
 ---
-*文檔由 Antigravity Agent 自動維護 | 版本：2026.9*
+
+## 9. CSS 規則 (CSS Rules)
+
+1. **Colors and fonts must use the CSS variables defined in `src/styles/comm.css`** — never hard-code brand hex values.
+2. **Build layout with Tailwind utilities first**.
+3. **Scoped styles only for component-specific geometry** — no full-page private stylesheets.
+
+---
+*文檔由 Antigravity Agent 自動維護 | 版本：2026.11*

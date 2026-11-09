@@ -1,10 +1,861 @@
 ---
+/*
+ * @Author: Antigravity AI
+ * @Date: 2026-11-09
+ * @FilePath: /src/pages/[...lang]/smilePro.astro
+ * @Description: SMILE Pro 2.0 微笑激光矯視 (100% 原版真值對齊 + 零 CLS + 完整 Schema & W-05 埋點)
+ */
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { i18nPaths, useI18n } from "@/i18n/utils";
+import SchemaProcedure from "@/components/seo/SchemaProcedure.astro";
+import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
+import UserShare from "@/components/views/UserShare.astro";
+import { i18nPaths, getLangFromUrl, getLocalizedHref } from "@/i18n/utils";
+import {
+  SMILE_PRO_ZH_HK,
+  SMILE_PRO_ZH_CN,
+  SMILE_PRO_SHARE_DATA,
+} from "@/data/smileProData";
+
 export function getStaticPaths() {
   return [...i18nPaths];
 }
-const { dict: _dict } = useI18n(Astro.url);
+
+const lang = getLangFromUrl(Astro.url);
+const isCn = lang === "zh-cn";
+const content = isCn ? SMILE_PRO_ZH_CN : SMILE_PRO_ZH_HK;
+
+// WhatsApp 官方 W-05 轉換埋點 (嚴格遵循 docs/WHATSAPP_TRACKING_MATRIX.md)
+const whatsappUrl =
+  "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-05)%20SMILE%20Pro%E7%9F%AF%E8%A6%96%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5%E5%8F%8A%E8%AB%AE%E8%A9%A2";
+
+const feeUrl = getLocalizedHref("/fee#table1", lang);
+const careUrl = getLocalizedHref("/smileProCare", lang);
 ---
 
-<BaseLayout tdkKey="smilepro"></BaseLayout>
+<BaseLayout tdkKey="smilepro">
+  <SchemaProcedure
+    name={content.summary.titlePrefix + " " + content.summary.titleStrong}
+    description={content.summary.p1.text1 +
+      content.summary.p1.strong1 +
+      content.summary.p1.text2 +
+      content.summary.p1.strong2 +
+      content.summary.p1.text3}
+  />
+  <SchemaBreadcrumb
+    items={[
+      { name: content.breadcrumb.home, url: isCn ? "/cn/" : "/" },
+      {
+        name: content.breadcrumb.service,
+        url: isCn ? "/cn/smilePro" : "/smilePro",
+      },
+      {
+        name: content.breadcrumb.current,
+        url: isCn ? "/cn/smilePro" : "/smilePro",
+      },
+    ]}
+  />
+
+  <div class="page-smilepro font-hk text-desc">
+    {/* Section 0: 頂部通告橫幅 (平滑跳轉至收費價目表) */}
+    <div class="notice max-w-[1240px] mx-auto px-4 lg:px-0 mb-2 lg:mb-3">
+      <a
+        href="#price"
+        class="rounded-lg overflow-hidden flex relative min-h-[52px] md:h-auto border border-blue-100/60 shadow-sm transition hover:opacity-95"
+        aria-label="查看 SMILE Pro 最新收費禮遇"
+      >
+        <picture class="w-full">
+          <source
+            media="(min-width: 768px)"
+            srcset={content.banner.noticeImgPc}
+          />
+          <img
+            src={content.banner.noticeImgMb}
+            alt="秋日限定"
+            width="1240"
+            height="80"
+            loading="eager"
+            fetchpriority="high"
+            class="h-full lg:h-auto w-full object-cover"
+          />
+        </picture>
+        {/* 移動端滾動字幕 */}
+        <div
+          class="flex md:hidden absolute top-0 left-0 w-full h-full overflow-hidden items-center pointer-events-none"
+        >
+          <div class="marquee-wrapper relative flex w-full h-full overflow-hidden">
+            <div class="marquee-content flex items-center shrink-0">
+              <img
+                src={content.banner.noticeMarqueeImg}
+                class="h-full w-auto object-contain pr-8"
+                alt="立即了解SMILE/SMILE PRO 1.0&2.0 微笑激光矯視"
+                width="280"
+                height="52"
+              />
+              <img
+                src={content.banner.noticeMarqueeImg}
+                class="h-full w-auto object-contain pr-8"
+                alt="立即了解SMILE/SMILE PRO 1.0&2.0 微笑激光矯視"
+                width="280"
+                height="52"
+              />
+            </div>
+            <div class="marquee-content flex items-center shrink-0">
+              <img
+                src={content.banner.noticeMarqueeImg}
+                class="h-full w-auto object-contain pr-8"
+                alt="立即了解SMILE/SMILE PRO 1.0&2.0 微笑激光矯視"
+                width="280"
+                height="52"
+              />
+              <img
+                src={content.banner.noticeMarqueeImg}
+                class="h-full w-auto object-contain pr-8"
+                alt="立即了解SMILE/SMILE PRO 1.0&2.0 微笑激光矯視"
+                width="280"
+                height="52"
+              />
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    {/* Section 1: 首屏視覺大圖與適應症提示 (Hero Banner) */}
+    <div
+      class="container max-w-[1240px] mx-auto smile-NewBanner relative px-4 xl:px-0 pb-12 md:pb-6"
+    >
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-cta="whatsapp"
+        class="block overflow-hidden rounded-lg shadow-sm transition hover:opacity-95"
+        title="WhatsApp 諮詢 SMILE Pro 微笑矯視"
+      >
+        <picture class="w-full block">
+          <source
+            media="(min-width: 768px)"
+            srcset={content.banner.heroImgPc}
+            type="image/webp"
+          />
+          <source
+            media="(min-width: 768px)"
+            srcset={content.banner.heroImgPcJpg}
+          />
+          <source
+            srcset={content.banner.heroImgMb}
+            type="image/webp"
+          />
+          <img
+            src={content.banner.heroImgMbJpg}
+            alt={content.banner.heroAlt}
+            title={content.banner.heroTitle}
+            width="1240"
+            height="460"
+            loading="eager"
+            fetchpriority="high"
+            class="w-full rounded-lg object-cover"
+          />
+        </picture>
+      </a>
+
+      {/* 矯視度數範圍浮動標籤 (Tip) */}
+      <div class="smile-NewBanner-Tip" aria-label="可矯正範圍">
+        <div class="smile-NewBanner-Tip-Title">
+          <p>{content.banner.tipTitle}</p>
+        </div>
+        <div class="smile-NewBanner-Tip-Content">
+          <p>• {content.banner.tipItem1}</p>
+          <p>• {content.banner.tipItem2}</p>
+        </div>
+      </div>
+    </div>
+
+    {/* Section 2: 中心介紹與唯一 H1 業務概括 (Summary) */}
+    <section class="smile-newCenter max-w-[1240px] mx-auto px-4 xl:px-0 mt-8 lg:mt-12" aria-labelledby="hero-h1-title">
+      <nav
+        class="smile-newCenter-menu flex items-center text-sm lg:text-base text-gray-500 mb-8 lg:mb-12"
+        aria-label="麵包屑導航"
+      >
+        <a href={isCn ? "/cn/" : "/"} class="hover:text-primary transition">{content.breadcrumb.home}</a>
+        <span class="mx-2">&gt;</span>
+        <span>{content.breadcrumb.service}</span>
+        <span class="mx-2">&gt;</span>
+        <a href={isCn ? "/cn/smilePro" : "/smilePro"} class="text-primary font-medium">
+          {content.breadcrumb.current}
+        </a>
+      </nav>
+
+      <div
+        class="summary overflow-hidden flex flex-col lg:flex-row gap-10 xl:gap-16 mb-16 lg:mb-28"
+      >
+        <div class="lg:w-1/2">
+          <div class="flex items-end gap-3 mb-4 lg:mb-6">
+            <h1
+              id="hero-h1-title"
+              class="text-2xl md:text-3xl lg:text-4xl font-bold text-primary whitespace-nowrap mb-0"
+            >
+              <span class="font-en tracking-normal">{content.summary.titlePrefix}</span>{" "}
+              <strong class="font-black">{content.summary.titleStrong}</strong>
+            </h1>
+            <img
+              src={content.summary.fullUpgradedImg}
+              alt="全面升級"
+              width="232"
+              height="38"
+              loading="lazy"
+              class="w-28 md:w-36 lg:w-56 pb-1"
+            />
+          </div>
+          <div class="summary-desc space-y-4 lg:space-y-8 text-base lg:text-lg leading-relaxed text-gray-700">
+            <p>
+              <span>{content.summary.p1.text1}</span>
+              <strong class="text-primary font-bold">{content.summary.p1.strong1}</strong>
+              <span>{content.summary.p1.text2}</span>
+              <strong class="text-primary font-bold">{content.summary.p1.strong2}</strong>
+              <span>{content.summary.p1.text3}</span>
+              <strong class="text-primary font-bold">{content.summary.p1.strong3}</strong>
+              <span>{content.summary.p1.text4}</span>
+              <strong class="text-primary font-bold">{content.summary.p1.strong4}</strong>
+              <span>{content.summary.p1.text5}</span>
+              <strong class="text-primary font-bold">{content.summary.p1.strong5}</strong>
+              <span>{content.summary.p1.text6}</span>
+              <strong class="text-primary font-bold">{content.summary.p1.strong6}</strong>
+              <span>{content.summary.p1.text7}</span>
+            </p>
+            <p>
+              <span>{content.summary.p2.text8}</span>
+              <strong class="text-primary font-bold">{content.summary.p2.strong7}</strong>
+              <span>{content.summary.p2.text9}</span>
+              <strong class="text-primary font-bold">{content.summary.p2.strong8}</strong>
+              <span>{content.summary.p2.text10}</span>
+            </p>
+          </div>
+        </div>
+        <div class="flex-1 flex flex-col items-center">
+          <picture class="w-full">
+            <source
+              media="(min-width: 1024px)"
+              srcset={content.summary.introImgPc}
+            />
+            <img
+              src={content.summary.introImgMb}
+              alt="SMILE Pro 設備介紹"
+              width="512"
+              height="300"
+              loading="lazy"
+              class="mb-6 w-full max-w-sm lg:max-w-lg mx-auto rounded-lg"
+            />
+          </picture>
+          <div class="aspect-video w-full max-w-lg rounded-xl overflow-hidden shadow-md">
+            <iframe
+              width="100%"
+              height="100%"
+              src={content.summary.videoUrl}
+              title="YouTube video player"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+              class="w-full h-full border-0"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+
+      {/* SMILE Pro 2.0 旗艦亮點專區 */}
+      <div class="pro2-intro bg-blue-50/50 rounded-2xl p-6 lg:p-12 mb-16 lg:mb-28 border border-blue-100">
+        <div
+          class="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-12"
+        >
+          <div class="lg:w-2/5 flex flex-col items-center text-center">
+            <img
+              src={content.pro2Intro.logoImg}
+              alt="SMILE PRO 2.0"
+              width="360"
+              height="128"
+              loading="lazy"
+              class="w-full max-w-xs lg:max-w-sm aspect-[45/16] object-contain"
+            />
+            <span
+              class="text-gray-500 text-sm lg:text-base font-light tracking-[0.3em] mt-3"
+            >
+              {content.pro2Intro.certText}
+            </span>
+          </div>
+          <div
+            class="text-base lg:text-lg leading-relaxed text-gray-700 lg:flex-1"
+          >
+            <h2 class="title-normal text-left mb-4 text-2xl lg:text-3xl font-black text-primary">
+              {content.pro2Intro.title}
+            </h2>
+            <p class="text-gray-600 font-light mb-6" set:html={content.pro2Intro.desc} />
+            <div class="mb-5 lg:mb-8 bg-white p-5 rounded-xl shadow-xs border border-blue-100/60">
+              <h3 class="text-primary font-bold text-lg lg:text-xl mb-2 flex items-center gap-2">
+                <span class="inline-block w-2.5 h-2.5 rounded-full bg-primary"></span>
+                {content.pro2Intro.feature1Title}
+              </h3>
+              <p class="text-gray-600 font-light leading-relaxed">
+                {content.pro2Intro.feature1Desc}
+              </p>
+            </div>
+            <div class="bg-white p-5 rounded-xl shadow-xs border border-blue-100/60">
+              <h3 class="text-primary font-bold text-lg lg:text-xl mb-2 flex items-center gap-2">
+                <span class="inline-block w-2.5 h-2.5 rounded-full bg-primary"></span>
+                {content.pro2Intro.feature2Title}
+              </h3>
+              <p class="text-gray-600 font-light leading-relaxed">
+                {content.pro2Intro.feature2Desc}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Section 3: 為何選擇希瑪? (Why Choose) */}
+    <section class="icl-WhatChoose max-w-[1240px] mx-auto px-4 xl:px-0 py-12 lg:py-20" aria-labelledby="why-choose-heading">
+      <h2 id="why-choose-heading" class="icl-WhatChoose-title text-center lg:text-left text-2xl lg:text-3xl font-black text-primary mb-8 max-w-[988px] mx-auto">
+        {content.whyChoose.title}
+      </h2>
+      <div class="icl-WhatChoose-content-one flex flex-col lg:flex-row justify-center items-center gap-8 lg:gap-12 max-w-[988px] mx-auto">
+        <div class="lg:w-1/2">
+          <img
+            src={content.whyChoose.img}
+            alt={content.whyChoose.alt}
+            loading="lazy"
+            width="464"
+            height="310"
+            srcset={content.whyChoose.imgMobile + " 640w, " + content.whyChoose.img + " 1216w"}
+            sizes="(max-width: 992px) 100vw, 464px"
+            class="rounded-xl shadow-sm w-full max-w-md mx-auto"
+          />
+        </div>
+        <div class="lg:w-1/2 space-y-4 text-base lg:text-lg text-gray-600 leading-relaxed text-justify">
+          <p>
+            {content.whyChoose.p1Text1}
+            <span class="text-primary font-bold">{content.whyChoose.p1Span}</span>
+            {content.whyChoose.p1Text2}
+          </p>
+          <p>
+            {content.whyChoose.p2Text1}
+            <span class="text-primary font-bold">{content.whyChoose.p2Span1}</span>
+            {content.whyChoose.p2Text2}
+            <span class="text-primary font-bold">{content.whyChoose.p2Span2}</span>
+            {content.whyChoose.p2Text3}
+            <span class="text-primary font-bold">{content.whyChoose.p2Span3}</span>
+            {content.whyChoose.p2Text4}
+          </p>
+        </div>
+      </div>
+      <div class="text-center mt-8 lg:mt-12">
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-cta="whatsapp"
+          class="icl-btn inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-primary text-white text-lg lg:text-xl font-bold shadow-md hover:bg-primary-hover transition"
+          title="WhatsApp 諮詢預約"
+        >
+          <span>{content.whyChoose.btn}</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 17 17" fill="none" aria-hidden="true">
+            <path d="M2 14.54 14.571 1.969" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M3.832 1.569H15v10.8" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    {/* Section 4: 四大特點 (Four Features) */}
+    <section class="smilepro-four-feature max-w-[1240px] mx-auto px-4 xl:px-0 mb-16 lg:mb-28" aria-labelledby="four-features-heading">
+      <div class="smilepro-four-feature-Box max-w-4xl mx-auto">
+        <div class="smilepro-four-feature-Box-top text-center mb-10 lg:mb-14">
+          <h2 id="four-features-heading" class="title-normal text-2xl lg:text-3xl font-black text-primary">
+            <span>{content.fourFeature.titlePrefix}</span>{" "}
+            <span>{content.fourFeature.title}</span>
+          </h2>
+          <p class="text-primary text-sm lg:text-base font-medium tracking-wider mt-3 whitespace-pre-line">
+            {content.fourFeature.smallTitle}
+          </p>
+        </div>
+        <div
+          class="smilepro-four-feature-Box-List grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8"
+        >
+          {
+            content.fourFeature.items.map((item) => (
+              <div class="smilepro-four-feature-Box-List-item flex items-center gap-5 p-6 rounded-2xl bg-white border border-blue-100 shadow-xs hover:shadow-md transition">
+                <div class="smilepro-four-feature-Box-List-item-number text-primary font-en text-4xl lg:text-5xl font-bold shrink-0">
+                  {item.number}
+                </div>
+                <div class="smilepro-four-feature-Box-List-item-text">
+                  <h3 class="text-primary font-bold text-lg lg:text-xl mb-1">
+                    {item.title}
+                  </h3>
+                  <p class="text-gray-600 text-sm lg:text-base">
+                    {item.desc}
+                    {item.sub && <span class="block text-gray-500 text-xs lg:text-sm mt-0.5">{item.sub}</span>}
+                  </p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* Section 5: SMILE Pro 微笑激光矯視夏日禮遇 / 費用 (Pricing) */}
+    <section
+      id="price"
+      class="price max-w-[1240px] mx-auto px-4 xl:px-0 mb-16 lg:mb-28 scroll-mt-24"
+      aria-labelledby="price-section-heading"
+    >
+      <h2 id="price-section-heading" class="title-normal text-center text-2xl lg:text-3xl font-black text-primary mb-8 lg:mb-14">
+        {content.price.title}
+      </h2>
+      <div
+        class="flex justify-center items-stretch flex-col md:flex-row gap-6 lg:gap-10 mb-8 lg:mb-14 max-w-5xl mx-auto"
+      >
+        {/* 卡片 1: SMILE Pro 2.0 費用 */}
+        <div class="price-item flex-1 flex flex-col rounded-3xl overflow-hidden shadow-lg border border-blue-900 bg-[#042562] text-white">
+          <div class="bg-[#031d4f] text-center text-lg lg:text-2xl font-bold tracking-widest py-3 px-4">
+            <h3>{content.price.card2.header}</h3>
+          </div>
+          <div class="flex-1 p-6 lg:p-8 flex flex-col justify-between">
+            <div>
+              <div class="font-bold tracking-wide mb-6 text-center">
+                <p class="flex flex-col mb-2">
+                  <span class="text-2xl lg:text-3xl font-en">{content.price.card2.title1}</span>
+                  <span class="text-lg lg:text-xl text-blue-200">{content.price.card2.title2}</span>
+                </p>
+                <p class="text-[#F89B03] font-bold text-3xl lg:text-5xl">
+                  {content.price.card2.price}
+                </p>
+              </div>
+
+              {/* 升級方案 Care */}
+              <div class="bg-[#033994] font-bold rounded-2xl p-4 lg:p-6 mb-6 border border-blue-400/30">
+                <p class="mb-2 flex justify-between items-center text-sm lg:text-lg">
+                  <span class="font-en">{content.price.card2.careTitle}</span>
+                  <span class="text-base lg:text-xl">{content.price.card2.carePrice}</span>
+                </p>
+                <p class="mb-4 flex justify-between items-center text-xs lg:text-base text-blue-200">
+                  <span>{content.price.card2.epsTitle}</span>
+                  <span class="text-yellow-400 font-bold">{content.price.card2.epsPrice}<sup>#</sup></span>
+                </p>
+                <a
+                  href={careUrl}
+                  data-cta="care"
+                  class="price-button-care block text-center py-2.5 px-4 rounded-full text-xs lg:text-sm font-bold bg-gradient-to-r from-blue-500 to-blue-700 text-white border border-white/60 shadow hover:brightness-110 transition"
+                >
+                  {content.price.card2.careLinkText}
+                </a>
+              </div>
+
+              {/* 升級亮點清單 */}
+              <div class="border border-[#A2C2F5]/60 rounded-xl mb-6 divide-y divide-[#A2C2F5]/40 overflow-hidden text-sm lg:text-base">
+                {
+                  content.price.card2.upgrades?.map((up) => (
+                    <div class="flex justify-between items-center px-4 py-2 bg-blue-950/40">
+                      <div class="flex items-center gap-2">
+                        <img src={up.icon} loading="lazy" class="w-5 lg:w-6" alt="" width="24" height="24" />
+                        <span>{up.text}</span>
+                      </div>
+                      <img src={up.badge} loading="lazy" class="w-20 lg:w-28" alt="升級點" width="112" height="24" />
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between items-center font-bold mb-6 pt-4 border-t border-dashed border-blue-400/50 text-sm lg:text-lg">
+                <span>{content.price.card2.preCheckTitle}</span>
+                <span class="text-xl lg:text-2xl text-yellow-400">{content.price.card2.preCheckPrice}</span>
+              </div>
+              <a
+                href={feeUrl}
+                data-cta="fee"
+                class="price-button-normal flex justify-center items-center gap-3 py-3 px-6 rounded-xl font-bold text-base lg:text-xl bg-gradient-to-r from-[#528be9] to-[#4d80d4] text-white shadow-md hover:brightness-110 transition text-center"
+              >
+                <span>{content.price.card2.feeLinkText}</span>
+                <svg class="w-4 h-4 lg:w-5 lg:h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 32" fill="none" aria-hidden="true">
+                  <path d="M3.18 28.804 28.323 3.661" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+                  <path d="M6.844 2.862H29.18v21.6" stroke="#fff" stroke-width="4.5" stroke-linecap="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* 卡片 2: SMILE Pro 1.0 費用 */}
+        <div class="price-item flex-1 flex flex-col rounded-3xl overflow-hidden shadow-lg border border-blue-200 bg-white text-gray-800">
+          <div class="bg-gradient-to-r from-[#528BE9] to-[#4D80D4] text-white text-center text-lg lg:text-2xl font-bold tracking-widest py-3 px-4">
+            <h3>{content.price.card1.header}</h3>
+          </div>
+          <div class="flex-1 p-6 lg:p-8 flex flex-col justify-between">
+            <div>
+              <div class="font-bold tracking-wide mb-6 text-center">
+                <p class="flex flex-col mb-2">
+                  <span class="text-primary text-2xl lg:text-3xl font-en">{content.price.card1.title1}</span>
+                  <span class="text-lg lg:text-xl text-gray-600">{content.price.card1.title2}</span>
+                </p>
+                <p class="text-[#F89B03] font-bold text-3xl lg:text-5xl">
+                  {content.price.card1.price}
+                </p>
+              </div>
+
+              {/* 升級方案 Care */}
+              <div class="bg-blue-50/60 font-bold rounded-2xl p-4 lg:p-6 mb-6 border border-blue-200">
+                <p class="mb-2 flex justify-between items-center text-sm lg:text-lg text-primary">
+                  <span class="font-en">{content.price.card1.careTitle}</span>
+                  <span class="text-base lg:text-xl">{content.price.card1.carePrice}</span>
+                </p>
+                <p class="mb-4 flex justify-between items-center text-xs lg:text-base text-gray-600">
+                  <span>{content.price.card1.epsTitle}</span>
+                  <span class="text-primary font-bold">{content.price.card1.epsPrice}<sup>#</sup></span>
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between items-center font-bold mb-6 pt-4 border-t border-dashed border-gray-300 text-sm lg:text-lg text-gray-700">
+                <span>{content.price.card1.preCheckTitle}</span>
+                <span class="text-xl lg:text-2xl text-primary">{content.price.card1.preCheckPrice}</span>
+              </div>
+              <a
+                href={feeUrl}
+                data-cta="fee"
+                class="price-button-normal flex justify-center items-center gap-3 py-3 px-6 rounded-xl font-bold text-base lg:text-xl bg-gradient-to-r from-[#528be9] to-[#4d80d4] text-white shadow-md hover:brightness-110 transition text-center"
+              >
+                <span>{content.price.card1.feeLinkText}</span>
+                <svg class="w-4 h-4 lg:w-5 lg:h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 32" fill="none" aria-hidden="true">
+                  <path d="M3.18 28.804 28.323 3.661" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+                  <path d="M6.844 2.862H29.18v21.6" stroke="#fff" stroke-width="4.5" stroke-linecap="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 費用條款與免責細則 */}
+      <div class="text-gray-500 text-center text-xs lg:text-sm font-light leading-relaxed max-w-4xl mx-auto space-y-1">
+        {content.price.notes.map((note) => <p>{note}</p>)}
+      </div>
+    </section>
+
+    {/* Section 6: SMILE/SMILE PRO/ICL 大不同 (Comparison Table) */}
+    <section class="smilepro-difference max-w-[1240px] mx-auto px-4 xl:px-0 mb-16 lg:mb-28" aria-labelledby="diff-heading">
+      <div class="smilepro-difference-title text-center mb-10">
+        <h2 id="diff-heading" class="title-normal text-2xl lg:text-3xl font-black text-primary inline-block relative">
+          {content.difference.title}
+        </h2>
+      </div>
+
+      <div class="overflow-x-auto rounded-2xl border border-gray-200 shadow-xs bg-white mb-8">
+        <table class="w-full text-center border-collapse min-w-[700px]">
+          <thead>
+            <tr class="border-b border-gray-200">
+              <th class="p-4 bg-gray-50 text-gray-600 font-bold w-[20%]"></th>
+              <th class="p-4 bg-blue-50 text-primary font-bold text-base lg:text-lg w-[20%]">
+                <span class="font-en block">SMILE</span>微笑激光矯視
+              </th>
+              <th class="p-4 bg-blue-100/70 text-primary font-bold text-base lg:text-lg w-[20%]">
+                <span class="font-en block">SMILE PRO 1.0</span>微笑激光矯視
+              </th>
+              <th class="p-4 bg-primary text-white font-bold text-base lg:text-lg w-[20%]">
+                <span class="font-en block">SMILE PRO 2.0</span>微笑激光矯視
+              </th>
+              <th class="p-4 bg-cyan-50 text-cyan-800 font-bold text-base lg:text-lg w-[20%]">
+                <span class="font-en block">ICL</span>植入式隱形眼鏡
+              </th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200 text-sm lg:text-base">
+            <tr class="hover:bg-gray-50/50">
+              <td class="p-4 font-bold text-primary bg-gray-50 text-left pl-6">
+                激光時間 <span class="text-xs text-gray-500 font-normal block">(單一眼睛)</span>
+              </td>
+              <td class="p-4">約23-25秒</td>
+              <td class="p-4">約10秒</td>
+              <td class="p-4 bg-blue-50/80 font-bold text-primary">約10秒</td>
+              <td class="p-4">不需使用激光<br/><span class="text-xs text-gray-500">（植入式）</span></td>
+            </tr>
+            <tr class="hover:bg-gray-50/50">
+              <td class="p-4 font-bold text-primary bg-gray-50 text-left pl-6">傷口大小</td>
+              <td class="p-4">約2mm</td>
+              <td class="p-4">約2mm</td>
+              <td class="p-4 bg-blue-50/80 font-bold text-primary">約2mm</td>
+              <td class="p-4">約3mm</td>
+            </tr>
+            <tr class="hover:bg-gray-50/50">
+              <td class="p-4 font-bold text-primary bg-gray-50 text-left pl-6">術後眼乾情況</td>
+              <td class="p-4">暫時性<br/><span class="text-xs text-gray-500">（輕微）</span></td>
+              <td class="p-4">暫時性<br/><span class="text-xs text-gray-500">（輕微）</span></td>
+              <td class="p-4 bg-blue-50/80 font-bold text-primary">暫時性<br/><span class="text-xs text-gray-500">（輕微）</span></td>
+              <td class="p-4">無</td>
+            </tr>
+            <tr class="hover:bg-gray-50/50">
+              <td class="p-4 font-bold text-primary bg-gray-50 text-left pl-6">視軸及散光導航</td>
+              <td class="p-4">-</td>
+              <td class="p-4">視軸輔助導航</td>
+              <td class="p-4 bg-blue-50/80 font-bold text-primary">視軸及散光導航</td>
+              <td class="p-4">散光導航</td>
+            </tr>
+            <tr class="hover:bg-gray-50/50">
+              <td class="p-4 font-bold text-primary bg-gray-50 text-left pl-6">可矯正視力範圍</td>
+              <td class="p-4">近視最高1000度<br/>散光最高500度</td>
+              <td class="p-4">近視最高1000度<br/>散光最高500度</td>
+              <td class="p-4 bg-blue-50/80 font-bold text-primary">近視最高1000度<br/>散光最高500度</td>
+              <td class="p-4">近視最高1800度<br/>散光最高600度</td>
+            </tr>
+            <tr class="hover:bg-gray-50/50">
+              <td class="p-4 font-bold text-primary bg-gray-50 text-left pl-6">康復時間</td>
+              <td colspan="4" class="p-4 font-bold text-primary">翌日</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="text-center">
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-cta="whatsapp"
+          class="icl-btn inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-primary text-white text-lg lg:text-xl font-bold shadow-md hover:bg-primary-hover transition"
+          title="WhatsApp 諮詢預約"
+        >
+          <span>{content.difference.btn}</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 17 17" fill="none" aria-hidden="true">
+            <path d="M2 14.54 14.571 1.969" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M3.832 1.569H15v10.8" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    {/* Section 7: 矯視過程 (Steps) */}
+    <section class="steps max-w-[1240px] mx-auto px-4 xl:px-0 space-y-12 lg:space-y-20 mb-16 lg:mb-28" aria-labelledby="steps-section-heading">
+      {/* 2.0 過程 */}
+      <div>
+        <h2 id="steps-section-heading" class="title-normal text-center text-2xl lg:text-3xl font-black text-primary mb-8">
+          {content.steps2.title}
+        </h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6">
+          {
+            content.steps2.list.map((step, index) => (
+              <div class="steps-item bg-white p-4 rounded-2xl border border-gray-100 shadow-xs flex flex-col justify-between">
+                <img
+                  src={step.image}
+                  alt={"SMILE Pro 2.0 步驟" + (index + 1)}
+                  loading="lazy"
+                  width="280"
+                  height="180"
+                  class="pic w-full rounded-xl object-cover mb-4"
+                />
+                <div class="flex items-start gap-2.5">
+                  <span class="num text-primary font-en font-bold text-xl lg:text-3xl shrink-0">
+                    0{index + 1}
+                  </span>
+                  <p class="desc text-xs lg:text-sm text-gray-600 leading-snug">
+                    {step.text}
+                  </p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      {/* 1.0 過程 */}
+      <div>
+        <h2 class="title-normal text-center text-2xl lg:text-3xl font-black text-primary mb-8">
+          {content.steps1.title}
+        </h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6">
+          {
+            content.steps1.list.map((step, index) => (
+              <div class="steps-item bg-white p-4 rounded-2xl border border-gray-100 shadow-xs flex flex-col justify-between">
+                <img
+                  src={step.image}
+                  alt={"SMILE Pro 1.0 步驟" + (index + 1)}
+                  loading="lazy"
+                  width="280"
+                  height="180"
+                  class="pic w-full rounded-xl object-cover mb-4"
+                />
+                <div class="flex items-start gap-2.5">
+                  <span class="num text-primary font-en font-bold text-xl lg:text-3xl shrink-0">
+                    0{index + 1}
+                  </span>
+                  <p class="desc text-xs lg:text-sm text-gray-600 leading-snug">
+                    {step.text}
+                  </p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* Section 8: 你適合做SMILE Pro嗎? (Suitability) */}
+    <section class="process max-w-[1240px] mx-auto px-4 xl:px-0 mb-16 lg:mb-28" aria-labelledby="suitable-heading">
+      <h2 id="suitable-heading" class="title-normal text-center text-2xl lg:text-3xl font-black text-primary mb-8 lg:mb-12">
+        {content.suitable.title}
+      </h2>
+      <div class="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-14 max-w-4xl mx-auto">
+        <picture class="w-full lg:w-1/2">
+          <source
+            media="(min-width: 1024px)"
+            srcset={content.suitable.imgPc}
+          />
+          <img
+            src={content.suitable.imgMb}
+            alt="適合矯視對象"
+            width="512"
+            height="340"
+            loading="lazy"
+            class="w-full max-w-md mx-auto rounded-2xl shadow-xs"
+          />
+        </picture>
+        <ol class="w-full lg:w-1/2 space-y-3 lg:space-y-4 text-base lg:text-lg text-gray-700">
+          {
+            content.suitable.items.map((item) => (
+              <li class="p-3.5 rounded-xl bg-blue-50/60 border border-blue-100 flex items-center gap-2" set:html={item} />
+            ))
+          }
+        </ol>
+      </div>
+    </section>
+
+    {/* Section 9: 用家分享 (User Share Videos) */}
+    <UserShare
+      title={isCn ? "用家分享" : "用家分享"}
+      items={SMILE_PRO_SHARE_DATA}
+      id="smileProUserShareList"
+      sectionId="section-usershare-heading"
+    />
+
+    {/* Section 10: 用家見證 (User Ratings Reviews) */}
+    <section class="smile-pro-evaluateV2 max-w-[1240px] mx-auto px-4 xl:px-0 py-12 lg:py-20" aria-labelledby="user-review-heading">
+      <div class="smile-pro-evaluateV2-Box max-w-5xl mx-auto">
+        <h2 id="user-review-heading" class="smile-pro-evaluateV2-Box-title text-center text-2xl lg:text-3xl font-black text-primary mb-10">
+          {content.userRating.title}
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          {
+            content.userRating.list.map((review) => (
+              <div class="review-card p-6 rounded-2xl bg-white border border-blue-100 shadow-sm flex flex-col justify-between hover:shadow-md transition">
+                <div class="flex items-center gap-3 mb-4">
+                  <div class="w-12 h-12 rounded-full bg-blue-50 border border-primary/30 flex items-center justify-center text-primary shrink-0">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-gray-800 text-base">{review.name}</h3>
+                    <p class="text-xs text-primary font-medium">{review.occupation}</p>
+                  </div>
+                </div>
+                <p class="text-sm lg:text-base text-gray-600 leading-relaxed italic">
+                  "{review.review}"
+                </p>
+                <div class="mt-4 pt-3 border-t border-gray-100 flex items-center text-yellow-400 gap-1 text-sm">
+                  <span>★★★★★</span>
+                  <span class="text-xs text-gray-400 ml-1">滿意推薦</span>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+        <div class="text-center">
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-cta="whatsapp"
+            class="icl-btn inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-primary text-white text-lg lg:text-xl font-bold shadow-md hover:bg-primary-hover transition"
+            title="WhatsApp 諮詢預約"
+          >
+            <span>{content.userRating.btn}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 17 17" fill="none" aria-hidden="true">
+              <path d="M2 14.54 14.571 1.969" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M3.832 1.569H15v10.8" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  /* 跑馬燈無縫動畫 */
+  @keyframes marquee-smooth {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  .marquee-wrapper {
+    display: flex;
+    width: 100%;
+    white-space: nowrap;
+  }
+
+  .marquee-content {
+    display: flex;
+    min-width: 100%;
+    animation: marquee-smooth 20s linear infinite;
+  }
+
+  /* 提示標籤定位 */
+  .smile-NewBanner-Tip {
+    position: absolute;
+    right: 16px;
+    bottom: -16px;
+    z-index: 5;
+  }
+
+  .smile-NewBanner-Tip > div:nth-child(1) {
+    background: var(--color-primary);
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    padding: 4px 16px;
+    display: inline-block;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .smile-NewBanner-Tip > div:nth-child(2) {
+    background: var(--color-primary);
+    border-radius: 6px;
+    border-top-left-radius: 0px;
+    padding: 6px 18px 8px 16px;
+    width: fit-content;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  @media screen and (min-width: 768px) {
+    .smile-NewBanner-Tip {
+      right: 24px;
+      bottom: -8px;
+    }
+    .smile-NewBanner-Tip > div:nth-child(1) {
+      font-size: 16px;
+      padding: 6px 20px;
+    }
+    .smile-NewBanner-Tip > div:nth-child(2) {
+      font-size: 16px;
+      padding: 8px 24px 10px 20px;
+    }
+  }
+</style>

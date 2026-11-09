@@ -44,7 +44,7 @@
 | 8 | `/vision-correction-lasik` | `vision-correction-lasik.astro` | 17 | 435 B | 🟡 **佔位骨架** | 偽內容：僅包含 LASIK 標題 | `pages/new-page/lasik.vue` |
 | 9 | `/fee` | `fee.astro` | 10 | 261 B | 🔴 **空殼 (10行)** | 僅 `<BaseLayout tdkKey="fee">` 佔位，無實質內容 | `pages/new-page/new-feeV2.vue` |
 | 10 | `/FreQuestions` | `FreQuestions.astro` | 10 | 261 B | 🔴 **空殼 (10行)** | 僅 `<BaseLayout tdkKey="faq">` 佔位，無實質內容 | `pages/FreQuestions/index.vue` |
-| 11 | `/smilePro` | `smilePro.astro` | 10 | 261 B | 🔴 **空殼 (10行)** | 僅 `<BaseLayout tdkKey="smilepro">` 佔位，無實質內容 | `pages/new-page/smile-proV2.vue` |
+| 11 | `/smilePro` | `smilePro.astro` | 862 | 38.2 KB | 🟢 **完整交付** | SMILE Pro 2.0 微笑激光矯視全套實質內容完成：HeroBanner, Tip, Summary, Video, Pro2Intro, WhyChoose, FourFeature, PriceCards, DifferenceTable, Steps2/1, SuitableCheck, UserShare, UserRating, SchemaProcedure, SchemaBreadcrumb 等 | `pages/new-page/smile-proV2.vue` |
 | 12 | `/vision-correction-icl` | `vision-correction-icl.astro` | 10 | 261 B | 🔴 **空殼 (10行)** | 僅 `<BaseLayout tdkKey="icl">` 佔位，無實質內容 | `pages/new-page/iclV2.vue` |
 | 13 | `/vision-correction-presbyopia` | `vision-correction-presbyopia.astro` | 10 | 261 B | 🔴 **空殼 (10行)** | 僅 `<BaseLayout tdkKey="presbyopia">` 佔位，無實質內容 | `pages/lbv/index.vue` |
 | 14 | `/patient-info` | `patient-info.astro` | 10 | 261 B | 🔴 **空殼 (10行)** | 僅 `<BaseLayout tdkKey="patientInfo">` 佔位，無實質內容 | `pages/new-page/patient-info.vue` |
