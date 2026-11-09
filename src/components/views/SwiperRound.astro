@@ -1,0 +1,696 @@
+---
+/**
+ * 希瑪微笑矯視中心 - 桌面寬屏用家分享軌道組件 (SwiperRound)
+ * 1:1 復刻線上官網桌面左側圓形頭像沿軌道動態巡遊、姓名展示與影片播放彈窗
+ */
+import type { RelexSmileShareItem } from "../../data/relexSmileData";
+
+interface Props {
+  shareList: RelexSmileShareItem[];
+  title?: string;
+}
+
+const { shareList = [], title = "用家分享" } = Astro.props;
+---
+
+<div
+  class="swiper-round"
+  id="relexSwiperRound"
+  role="region"
+  aria-label={title}
+  data-total-slides={shareList.length}
+>
+  <div class="swiper-round-header" aria-hidden="true">
+    <span class="round-dot"></span>
+    <span class="round-title">{title}</span>
+  </div>
+
+  <div class="swiper-container" id="swiperRoundContainer">
+    <div class="swiper-wrap" id="swiperRoundWrap">
+      {
+        shareList.map((item, index) => {
+          const name = item.nameCn || item.nameEn || "";
+          return (
+            <div
+              class:list={[
+                "swiper-slide",
+                {
+                  active: index === 0,
+                  "is-prev": index === shareList.length - 1,
+                  "is-next": index === 1,
+                  "is-hidden": index > 1 && index < shareList.length - 1,
+                },
+              ]}
+              data-slide-index={index}
+              data-video-url={item.href}
+              tabindex={index === 0 ? 0 : -1}
+              role="group"
+              aria-label={`${name} 用家個案`}
+            >
+              <div
+                class:list={[
+                  "avatar-container",
+                  { "overlay-mask": index !== 0 },
+                ]}
+              >
+                <img
+                  src={item.squareimg || item.img}
+                  alt={name}
+                  width="180"
+                  height="180"
+                  loading="lazy"
+                  draggable="false"
+                />
+              </div>
+
+              {/* 播放按鈕 (僅激活項顯示) */}
+              <button
+                type="button"
+                class="play-button"
+                data-play-video={item.href}
+                aria-label={`播放 ${name} 用家分享影片`}
+              />
+
+              {/* 上一張 / 下一張導航切換按鈕 */}
+              <button
+                type="button"
+                class="swiper-prev"
+                aria-label="查看上一位用家分享"
+              />
+              <button
+                type="button"
+                class="swiper-next"
+                aria-label="查看下一位用家分享"
+              />
+            </div>
+          );
+        })
+      }
+    </div>
+
+    {/* 垂直排列的用家姓名列表 */}
+    <div class="name-list" id="swiperRoundNameList" aria-hidden="true">
+      {
+        shareList.map((item, index) => (
+          <div
+            class:list={[
+              "name-item",
+              {
+                "is-active": index === 0,
+                "is-prev": index === shareList.length - 1,
+                "is-next": index === 1,
+                "is-hidden": index > 1 && index < shareList.length - 1,
+              },
+            ]}
+            data-name-index={index}
+          >
+            {item.nameCn || item.nameEn}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  {/* 影片播放原生彈窗 (對標線上 #popover) */}
+  <dialog class="video-popover" id="relexVideoPopover" aria-label="影片播放器">
+    <div class="popover-container">
+      <div class="popover-video-wrap">
+        <iframe
+          id="relexVideoIframe"
+          src=""
+          title="用家分享影片"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <button
+        type="button"
+        class="popover-close"
+        id="relexPopoverClose"
+        aria-label="關閉影片視窗"
+      >
+        <svg
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+          width="28"
+          height="28"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            d="M548.992 503.744L885.44 167.328a31.968 31.968 0 1 0-45.248-45.248L503.744 458.496 167.328 122.08a31.968 31.968 0 1 0-45.248 45.248l336.416 336.416L122.08 840.16a31.968 31.968 0 1 0 45.248 45.248l336.416-336.416L840.16 885.44a31.968 31.968 0 1 0 45.248-45.248L548.992 503.744z"
+          ></path>
+        </svg>
+      </button>
+    </div>
+  </dialog>
+</div>
+
+<script is:inline>
+  function initSwiperRoundTrack() {
+    const root = document.getElementById("relexSwiperRound");
+    if (!root) return;
+
+    const totalSlides = parseInt(root.dataset.totalSlides || "0", 10);
+    if (totalSlides === 0) return;
+
+    const slides = root.querySelectorAll(".swiper-slide");
+    const nameItems = root.querySelectorAll(".name-item");
+    const popover = document.getElementById("relexVideoPopover");
+    const iframe = document.getElementById("relexVideoIframe");
+    const closeBtn = document.getElementById("relexPopoverClose");
+
+    let activeIndex = 0;
+    let autoTimer = null;
+    let isDragging = false;
+    let startY = 0;
+
+    function updateState(newIndex) {
+      activeIndex = (newIndex + totalSlides) % totalSlides;
+      const prevIndex = (activeIndex - 1 + totalSlides) % totalSlides;
+      const nextIndex = (activeIndex + 1) % totalSlides;
+
+      slides.forEach((slide, idx) => {
+        slide.classList.remove("active", "is-prev", "is-next", "is-hidden");
+        const avatar = slide.querySelector(".avatar-container");
+
+        if (idx === activeIndex) {
+          slide.classList.add("active");
+          slide.tabIndex = 0;
+          if (avatar) avatar.classList.remove("overlay-mask");
+        } else if (idx === prevIndex) {
+          slide.classList.add("is-prev");
+          slide.tabIndex = -1;
+          if (avatar) avatar.classList.add("overlay-mask");
+        } else if (idx === nextIndex) {
+          slide.classList.add("is-next");
+          slide.tabIndex = -1;
+          if (avatar) avatar.classList.add("overlay-mask");
+        } else {
+          slide.classList.add("is-hidden");
+          slide.tabIndex = -1;
+          if (avatar) avatar.classList.add("overlay-mask");
+        }
+      });
+
+      nameItems.forEach((name, idx) => {
+        name.classList.remove("is-active", "is-prev", "is-next", "is-hidden");
+        if (idx === activeIndex) {
+          name.classList.add("is-active");
+        } else if (idx === prevIndex) {
+          name.classList.add("is-prev");
+        } else if (idx === nextIndex) {
+          name.classList.add("is-next");
+        } else {
+          name.classList.add("is-hidden");
+        }
+      });
+    }
+
+    function nextSlide() {
+      updateState(activeIndex + 1);
+    }
+
+    function prevSlide() {
+      updateState(activeIndex - 1);
+    }
+
+    function startAuto() {
+      if (!autoTimer) {
+        autoTimer = setInterval(nextSlide, 3500);
+      }
+    }
+
+    function stopAuto() {
+      if (autoTimer) {
+        clearInterval(autoTimer);
+        autoTimer = null;
+      }
+    }
+
+    function openVideo(url) {
+      if (!popover || !iframe || !url) return;
+      stopAuto();
+      // 確保自動播放參數存在
+      const playUrl = url.includes("autoplay=1")
+        ? url
+        : url.includes("?")
+          ? `${url}&autoplay=1`
+          : `${url}?autoplay=1`;
+      iframe.src = playUrl;
+      if (typeof popover.showModal === "function") {
+        popover.showModal();
+      } else {
+        popover.setAttribute("open", "");
+      }
+    }
+
+    function closeVideo() {
+      if (!popover || !iframe) return;
+      iframe.src = "";
+      if (typeof popover.close === "function") {
+        popover.close();
+      } else {
+        popover.removeAttribute("open");
+      }
+      startAuto();
+    }
+
+    // 事件綁定
+    root.addEventListener("mouseenter", stopAuto);
+    root.addEventListener("mouseleave", startAuto);
+
+    // 點擊幻燈片切換或播放
+    slides.forEach((slide) => {
+      slide.addEventListener("click", (e) => {
+        const idx = parseInt(slide.dataset.slideIndex || "0", 10);
+        const prevIndex = (activeIndex - 1 + totalSlides) % totalSlides;
+        const nextIndex = (activeIndex + 1) % totalSlides;
+
+        if (e.target.closest(".swiper-prev")) {
+          e.stopPropagation();
+          prevSlide();
+        } else if (e.target.closest(".swiper-next")) {
+          e.stopPropagation();
+          nextSlide();
+        } else if (e.target.closest(".play-button") || idx === activeIndex) {
+          e.stopPropagation();
+          openVideo(slide.dataset.videoUrl);
+        } else if (idx === prevIndex) {
+          prevSlide();
+        } else if (idx === nextIndex) {
+          nextSlide();
+        }
+      });
+    });
+
+    // 滾輪切換
+    const container = document.getElementById("swiperRoundContainer");
+    if (container) {
+      container.addEventListener(
+        "wheel",
+        (e) => {
+          e.preventDefault();
+          if (e.deltaY > 0) {
+            nextSlide();
+          } else {
+            prevSlide();
+          }
+        },
+        { passive: false }
+      );
+    }
+
+    // 拖拽切換
+    root.addEventListener("mousedown", (e) => {
+      isDragging = true;
+      startY = e.clientY;
+      stopAuto();
+      root.style.cursor = "grabbing";
+    });
+
+    window.addEventListener("mousemove", (e) => {
+      if (!isDragging) return;
+      const deltaY = e.clientY - startY;
+      const threshold = 45;
+      if (deltaY < -threshold) {
+        nextSlide();
+        isDragging = false;
+        root.style.cursor = "grab";
+      } else if (deltaY > threshold) {
+        prevSlide();
+        isDragging = false;
+        root.style.cursor = "grab";
+      }
+    });
+
+    window.addEventListener("mouseup", () => {
+      if (isDragging) {
+        isDragging = false;
+        root.style.cursor = "grab";
+        startAuto();
+      }
+    });
+
+    // 彈窗關閉
+    if (closeBtn) {
+      closeBtn.addEventListener("click", closeVideo);
+    }
+    if (popover) {
+      popover.addEventListener("click", (e) => {
+        if (e.target === popover) closeVideo();
+      });
+      popover.addEventListener("cancel", closeVideo);
+    }
+
+    // 初始啟動
+    updateState(0);
+    startAuto();
+  }
+
+  document.addEventListener("DOMContentLoaded", initSwiperRoundTrack);
+  document.addEventListener("astro:page-load", initSwiperRoundTrack);
+</script>
+
+<style lang="scss">
+  $primary-color: #4570b6;
+
+  .swiper-round {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    cursor: grab;
+    user-select: none;
+
+    &-header {
+      position: absolute;
+      top: 92px;
+      left: 60%;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      z-index: 5;
+
+      @media screen and (min-width: 1440px) and (max-width: 1744px) {
+        left: 42%;
+      }
+
+      .round-dot {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background-color: $primary-color;
+        flex-shrink: 0;
+      }
+
+      .round-title {
+        font-size: 24px;
+        font-family: var(--font-hk, "Noto Sans TC", sans-serif);
+        font-weight: 300;
+        color: #1a1a1a;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .swiper-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .swiper-wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .swiper-slide {
+    position: absolute;
+    transform-origin: center;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 0;
+    left: 55%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(3.875rem, -1.938rem + 6.46vw, 5.813rem);
+    height: clamp(3.875rem, -1.938rem + 6.46vw, 5.813rem);
+
+    &.active {
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 3;
+      left: 70%;
+      top: 50%;
+      width: clamp(8.625rem, -4.5rem + 14.58vw, 13rem);
+      height: clamp(8.625rem, -4.5rem + 14.58vw, 13rem);
+
+      .avatar-container {
+        box-shadow: 3px 2px 0 0 $primary-color;
+      }
+
+      .play-button {
+        display: block;
+      }
+
+      .swiper-prev,
+      .swiper-next {
+        display: none;
+      }
+    }
+
+    &.is-prev {
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 2;
+      top: 25%;
+      left: 55%;
+
+      .play-button {
+        display: none;
+      }
+
+      .swiper-prev {
+        display: block;
+      }
+
+      .swiper-next {
+        display: none;
+      }
+    }
+
+    &.is-next {
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 2;
+      top: 75%;
+      left: 55%;
+
+      .play-button {
+        display: none;
+      }
+
+      .swiper-prev {
+        display: none;
+      }
+
+      .swiper-next {
+        display: block;
+      }
+    }
+
+    &.is-hidden {
+      opacity: 0;
+      pointer-events: none;
+      z-index: 0;
+      top: 50%;
+      left: 55%;
+    }
+
+    .avatar-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      cursor: pointer;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      &.overlay-mask::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          0deg,
+          rgba(255, 255, 255, 0.7) 0%,
+          rgba(255, 255, 255, 0.7) 100%
+        );
+        border-radius: 50%;
+        z-index: 1;
+        pointer-events: none;
+      }
+    }
+
+    .play-button {
+      display: none;
+      position: absolute;
+      bottom: clamp(0.375rem, -0.375rem + 0.83vw, 0.625rem);
+      right: 0;
+      width: clamp(2.25rem, -1.313rem + 3.96vw, 3.438rem);
+      height: clamp(1.75rem, -0.875rem + 2.92vw, 2.625rem);
+      z-index: 5;
+      cursor: pointer;
+      background: url("https://statichk.cmermedical.com/smile/smileV2/smile-icon-play.svg")
+        no-repeat center center / contain;
+      border: none;
+      outline: none;
+    }
+
+    .swiper-prev,
+    .swiper-next {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: clamp(1.313rem, -0.75rem + 2.29vw, 2rem);
+      height: clamp(1.313rem, -0.75rem + 2.29vw, 2rem);
+      z-index: 5;
+      cursor: pointer;
+      border: none;
+      background-color: transparent;
+      outline: none;
+    }
+
+    .swiper-prev {
+      background: url("data:image/svg+xml;base64,Cjxzdmcgd2lkdGg9IjM1IiBoZWlnaHQ9IjM1IiB2aWV3Qm94PSIwIDAgMzUgMzUiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0xMS42NTA0IDExLjY0OTdMMzIuOTQ2OCAzMi45NDYyIiBzdHJva2U9IiM0NTcwQjYiIHN0cm9rZS13aWR0aD0iMy40NjE1NCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjxwYXRoIGQ9Ik05LjkxMDEyIDI4LjYzODRMMTAuMTE4MiAxMC4xMTgxTDI4LjYzODUgOS45MDk5NiIgc3Ryb2tlPSIjNDU3MEI2IiBzdHJva2Utd2lkdGg9IjMuNDYxNTQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K")
+        no-repeat center center / contain;
+    }
+
+    .swiper-next {
+      background: url("data:image/svg+xml;base64,Cjxzdmcgd2lkdGg9IjM1IiBoZWlnaHQ9IjM1IiB2aWV3Qm94PSIwIDAgMzUgMzUiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0xMS42NTA0IDIzLjYzNDlMMzIuOTQ2OCAyLjMzODUiIHN0cm9rZT0iIzQ1NzBCNiIgc3Ryb2tlLXdpZHRoPSIzLjQ2MTU0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPHBhdGggZD0iTTkuOTEwMTIgNi42NDYyM0wxMC4xMTgyIDI1LjE2NjZMMjguNjM4NSAyNS4zNzQ2IiBzdHJva2U9IiM0NTcwQjYiIHN0cm9rZS13aWR0aD0iMy40NjE1NCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+Cjwvc3ZnPgo=")
+        no-repeat center center / contain;
+    }
+  }
+
+  .name-list {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 1;
+    pointer-events: none;
+
+    .name-item {
+      position: absolute;
+      left: 50px;
+      transform: translateY(-50%);
+      transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+      white-space: nowrap;
+      color: $primary-color;
+      font-family: var(--font-hk, "Noto Sans TC", sans-serif);
+      letter-spacing: 1.75px;
+      opacity: 0;
+      visibility: hidden;
+      top: 50%;
+
+      &.is-active {
+        opacity: 1;
+        visibility: visible;
+        top: 50%;
+        font-size: clamp(1.75rem, 0.438rem + 1.46vw, 2.188rem);
+        font-weight: 700;
+        line-height: 50px;
+      }
+
+      &.is-prev {
+        opacity: 0.85;
+        visibility: visible;
+        top: 30%;
+        font-size: clamp(1.75rem, 0.438rem + 1.46vw, 2.188rem);
+        font-weight: 100;
+        line-height: 43px;
+      }
+
+      &.is-next {
+        opacity: 0.85;
+        visibility: visible;
+        top: 70%;
+        font-size: clamp(1.75rem, 0.438rem + 1.46vw, 2.188rem);
+        font-weight: 100;
+        line-height: 43px;
+      }
+
+      &.is-hidden {
+        opacity: 0;
+        visibility: hidden;
+        top: 50%;
+      }
+    }
+  }
+
+  /* 影片彈窗 Dialog 樣式 */
+  .video-popover {
+    border: none;
+    padding: 0;
+    background: transparent;
+    max-width: 100vw;
+    max-height: 100vh;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+
+    &::backdrop {
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(2px);
+    }
+
+    &[open] {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .popover-container {
+      position: relative;
+      width: 80vw;
+      max-width: 850px;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      border-radius: 12px;
+      overflow: visible;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .popover-video-wrap {
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+    }
+
+    .popover-close {
+      position: absolute;
+      top: -44px;
+      right: 0;
+      background: transparent;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+
+      &:hover {
+        transform: scale(1.1);
+        opacity: 0.85;
+      }
+    }
+  }
+</style>

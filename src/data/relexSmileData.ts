@@ -1,3 +1,13 @@
+export interface RelexSmileShareItem {
+  type: string;
+  href: string;
+  squareimg: string;
+  img: string;
+  text: string[];
+  nameEn: string;
+  nameCn: string;
+}
+
 export interface RelexSmileStep {
   number: string;
   imagePc: string;

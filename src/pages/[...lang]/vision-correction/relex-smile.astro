@@ -10,6 +10,7 @@ import SchemaProcedure from "@/components/seo/SchemaProcedure.astro";
 import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
 import SchemaFAQ from "@/components/seo/SchemaFAQ.astro";
 import UserShare from "@/components/views/UserShare.astro";
+import SwiperRound from "@/components/views/SwiperRound.astro";
 import { i18nPaths, getLangFromUrl } from "@/i18n/utils";
 import {
   RELEX_SMILE_ZH_HK,
@@ -55,7 +56,7 @@ const content = isCn ? RELEX_SMILE_ZH_CN : RELEX_SMILE_ZH_HK;
       {/* Section 1: Hero Banner */}
       <section class="newCenter" aria-labelledby="hero-title">
         <div
-          class="newCenter-card pt-20 md:pt-[142px] pl-8 md:pl-[57px] pb-5 md:pb-[30px]"
+          class="newCenter-card pt-20 md:pt-[142px] pl-8 md:pl-[57px] pb-8 md:pb-12"
         >
           <div class="newCenter-card-title text-primary">
             <span
@@ -526,11 +527,16 @@ const content = isCn ? RELEX_SMILE_ZH_CN : RELEX_SMILE_ZH_HK;
       </section>
     </div>
 
-    {/* 寬屏兩側背景裝飾 (>=1440px) */}
-    <div class="smile" aria-hidden="true">
+    {/* 寬屏兩側背景裝飾與用家分享軌道 (>=1440px) */}
+    <aside class="smile" aria-label="用家分享與最新情報">
       <div class="smile-bg">
-        <div class="smile-left hidden"></div>
-        <div class="smile-right hidden">
+        <div class="smile-left">
+          <SwiperRound
+            shareList={SMILE_SHARE_DATA}
+            title={isCn ? "用家分享" : "用家分享"}
+          />
+        </div>
+        <div class="smile-right">
           <div class="smile-right-title">
             <span class="smile-right-heading">{content.news.title}</span>
             <p class="font-en">{content.news.subtitle}</p>
@@ -547,7 +553,7 @@ const content = isCn ? RELEX_SMILE_ZH_CN : RELEX_SMILE_ZH_HK;
           </div>
         </div>
       </div>
-    </div>
+    </aside>
   </div>
 </BaseLayout>
 
@@ -694,12 +700,18 @@ const content = isCn ? RELEX_SMILE_ZH_CN : RELEX_SMILE_ZH_HK;
     );
 
     &-card {
-      background: url("data:image/svg+xml;base64,Cjxzdmcgd2lkdGg9Ijc2OCIgaGVpZ2h0PSI3MzkiIHZpZXdCb3g9IjAgMCA3NjggNzM5IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8bWFzayBpZD0ibWFzazBfMTAyMzJfMTciIHN0eWxlPSJtYXNrLXR5cGU6YWxwaGEiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjAiIHk9IjAiIHdpZHRoPSI3NjgiIGhlaWdodD0iNzM5Ij4KPHJlY3Qgd2lkdGg9Ijc2OCIgaGVpZ2h0PSI3MzkiIGZpbGw9IndoaXRlIi8+CjwvbWFzaz4KPGcgbWFzaz0idXJsKCNtYXNrMF8xMDIzMl8xNykiPgo8cGF0aCBkPSJNLTUgMTcxLjA3OEw4NDYgMzUzLjc3OSIgc3Ryb2tlPSIjNUQ4NUMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiLz4KPHBhdGggZD0iTTYwNC4xNzggODMuMDY2N0w0NDguOTQ5IDc4OC45NDUiIHN0cm9rZT0idXJsKCNwYWludDBfbGluZWFyXzEwMjMyXzE3KSIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIi8+CjxwYXRoIGQ9Ik01NTQuMTU1IDMxMi42MjJDNTY1LjQzNCAzMTUuMDQ4IDU3Ni41NjYgMzA3Ljk3MiA1NzkuMDE5IDI5Ni44MTlDNTgxLjQ3MiAyODUuNjY1IDU3NC4zMTcgMjc0LjY1NyA1NjMuMDM4IDI3Mi4yMzFDNTUxLjc1OSAyNjkuODA2IDU0MC42MjcgMjc2Ljg4MSA1MzguMTc0IDI4OC4wMzVDNTM1LjcyMSAyOTkuMTg5IDU0Mi44NzYgMzEwLjE5NyA1NTQuMTU1IDMxMi42MjJaIiBzdHJva2U9IiM1RDg1QzMiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIvPgo8L2c+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9InBhaW50MF9saW5lYXJfMTAyMzJfMTciIHgxPSI2MDQuNjY3IiB5MT0iODMuMTcxOCIgeDI9IjQ1Mi43MTYiIHkyPSI3ODkuNzU1IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIHN0b3AtY29sb3I9IiM1RDg1QzMiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSJ3aGl0ZSIvPgo8L2xpbmVhckdyYWRpZW50Pgo8L2RlZnM+Cjwvc3ZnPgo=")
-        no-repeat;
+      background-color: #fff;
+      background-image: url("data:image/svg+xml;base64,Cjxzdmcgd2lkdGg9Ijc2OCIgaGVpZ2h0PSI3MzkiIHZpZXdCb3g9IjAgMCA3NjggNzM5IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8bWFzayBpZD0ibWFzazBfMTAyMzJfMTciIHN0eWxlPSJtYXNrLXR5cGU6YWxwaGEiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjAiIHk9IjAiIHdpZHRoPSI3NjgiIGhlaWdodD0iNzM5Ij4KPHJlY3Qgd2lkdGg9Ijc2OCIgaGVpZ2h0PSI3MzkiIGZpbGw9IndoaXRlIi8+CjwvbWFzaz4KPGcgbWFzaz0idXJsKCNtYXNrMF8xMDIzMl8xNykiPgo8cGF0aCBkPSJNLTUgMTcxLjA3OEw4NDYgMzUzLjc3OSIgc3Ryb2tlPSIjNUQ4NUMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiLz4KPHBhdGggZD0iTTYwNC4xNzggODMuMDY2N0w0NDguOTQ5IDc4OC45NDUiIHN0cm9rZT0idXJsKCNwYWludDBfbGluZWFyXzEwMjMyXzE3KSIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIi8+CjxwYXRoIGQ9Ik01NTQuMTU1IDMxMi42MjJDNTY1LjQzNCAzMTUuMDQ4IDU3Ni41NjYgMzA3Ljk3MiA1NzkuMDE5IDI5Ni44MTlDNTgxLjQ3MiAyODUuNjY1IDU3NC4zMTcgMjc0LjY1NyA1NjMuMDM4IDI3Mi4yMzFDNTUxLjc1OSAyNjkuODA2IDU0MC42MjcgMjc2Ljg4MSA1MzguMTc0IDI4OC4wMzVDNTM1LjcyMSAyOTkuMTg5IDU0Mi44NzYgMzEwLjE5NyA1NTQuMTU1IDMxMi42MjJaIiBzdHJva2U9IiM1RDg1QzMiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIvPgo8L2c+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9InBhaW50MF9saW5lYXJfMTAyMzJfMTciIHgxPSI2MDQuNjY3IiB5MT0iODMuMTcxOCIgeDI9IjQ1Mi43MTYiIHkyPSI3ODkuNzU1IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIHN0b3AtY29sb3I9IiM1RDg1QzMiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSJ3aGl0ZSIvPgo8L2xpbmVhckdyYWRpZW50Pgo8L2RlZnM+Cjwvc3ZnPgo=");
+      background-repeat: no-repeat;
       background-size: cover;
       background-position: center;
       font-weight: 400;
       border-radius: 0 0 1rem 1rem;
+    }
+
+    &-card-nav {
+      position: relative;
+      z-index: 2;
     }
   }
 
@@ -1208,6 +1220,10 @@ const content = isCn ? RELEX_SMILE_ZH_CN : RELEX_SMILE_ZH_HK;
 
   .smile {
     position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
 
     &-bg {
@@ -1223,12 +1239,43 @@ const content = isCn ? RELEX_SMILE_ZH_CN : RELEX_SMILE_ZH_HK;
         no-repeat;
       background-size: cover;
       z-index: 1;
+      pointer-events: none;
     }
 
     &-left {
+      display: none;
       width: 540px;
       height: 900px;
       position: relative;
+      pointer-events: auto;
+
+      &::after {
+        content: "";
+        position: absolute;
+        right: 5%;
+        top: 50%;
+        transform: translateY(-50%);
+        border: 1px solid $primary-color;
+        width: 200%;
+        height: 100%;
+        z-index: 2;
+        background: transparent;
+        border-radius: 50%;
+        pointer-events: none;
+      }
+
+      &::before {
+        content: "";
+        border: 2px dashed $primary-color;
+        z-index: 1;
+        width: 180%;
+        height: 80%;
+        border-radius: 50%;
+        position: absolute;
+        top: 10%;
+        right: 25%;
+        pointer-events: none;
+      }
 
       @media screen and (min-width: 1440px) {
         display: block;
@@ -1236,9 +1283,11 @@ const content = isCn ? RELEX_SMILE_ZH_CN : RELEX_SMILE_ZH_HK;
     }
 
     &-right {
+      display: none;
       width: 30vw;
       position: relative;
       height: 100vh;
+      pointer-events: auto;
 
       @media screen and (min-width: 1440px) {
         display: block;
@@ -1279,6 +1328,26 @@ const content = isCn ? RELEX_SMILE_ZH_CN : RELEX_SMILE_ZH_HK;
       &-swiper {
         width: 100%;
         padding-left: 5.2083vw;
+      }
+    }
+  }
+
+  @media screen and (min-width: 1440px) and (max-width: 1744px) {
+    .smile {
+      &-left {
+        width: 22vw;
+
+        &::after {
+          width: 300%;
+        }
+
+        &::before {
+          width: 200%;
+        }
+      }
+
+      &-right {
+        width: 25vw;
       }
     }
   }
