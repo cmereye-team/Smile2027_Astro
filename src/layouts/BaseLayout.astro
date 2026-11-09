@@ -57,28 +57,40 @@ if (tdkKey && dict.tdk[tdkKey]) {
       lang={lang}
     />
 
-    <!-- Google Tag Manager (GTM-5M8VLLM) [已按要求暫時註釋以測試 TBT 性能影響] -->
-    <!--
+    <!-- Google Tag Manager (GTM-5M8VLLM) [手勢互動/延遲 4s 載入，遵循 Agents.md 第 7 節零 TBT 阻塞規範] -->
     <script is:inline>
-      (function (w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-        var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s),
-          dl = l != "dataLayer" ? "&l=" + l : "";
-        j.async = true;
-        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-        f.parentNode.insertBefore(j, f);
-      })(window, document, "script", "dataLayer", "GTM-5M8VLLM");
+      (function () {
+        let gtmLoaded = false;
+        function loadGTM() {
+          if (gtmLoaded) return;
+          gtmLoaded = true;
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+          const f = document.getElementsByTagName("script")[0];
+          const j = document.createElement("script");
+          j.async = true;
+          j.src = "https://www.googletagmanager.com/gtm.js?id=GTM-5M8VLLM";
+          if (f && f.parentNode) {
+            f.parentNode.insertBefore(j, f);
+          } else {
+            document.head.appendChild(j);
+          }
+          ["scroll", "mousemove", "touchstart", "click"].forEach(function (e) {
+            window.removeEventListener(e, loadGTM, { passive: true });
+          });
+        }
+        ["scroll", "mousemove", "touchstart", "click"].forEach(function (e) {
+          window.addEventListener(e, loadGTM, { passive: true, once: true });
+        });
+        setTimeout(loadGTM, 4000);
+      })();
     </script>
-    -->
 
     <!-- Schema.org 診所實體標記 (Local SEO / E-E-A-T) -->
     {showClinicSchema && <SchemaClinic lang={lang} />}
   </head>
   <body>
-    <!-- Google Tag Manager (noscript) [已按要求暫時註釋] -->
-    <!--
+    <!-- Google Tag Manager (noscript) -->
     <noscript
       ><iframe
         src="https://www.googletagmanager.com/ns.html?id=GTM-5M8VLLM"
@@ -86,7 +98,6 @@ if (tdkKey && dict.tdk[tdkKey]) {
         width="0"
         style="display:none;visibility:hidden"></iframe></noscript
     >
-    -->
 
     <Header />
     <main id="main-content">

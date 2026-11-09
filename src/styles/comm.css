@@ -5,6 +5,12 @@
 @import "@fontsource/poppins/600.css";
 @import "@fontsource/poppins/700.css";
 
+/* 核心 Swiper 佈局與分頁樣式 (全局靜態注入，杜絕動態腳本延遲注入引起的 CLS 佈局跳動) */
+@import "swiper/css";
+@import "swiper/css/pagination";
+@import "swiper/css/navigation";
+@import "swiper/css/thumbs";
+
 :root {
   /* 全域字體與數字變量控制 (Single Source of Truth) */
   /* 英文與數字優先使用本地 Poppins，中文字符自動優雅回退至香港在地字體 PingFang HK / Noto Sans HK */

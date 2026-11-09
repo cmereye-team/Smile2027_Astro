@@ -4,10 +4,10 @@ import { i18nPaths, useI18n } from "@/i18n/utils";
 export function getStaticPaths() {
   return [...i18nPaths];
 }
-const { dict } = useI18n(Astro.url);
+const { dict: _dict } = useI18n(Astro.url);
 ---
 
-<BaseLayout tdkKey="home">
+<BaseLayout tdkKey="appointForm">
   <section class="bg-bg-subtle h-[120vh]">
     <p class="text-primary">SMILE Pro 2.0 微笑激光矯視、ICL植入式隱形眼鏡、SMILE 微笑激光矯視、老花矯視講座</p>
     <!-- <div class="wrapper text-center">

@@ -1,0 +1,541 @@
+// ==========================================================================
+// 希瑪微笑矯視中心 - 醫生團隊 (Our Medical Team) 2026 現代化語意樣式表
+// 與線上官網 (https://smile.hkcmereye.com/our-medical-team/) 100% 精確對齊
+// ==========================================================================
+
+.our-medical-team-page {
+  overflow: hidden;
+  width: 100%;
+}
+
+// --------------------------------------------------------------------------
+// 1. 頂部 Hero Banner (統一嚴絲合縫罐頭風格 + 原頁面對應背景圖)
+// --------------------------------------------------------------------------
+.doctor-hero-banner {
+  width: 100%;
+}
+
+.doctor-hero-card {
+  width: 100%;
+  box-sizing: border-box;
+
+  &-content {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: clamp(180px, 22vw, 300px);
+    max-height: 300px;
+    border-radius: clamp(20px, 3.5vw, 55px);
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: clamp(24px, 5vw, 70px);
+    box-sizing: border-box;
+    box-shadow: 0 4px 20px rgba(69, 112, 182, 0.06);
+  }
+
+  &-bg {
+    position: absolute;
+    inset: -20% 0;
+    width: 100%;
+    height: 140%;
+    // 原頁面對應 Banner 圖
+    background: url("https://statichk.cmermedical.com/smile/323517741e434c1d.webp") no-repeat center / cover;
+    pointer-events: none;
+    z-index: 0;
+    will-change: transform;
+
+    @media (max-width: 767px) {
+      background-image: url("https://statichk.cmermedical.com/imgs/2024/04/c58f958bc4b6ee29.png");
+    }
+  }
+}
+
+.doctor-hero-title {
+  color: #4570b6;
+  font-family: var(--font-hk);
+  font-size: clamp(22px, 2.5vw, 30px);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: clamp(2px, 0.6vw, 7.5px);
+  margin: 0;
+}
+
+.doctor-hero-subtitle {
+  color: #4570b6;
+  font-family: var(--font-hk);
+  font-size: clamp(13px, 1.2vw, 15px);
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.45px;
+  margin-top: 2px;
+  margin-bottom: 0;
+}
+
+// --------------------------------------------------------------------------
+// 2. 創辦人專區 (林順潮醫生 - Container 罐頭約束)
+// --------------------------------------------------------------------------
+.doctor-team-content {
+  width: 100%;
+  margin: 40px auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  .founder-img-col {
+    flex-shrink: 0;
+    img {
+      max-width: 400px;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+  }
+
+  .founder-text-col {
+    margin-left: 50px;
+    max-width: 700px;
+
+    .founder-header-block {
+      color: #4570b6;
+      font-family: var(--font-hk);
+      font-size: clamp(20px, 2.2vw, 30px);
+      font-weight: 700;
+      line-height: 1.35;
+      letter-spacing: clamp(3px, 0.6vw, 9px);
+
+      p:nth-child(1) {
+        margin: 0;
+      }
+
+      h2 {
+        margin-top: 6px;
+        line-height: 1.3;
+        font-size: inherit;
+        font-weight: inherit;
+        letter-spacing: inherit;
+        color: inherit;
+      }
+    }
+
+    .founder-titles-block {
+      margin: 30px 0 25px;
+      color: #6d6e71;
+      font-family: var(--font-hk);
+      font-size: clamp(14px, 1.3vw, 20px);
+      font-weight: 300;
+      line-height: 1.75;
+      letter-spacing: clamp(1px, 0.4vw, 6px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .founder-desc-list {
+      list-style-type: disc;
+      margin: 0;
+      padding-left: 24px;
+      color: #4570b6;
+      font-family: var(--font-hk);
+      font-size: clamp(14px, 1.3vw, 20px);
+      font-weight: 400;
+      line-height: 1.75;
+      letter-spacing: clamp(1px, 0.4vw, 6px);
+
+      li {
+        margin-bottom: 6px;
+        &::marker {
+          color: #4570b6;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 1023px) {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+
+    .founder-img-col {
+      margin-bottom: 25px;
+      img {
+        max-width: 280px;
+      }
+    }
+
+    .founder-text-col {
+      margin-left: 0;
+      text-align: center;
+      width: 100%;
+
+      .founder-header-block {
+        text-align: center;
+
+        p:first-child {
+          font-size: 16px; // 16px: 防止 <375px 屏幕「人」字換行下拉
+          line-height: 1.4;
+          letter-spacing: 0.8px;
+        }
+
+        h2 {
+          font-size: 24px;
+          margin-top: 4px;
+        }
+      }
+
+      .founder-titles-block {
+        text-align: left;
+        margin: 15px 0 20px;
+        color: #6d6e71;
+        font-size: 14px;
+        line-height: 30px; // 對齊原 2024 行距
+        letter-spacing: 0.7px;
+        font-weight: 300;
+
+        span {
+          text-align: left;
+        }
+      }
+
+      .founder-desc-list {
+        text-align: left;
+        display: block;
+        padding-left: 20px;
+        font-size: 14px;
+        line-height: 30px; // 對齊原 2024 行距
+        letter-spacing: 0.7px;
+      }
+    }
+  }
+}
+
+// --------------------------------------------------------------------------
+// 3. 醫生團隊波浪背景與成員卡片 (Container 罐頭風格 + 純 CSS 雙層異形偽類錯開 + 等高網格)
+// --------------------------------------------------------------------------
+.doctor-team-member {
+  background: url("https://statichk.cmermedical.com/imgs/2024/04/7f498c9a45d803a7.png") no-repeat;
+  width: 100%;
+  background-size: 100% 100%;
+  background-position: center;
+  margin: 160px auto 0;
+  padding: 180px 0 80px;
+  position: relative;
+
+  // 頂部圓形懸浮徽章 (眼科 醫療團隊 - 投影改正下方)
+  .member-badge-circle {
+    position: absolute;
+    top: -150px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: clamp(170px, 20vw, 307px);
+    height: clamp(170px, 20vw, 307px);
+    box-shadow: 0 16px 32px rgba(69, 112, 182, 0.12); // 投影改正下方
+
+    .badge-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .badge-text {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #4570b6;
+      text-align: center;
+      font-family: var(--font-hk);
+      font-size: clamp(18px, 2vw, 30px);
+      font-weight: 500;
+      line-height: 1.4;
+      letter-spacing: clamp(3px, 0.5vw, 7.5px);
+    }
+  }
+
+  // 醫生列表卡片網格 (採用純淨 Container 網格)
+  .doctor-list-wrapper {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 70px 40px;
+
+    .doctor-item {
+      display: flex;
+      align-items: stretch; // 左右兩側等高拉伸
+      position: relative;
+      will-change: transform, opacity;
+
+      // 肖像圖容器 (純 CSS 偽類雙層背景錯開)
+      .doc-img-box {
+        position: relative;
+        box-sizing: border-box;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+
+        // 頂上深藍色塊 #4570B6 (在左上偏 10px 錯開)
+        &::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: #4570b6;
+          border-radius: 0 35px 0 35px; // 右上與左下大圓滑圓角
+          transform: translate(-10px, -10px);
+          z-index: 2;
+          pointer-events: none;
+          transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        // 底下淺綠色塊 #A6E1D6 (在右下偏 10px 錯開)
+        &::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: #a6e1d6;
+          border-radius: 0 35px 0 35px; // 右上與左下大圓滑圓角
+          transform: translate(10px, 10px);
+          z-index: 1;
+          pointer-events: none;
+          transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        // 相片：尺寸與偽類一致
+        img {
+          position: relative;
+          z-index: 3;
+          width: 100%;
+          height: auto;
+          object-fit: contain;
+          object-position: bottom center;
+        }
+      }
+
+      // 醫生資訊卡片 (z-index: 1 + 左下無圓角 + 等高拉伸 + 負邊距貼合)
+      .doc-info-card {
+        background: #fff;
+        border-radius: 0px 40px 0px 0px; // 左下改無圓角
+        padding: 30px 24px 25px 35px;
+        position: relative;
+        left: -15px;
+        z-index: 1; // z-index 改 1
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; // 垂直居中對齊
+        box-shadow: 0 4px 20px rgba(69, 112, 182, 0.06);
+
+        .doc-name-line {
+          margin-bottom: 12px;
+          color: #4570b6;
+          font-family: var(--font-hk);
+          font-size: 30px; // 醫生名字 30px
+          font-weight: bold; // 姓名行粗體
+          line-height: 1.2;
+          letter-spacing: 2.5px;
+
+          span {
+            font-size: 18px; // 醫生 18px
+            letter-spacing: 1.5px;
+            margin-left: 10px;
+            font-weight: 500;
+          }
+        }
+
+        .doc-qualifications-list {
+          display: flex;
+          flex-direction: column;
+          color: #4570b6;
+          font-family: var(--font-hk);
+          font-weight: 400;
+          line-height: 26px;
+          margin: 0;
+          padding: 0;
+          list-style: none;
+
+          span {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+
+  // 移動端響應式精確適配 (比例對齊 2024 官網視覺)
+  @media (max-width: 1023px) {
+    background-image: url("https://statichk.cmermedical.com/imgs/2024/05/c4109fd202815835.png");
+    padding: 130px 0 40px;
+    margin-top: 100px;
+    // 頂部圓形懸浮徽章 (眼科 醫療團隊 - 投影改正下方 35px)
+    .member-badge-circle {
+      top: -75px;
+      width: 150px;
+      height: 150px;
+      box-shadow: 0 35px 35px rgba(69, 112, 182, 0.12);
+
+      .badge-icon svg {
+        width: 36px;
+        height: 42px;
+      }
+
+      .badge-text {
+        margin-top: 8px;
+        font-size: 14px;
+        line-height: 1.3;
+        letter-spacing: 1px;
+      }
+    }
+
+    .doctor-list-wrapper {
+      grid-template-columns: 1fr;
+      gap: clamp(24px, 4vw, 36px) 0;
+
+      .doctor-item {
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+
+        .doc-img-box {
+          flex: 0 0 clamp(110px, 34vw, 150px);
+          width: clamp(110px, 34vw, 150px);
+          max-width: 150px;
+          min-width: 105px;
+
+          // 奇數項：右上 + 左下圓角 (0 20px 0 20px)
+          &::after {
+            border-radius: 0 20px 0 20px;
+            transform: translate(-6px, -6px);
+          }
+
+          &::before {
+            border-radius: 0 20px 0 20px;
+            transform: translate(6px, 6px);
+          }
+
+          img {
+            width: 100%;
+            height: auto;
+          }
+        }
+
+        .doc-info-card {
+          flex: 1;
+          min-width: 0;
+          border-radius: 0 30px 0 0; // 左下無圓角
+          padding: clamp(14px, 2.5vw, 22px) clamp(10px, 2vw, 16px) clamp(12px, 2vw, 18px) clamp(14px, 2.5vw, 24px);
+          left: -10px;
+
+          .doc-name-line {
+            font-size: clamp(17px, 3vw, 22px);
+            line-height: 1.2;
+            letter-spacing: clamp(0.5px, 0.2vw, 1.5px);
+            margin-bottom: 6px;
+
+            span {
+              font-size: clamp(12px, 2vw, 14px);
+              margin-left: 6px;
+            }
+          }
+
+          .doc-qualifications-list {
+            line-height: clamp(17px, 2.5vw, 21px);
+            font-size: clamp(11px, 1.8vw, 13px);
+            letter-spacing: 0.2px;
+          }
+        }
+
+        // 移動端偶數卡片左右交錯：圓角相應對稱交換 (左上 + 右下圓角 20px 0 20px 0)
+        &:nth-child(even) {
+          flex-direction: row-reverse;
+
+          .doc-img-box {
+            &::after {
+              border-radius: 20px 0 20px 0; // 圓角方向對稱交換
+              transform: translate(6px, -6px);
+            }
+
+            &::before {
+              border-radius: 20px 0 20px 0; // 圓角方向對稱交換
+              transform: translate(-6px, 6px);
+            }
+          }
+
+          .doc-info-card {
+            left: auto;
+            right: -10px;
+            border-radius: 30px 0 0 0; // 右下無圓角
+            padding-left: clamp(14px, 2.5vw, 20px);
+            padding-right: clamp(10px, 2vw, 16px);
+          }
+        }
+      }
+    }
+
+    // 針對折疊屏與平板類內屏 (600px - 1023px) 的優雅流暢雙列過渡
+    @media (min-width: 600px) and (max-width: 1023px) {
+      .doctor-list-wrapper {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 40px 24px;
+
+        .doctor-item {
+          &:nth-child(even) {
+            flex-direction: row; // 雙列時維持一致的朝向，防止割裂
+
+            .doc-img-box {
+              &::after {
+                border-radius: 0 20px 0 20px;
+                transform: translate(-6px, -6px);
+              }
+
+              &::before {
+                border-radius: 0 20px 0 20px;
+                transform: translate(6px, 6px);
+              }
+            }
+
+            .doc-info-card {
+              left: -10px;
+              right: auto;
+              border-radius: 0 30px 0 0;
+            }
+          }
+        }
+      }
+    }
+
+    // 極限超窄屏防擠壓安全保護 (<360px 如 320px - 339px)
+    @media (max-width: 359px) {
+      .doctor-list-wrapper .doctor-item {
+        .doc-img-box {
+          flex: 0 0 100px;
+          width: 100px;
+          min-width: 95px;
+        }
+
+        .doc-info-card {
+          padding: 12px 8px 10px 12px;
+
+          .doc-name-line {
+            font-size: 16px;
+            span {
+              font-size: 11px;
+              margin-left: 4px;
+            }
+          }
+
+          .doc-qualifications-list {
+            font-size: 11px;
+            line-height: 16px;
+          }
+        }
+      }
+    }
+  }
+}
+

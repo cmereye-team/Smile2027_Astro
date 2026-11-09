@@ -17,7 +17,6 @@ const gidMap: Record<string, string> = {
 const gid = gidMap[lang] || "1";
 
 const NEW_CMS_URL = "https://cms.cmermedical.com.hk";
-const OLD_CMS_URL = "https://admin.hkcmereye.com";
 
 interface RawSlideItem {
   id: number | string;
@@ -88,68 +87,14 @@ try {
       });
     }
   }
-} catch (e) {
-  // 如果新 CMS 超時或不可達，嘗試舊版 fallback
-}
-
-// 次選舊 CMS 降級容錯
-if (banners.length === 0) {
-  try {
-    const oldApiUrl = `${OLD_CMS_URL}/api.php/cms/slide/gid/${gid}/num/10`;
-    const response = await fetch(oldApiUrl, { signal: AbortSignal.timeout(3000) });
-    if (response.ok) {
-      const resData = await response.json();
-      if (resData && resData.code === 1 && Array.isArray(resData.data)) {
-        banners = resData.data.map((item: any, idx: number) => {
-          const cleanLink = sanitizeUrl(item.link);
-          const isExt = checkIsExternal(cleanLink);
-          const pcUrl = item.pic.startsWith("http") ? item.pic : `${OLD_CMS_URL}${item.pic}`;
-          const mbUrl = item.mobilepic.startsWith("http") ? item.mobilepic : `${OLD_CMS_URL}${item.mobilepic}`;
-          const defaultTitle = `香港希瑪微笑矯視中心 - 矯視優惠服務 ${idx + 1}`;
-
-          return {
-            id: String(item.id || `banner-${idx}`),
-            pcImg: pcUrl,
-            mbImg: mbUrl,
-            link: isExt ? cleanLink : getLocalizedHref(cleanLink || "#", lang),
-            title: item.title || item.subtitle || defaultTitle,
-            subtitle: item.subtitle || defaultTitle,
-            isExternal: isExt,
-          };
-        });
-      }
-    }
-  } catch (e) {
-    // Graceful fallback
-  }
-}
-
-// 降級備用 Banner (若 CMS 暫時無法連通)
-if (banners.length === 0) {
-  banners = [
-    {
-      id: "fallback-smilepro",
-      pcImg: "https://statichk.cmermedical.com/static/loffee/imgs/050623_1280-480TC.avif",
-      mbImg: "https://statichk.cmermedical.com/imgs/2023/06/90f03c94953b46b5.jpg",
-      link: getLocalizedHref("/smilePro", lang),
-      title: "SMILE Pro 2.0 微笑激光矯視 - 10秒極速全飛秒",
-      subtitle: "SMILE Pro 2.0 微笑激光矯視",
-      isExternal: false,
-    },
-    {
-      id: "fallback-icl",
-      pcImg: "https://statichk.cmermedical.com/imgs/2023/05/f98c9fee4d7f0f66.jpg",
-      mbImg: "https://statichk.cmermedical.com/imgs/2023/06/2f47a87064825e90.jpg",
-      link: getLocalizedHref("/vision-correction-icl", lang),
-      title: "ICL 植入式隱形眼鏡 - 高度近視及散光首選",
-      subtitle: "ICL 植入式隱形眼鏡",
-      isExternal: false,
-    },
-  ];
+} catch (_e) {
+  // CMS 異常或無響應時，不渲染過期/錯誤的寫死備用圖
 }
 ---
 
-<section class="banner-section" aria-label="希瑪微笑矯視中心精選焦點">
+{
+  banners.length > 0 && (
+    <section class="banner-section" aria-label="希瑪微笑矯視中心精選焦點">
   <div class="banner-container">
     <div id="bannerCarousel" class="banner-swiper swiper" role="region" aria-roledescription="carousel" aria-label="全站熱門優惠與服務輪播">
       <div class="swiper-wrapper">
@@ -207,6 +152,8 @@ if (banners.length === 0) {
     </div>
   </div>
 </section>
+  )
+}
 
 <style lang="scss">
   @reference "@/styles/global.css";
@@ -236,6 +183,12 @@ if (banners.length === 0) {
 
     @media (min-width: 768px) {
       aspect-ratio: 8 / 3;
+    }
+
+    :global(.swiper-wrapper) {
+      display: flex;
+      width: 100%;
+      height: 100%;
     }
   }
 
@@ -289,8 +242,6 @@ if (banners.length === 0) {
 <script>
   import Swiper from "swiper";
   import { Autoplay, Pagination } from "swiper/modules";
-  import "swiper/css";
-  import "swiper/css/pagination";
 
   function startBannerCarousel() {
     const el = document.getElementById("bannerCarousel");

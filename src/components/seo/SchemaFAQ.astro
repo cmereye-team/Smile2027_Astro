@@ -1,0 +1,31 @@
+---
+/**
+ * SchemaFAQ.astro
+ * Google Search FAQ Rich Snippets & AI GEO 結構化數據組件
+ */
+interface Props {
+  faqs: Array<{
+    question: string;
+    answer: string;
+  }>;
+}
+
+const { faqs = [] } = Astro.props;
+
+const schemaData = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  'mainEntity': faqs.map((faq) => ({
+    '@type': 'Question',
+    'name': faq.question,
+    'acceptedAnswer': {
+      '@type': 'Answer',
+      'text': faq.answer
+    }
+  }))
+};
+---
+
+{faqs.length > 0 && (
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(schemaData)} />
+)}

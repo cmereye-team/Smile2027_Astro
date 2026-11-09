@@ -5,7 +5,7 @@
  * @FilePath: /src/components/global/SidebarDesktop.astro
  * @Description: 桌面端側邊浮動條 (100% 官方原版 Sidebar.vue 1:1 像素級還原 + 雙 SVG + 原始字階)
  */
-import { getLangFromUrl, getLocalizedHref, useI18n } from "@/i18n/utils";
+import { getLangFromUrl, getLocalizedHref } from "@/i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
 const isCn = lang === "zh-cn";

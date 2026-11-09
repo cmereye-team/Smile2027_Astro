@@ -6,7 +6,7 @@
  * @Description: 希瑪微笑矯視中心榮譽與權威認證輪播組件 (1280px 罐頭基準容器對齊 + Swiper 支援自由平滑拖拽 + 0 殘留陰影 + 100% 醫療 SEO/GEO)
  */
 import { Image } from "astro:assets";
-import { getLangFromUrl, useI18n } from "@/i18n/utils";
+import { useI18n } from "@/i18n/utils";
 
 // 靜態導入本地 10 大權威獎牌圖片資產
 import awards001 from "@/assets/images/award/awards-001.png";
@@ -20,7 +20,6 @@ import awards008 from "@/assets/images/award/awards-008.svg";
 import awards009 from "@/assets/images/award/awards-009.svg";
 import awards010 from "@/assets/images/award/awards-010.svg";
 
-const lang = getLangFromUrl(Astro.url);
 const { dict } = useI18n(Astro.url);
 const sectionTitle = dict.home.awards.title;
 
@@ -347,7 +346,6 @@ const awards = [
 <script>
   import Swiper from "swiper";
   import { Autoplay, FreeMode } from "swiper/modules";
-  import "swiper/css";
 
   function initAwardsSwiper() {
     const el = document.getElementById("awardsSwiper");

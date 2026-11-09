@@ -1,27 +1,1375 @@
 ---
 /*
- * @Author: 谭洁莹
- * @Date: 2026-04-24 18:42:52
- * @LastEditTime: 2026-04-27 10:00:10
+ * @Author: Antigravity AI
+ * @Date: 2026-11-09
  * @FilePath: /src/pages/[...lang]/vision-correction/relex-smile.astro
- * @Description: SMILE 微笑激光矫视
+ * @Description: SMILE 微笑激光矯視 (100% 原版文案精確對齊 + 零 CLS + 完整 Schema & 埋點)
  */
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { i18nPaths, useI18n } from "@/i18n/utils";
+import SchemaProcedure from "@/components/seo/SchemaProcedure.astro";
+import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
+import SchemaFAQ from "@/components/seo/SchemaFAQ.astro";
+import UserShare from "@/components/views/UserShare.astro";
+import { i18nPaths, getLangFromUrl } from "@/i18n/utils";
+import {
+  RELEX_SMILE_ZH_HK,
+  RELEX_SMILE_ZH_CN,
+  SMILE_SHARE_DATA,
+} from "@/data/relexSmileData";
+
 export function getStaticPaths() {
   return [...i18nPaths];
 }
-const { dict } = useI18n(Astro.url);
+
+const lang = getLangFromUrl(Astro.url);
+const isCn = lang === "zh-cn";
+const content = isCn ? RELEX_SMILE_ZH_CN : RELEX_SMILE_ZH_HK;
 ---
 
-<BaseLayout tdkKey="home">
-  <section class="bg-bg-subtle h-[120vh]">
-    <div class="wrapper text-center">
-      <h1
-        set:html={dict.home.title}
-        class="text-primary text-xl lg:text-3xl font-black"
-      />
-      <p set:html={dict.home.subtitle} class="text-primary" />
+<BaseLayout tdkKey="smile">
+  <SchemaProcedure
+    name={content.hero.title}
+    description={content.principles.desc.replace(/<[^>]+>/g, "")}
+  />
+  <SchemaBreadcrumb
+    items={[
+      { name: content.breadcrumb.home, url: isCn ? "/cn/" : "/" },
+      {
+        name: content.breadcrumb.service,
+        url: isCn
+          ? "/cn/vision-correction/relex-smile"
+          : "/vision-correction/relex-smile",
+      },
+      {
+        name: content.breadcrumb.current,
+        url: isCn
+          ? "/cn/vision-correction/relex-smile"
+          : "/vision-correction/relex-smile",
+      },
+    ]}
+  />
+  <SchemaFAQ faqs={content.faqs} />
+
+  <div class="page-smile font-tc">
+    <div class="smile-main-column">
+      {/* Section 1: Hero Banner */}
+      <section class="newCenter" aria-labelledby="hero-title">
+        <div
+          class="newCenter-card pt-20 md:pt-[142px] pl-8 md:pl-[57px] pb-5 md:pb-[30px]"
+        >
+          <div class="newCenter-card-title text-primary">
+            <span
+              class="font-bold text-[69.064px] md:text-[137.67px] leading-[75.556px] md:leading-[150.611px] font-en"
+            >
+              {content.hero.tag}
+            </span>
+            <h1
+              id="hero-title"
+              class="text-[37.289px] md:text-[74.332px] leading-[40.795px] md:leading-[81.319px]"
+            >
+              {content.hero.title}
+            </h1>
+            <p class="text-sm md:text-3xl leading-8 md:leading-[64.668px]">
+              {content.hero.subtitle}
+            </p>
+          </div>
+          <nav
+            class="newCenter-card-nav mt-8 md:mt-[68.39px] text-text font-tc text-sm md:text-xl font-light leading-[21.822px] md:leading-[43.5px] tracking-[0.36px] md:tracking-[0.6px]"
+            aria-label="麵包屑導航"
+          >
+            <a href={isCn ? "/cn/" : "/"}>{content.breadcrumb.home}</a>&nbsp;&gt;&nbsp;
+            <span>{content.breadcrumb.service}</span>&nbsp;&gt;&nbsp;
+            <a
+              class="text-primary font-medium"
+              href={isCn
+                ? "/cn/vision-correction/relex-smile"
+                : "/vision-correction/relex-smile"}
+            >
+              {content.breadcrumb.current}
+            </a>
+          </nav>
+        </div>
+      </section>
+
+      {/* Section 2: 矯視原理 (principles) */}
+      <section
+        class="principles bg-primary text-white py-13 px-4 md:py-16 md:px-24"
+        aria-labelledby="section-principles-heading"
+      >
+        <h2
+          id="section-principles-heading"
+          class="text-white font-hk text-xl md:text-3xl font-black leading-[30px]"
+        >
+          <span class="font-en font-bold">{content.principles.titlePrefix}</span>{content.principles.titleSuffix}
+        </h2>
+        <p set:html={content.principles.desc} />
+        <a
+          href={content.principles.whatsappUrl}
+          rel="noopener noreferrer"
+          target="_blank"
+          class="more-button"
+          data-cta="whatsapp"
+          title="WhatsApp 預約 SMILE 矯視術前檢查及諮詢"
+        >
+          <span>{content.principles.btn}</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="29"
+            viewBox="0 0 30 29"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M3.2 26.06 25.827 3.43"
+              stroke="currentColor"
+              stroke-width="5.4"
+              stroke-linecap="round"></path>
+            <path
+              d="M6.496 2.711H26.6v19.44"
+              stroke="currentColor"
+              stroke-width="4.86"
+              stroke-linecap="round"></path>
+          </svg>
+        </a>
+      </section>
+
+      {/* Section 3: 矯視步驟 (steps) */}
+      <section class="steps" aria-labelledby="section-steps-heading">
+        <div class="steps-bg bg-white">
+          <div class="steps-number" role="tablist" aria-label="矯視步驟">
+            {
+              content.steps.list.map((step, index) => (
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={index === 0 ? "true" : "false"}
+                  class:list={["step", { active: index === 0 }]}
+                  data-step-index={index}
+                >
+                  {step.number}
+                </button>
+              ))
+            }
+          </div>
+          <div class="steps-title text-primary">
+            <h2
+              id="section-steps-heading"
+              class="mb-0 text-xl md:text-[40px] font-black leading-6 md:leading-[50px] text-left"
+            >
+              <span class="block md:text-3xl font-bold font-en"
+                >{content.steps.titlePrefix}</span
+              >
+              {content.steps.titleSuffix}
+            </h2>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="19"
+              height="20"
+              viewBox="0 0 19 20"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="m.727 1.231 16.866 16.867m.537-14.409v14.984H3.64"
+                stroke="currentColor"
+                stroke-width="1.342"
+                stroke-linecap="round"></path>
+            </svg>
+          </div>
+          <div class="steps-content">
+            <img
+              id="relex-step-img"
+              src={content.steps.list[0].image}
+              srcset={`${content.steps.list[0].image} 768w, ${content.steps.list[0].imagePc} 1200w`}
+              alt="步骤图像"
+              width="649"
+              height="649"
+              loading="lazy"
+            />
+            <p
+              id="relex-step-text"
+              class="steps-content-text steps-content-01"
+              style="white-space: pre-line;"
+            >
+              {content.steps.list[0].text}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 4: 為何選擇希瑪? (whyChoose) */}
+      <section
+        class="whyChoose px-7 md:px-14 md:mb-[60px]"
+        aria-labelledby="section-why-heading"
+      >
+        <h2 id="section-why-heading" class="subtitle mb-7 md:mb-12 text-left">
+          {content.whyChoose.title}
+        </h2>
+        <div class="whyChoose-img">
+          <img
+            class="w-full rounded-[8.19px]"
+            src={content.whyChoose.img}
+            alt={content.whyChoose.alt}
+            width="647"
+            height="471"
+            loading="lazy"
+          />
+        </div>
+        <div class="whyChoose-intro mt-8">
+          <p set:html={content.whyChoose.p1} />
+          <p set:html={content.whyChoose.p2} />
+          <p set:html={content.whyChoose.p3} />
+        </div>
+      </section>
+
+      {/* Section 5: SMILE用家分享 (kol-mobile block lg:hidden) */}
+      <div class="kol-mobile block lg:hidden overflow-hidden">
+        <UserShare
+          title={content.shareTitle}
+          items={SMILE_SHARE_DATA}
+          id="relexSmileUserShareList"
+          sectionId="section-share-heading"
+        />
+      </div>
+
+      {/* Section 6: SMILE微笑激光矯視費用 (fee) */}
+      <section
+        class="fee-section md:bg-[#F6FAFD] py-8 px-2 md:px-2 md:pb-15 md:pt-20 mb-8 md:mt-[50px] md:mb-22 md:mt-[166px]"
+        aria-labelledby="section-fee-heading"
+      >
+        <div class="w-full flex flex-col items-center mx-auto">
+          <h2
+            id="section-fee-heading"
+            class="text-[#4A74B8] text-xl md:text-3xl font-black mb-6 md:mb-10 tracking-wider text-center"
+          >
+            {content.fee.title}
+          </h2>
+          <div class="w-full">
+            <div class="space-y-2 md:space-y-4 max-w-[900px] mx-auto">
+              {
+                content.fee.items.map((item) => (
+                  <div class="bg-white border border-[#4570B6] rounded-2xl p-5 md:p-8 flex flex-row justify-between items-center transition-all group">
+                    <div
+                      class="text-[#6D6E71] text-base md:text-3xl font-bold"
+                      set:html={item.name}
+                    />
+                    <div class="text-[#F59E0B] font-bold tracking-tight group-hover:scale-105 transition-transform">
+                      <span class="text-2xl md:text-5xl">{item.price}</span>
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+            <div class="mt-8 md:mt-12 flex flex-col items-center">
+              <a
+                href={isCn ? "/cn/fee#table1" : "/fee#table1"}
+                class="md:w-auto bg-[#4570B6] text-white px-10 py-4 md:py-5 md:px-[100px] rounded-full text-2xl md:text-4xl font-bold flex items-center justify-center gap-3 transition-colors hover:bg-[#345995]"
+                data-cta="fee"
+                title="查看矯視費用詳情"
+              >
+                {content.fee.btn}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-[13px] w-[13px] md:h-[26px] md:w-[26px]"
+                  viewBox="0 0 34 34"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M3.18 30.363 29.833 3.71"
+                    stroke="#fff"
+                    stroke-width="6.36"
+                    stroke-linecap="round"></path>
+                  <path
+                    d="M7.064 2.862h23.678V25.76"
+                    stroke="#fff"
+                    stroke-width="5.724"
+                    stroke-linecap="round"></path>
+                </svg>
+              </a>
+              <div
+                class="text-[#6D6E71] mt-2 md:mt-4 text-center font-light text-slate-400 text-base md:text-2xl leading-relaxed"
+              >
+                {content.fee.notes.map((note) => <p class="text-[#6D6E71]">{note}</p>)}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 7: SMILE微笑激光矯視的好處 (benefit) */}
+      <section
+        class="benefit mb-[30px] md:mb-[100px] py-7"
+        aria-labelledby="section-benefit-heading"
+      >
+        <h2 id="section-benefit-heading" class="subtitle mb-0">
+          {content.benefit.title}
+        </h2>
+        <div
+          class="benefit-list pl-[clamp(1.5rem,-0.196rem_+_8.48vw,3.875rem)] pr-[clamp(0.625rem,3.13vw,1.5rem)]"
+        >
+          {
+            content.benefit.list.map((benefit) => (
+              <div class:list={["benefit-item", { active: benefit.active }]}>
+                <h3 class="benefit-item-title">{benefit.title}</h3>
+                <div class="benefit-item-content">
+                  <div class="benefit-item-icon">
+                    <img
+                      src={benefit.icon}
+                      alt={benefit.title}
+                      width="53"
+                      height="53"
+                      loading="lazy"
+                    />
+                  </div>
+                  <p class="benefit-item-desc" style="white-space: pre-line;">
+                    {benefit.desc}
+                  </p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      {/* Section 8: 你適合接受SMILE微笑矯視嗎? (condition) */}
+      <section class="condition" aria-labelledby="section-condition-heading">
+        <div class="condition-list md:px-[30px] gap-[5px] md:gap-7">
+          <div class="condition-item py-[10px]">{content.condition.items[0]}</div>
+          <div class="condition-item py-[10px]">{content.condition.items[1]}</div>
+          <div class="condition-item py-[10px]">{content.condition.items[2]}</div>
+        </div>
+        <div class="condition-list relative">
+          <div
+            class="condition-item mr-[142px] md:mr-[314px] py-1 md:py-[13px]"
+            set:html={content.condition.items[3].replace(
+              "或",
+              "或<br class=\"block md:hidden\" />"
+            )}
+          />
+          <div
+            class="condition-title flex absolute right-[17px] h-full justify-center items-center"
+          >
+            <h2
+              id="section-condition-heading"
+              class="text-primary mb-0 text-base md:text-3xl leading-[20.159px] md:leading-10 font-black font-hk text-right"
+              set:html={content.condition.titleHtml}
+            />
+          </div>
+        </div>
+        <div class="condition-list gap-[13px] md:gap-[26px]">
+          <div class="condition-item py-3">{content.condition.items[4]}</div>
+          <div class="condition-item py-3">{content.condition.items[5]}</div>
+        </div>
+        <div class="condition-list">
+          <div
+            class="condition-item ml-[55px] md:ml-[108px] py-2 md:py-[13px]"
+            set:html={content.condition.items[6].replace(
+              "關節炎",
+              "關<br class=\"block md:hidden\" />節炎"
+            ).replace(
+              "关节炎",
+              "关<br class=\"block md:hidden\" />节炎"
+            )}
+          />
+        </div>
+        <div class="condition-list gap-3 md:gap-[21px]">
+          <div
+            class="condition-item py-1 md:py-[13px]"
+            set:html={content.condition.items[7].replace(
+              "服用",
+              "服用<br class=\"block md:hidden\" />"
+            )}
+          />
+          <div
+            class="condition-item py-1 md:py-[13px]"
+            set:html={content.condition.items[8].replace(
+              "發炎",
+              "發炎<br class=\"block md:hidden\" />"
+            ).replace(
+              "发炎",
+              "发炎<br class=\"block md:hidden\" />"
+            )}
+          />
+        </div>
+        <p class="condition-desc">
+          <span class="inline md:block">{content.condition.desc1}</span>
+          <span class="inline md:block">{content.condition.desc2}</span>
+        </p>
+        <a
+          href={content.condition.whatsappUrl}
+          rel="noopener noreferrer"
+          target="_blank"
+          class="more-button"
+          data-cta="whatsapp"
+          title="WhatsApp 預約 SMILE 矯視術前檢查及諮詢"
+        >
+          <span>{content.condition.btn}</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="29"
+            viewBox="0 0 30 29"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M3.2 26.06 25.827 3.43"
+              stroke="#fff"
+              stroke-width="5.4"
+              stroke-linecap="round"></path>
+            <path
+              d="M6.496 2.71H26.6v19.44"
+              stroke="#fff"
+              stroke-width="4.86"
+              stroke-linecap="round"></path>
+          </svg>
+        </a>
+      </section>
+
+      {/* Section 9: SMILE XTRA角膜膠原交聯術 (xtra) */}
+      <section
+        class="xtra"
+        id="relexXtraSection"
+        aria-labelledby="section-xtra-heading"
+      >
+        <div class="xtra-title">
+          <h2 id="section-xtra-heading" class="subtitle mb-0">
+            {content.xtra.title}
+          </h2>
+          <p class="font-en">{content.xtra.subtitle}</p>
+          <span>{content.xtra.tag}</span>
+        </div>
+        <div class="xtra-paper">
+          <div class="xtra-paper-item">
+            <h3 class="xtra-paper-title" set:html={content.xtra.card1TitleHtml} />
+            <div class="xtra-paper-intro">
+              <p>{content.xtra.card1Text}</p>
+              <img
+                class="xtra-paper-icon"
+                src="https://statichk.cmermedical.com/smile/smileV2/smile-xtra-2.svg"
+                alt=""
+                width="80"
+                height="80"
+                loading="lazy"
+              />
+            </div>
+          </div>
+          <div class="xtra-paper-item">
+            <h3 class="xtra-paper-title" set:html={content.xtra.card2TitleHtml} />
+            <div class="xtra-paper-intro">
+              <p>{content.xtra.card2Text}</p>
+              <img
+                class="xtra-paper-icon"
+                src="https://statichk.cmermedical.com/smile/smileV2/smile-xtra-1.svg"
+                alt=""
+                width="80"
+                height="80"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+        <a
+          href={content.xtra.whatsappUrl}
+          rel="noopener noreferrer"
+          target="_blank"
+          class="more-button"
+          data-cta="whatsapp"
+          title="WhatsApp 了解 SMILE XTRA 角膜膠原交聯術"
+        >
+          <span>{content.xtra.btn}</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="29"
+            viewBox="0 0 30 29"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M3.2 26.06 25.827 3.43"
+              stroke="#fff"
+              stroke-width="5.4"
+              stroke-linecap="round"></path>
+            <path
+              d="M6.496 2.71H26.6v19.44"
+              stroke="#fff"
+              stroke-width="4.86"
+              stroke-linecap="round"></path>
+          </svg>
+        </a>
+      </section>
+
+      {/* Section 10: SMILE微笑矯視前小練習 (exercise) */}
+      <section
+        class="exercise bg-black text-white py-6 md:pt-[30px] md:pb-[136px]"
+        aria-labelledby="section-exercise-heading"
+      >
+        <div class="exercise-title">
+          <h2 id="section-exercise-heading">{content.exercise.title}</h2>
+          <p>{content.exercise.subtitle}</p>
+        </div>
+        <div class="exercise-image">
+          <img
+            src={content.exercise.img}
+            alt={content.exercise.alt}
+            width="449"
+            height="449"
+            loading="lazy"
+          />
+        </div>
+        <div class="exercise-intro">
+          {content.exercise.tips.map((tip) => <p>{tip}</p>)}
+        </div>
+      </section>
     </div>
-  </section>
+
+    {/* 寬屏兩側背景裝飾 (>=1440px) */}
+    <div class="smile" aria-hidden="true">
+      <div class="smile-bg">
+        <div class="smile-left hidden"></div>
+        <div class="smile-right hidden">
+          <div class="smile-right-title">
+            <span class="smile-right-heading">{content.news.title}</span>
+            <p class="font-en">{content.news.subtitle}</p>
+          </div>
+          <div class="smile-right-swiper">
+            <img
+              src="https://statichk.cmermedical.com/smile/smileV2/smile-swiper-01.avif"
+              alt="最新情報"
+              width="360"
+              height="200"
+              loading="lazy"
+              class="rounded-xl shadow-lg"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </BaseLayout>
+
+<script is:inline define:vars={{ stepsData: content.steps.list }}>
+  function initRelexSmileInteractive() {
+    // 1. 步驟切換交互
+    const stepButtons = document.querySelectorAll(".steps-number .step");
+    const stepImg = document.getElementById("relex-step-img");
+    const stepText = document.getElementById("relex-step-text");
+
+    if (stepButtons.length && stepImg && stepText) {
+      stepButtons.forEach((btn, index) => {
+        function activateStep() {
+          stepButtons.forEach((b) => {
+            b.classList.remove("active");
+            b.setAttribute("aria-selected", "false");
+          });
+          btn.classList.add("active");
+          btn.setAttribute("aria-selected", "true");
+
+          const current = stepsData[index];
+          if (current) {
+            stepImg.src = current.image;
+            stepImg.srcset = `${current.image} 768w, ${current.imagePc} 1200w`;
+            stepText.textContent = current.text;
+            stepText.className = `steps-content-text steps-content-${current.number}`;
+          }
+        }
+
+        btn.addEventListener("click", activateStep);
+        btn.addEventListener("mouseenter", activateStep);
+      });
+    }
+
+    // 2. SMILE XTRA 滾動進入視口展開動畫
+    const xtraSection = document.getElementById("relexXtraSection");
+    if (xtraSection) {
+      const xtraPaper = xtraSection.querySelector(".xtra-paper");
+      const xtraItems = xtraSection.querySelectorAll(".xtra-paper-item");
+
+      if (xtraPaper && xtraItems.length) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
+                xtraPaper.classList.add("unfolded");
+                xtraItems.forEach((item) => item.classList.add("unfolded"));
+              } else if (!entry.isIntersecting && entry.intersectionRatio < 0.1) {
+                xtraPaper.classList.remove("unfolded");
+                xtraItems.forEach((item) => item.classList.remove("unfolded"));
+              }
+            });
+          },
+          { threshold: [0.1, 0.25, 0.5], rootMargin: "40px 0px" }
+        );
+
+        observer.observe(xtraSection);
+      }
+    }
+
+    // 3. 好處卡片點擊激活切換
+    const benefitItems = document.querySelectorAll(".benefit-item");
+    benefitItems.forEach((item) => {
+      item.addEventListener("click", () => {
+        benefitItems.forEach((i) => i.classList.remove("active"));
+        item.classList.add("active");
+      });
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", initRelexSmileInteractive);
+  document.addEventListener("astro:page-load", initRelexSmileInteractive);
+</script>
+
+<style lang="scss">
+  $primary-color: #4570b6;
+  $text-color: #6d6e71;
+
+  .page-smile {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+  }
+
+  .smile-main-column {
+    z-index: 3;
+    margin: 0 auto;
+    position: relative;
+    background-color: #fff;
+    width: 100%;
+
+    @media screen and (min-width: 768px) {
+      width: 768px;
+      border-left: 1.5px solid $primary-color;
+      border-right: 1.5px solid $primary-color;
+    }
+  }
+
+  .subtitle {
+    color: $primary-color;
+    font-weight: 900;
+    font-size: 20px;
+    line-height: 12.824px;
+
+    @media screen and (min-width: 768px) {
+      font-size: 30px;
+      line-height: 30px;
+    }
+  }
+
+  .more-button {
+    padding: clamp(0.375rem, 0.239rem + 0.68vw, 0.75rem)
+      clamp(2rem, 1.455rem + 2.73vw, 3.5rem);
+    display: flex;
+    gap: clamp(0.563rem, 0.403rem + 0.8vw, 1rem);
+    align-items: center;
+    background-color: $primary-color;
+    color: #fff;
+    border-radius: clamp(6.25rem, 4.432rem + 9.09vw, 11.25rem);
+    width: fit-content;
+    margin: 0 auto;
+    transition: all 0.3s ease;
+
+    span {
+      font-size: clamp(1.25rem, 0.886rem + 1.82vw, 2.25rem);
+      font-weight: 700;
+      line-height: clamp(2.25rem, 1.614rem + 3.18vw, 4rem);
+      letter-spacing: clamp(0.063rem, 0.044rem + 0.09vw, 0.113rem);
+      text-align: justify;
+    }
+
+    svg {
+      width: clamp(0.75rem, 0.477rem + 1.36vw, 1.5rem);
+      height: clamp(0.75rem, 0.477rem + 1.36vw, 1.5rem);
+    }
+  }
+
+  .newCenter {
+    position: relative;
+    background: linear-gradient(
+      to top,
+      $primary-color 0 50px,
+      white 50px 100%
+    );
+
+    &-card {
+      background: url("data:image/svg+xml;base64,Cjxzdmcgd2lkdGg9Ijc2OCIgaGVpZ2h0PSI3MzkiIHZpZXdCb3g9IjAgMCA3NjggNzM5IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8bWFzayBpZD0ibWFzazBfMTAyMzJfMTciIHN0eWxlPSJtYXNrLXR5cGU6YWxwaGEiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjAiIHk9IjAiIHdpZHRoPSI3NjgiIGhlaWdodD0iNzM5Ij4KPHJlY3Qgd2lkdGg9Ijc2OCIgaGVpZ2h0PSI3MzkiIGZpbGw9IndoaXRlIi8+CjwvbWFzaz4KPGcgbWFzaz0idXJsKCNtYXNrMF8xMDIzMl8xNykiPgo8cGF0aCBkPSJNLTUgMTcxLjA3OEw4NDYgMzUzLjc3OSIgc3Ryb2tlPSIjNUQ4NUMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiLz4KPHBhdGggZD0iTTYwNC4xNzggODMuMDY2N0w0NDguOTQ5IDc4OC45NDUiIHN0cm9rZT0idXJsKCNwYWludDBfbGluZWFyXzEwMjMyXzE3KSIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIi8+CjxwYXRoIGQ9Ik01NTQuMTU1IDMxMi42MjJDNTY1LjQzNCAzMTUuMDQ4IDU3Ni41NjYgMzA3Ljk3MiA1NzkuMDE5IDI5Ni44MTlDNTgxLjQ3MiAyODUuNjY1IDU3NC4zMTcgMjc0LjY1NyA1NjMuMDM4IDI3Mi4yMzFDNTUxLjc1OSAyNjkuODA2IDU0MC42MjcgMjc2Ljg4MSA1MzguMTc0IDI4OC4wMzVDNTM1LjcyMSAyOTkuMTg5IDU0Mi44NzYgMzEwLjE5NyA1NTQuMTU1IDMxMi42MjJaIiBzdHJva2U9IiM1RDg1QzMiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIvPgo8L2c+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9InBhaW50MF9saW5lYXJfMTAyMzJfMTciIHgxPSI2MDQuNjY3IiB5MT0iODMuMTcxOCIgeDI9IjQ1Mi43MTYiIHkyPSI3ODkuNzU1IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIHN0b3AtY29sb3I9IiM1RDg1QzMiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSJ3aGl0ZSIvPgo8L2xpbmVhckdyYWRpZW50Pgo8L2RlZnM+Cjwvc3ZnPgo=")
+        no-repeat;
+      background-size: cover;
+      background-position: center;
+      font-weight: 400;
+      border-radius: 0 0 1rem 1rem;
+    }
+  }
+
+  .principles {
+    padding: clamp(2rem, 0.545rem + 7.27vw, 6rem)
+      clamp(1rem, -1rem + 10vw, 6.5rem);
+    position: relative;
+
+    h2 {
+      text-align: center;
+      font-weight: 900;
+      line-height: 30px;
+      font-size: clamp(1.25rem, 1.023rem + 1.14vw, 1.875rem);
+      margin-bottom: clamp(1rem, 0.727rem + 1.36vw, 1.75rem);
+
+      span {
+        font-weight: 700;
+      }
+    }
+
+    p {
+      font-weight: 300;
+      font-size: clamp(0.875rem, 0.739rem + 0.68vw, 1.25rem);
+      line-height: 35px;
+      letter-spacing: clamp(0.044rem, 0.037rem + 0.03vw, 0.063rem);
+
+      span {
+        font-weight: 700;
+      }
+    }
+
+    .more-button {
+      position: absolute;
+      z-index: 1;
+      left: 50%;
+      transform: translate(-50%, 0);
+      background-color: #fff;
+      color: $primary-color;
+      border: 2px solid $primary-color;
+      bottom: -24px;
+
+      @media screen and (min-width: 768px) {
+        bottom: -32px;
+      }
+    }
+  }
+
+  .steps {
+    position: relative;
+    background: linear-gradient(
+      to bottom,
+      $primary-color 0 50px,
+      white 50px 100%
+    );
+
+    &-title {
+      display: flex;
+      align-items: center;
+      position: absolute;
+      gap: clamp(2.065rem, 1.572rem + 2.02vw, 4rem);
+
+      svg {
+        width: clamp(1.25rem, 0.795rem + 2.27vw, 2.5rem);
+        height: clamp(1.25rem, 0.795rem + 2.27vw, 2.5rem);
+      }
+    }
+
+    &-bg {
+      border-radius: 1rem 1rem 0 0;
+      padding: clamp(4.337rem, 3.881rem + 1.87vw, 6.125rem)
+        clamp(1.688rem, 1.21rem + 1.96vw, 3.563rem)
+        clamp(3.984rem, 2.594rem + 5.7vw, 9.438rem);
+    }
+
+    &-number {
+      display: flex;
+      justify-content: space-between;
+
+      .step {
+        cursor: pointer;
+        text-align: right;
+        width: 30%;
+        color: $text-color;
+        font-size: clamp(1.25rem, 0.841rem + 2.05vw, 2.375rem);
+        margin-bottom: clamp(1.25rem, 0.977rem + 1.36vw, 2rem);
+        position: relative;
+        background: transparent;
+        border: none;
+        padding-bottom: 8px;
+
+        &.active {
+          color: $primary-color;
+          font-weight: 700;
+          transition: color 0.3s ease;
+
+          &::after {
+            height: clamp(0.156rem, 0.099rem + 0.28vw, 0.313rem);
+            background: $primary-color;
+          }
+        }
+
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: clamp(0.031rem, 0.02rem + 0.06vw, 0.063rem);
+          background: $text-color;
+          transition: all 0.3s ease;
+        }
+      }
+    }
+
+    &-content {
+      color: $text-color;
+      position: relative;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+
+      &-text {
+        position: absolute;
+        font-weight: 400;
+        font-size: clamp(0.875rem, 0.739rem + 0.68vw, 1.25rem);
+        line-height: clamp(1.125rem, 0.739rem + 1.93vw, 2.188rem);
+        margin-top: clamp(0.563rem, 0.358rem + 1.02vw, 1.125rem);
+        left: 0;
+        bottom: -2.5rem;
+      }
+    }
+  }
+
+  .whyChoose {
+    &-intro {
+      p {
+        color: $text-color;
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 30px;
+        letter-spacing: 2.52px;
+        margin-bottom: 30px;
+
+        @media screen and (min-width: 768px) {
+          font-size: 20px;
+          line-height: 30px;
+          letter-spacing: 6px;
+        }
+      }
+
+      span {
+        color: $primary-color;
+        font-weight: 700;
+      }
+    }
+  }
+
+  .benefit {
+    h2 {
+      text-align: center;
+      padding-bottom: clamp(1.5rem, 1.091rem + 2.05vw, 2.625rem);
+    }
+
+    &-list {
+      display: flex;
+      flex-wrap: wrap;
+
+      @media screen and (min-width: 768px) {
+        padding-left: 40px;
+        padding-right: 0;
+      }
+    }
+
+    &-item {
+      z-index: 1;
+      flex: 0 0 calc(33.33% + 20px);
+      margin-left: -20px;
+      margin-top: -30px;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      background-color: #fff;
+      border: 1px solid $primary-color;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      overflow: hidden;
+      position: relative;
+      text-align: center;
+      font-size: 4.103vw;
+
+      @media screen and (min-width: 768px) {
+        flex: 0 0 calc(33.33% + 40px);
+        margin-left: -40px;
+        margin-top: -60px;
+      }
+
+      &:nth-child(-n + 3) {
+        margin-top: 0;
+      }
+
+      &-title {
+        font-weight: 700;
+        color: $primary-color;
+        font-size: 16px;
+        line-height: 8.549px;
+
+        @media screen and (min-width: 768px) {
+          font-size: 25px;
+          line-height: 20px;
+          letter-spacing: 6.25px;
+        }
+      }
+
+      &-content {
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+
+        img {
+          margin: 0 auto;
+        }
+
+        p {
+          color: #fff;
+          font-size: 16px;
+          line-height: 1.2;
+          font-weight: 400;
+
+          @media screen and (min-width: 768px) {
+            font-size: 24px;
+            line-height: 28px;
+            letter-spacing: 3.36px;
+          }
+        }
+      }
+
+      &-icon {
+        margin: 0 auto 4px;
+        width: 53px;
+
+        @media screen and (min-width: 768px) {
+          width: 125px;
+        }
+      }
+
+      &.active,
+      &:hover {
+        background-color: $primary-color;
+        z-index: 5;
+
+        .benefit-item-title {
+          opacity: 0;
+          height: 0;
+        }
+
+        .benefit-item-content {
+          opacity: 1;
+          height: auto;
+        }
+      }
+    }
+  }
+
+  .condition {
+    position: relative;
+    width: 100%;
+    background: url("https://statichk.cmermedical.com/smile/smileV2/smile-condition-bg.svg")
+      no-repeat;
+    background-size: clamp(4.375rem, 2.557rem + 9.09vw, 9.375rem) auto;
+    background-position: 0;
+
+    @media screen and (min-width: 768px) {
+      background-position: left calc(50% - 20px);
+    }
+
+    &-list {
+      display: flex;
+      justify-content: center;
+      padding: 0 17px;
+      margin-bottom: 18px;
+
+      @media screen and (min-width: 768px) {
+        margin-bottom: 36px;
+      }
+    }
+
+    &-item {
+      flex: auto;
+      color: $text-color;
+      font-weight: 400;
+      background-color: #fff;
+      font-size: 14px;
+      line-height: 17px;
+      border-radius: 50.4px;
+      border: 1px solid $primary-color;
+      box-shadow: 3px clamp(0.25rem, 0.182rem + 0.34vw, 0.438rem) 2px
+        $primary-color;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      white-space: nowrap;
+
+      @media screen and (min-width: 768px) {
+        font-size: 20px;
+        line-height: 35px;
+        letter-spacing: 2px;
+      }
+    }
+
+    &-desc {
+      color: $text-color;
+      text-align: center;
+      font-size: clamp(0.938rem, 0.824rem + 0.57vw, 1.25rem);
+      line-height: clamp(1.375rem, 1.011rem + 1.82vw, 2.375rem);
+      letter-spacing: clamp(0rem, -0.036rem + 0.18vw, 0.1rem);
+      font-weight: 400;
+      margin-top: clamp(0.75rem, -0.205rem + 4.77vw, 3.375rem);
+      margin-bottom: clamp(1rem, 0.136rem + 4.32vw, 3.375rem);
+    }
+  }
+
+  .xtra {
+    padding: clamp(3.5rem, 2.864rem + 3.18vw, 5.25rem)
+      clamp(1.125rem, 0.852rem + 1.36vw, 1.875rem);
+    background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzY5IiBoZWlnaHQ9IjExODEiIHZpZXdCb3g9IjAgMCA3NjkgMTE4MSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTc2OCAxTDEgMTE4MCIgc3Ryb2tlPSIjNDU3MEI2Ii8+CjxwYXRoIGQ9Ik0wLjk5OTk4NSAxTDc2OCAxMTgwIiBzdHJva2U9IiM0NTcwQjYiLz4KPC9zdmc+Cg==")
+      no-repeat;
+    background-size: cover;
+    background-position: top;
+
+    &-title {
+      text-align: center;
+      padding-bottom: clamp(1.4rem, 0.922rem + 1.96vw, 3.275rem);
+
+      p {
+        color: $primary-color;
+        font-weight: 700;
+        font-size: clamp(0.75rem, 0.568rem + 0.91vw, 1.25rem);
+        line-height: clamp(1.5rem, 0.909rem + 2.95vw, 3.125rem);
+      }
+
+      span {
+        color: $text-color;
+        font-weight: 500;
+        font-size: clamp(0.75rem, 0.568rem + 0.91vw, 1.25rem);
+        line-height: clamp(1.125rem, 0.716rem + 2.05vw, 2.25rem);
+        letter-spacing: clamp(0.075rem, 0.057rem + 0.09vw, 0.125rem);
+      }
+    }
+
+    &-paper {
+      position: relative;
+      height: 488px;
+
+      @media screen and (max-width: 767px) {
+        height: clamp(18rem, 15.327rem + 5.57vw, 19.5rem);
+      }
+
+      &.unfolded {
+        @media screen and (max-width: 767px) {
+          animation: xtraHeightMob 1s ease forwards;
+        }
+
+        @media screen and (min-width: 768px) {
+          animation: xtraHeightPc 1s ease forwards;
+        }
+      }
+
+      &-item {
+        border: 1px solid #000;
+        background-color: #fff;
+        position: absolute;
+        left: 72px;
+        width: clamp(18.063rem, 13.632rem + 18.17vw, 35.442rem);
+        padding: clamp(1.804rem, 1.384rem + 1.72vw, 3.451rem)
+          clamp(1.375rem, 0.97rem + 1.66vw, 2.962rem)
+          clamp(2.138rem, 1.758rem + 1.56vw, 3.625rem);
+
+        @media screen and (max-width: 767px) {
+          left: 36px;
+        }
+
+        &:nth-child(1) {
+          z-index: 1;
+
+          &.unfolded {
+            @media screen and (max-width: 767px) {
+              animation: xtraBottomMob 1s ease forwards;
+
+              &::after {
+                content: "";
+                z-index: 2;
+                width: 0;
+                height: 0;
+                background-color: #dbdbdb;
+                clip-path: polygon(0 100%, 100% 100%, 100% 0);
+                animation: xtraTriangleMob 1s ease forwards;
+                position: absolute;
+                left: 0;
+                bottom: -1px;
+              }
+            }
+
+            @media screen and (min-width: 768px) {
+              animation: xtraBottomPc 1s ease forwards;
+
+              &::after {
+                content: "";
+                z-index: 2;
+                width: 0;
+                height: 0;
+                background-color: #dbdbdb;
+                clip-path: polygon(0 100%, 100% 100%, 100% 0);
+                animation: xtraTrianglePc 1s ease forwards;
+                position: absolute;
+                left: 0;
+                bottom: -1px;
+              }
+            }
+          }
+        }
+
+        &:nth-child(2) {
+          z-index: 3;
+
+          &.unfolded {
+            @media screen and (max-width: 767px) {
+              animation: xtraTopMob 1s ease forwards;
+            }
+
+            @media screen and (min-width: 768px) {
+              animation: xtraTopPc 1s ease forwards;
+            }
+          }
+        }
+      }
+
+      &-title {
+        color: $primary-color;
+        font-weight: 700;
+        font-size: clamp(1rem, 0.857rem + 0.59vw, 1.563rem);
+        line-height: clamp(0.636rem, 0.48rem + 0.64vw, 1.25rem);
+        margin-bottom: clamp(1.018rem, 0.752rem + 1.09vw, 2.063rem);
+
+        span {
+          font-family: Poppins, sans-serif;
+        }
+      }
+
+      &-intro {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: clamp(0.5rem, 0.022rem + 1.96vw, 2.375rem);
+
+        p {
+          color: $text-color;
+          text-align: justify;
+          font-weight: 400;
+          font-size: clamp(0.875rem, 0.779rem + 0.39vw, 1.25rem);
+          line-height: clamp(1.113rem, 0.839rem + 1.12vw, 2.188rem);
+          letter-spacing: clamp(0.219rem, 0.211rem + 0.03vw, 0.25rem);
+        }
+      }
+
+      &-icon {
+        height: clamp(5.125rem, 3.898rem + 6.14vw, 8.5rem);
+      }
+    }
+  }
+
+  .exercise {
+    &-title {
+      text-align: center;
+
+      h2 {
+        font-weight: 900;
+        font-size: clamp(1.25rem, 1.023rem + 1.14vw, 1.875rem);
+        line-height: clamp(1.375rem, 1.193rem + 0.91vw, 1.875rem);
+      }
+
+      p {
+        font-weight: 400;
+        font-size: clamp(0.875rem, 0.648rem + 1.14vw, 1.5rem);
+        line-height: clamp(1.375rem, 1.193rem + 0.91vw, 1.875rem);
+        margin-top: clamp(0.25rem, -0.068rem + 1.59vw, 1.125rem);
+        margin-bottom: clamp(1.875rem, 1.739rem + 0.68vw, 2.25rem);
+      }
+    }
+
+    &-image {
+      padding: 0 clamp(2.125rem, -0.739rem + 14.32vw, 10rem);
+      display: flex;
+      justify-content: center;
+    }
+
+    &-intro {
+      padding: clamp(1.5rem, 1.182rem + 1.59vw, 2.375rem)
+        clamp(2.375rem, 2.011rem + 1.82vw, 3.375rem) 0;
+    }
+  }
+
+  .smile {
+    position: absolute;
+    pointer-events: none;
+
+    &-bg {
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: url("https://statichk.cmermedical.com/smile/smileV2/smile-bg.avif")
+        no-repeat;
+      background-size: cover;
+      z-index: 1;
+    }
+
+    &-left {
+      width: 540px;
+      height: 900px;
+      position: relative;
+
+      @media screen and (min-width: 1440px) {
+        display: block;
+      }
+    }
+
+    &-right {
+      width: 30vw;
+      position: relative;
+      height: 100vh;
+
+      @media screen and (min-width: 1440px) {
+        display: block;
+      }
+
+      &-title {
+        padding: 200px 0 1.25vw 5.2083vw;
+
+        .smile-right-heading {
+          display: block;
+          color: #000;
+          text-align: left;
+          font-size: 1.3139vw;
+          font-weight: 300;
+          line-height: 200%;
+          letter-spacing: 0.6568vw;
+
+          &::before {
+            content: "";
+            display: inline-block;
+            margin-right: 0.5208vw;
+            width: 0.7813vw;
+            height: 0.7813vw;
+            background: #4570b6;
+            border-radius: 50%;
+          }
+        }
+
+        p {
+          color: $primary-color;
+          font-size: 1.2104vw;
+          font-weight: 700;
+          line-height: 217%;
+          letter-spacing: 1.16px;
+        }
+      }
+
+      &-swiper {
+        width: 100%;
+        padding-left: 5.2083vw;
+      }
+    }
+  }
+
+  @keyframes xtraBottomMob {
+    0% {
+      transform: translate(0, 0);
+    }
+
+    100% {
+      transform: translate(clamp(-2rem, -2.885rem + 3.93vw, -1rem), 0);
+    }
+  }
+
+  @keyframes xtraTopMob {
+    0% {
+      transform: translate(0, 0);
+    }
+
+    100% {
+      transform: translate(
+        clamp(0.5rem, -7.214rem + 34.29vw, 2rem),
+        clamp(13rem, 5.929rem + 31.43vw, 14.375rem)
+      );
+    }
+  }
+
+  @keyframes xtraTriangleMob {
+    0% {
+      width: 0;
+      height: 0;
+    }
+
+    100% {
+      width: clamp(2.5rem, -3.929rem + 28.57vw, 3.75rem);
+      height: clamp(1.5rem, 0.214rem + 5.71vw, 1.75rem);
+    }
+  }
+
+  @keyframes xtraHeightMob {
+    0% {
+      height: clamp(18rem, 15.327rem + 5.57vw, 19.5rem);
+    }
+
+    100% {
+      height: clamp(31.25rem, 21.607rem + 42.86vw, 33.125rem);
+    }
+  }
+
+  @keyframes xtraBottomPc {
+    0% {
+      transform: translate(0, 0);
+    }
+
+    100% {
+      transform: translate(-72px, 0);
+    }
+  }
+
+  @keyframes xtraTopPc {
+    0% {
+      transform: translate(0, 0);
+    }
+
+    100% {
+      transform: translate(
+        72px,
+        clamp(18.375rem, 16.178rem + 3.6vw, 20.5rem)
+      );
+    }
+  }
+
+  @keyframes xtraTrianglePc {
+    0% {
+      width: 0;
+      height: 0;
+    }
+
+    100% {
+      width: 144px;
+      height: clamp(2.625rem, 2.237rem + 0.64vw, 3rem);
+    }
+  }
+
+  @keyframes xtraHeightPc {
+    0% {
+      height: 488px;
+    }
+
+    100% {
+      height: clamp(46.25rem, 43.019rem + 5.3vw, 49.375rem);
+    }
+  }
+</style>

@@ -1,27 +1,247 @@
 ---
 /*
- * @Author: 谭洁莹
- * @Date: 2026-04-27 09:38:20
- * @LastEditTime: 2026-04-27 09:57:17
+ * @Author: Antigravity AI
+ * @Date: 2026-09-08
  * @FilePath: /src/pages/[...lang]/our-medical-team.astro
- * @Description: 医生团队
+ * @Description: 香港希瑪微笑矯視中心 - 醫生團隊 (100% 官網視覺與排版還原 + HTML5 語意 + Schema.org + GSAP 動效)
  */
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { i18nPaths, useI18n } from "@/i18n/utils";
+import SchemaDoctor from "@/components/seo/SchemaDoctor.astro";
+import { i18nPaths, useI18n, getLangFromUrl } from "@/i18n/utils";
+import "@/styles/pages/our-medical-team.scss";
+
+// 支援多語言靜態路徑導出 (zh-HK / zh-CN)
 export function getStaticPaths() {
   return [...i18nPaths];
 }
+
 const { dict } = useI18n(Astro.url);
+const lang = getLangFromUrl(Astro.url);
+const isCn = lang === "zh-cn";
+
+// 12 位專科醫生官方肖像照片 (按順序精確對齊)
+const doctorImages = [
+  "https://statichk.cmermedical.com/smile/our-medical-team/e4fe994560f1f0cb.webp", // 李佑榮
+  "https://statichk.cmermedical.com/imgs/2024/04/4fa9ad28827023df.png", // 黎浩樺
+  "https://statichk.cmermedical.com/imgs/2024/04/35a8ebff87489352.png", // 李德倫
+  "https://statichk.cmermedical.com/imgs/2024/04/23dd6d5e7647a6b5.png", // 黃禮文
+  "https://statichk.cmermedical.com/imgs/2024/04/5dea1f2a9eaa115d.png", // 張瀞之
+  "https://statichk.cmermedical.com/imgs/2024/04/d2d8ef48f7e7d66f.png", // 林寶生
+  "https://statichk.cmermedical.com/imgs/2024/04/12f6f365602dfa65.png", // 林己明
+  "https://statichk.cmermedical.com/imgs/2024/04/49af412bf2fd0d24.png", // 陳偉樂
+  "https://statichk.cmermedical.com/imgs/2024/04/a7d90bf031d2130e.png", // 梁苑珊
+  "https://statichk.cmermedical.com/imgs/2024/04/3b91d69903c22a94.png", // 鄒樞韻
+  "https://statichk.cmermedical.com/imgs/2024/05/5e65910e0c55b6a4.png", // 尹浩柟
+  "https://statichk.cmermedical.com/imgs/2024/05/3f1a1dea7d3a56a9.png", // 鄒樂韻
+];
+
+// 組裝醫生陣列
+const doctorsList = (dict.about.doctor.list || []).map((doc: any, index: number) => ({
+  ...doc,
+  img: doctorImages[index] || "https://statichk.cmermedical.com/imgs/2024/04/4fa9ad28827023df.png",
+}));
 ---
 
-<BaseLayout tdkKey="doctor">
-  <section class="bg-bg-subtle h-[120vh]">
-    <div class="wrapper text-center">
-      <h1
-        set:html={dict.home.title}
-        class="text-primary text-xl lg:text-3xl font-black"
-      />
-      <p set:html={dict.home.subtitle} class="text-primary" />
+<BaseLayout tdkKey="doctor" showClinicSchema={false}>
+  {/* Schema.org 醫療專家與團隊知識圖譜 (統一單一 JSON-LD @graph 輸出) */}
+  <SchemaDoctor lang={lang} doctors={doctorsList} />
+
+  <div class="our-medical-team-page">
+    
+    {/* 1. 頂部 Hero Banner (Banner 區塊) */}
+    <section class="doctor-hero-banner py-4 md:py-8" aria-label="醫生團隊導言區">
+      <div class="container mx-auto px-4">
+        <header class="doctor-hero-card">
+          <div class="doctor-hero-card-content">
+            <div class="doctor-hero-card-bg" aria-hidden="true"></div>
+            <div class="relative z-10">
+              <h1 class="doctor-hero-title">
+                {dict.about.doctor.title}
+              </h1>
+              <p class="doctor-hero-subtitle">Doctor team</p>
+            </div>
+          </div>
+        </header>
+      </div>
+    </section>
+
+    {/* 2. 創辦人專區 (林順潮醫生 - Container 罐頭約束) */}
+    <section class="founder-section" aria-labelledby="heading-founder">
+      <div class="container mx-auto px-4">
+        <div class="doctor-team-content">
+          <div class="founder-img-col">
+            <img
+              src="https://statichk.cmermedical.com/smile/our-medical-team/1395086f2ba74e80.webp"
+              alt={isCn ? "香港希玛国际眼科医疗集团创办人 - 林顺潮医生" : "香港希瑪國際眼科醫療集團創辦人 - 林順潮醫生"}
+              title={isCn ? "香港希玛国际眼科医疗集团创办人 - 林顺潮医生" : "香港希瑪國際眼科醫療集團創辦人 - 林順潮醫生"}
+              width="400"
+              height="480"
+              loading="eager"
+              fetchpriority="high"
+            />
+          </div>
+          <div class="founder-text-col">
+          <div class="founder-header-block">
+            <p>{dict.about.doctor.founder.title}</p>
+            <h2 id="heading-founder">{dict.about.doctor.founder.name}</h2>
+          </div>
+          <div class="founder-titles-block">
+            {dict.about.doctor.founder.titles && dict.about.doctor.founder.titles.map((titleText: string) => (
+              <span>{titleText}</span>
+            ))}
+          </div>
+          <ul class="founder-desc-list">
+            {dict.about.doctor.founder.desc && dict.about.doctor.founder.desc.map((item: string) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
+
+    {/* 3. 醫生團隊波浪背景與成員陣容 */}
+    <section class="doctor-team-member" aria-labelledby="heading-medical-team">
+      
+      {/* 頂部居中懸浮圓形徽章 (直接位於 doctor-team-member 底下) */}
+      <div class="member-badge-circle" title={isCn ? "希玛眼科医疗团队" : "希瑪眼科醫療團隊"}>
+        <div class="badge-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="47"
+            height="56"
+            viewBox="0 0 47 56"
+            fill="none"
+            aria-hidden="true"
+          >
+            <ellipse
+              cx="25.5677"
+              cy="2.71589"
+              rx="2.61364"
+              ry="2.44318"
+              fill="#A6E1D6"
+            />
+            <ellipse
+              cx="10.932"
+              cy="2.71589"
+              rx="2.61364"
+              ry="2.44318"
+              fill="#A6E1D6"
+            />
+            <path
+              d="M9.87684 2.39702C6.21976 2.63988 -0.606778 4.72844 1.34366 11.1398C3.78171 19.1541 12.3149 31.1755 18.0037 31.5397C23.6924 31.904 35.07 14.4184 35.4763 10.047C35.8827 5.67558 31.0066 1.30417 26.1305 2.39702"
+              stroke="#A6E1D6"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+            <path
+              d="M17.7412 31.4588C17.7413 39.3045 16.7662 55.2947 30.7408 54.9958C44.7154 54.6969 42.9278 37.4365 42.5216 29.5908"
+              stroke="#4570B6"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+            <path
+              d="M46.0004 26.3333C46.0004 27.8775 44.6404 29.2424 42.8185 29.2424C40.9967 29.2424 39.6367 27.8775 39.6367 26.3333C39.6367 24.7891 40.9967 23.4242 42.8185 23.4242C44.6404 23.4242 46.0004 24.7891 46.0004 26.3333Z"
+              stroke="#4570B6"
+              stroke-width="2"
+            />
+          </svg>
+        </div>
+        <h2 id="heading-medical-team" class="badge-text">
+          <span>眼科</span>
+          <span>{isCn ? "医疗团队" : "醫療團隊"}</span>
+        </h2>
+      </div>
+
+      <div class="container mx-auto px-4">
+        {/* 醫生卡片列表 */}
+        <div class="doctor-list-wrapper">
+          {doctorsList.map((doctor: any, idx: number) => (
+            <article class="doctor-item" data-index={idx}>
+              <div class="doc-img-box">
+                <img
+                  src={doctor.img}
+                  alt={`${isCn ? "香港希玛眼科专科医生" : "香港希瑪眼科專科醫生"} - ${doctor.name}`}
+                  title={`${doctor.name} ${isCn ? "医生" : "醫生"}`}
+                  width="200"
+                  height="280"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div class="doc-info-card">
+                <h3 class="doc-name-line">
+                  {doctor.name}
+                  <span>{isCn ? "医生" : "醫生"}</span>
+                </h3>
+                <div class="doc-qualifications-list">
+                  {doctor.desc && doctor.desc.map((item: string) => (
+                    <span>{item}</span>
+                  ))}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+
+    </section>
+
+  </div>
 </BaseLayout>
+
+{/* GSAP 微動效 - 卡片插入展開效果 */}
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // 1. 頂部 Banner 視差滾動
+    const heroBg = document.querySelector(".doctor-hero-card-bg");
+    if (heroBg) {
+      gsap.to(heroBg, {
+        yPercent: 15,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".doctor-hero-banner",
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    }
+
+    // 2. 醫生卡片插入效果 (Card Insert Animation: 左右交錯插進來)
+    const doctorItems = document.querySelectorAll(".doctor-item");
+    if (doctorItems.length > 0) {
+      doctorItems.forEach((item, index) => {
+        const isEvenCol = index % 2 === 1;
+        gsap.fromTo(
+          item,
+          {
+            opacity: 0,
+            x: isEvenCol ? 45 : -45,
+            y: 35,
+            scale: 0.94,
+          },
+          {
+            opacity: 1,
+            x: 0,
+            y: 0,
+            scale: 1,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: item,
+              start: "top 88%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      });
+    }
+  });
+</script>
+
+

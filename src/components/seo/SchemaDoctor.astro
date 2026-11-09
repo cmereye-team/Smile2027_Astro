@@ -1,0 +1,92 @@
+---
+/**
+ * SchemaDoctor.astro
+ * Google Medical SEO, AI Knowledge Graph & E-E-A-T 醫生陣容結構化數據
+ * 包含 林順潮創辦人 及 希瑪微笑矯視中心 12 位眼科專科醫生陣容
+ */
+interface Props {
+  lang?: string;
+  doctors?: Array<{
+    name: string;
+    desc: string[];
+    img?: string;
+  }>;
+}
+
+const { lang = "zh-hk", doctors = [] } = Astro.props;
+const isCn = lang === "zh-cn";
+
+const doctorSchemas = doctors.map((doc, idx) => ({
+  "@type": ["Person", "Physician"],
+  "@id": `https://smile.hkcmereye.com/our-medical-team/#doctor-${idx + 1}`,
+  "name": `${doc.name}${isCn ? "医生" : "醫生"}`,
+  "alternateName": doc.name,
+  "jobTitle": isCn ? "眼科专科医生" : "眼科專科醫生",
+  "image": doc.img,
+  "medicalSpecialty": "https://schema.org/Ophthalmology",
+  "worksFor": {
+    "@type": "MedicalOrganization",
+    "@id": "https://smile.hkcmereye.com/#organization",
+    "name": isCn ? "香港希玛微笑矫视中心" : "香港希瑪微笑矯視中心",
+    "url": "https://smile.hkcmereye.com"
+  },
+  "knowsAbout": doc.desc || [],
+  "hasCredential": (doc.desc || []).map((cred) => ({
+    "@type": "EducationalOccupationalCredential",
+    "credentialCategory": "degree",
+    "name": cred
+  })),
+  "description": `${doc.name}${isCn ? "眼科专科医生，资历包括：" : "眼科專科醫生，資歷包括："}${(doc.desc || []).join("、")}`
+}));
+
+const schemaData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "AboutPage",
+      "@id": "https://smile.hkcmereye.com/our-medical-team/#webpage",
+      "url": "https://smile.hkcmereye.com/our-medical-team/",
+      "name": isCn ? "医疗团队 - 香港希玛微笑矫视中心" : "醫療團隊 - 香港希瑪微笑矯視中心",
+      "description": isCn 
+        ? "由亚太眼科领军人物林顺潮教授创办，汇聚资深眼科专科医生团队，提供专业激光矫视、SMILE Pro及ICL晶体植入服务。"
+        : "由亞太眼科領軍人物林順潮教授創辦，匯聚資深眼科專科醫生團隊，提供專業激光矯視、SMILE Pro及ICL植入式隱形眼鏡服務。",
+      "inLanguage": isCn ? "zh-CN" : "zh-HK",
+      "isPartOf": {
+        "@id": "https://smile.hkcmereye.com/#website"
+      },
+      "about": [
+        {
+          "@id": "https://smile.hkcmereye.com/#founder"
+        },
+        ...doctors.map((_, idx) => ({
+          "@id": `https://smile.hkcmereye.com/our-medical-team/#doctor-${idx + 1}`
+        }))
+      ]
+    },
+    {
+      "@type": ["Person", "Physician"],
+      "@id": "https://smile.hkcmereye.com/#founder",
+      "name": isCn ? "林顺潮" : "林順潮",
+      "alternateName": "Dennis Lam",
+      "jobTitle": isCn ? "眼科专科医生 / 希玛眼科医疗集团创办人" : "眼科專科醫生 / 希瑪眼科醫療集團創辦人",
+      "image": "https://statichk.cmermedical.com/smile/our-medical-team/1395086f2ba74e80.webp",
+      "medicalSpecialty": [
+        "https://schema.org/Ophthalmology",
+        "https://schema.org/RefractiveSurgery"
+      ],
+      "worksFor": {
+        "@type": "MedicalOrganization",
+        "@id": "https://smile.hkcmereye.com/#organization",
+        "name": isCn ? "香港希玛微笑矫视中心" : "香港希瑪微笑矯視中心",
+        "url": "https://smile.hkcmereye.com"
+      },
+      "description": isCn
+        ? "亚太眼科学会前会长、希玛眼科医疗集团创办人，连续3届被评为世界眼科100位最具影响力人物之一。"
+        : "亞太眼科學會前會長、希瑪眼科醫療集團創辦人，連續3屆被評為世界眼科100位最具影響力人物之一。"
+    },
+    ...doctorSchemas
+  ]
+};
+---
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(schemaData)} />

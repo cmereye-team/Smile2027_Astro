@@ -239,6 +239,19 @@ html[lang="zh-cn"] {
   box-sizing: border-box !important;
 }
 
+/* 極限超窄屏防擠壓安全保護 (<360px 如 320px - 339px) */
+@media (max-width: 359px) {
+  .site-container,
+  .container,
+  .wrapper,
+  .header-container,
+  .banner-container,
+  .intro-container {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+}
+
 @media (min-width: 1280px) {
   .site-container,
   .container,

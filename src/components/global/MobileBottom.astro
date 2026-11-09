@@ -8,7 +8,7 @@
 import { useI18n, useTranslations, getLocalizedHref } from "@/i18n/utils";
 import { Icon } from "astro-icon/components";
 
-const { dict, lang } = useI18n(Astro.url);
+const { lang } = useI18n(Astro.url);
 const t = useTranslations(lang);
 
 const navList = [

@@ -1,6 +1,4 @@
 ---
-import { getLangFromUrl, getLocalizedHref } from "@/i18n/utils";
-const lang = getLangFromUrl(Astro.url);
 import { useI18n } from "@/i18n/utils";
 const { dict } = useI18n(Astro.url);
 ---
@@ -103,7 +101,7 @@ const { dict } = useI18n(Astro.url);
       try {
         document.execCommand("copy");
         showToast();
-      } catch (err) {
+      } catch (_err) {
         alert("复制失败，请手动复制浏览器地址栏链接");
       }
       document.body.removeChild(textArea);

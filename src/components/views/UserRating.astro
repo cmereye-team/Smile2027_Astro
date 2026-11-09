@@ -112,7 +112,6 @@ const bookingTitle = dict.home.book.title;
 <script>
   import Swiper from "swiper";
   import { Autoplay, FreeMode } from "swiper/modules";
-  import "swiper/css";
 
   function initUserRatingSwiper() {
     const el = document.getElementById("userRatingSwiper");
@@ -125,7 +124,7 @@ const bookingTitle = dict.home.book.title;
     let dragDist = 0;
     let startY = 0;
 
-    const swiper = new Swiper(el, {
+    new Swiper(el, {
       modules: [Autoplay, FreeMode],
       direction: "vertical",
       loop: true,
