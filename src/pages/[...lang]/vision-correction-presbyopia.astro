@@ -1,10 +1,1004 @@
 ---
+/*
+ * @Author: Antigravity AI
+ * @Date: 2026-11-10
+ * @FilePath: /src/pages/[...lang]/vision-correction-presbyopia.astro
+ * @Description: 老花矯視專頁 (100% 官方真值對齊 + 雙端響應式 + W-06 轉換追蹤 + 完整 Schema)
+ */
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { i18nPaths, useI18n } from "@/i18n/utils";
+import SchemaProcedure from "@/components/seo/SchemaProcedure.astro";
+import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
+import SchemaFAQ from "@/components/seo/SchemaFAQ.astro";
+import { i18nPaths, getLangFromUrl, getLocalizedHref } from "@/i18n/utils";
+import {
+  PRESBYOPIA_ZH_HK,
+  PRESBYOPIA_ZH_CN,
+} from "@/data/presbyopiaData";
+import "@/styles/presbyopia.scss";
+
 export function getStaticPaths() {
   return [...i18nPaths];
 }
-const { dict: _dict } = useI18n(Astro.url);
+
+const lang = getLangFromUrl(Astro.url);
+const isCn = lang === "zh-cn";
+const content = isCn ? PRESBYOPIA_ZH_CN : PRESBYOPIA_ZH_HK;
+const feeUrl = getLocalizedHref("/fee", lang);
+const appointFormUrl = getLocalizedHref("/ophthalmicInfo/AppointForm", lang);
+const currentUrl = isCn
+  ? "/cn/vision-correction-presbyopia"
+  : "/vision-correction-presbyopia";
 ---
 
-<BaseLayout tdkKey="presbyopia"></BaseLayout>
+<BaseLayout tdkKey="presbyopia">
+  <SchemaProcedure
+    name={content.banner.h1}
+    description={content.banner.p1}
+  />
+  <SchemaBreadcrumb
+    items={[
+      { name: content.breadcrumb.home, url: isCn ? "/cn/" : "/" },
+      {
+        name: content.breadcrumb.service,
+        url: currentUrl,
+      },
+      {
+        name: content.breadcrumb.current,
+        url: currentUrl,
+      },
+    ]}
+  />
+  <SchemaFAQ
+    faqs={content.faq.items.map((f) => ({
+      question: f.question,
+      answer: f.answer,
+    }))}
+  />
+
+  <div class="page-presbyopia font-hk text-desc relative overflow-x-hidden">
+    <!-- 1. 頂部主橫幅 Hero Banner -->
+    <section class="ClearVisionBanner">
+      <div class="new-container container">
+        <div class="ClearVisionBanner-Box">
+          <div class="ClearVisionBanner-Box-content">
+            <div class="ClearVisionBanner-Box-content-title">
+              <a href={content.banner.smallTagLink} class="cursor-pointer">
+                Presbyopia <br class="d-lg-none" />
+                Treatments
+              </a>
+              <h1>{content.banner.h1}</h1>
+              <p>
+                希瑪微笑矯視中心主要提供三種<br class="d-lg-none" />可矯正老花的矯視服務
+              </p>
+              <p>
+                <a href={content.banner.p2Link1Href}>{content.banner.p2Link1Text}</a>{content.banner.p2And}<a href={content.banner.p2Link2Href}>{content.banner.p2Link2Text}</a>
+              </p>
+              <p>
+                {content.banner.p3}
+              </p>
+            </div>
+            <div class="ClearVisionBanner-Box-content-img">
+              <img
+                draggable="false"
+                decoding="async"
+                src={content.banner.imgPc}
+                alt={content.banner.imgAlt}
+                loading="lazy"
+                width="100%"
+                height="100%"
+                srcset={`${content.banner.imgMb} 400w, ${content.banner.imgMb} 640w, ${content.banner.imgPc}`}
+                sizes="(max-width: 992px) 100vw, 1216px"
+              />
+              <p>
+                <span set:html={content.banner.badgeSpan1} />
+                &nbsp;
+                <span>{content.banner.badgeSpan2}</span>
+              </p>
+            </div>
+          </div>
+          <div class="ClearVisionBanner-Box-text">
+            {content.banner.tags.map((tag) => (
+              <span>{tag}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. 什麼是老花？ -->
+    <section class="WhatLaoHua">
+      <div class="new-container container WhatLaoHuaBox">
+        <h2>{content.whatIs.title}</h2>
+        <div class="WhatLaoHuaBox-text">
+          <p set:html={content.whatIs.p1Html} />
+          <br />
+          <p set:html={content.whatIs.p2Html} />
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. 老花矯視方案 -->
+    <div id="CorrectionProgram" class="CorrectionProgram">
+      <div class="CorrectionProgram-Box">
+        <div class="CorrectionProgram-Box-show hidden lg:block" id="presbyopiaBoxShow">
+          <img
+            draggable="false"
+            decoding="async"
+            src={content.schemes.showImgPc}
+            alt={content.schemes.title}
+            loading="lazy"
+            width="100%"
+            height="100%"
+            srcset={`${content.schemes.showImgMb} 400w, ${content.schemes.showImgMb} 640w, ${content.schemes.showImgPc}`}
+            sizes="(max-width: 992px) 100vw, 1216px"
+          />
+        </div>
+        <div class="CorrectionProgram-Box-hide">
+          <div class="CorrectionProgram-Box-hide-title">
+            {content.schemes.title}
+          </div>
+          <div class="CorrectionProgram-Box-hide-item-container">
+            {content.schemes.items.map((item) => (
+              !item.isSimple ? (
+                <div class="CorrectionProgram-Box-hide-item" id={item.id}>
+                  <div class="CorrectionProgram-Box-hide-item-top">
+                    <picture>
+                      {item.imgWp && (
+                        <source srcset={item.imgWp} type="image/webp" />
+                      )}
+                      <img
+                        draggable="false"
+                        src={item.imgJpg || item.imgWp}
+                        alt={item.imgAlt || ""}
+                      />
+                    </picture>
+                    <div class="CorrectionProgram-Box-hide-item-top-text">
+                      <span class="CorrectionProgram-Box-hide-item-sub">
+                        {item.suitTag}
+                      </span>
+                      {item.suitList?.map((s) => (
+                        <p>{s}</p>
+                      ))}
+                    </div>
+                  </div>
+                  <div class="CorrectionProgram-Box-hide-item-bottom">
+                    <h3 set:html={item.title} />
+                    <p
+                      id={item.targetId}
+                      class="CorrectionProgram-Box-hide-item-bottom-text"
+                      set:html={item.descHtml}
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div class="CorrectionProgram-Box-hide-item">
+                  <div class="CorrectionProgram-Box-hide-item-bottom2">
+                    <h3 set:html={item.title} />
+                  </div>
+                </div>
+              )
+            ))}
+          </div>
+        </div>
+      </div>
+      <!-- 預約諮詢合適矯視方案 按鈕 -->
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href={content.schemes.whatsappUrl}
+        class="publicBtn-booking"
+        data-cta="whatsapp-w06"
+      >
+        <span>{content.schemes.ctaBtnText}</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="30"
+          height="29"
+          viewBox="0 0 30 29"
+          fill="none"
+        >
+          <path
+            d="M3.19922 26.0597L25.8278 3.43115"
+            stroke="white"
+            stroke-width="5.4"
+            stroke-linecap="round"
+          />
+          <path
+            d="M6.49707 2.71118H26.5997V22.1512"
+            stroke="white"
+            stroke-width="4.86"
+            stroke-linecap="round"
+          />
+        </svg>
+      </a>
+    </div>
+
+    <!-- 4. 老花矯視技術好處對比 & EVO ICL 產品系列介紹 — V6 -->
+    <section class="visionBattle">
+      <img
+        draggable="false"
+        decoding="async"
+        src={content.battle.bgPc}
+        alt="背景圖"
+        loading="lazy"
+        width="100%"
+        height="100%"
+        srcset={`${content.battle.bgMb} 400w, ${content.battle.bgMb} 640w, ${content.battle.bgPc}`}
+        sizes="(max-width: 992px) 100vw, 1216px"
+        class="visionBattle-Bg"
+      />
+      <div id="visionBattle-Box-list" class="visionBattle-Box">
+        <h2>{content.battle.title}</h2>
+        <div class="visionBattle-Box-list">
+          <div class="visionBattle-Box-list-item">
+            <div class="visionBattle-Box-list-item-content">
+              <h3 set:html={content.battle.items[0].title} />
+              {content.battle.items[0].points.map((pt) => (
+                <p>
+                  <img
+                    draggable="false"
+                    src="https://statichk.cmermedical.com/smile/clear-visionV2/clearAppointment/success.svg"
+                    alt="對勾"
+                  />
+                  <span set:html={pt} />
+                </p>
+              ))}
+            </div>
+          </div>
+
+          <div class="visionBattle-Box-list-item-VS">
+            <img
+              draggable="false"
+              src="https://statichk.cmermedical.com/smile/vision-correction-iclV2/visionBattle/visionBattle-vs.svg"
+              alt="VS"
+            />
+          </div>
+
+          <div class="visionBattle-Box-list-item">
+            <div class="visionBattle-Box-list-item-content">
+              <h3 set:html={content.battle.items[1].title} />
+              {content.battle.items[1].points.map((pt) => (
+                <p>
+                  <img
+                    draggable="false"
+                    src="https://statichk.cmermedical.com/smile/clear-visionV2/clearAppointment/success.svg"
+                    alt="對勾"
+                  />
+                  <span set:html={pt} />
+                </p>
+              ))}
+            </div>
+          </div>
+
+          <div class="visionBattle-Box-list-item-VS">
+            <img
+              draggable="false"
+              src="https://statichk.cmermedical.com/smile/vision-correction-iclV2/visionBattle/visionBattle-vs.svg"
+              alt="VS"
+            />
+          </div>
+
+          <div class="visionBattle-Box-list-item">
+            <div class="visionBattle-Box-list-item-content">
+              <h3 set:html={content.battle.items[2].title} />
+              {content.battle.items[2].points.map((pt) => (
+                <p>
+                  <img
+                    draggable="false"
+                    src="https://statichk.cmermedical.com/smile/clear-visionV2/clearAppointment/success.svg"
+                    alt="對勾"
+                  />
+                  <span set:html={pt} />
+                </p>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <!-- EVO ICL 產品系列介紹 — V6 表格 -->
+        <div class="model-box mt-16 lg:mt-24">
+          <h2
+            class="publicTitle mb-6 lg:mb-10 text-center font-bold text-xl lg:text-3xl text-[#4570B6]"
+          >
+            {content.modelTable.title}
+          </h2>
+          <div
+            class="model-main w-full text-desc text-center font-light text-base lg:text-xl"
+          >
+            <table class="model-table w-full">
+              <thead>
+                <tr class="line-bottom">
+                  <th class="table-item">{content.modelTable.projectHeader}</th>
+                  <th class="project-name">{content.modelTable.modelHeader}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="line-bottom">
+                  <th class="table-item">{content.modelTable.rangeLabel}</th>
+                  <td set:html={content.modelTable.rangeContent} />
+                </tr>
+                <tr class="line-bottom">
+                  <th class="table-item">{content.modelTable.techLabel}</th>
+                  <td class="model-star text-[#F89B03] font-bold">
+                    {content.modelTable.techContent}
+                  </td>
+                </tr>
+                <tr class="line-bottom">
+                  <th class="table-item">{content.modelTable.materialLabel}</th>
+                  <td>{content.modelTable.materialContent}</td>
+                </tr>
+                <tr class="line-bottom">
+                  <th class="table-item">{content.modelTable.audienceLabel}</th>
+                  <td>{content.modelTable.audienceContent}</td>
+                </tr>
+                <tr class="line-bottom">
+                  <th class="table-item">{content.modelTable.nightLabel}</th>
+                  <td class="model-star text-[#F89B03] font-bold">
+                    {content.modelTable.nightContent}
+                  </td>
+                </tr>
+                <tr class="line-bottom">
+                  <th class="table-item">
+                    {content.modelTable.reversibilityLabel}
+                  </th>
+                  <td>
+                    <div class="flex items-center justify-center gap-1">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="27"
+                        height="28"
+                        viewBox="0 0 27 28"
+                        fill="none"
+                      >
+                        <path
+                          d="M.009 15.08c-.128-4.545 1.115-7.944 3.749-10.787S9.638.01 13.416 0c3.706-.009 6.907 1.369 9.545 4.111 2.632 2.736 3.933 6.05 3.961 9.89.026 3.486-1.12 6.562-3.318 9.18-2.24 2.664-5.074 4.314-8.457 4.718-4.638.554-8.577-1.028-11.751-4.595C1.433 21.099.01 17.83.009 15.08m11.206.075c-.089-.085-.167-.154-.24-.23-.828-.859-1.655-1.723-2.486-2.579-.339-.35-.559-.345-.892 0q-.9.931-1.8 1.869c-.302.316-.302.545 0 .861q2.468 2.582 4.937 5.16c.366.382.574.38.948-.007q.919-.95 1.838-1.904 3.768-3.908 7.534-7.818c.347-.36.347-.589.003-.947L19.35 7.787c-.409-.423-.603-.425-1.006-.007l-6.888 7.14c-.073.076-.151.147-.243.235z"
+                          fill="#f89b03"
+                        />
+                        <path
+                          d="M11.215 15.155c.091-.089.17-.16.243-.235l6.888-7.14c.402-.42.597-.418 1.006.007q.854.885 1.706 1.772c.343.359.343.587-.004.947q-3.766 3.91-7.533 7.818-.917.953-1.838 1.905c-.374.387-.583.389-.949.006l-4.936-5.159c-.302-.317-.302-.545 0-.862q.898-.936 1.8-1.868c.333-.346.553-.35.891 0 .832.857 1.658 1.72 2.487 2.58.073.075.152.143.24.229z"
+                          fill="#fff"
+                        />
+                      </svg>
+                      <span>{content.modelTable.reversibilityContent}</span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. LBV/CLEAR-Vision/ICL Viva V6 大不同 -->
+    <section class="smilepro-difference">
+      <div class="smilepro-difference-title">
+        <div set:html={content.comparison.title} />
+      </div>
+      <table class="table custom-comparison-table">
+        <thead>
+          <tr>
+            <th></th>
+            {content.comparison.columns.map((col) => (
+              <th class={col.bgClass} set:html={col.title} />
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {content.comparison.rows.map((row) => (
+            <tr>
+              <td set:html={row.label} />
+              {row.isBadgeRow ? (
+                <>
+                  <td>
+                    {row.col1Badge?.text ? (
+                      <span class="flex items-center justify-center gap-2">
+                        <img
+                          draggable="false"
+                          src={
+                            row.col1Badge.success
+                              ? "https://statichk.cmermedical.com/smile/feeV2/success.svg"
+                              : "https://statichk.cmermedical.com/smile/feeV2/error.svg"
+                          }
+                          alt="標記"
+                        />
+                        {row.col1Badge.text}
+                      </span>
+                    ) : (
+                      <img
+                        draggable="false"
+                        src={
+                          row.col1Badge?.success
+                            ? "https://statichk.cmermedical.com/smile/feeV2/success.svg"
+                            : "https://statichk.cmermedical.com/smile/feeV2/error.svg"
+                        }
+                        alt="不包括"
+                        class="mx-auto"
+                      />
+                    )}
+                  </td>
+                  <td>
+                    {row.col2Badge?.text ? (
+                      <span class="flex items-center justify-center gap-2">
+                        <img
+                          draggable="false"
+                          src={
+                            row.col2Badge.success
+                              ? "https://statichk.cmermedical.com/smile/feeV2/success.svg"
+                              : "https://statichk.cmermedical.com/smile/feeV2/error.svg"
+                          }
+                          alt="標記"
+                        />
+                        {row.col2Badge.text}
+                      </span>
+                    ) : (
+                      <img
+                        draggable="false"
+                        src={
+                          row.col2Badge?.success
+                            ? "https://statichk.cmermedical.com/smile/feeV2/success.svg"
+                            : "https://statichk.cmermedical.com/smile/feeV2/error.svg"
+                        }
+                        alt="不包括"
+                        class="mx-auto"
+                      />
+                    )}
+                  </td>
+                  <td>
+                    {row.col3Badge?.text ? (
+                      <div class="flex items-center justify-center gap-2">
+                        <img
+                          draggable="false"
+                          src={
+                            row.col3Badge.success
+                              ? "https://statichk.cmermedical.com/smile/feeV2/success.svg"
+                              : "https://statichk.cmermedical.com/smile/feeV2/error.svg"
+                          }
+                          alt="標記"
+                        />
+                        {row.col3Badge.text}
+                      </div>
+                    ) : (
+                      <img
+                        draggable="false"
+                        src={
+                          row.col3Badge?.success
+                            ? "https://statichk.cmermedical.com/smile/feeV2/success.svg"
+                            : "https://statichk.cmermedical.com/smile/feeV2/error.svg"
+                        }
+                        alt="不包括"
+                        class="mx-auto"
+                      />
+                    )}
+                  </td>
+                </>
+              ) : (
+                <>
+                  <td set:html={row.col1Html} />
+                  <td set:html={row.col2Html} />
+                  <td set:html={row.col3Html} />
+                </>
+              )}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 6. 第一視角預覽 -->
+    <div class="main_banner">
+      <div class="banner lbv-banner">
+        <div class="lbv-banner-container">
+          <h2 class="text-xl lg:text-3xl font-black lg:font-bold text-[#4570B6]">
+            {content.preview.title}
+          </h2>
+          <h3
+            id="lbvSceneTitle"
+            class="lbv-banner-title text-[#4570B6] text-xl lg:text-3xl font-black md:mb-10 lg:mb-[68px]"
+          >
+            {content.preview.slides[0].title}
+          </h3>
+          <div class="swiper gallery-top lbv-swiper relative">
+            <div class="swiper-wrapper" id="lbvSwiperWrapper">
+              {content.preview.slides.map((s, idx) => (
+                <div
+                  class={`swiper-slide lbv-slide ${idx === 0 ? "active" : ""}`}
+                  style={{ display: idx === 0 ? "block" : "none" }}
+                  data-scene={s.title}
+                >
+                  <div class="lbv-slide-content">
+                    <div class="lbv-slide-image">
+                      <img
+                        draggable="false"
+                        src={s.img}
+                        alt={s.alt}
+                        class="lbv-background-image"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <svg
+              id="lbvPrevBtn"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 62 62"
+              fill="none"
+              class="swiper-button-prev lbv-swiper-button-prev cursor-pointer"
+            >
+              <path
+                d="M62 31C62 48.1792 48.1792 62 31 62C13.8208 62 -7.02527e-06 48.1792 -6.27434e-06 31C-5.52342e-06 13.8208 13.8208 1.70872e-06 31 2.45964e-06C48.1792 3.21057e-06 62 13.8208 62 31ZM34.9783 12.5292L18.3158 29.1917C17.7992 29.7083 17.5408 30.3542 17.67 31C17.67 31.6458 17.9283 32.2917 18.3158 32.8083L34.9783 49.4708C36.0117 50.375 37.5617 50.375 38.4658 49.4708L38.7242 49.2125C39.6283 48.3083 39.6283 46.7583 38.7242 45.8542L23.87 31L38.7242 16.1458C39.6283 15.2417 39.6283 13.6917 38.7242 12.7875L38.4658 12.5292C37.5617 11.625 36.0117 11.625 34.9783 12.5292Z"
+                fill="#4570B6"
+              />
+            </svg>
+            <svg
+              id="lbvNextBtn"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 62 62"
+              fill="none"
+              class="swiper-button-next lbv-swiper-button-next cursor-pointer"
+            >
+              <path
+                d="M-1.35505e-06 31C-6.04128e-07 48.1792 13.8208 62 31 62C48.1792 62 62 48.1792 62 31C62 13.8208 48.1792 1.70872e-06 31 2.45964e-06C13.8208 3.21057e-06 -2.10598e-06 13.8208 -1.35505e-06 31ZM27.0217 12.5292L43.6842 29.1917C44.2008 29.7083 44.4592 30.3542 44.33 31C44.33 31.6458 44.0717 32.2917 43.6842 32.8083L27.0217 49.4708C25.9883 50.375 24.4383 50.375 23.5342 49.4708L23.2758 49.2125C22.3717 48.3083 22.3717 46.7583 23.2758 45.8542L38.13 31L23.2758 16.1458C22.3717 15.2417 22.3717 13.6917 23.2758 12.7875L23.5342 12.5292C24.4383 11.625 25.9883 11.625 27.0217 12.5292Z"
+                fill="#4570B6"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. 預約講座與諮詢 -->
+    <section class="clearAppointment">
+      <div class="clearAppointment-Box">
+        <a href={appointFormUrl} class="clearAppointment-Box-item">
+          <img
+            draggable="false"
+            src={content.appointment.lectureIcon}
+            alt=""
+          />
+          <p>{content.appointment.lectureText}</p>
+          <div class="clearAppointment-Box-item-icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="49"
+              height="42"
+              viewBox="0 0 49 42"
+              fill="none"
+            >
+              <path
+                d="M3.57595 20.4719L40.719 20.472"
+                stroke="white"
+                stroke-width="6.26756"
+                stroke-linecap="round"
+              />
+              <path
+                d="M27.7695 37.561L44.268 21.0626L28.3134 5.10799"
+                stroke="white"
+                stroke-width="5.64081"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+        </a>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href={content.appointment.consultHref}
+          class="clearAppointment-Box-item"
+          data-cta="whatsapp-w06"
+        >
+          <img
+            draggable="false"
+            src={content.appointment.consultIcon}
+            alt=""
+          />
+          <p>{content.appointment.consultText}</p>
+          <div class="clearAppointment-Box-item-icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="49"
+              height="42"
+              viewBox="0 0 49 42"
+              fill="none"
+            >
+              <path
+                d="M3.57595 20.4719L40.719 20.472"
+                stroke="white"
+                stroke-width="6.26756"
+                stroke-linecap="round"
+              />
+              <path
+                d="M27.7695 37.561L44.268 21.0626L28.3134 5.10799"
+                stroke="white"
+                stroke-width="5.64081"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 8. 合適對象 -->
+    <section class="SuitableObject">
+      <img
+        draggable="false"
+        decoding="async"
+        src={content.suitable.bgRightPc}
+        alt=""
+        loading="lazy"
+        width="100%"
+        height="100%"
+        srcset={`${content.suitable.bgRightMb} 400w, ${content.suitable.bgRightMb} 640w, ${content.suitable.bgRightPc}`}
+        sizes="(max-width: 992px) 100vw, 1216px"
+        class="SuitableObject-bg-right"
+      />
+      <img
+        draggable="false"
+        src={content.suitable.bgLeft1}
+        alt=""
+        class="SuitableObject-bgLeft1"
+      />
+      <img
+        draggable="false"
+        src={content.suitable.bgLeft2}
+        alt=""
+        class="SuitableObject-bgLeft2"
+      />
+      <div class="SuitableObject-Box container">
+        <div class="SuitableObject-Box-title">
+          <h2>{content.suitable.title}</h2>
+          <p set:html={content.suitable.subtitleHtml} />
+        </div>
+        <div class="SuitableObject-Box-List">
+          {content.suitable.items.map((it) => (
+            <div class="SuitableObject-Box-List-item">
+              <img draggable="false" src={it.icon} alt="" />
+              <p set:html={it.html} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- 了解老花矯視價格 按鈕 -->
+    <a href={feeUrl} class="publicBtn-booking">
+      <span>{content.suitable.feeBtnText}</span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="30"
+        height="29"
+        viewBox="0 0 30 29"
+        fill="none"
+      >
+        <path
+          d="M3.19922 26.0597L25.8278 3.43115"
+          stroke="white"
+          stroke-width="5.4"
+          stroke-linecap="round"
+        />
+        <path
+          d="M6.49707 2.71118H26.5997V22.1512"
+          stroke="white"
+          stroke-width="4.86"
+          stroke-linecap="round"
+        />
+      </svg>
+    </a>
+
+    <!-- 9. 常見問題 FAQ -->
+    <section class="question-mencare">
+      <div class="container">
+        <h2 class="publicTitle-mencare">{content.faq.title}</h2>
+        <div class="question-section-Box">
+          <div id="accordion">
+            {content.faq.items.map((faq, idx) => (
+              <div
+                class={`card collapseActive ${idx === 0 ? "expanded" : ""}`}
+                data-faq-card
+              >
+                <div class="card-header d-flex flex-column-reverse">
+                  <div
+                    id={faq.id}
+                    class={`collapse ${idx === 0 ? "show" : ""}`}
+                    data-faq-body
+                  >
+                    <div class="card-body">
+                      <span class="text-justify">{faq.answer}</span>
+                    </div>
+                  </div>
+                  <a
+                    href={`#${faq.id}`}
+                    aria-expanded={idx === 0 ? "true" : "false"}
+                    class="d-flex header-title position-relative cursor-pointer"
+                    data-faq-toggle
+                  >
+                    <span>{faq.question}</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="28"
+                      height="14"
+                      viewBox="0 0 28 14"
+                      fill="none"
+                    >
+                      <path
+                        d="M26.7441 1L13.879 12.0273"
+                        stroke="white"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      />
+                      <path
+                        d="M1 1L13.8652 12.0273"
+                        stroke="white"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. 分享組件 -->
+    <section class="CaseSharingV2">
+      <div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="21"
+          height="19"
+          viewBox="0 0 21 19"
+          fill="none"
+        >
+          <path
+            d="M1 0.77832L19.4751 17.9337"
+            stroke="#4570B6"
+            stroke-width="1.97947"
+          />
+        </svg>
+        <span>{content.share.title}</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="21"
+          height="19"
+          viewBox="0 0 21 19"
+          fill="none"
+        >
+          <path
+            d="M20 0.77832L1.52493 17.9337"
+            stroke="#4570B6"
+            stroke-width="1.97947"
+          />
+        </svg>
+      </div>
+      <div>
+        <a
+          id="shareCurrentPagePresbyopia"
+          class="cursor-pointer"
+          aria-label="分享本頁"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="21"
+            height="22"
+            viewBox="0 0 21 22"
+            fill="none"
+          >
+            <path
+              d="M0.28309 11.3923C0.282266 9.41405 1.74115 7.78777 3.63606 7.6221C4.78751 7.52154 5.78565 7.88504 6.60988 8.69859C6.74258 8.82964 6.83243 8.84118 6.99233 8.74475C8.88558 7.59654 10.7838 6.45411 12.6836 5.31745C12.832 5.22843 12.8518 5.15177 12.799 4.99022C12.0968 2.83806 13.5441 0.523527 15.7852 0.202064C17.9084 -0.10209 19.8083 1.36263 20.0539 3.49335C20.2781 5.44027 18.853 7.28415 16.9053 7.55945C15.6327 7.73914 14.553 7.34679 13.6604 6.43186C13.5647 6.33377 13.4996 6.32058 13.3826 6.39147C11.463 7.55039 9.54167 8.70601 7.61957 9.85915C7.50665 9.92674 7.47203 9.99351 7.51819 10.1237C7.75227 10.7864 7.79595 11.4632 7.61627 12.1457C7.57423 12.3064 7.63028 12.3814 7.7671 12.4515C9.44029 13.3046 11.1118 14.1618 12.7842 15.019C12.9185 15.0875 13.0554 15.1534 13.1831 15.2317C13.3101 15.3092 13.3966 15.2977 13.4963 15.1765C14.0972 14.4487 14.8662 14.0134 15.7992 13.8626C17.2161 13.6335 18.7129 14.311 19.4811 15.5359C20.888 17.7779 19.6467 20.6776 17.0545 21.2035C15.0006 21.6206 12.9688 20.1831 12.6663 18.1018C12.5996 17.6419 12.5971 17.1844 12.7347 16.7376C12.7982 16.5324 12.7413 16.4401 12.5518 16.3436C10.7607 15.4345 8.9746 14.5154 7.18932 13.5939C7.05991 13.5271 6.98491 13.5436 6.89424 13.6541C6.06342 14.663 4.98945 15.1147 3.68799 15.0454C2.07332 14.9589 0.560032 13.565 0.328423 11.9495C0.298751 11.7451 0.275672 11.5415 0.283915 11.3915L0.28309 11.3923Z"
+              fill="#4570B6"
+            />
+          </svg>
+        </a>
+        <a
+          id="copyCurrentUrlPresbyopia"
+          class="cursor-pointer"
+          aria-label="複製本頁鏈接"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="22"
+            viewBox="0 0 22 22"
+            fill="none"
+          >
+            <g clip-path="url(#clip0_presbyopia_share)">
+              <path
+                d="M9.10331 5.96582C10.8881 5.96788 12.1819 6.48567 13.3123 7.46166C13.4906 7.61577 13.6719 7.76576 13.8462 7.92295C14.1998 8.2404 14.2685 8.71402 13.9826 9.09722C13.644 9.55132 13.2864 9.99206 12.9169 10.4205C12.6102 10.7759 12.1381 10.7985 11.7725 10.5016C11.5445 10.3167 11.3283 10.1153 11.1003 9.92939C10.0614 9.08489 8.5107 9.12599 7.55356 10.0701C6.53466 11.0759 5.5337 12.1043 4.56062 13.1574C3.81463 13.9649 3.6493 14.9511 3.98793 15.998C4.32657 17.0449 5.06658 17.6788 6.11037 17.8699C6.97788 18.0281 7.77666 17.8031 8.43998 17.1744C8.65412 16.972 8.85232 16.7521 9.06148 16.5446C9.44493 16.1655 9.89611 16.1501 10.2826 16.5251C10.663 16.8949 11.0325 17.2771 11.3921 17.6685C11.7078 18.0127 11.7218 18.4883 11.423 18.8356C10.3951 20.0335 9.17403 20.8883 7.61033 21.1821C4.42019 21.781 1.21312 19.4828 0.680264 16.184C0.335653 14.0481 0.911332 12.204 2.37244 10.6598C3.2997 9.67974 4.24091 8.71299 5.19008 7.75549C6.35838 6.57607 7.76769 5.98123 9.10231 5.96685L9.10331 5.96582Z"
+                fill="#4570B6"
+              />
+              <path
+                d="M12.3093 15.4664C10.7307 15.4592 9.43492 14.9445 8.30647 13.9664C8.13516 13.8175 7.96186 13.6716 7.79055 13.5216C7.42104 13.1969 7.34734 12.7213 7.63916 12.3309C7.97879 11.8768 8.33635 11.4371 8.70487 11.0087C9.00964 10.6542 9.48373 10.6337 9.84925 10.9306C10.0644 11.1052 10.2666 11.2963 10.4837 11.4679C11.651 12.3915 13.1539 12.3021 14.1977 11.2388C15.131 10.2885 16.0602 9.33406 16.9785 8.36834C17.7345 7.57316 17.9635 6.61155 17.6667 5.55131C17.364 4.47258 16.6429 3.79863 15.5782 3.57672C14.6818 3.38974 13.8641 3.61165 13.1768 4.25889C12.9627 4.46025 12.7655 4.68216 12.5553 4.88866C12.1729 5.26467 11.7177 5.27906 11.3333 4.9051C10.9528 4.53525 10.5833 4.15307 10.2247 3.76061C9.91698 3.42467 9.89407 2.95105 10.1819 2.61408C11.147 1.48398 12.2824 0.636403 13.7426 0.306619C17.2036 -0.474177 20.5641 1.973 20.9874 5.60473C21.2095 7.51152 20.6826 9.19331 19.4117 10.5844C18.348 11.7484 17.2644 12.898 16.109 13.9664C15.0085 14.9846 13.6858 15.451 12.3083 15.4654L12.3093 15.4664Z"
+                fill="#4570B6"
+              />
+            </g>
+            <defs>
+              <clipPath id="clip0_presbyopia_share">
+                <rect
+                  width="20.4545"
+                  height="21.1144"
+                  fill="white"
+                  transform="translate(0.583496 0.162109)"
+                />
+              </clipPath>
+            </defs>
+          </svg>
+        </a>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style lang="scss">
+  .page-presbyopia {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    font-family: var(--font-hk), sans-serif;
+  }
+
+  // 確保 set:html 注入的 span 高亮正確呈現
+  .WhatLaoHuaBox-text :global(span) {
+    color: #4570b6;
+    font-weight: 700;
+  }
+
+  .CorrectionProgram-Box-hide-item-bottom-text :global(span) {
+    color: #4570b6;
+    font-weight: 700;
+  }
+
+  .SuitableObject-Box-List-item p :global(span) {
+    color: #4570b6;
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .custom-comparison-table :global(span) {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  img {
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+</style>
+
+<script is:inline>
+  function initPresbyopiaPage() {
+    // 1. FAQ 手風琴摺疊切換
+    const faqCards = document.querySelectorAll("[data-faq-card]");
+    faqCards.forEach((card) => {
+      const toggle = card.querySelector("[data-faq-toggle]");
+      const body = card.querySelector("[data-faq-body]");
+      if (toggle && body) {
+        toggle.addEventListener("click", (e) => {
+          e.preventDefault();
+          const isExpanded = card.classList.contains("expanded");
+          if (isExpanded) {
+            card.classList.remove("expanded");
+            body.classList.remove("show");
+            toggle.setAttribute("aria-expanded", "false");
+          } else {
+            faqCards.forEach((otherCard) => {
+              otherCard.classList.remove("expanded");
+              const otherBody = otherCard.querySelector("[data-faq-body]");
+              const otherToggle = otherCard.querySelector("[data-faq-toggle]");
+              if (otherBody) otherBody.classList.remove("show");
+              if (otherToggle) otherToggle.setAttribute("aria-expanded", "false");
+            });
+            card.classList.add("expanded");
+            body.classList.add("show");
+            toggle.setAttribute("aria-expanded", "true");
+          }
+        });
+      }
+    });
+
+    // 2. 第一視角預覽 Swiper 切換
+    const prevBtn = document.getElementById("lbvPrevBtn");
+    const nextBtn = document.getElementById("lbvNextBtn");
+    const sceneTitle = document.getElementById("lbvSceneTitle");
+    const slides = document.querySelectorAll(".lbv-slide");
+    let currentSlideIdx = 0;
+
+    function showSlide(idx) {
+      if (idx < 0) idx = slides.length - 1;
+      if (idx >= slides.length) idx = 0;
+      currentSlideIdx = idx;
+      slides.forEach((slide, i) => {
+        const isActive = i === currentSlideIdx;
+        slide.style.display = isActive ? "block" : "none";
+        slide.classList.toggle("active", isActive);
+        if (isActive && sceneTitle) {
+          const scene = slide.getAttribute("data-scene");
+          if (scene) sceneTitle.textContent = scene;
+        }
+      });
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener("click", () => showSlide(currentSlideIdx - 1));
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener("click", () => showSlide(currentSlideIdx + 1));
+    }
+
+    // 3. 平滑錨點滾動 (支援 #CorrectionProgram 等)
+    function handleAnchorScroll() {
+      const hash = window.location.hash;
+      if (hash) {
+        const target = document.querySelector(hash);
+        if (target) {
+          setTimeout(() => {
+            target.scrollIntoView({ behavior: "smooth" });
+          }, 150);
+        }
+      }
+    }
+    handleAnchorScroll();
+
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", (e) => {
+        const hash = anchor.getAttribute("href");
+        if (hash && hash !== "#") {
+          const target = document.querySelector(hash);
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: "smooth" });
+            history.pushState(null, "", hash);
+          }
+        }
+      });
+    });
+
+    // 4. 社交分享及複製鏈接
+    const copyBtn = document.getElementById("copyCurrentUrlPresbyopia");
+    if (copyBtn) {
+      copyBtn.addEventListener("click", async () => {
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(window.location.href);
+          } else {
+            const textArea = document.createElement("textarea");
+            textArea.value = window.location.href;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textArea);
+          }
+          alert("鏈接已複製到剪貼簿！");
+        } catch (e) {
+          console.error("複製失敗:", e);
+        }
+      });
+    }
+
+    const shareBtn = document.getElementById("shareCurrentPagePresbyopia");
+    if (shareBtn) {
+      shareBtn.addEventListener("click", () => {
+        if (navigator.share) {
+          navigator.share({
+            title: document.title,
+            url: window.location.href,
+          }).catch(() => {});
+        } else {
+          const url = encodeURIComponent(window.location.href);
+          window.open(`https://api.whatsapp.com/send?text=${url}`, "_blank");
+        }
+      });
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initPresbyopiaPage);
+  } else {
+    initPresbyopiaPage();
+  }
+  document.addEventListener("astro:page-load", initPresbyopiaPage);
+</script>

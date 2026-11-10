@@ -31,9 +31,9 @@ export const tdk = {
     keywords: "ICL, icl植入式隱形眼鏡, 植入式隱形眼鏡, evo icl, visian icl, icl 老花,ICL植入式隱形眼鏡, 矯視價錢 香港, 矯視 收費, 香港矯視, 視力矯正, 眼鏡, 隱形眼鏡, 眼科手術, 眼睛健康, 近視, 遠視, 散光, 投考紀律部隊, 微笑激光矯視, 乾眼, ICL 價錢, ICL 收費",
   },
   presbyopia: {
-    title: "老花眼矫正方案 | PRESBYOND LBV / CLEAR-Vision / ICL Viva - 香港希玛微笑矫视中心",
-    description: "希玛微笑矫视中心提供三大多元老花矫视方案：PRESBYOND 双眼融像激光 (LBV)、CMER CLEAR-Vision 及 ICL Viva V6，一次性解决老花、近视、远视及散光困扰，重获年轻视力。",
-    keywords: "老花眼手术, PRESBYOND LBV, CLEAR-Vision, ICL Viva, 老花激光, 老花散光近视, 希玛老花",
+    title: "老花矫视 - 希玛微笑矫视中心",
+    description: "希瑪微笑矯視中心針對客人眼睛實際狀況、職業、生活需要等因素，為受老花困擾人士度身訂造矯視方案，讓客人回復高清視力，改善老花問題。",
+    keywords: "老花矯視, 老花手術, 激光矯視老花, 老花激光矯視, 老花 激光,老花矯視, 老花矯視 價錢,老花矯視 收費, 老花矯視 推薦, 老花激光矯視 香港, 老花矯視 香港, 老花矯視 原理, 老花, 老花治療, 眼睛老化, 眼睛疲勞, 白內障, 人工晶體, 激光矯視",
   },
   lasik: {
     title: "LASIK 准分子激光手术 | 经典成熟矫视技术・精准矫正近视散光 - 香港希玛微笑矫视中心",
