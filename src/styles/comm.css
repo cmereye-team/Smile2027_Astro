@@ -293,3 +293,13 @@ html[lang="zh-cn"] {
   }
 }
 
+/* 全站靜態圖片防拖拽與選取 (避免拖拽出幽靈圖或影響滑動體驗) */
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-select: none;
+}
+
+

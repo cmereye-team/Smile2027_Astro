@@ -34,7 +34,7 @@ function getColor(type: string) {
         <div class="UserShareBox-title">
           <h2 id={sectionId} class="title-share">{title}</h2>
           <div class="UserShareBox-title-text">
-            <img
+            <img draggable="false"
               class="d-block"
               decoding="async"
               src="https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShare-newtitle-pc.png"
@@ -66,7 +66,7 @@ function getColor(type: string) {
                   data-cta="user_share"
                   title={`觀看 ${item.nameCn || item.nameEn} 的 ${item.type} 矯視真實用家心得分享影片`}
                 >
-                  <img
+                  <img draggable="false"
                     src={item.img}
                     alt={`${item.nameCn || item.nameEn} - 香港希瑪 ${item.type} 矯視用家分享`}
                     title={`${item.nameCn || item.nameEn} ${item.type} 微笑矯視親身感受`}

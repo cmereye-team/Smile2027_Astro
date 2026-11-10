@@ -26,9 +26,9 @@ export const tdk = {
     keywords: "SMILE 手术, 全飞秒近视手术, 微创近视手术, ReLEx SMILE, 近视散光手术, 香港希玛",
   },
   icl: {
-    title: "ICL 植入式隐形眼镜 | 高度近视及散光首选・不切削角膜 - 香港希玛微笑矫视中心",
-    description: "希玛微笑矫视中心为官方认证 EVO ICL 国际培训中心，提供专业 ICL 晶体植入近视手术。突破角膜厚度限制，可矫正高达 1800 度近视及 600 度散光。无需切削角膜、保留眼部完整结构，晶体具备可逆性与防紫外线功能。立即预约中环或旺角门市专科术前评估！",
-    keywords: "ICL, ICL 晶体植入, EVO ICL, 高度近视手术, 不切削角膜, 散光 ICL, 希玛 ICL",
+    title: "ICL植入式隐形眼镜 - 希玛微笑矫视中心",
+    description: "希瑪微笑矯視中心提供植入式隱形眼鏡 ICL 矯視服務，以創新技術和具生物兼容特質的人工晶體矯正視力，專為深度近視、遠視、散光客人而設。",
+    keywords: "ICL, icl植入式隱形眼鏡, 植入式隱形眼鏡, evo icl, visian icl, icl 老花,ICL植入式隱形眼鏡, 矯視價錢 香港, 矯視 收費, 香港矯視, 視力矯正, 眼鏡, 隱形眼鏡, 眼科手術, 眼睛健康, 近視, 遠視, 散光, 投考紀律部隊, 微笑激光矯視, 乾眼, ICL 價錢, ICL 收費",
   },
   presbyopia: {
     title: "老花眼矫正方案 | PRESBYOND LBV / CLEAR-Vision / ICL Viva - 香港希玛微笑矫视中心",

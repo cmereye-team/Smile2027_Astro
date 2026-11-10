@@ -43,7 +43,7 @@ const slides = [
       <div class="swiper-wrapper">
         {slides.map((slide) => (
           <div class="swiper-slide gp-env-main-slide">
-            <img
+            <img draggable="false"
               src={slide.src}
               alt={slide.alt}
               loading="lazy"
@@ -60,7 +60,7 @@ const slides = [
       <div class="swiper-wrapper">
         {slides.map((slide) => (
           <div class="swiper-slide gp-env-thumb-slide">
-            <img
+            <img draggable="false"
               src={slide.src}
               alt={slide.alt}
               loading="lazy"

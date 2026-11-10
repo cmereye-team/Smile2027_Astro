@@ -33,7 +33,7 @@ const banners: BannerItem[] = await getBanners(lang);
                 >
                   <picture class="banner-picture">
                     <source media="(min-width: 768px)" srcset={banner.pcImg} width="1280" height="480" />
-                    <img
+                    <img draggable="false"
                       src={banner.mbImg}
                       alt={banner.title}
                       title={banner.title}
@@ -49,7 +49,7 @@ const banners: BannerItem[] = await getBanners(lang);
               ) : (
                 <picture class="banner-picture">
                   <source media="(min-width: 768px)" srcset={banner.pcImg} width="1280" height="480" />
-                  <img
+                  <img draggable="false"
                     src={banner.mbImg}
                     alt={banner.title}
                     title={banner.title}

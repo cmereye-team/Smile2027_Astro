@@ -70,7 +70,7 @@ const doctorsList = (dict.about.doctor.list || []).map((doc: any, index: number)
       <div class="container mx-auto px-4">
         <div class="doctor-team-content">
           <div class="founder-img-col">
-            <img
+            <img draggable="false"
               src="https://statichk.cmermedical.com/smile/our-medical-team/1395086f2ba74e80.webp"
               alt={isCn ? "香港希玛国际眼科医疗集团创办人 - 林顺潮医生" : "香港希瑪國際眼科醫療集團創辦人 - 林順潮醫生"}
               title={isCn ? "香港希玛国际眼科医疗集团创办人 - 林顺潮医生" : "香港希瑪國際眼科醫療集團創辦人 - 林順潮醫生"}
@@ -159,7 +159,7 @@ const doctorsList = (dict.about.doctor.list || []).map((doc: any, index: number)
           {doctorsList.map((doctor: any, idx: number) => (
             <article class="doctor-item" data-index={idx}>
               <div class="doc-img-box">
-                <img
+                <img draggable="false"
                   src={doctor.img}
                   alt={`${isCn ? "香港希玛眼科专科医生" : "香港希瑪眼科專科醫生"} - ${doctor.name}`}
                   title={`${doctor.name} ${isCn ? "医生" : "醫生"}`}

@@ -9,10 +9,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import SchemaProcedure from "@/components/seo/SchemaProcedure.astro";
 import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
 import UserShare from "@/components/views/UserShare.astro";
-import SwiperRound from "@/components/views/SwiperRound.astro";
-import SwiperCard from "@/components/views/SwiperCard.astro";
 import { i18nPaths, getLangFromUrl, getLocalizedHref } from "@/i18n/utils";
-import { getBanners } from "@/data/bannerData";
 import {
   VISION_CORRECTION_ICL_ZH_HK,
   VISION_CORRECTION_ICL_ZH_CN,
@@ -27,7 +24,6 @@ export function getStaticPaths() {
 const lang = getLangFromUrl(Astro.url);
 const isCn = lang === "zh-cn";
 const content = isCn ? VISION_CORRECTION_ICL_ZH_CN : VISION_CORRECTION_ICL_ZH_HK;
-const banners = await getBanners(lang);
 const feeUrl = getLocalizedHref("/fee#table1", lang);
 ---
 
@@ -58,7 +54,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
   <div class="page-icl font-hk text-desc relative overflow-x-hidden">
     {/* 1. 頂部主橫幅 Hero Banner */}
     <div class="container new-container mx-auto smile-NewBanner position-relative">
-      <img
+      <img draggable="false"
         class="banner-lens-img"
         decoding="async"
         src={content.banner.imgPc}
@@ -119,7 +115,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
       </h2>
       <div class="icl-WhatChoose-content-one container new-container">
         <div class="icl-WhatChoose-content-one-img">
-          <img
+          <img draggable="false"
             decoding="async"
             src={content.whyChoose.imgPc}
             alt="為何選擇希瑪 - 官方認證EVO ICL國際培訓中心"
@@ -322,7 +318,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
         {content.good.items.map((item) => (
           <div class="icl-Good-List-item">
             <div class="lg:size-20 flex justify-center items-center">
-              <img src={item.icon} alt={item.title} loading="lazy" width="60" height="60" />
+              <img draggable="false" src={item.icon} alt={item.title} loading="lazy" width="60" height="60" />
             </div>
             <h3>{item.title}</h3>
             <div>
@@ -350,7 +346,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
                 <p class="icl-peculiarity-list-item-text-title">{item.title}</p>
                 <div class="icl-peculiarity-list-item-text-show">
                   <div class="icl-peculiarity-list-item-text-show-box">
-                    <img src={item.boxImg} alt={item.title} loading="lazy" width="80" height="80" />
+                    <img draggable="false" src={item.boxImg} alt={item.title} loading="lazy" width="80" height="80" />
                     <div class="icl-peculiarity-list-item-box-title">
                       {item.boxTitleText.map((t) => <p>{t}</p>)}
                     </div>
@@ -418,7 +414,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
                 </svg>
               </div>
               <div class="content-area-img">
-                <img
+                <img draggable="false"
                   id="iclStepImgMb"
                   class="d-xl-none"
                   src={content.steps.list[0].image}
@@ -427,7 +423,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
                   width="300"
                   height="200"
                 />
-                <img
+                <img draggable="false"
                   id="iclStepImgPc"
                   class="d-none d-xl-block"
                   src={content.steps.list[0].imagePc}
@@ -475,7 +471,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
           <div class="SuitableObject-description">
             {item.desc.map((d) => <p>{d}</p>)}
           </div>
-          <img class="SuitableObject-image" src={item.image} alt={item.desc.join('')} loading="lazy" width="220" height="220" />
+          <img draggable="false" class="SuitableObject-image" src={item.image} alt={item.desc.join('')} loading="lazy" width="220" height="220" />
         </div>
       ))}
       <div class="SuitableObject-speical">
@@ -619,27 +615,6 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
         </button>
       </div>
     </section>
-
-    {/* 寬屏兩側背景裝飾與用家分享軌道 (>=1440px) */}
-    <aside class="smile" aria-label="用家分享與最新情報">
-      <div class="smile-bg">
-        <div class="smile-left">
-          <SwiperRound
-            shareList={ICL_SHARE_DATA}
-            title={isCn ? "用家分享" : "用家分享"}
-          />
-        </div>
-        <div class="smile-right">
-          <div class="smile-right-title">
-            <span class="smile-right-heading">{content.news.title}</span>
-            <p class="font-en">{content.news.subtitle}</p>
-          </div>
-          <div class="smile-right-swiper">
-            <SwiperCard banners={banners} />
-          </div>
-        </div>
-      </div>
-    </aside>
   </div>
 </BaseLayout>
 

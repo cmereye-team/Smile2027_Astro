@@ -47,7 +47,7 @@ const isMbRemote = typeof mbSrc === "string";
     {/* 默認移動端圖片 (Astro Image 自動轉為 WebP/AVIF 現代化格式) */}
     {
       isMbRemote ? (
-        <img
+        <img draggable="false"
           src={mbSrc as string}
           alt={alt}
           title={title}

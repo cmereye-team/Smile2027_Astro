@@ -1,3 +1,19 @@
+@media screen and (min-width: 1139px) {
+  .new-container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1140px !important;
+  }
+}
+
+@media screen and (min-width: 1310px) {
+  .new-container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1320px !important;
+  }
+}
+
 @media screen and (max-width: 1140px) {
   .smile-NewBanner {
     padding: 0 15px;
@@ -121,7 +137,7 @@
       .smile-newCenter-content-text {
         position: relative;
         z-index: 2;
-        h3 {
+        :is(h1, h2, h3) {
           color: #4570b6;
           font-family: "Noto Sans TC" !important;
           font-size: 20px;
@@ -1143,7 +1159,7 @@
       .smile-newCenter-content-text {
         position: relative;
         z-index: 2;
-        h3 {
+        :is(h1, h2, h3) {
           color: #4570b6;
           font-family: "Noto Sans TC" !important;
           font-size: 5.12vw;
@@ -2101,7 +2117,7 @@
         background-size: 100%;
         position: relative;
         z-index: 2;
-        h3 {
+        :is(h1, h2, h3) {
           color: #4570b6;
           font-family: "Noto Sans TC";
           font-size: clamp(20px, 1.5625vw, 30px);
@@ -3288,135 +3304,3 @@
   }
 }
 
-  .smile {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-
-    &-bg {
-      width: 100vw;
-      height: 100vh;
-      position: fixed;
-      top: 0;
-      left: 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: url('https://statichk.cmermedical.com/smile/smileV2/smile-bg.avif')
-        no-repeat;
-      background-size: cover;
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    &-left {
-      display: none;
-      width: 540px;
-      height: 900px;
-      position: relative;
-      pointer-events: auto;
-
-      &::after {
-        content: '';
-        position: absolute;
-        right: 5%;
-        top: 50%;
-        transform: translateY(-50%);
-        border: 1px solid #4570b6;
-        width: 200%;
-        height: 100%;
-        z-index: 2;
-        background: transparent;
-        border-radius: 50%;
-        pointer-events: none;
-      }
-
-      &::before {
-        content: '';
-        border: 2px dashed #4570b6;
-        z-index: 1;
-        width: 180%;
-        height: 80%;
-        border-radius: 50%;
-        position: absolute;
-        top: 10%;
-        right: 25%;
-        pointer-events: none;
-      }
-
-      @media screen and (min-width: 1440px) {
-        display: block;
-      }
-    }
-
-    &-right {
-      display: none;
-      width: 30vw;
-      position: relative;
-      height: 100vh;
-      pointer-events: auto;
-
-      @media screen and (min-width: 1440px) {
-        display: block;
-      }
-
-      &-title {
-        padding: 200px 0 1.25vw 5.2083vw;
-
-        .smile-right-heading {
-          display: block;
-          color: #000;
-          text-align: left;
-          font-size: 1.3139vw;
-          font-weight: 300;
-          line-height: 200%;
-          letter-spacing: 0.6568vw;
-
-          &::before {
-            content: '';
-            display: inline-block;
-            margin-right: 0.5208vw;
-            width: 0.7813vw;
-            height: 0.7813vw;
-            background: #4570b6;
-            border-radius: 50%;
-          }
-        }
-
-        p {
-          color: #4570b6;
-          font-size: 1.2104vw;
-          font-weight: 700;
-          line-height: 217%;
-          letter-spacing: 1.16px;
-        }
-      }
-
-      &-swiper {
-        width: 100%;
-      }
-    }
-  }
-
-  @media screen and (min-width: 1440px) and (max-width: 1744px) {
-    .smile {
-      &-left {
-        width: 22vw;
-
-        &::after {
-          width: 300%;
-        }
-
-        &::before {
-          width: 200%;
-        }
-      }
-
-      &-right {
-        width: 25vw;
-      }
-    }
-  }

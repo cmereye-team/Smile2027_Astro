@@ -165,7 +165,7 @@ const awardBadges = [
           {/* 3 張精選環境與醫療團隊畫廊 (無損 WebP + 嚴格限制最大尺寸 344 × 194 px) */}
           <div class="group-gallery-grid">
             <figure class="group-gallery-figure">
-              <img
+              <img draggable="false"
                 src="/assets/images/group-profile/gallery-01.webp"
                 alt={isCn ? "香港希玛眼科医疗集团中环眼科中心现代化门市环境" : "香港希瑪眼科醫療集團中環眼科中心現代化門市環境"}
                 loading="lazy"
@@ -177,7 +177,7 @@ const awardBadges = [
               <figcaption class="sr-only">中環眼科中心接待處與等候空間</figcaption>
             </figure>
             <figure class="group-gallery-figure">
-              <img
+              <img draggable="false"
                 src="/assets/images/group-profile/gallery-02.webp"
                 alt={isCn ? "香港希玛国际眼科医疗团队与眼科专科医生阵容" : "香港希瑪國際眼科醫療團隊與眼科專科醫生陣容"}
                 loading="lazy"
@@ -189,7 +189,7 @@ const awardBadges = [
               <figcaption class="sr-only">林順潮教授領銜之眼科專科醫療團隊</figcaption>
             </figure>
             <figure class="group-gallery-figure">
-              <img
+              <img draggable="false"
                 src="/assets/images/group-profile/gallery-03.webp"
                 alt={isCn ? "香港希玛微笑矫视中心无菌手术室与舒适候诊大堂" : "香港希瑪微笑矯視中心無菌手術室與舒適候診大堂"}
                 loading="lazy"
@@ -314,7 +314,7 @@ const awardBadges = [
 
           {/* 關懷大使吉祥物 */}
           <div class="care-ambassador-mascot">
-            <img
+            <img draggable="false"
               src="https://statichk.cmermedical.com/smile/group-profile/cmer-group-care-ambassador.svg"
               alt={isCn ? "香港希玛眼科医疗集团关怀大使吉祥物" : "香港希瑪眼科醫療集團關懷大使吉祥物"}
               loading="lazy"
@@ -410,7 +410,7 @@ const awardBadges = [
           <div class="swiper-wrapper">
             {[...awardBadges, ...awardBadges].map((badge) => (
               <div class="swiper-slide awards-marquee-item">
-                <img
+                <img draggable="false"
                   src={badge.src}
                   alt={badge.alt}
                   loading="lazy"

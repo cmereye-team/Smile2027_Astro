@@ -182,7 +182,7 @@ const banners = await getBanners(lang);
             </svg>
           </div>
           <div class="steps-content">
-            <img
+            <img draggable="false"
               id="relex-step-img"
               src={content.steps.list[0].image}
               srcset={`${content.steps.list[0].image} 768w, ${content.steps.list[0].imagePc} 1200w`}
@@ -210,7 +210,7 @@ const banners = await getBanners(lang);
           {content.whyChoose.title}
         </h2>
         <div class="whyChoose-img">
-          <img
+          <img draggable="false"
             class="w-full rounded-[8.19px]"
             src={content.whyChoose.img}
             alt={content.whyChoose.alt}
@@ -318,7 +318,7 @@ const banners = await getBanners(lang);
                 <h3 class="benefit-item-title">{benefit.title}</h3>
                 <div class="benefit-item-content">
                   <div class="benefit-item-icon">
-                    <img
+                    <img draggable="false"
                       src={benefit.icon}
                       alt={benefit.title}
                       width="53"
@@ -449,7 +449,7 @@ const banners = await getBanners(lang);
             <h3 class="xtra-paper-title" set:html={content.xtra.card1TitleHtml} />
             <div class="xtra-paper-intro">
               <p>{content.xtra.card1Text}</p>
-              <img
+              <img draggable="false"
                 class="xtra-paper-icon"
                 src="https://statichk.cmermedical.com/smile/smileV2/smile-xtra-2.svg"
                 alt=""
@@ -463,7 +463,7 @@ const banners = await getBanners(lang);
             <h3 class="xtra-paper-title" set:html={content.xtra.card2TitleHtml} />
             <div class="xtra-paper-intro">
               <p>{content.xtra.card2Text}</p>
-              <img
+              <img draggable="false"
                 class="xtra-paper-icon"
                 src="https://statichk.cmermedical.com/smile/smileV2/smile-xtra-1.svg"
                 alt=""
@@ -515,7 +515,7 @@ const banners = await getBanners(lang);
           <p>{content.exercise.subtitle}</p>
         </div>
         <div class="exercise-image">
-          <img
+          <img draggable="false"
             src={content.exercise.img}
             alt={content.exercise.alt}
             width="449"
@@ -1185,7 +1185,7 @@ const banners = await getBanners(lang);
         line-height: clamp(0.636rem, 0.48rem + 0.64vw, 1.25rem);
         margin-bottom: clamp(1.018rem, 0.752rem + 1.09vw, 2.063rem);
 
-        span {
+        :global(span) {
           font-family: Poppins, sans-serif;
         }
       }
@@ -1319,7 +1319,7 @@ const banners = await getBanners(lang);
       }
 
       &-title {
-        padding: 200px 0 1.25vw 5.2083vw;
+        padding: 200px 0 1.25vw 2.6vw;
 
         .smile-right-heading {
           display: block;
@@ -1352,11 +1352,7 @@ const banners = await getBanners(lang);
 
       &-swiper {
         width: 100%;
-        margin-left: -2.5vw;
-
-        @media screen and (min-width: 2000px) {
-          margin-left: clamp(-8.5rem, -17rem + 6.94vw, -2.5rem);
-        }
+        padding-left: 2.6vw;
       }
     }
   }

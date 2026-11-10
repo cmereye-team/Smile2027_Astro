@@ -68,7 +68,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
             media="(min-width: 768px)"
             srcset={content.banner.noticeImgPc}
           />
-          <img
+          <img draggable="false"
             src={content.banner.noticeImgMb}
             alt="秋日限定"
             width="1240"
@@ -84,14 +84,14 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
         >
           <div class="marquee-wrapper relative flex w-full h-full overflow-hidden">
             <div class="marquee-content flex items-center shrink-0">
-              <img
+              <img draggable="false"
                 src={content.banner.noticeMarqueeImg}
                 class="h-full w-auto object-contain pr-8"
                 alt="立即了解SMILE/SMILE PRO 1.0&2.0 微笑激光矯視"
                 width="280"
                 height="52"
               />
-              <img
+              <img draggable="false"
                 src={content.banner.noticeMarqueeImg}
                 class="h-full w-auto object-contain pr-8"
                 alt="立即了解SMILE/SMILE PRO 1.0&2.0 微笑激光矯視"
@@ -100,14 +100,14 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
               />
             </div>
             <div class="marquee-content flex items-center shrink-0">
-              <img
+              <img draggable="false"
                 src={content.banner.noticeMarqueeImg}
                 class="h-full w-auto object-contain pr-8"
                 alt="立即了解SMILE/SMILE PRO 1.0&2.0 微笑激光矯視"
                 width="280"
                 height="52"
               />
-              <img
+              <img draggable="false"
                 src={content.banner.noticeMarqueeImg}
                 class="h-full w-auto object-contain pr-8"
                 alt="立即了解SMILE/SMILE PRO 1.0&2.0 微笑激光矯視"
@@ -152,7 +152,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
             height="700"
             type="image/webp"
           />
-          <img
+          <img draggable="false"
             src={content.banner.heroImgMbJpg}
             alt={content.banner.heroAlt}
             title={content.banner.heroTitle}
@@ -204,7 +204,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
               <span class="font-en tracking-normal">{content.summary.titlePrefix}</span>{" "}
               <strong class="font-black">{content.summary.titleStrong}</strong>
             </h1>
-            <img
+            <img draggable="false"
               src={content.summary.fullUpgradedImg}
               alt="全面升級"
               width="232"
@@ -244,7 +244,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
               media="(min-width: 1024px)"
               srcset={content.summary.introImgPc}
             />
-            <img
+            <img draggable="false"
               src={content.summary.introImgMb}
               alt="SMILE Pro 設備介紹"
               width="512"
@@ -274,7 +274,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
           class="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-12"
         >
           <div class="lg:w-2/5 flex flex-col items-center text-center">
-            <img
+            <img draggable="false"
               src={content.pro2Intro.logoImg}
               alt="SMILE PRO 2.0"
               width="360"
@@ -325,7 +325,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
       </h2>
       <div class="icl-WhatChoose-content-one flex flex-col lg:flex-row justify-center items-center gap-8 lg:gap-12 max-w-[988px] mx-auto">
         <div class="lg:w-1/2">
-          <img
+          <img draggable="false"
             src={content.whyChoose.img}
             alt={content.whyChoose.alt}
             loading="lazy"
@@ -462,10 +462,10 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
                   content.price.card2.upgrades?.map((up) => (
                     <div class="flex justify-between items-center px-4 py-2 bg-blue-950/40">
                       <div class="flex items-center gap-2">
-                        <img src={up.icon} loading="lazy" class="w-5 lg:w-6" alt="" width="24" height="24" />
+                        <img draggable="false" src={up.icon} loading="lazy" class="w-5 lg:w-6" alt="" width="24" height="24" />
                         <span>{up.text}</span>
                       </div>
-                      <img src={up.badge} loading="lazy" class="w-20 lg:w-28" alt="升級點" width="112" height="24" />
+                      <img draggable="false" src={up.badge} loading="lazy" class="w-20 lg:w-28" alt="升級點" width="112" height="24" />
                     </div>
                   ))
                 }
@@ -651,7 +651,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
           {
             content.steps2.list.map((step, index) => (
               <div class="steps-item bg-white p-4 rounded-2xl border border-gray-100 shadow-xs flex flex-col justify-between">
-                <img
+                <img draggable="false"
                   src={step.image}
                   alt={"SMILE Pro 2.0 步驟" + (index + 1)}
                   loading="lazy"
@@ -682,7 +682,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
           {
             content.steps1.list.map((step, index) => (
               <div class="steps-item bg-white p-4 rounded-2xl border border-gray-100 shadow-xs flex flex-col justify-between">
-                <img
+                <img draggable="false"
                   src={step.image}
                   alt={"SMILE Pro 1.0 步驟" + (index + 1)}
                   loading="lazy"
@@ -716,7 +716,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
             media="(min-width: 1024px)"
             srcset={content.suitable.imgPc}
           />
-          <img
+          <img draggable="false"
             src={content.suitable.imgMb}
             alt="適合矯視對象"
             width="512"
