@@ -44,6 +44,7 @@ const items: BannerItem[] = banners || (await getBanners(lang));
               target={item.isExternal ? "_blank" : undefined}
               rel={item.isExternal ? "noopener noreferrer" : undefined}
               tabindex={index === 0 ? 0 : -1}
+              draggable="false"
             >
               <img
                 src={item.mbImg || item.pcImg}
@@ -88,10 +89,6 @@ const items: BannerItem[] = banners || (await getBanners(lang));
 
     let activeIndex = 0;
     let autoTimer = null;
-    let isDragging = false;
-    let startX = 0;
-    let deltaX = 0;
-    let isClick = true;
 
     function getSlideStyle(index, currentActive) {
       const prevIdx = (currentActive - 1 + totalSlides) % totalSlides;
@@ -135,8 +132,6 @@ const items: BannerItem[] = banners || (await getBanners(lang));
       slides.forEach((slide, idx) => {
         slide.classList.remove("active", "prev", "next");
         const link = slide.querySelector("a");
-        const img = slide.querySelector("img");
-        if (img) img.style.transform = "";
 
         if (idx === activeIndex) {
           slide.classList.add("active");
@@ -156,7 +151,7 @@ const items: BannerItem[] = banners || (await getBanners(lang));
         slide.style.zIndex = styles.zIndex;
         slide.style.opacity = styles.opacity;
         slide.style.pointerEvents = styles.pointerEvents;
-        slide.style.transition = isDragging ? "none" : "transform 0.5s ease, opacity 0.5s ease";
+        slide.style.transition = "transform 0.5s ease, opacity 0.5s ease";
       });
 
       bullets.forEach((bullet, idx) => {
@@ -168,11 +163,6 @@ const items: BannerItem[] = banners || (await getBanners(lang));
 
     function nextSlide() {
       activeIndex = (activeIndex + 1) % totalSlides;
-      renderState();
-    }
-
-    function prevSlide() {
-      activeIndex = (activeIndex - 1 + totalSlides) % totalSlides;
       renderState();
     }
 
@@ -209,70 +199,6 @@ const items: BannerItem[] = banners || (await getBanners(lang));
     cardRoot.addEventListener("mouseenter", pauseAutoPlay);
     cardRoot.addEventListener("mouseleave", startAutoPlay);
 
-    // Touch / Pointer events for drag swipe
-    const container = cardRoot.querySelector(".swiper-card-container");
-    if (container) {
-      container.addEventListener("pointerdown", (e) => {
-        if (e.button !== 0) return;
-        isDragging = true;
-        isClick = true;
-        startX = e.clientX;
-        deltaX = 0;
-        pauseAutoPlay();
-      });
-
-      window.addEventListener("pointermove", (e) => {
-        if (!isDragging) return;
-        deltaX = e.clientX - startX;
-        if (Math.abs(deltaX) > 6) {
-          isClick = false;
-        }
-        const activeSlide = slides[activeIndex];
-        const activeImg = activeSlide ? activeSlide.querySelector("img") : null;
-        if (activeImg) {
-          activeImg.style.transform = `translateX(${deltaX}px)`;
-          activeImg.style.transition = "none";
-        }
-      });
-
-      const handlePointerUp = () => {
-        if (!isDragging) return;
-        isDragging = false;
-        const activeSlide = slides[activeIndex];
-        const activeImg = activeSlide ? activeSlide.querySelector("img") : null;
-        if (activeImg) {
-          activeImg.style.transform = "";
-          activeImg.style.transition = "transform 0.3s ease";
-        }
-
-        const threshold = 50;
-        if (deltaX < -threshold) {
-          nextSlide();
-        } else if (deltaX > threshold) {
-          prevSlide();
-        } else {
-          renderState();
-        }
-        setTimeout(() => {
-          isClick = true;
-        }, 120);
-        startAutoPlay();
-      };
-
-      window.addEventListener("pointerup", handlePointerUp);
-      window.addEventListener("pointercancel", handlePointerUp);
-
-      // Prevent link navigation if dragging occurred
-      cardRoot.querySelectorAll("a").forEach((anchor) => {
-        anchor.addEventListener("click", (e) => {
-          if (!isClick) {
-            e.preventDefault();
-            e.stopPropagation();
-          }
-        });
-      });
-    }
-
     renderState();
     startAutoPlay();
   }
@@ -282,6 +208,7 @@ const items: BannerItem[] = banners || (await getBanners(lang));
   } else {
     initSwiperCard();
   }
+  document.addEventListener("astro:page-load", initSwiperCard);
 </script>
 
 <style lang="scss">
@@ -295,13 +222,7 @@ const items: BannerItem[] = banners || (await getBanners(lang));
       width: clamp(9.375rem, -6.78rem + 26.48vw, 25rem);
       height: clamp(9.375rem, -6.78rem + 26.48vw, 25rem);
       margin: 0 auto;
-      cursor: grab;
       user-select: none;
-      touch-action: pan-y;
-
-      &:active {
-        cursor: grabbing;
-      }
     }
 
     &-wrap {
@@ -321,12 +242,27 @@ const items: BannerItem[] = banners || (await getBanners(lang));
       border-radius: 20px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 
+      a {
+        display: block;
+        width: 100%;
+        height: 100%;
+        user-select: none;
+        -webkit-user-drag: none;
+      }
+
+      &.active a {
+        cursor: pointer;
+      }
+
       img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         border-radius: 20px;
         display: block;
+        user-select: none;
+        -webkit-user-drag: none;
+        pointer-events: none;
       }
 
       &.active .overlay {

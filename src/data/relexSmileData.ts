@@ -137,7 +137,7 @@ export const RELEX_SMILE_ZH_HK: RelexSmileData = {
         number: "02",
         imagePc: "https://statichk.cmermedical.com/smile/smileV2/smile-swiper-2.webp",
         image: "https://statichk.cmermedical.com/smile/smileV2/smile-swiper-2.webp",
-        text: "製作一個\n約2-2.5mm的小切口",
+        text: "製作一個約2-2.5mm的小切口",
       },
       {
         number: "03",
@@ -334,7 +334,7 @@ export const RELEX_SMILE_ZH_CN: RelexSmileData = {
         number: "02",
         imagePc: "https://statichk.cmermedical.com/smile/smileV2/smile-swiper-2.webp",
         image: "https://statichk.cmermedical.com/smile/smileV2/smile-swiper-2.webp",
-        text: "制作一个\n约2-2.5mm的小切口",
+        text: "制作一个约2-2.5mm的小切口",
       },
       {
         number: "03",

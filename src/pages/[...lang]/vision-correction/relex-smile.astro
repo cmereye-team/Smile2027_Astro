@@ -54,7 +54,7 @@ const banners = await getBanners(lang);
   />
   <SchemaFAQ faqs={content.faqs} />
 
-  <div class="page-smile font-tc">
+  <div class="page-smile font-hk">
     <div class="smile-main-column">
       {/* Section 1: Hero Banner */}
       <section class="newCenter" aria-labelledby="hero-title">
@@ -194,7 +194,6 @@ const banners = await getBanners(lang);
             <p
               id="relex-step-text"
               class="steps-content-text steps-content-01"
-              style="white-space: pre-line;"
             >
               {content.steps.list[0].text}
             </p>
@@ -632,6 +631,36 @@ const banners = await getBanners(lang);
     position: relative;
     width: 100%;
     min-height: 100vh;
+    font-family: var(--font-hk), sans-serif;
+
+    @media screen and (min-width: 768px) {
+      letter-spacing: 0.2vw;
+    }
+  }
+
+  :global(#site-footer) {
+    position: relative;
+    z-index: 10;
+    background-color: #f4fafc !important;
+    margin-top: 0 !important;
+  }
+
+  @media screen and (max-width: 991px) {
+    :global(#site-footer) {
+      margin-top: -60px !important;
+      background-color: #f4fafc !important;
+    }
+    :global(#site-footer .footer-bottom) {
+      margin-bottom: 0 !important;
+      background-color: #f4fafc !important;
+    }
+  }
+
+  @media screen and (min-width: 992px) {
+    :global(#site-footer) {
+      margin-top: 0 !important;
+      background-color: #f4fafc !important;
+    }
   }
 
   .smile-main-column {
@@ -723,7 +752,7 @@ const banners = await getBanners(lang);
       font-size: clamp(1.25rem, 1.023rem + 1.14vw, 1.875rem);
       margin-bottom: clamp(1rem, 0.727rem + 1.36vw, 1.75rem);
 
-      span {
+      :global(span) {
         font-weight: 700;
       }
     }
@@ -734,7 +763,7 @@ const banners = await getBanners(lang);
       line-height: 35px;
       letter-spacing: clamp(0.044rem, 0.037rem + 0.03vw, 0.063rem);
 
-      span {
+      :global(span) {
         font-weight: 700;
       }
     }
@@ -860,7 +889,7 @@ const banners = await getBanners(lang);
         }
       }
 
-      span {
+      :global(span) {
         color: $primary-color;
         font-weight: 700;
       }
@@ -1323,6 +1352,11 @@ const banners = await getBanners(lang);
 
       &-swiper {
         width: 100%;
+        margin-left: -2.5vw;
+
+        @media screen and (min-width: 2000px) {
+          margin-left: clamp(-8.5rem, -17rem + 6.94vw, -2.5rem);
+        }
       }
     }
   }
