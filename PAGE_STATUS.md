@@ -43,7 +43,7 @@
 | 7 | `/vision-correction/relex-smile` | `vision-correction/relex-smile.astro` | 1545 | 44.4 KB | 🟢 **完整交付** | SMILE 微笑激光矯視全套實質內容切片完成：重構為現代化三欄 Flex + Sticky 靜態防抖文檔流佈局（左側用家分享靠左對齊垂直居中、右側最新情報在超寬屏 1920px/2560px 精確追蹤線上官網位置 x=1445px/1974px，完美自適應 iPhone 375-430px 與 Surface Duo 540px/1114px 雙屏折疊），HeroBanner, Principles (修復富文本高亮), StepsInteractive (移除步驟2換行), WhyChoose (修復富文本高亮), UserShare, 右側軌道 SwiperCard 支援滑鼠/觸摸拖拽切換與平擊跳轉，徹底禁用原生圖片拖拽, Fee, Benefit, ConditionCheck, SmileXtra, Exercise, 頁尾對齊全寬 #f4fafc 背景基底, SchemaProcedure, SchemaBreadcrumb, SchemaFAQ 等 | `pages/new-page/smileV2.vue` |
 | 8 | `/vision-correction-lasik` | `vision-correction-lasik.astro` | 1029 | 21.9 KB | 🟢 **完整交付** | LASIK 激光矯視全套實質內容切片完成：100% 官方 lasik 居中版面構圖、精確對齊官網真值 TDK、抽離結構化數據至 src/data/lasikData.ts 支援繁簡雙語、保留全站 W-07 WhatsApp 轉換追蹤、全站圖片禁用原生拖拽 (draggable="false")、單一 h1 與全套 SchemaProcedure / SchemaBreadcrumb / SchemaClinic 支援、HTML < 150 KB | `pages/new-page/lasik.vue` |
 | 9 | `/fee` | `fee.astro` | 1717 | 52.6 KB | 🟢 **完整交付** | 收費詳情全套實質內容切片完成：100% 官方 new-feeV2 居中版面構圖、精確對齊官網真值 TDK、抽離結構化數據至 src/data/feeData.ts 支援繁簡雙語（價格/套餐名稱/行項目/註釋一字不差）、保留全站 W-14 WhatsApp 轉換追蹤、全站圖片禁用原生拖拽 (draggable="false")、單一 h1 與全套 SchemaProcedure / SchemaBreadcrumb / SchemaClinic 支援、HTML < 150 KB (66 KB) | `pages/new-page/new-feeV2.vue` |
-| 10 | `/FreQuestions` | `FreQuestions.astro` | 10 | 261 B | 🔴 **空殼 (10行)** | 僅 `<BaseLayout tdkKey="faq">` 佔位，無實質內容 | `pages/FreQuestions/index.vue` |
+| 10 | `/FreQuestions` | `FreQuestions.astro` | 344 | 8.7 KB | 🟢 **完整交付** | 常見問題 FAQ 全套實質內容切片完成：100% 官方 FreQuestions 居中版面構圖、精確對齊官網真值 TDK、抽離結構化數據至 src/data/faqData.ts 支援繁簡雙語（4大區塊共39道問題及解答一字不差）、原生手風琴交互行為（首項默認展開、單項互斥展開收起）、保留官網全局 WhatsApp 追蹤、全站圖片禁用原生拖拽 (draggable="false")、單一 h1 與全套 SchemaFAQ (39條問答) / SchemaBreadcrumb / SchemaClinic 支援、HTML < 150 KB (約 85 KB) | `pages/FreQuestions/index.vue` |
 | 11 | `/smilePro` | `smilePro.astro` | 884 | 38.8 KB | 🟢 **完整交付** | SMILE Pro 2.0 微笑激光矯視全套實質內容完成：HeroBanner 構圖/比例/位置 1:1 對齊官網（右側手術儀器全幅無裁切呈現，臉部縮放比例完全吻合）、Tip, Summary, Video, Pro2Intro, WhyChoose, FourFeature, PriceCards, DifferenceTable, Steps2/1, SuitableCheck, UserShare, UserRating, SchemaProcedure, SchemaBreadcrumb 等 | `pages/new-page/smile-proV2.vue` |
 | 12 | `/vision-correction-icl` | `vision-correction-icl.astro` | 748 | 29.8 KB | 🟢 **完整交付** | ICL 植入式隱形眼鏡全套實質內容重構完成：100% 官方 iclV2 居中版面構圖（首屏居中呈現 ICL Hero Banner、鏡片輪廓圖、可矯正藍卡，接續居中相片背景與圓形介紹卡片，徹底移除錯誤的兩側懸浮軌道），嚴格對齊官網精確真值 TDK，保留全站 W-13 WhatsApp 轉換追蹤，全站靜態圖片禁用原生拖拽，SchemaProcedure, SchemaBreadcrumb | `pages/new-page/iclV2.vue` |
 | 13 | `/vision-correction-presbyopia` | `vision-correction-presbyopia.astro` | 1004 | 39.1 KB | 🟢 **完整交付** | 老花矯視全套實質內容切片完成：100% 官方 lbv 居中版面構圖、精確對齊官網真值 TDK、抽離結構化數據至 src/data/presbyopiaData.ts 支援繁簡雙語、保留全站 W-06 WhatsApp 轉換追蹤、全站圖片禁用原生拖拽 (draggable="false")、第一視角預覽切換 (室外/室內)、常見問題手風琴切換、rich text span 高亮修復、SchemaProcedure, SchemaBreadcrumb, SchemaFAQ, SchemaClinic (HTML < 150 KB) | `pages/lbv/index.vue` |
@@ -146,3 +146,33 @@
    - 全站所有靜態展示圖片注入 `draggable="false"` 與確定的寬高比例。
    - 富文本 `<span>` 高亮樣式嚴格宣告 `:global` CSS 規則。
    - 獨立頁面樣式收歸頁面檔案內部，單頁 HTML 預渲染體積遠低於 150 KB (約 45 KB)。
+
+---
+
+## 七、第 6 步：/FreQuestions 常見問題 FAQ 商業級重構交付 (2026-11-10)
+
+依據 2026-11-10 FAQ 頁面商業級重構規範，完整交付 `/FreQuestions`（及 `/cn/FreQuestions`）：
+
+1. **官方真值 TDK 1:1 精確對齊**：
+   - 繁體（zh-HK）：標題 `常見問題`，描述 `常見問題`，關鍵詞 `常見問題`。
+   - 簡體（zh-CN）：標題 `常见问题`，描述 `常見問題`，關鍵詞 `常見問題`。
+   - 嚴格對齊線上官網與 Nuxt 原型真實數值，無任何主觀潤色。
+2. **常見問題四大業務區塊 39 道題目逐字對齊**：
+   - `#faq-smile`：SMILE Pro 2.0 / SMILE 微笑激光矯視（共 14 道問答）。
+   - `#faq-lasik`：LASIK 激光矯視（共 14 道問答）。
+   - `#faq-icl`：ICL 植入式隱形眼鏡（共 5 道問答）。
+   - `#faq-presbyopia`：老花矯視（共 6 道問答）。
+   - 全部文本抽離至 `src/data/faqData.ts` 支援繁簡雙語，所有問答無刪減、無合併、無修改。
+3. **原生無依賴手風琴交互 (Accordion) 忠實還原**：
+   - 4 大區塊首項默認展開（`activeName: "1"`），其餘項默認折疊收起。
+   - 點擊標題單項互斥展開/收起，流暢平滑切換。
+   - 樣式精確對齊：展開時高亮深藍底色 (`#4570b6`)、純白標題、左側純白 Q 圖標、右側純白橫槓減號圖標；收起時文字漸變藍、左側青藍 Q 圖標、右側加號圖標。
+4. **WhatsApp 追蹤審計結論**：
+   - 經檢查線上官網 `https://smile.hkcmereye.com/FreQuestions` 與舊站 Nuxt 原型代碼，頁面本體內容區域**無獨立 WhatsApp 轉換按鈕**。
+   - 依據「若線上頁面無專屬代碼則如實匯報、杜絕主觀臆測」之鐵律，不虛構頁面按鈕，全域導航及頁尾保留官方真值 `W-G01` 與 `WM-BAW01`。
+5. **GEO / SEO 語意地標與防拖拽規範**：
+   - 單一 `<h1>` 標題（`常見問題` / `常见问题`，sr-only 語意地標）。
+   - 完整輸出 Schema.org `FAQPage`（包含全部 39 道問答的 Question/Answer 實體）、`BreadcrumbList` 與 `SchemaClinic`。
+   - 全站展示圖片注入 `draggable="false"`。
+   - 富文本 `<span>` 高亮樣式嚴格宣告 `:global` CSS 規則。
+   - 單頁 HTML 預渲染體積約 85 KB，遠低於 150 KB 上限。

@@ -46,9 +46,9 @@ export const tdk = {
     keywords: "smile 矯視 價錢,激光矯視費用,smile價錢,激光矯視 價錢,微笑矯視 價錢,矯視價錢,老花手術費用,smile pro 價錢",
   },
   faq: {
-    title: "近视手术常见问题 FAQ | SMILE Pro / ICL / LASIK 术前术后须知 - 香港希玛微笑矫视中心",
-    description: "全面解答近视手术常见问题：手术痛不痛？恢复期要多久？术后会不会干眼？SMILE Pro 与 ICL 怎么选？眼科专科医生为您专业剖析术前准备、手术过程及术后护理注意事项。",
-    keywords: "近视手术常见问题, 矫视 FAQ, SMILE 后遗症, ICL 安全性, 术前准备, 术后恢复期, 希玛 FAQ",
+    title: "常见问题",
+    description: "常見問題",
+    keywords: "常見問題",
   },
   patientInfo: {
     title: "就诊须知与手术流程 | 术前检查・手术当日・术后复诊指引 - 香港希玛微笑矫视中心",

@@ -1,10 +1,343 @@
 ---
+/**
+ * @FilePath: /src/pages/[...lang]/FreQuestions.astro
+ * @Description: 常見問題 FAQ 專頁 (100% 官方真值對齊 + 繁簡雙語 + 手風琴交互 + 全套 SchemaFAQ / SchemaBreadcrumb)
+ */
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { i18nPaths, useI18n } from "@/i18n/utils";
+import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
+import SchemaFAQ from "@/components/seo/SchemaFAQ.astro";
+import { i18nPaths, getLangFromUrl } from "@/i18n/utils";
+import { FAQ_ZH_HK, FAQ_ZH_CN } from "@/data/faqData";
+
 export function getStaticPaths() {
   return [...i18nPaths];
 }
-const { dict: _dict } = useI18n(Astro.url);
+
+const currentLang = getLangFromUrl(Astro.url);
+const isCn = currentLang === "zh-cn";
+const content = isCn ? FAQ_ZH_CN : FAQ_ZH_HK;
+
+// 匯總全站 39 條常見問題作為 Schema.org FAQPage 結構化數據
+const allSchemaFaqs = content.sections.flatMap((section) =>
+  section.items.map((item) => ({
+    question: item.title,
+    answer: item.content.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim(),
+  }))
+);
+
+const breadcrumbItems = [
+  { name: content.breadcrumb.home, url: isCn ? "/cn/" : "/" },
+  { name: content.breadcrumb.faq, url: isCn ? "/cn/FreQuestions" : "/FreQuestions" },
+];
 ---
 
-<BaseLayout tdkKey="faq"></BaseLayout>
+<BaseLayout tdkKey="faq">
+  <SchemaBreadcrumb items={breadcrumbItems} />
+  <SchemaFAQ faqs={allSchemaFaqs} />
+
+  <!-- 無障礙唯一 H1 標題 (SEO 標準地標) -->
+  <h1 class="sr-only">{content.h1}</h1>
+
+  <main id="main-content" class="questions">
+    {
+      content.sections.map((section) => (
+        <section id={section.id} class="faq-section" aria-labelledby={`title-${section.id}`}>
+          <h2 id={`title-${section.id}`} class="section-title">
+            <span>{section.title}</span>
+          </h2>
+
+          <div class="faq-accordion-list">
+            {section.items.map((item, index) => {
+              const isOpen = index === 0;
+              return (
+                <div class="faq-item" data-id={item.id}>
+                  <button
+                    type="button"
+                    class={`faq-header ${isOpen ? "is-active" : ""}`}
+                    aria-expanded={isOpen ? "true" : "false"}
+                    aria-controls={`content-${item.id}`}
+                    id={`header-${item.id}`}
+                  >
+                    <div class="faq-header-text">{item.title}</div>
+                  </button>
+                  <div
+                    id={`content-${item.id}`}
+                    class="faq-content"
+                    role="region"
+                    aria-labelledby={`header-${item.id}`}
+                    style={isOpen ? "display: block;" : "display: none;"}
+                  >
+                    <div class="faq-answer" set:html={item.content} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      ))
+    }
+  </main>
+</BaseLayout>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const sections = document.querySelectorAll(".faq-section");
+    sections.forEach((section) => {
+      const items = section.querySelectorAll(".faq-item");
+      items.forEach((item) => {
+        const header = item.querySelector(".faq-header");
+        const content = item.querySelector(".faq-content");
+        if (!header || !content) return;
+
+        header.addEventListener("click", () => {
+          const isCurrentlyActive = header.classList.contains("is-active");
+
+          // 手風琴互斥行為：收起同區塊其他所有折疊項目
+          items.forEach((otherItem) => {
+            const otherHeader = otherItem.querySelector(".faq-header");
+            const otherContent = otherItem.querySelector(".faq-content");
+            if (otherHeader && otherContent) {
+              otherHeader.classList.remove("is-active");
+              otherHeader.setAttribute("aria-expanded", "false");
+              otherContent.style.display = "none";
+            }
+          });
+
+          // 若點擊前未展開，則展開當前項目
+          if (!isCurrentlyActive) {
+            header.classList.add("is-active");
+            header.setAttribute("aria-expanded", "true");
+            content.style.display = "block";
+          }
+        });
+      });
+    });
+  });
+</script>
+
+<style lang="scss">
+  .questions {
+    max-width: 1280px;
+    margin: 0 auto 10vw;
+    box-sizing: border-box;
+
+    & > section {
+      padding-top: 10vw;
+      scroll-margin-top: 6rem;
+    }
+  }
+
+  /* 區塊標題 H2 樣式 (100% 匹配 2024 H2Tag 組件) */
+  .section-title {
+    position: relative;
+    text-align: center;
+    border: none;
+    padding-bottom: 32px;
+    margin-bottom: 20px;
+
+    span {
+      color: #4570b6;
+      font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+      font-size: 30px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 30px;
+      letter-spacing: 7.5px;
+      padding-left: 5px;
+    }
+
+    &::after {
+      content: "";
+      background: #a6e1d6;
+      width: 39px;
+      height: 5px;
+      border-radius: 3px;
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+    }
+  }
+
+  /* 手風琴折疊外框 */
+  .faq-accordion-list {
+    border-top: 1px solid #ebeef5;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid #ebeef5;
+  }
+
+  /* 手風琴標題按鈕 */
+  .faq-header {
+    width: 100%;
+    display: block;
+    text-align: left;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    padding: 20px 70px 20px 60px;
+    position: relative;
+    transition: background-color 0.25s ease, color 0.25s ease;
+
+    .faq-header-text {
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.5;
+      background-image: linear-gradient(to top, #81dbec, #4570b6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: #4570b6;
+    }
+
+    /* 左側未展開 Q 圖標 (青藍色) */
+    &::before {
+      position: absolute;
+      content: "";
+      background-image: url("/images/faq/icon-q-inactive.png");
+      background-repeat: no-repeat;
+      background-size: contain;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: inline-block;
+      height: 42px;
+      width: 40px;
+      pointer-events: none;
+    }
+
+    /* 右側未展開加號圖標 */
+    &::after {
+      position: absolute;
+      content: "";
+      background-image: url("/images/faq/icon-plus.png");
+      background-repeat: no-repeat;
+      background-size: contain;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: inline-block;
+      height: 24px;
+      width: 25px;
+      pointer-events: none;
+    }
+
+    /* 展開中 (Active) 狀態 */
+    &.is-active {
+      background-color: #4570b6;
+      background-image: linear-gradient(to top, #4570b6, #4570b6);
+
+      .faq-header-text {
+        -webkit-text-fill-color: #fff;
+        color: #fff;
+      }
+
+      /* 左側展開中 Q 圖標 (純白) */
+      &::before {
+        background-image: url("/images/faq/icon-q-active.png");
+      }
+
+      /* 右側展開中減號圖標 (白橫槓) */
+      &::after {
+        background-image: url("/images/faq/icon-minus.png");
+      }
+    }
+  }
+
+  /* 手風琴內容展開區 */
+  .faq-content {
+    box-sizing: border-box;
+  }
+
+  .faq-answer {
+    color: #6d6e71;
+    font-size: 20px;
+    font-weight: 300;
+    letter-spacing: 3px;
+    line-height: 35px;
+    padding: 20px 40px 20px 60px;
+
+    /* set:html 富文本高亮 span 樣式遵循全域 :global 規範 */
+    :global(span) {
+      color: #4570b6;
+      font-weight: bold;
+    }
+  }
+
+  /* 移動端響應式斷點 (≤ 768px) */
+  @media screen and (max-width: 768px) {
+    .questions {
+      max-width: 100%;
+      margin: 10vw auto 10vw;
+      padding: 0 20px;
+
+      & > section {
+        padding-top: 22vw;
+      }
+    }
+
+    .section-title {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 25px;
+
+      span {
+        font-size: 20px;
+        letter-spacing: 5px;
+        padding-left: 0;
+      }
+
+      &::after {
+        width: 37px;
+        height: 5px;
+      }
+    }
+
+    .faq-header {
+      padding: 12px 35px 12px 30px;
+
+      .faq-header-text {
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 1.3;
+      }
+
+      &::before {
+        left: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 18px;
+        width: 17px;
+      }
+
+      &::after {
+        right: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 16px;
+        width: 15px;
+      }
+
+      &.is-active {
+        &::before {
+          height: 18px;
+          width: 17px;
+        }
+
+        &::after {
+          height: 2px;
+          width: 12px;
+        }
+      }
+    }
+
+    .faq-answer {
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      line-height: 24px;
+      padding: 15px 15px 15px 30px;
+    }
+  }
+</style>
