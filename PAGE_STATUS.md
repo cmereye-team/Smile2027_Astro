@@ -1,7 +1,7 @@
 # 希瑪微笑矯視中心 (CMER Smile 2026) - 唯一進度真值表 (PAGE_STATUS.md)
 
 > **文檔定位**：本文件為項目重構唯一進度真值基準。本著「說真話、動真格、講客觀事實」原則，所有統計均基於本地源碼物理檔案逐行審計與實測驗證，杜絕任何概念欺詐與虛假進度。
-> **更新時間**：2026-11-09
+> **更新時間**：2026-11-10
 
 ---
 
@@ -35,16 +35,16 @@
 | 序號 | 路由路徑 (Route) | 物理檔案路徑 | 行數 | 檔案大小 | 真實狀態標記 | 實質內容與業務區塊描述 | 對應舊站 Nuxt 原型 |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | 1 | `/` (及 `/cn/`) | `index.astro` | 523 | 18.4 KB | 🟢 **完整交付** | 首頁全套切片完成：BannerSwiper, QuickReservation, IndexEnvironment, IndexAwards, UserRating 等 | `pages/new-page/home.vue` |
-| 2 | `/group-profile` | `group-profile.astro` | 649 | 36.1 KB | 🟢 **完整交付** | 集團簡介全套切片完成：BrandConcept, ServicePhilosophy, EnvironmentalTour, Awards, DoctorIntro | `pages/new-page/group-profile.vue` |
-| 3 | `/our-medical-team` | `our-medical-team.astro` | 247 | 9.5 KB | 🟢 **完整交付** | 醫療團隊全套完成：醫生團隊篩選卡片、專利認證、名銜資歷展示 | `pages/new-page/doctor-team.vue` |
+| 2 | `/group-profile` | `group-profile.astro` | 649 | 36.1 KB | 🟢 **完整交付** | 集團簡介全套切片完成：首段公司全名與簡稱100%精確對齊官網（希瑪醫療控股有限公司/希瑪醫療，3309.HK）、BrandConcept, ServicePhilosophy, EnvironmentalTour, Awards, DoctorIntro | `pages/new-page/group-profile.vue` |
+| 3 | `/our-medical-team` | `our-medical-team.astro` | 247 | 9.5 KB | 🟢 **完整交付** | 醫療團隊全套完成：頂部 Hero Banner 高度比例 1:1 精確還原（桌面 32.08vw/556px，移動端 84.6vw）、林順潮教授資歷「愛丁堡皇家外科醫學院院士（眼科）」去除「英國」精確對齊官網、醫生團隊篩選卡片、專利認證、名銜資歷展示 | `pages/new-page/doctor-team.vue` |
 | 4 | `/video` | `video.astro` | 58 | 1.8 KB | 🟢 **完整交付** | 個案分享專欄：VideoList、頂部 Banner 與麵包屑 | `pages/new-page/orthopedic-videoV2.vue` |
 | 5 | `/contact-us` | `contact-us.astro` | 28 | 741 B | 🟡 **佔位骨架** | 偽內容：僅包含標題與佔位高度 `h-[120vh]`，未接入真實門市地圖與資訊 | `pages/contactus000/index.vue` |
 | 6 | `/ophthalmicInfo/AppointForm` | `ophthalmicInfo/AppointForm.astro` | 21 | 703 B | 🟡 **佔位骨架** | 偽內容：僅包含文字段落與佔位高度 `h-[120vh]`，未接入講座報名表單 | `components/content/ophthalmicInfo/serveYyue` |
-| 7 | `/vision-correction/relex-smile` | `vision-correction/relex-smile.astro` | 1375 | 41.0 KB | 🟢 **完整交付** | SMILE 微笑激光矯視全套實質內容切片完成：HeroBanner, Principles, StepsInteractive, WhyChoose, UserShare, Fee, Benefit, ConditionCheck, SmileXtra, Exercise, SchemaProcedure, SchemaBreadcrumb, SchemaFAQ 等 | `pages/new-page/smileV2.vue` |
+| 7 | `/vision-correction/relex-smile` | `vision-correction/relex-smile.astro` | 1439 | 42.5 KB | 🟢 **完整交付** | SMILE 微笑激光矯視全套實質內容切片完成：HeroBanner, Principles, StepsInteractive, WhyChoose, UserShare, 右側軌道 (.smile-right-swiper) 完整還原真實 3D 堆疊卡片輪播 (SwiperCard - 自動輪播 + 點擊分頁圓點 + 拖拽滑動 + CMS 焦點數據復用), Fee, Benefit, ConditionCheck, SmileXtra, Exercise, SchemaProcedure, SchemaBreadcrumb, SchemaFAQ 等 | `pages/new-page/smileV2.vue` |
 | 8 | `/vision-correction-lasik` | `vision-correction-lasik.astro` | 17 | 435 B | 🟡 **佔位骨架** | 偽內容：僅包含 LASIK 標題 | `pages/new-page/lasik.vue` |
 | 9 | `/fee` | `fee.astro` | 10 | 261 B | 🔴 **空殼 (10行)** | 僅 `<BaseLayout tdkKey="fee">` 佔位，無實質內容 | `pages/new-page/new-feeV2.vue` |
 | 10 | `/FreQuestions` | `FreQuestions.astro` | 10 | 261 B | 🔴 **空殼 (10行)** | 僅 `<BaseLayout tdkKey="faq">` 佔位，無實質內容 | `pages/FreQuestions/index.vue` |
-| 11 | `/smilePro` | `smilePro.astro` | 862 | 38.2 KB | 🟢 **完整交付** | SMILE Pro 2.0 微笑激光矯視全套實質內容完成：HeroBanner, Tip, Summary, Video, Pro2Intro, WhyChoose, FourFeature, PriceCards, DifferenceTable, Steps2/1, SuitableCheck, UserShare, UserRating, SchemaProcedure, SchemaBreadcrumb 等 | `pages/new-page/smile-proV2.vue` |
+| 11 | `/smilePro` | `smilePro.astro` | 884 | 38.8 KB | 🟢 **完整交付** | SMILE Pro 2.0 微笑激光矯視全套實質內容完成：HeroBanner 構圖/比例/位置 1:1 對齊官網（右側手術儀器全幅無裁切呈現，臉部縮放比例完全吻合）、Tip, Summary, Video, Pro2Intro, WhyChoose, FourFeature, PriceCards, DifferenceTable, Steps2/1, SuitableCheck, UserShare, UserRating, SchemaProcedure, SchemaBreadcrumb 等 | `pages/new-page/smile-proV2.vue` |
 | 12 | `/vision-correction-icl` | `vision-correction-icl.astro` | 10 | 261 B | 🔴 **空殼 (10行)** | 僅 `<BaseLayout tdkKey="icl">` 佔位，無實質內容 | `pages/new-page/iclV2.vue` |
 | 13 | `/vision-correction-presbyopia` | `vision-correction-presbyopia.astro` | 10 | 261 B | 🔴 **空殼 (10行)** | 僅 `<BaseLayout tdkKey="presbyopia">` 佔位，無實質內容 | `pages/lbv/index.vue` |
 | 14 | `/patient-info` | `patient-info.astro` | 10 | 261 B | 🔴 **空殼 (10行)** | 僅 `<BaseLayout tdkKey="patientInfo">` 佔位，無實質內容 | `pages/new-page/patient-info.vue` |
@@ -102,3 +102,25 @@
 
 ### 4. 全站 WhatsApp CTA 與追蹤屬性
 - 全站 Header、MobileBottom、SidebarDesktop、UserRating、GroupProfile、Index 各轉換點已均勻掛鉤 `data-cta="whatsapp"`、`data-cta="lecture"`、`data-cta="patient_info"` 等標準埋點。
+
+---
+
+## 五、第 4 步：四項商業級精確校準記錄 (2026-11-10)
+
+依據 2026-11-10 商業審計需求，對 4 處核心頁面執行 100% 精確對齊修復：
+
+1. **`/vision-correction/relex-smile` 右側軌道輪播還原**：
+   - 提取舊站 `smile2024`（`smileV2.vue` 與 `SwiperCard.vue`）真實卡片堆疊輪播行為，封裝 `src/components/views/SwiperCard.astro` 與 `src/data/bannerData.ts`。
+   - 完整實現 3000ms 自動輪播、分頁圓點（點擊切換 + `.active` 高亮）、懸停暫停/離開恢復、指標拖拽滑動與點擊跳轉保護。
+   - 共享 `BannerSwiper` 官方 CMS 焦點圖數據接口 (`/api/v1/slides?gid=...`)，並具備與舊站官網完全一致的 3 張靜態焦點回退能力。
+2. **`/smilePro` 首屏 Hero Banner 構圖與比例校準**：
+   - 修正原本 `object-cover` 導致的右側機器切邊與臉部過度放大問題。
+   - 宣告真實圖片比例（桌面 `aspect-ratio: 1940 / 647; object-fit: contain; object-position: right center;`；移動端 `aspect-ratio: 1 / 1; object-fit: cover;`）。
+   - 確保右側整台蔡司全飛秒手術儀器清晰完整展現，人物比例與線上官網 1:1 像素吻合。
+3. **`/group-profile` 公司全名與簡稱真值對齊**：
+   - 繁簡兩版首段文案公司名稱嚴格對齊官網：繁體版更新為「希瑪醫療控股有限公司（簡稱：希瑪醫療，股份代碼：3309.HK）」，簡體版同步對齊「希玛医疗控股有限公司（简称：希玛医疗，股份代码：3309.HK）」。未動頁面其他任何文案。
+4. **`/our-medical-team` 兩處精確校準**：
+   - (a) 林順潮教授資歷列表移除「愛丁堡皇家外科醫學院院士（眼科）」前面的「英國/英国」，與線上官網一字不差對齊。
+   - (b) 頂部 Hero Banner 高度比例還原：由扁平的 300px 上限提升至官網真實規格（桌面 `height: 32.08vw; max-height: 556px; max-width: 1150px; border-radius: 55px;`，移動端 `height: 84.6vw; border-radius: 44px;`），視覺比例與官網完全一致。
+   - **電話守護原則**：全站兩間中心真實電話（3892 5099 與 3892 5089）100% 原樣保留，零改動。
+

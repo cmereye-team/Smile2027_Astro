@@ -11,7 +11,9 @@ import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
 import SchemaFAQ from "@/components/seo/SchemaFAQ.astro";
 import UserShare from "@/components/views/UserShare.astro";
 import SwiperRound from "@/components/views/SwiperRound.astro";
+import SwiperCard from "@/components/views/SwiperCard.astro";
 import { i18nPaths, getLangFromUrl } from "@/i18n/utils";
+import { getBanners } from "@/data/bannerData";
 import {
   RELEX_SMILE_ZH_HK,
   RELEX_SMILE_ZH_CN,
@@ -25,6 +27,7 @@ export function getStaticPaths() {
 const lang = getLangFromUrl(Astro.url);
 const isCn = lang === "zh-cn";
 const content = isCn ? RELEX_SMILE_ZH_CN : RELEX_SMILE_ZH_HK;
+const banners = await getBanners(lang);
 ---
 
 <BaseLayout tdkKey="smile">
@@ -542,14 +545,7 @@ const content = isCn ? RELEX_SMILE_ZH_CN : RELEX_SMILE_ZH_HK;
             <p class="font-en">{content.news.subtitle}</p>
           </div>
           <div class="smile-right-swiper">
-            <img
-              src="https://statichk.cmermedical.com/smile/smileV2/smile-swiper-01.avif"
-              alt="最新情報"
-              width="360"
-              height="200"
-              loading="lazy"
-              class="rounded-xl shadow-lg"
-            />
+            <SwiperCard banners={banners} />
           </div>
         </div>
       </div>
@@ -1327,7 +1323,6 @@ const content = isCn ? RELEX_SMILE_ZH_CN : RELEX_SMILE_ZH_HK;
 
       &-swiper {
         width: 100%;
-        padding-left: 5.2083vw;
       }
     }
   }

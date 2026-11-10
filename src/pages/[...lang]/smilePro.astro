@@ -136,25 +136,31 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
           <source
             media="(min-width: 768px)"
             srcset={content.banner.heroImgPc}
+            width="1940"
+            height="647"
             type="image/webp"
           />
           <source
             media="(min-width: 768px)"
             srcset={content.banner.heroImgPcJpg}
+            width="1940"
+            height="647"
           />
           <source
             srcset={content.banner.heroImgMb}
+            width="700"
+            height="700"
             type="image/webp"
           />
           <img
             src={content.banner.heroImgMbJpg}
             alt={content.banner.heroAlt}
             title={content.banner.heroTitle}
-            width="1240"
-            height="460"
+            width="1940"
+            height="647"
             loading="eager"
             fetchpriority="high"
-            class="w-full rounded-lg object-cover"
+            class="hero-banner-img w-full rounded-lg"
           />
         </picture>
       </a>
@@ -811,6 +817,22 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
     display: flex;
     min-width: 100%;
     animation: marquee-smooth 20s linear infinite;
+  }
+
+  /* Hero 首屏大圖比例與構圖 (100% 精確對齊線上：全機器可見，零裁切) */
+  .hero-banner-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    object-position: center;
+
+    @media (min-width: 768px) {
+      aspect-ratio: 1940 / 647;
+      object-fit: contain;
+      object-position: right center;
+    }
   }
 
   /* 提示標籤定位 */

@@ -1,0 +1,399 @@
+---
+/**
+ * 希瑪微笑矯視中心 - 桌面寬屏右側卡片堆疊式輪播圖 (SwiperCard)
+ * 1:1 復刻線上官網桌面右側最新情報 3D 堆疊卡片輪播 (自動輪播 + 分頁圓點 + 拖拽/點擊切換)
+ */
+import { getBanners, type BannerItem } from "@/data/bannerData";
+
+interface Props {
+  banners?: BannerItem[];
+  lang?: string;
+}
+
+const { lang = "zh-hk", banners } = Astro.props;
+const items: BannerItem[] = banners || (await getBanners(lang));
+---
+
+<div
+  class="swiper-card"
+  id="relexRightSwiperCard"
+  role="region"
+  aria-roledescription="carousel"
+  aria-label="最新情報輪播"
+>
+  <div class="swiper-card-container">
+    <div class="swiper-card-wrap">
+      {
+        items.map((item, index) => (
+          <div
+            class:list={[
+              "swiper-card-slide",
+              {
+                active: index === 0,
+                next: index === 1,
+                prev: index === items.length - 1,
+              },
+            ]}
+            data-slide-index={index}
+            role="group"
+            aria-roledescription="slide"
+            aria-label={`焦點情報第 ${index + 1} 頁，共 ${items.length} 頁`}
+          >
+            <a
+              href={item.link || "#"}
+              target={item.isExternal ? "_blank" : undefined}
+              rel={item.isExternal ? "noopener noreferrer" : undefined}
+              tabindex={index === 0 ? 0 : -1}
+            >
+              <img
+                src={item.mbImg || item.pcImg}
+                alt={item.title}
+                width="400"
+                height="400"
+                loading="lazy"
+                draggable="false"
+              />
+            </a>
+            <div class="overlay" aria-hidden="true" />
+          </div>
+        ))
+      }
+    </div>
+    <div class="swiper-card-pagination" role="tablist" aria-label="情報輪播分頁">
+      {
+        items.map((_, index) => (
+          <button
+            type="button"
+            class:list={["swiper-card-bullet", { active: index === 0 }]}
+            data-bullet-index={index}
+            role="tab"
+            aria-selected={index === 0 ? "true" : "false"}
+            aria-label={`切換至第 ${index + 1} 張焦點情報`}
+          />
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  function initSwiperCard() {
+    const cardRoot = document.getElementById("relexRightSwiperCard");
+    if (!cardRoot) return;
+
+    const slides = Array.from(cardRoot.querySelectorAll(".swiper-card-slide"));
+    const bullets = Array.from(cardRoot.querySelectorAll(".swiper-card-bullet"));
+    const totalSlides = slides.length;
+    if (totalSlides <= 1) return;
+
+    let activeIndex = 0;
+    let autoTimer = null;
+    let isDragging = false;
+    let startX = 0;
+    let deltaX = 0;
+    let isClick = true;
+
+    function getSlideStyle(index, currentActive) {
+      const prevIdx = (currentActive - 1 + totalSlides) % totalSlides;
+      const nextIdx = (currentActive + 1) % totalSlides;
+
+      if (index === currentActive) {
+        return {
+          transform: "translateY(0) rotate(-3.774deg) translateZ(0)",
+          zIndex: "2",
+          opacity: "1",
+          pointerEvents: "auto",
+        };
+      } else if (index === prevIdx) {
+        return {
+          transform: "rotate(2.925deg) translateZ(-100px)",
+          zIndex: "1",
+          opacity: "0.8",
+          pointerEvents: "none",
+        };
+      } else if (index === nextIdx) {
+        return {
+          transform: "rotate(-7.548deg) translateZ(-100px)",
+          zIndex: "1",
+          opacity: "0.2",
+          pointerEvents: "none",
+        };
+      } else {
+        return {
+          transform: "translateY(0) translateZ(-200px)",
+          zIndex: "0",
+          opacity: "0",
+          pointerEvents: "none",
+        };
+      }
+    }
+
+    function renderState() {
+      const prevIdx = (activeIndex - 1 + totalSlides) % totalSlides;
+      const nextIdx = (activeIndex + 1) % totalSlides;
+
+      slides.forEach((slide, idx) => {
+        slide.classList.remove("active", "prev", "next");
+        const link = slide.querySelector("a");
+        const img = slide.querySelector("img");
+        if (img) img.style.transform = "";
+
+        if (idx === activeIndex) {
+          slide.classList.add("active");
+          if (link) link.tabIndex = 0;
+        } else if (idx === prevIdx) {
+          slide.classList.add("prev");
+          if (link) link.tabIndex = -1;
+        } else if (idx === nextIdx) {
+          slide.classList.add("next");
+          if (link) link.tabIndex = -1;
+        } else {
+          if (link) link.tabIndex = -1;
+        }
+
+        const styles = getSlideStyle(idx, activeIndex);
+        slide.style.transform = styles.transform;
+        slide.style.zIndex = styles.zIndex;
+        slide.style.opacity = styles.opacity;
+        slide.style.pointerEvents = styles.pointerEvents;
+        slide.style.transition = isDragging ? "none" : "transform 0.5s ease, opacity 0.5s ease";
+      });
+
+      bullets.forEach((bullet, idx) => {
+        const isActive = idx === activeIndex;
+        bullet.classList.toggle("active", isActive);
+        bullet.setAttribute("aria-selected", isActive ? "true" : "false");
+      });
+    }
+
+    function nextSlide() {
+      activeIndex = (activeIndex + 1) % totalSlides;
+      renderState();
+    }
+
+    function prevSlide() {
+      activeIndex = (activeIndex - 1 + totalSlides) % totalSlides;
+      renderState();
+    }
+
+    function setActiveIndex(idx) {
+      if (idx === activeIndex) return;
+      activeIndex = idx;
+      renderState();
+    }
+
+    function startAutoPlay() {
+      if (!autoTimer) {
+        autoTimer = setInterval(nextSlide, 3000);
+      }
+    }
+
+    function pauseAutoPlay() {
+      if (autoTimer) {
+        clearInterval(autoTimer);
+        autoTimer = null;
+      }
+    }
+
+    // Bullets click
+    bullets.forEach((bullet, idx) => {
+      bullet.addEventListener("click", (e) => {
+        e.preventDefault();
+        pauseAutoPlay();
+        setActiveIndex(idx);
+        startAutoPlay();
+      });
+    });
+
+    // Hover pause / resume
+    cardRoot.addEventListener("mouseenter", pauseAutoPlay);
+    cardRoot.addEventListener("mouseleave", startAutoPlay);
+
+    // Touch / Pointer events for drag swipe
+    const container = cardRoot.querySelector(".swiper-card-container");
+    if (container) {
+      container.addEventListener("pointerdown", (e) => {
+        if (e.button !== 0) return;
+        isDragging = true;
+        isClick = true;
+        startX = e.clientX;
+        deltaX = 0;
+        pauseAutoPlay();
+      });
+
+      window.addEventListener("pointermove", (e) => {
+        if (!isDragging) return;
+        deltaX = e.clientX - startX;
+        if (Math.abs(deltaX) > 6) {
+          isClick = false;
+        }
+        const activeSlide = slides[activeIndex];
+        const activeImg = activeSlide ? activeSlide.querySelector("img") : null;
+        if (activeImg) {
+          activeImg.style.transform = `translateX(${deltaX}px)`;
+          activeImg.style.transition = "none";
+        }
+      });
+
+      const handlePointerUp = () => {
+        if (!isDragging) return;
+        isDragging = false;
+        const activeSlide = slides[activeIndex];
+        const activeImg = activeSlide ? activeSlide.querySelector("img") : null;
+        if (activeImg) {
+          activeImg.style.transform = "";
+          activeImg.style.transition = "transform 0.3s ease";
+        }
+
+        const threshold = 50;
+        if (deltaX < -threshold) {
+          nextSlide();
+        } else if (deltaX > threshold) {
+          prevSlide();
+        } else {
+          renderState();
+        }
+        setTimeout(() => {
+          isClick = true;
+        }, 120);
+        startAutoPlay();
+      };
+
+      window.addEventListener("pointerup", handlePointerUp);
+      window.addEventListener("pointercancel", handlePointerUp);
+
+      // Prevent link navigation if dragging occurred
+      cardRoot.querySelectorAll("a").forEach((anchor) => {
+        anchor.addEventListener("click", (e) => {
+          if (!isClick) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+        });
+      });
+    }
+
+    renderState();
+    startAutoPlay();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSwiperCard);
+  } else {
+    initSwiperCard();
+  }
+</script>
+
+<style lang="scss">
+  .swiper-card {
+    width: 100%;
+    height: 100%;
+    perspective: 1000px;
+
+    &-container {
+      position: relative;
+      width: clamp(9.375rem, -6.78rem + 26.48vw, 25rem);
+      height: clamp(9.375rem, -6.78rem + 26.48vw, 25rem);
+      margin: 0 auto;
+      cursor: grab;
+      user-select: none;
+      touch-action: pan-y;
+
+      &:active {
+        cursor: grabbing;
+      }
+    }
+
+    &-wrap {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    &-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: clamp(9.375rem, -6.78rem + 26.48vw, 25rem);
+      height: clamp(9.375rem, -6.78rem + 26.48vw, 25rem);
+      transform-style: preserve-3d;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 20px;
+        display: block;
+      }
+
+      &.active .overlay {
+        display: none;
+      }
+
+      .overlay {
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 1;
+          width: 100%;
+          height: 100%;
+          background:
+            linear-gradient(
+              0deg,
+              rgba(255, 255, 255, 0.5) 0%,
+              rgba(255, 255, 255, 0.5) 100%
+            );
+          border-radius: 20px;
+          transition: opacity 0.5s ease;
+        }
+      }
+    }
+
+    &-pagination {
+      position: absolute;
+      bottom: -60px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      z-index: 3;
+    }
+
+    &-bullet {
+      background: #d9d9d9;
+      opacity: 0.7;
+      width: 10px;
+      height: 10px;
+      margin: 0 13px;
+      border-radius: 50%;
+      display: inline-block;
+      cursor: pointer;
+      border: none;
+      padding: 0;
+      transition: all 0.3s ease;
+
+      &.active {
+        background: #4570b6;
+        opacity: 1;
+      }
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .swiper-card {
+      &-pagination {
+        bottom: -50px;
+      }
+
+      &-bullet {
+        width: 8px;
+        height: 8px;
+        margin: 0 10px;
+      }
+    }
+  }
+</style>
