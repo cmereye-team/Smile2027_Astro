@@ -325,15 +325,29 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
           <div class="applyDialog-main-icon mb-4 w-12 h-12 text-primary mx-auto">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="48"
-              height="48"
-              viewBox="0 0 58 58"
-              fill="none"
-              class="w-full h-full"
+              viewBox="0 0 52 52"
+              class="success-checkmark w-full h-full"
+              aria-hidden="true"
             >
+              <circle
+                class="success-circle"
+                cx="26"
+                cy="26"
+                r="23"
+                fill="none"
+                stroke="var(--color-primary, #4570b6)"
+                stroke-width="3"
+                pathLength="1"
+              />
               <path
-                d="M0 28.997C-.103 13.076 13.1-.005 29.01 0c15.848.005 29.008 13.055 28.994 29.033C57.989 44.929 44.875 58.057 28.889 58 13.006 57.943-.108 44.856 0 28.997m45.915-8.217c-.04-.421-.288-.727-.571-1.01q-1.797-1.801-3.597-3.598c-.88-.876-1.353-.874-2.233.007-4.957 4.957-9.918 9.909-14.864 14.877-.372.374-.578.362-.938-.005-1.782-1.816-3.588-3.606-5.39-5.403-.73-.727-1.24-.722-1.975.01a1153 1153 0 0 0-3.717 3.717c-.768.77-.761 1.22.016 1.998l10.467 10.48c.882.883 1.25.88 2.151-.02l14.157-14.146 6-5.994c.258-.258.492-.523.501-.915z"
-                fill="#4570b6"
+                class="success-check"
+                d="M16 26.5l7 7 14-14"
+                fill="none"
+                stroke="var(--color-primary, #4570b6)"
+                stroke-width="3.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                pathLength="1"
               />
             </svg>
           </div>
@@ -405,6 +419,20 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
     const submitBtn = document.getElementById("submit-booking-btn");
     const applyDialog = document.getElementById("apply-dialog");
     const closeDialogBtn = document.getElementById("close-dialog-btn");
+
+    function openSuccessDialog() {
+      if (!applyDialog) return;
+      const circle = applyDialog.querySelector(".success-circle");
+      const check = applyDialog.querySelector(".success-check");
+      if (circle && check) {
+        circle.style.animation = "none";
+        check.style.animation = "none";
+        void circle.offsetHeight;
+        circle.style.animation = "";
+        check.style.animation = "";
+      }
+      applyDialog.classList.remove("hidden");
+    }
 
     const formValidation = validationMessages || {};
 
@@ -595,16 +623,16 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
           });
           const result = await res.json();
           if (result && result.code === 1) {
-            if (applyDialog) applyDialog.classList.remove("hidden");
+            openSuccessDialog();
             bookingForm.reset();
             if (dateWrap) dateWrap.classList.add("hidden");
             if (selectionSummary) selectionSummary.classList.add("hidden");
             if (userDetailsForm) userDetailsForm.classList.add("hidden");
           } else {
-            if (applyDialog) applyDialog.classList.remove("hidden");
+            openSuccessDialog();
           }
         } catch (_error) {
-          if (applyDialog) applyDialog.classList.remove("hidden");
+          openSuccessDialog();
         } finally {
           if (submitBtn) {
             submitBtn.disabled = false;
@@ -802,6 +830,51 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
 
   .applyDialog.hidden {
     display: none;
+  }
+
+  /* 成功對話框 SVG 描邊動畫 (Stroke-dash Animation) */
+  .success-circle {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+
+  .success-check {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+
+  .applyDialog:not(.hidden) .success-circle {
+    animation: drawCircle 350ms var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)) forwards;
+  }
+
+  .applyDialog:not(.hidden) .success-check {
+    animation: drawCheck 250ms var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)) 300ms forwards;
+  }
+
+  @keyframes drawCircle {
+    from {
+      stroke-dashoffset: 1;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes drawCheck {
+    from {
+      stroke-dashoffset: 1;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .applyDialog:not(.hidden) .success-circle,
+    .applyDialog:not(.hidden) .success-check {
+      stroke-dashoffset: 0 !important;
+      animation: none !important;
+    }
   }
 
   .applyDialog-wrap {

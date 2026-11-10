@@ -167,4 +167,18 @@
      2. FAQ 元素本體上的 Microdata 語意標記（在每個問題項目上標記 `itemscope itemtype="https://schema.org/Question"`、問題標題標記 `itemprop="name"`、答案容器標記 `itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"`、答案文本標記 `itemprop="text"`）。
 
 ---
+
+## 12. 容器與動態標準 (Container and Motion Standards)
+
+1. **Page-level horizontal bounds are set ONLY by the shared `.site-container` class**, defined once in `src/styles/comm.css` (width 100%, margin-inline auto, padding-inline 15px / 10px under 360px, max-width 1140px from 1139px viewport, 1320px from 1310px viewport; values via CSS variables).
+2. **Banned as page-level containers**: `new-container`, `banner-container`, `header-container`, `intro-container`, `subnav-container`, `page_container`, `lbv-banner-container`, and page-level Tailwind max-w wrappers (`max-w-[1240px]`, `max-w-4xl/5xl/6xl` and similar).
+   - **Registered exceptions**: `smile-layout-container` (the three-rail relex-smile layout) and full-bleed colour bands whose inner content uses `.site-container`.
+   - **Component-internal containers** (`swiper-container`, `fee-table-container`, `avatar-container`, video containers, `popover-container`) are not page containers and must never set page bounds.
+3. **Motion tokens live in `comm.css`**:
+   - `--dur-fast: 150ms`, `--dur: 250ms`, `--dur-slow: 400ms`
+   - `--ease-out: cubic-bezier(0.22, 1, 0.36, 1)`, `--ease-in-out: cubic-bezier(0.65, 0, 0.35, 1)`
+   - All non-essential animation is disabled under `prefers-reduced-motion`.
+   - Animate only `transform` and `opacity` (the details height technique excepted).
+
+---
 *文檔由 Antigravity Agent 自動維護 | 版本：2026.11*

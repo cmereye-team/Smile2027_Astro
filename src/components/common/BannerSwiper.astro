@@ -15,7 +15,7 @@ const banners: BannerItem[] = await getBanners(lang);
 {
   banners.length > 0 && (
     <section class="banner-section" aria-label="希瑪微笑矯視中心精選焦點">
-  <div class="banner-container">
+  <div class="site-container">
     <div id="bannerCarousel" class="banner-swiper swiper" role="region" aria-roledescription="carousel" aria-label="全站熱門優惠與服務輪播">
       <div class="swiper-wrapper">
         {
@@ -85,16 +85,7 @@ const banners: BannerItem[] = await getBanners(lang);
     @apply w-full pt-2.5 sm:pt-4 lg:pt-5;
   }
 
-  /* 容器：直接繼承全站 1280px 統一基準線 (桌面 1280px，移動 15px 絕對鎖定) */
-  .banner-container {
-    width: 100% !important;
-    max-width: 1280px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    padding-left: 15px !important;
-    padding-right: 15px !important;
-    box-sizing: border-box !important;
-  }
+  
 
   /* 輪播視窗卡片 (防 CLS 固定比例 + 現代圓角陰影) */
   .banner-swiper {

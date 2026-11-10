@@ -53,7 +53,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
 
   <div class="page-icl font-hk text-desc relative overflow-x-hidden">
     {/* 1. 頂部主橫幅 Hero Banner */}
-    <div class="container new-container mx-auto smile-NewBanner position-relative">
+    <div class="site-container smile-NewBanner position-relative">
       <img draggable="false"
         class="banner-lens-img"
         decoding="async"
@@ -83,13 +83,13 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
 
     {/* 2. 中心介紹與麵包屑導航 */}
     <section class="smile-newCenter" aria-labelledby="center-intro-title">
-      <div class="container new-container mx-auto">
+      <div class="site-container">
         <nav class="smile-newCenter-menu" aria-label="麵包屑導航">
           <a href={isCn ? "/cn/" : "/"}>{content.breadcrumb.home}</a>&nbsp;&gt;&nbsp;<span class="text-text">{content.breadcrumb.service}</span>&nbsp;&gt;&nbsp;<a href={isCn ? "/cn/vision-correction-icl" : "/vision-correction-icl"}>{content.breadcrumb.current}</a>
         </nav>
       </div>
       <div class="w-100 smile-newCenter-content">
-        <div class="container new-container mx-auto smile-newCenter-content-text">
+        <div class="site-container smile-newCenter-content-text">
           <h2 id="center-intro-title" class="text-center d-xl-none">
             {content.center.title}
           </h2>
@@ -113,7 +113,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
       <h2 id="why-choose-title" class="icl-WhatChoose-title">
         {content.whyChoose.title}
       </h2>
-      <div class="icl-WhatChoose-content-one container new-container">
+      <div class="icl-WhatChoose-content-one site-container">
         <div class="icl-WhatChoose-content-one-img">
           <img draggable="false"
             decoding="async"
@@ -135,7 +135,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
           </p>
         </div>
       </div>
-      <div class="icl-WhatChoose-content-two container new-container">
+      <div class="icl-WhatChoose-content-two site-container">
         {content.whyChoose.features.map((feat) => (
           <div>
             <div class="flex items-center icl-WhatChoose-content-two-title">
@@ -188,7 +188,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
           {content.fee.title}
         </h2>
         <div class="w-full">
-          <div class="space-y-2 md:space-y-4 max-w-6xl mx-auto px-4 md:px-0">
+          <div class="site-container space-y-2 md:space-y-4">
             {content.fee.cards.map((card) => (
               <div class="bg-white border border-[#4570B6] rounded-2xl p-5 md:p-8 flex flex-row justify-between items-center transition-all group">
                 <div class="text-[#6D6E71] text-base md:text-3xl font-bold">
@@ -243,7 +243,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
     </div>
 
     {/* 5. EVO ICL 產品系列介紹 — V4C｜V5｜V6 型號比較 */}
-    <div class="icl-model mb-9 lg:mb-20 container max-7xl mx-auto px-4 lg:px-0">
+    <div class="icl-model mb-9 lg:mb-20 site-container">
       <h2 class="model-title mb-6 lg:mb-10 text-center">
         {content.modelComparison.titlePrefix} <span class="hidden md:inline"> — </span><br class="block md:hidden" />{content.modelComparison.titleSuffix}
       </h2>
@@ -368,7 +368,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
 
     {/* 8. 過程與介紹影片 */}
     <section class="icl-introVedio overflow-hidden" aria-labelledby="icl-intro-title">
-      <div class="icl-introVedio-intro new-container">
+      <div class="icl-introVedio-intro site-container">
         <div class="icl-introVedio-intro-number">
           {/* 左側數字列表 */}
           <div class="steps" id="iclStepButtons">
@@ -441,7 +441,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
         </div>
       </div>
       <div class="icl-introVedio-vedio">
-        <div class="new-container">
+        <div class="site-container">
           <h2 class="new-pubile-title">
             <span>{content.videos.tag} </span>{content.videos.title}
           </h2>
@@ -481,7 +481,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
 
     {/* 10. 全面術前眼睛檢查項目 */}
     <section class="icl-CheckObject" aria-labelledby="icl-check-title">
-      <div class="CheckObject container new-container">
+      <div class="CheckObject site-container">
         <h2 id="icl-check-title">
           {content.check.title}<span class="d-xl-none">{content.check.sub}</span>
           <p class="d-none d-xl-block"><br />{content.check.sub}</p>

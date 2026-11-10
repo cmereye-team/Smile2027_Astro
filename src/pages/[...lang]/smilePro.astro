@@ -57,7 +57,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
 
   <div class="page-smilepro font-hk text-desc">
     {/* Section 0: 頂部通告橫幅 (平滑跳轉至收費價目表) */}
-    <div class="notice max-w-[1240px] mx-auto px-4 lg:px-0 mb-2 lg:mb-3">
+    <div class="notice site-container mb-2 lg:mb-3">
       <a
         href="#price"
         class="rounded-lg overflow-hidden flex relative min-h-[52px] md:h-auto border border-blue-100/60 shadow-sm transition hover:opacity-95"
@@ -122,7 +122,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
 
     {/* Section 1: 首屏視覺大圖與適應症提示 (Hero Banner) */}
     <div
-      class="container max-w-[1240px] mx-auto smile-NewBanner relative px-4 xl:px-0 pb-12 md:pb-6"
+      class="smile-NewBanner site-container relative pb-12 md:pb-6"
     >
       <a
         href={whatsappUrl}
@@ -178,7 +178,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
     </div>
 
     {/* Section 2: 中心介紹與唯一 H1 業務概括 (Summary) */}
-    <section class="smile-newCenter max-w-[1240px] mx-auto px-4 xl:px-0 mt-8 lg:mt-12" aria-labelledby="hero-h1-title">
+    <section class="smile-newCenter site-container mt-8 lg:mt-12" aria-labelledby="hero-h1-title">
       <nav
         class="smile-newCenter-menu flex items-center text-sm lg:text-base text-gray-500 mb-8 lg:mb-12"
         aria-label="麵包屑導航"
@@ -319,7 +319,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
     </section>
 
     {/* Section 3: 為何選擇希瑪? (Why Choose) */}
-    <section class="icl-WhatChoose max-w-[1240px] mx-auto px-4 xl:px-0 py-12 lg:py-20" aria-labelledby="why-choose-heading">
+    <section class="icl-WhatChoose site-container py-12 lg:py-20" aria-labelledby="why-choose-heading">
       <h2 id="why-choose-heading" class="icl-WhatChoose-title text-center lg:text-left text-2xl lg:text-3xl font-black text-primary mb-8 max-w-[988px] mx-auto">
         {content.whyChoose.title}
       </h2>
@@ -372,7 +372,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
     </section>
 
     {/* Section 4: 四大特點 (Four Features) */}
-    <section class="smilepro-four-feature max-w-[1240px] mx-auto px-4 xl:px-0 mb-16 lg:mb-28" aria-labelledby="four-features-heading">
+    <section class="smilepro-four-feature site-container mb-16 lg:mb-28" aria-labelledby="four-features-heading">
       <div class="smilepro-four-feature-Box max-w-4xl mx-auto">
         <div class="smilepro-four-feature-Box-top text-center mb-10 lg:mb-14">
           <h2 id="four-features-heading" class="title-normal text-2xl lg:text-3xl font-black text-primary">
@@ -411,7 +411,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
     {/* Section 5: SMILE Pro 微笑激光矯視夏日禮遇 / 費用 (Pricing) */}
     <section
       id="price"
-      class="price max-w-[1240px] mx-auto px-4 xl:px-0 mb-16 lg:mb-28 scroll-mt-24"
+      class="price site-container mb-16 lg:mb-28 scroll-mt-24"
       aria-labelledby="price-section-heading"
     >
       <h2 id="price-section-heading" class="title-normal text-center text-2xl lg:text-3xl font-black text-primary mb-8 lg:mb-14">
@@ -550,7 +550,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
     </section>
 
     {/* Section 6: SMILE/SMILE PRO/ICL 大不同 (Comparison Table) */}
-    <section class="smilepro-difference max-w-[1240px] mx-auto px-4 xl:px-0 mb-16 lg:mb-28" aria-labelledby="diff-heading">
+    <section class="smilepro-difference site-container mb-16 lg:mb-28" aria-labelledby="diff-heading">
       <div class="smilepro-difference-title text-center mb-10">
         <h2 id="diff-heading" class="title-normal text-2xl lg:text-3xl font-black text-primary inline-block relative">
           {content.difference.title}
@@ -641,7 +641,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
     </section>
 
     {/* Section 7: 矯視過程 (Steps) */}
-    <section class="steps max-w-[1240px] mx-auto px-4 xl:px-0 space-y-12 lg:space-y-20 mb-16 lg:mb-28" aria-labelledby="steps-section-heading">
+    <section class="steps site-container space-y-12 lg:space-y-20 mb-16 lg:mb-28" aria-labelledby="steps-section-heading">
       {/* 2.0 過程 */}
       <div>
         <h2 id="steps-section-heading" class="title-normal text-center text-2xl lg:text-3xl font-black text-primary mb-8">
@@ -706,7 +706,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
     </section>
 
     {/* Section 8: 你適合做SMILE Pro嗎? (Suitability) */}
-    <section class="process max-w-[1240px] mx-auto px-4 xl:px-0 mb-16 lg:mb-28" aria-labelledby="suitable-heading">
+    <section class="process site-container mb-16 lg:mb-28" aria-labelledby="suitable-heading">
       <h2 id="suitable-heading" class="title-normal text-center text-2xl lg:text-3xl font-black text-primary mb-8 lg:mb-12">
         {content.suitable.title}
       </h2>
@@ -744,7 +744,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
     />
 
     {/* Section 10: 用家見證 (User Ratings Reviews) */}
-    <section class="smile-pro-evaluateV2 max-w-[1240px] mx-auto px-4 xl:px-0 py-12 lg:py-20" aria-labelledby="user-review-heading">
+    <section class="smile-pro-evaluateV2 site-container py-12 lg:py-20" aria-labelledby="user-review-heading">
       <div class="smile-pro-evaluateV2-Box max-w-5xl mx-auto">
         <h2 id="user-review-heading" class="smile-pro-evaluateV2-Box-title text-center text-2xl lg:text-3xl font-black text-primary mb-10">
           {content.userRating.title}

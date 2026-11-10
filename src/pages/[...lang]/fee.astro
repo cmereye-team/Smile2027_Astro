@@ -36,7 +36,7 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
     <div class="fee-wrap">
       {/* 頂部橫幅 Hero Banner */}
       <section class="fee-Banner overflow-hidden">
-        <div class="fee-Banner-Box new-container">
+        <div class="fee-Banner-Box site-container">
           <div class="fee-Banner-Box-Title">
             <span>{fee.banner.category}</span>
             <h1>{fee.banner.title}</h1>
@@ -47,7 +47,7 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
           </div>
         </div>
         <div class="fee-img">
-          <div class="fee-img-Box new-container">
+          <div class="fee-img-Box site-container">
             <div class="fee-img-Box-image">
               <div class="fee-img-Box-image-tip">{fee.banner.tip}</div>
             </div>
@@ -58,7 +58,7 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
       {/* 表格一：激光矯視與 ICL 收費對比 */}
       <div id="table1" class="feeV2-Bg overflow-hidden scroll-mt-20 md:scroll-mt-40">
         <section class="smilepro-difference">
-          <table class="table custom-comparison-table new-container">
+          <table class="table custom-comparison-table site-container">
             <thead>
               <tr>
                 <th set:html={fee.table1.originNote} />
@@ -302,7 +302,7 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
           </h2>
 
           {/* 2.1 CMER CLEAR-Vision */}
-          <table class="table table-clear custom-comparison-table new-container">
+          <table class="table table-clear custom-comparison-table site-container">
             <thead>
               <tr>
                 <th set:html={fee.table1.originNote} />
@@ -335,7 +335,7 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
           </table>
 
           {/* 2.2 Presbyond LBV */}
-          <table class="table custom-comparison-table new-container">
+          <table class="table custom-comparison-table site-container">
             <thead>
               <tr>
                 <th set:html={fee.table1.originNote} />
@@ -406,7 +406,7 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
           </table>
 
           {/* 2.3 ICL Viva V6 */}
-          <table class="table custom-comparison-table custom-table-extro new-container">
+          <table class="table custom-comparison-table custom-table-extro site-container">
             <thead>
               <tr>
                 <th set:html={fee.table1.originNote} />
@@ -504,20 +504,7 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
   width: 100%;
 }
 
-@media screen and (min-width: 1139px) {
-  .new-container {
-    max-width: 1140px !important;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-@media screen and (min-width: 1310px) {
-  .new-container {
-    max-width: 1320px !important;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
+
 .bt-d0d0d0 {
   border-top: 1px solid #d0d0d0;
 }

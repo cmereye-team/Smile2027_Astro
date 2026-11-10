@@ -143,9 +143,9 @@ const breadcrumbItems = [
       opacity: 0;
       block-size: 0;
       overflow: clip;
-      transition: content-visibility 0.35s allow-discrete,
-                  opacity 0.3s ease,
-                  block-size 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: content-visibility var(--dur-slow) allow-discrete,
+                  opacity var(--dur) var(--ease-out),
+                  block-size var(--dur-slow) var(--ease-out);
     }
 
     &[open]::details-content {
@@ -166,7 +166,7 @@ const breadcrumbItems = [
     padding: 20px 80px 20px 85px;
     position: relative;
     list-style: none;
-    transition: background-color 0.25s ease, color 0.25s ease;
+    transition: background-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
 
     &::-webkit-details-marker {
       display: none;
@@ -224,8 +224,8 @@ const breadcrumbItems = [
       height: 2px;
       border-radius: 1px;
       background-color: #4570b6;
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                  background-color 0.25s ease;
+      transition: transform var(--dur) var(--ease-out),
+                  background-color var(--dur) var(--ease-out);
     }
 
     /* 直槓 (Vertical bar) */
@@ -236,9 +236,9 @@ const breadcrumbItems = [
       height: 16px;
       border-radius: 1px;
       background-color: #4570b6;
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                  opacity 0.25s ease,
-                  background-color 0.25s ease;
+      transition: transform var(--dur) var(--ease-out),
+                  opacity var(--dur) var(--ease-out),
+                  background-color var(--dur) var(--ease-out);
     }
   }
 
@@ -290,7 +290,7 @@ const breadcrumbItems = [
   }
 
   .faq-item[open] .faq-content {
-    animation: faqReveal 0.3s ease-out;
+    animation: faqReveal var(--dur) var(--ease-out);
   }
 
   .faq-answer {

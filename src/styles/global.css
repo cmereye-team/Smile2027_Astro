@@ -120,10 +120,7 @@ html[lang="zh-cn"] {
 
 /* 核心標準排版與組件類庫 (語意化集合原子類) */
 @layer components {
-  /* 容器與佈局 */
-  .wrapper {
-    @apply container;
-  }
+  /* 佈局輔助類 */
   .center {
     @apply flex justify-center items-center;
   }
@@ -191,111 +188,33 @@ html[lang="zh-cn"] {
 }
 
 /* -------------------------------------------------------------------------- */
-/* 全站單一共享容器 (Shared Site Container Utility - Single Source of Truth)   */
-/* 繼承 /fee 頁面真值尺寸：最大寬度 1320px (min-width: 1310px 為 1320px，min-width: 1139px 為 1140px) */
+/* 全站單一共享容器 (Shared Site Container - Single Source of Truth)           */
+/* 規格：width 100%, margin-inline auto, padding-inline 15px / 10px under 360px */
+/* max-width 1140px from 1139px viewport, 1320px from 1310px viewport       */
 /* -------------------------------------------------------------------------- */
-@utility site-container {
-  margin-inline: auto;
+.site-container {
   width: 100%;
-  padding-inline: 15px;
-  box-sizing: border-box;
-
-  @variant min-[1139px] {
-    max-width: 1140px;
-    padding-inline: 0;
-  }
-  @variant min-[1310px] {
-    max-width: 1320px;
-    padding-inline: 0;
-  }
-}
-
-@utility container {
   margin-inline: auto;
-  width: 100%;
-  padding-inline: 15px;
+  padding-inline: var(--container-pad, 15px);
   box-sizing: border-box;
-
-  @variant min-[1139px] {
-    max-width: 1140px;
-    padding-inline: 0;
-  }
-  @variant min-[1310px] {
-    max-width: 1320px;
-    padding-inline: 0;
-  }
 }
 
-@utility wrapper {
-  margin-inline: auto;
-  width: 100%;
-  padding-inline: 15px;
-  box-sizing: border-box;
-
-  @variant min-[1139px] {
-    max-width: 1140px;
-    padding-inline: 0;
-  }
-  @variant min-[1310px] {
-    max-width: 1320px;
-    padding-inline: 0;
-  }
-}
-
-/* 全站 100% 統一共享容器基準軸 (Master Grid Canvas Spine) */
-.site-container,
-.new-container,
-.container,
-.wrapper,
-.header-container,
-.banner-container,
-.intro-container {
-  width: 100% !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  padding-left: 15px !important;
-  padding-right: 15px !important;
-  box-sizing: border-box !important;
-}
-
-/* 極限超窄屏防擠壓安全保護 (<360px 如 320px - 339px) */
 @media (max-width: 359px) {
-  .site-container,
-  .new-container,
-  .container,
-  .wrapper,
-  .header-container,
-  .banner-container,
-  .intro-container {
-    padding-left: 10px !important;
-    padding-right: 10px !important;
+  .site-container {
+    padding-inline: var(--container-pad-sm, 10px);
   }
 }
 
-@media screen and (min-width: 1139px) {
-  .site-container,
-  .new-container,
-  .container,
-  .wrapper,
-  .header-container,
-  .banner-container,
-  .intro-container {
-    max-width: 1140px !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+@media (min-width: 1139px) {
+  .site-container {
+    max-width: var(--container-max-md, 1140px);
+    padding-inline: 0;
   }
 }
 
-@media screen and (min-width: 1310px) {
-  .site-container,
-  .new-container,
-  .container,
-  .wrapper,
-  .header-container,
-  .banner-container,
-  .intro-container {
-    max-width: 1320px !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+@media (min-width: 1310px) {
+  .site-container {
+    max-width: var(--container-max-lg, 1320px);
+    padding-inline: 0;
   }
 }

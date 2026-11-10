@@ -58,7 +58,7 @@ const currentUrl = isCn
   <div class="page-presbyopia font-hk text-desc relative overflow-x-hidden">
     <!-- 1. 頂部主橫幅 Hero Banner -->
     <section class="ClearVisionBanner">
-      <div class="new-container container">
+      <div class="site-container">
         <div class="ClearVisionBanner-Box">
           <div class="ClearVisionBanner-Box-content">
             <div class="ClearVisionBanner-Box-content-title">
@@ -107,7 +107,7 @@ const currentUrl = isCn
 
     <!-- 2. 什麼是老花？ -->
     <section class="WhatLaoHua">
-      <div class="new-container container WhatLaoHuaBox">
+      <div class="WhatLaoHuaBox site-container">
         <h2>{content.whatIs.title}</h2>
         <div class="WhatLaoHuaBox-text">
           <p set:html={content.whatIs.p1Html} />
@@ -527,8 +527,7 @@ const currentUrl = isCn
 
     <!-- 6. 第一視角預覽 -->
     <div class="main_banner">
-      <div class="banner lbv-banner">
-        <div class="lbv-banner-container">
+      <div class="site-container text-center">
           <h2 class="text-xl lg:text-3xl font-black lg:font-bold text-[#4570B6]">
             {content.preview.title}
           </h2>
@@ -584,7 +583,6 @@ const currentUrl = isCn
               />
             </svg>
           </div>
-        </div>
       </div>
     </div>
 
@@ -686,7 +684,7 @@ const currentUrl = isCn
         alt=""
         class="SuitableObject-bgLeft2"
       />
-      <div class="SuitableObject-Box container">
+      <div class="SuitableObject-Box site-container">
         <div class="SuitableObject-Box-title">
           <h2>{content.suitable.title}</h2>
           <p set:html={content.suitable.subtitleHtml} />
@@ -729,7 +727,7 @@ const currentUrl = isCn
 
     <!-- 9. 常見問題 FAQ -->
     <section class="question-mencare">
-      <div class="container">
+      <div class="site-container">
         <h2 class="publicTitle-mencare">{content.faq.title}</h2>
         <div class="question-section-Box">
           <div id="accordion">

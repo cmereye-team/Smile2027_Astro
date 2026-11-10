@@ -120,10 +120,7 @@ i {
     padding: 40px 50px;
   }
 }
-.new-container {
-  margin-left: auto;
-  margin-right: auto;
-}
+
 // 常见问题
 .question-mencare {
   padding: 0 2.56vw;
@@ -2426,11 +2423,6 @@ i {
   }
 }
 @media screen and (min-width: 1139px) {
-  .new-container {
-    max-width: 1140px !important;
-    margin-left: auto;
-    margin-right: auto;
-  }
   .UserShare {
     .UserShareContainer {
       .UserShareBox {
@@ -2442,13 +2434,7 @@ i {
     }
   }
 }
-@media screen and (min-width: 1310px) {
-  .new-container {
-    max-width: 1320px !important;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
+
 @media screen and (min-width: 1140px) {
   .head-bg {
     top: 0;
@@ -2525,20 +2511,10 @@ i {
   .new-Footer-v2 {
     margin-top: 0 !important;
   }
-  .new-container {
-    max-width: 1140px !important;
-    margin-left: auto;
-    margin-right: auto;
-  }
+  
 }
 
-@media screen and (min-width: 1310px) {
-  .new-container {
-    max-width: 1320px !important;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
+
 
 @media screen and (max-width: 1140px) {
   .smile-NewBanner {
@@ -5651,14 +5627,9 @@ i {
   padding: 20px 0;
 }
 
-.lbv-banner {
-  width: 100%;
-  max-width: 1200px;
-}
 
-.lbv-banner-container {
-  text-align: center;
-}
+
+
 
 // .lbv-banner-title {
 //   font-size: 20px;
