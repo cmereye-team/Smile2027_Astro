@@ -55,7 +55,25 @@ const banners = await getBanners(lang);
   <SchemaFAQ faqs={content.faqs} />
 
   <div class="page-smile font-hk">
-    <div class="smile-main-column">
+    {/* 視差裝飾背景層 (Parallax Background Canvas) */}
+    <div class="smile-parallax-bg" id="smileParallaxBg" aria-hidden="true" />
+
+    {/* 現代化三欄自適應佈局容器 (In-flow 3-Column Layout with Sticky Rails) */}
+    <div class="smile-layout-container">
+      {/* 桌面端左側軌道 (>=1440px)：用家分享 Sticky 視差軌道 */}
+      <aside class="smile-rail smile-rail-left" aria-label="用家分享">
+        <div class="smile-rail-sticky" id="smileRailLeftSticky">
+          <div class="smile-left">
+            <SwiperRound
+              shareList={SMILE_SHARE_DATA}
+              title={isCn ? "用家分享" : "用家分享"}
+            />
+          </div>
+        </div>
+      </aside>
+
+      {/* 中間主內容欄 (自適應 iPhone / Surface Duo / 平板與桌面) */}
+      <div class="smile-main-column">
       {/* Section 1: Hero Banner */}
       <section class="newCenter" aria-labelledby="hero-title">
         <div
@@ -527,28 +545,23 @@ const banners = await getBanners(lang);
           {content.exercise.tips.map((tip) => <p>{tip}</p>)}
         </div>
       </section>
-    </div>
-
-    {/* 寬屏兩側背景裝飾與用家分享軌道 (>=1440px) */}
-    <aside class="smile" aria-label="用家分享與最新情報">
-      <div class="smile-bg">
-        <div class="smile-left">
-          <SwiperRound
-            shareList={SMILE_SHARE_DATA}
-            title={isCn ? "用家分享" : "用家分享"}
-          />
-        </div>
-        <div class="smile-right">
-          <div class="smile-right-title">
-            <span class="smile-right-heading">{content.news.title}</span>
-            <p class="font-en">{content.news.subtitle}</p>
-          </div>
-          <div class="smile-right-swiper">
-            <SwiperCard banners={banners} />
-          </div>
-        </div>
       </div>
-    </aside>
+
+      {/* 桌面端右側軌道 (>=1440px)：最新情報 Sticky 視差軌道 */}
+      <aside class="smile-rail smile-rail-right" aria-label="最新情報">
+        <div class="smile-rail-sticky" id="smileRailRightSticky">
+          <div class="smile-right">
+            <div class="smile-right-title">
+              <span class="smile-right-heading">{content.news.title}</span>
+              <p class="font-en">{content.news.subtitle}</p>
+            </div>
+            <div class="smile-right-swiper">
+              <SwiperCard banners={banners} />
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
   </div>
 </BaseLayout>
 
@@ -617,6 +630,41 @@ const banners = await getBanners(lang);
         item.classList.add("active");
       });
     });
+
+    // 4. 現代化視差滾動引擎 (Parallax Scroll Engine - GPU加速 + 阻尼視差)
+    const parallaxBg = document.getElementById("smileParallaxBg");
+    const leftSticky = document.getElementById("smileRailLeftSticky");
+    const rightSticky = document.getElementById("smileRailRightSticky");
+
+    let isParallaxTicking = false;
+    function handleParallax() {
+      if (!isParallaxTicking) {
+        window.requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+
+          // 背景層深邃平滑視差 (-0.06 係數，全設備通用，流暢 60fps)
+          if (parallaxBg) {
+            parallaxBg.style.transform = `translate3d(0, ${scrollY * -0.06}px, 0)`;
+          }
+
+          // 桌面寬屏 (>=1440px) 兩側軌道柔和浮動微視差
+          if (window.innerWidth >= 1440) {
+            const floatOffset = Math.sin(scrollY / 240) * 8;
+            if (leftSticky) {
+              leftSticky.style.transform = `translate3d(0, ${floatOffset}px, 0)`;
+            }
+            if (rightSticky) {
+              rightSticky.style.transform = `translate3d(0, ${-floatOffset}px, 0)`;
+            }
+          }
+
+          isParallaxTicking = false;
+        });
+        isParallaxTicking = true;
+      }
+    }
+
+    window.addEventListener("scroll", handleParallax, { passive: true });
   }
 
   document.addEventListener("DOMContentLoaded", initRelexSmileInteractive);
@@ -669,11 +717,26 @@ const banners = await getBanners(lang);
     position: relative;
     background-color: #fff;
     width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+
+    @media screen and (max-width: 767px) {
+      width: 100%;
+      overflow-x: hidden;
+    }
 
     @media screen and (min-width: 768px) {
       width: 768px;
+      max-width: min(768px, 100vw);
+      flex-shrink: 0;
       border-left: 1.5px solid $primary-color;
       border-right: 1.5px solid $primary-color;
+    }
+
+    /* 針對 Surface Duo / 摺疊雙屏設備與 iPhone 橫屏適配 */
+    /* stylelint-disable-next-line media-feature-name-no-unknown */
+    @media (screen-spanning: single-fold-vertical), (horizontal-viewport-segments: 2) {
+      max-width: min(768px, calc(100vw - 32px));
     }
   }
 
@@ -1243,123 +1306,155 @@ const banners = await getBanners(lang);
     }
   }
 
-  .smile {
-    position: absolute;
-    top: 0;
+  /* 視差背景層 (Parallax Background Canvas - GPU加速) */
+  .smile-parallax-bg {
+    position: fixed;
+    top: -10vh;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 120vh;
+    background: url("https://statichk.cmermedical.com/smile/smileV2/smile-bg.avif")
+      no-repeat center top;
+    background-size: cover;
+    z-index: 0;
     pointer-events: none;
+    will-change: transform;
+  }
 
-    &-bg {
-      width: 100vw;
-      height: 100vh;
-      position: fixed;
-      top: 0;
-      left: 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: url("https://statichk.cmermedical.com/smile/smileV2/smile-bg.avif")
-        no-repeat;
-      background-size: cover;
-      z-index: 1;
-      pointer-events: none;
+  /* 現代化三欄自適應佈局容器 (In-flow Flex Layout) */
+  .smile-layout-container {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+  }
+
+  /* 兩側 Sticky 視差軌道 (>=1440px 啟用) */
+  .smile-rail {
+    display: none;
+    position: relative;
+    z-index: 2;
+
+    @media screen and (min-width: 1440px) {
+      display: block;
     }
 
     &-left {
-      display: none;
-      width: 540px;
-      height: 900px;
-      position: relative;
-      pointer-events: auto;
-
-      &::after {
-        content: "";
-        position: absolute;
-        right: 5%;
-        top: 50%;
-        transform: translateY(-50%);
-        border: 1px solid $primary-color;
-        width: 200%;
-        height: 100%;
-        z-index: 2;
-        background: transparent;
-        border-radius: 50%;
-        pointer-events: none;
-      }
-
-      &::before {
-        content: "";
-        border: 2px dashed $primary-color;
-        z-index: 1;
-        width: 180%;
-        height: 80%;
-        border-radius: 50%;
-        position: absolute;
-        top: 10%;
-        right: 25%;
-        pointer-events: none;
-      }
-
-      @media screen and (min-width: 1440px) {
-        display: block;
-      }
+      flex: 1;
+      max-width: 540px;
+      display: flex;
+      justify-content: flex-end;
     }
 
     &-right {
-      display: none;
-      width: 30vw;
-      position: relative;
-      height: 100vh;
+      flex: 1;
+      max-width: 30vw;
+      min-width: 380px;
+    }
+
+    &-sticky {
+      position: sticky;
+      top: 80px;
+      height: calc(100vh - 90px);
+      will-change: transform;
       pointer-events: auto;
+      overflow: visible;
+    }
+  }
 
-      @media screen and (min-width: 1440px) {
+  .smile-left {
+    display: block;
+    width: 540px;
+    height: 900px;
+    max-height: calc(100vh - 90px);
+    position: relative;
+    pointer-events: auto;
+
+    &::after {
+      content: "";
+      position: absolute;
+      right: 5%;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 1px solid $primary-color;
+      width: 200%;
+      height: 100%;
+      z-index: 2;
+      background: transparent;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    &::before {
+      content: "";
+      border: 2px dashed $primary-color;
+      z-index: 1;
+      width: 180%;
+      height: 80%;
+      border-radius: 50%;
+      position: absolute;
+      top: 10%;
+      right: 25%;
+      pointer-events: none;
+    }
+  }
+
+  .smile-right {
+    display: block;
+    width: 30vw;
+    position: relative;
+    height: 100%;
+    pointer-events: auto;
+
+    &-title {
+      padding: clamp(60px, 10vh, 160px) 0 1.25vw 2.6vw;
+
+      .smile-right-heading {
         display: block;
-      }
+        color: #000;
+        text-align: left;
+        font-size: 1.3139vw;
+        font-weight: 300;
+        line-height: 200%;
+        letter-spacing: 0.6568vw;
 
-      &-title {
-        padding: 200px 0 1.25vw 2.6vw;
-
-        .smile-right-heading {
-          display: block;
-          color: #000;
-          text-align: left;
-          font-size: 1.3139vw;
-          font-weight: 300;
-          line-height: 200%;
-          letter-spacing: 0.6568vw;
-
-          &::before {
-            content: "";
-            display: inline-block;
-            margin-right: 0.5208vw;
-            width: 0.7813vw;
-            height: 0.7813vw;
-            background: #4570b6;
-            border-radius: 50%;
-          }
-        }
-
-        p {
-          color: $primary-color;
-          font-size: 1.2104vw;
-          font-weight: 700;
-          line-height: 217%;
-          letter-spacing: 1.16px;
+        &::before {
+          content: "";
+          display: inline-block;
+          margin-right: 0.5208vw;
+          width: 0.7813vw;
+          height: 0.7813vw;
+          background: #4570b6;
+          border-radius: 50%;
         }
       }
 
-      &-swiper {
-        width: 100%;
-        padding-left: 2.6vw;
+      p {
+        color: $primary-color;
+        font-size: 1.2104vw;
+        font-weight: 700;
+        line-height: 217%;
+        letter-spacing: 1.16px;
       }
+    }
+
+    &-swiper {
+      width: 100%;
+      padding-left: 2.6vw;
     }
   }
 
   @media screen and (min-width: 1440px) and (max-width: 1744px) {
-    .smile {
-      &-left {
+    .smile-rail-left {
+      max-width: 22vw;
+
+      .smile-left {
         width: 22vw;
 
         &::after {
@@ -1370,8 +1465,12 @@ const banners = await getBanners(lang);
           width: 200%;
         }
       }
+    }
 
-      &-right {
+    .smile-rail-right {
+      max-width: 25vw;
+
+      .smile-right {
         width: 25vw;
       }
     }
