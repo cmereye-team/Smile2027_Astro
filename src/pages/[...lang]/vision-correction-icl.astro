@@ -1,10 +1,773 @@
 ---
+/*
+ * @Author: Antigravity AI
+ * @Date: 2026-11-10
+ * @FilePath: /src/pages/[...lang]/vision-correction-icl.astro
+ * @Description: ICL 植入式隱形眼鏡專頁 (100% 官方真值對齊 + 雙端響應式 + W-13 轉換追蹤 + 完整 Schema)
+ */
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { i18nPaths, useI18n } from "@/i18n/utils";
+import SchemaProcedure from "@/components/seo/SchemaProcedure.astro";
+import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
+import UserShare from "@/components/views/UserShare.astro";
+import SwiperRound from "@/components/views/SwiperRound.astro";
+import SwiperCard from "@/components/views/SwiperCard.astro";
+import { i18nPaths, getLangFromUrl, getLocalizedHref } from "@/i18n/utils";
+import { getBanners } from "@/data/bannerData";
+import {
+  VISION_CORRECTION_ICL_ZH_HK,
+  VISION_CORRECTION_ICL_ZH_CN,
+  ICL_SHARE_DATA,
+} from "@/data/visionCorrectionIclData";
+import "@/styles/icl.scss";
+
 export function getStaticPaths() {
   return [...i18nPaths];
 }
-const { dict: _dict } = useI18n(Astro.url);
+
+const lang = getLangFromUrl(Astro.url);
+const isCn = lang === "zh-cn";
+const content = isCn ? VISION_CORRECTION_ICL_ZH_CN : VISION_CORRECTION_ICL_ZH_HK;
+const banners = await getBanners(lang);
+const feeUrl = getLocalizedHref("/fee#table1", lang);
 ---
 
-<BaseLayout tdkKey="icl"></BaseLayout>
+<BaseLayout tdkKey="icl">
+  <SchemaProcedure
+    name={content.banner.title}
+    description={content.center.p1.text1 +
+      content.center.p1.text2 +
+      content.center.p2.span1 +
+      content.center.p2.text2 +
+      content.center.p2.span2 +
+      content.center.p2.text3}
+  />
+  <SchemaBreadcrumb
+    items={[
+      { name: content.breadcrumb.home, url: isCn ? "/cn/" : "/" },
+      {
+        name: content.breadcrumb.service,
+        url: isCn ? "/cn/vision-correction-icl" : "/vision-correction-icl",
+      },
+      {
+        name: content.breadcrumb.current,
+        url: isCn ? "/cn/vision-correction-icl" : "/vision-correction-icl",
+      },
+    ]}
+  />
+
+  <div class="page-icl font-hk text-desc relative overflow-x-hidden">
+    {/* 1. 頂部主橫幅 Hero Banner */}
+    <div class="container new-container mx-auto smile-NewBanner position-relative">
+      <img
+        class="banner-lens-img"
+        decoding="async"
+        src={content.banner.imgPc}
+        alt="ICL 植入式隱形眼鏡 - 香港希瑪微笑矯視中心"
+        loading="eager"
+        fetchpriority="high"
+        width="684"
+        height="529"
+        srcset={`${content.banner.imgMb} 400w, ${content.banner.imgMb} 640w, ${content.banner.imgPc}`}
+        sizes="(max-width: 992px) 100vw, 1216px"
+      />
+      <div class="smile-NewBanner-Title">
+        <span>{content.banner.tag}</span>
+        <h1 class="icl-h1">{content.banner.title}</h1>
+        <p>{content.banner.subtitle}</p>
+      </div>
+      <div class="smile-NewBanner-Tip">
+        <div class="smile-NewBanner-Tip-Title">
+          <p>{content.banner.tipTitle}</p>
+        </div>
+        <div class="smile-NewBanner-Tip-Content">
+          {content.banner.tipItems.map((tip) => <p>{tip}</p>)}
+        </div>
+      </div>
+    </div>
+
+    {/* 2. 中心介紹與麵包屑導航 */}
+    <section class="smile-newCenter" aria-labelledby="center-intro-title">
+      <div class="container new-container mx-auto">
+        <nav class="smile-newCenter-menu" aria-label="麵包屑導航">
+          <a href={isCn ? "/cn/" : "/"}>{content.breadcrumb.home}</a>&nbsp;&gt;&nbsp;<span class="text-text">{content.breadcrumb.service}</span>&nbsp;&gt;&nbsp;<a href={isCn ? "/cn/vision-correction-icl" : "/vision-correction-icl"}>{content.breadcrumb.current}</a>
+        </nav>
+      </div>
+      <div class="w-100 smile-newCenter-content">
+        <div class="container new-container mx-auto smile-newCenter-content-text">
+          <h2 id="center-intro-title" class="text-center d-xl-none">
+            {content.center.title}
+          </h2>
+          <div class="smile-newCenter-content-text-p">
+            <h2 class="text-center d-none d-xl-block">
+              {content.center.title}
+            </h2>
+            <p>
+              {content.center.p1.text1}<span>{content.center.p1.text2}</span>。
+            </p>
+            <p>
+              <i>{content.center.p2.italic1}</i><span>{content.center.p2.span1}</span>{content.center.p2.text2}<i>{content.center.p2.italic2}</i><span>{content.center.p2.span2}</span>{content.center.p2.text3}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* 3. 為何選擇希瑪 */}
+    <section class="icl-WhatChoose" aria-labelledby="why-choose-title">
+      <h2 id="why-choose-title" class="icl-WhatChoose-title">
+        {content.whyChoose.title}
+      </h2>
+      <div class="icl-WhatChoose-content-one container new-container">
+        <div class="icl-WhatChoose-content-one-img">
+          <img
+            decoding="async"
+            src={content.whyChoose.imgPc}
+            alt="為何選擇希瑪 - 官方認證EVO ICL國際培訓中心"
+            loading="lazy"
+            width="595"
+            height="384"
+            srcset={`${content.whyChoose.imgMb} 400w, ${content.whyChoose.imgMb} 640w, ${content.whyChoose.imgPc}`}
+            sizes="(max-width: 992px) 100vw, 1216px"
+          />
+        </div>
+        <div class="icl-WhatChoose-content-one-text">
+          <p>
+            {content.whyChoose.one.text1}<span>{content.whyChoose.one.text2}</span>{content.whyChoose.one.text3}<span>{content.whyChoose.one.text4}</span>{content.whyChoose.one.text5}<span>{content.whyChoose.one.text6}</span>{content.whyChoose.one.text7}
+          </p>
+          <p>
+            {content.whyChoose.one.text8}
+          </p>
+        </div>
+      </div>
+      <div class="icl-WhatChoose-content-two container new-container">
+        {content.whyChoose.features.map((feat) => (
+          <div>
+            <div class="flex items-center icl-WhatChoose-content-two-title">
+              <h3>{feat.title}</h3>
+              <span class="span-new">{feat.badge}</span>
+            </div>
+            <div class="text">
+              <p>{feat.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href={content.whyChoose.whatsappUrl}
+        class="mx-auto icl-btn"
+        data-cta="whatsapp"
+        aria-label="預約諮詢 (W-13)"
+      >
+        <span>{content.whyChoose.btn}</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="17"
+          height="17"
+          viewBox="0 0 17 17"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M2 14.5399L14.5714 1.96851"
+            stroke="white"
+            stroke-width="3"
+            stroke-linecap="round"
+          />
+          <path
+            d="M3.83179 1.5686H14.9999V12.3686"
+            stroke="white"
+            stroke-width="2.7"
+            stroke-linecap="round"
+          />
+        </svg>
+      </a>
+    </section>
+
+    {/* 4. ICL植入式隱形眼鏡費用 */}
+    <div class="bg-[#F6FAFD] py-8 px-2 md:px-0 md:pb-32 md:pt-24 mb-9 md:mb-[72px]">
+      <div class="w-full flex flex-col items-center mx-auto">
+        <h2 class="text-[#4A74B8] text-xl md:text-3xl font-black mb-[40px] md:mb-10 tracking-wider text-center">
+          {content.fee.title}
+        </h2>
+        <div class="w-full">
+          <div class="space-y-2 md:space-y-4 max-w-6xl mx-auto px-4 md:px-0">
+            {content.fee.cards.map((card) => (
+              <div class="bg-white border border-[#4570B6] rounded-2xl p-5 md:p-8 flex flex-row justify-between items-center transition-all group">
+                <div class="text-[#6D6E71] text-base md:text-3xl font-bold">
+                  {card.title}
+                </div>
+                <div class="text-[#F59E0B] -ml-[60px] sm:ml-0 flex-1 font-bold tracking-tight text-right group-hover:scale-105 transition-transform">
+                  <span class="text-2xl md:text-5xl">{card.currency}</span>
+                  <span class="text-lg min-[360px]:text-2xl md:text-6xl md:pb-2">
+                    {card.price}
+                  </span>
+                  {card.extra && (
+                    <p class="text-xs min-[360px]:text-sm md:text-xl">{card.extra}</p>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div class="mt-8 md:mt-12 flex flex-col items-center">
+            <a
+              href={feeUrl}
+              class="md:w-auto bg-[#4570B6] text-white px-10 py-4 md:py-5 md:px-[100px] rounded-full text-2xl md:text-4xl font-bold flex items-center justify-center gap-3 transition-colors hover:bg-[#345996]"
+              data-cta="fee"
+            >
+              {content.fee.btn}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-[13px] w-[13px] md:h-[26px] md:w-[26px]"
+                viewBox="0 0 34 34"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M3.18018 30.3632L29.8334 3.70996"
+                  stroke="white"
+                  stroke-width="6.36042"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M7.06396 2.8623H30.742V25.7598"
+                  stroke="white"
+                  stroke-width="5.72438"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </a>
+            <div class="text-text mt-2 md:mt-4 text-center font-light text-base md:text-2xl leading-relaxed">
+              {content.fee.notes.map((note) => <p>{note}</p>)}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* 5. EVO ICL 產品系列介紹 — V4C｜V5｜V6 型號比較 */}
+    <div class="icl-model mb-9 lg:mb-20 container max-7xl mx-auto px-4 lg:px-0">
+      <h2 class="model-title mb-6 lg:mb-10 text-center">
+        {content.modelComparison.titlePrefix} <span class="hidden md:inline"> — </span><br class="block md:hidden" />{content.modelComparison.titleSuffix}
+      </h2>
+      <div class="model-main">
+        <table class="model-table w-full text-center">
+          <thead>
+            <tr>
+              <th class="table-item line-bottom line-project">{content.modelComparison.project}</th>
+              <th class="project-name line-bottom line-right">{content.modelComparison.cols[0]}</th>
+              <th class="project-name line-bottom line-right model-star">{content.modelComparison.cols[1]}</th>
+              <th class="project-name line-bottom line-right model-star">{content.modelComparison.cols[2]}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="table-item line-bottom line-project">{content.modelComparison.range.title}</td>
+              <td class="line-bottom line-right">
+                {content.modelComparison.range.v4c.prefix}<br class="md:hidden" />
+                <span class="font-bold">{content.modelComparison.range.v4c.strong1}</span>
+                <span class="font-bold">{content.modelComparison.range.v4c.strong2}</span>
+                {content.modelComparison.range.v4c.mid}<br />
+                {content.modelComparison.range.v4c.suffix}
+              </td>
+              <td class="line-bottom line-right">
+                {content.modelComparison.range.v5}
+              </td>
+              <td class="line-bottom line-right">
+                {content.modelComparison.range.v6.p1}<br />
+                {content.modelComparison.range.v6.p2}
+              </td>
+            </tr>
+            <tr>
+              <td class="table-item line-bottom line-project">{content.modelComparison.tech.title}</td>
+              <td class="line-bottom line-right">{content.modelComparison.tech.v4c}</td>
+              <td class="line-bottom line-right">{content.modelComparison.tech.v5}</td>
+              <td class="line-bottom line-right">{content.modelComparison.tech.v6}</td>
+            </tr>
+            <tr>
+              <td class="table-item line-bottom line-project">{content.modelComparison.materials.title}</td>
+              <td class="line-bottom line-right">{content.modelComparison.materials.v4c}</td>
+              <td colspan="2" class="line-bottom line-right">{content.modelComparison.materials.intro}</td>
+            </tr>
+            <tr>
+              <td class="table-item line-bottom line-project">{content.modelComparison.audience.title}</td>
+              <td class="line-bottom line-right">{content.modelComparison.audience.v4c}</td>
+              <td class="line-bottom line-right">{content.modelComparison.audience.v5}</td>
+              <td class="line-bottom line-right">
+                {content.modelComparison.audience.v6.p1}<br />
+                {content.modelComparison.audience.v6.p2}
+              </td>
+            </tr>
+            <tr>
+              <td class="table-item line-bottom line-project">{content.modelComparison.night.title}</td>
+              <td class="line-bottom line-right">{content.modelComparison.night.v4c}</td>
+              <td colspan="2" class="line-bottom line-right">{content.modelComparison.night.intro}</td>
+            </tr>
+            <tr>
+              <td class="table-item line-project">{content.modelComparison.reversibility.title}</td>
+              <td colspan="3" class="line-right">{content.modelComparison.reversibility.intro}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    {/* 6. ICL矯視的好處 */}
+    <section class="icl-Good" aria-labelledby="icl-good-title">
+      <h2 id="icl-good-title" class="new-pubile-title">
+        <span>{content.good.tag}</span>{content.good.title}
+      </h2>
+      <div class="icl-Good-List">
+        {content.good.items.map((item) => (
+          <div class="icl-Good-List-item">
+            <div class="lg:size-20 flex justify-center items-center">
+              <img src={item.icon} alt={item.title} loading="lazy" width="60" height="60" />
+            </div>
+            <h3>{item.title}</h3>
+            <div>
+              {item.text.map((t) => <p>{t}</p>)}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* 7. EVO Visian ICL鏡片7大特色 */}
+    <section class="icl-peculiarity" aria-labelledby="icl-peculiarity-title">
+      <h2 id="icl-peculiarity-title" class="new-pubile-title">
+        <span>{content.peculiarity.tag}</span>{content.peculiarity.title}
+      </h2>
+      <div class="icl-peculiarity-container">
+        <p class="icl-peculiarity-text">
+          {content.peculiarity.desc}
+        </p>
+        <div class="icl-peculiarity-list">
+          {content.peculiarity.items.map((item) => (
+            <div class="icl-peculiarity-list-item">
+              <span class="icl-tag-badge">{item.tag}</span>
+              <div class="icl-peculiarity-list-item-text">
+                <p class="icl-peculiarity-list-item-text-title">{item.title}</p>
+                <div class="icl-peculiarity-list-item-text-show">
+                  <div class="icl-peculiarity-list-item-text-show-box">
+                    <img src={item.boxImg} alt={item.title} loading="lazy" width="80" height="80" />
+                    <div class="icl-peculiarity-list-item-box-title">
+                      {item.boxTitleText.map((t) => <p>{t}</p>)}
+                    </div>
+                  </div>
+                  <div class="icl-peculiarity-list-item-text-des">
+                    {item.boxDes.map((d) => <p>{d}</p>)}
+                  </div>
+                </div>
+              </div>
+              <div class="icl-peculiarity-list-item-footer">
+                <p>feature</p>
+                <p>{item.footerNum}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* 8. 過程與介紹影片 */}
+    <section class="icl-introVedio overflow-hidden" aria-labelledby="icl-intro-title">
+      <div class="icl-introVedio-intro new-container">
+        <div class="icl-introVedio-intro-number">
+          {/* 左側數字列表 */}
+          <div class="steps" id="iclStepButtons">
+            {content.steps.list.map((step, idx) => (
+              <button
+                type="button"
+                class:list={["step-btn", { active: idx === 0 }]}
+                data-step-index={idx}
+                aria-label={`步驟 ${step.number}`}
+              >
+                {step.number}
+              </button>
+            ))}
+          </div>
+          {/* 右側內容區域 */}
+          <div class="content-area">
+            <div>
+              <div class="content-area-title">
+                <h2 id="icl-intro-title" class="m-0 p-0 text-inherit font-inherit">
+                  {content.steps.titlePrefix}<br />
+                  {content.steps.titleSuffix}
+                </h2>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="19"
+                  height="20"
+                  viewBox="0 0 19 20"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M0.726577 1.2312L17.593 18.0976"
+                    stroke="#4570B6"
+                    stroke-width="1.34165"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M18.1296 3.68896L18.1296 18.6727L3.63983 18.6727"
+                    stroke="#4570B6"
+                    stroke-width="1.34165"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </div>
+              <div class="content-area-img">
+                <img
+                  id="iclStepImgMb"
+                  class="d-xl-none"
+                  src={content.steps.list[0].image}
+                  alt="ICL 手術過程"
+                  loading="lazy"
+                  width="300"
+                  height="200"
+                />
+                <img
+                  id="iclStepImgPc"
+                  class="d-none d-xl-block"
+                  src={content.steps.list[0].imagePc}
+                  alt="ICL 手術過程"
+                  loading="lazy"
+                  width="440"
+                  height="290"
+                />
+                <p id="iclStepText" class="content-area-text">
+                  {content.steps.list[0].text}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="icl-introVedio-vedio">
+        <div class="new-container">
+          <h2 class="new-pubile-title">
+            <span>{content.videos.tag} </span>{content.videos.title}
+          </h2>
+          <div class="icl-introVedio-vedio-list">
+            {content.videos.list.map((vid) => (
+              <div>
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src={vid.src}
+                  title={vid.title}
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* 9. 合適對象 */}
+    <div class="SuitableObject">
+      {content.suitable.items.map((item, idx) => (
+        <div class="SuitableObject-item" data-number={idx + 1}>
+          <div class="SuitableObject-description">
+            {item.desc.map((d) => <p>{d}</p>)}
+          </div>
+          <img class="SuitableObject-image" src={item.image} alt={item.desc.join('')} loading="lazy" width="220" height="220" />
+        </div>
+      ))}
+      <div class="SuitableObject-speical">
+        <span>合適<br />對象</span>
+      </div>
+    </div>
+
+    {/* 10. 全面術前眼睛檢查項目 */}
+    <section class="icl-CheckObject" aria-labelledby="icl-check-title">
+      <div class="CheckObject container new-container">
+        <h2 id="icl-check-title">
+          {content.check.title}<span class="d-xl-none">{content.check.sub}</span>
+          <p class="d-none d-xl-block"><br />{content.check.sub}</p>
+        </h2>
+        <ul>
+          {content.check.items.map((item) => (
+            <li>
+              <span class="CheckObject-number">{item.number}</span>
+              <span class="CheckObject-description">{item.desc}</span>
+              {item.isNew && <span class="CheckObject-new">NEW!</span>}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href={content.check.whatsappUrl}
+        class="mx-auto icl-btn"
+        data-cta="whatsapp"
+        aria-label="預約諮詢 (W-13)"
+      >
+        <span>{content.check.btn}</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="17"
+          height="17"
+          viewBox="0 0 17 17"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M2 14.5399L14.5714 1.96851"
+            stroke="white"
+            stroke-width="3"
+            stroke-linecap="round"
+          />
+          <path
+            d="M3.83179 1.5686H14.9999V12.3686"
+            stroke="white"
+            stroke-width="2.7"
+            stroke-linecap="round"
+          />
+        </svg>
+      </a>
+    </section>
+
+    {/* 11. 用家分享 */}
+    <UserShare
+      title={content.shareTitle}
+      items={ICL_SHARE_DATA}
+      id="iclUserShareList"
+      sectionId="section-icl-share"
+    />
+
+    {/* 12. 最新動態 */}
+    <section class="latestNews" aria-labelledby="latest-news-title">
+      <div class="latestNews-tip">{content.latestNews.badge}</div>
+      <div class="latestNews-in">
+        <h2 id="latest-news-title" class="latestNews-title">
+          <i>{content.latestNews.i}</i> <span>{content.latestNews.span}</span> {content.latestNews.title}
+        </h2>
+        <p>
+          {content.latestNews.desc}
+        </p>
+      </div>
+      <a href={getLocalizedHref(content.latestNews.href, lang)} class="latestNews-btn">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="23"
+          height="24"
+          viewBox="0 0 23 24"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M1.33179 21.8586L20.604 2.58643"
+            stroke="#C13550"
+            stroke-width="2.59036"
+            stroke-linecap="round"
+          />
+          <path
+            d="M4.14014 1.97266H21.261V18.5292"
+            stroke="#C13550"
+            stroke-width="2.59036"
+            stroke-linecap="round"
+          />
+        </svg>
+        <span>{content.latestNews.btn}</span>
+      </a>
+    </section>
+
+    {/* 13. 社交分享按鈕 */}
+    <section class="CaseSharingV2" aria-label="社群分享">
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="19" viewBox="0 0 21 19" fill="none" aria-hidden="true">
+          <path d="M1 0.77832L19.4751 17.9337" stroke="#4570B6" stroke-width="1.97947" />
+        </svg>
+        <span>{content.socialShareTitle}</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="19" viewBox="0 0 21 19" fill="none" aria-hidden="true">
+          <path d="M20 0.77832L1.52493 17.9337" stroke="#4570B6" stroke-width="1.97947" />
+        </svg>
+      </div>
+      <div>
+        <button type="button" id="shareCurrentPageIcl" aria-label="分享本頁面" class="cursor-pointer bg-transparent border-0 p-0">
+          <svg xmlns="http://www.w3.org/2000/svg" width="21" height="22" viewBox="0 0 21 22" fill="none" aria-hidden="true">
+            <path
+              d="M0.28309 11.3923C0.282266 9.41405 1.74115 7.78777 3.63606 7.6221C4.78751 7.52154 5.78565 7.88504 6.60988 8.69859C6.74258 8.82964 6.83243 8.84118 6.99233 8.74475C8.88558 7.59654 10.7838 6.45411 12.6836 5.31745C12.832 5.22843 12.8518 5.15177 12.799 4.99022C12.0968 2.83806 13.5441 0.523527 15.7852 0.202064C17.9084 -0.10209 19.8083 1.36263 20.0539 3.49335C20.2781 5.44027 18.853 7.28415 16.9053 7.55945C15.6327 7.73914 14.553 7.34679 13.6604 6.43186C13.5647 6.33377 13.4996 6.32058 13.3826 6.39147C11.463 7.55039 9.54167 8.70601 7.61957 9.85915C7.50665 9.92674 7.47203 9.99351 7.51819 10.1237C7.75227 10.7864 7.79595 11.4632 7.61627 12.1457C7.57423 12.3064 7.63028 12.3814 7.7671 12.4515C9.44029 13.3046 11.1118 14.1618 12.7842 15.019C12.9185 15.0875 13.0554 15.1534 13.1831 15.2317C13.3101 15.3092 13.3966 15.2977 13.4963 15.1765C14.0972 14.4487 14.8662 14.0134 15.7992 13.8626C17.2161 13.6335 18.7129 14.311 19.4811 15.5359C20.888 17.7779 19.6467 20.6776 17.0545 21.2035C15.0006 21.6206 12.9688 20.1831 12.6663 18.1018C12.5996 17.6419 12.5971 17.1844 12.7347 16.7376C12.7982 16.5324 12.7413 16.4401 12.5518 16.3436C10.7607 15.4345 8.9746 14.5154 7.18932 13.5939C7.05991 13.5271 6.98491 13.5436 6.89424 13.6541C6.06342 14.663 4.98945 15.1147 3.68799 15.0454C2.07332 14.9589 0.560032 13.565 0.328423 11.9495C0.298751 11.7451 0.275672 11.5415 0.283915 11.3915L0.28309 11.3923Z"
+              fill="#4570B6"
+            />
+          </svg>
+        </button>
+        <button type="button" id="copyCurrentUrlIcl" aria-label="複製本頁鏈接" class="cursor-pointer bg-transparent border-0 p-0">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+            <g clip-path="url(#clip0_icl_copy)">
+              <path
+                d="M9.10331 5.96582C10.8881 5.96788 12.1819 6.48567 13.3123 7.46166C13.4906 7.61577 13.6719 7.76576 13.8462 7.92295C14.1998 8.2404 14.2685 8.71402 13.9826 9.09722C13.644 9.55132 13.2864 9.99206 12.9169 10.4205C12.6102 10.7759 12.1381 10.7985 11.7725 10.5016C11.5445 10.3167 11.3283 10.1153 11.1003 9.92939C10.0614 9.08489 8.5107 9.12599 7.55356 10.0701C6.53466 11.0759 5.5337 12.1043 4.56062 13.1574C3.81463 13.9649 3.6493 14.9511 3.98793 15.998C4.32657 17.0449 5.06658 17.6788 6.11037 17.8699C6.97788 18.0281 7.77666 17.8031 8.43998 17.1744C8.65412 16.972 8.85232 16.7521 9.06148 16.5446C9.44493 16.1655 9.89611 16.1501 10.2826 16.5251C10.663 16.8949 11.0325 17.2771 11.3921 17.6685C11.7078 18.0127 11.7218 18.4883 11.423 18.8356C10.3951 20.0335 9.17403 20.8883 7.61033 21.1821C4.42019 21.781 1.21312 19.4828 0.680264 16.184C0.335653 14.0481 0.911332 12.204 2.37244 10.6598C3.2997 9.67974 4.24091 8.71299 5.19008 7.75549C6.35838 6.57607 7.76769 5.98123 9.10231 5.96685L9.10331 5.96582Z"
+                fill="#4570B6"
+              />
+              <path
+                d="M12.3093 15.4664C10.7307 15.4592 9.43492 14.9445 8.30647 13.9664C8.13516 13.8175 7.96186 13.6716 7.79055 13.5216C7.42104 13.1969 7.34734 12.7213 7.63916 12.3309C7.97879 11.8768 8.33635 11.4371 8.70487 11.0087C9.00964 10.6542 9.48373 10.6337 9.84925 10.9306C10.0644 11.1052 10.2666 11.2963 10.4837 11.4679C11.651 12.3915 13.1539 12.3021 14.1977 11.2388C15.131 10.2885 16.0602 9.33406 16.9785 8.36834C17.7345 7.57316 17.9635 6.61155 17.6667 5.55131C17.364 4.47258 16.6429 3.79863 15.5782 3.57672C14.6818 3.38974 13.8641 3.61165 13.1768 4.25889C12.9627 4.46025 12.7655 4.68216 12.5553 4.88866C12.1729 5.26467 11.7177 5.27906 11.3333 4.9051C10.9528 4.53525 10.5833 4.15307 10.2247 3.76061C9.91698 3.42467 9.89407 2.95105 10.1819 2.61408C11.147 1.48398 12.2824 0.636403 13.7426 0.306619C17.2036 -0.474177 20.5641 1.973 20.9874 5.60473C21.2095 7.51152 20.6826 9.19331 19.4117 10.5844C18.348 11.7484 17.2644 12.898 16.109 13.9664C15.0085 14.9846 13.6858 15.451 12.3083 15.4654L12.3093 15.4664Z"
+                fill="#4570B6"
+              />
+            </g>
+            <defs>
+              <clipPath id="clip0_icl_copy">
+                <rect width="20.4545" height="21.1144" fill="white" transform="translate(0.583496 0.162109)" />
+              </clipPath>
+            </defs>
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    {/* 寬屏兩側背景裝飾與用家分享軌道 (>=1440px) */}
+    <aside class="smile" aria-label="用家分享與最新情報">
+      <div class="smile-bg">
+        <div class="smile-left">
+          <SwiperRound
+            shareList={ICL_SHARE_DATA}
+            title={isCn ? "用家分享" : "用家分享"}
+          />
+        </div>
+        <div class="smile-right">
+          <div class="smile-right-title">
+            <span class="smile-right-heading">{content.news.title}</span>
+            <p class="font-en">{content.news.subtitle}</p>
+          </div>
+          <div class="smile-right-swiper">
+            <SwiperCard banners={banners} />
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</BaseLayout>
+
+<style lang="scss">
+  .icl-h1 {
+    font-size: 24.55px;
+    font-weight: 400;
+    line-height: 26.858px;
+    color: #4570b6;
+    margin: 0;
+
+    @media screen and (min-width: 1140px) {
+      font-size: 74.332px;
+      line-height: 1.09;
+    }
+  }
+
+  .banner-lens-img {
+    aspect-ratio: 684 / 529;
+    object-fit: contain;
+  }
+
+  .icl-tag-badge {
+    color: #4570b6;
+    font-family: "Poppins", sans-serif;
+    font-size: 26px;
+    font-weight: 900;
+    line-height: 28px;
+    letter-spacing: 0.25px;
+    display: inline-block;
+  }
+</style>
+
+<script is:inline define:vars={{ stepsData: content.steps.list }}>
+  function initIclPage() {
+    let activeStep = 0;
+    let timer = null;
+    const stepBtns = document.querySelectorAll("#iclStepButtons .step-btn");
+    const stepImgMb = document.getElementById("iclStepImgMb");
+    const stepImgPc = document.getElementById("iclStepImgPc");
+    const stepText = document.getElementById("iclStepText");
+
+    function setStep(idx) {
+      if (idx < 0 || idx >= stepsData.length) return;
+      activeStep = idx;
+      stepBtns.forEach((btn, i) => {
+        btn.classList.toggle("active", i === activeStep);
+      });
+      const data = stepsData[activeStep];
+      if (data) {
+        if (stepImgMb) stepImgMb.src = data.image;
+        if (stepImgPc) stepImgPc.src = data.imagePc;
+        if (stepText) stepText.textContent = data.text;
+      }
+    }
+
+    function startTimer() {
+      stopTimer();
+      timer = setInterval(() => {
+        activeStep = (activeStep + 1) % stepsData.length;
+        setStep(activeStep);
+      }, 3000);
+    }
+
+    function stopTimer() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    stepBtns.forEach((btn, idx) => {
+      btn.addEventListener("click", () => {
+        setStep(idx);
+        stopTimer();
+      });
+      btn.addEventListener("mouseenter", () => {
+        setStep(idx);
+        stopTimer();
+      });
+      btn.addEventListener("mouseleave", () => {
+        startTimer();
+      });
+    });
+
+    startTimer();
+
+    // 社交分享及複製鏈接
+    const copyBtn = document.getElementById("copyCurrentUrlIcl");
+    if (copyBtn) {
+      copyBtn.addEventListener("click", async () => {
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(window.location.href);
+          } else {
+            const textArea = document.createElement("textarea");
+            textArea.value = window.location.href;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textArea);
+          }
+          alert("鏈接已複製到剪貼簿！");
+        } catch (e) {
+          console.error("複製失敗:", e);
+        }
+      });
+    }
+
+    const shareBtn = document.getElementById("shareCurrentPageIcl");
+    if (shareBtn) {
+      shareBtn.addEventListener("click", () => {
+        if (navigator.share) {
+          navigator.share({
+            title: document.title,
+            url: window.location.href,
+          }).catch(() => {});
+        } else {
+          const url = encodeURIComponent(window.location.href);
+          window.open(`https://api.whatsapp.com/send?text=${url}`, "_blank");
+        }
+      });
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initIclPage);
+  } else {
+    initIclPage();
+  }
+</script>
