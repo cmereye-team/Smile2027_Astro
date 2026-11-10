@@ -38,7 +38,7 @@ const targetLangTitle = lang === "zh-hk" ? "切换为简体中文" : "切換為�
 <header class="header-main" id="site-header">
   <!-- 頂部閱讀滾動進度條 (高度 2px，顏色綁定 --color-primary) -->
   <div class="header-scroll-progress" id="headerScrollProgress" aria-hidden="true"></div>
-  <div class="header-container">
+  <div class="header-container site-container">
     
     <!-- 1. 左側官方 Logo (透過 CSS flex 自適應對齊 header-content 高度，零寫死數值) -->
     <a
@@ -443,15 +443,8 @@ const targetLangTitle = lang === "zh-hk" ? "切换为简体中文" : "切換為�
     pointer-events: none;
   }
 
-  /* 容器：1280px 罐頭絕對鎖定 */
+  /* 容器：使用全站共享 .site-container 尺寸，無多餘水平 padding 與 max-width */
   .header-container {
-    width: 100% !important;
-    max-width: 1280px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    padding-left: 15px !important;
-    padding-right: 15px !important;
-    box-sizing: border-box !important;
     display: flex;
     align-items: center;
     justify-content: space-between;

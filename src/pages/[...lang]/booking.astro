@@ -43,7 +43,7 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
     <BookingBanner title={content.banner.title} gid={2} pageSize={5} />
 
     {/* 2. 預約服務卡片區塊 (講座 & 術前眼睛檢查 + WhatsApp 立即預約/查詢) */}
-    <section class="page_container serve-page" aria-label={content.banner.title}>
+    <section class="site-container serve-page" aria-label={content.banner.title}>
       <div class="flex md:justify-center flex-col items-center md:flex-row">
         {/* 卡片 1: 講座 (跳轉至講座預約專頁 /ophthalmicInfo/AppointForm) */}
         <a
@@ -118,9 +118,7 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
 <style>
   /* 預約服務卡片區塊 */
   .serve-page {
-    max-width: 1200px;
     margin: 40px auto;
-    padding: 0 16px;
   }
 
   .serve-box-link {

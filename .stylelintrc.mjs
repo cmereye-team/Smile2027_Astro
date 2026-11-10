@@ -55,6 +55,18 @@ export default {
         ignorePseudoClasses: ["global", "deep"],
       },
     ],
+    "selector-pseudo-element-no-unknown": [
+      true,
+      {
+        ignorePseudoElements: ["details-content"],
+      },
+    ],
+    "property-no-unknown": [
+      true,
+      {
+        ignoreProperties: ["interpolate-size"],
+      },
+    ],
     // 允許 BEM 與自定義類名格式
     "selector-class-pattern": null,
     // 允許自定義字體名稱

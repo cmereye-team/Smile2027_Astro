@@ -59,6 +59,7 @@ const breadcrumbItems = [
                 >
                   <summary class="faq-header">
                     <div class="faq-header-text" itemprop="name">{item.title}</div>
+                    <span class="faq-toggle-indicator" aria-hidden="true" />
                   </summary>
                   <div
                     class="faq-content"
@@ -79,12 +80,21 @@ const breadcrumbItems = [
 </BaseLayout>
 
 <style lang="scss">
+  :root {
+    interpolate-size: allow-keywords;
+  }
+
   .questions {
-    margin-bottom: 10vw;
+    padding-top: 50px;
+    margin-bottom: 80px;
 
     & > section {
-      padding-top: 10vw;
-      scroll-margin-top: 6rem;
+      padding-top: 60px;
+      scroll-margin-top: 130px;
+
+      &:first-of-type {
+        padding-top: 10px;
+      }
     }
   }
 
@@ -127,6 +137,21 @@ const breadcrumbItems = [
 
   .faq-item {
     border-bottom: 1px solid #ebeef5;
+
+    /* 原生 details 平滑展開高度動畫 (支援現代瀏覽器 ::details-content 規範，0 JS) */
+    &::details-content {
+      opacity: 0;
+      block-size: 0;
+      overflow: clip;
+      transition: content-visibility 0.35s allow-discrete,
+                  opacity 0.3s ease,
+                  block-size 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &[open]::details-content {
+      opacity: 1;
+      block-size: auto;
+    }
   }
 
   /* 手風琴標題 summary 原生重設與標題樣式 */
@@ -138,7 +163,7 @@ const breadcrumbItems = [
     border: none;
     cursor: pointer;
     box-sizing: border-box;
-    padding: 20px 70px 20px 60px;
+    padding: 20px 80px 20px 85px;
     position: relative;
     list-style: none;
     transition: background-color 0.25s ease, color 0.25s ease;
@@ -161,36 +186,59 @@ const breadcrumbItems = [
       color: #4570b6;
     }
 
-    /* 左側未展開 Q 圖標 (青藍色) */
+    /* 左側 Q 圖標：全域統一左側內嵌距離 (28px)，藍色展開條與收起行 100% 垂直對齊 */
     &::before {
       position: absolute;
       content: "";
       background-image: url("/images/faq/icon-q-inactive.png");
       background-repeat: no-repeat;
       background-size: contain;
-      left: 10px;
+      left: 28px;
       top: 50%;
       transform: translateY(-50%);
       display: inline-block;
-      height: 42px;
-      width: 40px;
+      height: 38px;
+      width: 38px;
       pointer-events: none;
     }
+  }
 
-    /* 右側未展開加號圖標 */
-    &::after {
-      position: absolute;
+  /* 右側原生純 CSS 兩條槓動畫加減號指示器 (0 JS) */
+  .faq-toggle-indicator {
+    position: absolute;
+    right: 28px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+
+    /* 橫槓 (Horizontal bar) */
+    &::before {
       content: "";
-      background-image: url("/images/faq/icon-plus.png");
-      background-repeat: no-repeat;
-      background-size: contain;
-      right: 30px;
-      top: 50%;
-      transform: translateY(-50%);
-      display: inline-block;
-      height: 24px;
-      width: 25px;
-      pointer-events: none;
+      position: absolute;
+      width: 16px;
+      height: 2px;
+      border-radius: 1px;
+      background-color: #4570b6;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                  background-color 0.25s ease;
+    }
+
+    /* 直槓 (Vertical bar) */
+    &::after {
+      content: "";
+      position: absolute;
+      width: 2px;
+      height: 16px;
+      border-radius: 1px;
+      background-color: #4570b6;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                  opacity 0.25s ease,
+                  background-color 0.25s ease;
     }
   }
 
@@ -204,14 +252,23 @@ const breadcrumbItems = [
       color: #fff;
     }
 
-    /* 左側展開中 Q 圖標 (純白) */
+    /* 左側展開中 Q 圖標 (純白)，保持與收起行完全相同 28px 內距，舒適合度 */
     &::before {
       background-image: url("/images/faq/icon-q-active.png");
     }
 
-    /* 右側展開中減號圖標 (白橫槓) */
-    &::after {
-      background-image: url("/images/faq/icon-minus.png");
+    /* 右側加號旋轉過渡轉為純白減號 (橫槓保持，直槓旋轉 90 度並淡出) */
+    .faq-toggle-indicator {
+      &::before {
+        background-color: #ffffff;
+        transform: rotate(180deg);
+      }
+
+      &::after {
+        background-color: #ffffff;
+        transform: rotate(90deg);
+        opacity: 0;
+      }
     }
   }
 
@@ -220,13 +277,29 @@ const breadcrumbItems = [
     box-sizing: border-box;
   }
 
+  /* 優雅降級：對不支援 ::details-content 的瀏覽器提供內容淡入過渡 */
+  @keyframes faqReveal {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .faq-item[open] .faq-content {
+    animation: faqReveal 0.3s ease-out;
+  }
+
   .faq-answer {
     color: #6d6e71;
     font-size: 20px;
     font-weight: 300;
     letter-spacing: 3px;
     line-height: 35px;
-    padding: 20px 40px 20px 60px;
+    padding: 20px 40px 20px 85px;
 
     /* set:html 富文本高亮 span 樣式遵循全域 :global 規範 */
     :global(span) {
@@ -238,10 +311,16 @@ const breadcrumbItems = [
   /* 移動端響應式斷點 (≤ 768px) */
   @media screen and (max-width: 768px) {
     .questions {
+      padding-top: 25px;
       margin-bottom: 10vw;
 
       & > section {
-        padding-top: 22vw;
+        padding-top: 40px;
+        scroll-margin-top: 90px;
+
+        &:first-of-type {
+          padding-top: 0;
+        }
       }
     }
 
@@ -264,7 +343,7 @@ const breadcrumbItems = [
     }
 
     summary.faq-header {
-      padding: 12px 35px 12px 30px;
+      padding: 14px 45px 14px 50px;
 
       .faq-header-text {
         font-size: 15px;
@@ -273,31 +352,27 @@ const breadcrumbItems = [
       }
 
       &::before {
-        left: 5px;
+        left: 14px;
         top: 50%;
         transform: translateY(-50%);
-        height: 18px;
-        width: 17px;
-      }
-
-      &::after {
-        right: 8px;
-        top: 50%;
-        transform: translateY(-50%);
-        height: 16px;
-        width: 15px;
+        height: 22px;
+        width: 22px;
       }
     }
 
-    .faq-item[open] > summary.faq-header {
+    .faq-toggle-indicator {
+      right: 14px;
+      width: 20px;
+      height: 20px;
+
       &::before {
-        height: 18px;
-        width: 17px;
+        width: 13px;
+        height: 2px;
       }
 
       &::after {
-        height: 2px;
-        width: 12px;
+        width: 2px;
+        height: 13px;
       }
     }
 
@@ -305,7 +380,7 @@ const breadcrumbItems = [
       font-size: 14px;
       letter-spacing: 0.05em;
       line-height: 24px;
-      padding: 15px 15px 15px 30px;
+      padding: 15px 15px 15px 50px;
     }
   }
 </style>

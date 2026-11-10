@@ -230,9 +230,11 @@ html[lang="zh-cn"] {
 
   @variant min-[1139px] {
     max-width: 1140px;
+    padding-inline: 0;
   }
   @variant min-[1310px] {
     max-width: 1320px;
+    padding-inline: 0;
   }
 }
 
@@ -244,9 +246,11 @@ html[lang="zh-cn"] {
 
   @variant min-[1139px] {
     max-width: 1140px;
+    padding-inline: 0;
   }
   @variant min-[1310px] {
     max-width: 1320px;
+    padding-inline: 0;
   }
 }
 
@@ -258,9 +262,11 @@ html[lang="zh-cn"] {
 
   @variant min-[1139px] {
     max-width: 1140px;
+    padding-inline: 0;
   }
   @variant min-[1310px] {
     max-width: 1320px;
+    padding-inline: 0;
   }
 }
 
@@ -289,6 +295,8 @@ html[lang="zh-cn"] {
   .banner-container,
   .intro-container {
     max-width: 1140px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
 }
 
@@ -301,6 +309,8 @@ html[lang="zh-cn"] {
   .banner-container,
   .intro-container {
     max-width: 1320px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
 }
 
