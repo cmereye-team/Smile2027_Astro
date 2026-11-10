@@ -1291,7 +1291,6 @@ const banners = await getBanners(lang);
     justify-content: space-between;
     align-items: stretch;
     width: 100%;
-    max-width: 1920px;
     margin: 0 auto;
     position: relative;
     z-index: 2;
@@ -1327,13 +1326,13 @@ const banners = await getBanners(lang);
       flex: 1;
       min-width: 0;
       display: flex;
-      justify-content: center;
+      justify-content: flex-end;
 
       .smile-rail-sticky {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
+        align-items: flex-end;
         width: 100%;
       }
     }
@@ -1387,10 +1386,11 @@ const banners = await getBanners(lang);
   .smile-right {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
     max-width: clamp(9.375rem, -6.78rem + 26.48vw, 25rem);
-    margin: 0 auto;
+    margin: 0;
+    margin-right: max(0px, calc(17.3438vw - 258px));
     position: relative;
     pointer-events: auto;
 
