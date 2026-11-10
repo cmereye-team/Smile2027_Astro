@@ -219,47 +219,60 @@ html[lang="zh-cn"] {
 }
 
 /* -------------------------------------------------------------------------- */
-/* 全站統一 1280px 核心容器初始化 (Master Container Single Source of Truth)   */
+/* 全站單一共享容器 (Shared Site Container Utility - Single Source of Truth)   */
+/* 繼承 /fee 頁面真值尺寸：最大寬度 1320px (min-width: 1310px 為 1320px，min-width: 1139px 為 1140px) */
 /* -------------------------------------------------------------------------- */
+@utility site-container {
+  margin-inline: auto;
+  width: 100%;
+  padding-inline: 15px;
+  box-sizing: border-box;
+
+  @variant min-[1139px] {
+    max-width: 1140px;
+  }
+  @variant min-[1310px] {
+    max-width: 1320px;
+  }
+}
+
 @utility container {
   margin-inline: auto;
   width: 100%;
-  max-width: 1280px;
   padding-inline: 15px;
+  box-sizing: border-box;
 
-  @variant sm {
-    padding-inline: 15px;
+  @variant min-[1139px] {
+    max-width: 1140px;
   }
-  @variant lg {
-    padding-inline: 15px;
-    max-width: 1280px;
+  @variant min-[1310px] {
+    max-width: 1320px;
   }
 }
 
 @utility wrapper {
   margin-inline: auto;
   width: 100%;
-  max-width: 1280px;
   padding-inline: 15px;
+  box-sizing: border-box;
 
-  @variant sm {
-    padding-inline: 15px;
+  @variant min-[1139px] {
+    max-width: 1140px;
   }
-  @variant lg {
-    padding-inline: 15px;
-    max-width: 1280px;
+  @variant min-[1310px] {
+    max-width: 1320px;
   }
 }
 
-/* 全站 100% 嚴格 1280px 罐頭基準軸 (Master Grid Canvas Spine) - 徹底覆蓋任何 96rem/1536px 擴展 */
+/* 全站 100% 統一共享容器基準軸 (Master Grid Canvas Spine) */
 .site-container,
+.new-container,
 .container,
 .wrapper,
 .header-container,
 .banner-container,
 .intro-container {
   width: 100% !important;
-  max-width: 1280px !important;
   margin-left: auto !important;
   margin-right: auto !important;
   padding-left: 15px !important;
@@ -267,29 +280,27 @@ html[lang="zh-cn"] {
   box-sizing: border-box !important;
 }
 
-@media (min-width: 1280px) {
+@media screen and (min-width: 1139px) {
   .site-container,
+  .new-container,
   .container,
   .wrapper,
   .header-container,
   .banner-container,
   .intro-container {
-    max-width: 1280px !important;
-    padding-left: 15px !important;
-    padding-right: 15px !important;
+    max-width: 1140px !important;
   }
 }
 
-@media (min-width: 1536px) {
+@media screen and (min-width: 1310px) {
   .site-container,
+  .new-container,
   .container,
   .wrapper,
   .header-container,
   .banner-container,
   .intro-container {
-    max-width: 1280px !important;
-    padding-left: 15px !important;
-    padding-right: 15px !important;
+    max-width: 1320px !important;
   }
 }
 

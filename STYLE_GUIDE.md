@@ -111,4 +111,26 @@
 ```
 
 ---
+
+## 6. 全站設計系統三大強制約束 (Binding Design-System Constraints)
+
+以下為全站開發最高優先級約束，所有頁面必須無條件遵守：
+
+1. **單一全站共享容器 (One Shared Container)**：
+   - 全站統一使用單一共享容器工具類 `.site-container`（向後相容 `.new-container` / `.container`），其 `max-width` 與兩側邊距 `padding` 僅在公共樣式表 (`src/styles/comm.css`) 中定義一次（對齊已驗收的 `/fee` 頁面真值尺寸：最大寬度 1320px，在 `min-width: 1139px` 為 `1140px`，在 `min-width: 1310px` 為 `1320px`）。
+   - 各頁面與板塊嚴禁定義自有的頁面級 `max-width` 包裹層（Page-level max-width wrappers），嚴禁定義近乎重複的容器類名或 ID。
+   - 僅允許極少數真正特殊的特殊佈局（如三欄式服務頁）或全寬色彩色帶（Full-bleed colour bands）；但全寬色帶的內部內容仍必須嵌套單一共享容器。
+
+2. **原生語意優先 (Native Semantics First)**：
+   - 凡是 HTML 原生元素能提供行為的場景，強制優先使用原生元素，嚴禁濫用 `div + JS` 模擬：
+     - 折疊與手風琴內容必須使用 `<details>` / `<summary>`（利用原生 `name` 屬性實現互斥手風琴，零客戶端 JS 依賴）。
+     - 彈窗與對話框使用原生 `<dialog>`。
+     - 樣式狀態（如展開、激活、圖標切換）一律基於原生屬性（如 `details[open]`, `summary`）由純 CSS 實現。
+
+3. **FAQ 雙軌結構化數據規範 (FAQ Double Structured Data)**：
+   - FAQ 頁面必須強制承載雙重結構化數據：
+     1. 頂部 `FAQPage` JSON-LD (`<SchemaFAQ />` 或 `application/ld+json`)；
+     2. FAQ 元素本體上的 Microdata 語意標記（在每個問題項目上標記 `itemscope itemtype="https://schema.org/Question"`、問題標題標記 `itemprop="name"`、答案容器標記 `itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"`、答案文本標記 `itemprop="text"`）。
+
+---
 *文檔歸檔於 CMER Smile 2026 核心規範體系 | 制定日期：2026.09*

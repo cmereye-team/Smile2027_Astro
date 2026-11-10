@@ -1,7 +1,7 @@
 ---
 /**
  * @FilePath: /src/pages/[...lang]/FreQuestions.astro
- * @Description: 常見問題 FAQ 專頁 (100% 官方真值對齊 + 繁簡雙語 + 手風琴交互 + 全套 SchemaFAQ / SchemaBreadcrumb)
+ * @Description: 常見問題 FAQ 專頁 (100% 官方真值對齊 + 繁簡雙語 + 原生 details/summary 手風琴 + 雙軌結構化數據 SchemaFAQ & Microdata)
  */
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
@@ -17,7 +17,7 @@ const currentLang = getLangFromUrl(Astro.url);
 const isCn = currentLang === "zh-cn";
 const content = isCn ? FAQ_ZH_CN : FAQ_ZH_HK;
 
-// 匯總全站 39 條常見問題作為 Schema.org FAQPage 結構化數據
+// 匯總全站 39 條常見問題作為 Schema.org FAQPage 結構化數據 (保留現有 FAQPage ld+json 不變)
 const allSchemaFaqs = content.sections.flatMap((section) =>
   section.items.map((item) => ({
     question: item.title,
@@ -38,7 +38,7 @@ const breadcrumbItems = [
   <!-- 無障礙唯一 H1 標題 (SEO 標準地標) -->
   <h1 class="sr-only">{content.h1}</h1>
 
-  <main id="main-content" class="questions">
+  <div class="questions site-container">
     {
       content.sections.map((section) => (
         <section id={section.id} class="faq-section" aria-labelledby={`title-${section.id}`}>
@@ -50,76 +50,37 @@ const breadcrumbItems = [
             {section.items.map((item, index) => {
               const isOpen = index === 0;
               return (
-                <div class="faq-item" data-id={item.id}>
-                  <button
-                    type="button"
-                    class={`faq-header ${isOpen ? "is-active" : ""}`}
-                    aria-expanded={isOpen ? "true" : "false"}
-                    aria-controls={`content-${item.id}`}
-                    id={`header-${item.id}`}
-                  >
-                    <div class="faq-header-text">{item.title}</div>
-                  </button>
+                <details
+                  name={section.id}
+                  class="faq-item"
+                  open={isOpen}
+                  itemscope
+                  itemtype="https://schema.org/Question"
+                >
+                  <summary class="faq-header">
+                    <div class="faq-header-text" itemprop="name">{item.title}</div>
+                  </summary>
                   <div
-                    id={`content-${item.id}`}
                     class="faq-content"
-                    role="region"
-                    aria-labelledby={`header-${item.id}`}
-                    style={isOpen ? "display: block;" : "display: none;"}
+                    itemscope
+                    itemprop="acceptedAnswer"
+                    itemtype="https://schema.org/Answer"
                   >
-                    <div class="faq-answer" set:html={item.content} />
+                    <div class="faq-answer" itemprop="text" set:html={item.content} />
                   </div>
-                </div>
+                </details>
               );
             })}
           </div>
         </section>
       ))
     }
-  </main>
+  </div>
 </BaseLayout>
-
-<script is:inline>
-  document.addEventListener("DOMContentLoaded", () => {
-    const sections = document.querySelectorAll(".faq-section");
-    sections.forEach((section) => {
-      const items = section.querySelectorAll(".faq-item");
-      items.forEach((item) => {
-        const header = item.querySelector(".faq-header");
-        const content = item.querySelector(".faq-content");
-        if (!header || !content) return;
-
-        header.addEventListener("click", () => {
-          const isCurrentlyActive = header.classList.contains("is-active");
-
-          // 手風琴互斥行為：收起同區塊其他所有折疊項目
-          items.forEach((otherItem) => {
-            const otherHeader = otherItem.querySelector(".faq-header");
-            const otherContent = otherItem.querySelector(".faq-content");
-            if (otherHeader && otherContent) {
-              otherHeader.classList.remove("is-active");
-              otherHeader.setAttribute("aria-expanded", "false");
-              otherContent.style.display = "none";
-            }
-          });
-
-          // 若點擊前未展開，則展開當前項目
-          if (!isCurrentlyActive) {
-            header.classList.add("is-active");
-            header.setAttribute("aria-expanded", "true");
-            content.style.display = "block";
-          }
-        });
-      });
-    });
-  });
-</script>
 
 <style lang="scss">
   .questions {
-    max-width: 1280px;
-    margin: 0 auto 10vw;
-    box-sizing: border-box;
+    margin-bottom: 10vw;
 
     & > section {
       padding-top: 10vw;
@@ -168,8 +129,8 @@ const breadcrumbItems = [
     border-bottom: 1px solid #ebeef5;
   }
 
-  /* 手風琴標題按鈕 */
-  .faq-header {
+  /* 手風琴標題 summary 原生重設與標題樣式 */
+  summary.faq-header {
     width: 100%;
     display: block;
     text-align: left;
@@ -179,7 +140,16 @@ const breadcrumbItems = [
     box-sizing: border-box;
     padding: 20px 70px 20px 60px;
     position: relative;
+    list-style: none;
     transition: background-color 0.25s ease, color 0.25s ease;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::marker {
+      display: none;
+    }
 
     .faq-header-text {
       font-size: 18px;
@@ -222,26 +192,26 @@ const breadcrumbItems = [
       width: 25px;
       pointer-events: none;
     }
+  }
 
-    /* 展開中 (Active) 狀態 */
-    &.is-active {
-      background-color: #4570b6;
-      background-image: linear-gradient(to top, #4570b6, #4570b6);
+  /* 展開中 (Active / details[open]) 狀態 */
+  .faq-item[open] > summary.faq-header {
+    background-color: #4570b6;
+    background-image: linear-gradient(to top, #4570b6, #4570b6);
 
-      .faq-header-text {
-        -webkit-text-fill-color: #fff;
-        color: #fff;
-      }
+    .faq-header-text {
+      -webkit-text-fill-color: #fff;
+      color: #fff;
+    }
 
-      /* 左側展開中 Q 圖標 (純白) */
-      &::before {
-        background-image: url("/images/faq/icon-q-active.png");
-      }
+    /* 左側展開中 Q 圖標 (純白) */
+    &::before {
+      background-image: url("/images/faq/icon-q-active.png");
+    }
 
-      /* 右側展開中減號圖標 (白橫槓) */
-      &::after {
-        background-image: url("/images/faq/icon-minus.png");
-      }
+    /* 右側展開中減號圖標 (白橫槓) */
+    &::after {
+      background-image: url("/images/faq/icon-minus.png");
     }
   }
 
@@ -268,9 +238,7 @@ const breadcrumbItems = [
   /* 移動端響應式斷點 (≤ 768px) */
   @media screen and (max-width: 768px) {
     .questions {
-      max-width: 100%;
-      margin: 10vw auto 10vw;
-      padding: 0 20px;
+      margin-bottom: 10vw;
 
       & > section {
         padding-top: 22vw;
@@ -295,7 +263,7 @@ const breadcrumbItems = [
       }
     }
 
-    .faq-header {
+    summary.faq-header {
       padding: 12px 35px 12px 30px;
 
       .faq-header-text {
@@ -319,17 +287,17 @@ const breadcrumbItems = [
         height: 16px;
         width: 15px;
       }
+    }
 
-      &.is-active {
-        &::before {
-          height: 18px;
-          width: 17px;
-        }
+    .faq-item[open] > summary.faq-header {
+      &::before {
+        height: 18px;
+        width: 17px;
+      }
 
-        &::after {
-          height: 2px;
-          width: 12px;
-        }
+      &::after {
+        height: 2px;
+        width: 12px;
       }
     }
 
