@@ -41,14 +41,12 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
   />
 
   <div class="appoint-form-page font-hk text-desc relative overflow-x-hidden">
-    {/* 1. 頂部橫幅 Hero Banner */}
-    <section class="main_banner" aria-label={content.banner.title}>
-      <div class="section flex justify-start items-center banner">
-        <div class="des_box">
-          <h1 class="gradient_font">
-            {content.banner.title}
-          </h1>
-        </div>
+    <h1 class="sr-only">{content.banner.title}</h1>
+
+    {/* 1. 頂部橫幅 Hero Banner (CMS slides API 動態驅動) */}
+    <section id="top-banner-section" class="main_banner hidden" aria-label={content.banner.title}>
+      <div class="banner-container">
+        <div id="top-banner-content" class="top-banner-content"></div>
       </div>
     </section>
 
@@ -457,6 +455,87 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
 
     let allSchedules = typeof defaultSchedules !== "undefined" ? defaultSchedules : [];
 
+    // 動態載入頂部橫幅 (CMS slides API: gid=2&pageSize=1)
+    const topBannerSection = document.getElementById("top-banner-section");
+    const topBannerContent = document.getElementById("top-banner-content");
+
+    function isExternalUrl(url) {
+      if (!url || url.startsWith("#")) return false;
+      return (
+        /^[a-z][a-z0-9+.-]*:\/\//i.test(url) ||
+        url.startsWith("//") ||
+        url.startsWith("tel:") ||
+        url.startsWith("mailto:") ||
+        url.startsWith("whatsapp:")
+      );
+    }
+
+    function resolveSlideLink(rawLink) {
+      if (!rawLink || rawLink === "#") return "";
+      const trimmed = rawLink.replace(/&amp;/g, "&").trim();
+      if (isExternalUrl(trimmed)) return trimmed;
+      const isCn = window.location.pathname.startsWith("/cn");
+      if (isCn && trimmed.startsWith("/") && !trimmed.startsWith("/cn")) {
+        return "/cn" + trimmed;
+      }
+      return trimmed;
+    }
+
+    fetch("https://cms.cmermedical.com.hk/api/v1/slides?gid=2&pageSize=1", {
+      headers: { "X-Site-Id": "smile" },
+    })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((json) => {
+        if (json && Array.isArray(json.data) && json.data.length > 0 && topBannerContent && topBannerSection) {
+          topBannerContent.innerHTML = "";
+          json.data.forEach((slide) => {
+            const linkUrl = resolveSlideLink(slide.link);
+            const isExt = isExternalUrl(linkUrl);
+            const desktopImg = slide.pic || "";
+            const mobileImg = slide.pic_mobile || desktopImg;
+            const altText = slide.title || "";
+            const titleText = slide.subtitle || slide.title || "";
+
+            const pictureHtml = `
+              <picture class="banner-picture">
+                <source media="(min-width: 768px)" srcset="${desktopImg}">
+                <img
+                  src="${mobileImg}"
+                  alt="${altText}"
+                  title="${titleText}"
+                  class="banner-img"
+                  loading="eager"
+                  fetchpriority="high"
+                  draggable="false"
+                >
+              </picture>
+            `;
+
+            if (linkUrl) {
+              const a = document.createElement("a");
+              a.href = linkUrl;
+              a.className = "banner-link";
+              if (isExt) {
+                a.target = "_blank";
+                a.rel = "noopener noreferrer";
+              }
+              a.setAttribute("data-cta", "top_banner");
+              a.innerHTML = pictureHtml;
+              topBannerContent.appendChild(a);
+            } else {
+              const div = document.createElement("div");
+              div.className = "banner-item";
+              div.innerHTML = pictureHtml;
+              topBannerContent.appendChild(div);
+            }
+          });
+          topBannerSection.classList.remove("hidden");
+        }
+      })
+      .catch((err) => {
+        console.warn("Top banner load skipped:", err);
+      });
+
     fetch("https://cms.cmermedical.com.hk/api/v1/booking/schedules", {
       headers: { "X-Site-Id": "smile" },
     })
@@ -664,43 +743,51 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
 </script>
 
 <style>
-  .main_banner .banner {
-    background-image: url("https://statichk.cmermedical.com/static/lkximg/smile_image/bg.avif");
-    background-size: cover;
-    background-position: center;
+  /* 1. 頂部橫幅 Hero Banner (CMS slides 動態渲染) */
+  .main_banner {
     width: 100%;
-    min-height: 280px;
-    display: flex;
-    align-items: center;
-    padding-left: 5vw;
+    padding-top: 16px;
+    padding-bottom: 8px;
   }
 
-  .des_box {
-    max-width: 1270px;
+  .banner-container {
+    max-width: 1280px;
     margin: 0 auto;
-    width: 100%;
+    padding: 0 16px;
   }
 
-  .gradient_font {
-    background: linear-gradient(104.24deg, #4570b6 5.95%, #81dbec 114.4%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-size: 32px;
-    font-weight: 700;
-    line-height: 1.4;
+  .banner-link,
+  .banner-item {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .banner-picture {
+    display: block;
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .banner-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover;
   }
 
   @media screen and (max-width: 768px) {
-    .main_banner .banner {
-      background-image: url("https://statichk.cmermedical.com/static/lkximg/smile_image/mb-bg.avif");
-      background-size: 100%;
-      background-position: top;
-      min-height: 180px;
-      padding-left: 20px;
+    .main_banner {
+      padding-top: 10px;
+      padding-bottom: 0;
     }
 
-    .gradient_font {
-      font-size: 24px;
+    .banner-container {
+      padding: 0 15px;
     }
   }
 
@@ -864,6 +951,18 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
 
   .custom-select {
     cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 38px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%234570b6' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 14px 14px;
+  }
+
+  .custom-select::-ms-expand {
+    display: none;
   }
 
   .form-data {
@@ -977,10 +1076,15 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
       font-size: 14px;
     }
 
-    .custom-select,
     .custom-input {
       font-size: 14px;
       padding: 6px 10px;
+    }
+
+    .custom-select {
+      font-size: 14px;
+      padding: 6px 38px 6px 10px;
+      background-position: right 14px center;
     }
 
     .lectureCalendar {
