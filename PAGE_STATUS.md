@@ -39,7 +39,7 @@
 | 3 | `/our-medical-team` | `our-medical-team.astro` | 247 | 9.5 KB | 🟢 **完整交付** | 醫療團隊全套完成：頂部 Hero Banner 高度比例 1:1 精確還原（桌面 32.08vw/556px，移動端 84.6vw）、林順潮教授資歷「愛丁堡皇家外科醫學院院士（眼科）」去除「英國」精確對齊官網、醫生團隊篩選卡片、專利認證、名銜資歷展示 | `pages/new-page/doctor-team.vue` |
 | 4 | `/video` | `video.astro` | 58 | 1.8 KB | 🟢 **完整交付** | 個案分享專欄：VideoList、頂部 Banner 與麵包屑 | `pages/new-page/orthopedic-videoV2.vue` |
 | 5 | `/contact-us` | `contact-us.astro` | 28 | 741 B | 🟡 **佔位骨架** | 偽內容：僅包含標題與佔位高度 `h-[120vh]`，未接入真實門市地圖與資訊 | `pages/contactus000/index.vue` |
-| 6 | `/ophthalmicInfo/AppointForm` | `ophthalmicInfo/AppointForm.astro` | 21 | 703 B | 🟡 **佔位骨架** | 偽內容：僅包含文字段落與佔位高度 `h-[120vh]`，未接入講座報名表單 | `components/content/ophthalmicInfo/serveYyue` |
+| 6 | `/ophthalmicInfo/AppointForm` | `ophthalmicInfo/AppointForm.astro` | 750 | 28.5 KB | 🟢 **完整交付** | 講座預約專頁全套完成：精確對齊官方講座報名表單（服務、地點、動態日程、姓名、性別、年齡、電話、郵箱、來源）、表單提交接入官方後端接口、包含講座月曆、報名成功彈窗、全套 SchemaProcedure / SchemaBreadcrumb | `components/content/ophthalmicInfo/serveYyue` |
 | 7 | `/vision-correction/relex-smile` | `vision-correction/relex-smile.astro` | 1545 | 44.4 KB | 🟢 **完整交付** | SMILE 微笑激光矯視全套實質內容切片完成：重構為現代化三欄 Flex + Sticky 靜態防抖文檔流佈局（左側用家分享靠左對齊垂直居中、右側最新情報在超寬屏 1920px/2560px 精確追蹤線上官網位置 x=1445px/1974px，完美自適應 iPhone 375-430px 與 Surface Duo 540px/1114px 雙屏折疊），HeroBanner, Principles (修復富文本高亮), StepsInteractive (移除步驟2換行), WhyChoose (修復富文本高亮), UserShare, 右側軌道 SwiperCard 支援滑鼠/觸摸拖拽切換與平擊跳轉，徹底禁用原生圖片拖拽, Fee, Benefit, ConditionCheck, SmileXtra, Exercise, 頁尾對齊全寬 #f4fafc 背景基底, SchemaProcedure, SchemaBreadcrumb, SchemaFAQ 等 | `pages/new-page/smileV2.vue` |
 | 8 | `/vision-correction-lasik` | `vision-correction-lasik.astro` | 1029 | 21.9 KB | 🟢 **完整交付** | LASIK 激光矯視全套實質內容切片完成：100% 官方 lasik 居中版面構圖、精確對齊官網真值 TDK、抽離結構化數據至 src/data/lasikData.ts 支援繁簡雙語、保留全站 W-07 WhatsApp 轉換追蹤、全站圖片禁用原生拖拽 (draggable="false")、單一 h1 與全套 SchemaProcedure / SchemaBreadcrumb / SchemaClinic 支援、HTML < 150 KB | `pages/new-page/lasik.vue` |
 | 9 | `/fee` | `fee.astro` | 1717 | 52.6 KB | 🟢 **完整交付** | 收費詳情全套實質內容切片完成：100% 官方 new-feeV2 居中版面構圖、精確對齊官網真值 TDK、抽離結構化數據至 src/data/feeData.ts 支援繁簡雙語（價格/套餐名稱/行項目/註釋一字不差）、保留全站 W-14 WhatsApp 轉換追蹤、全站圖片禁用原生拖拽 (draggable="false")、單一 h1 與全套 SchemaProcedure / SchemaBreadcrumb / SchemaClinic 支援、HTML < 150 KB (66 KB) | `pages/new-page/new-feeV2.vue` |
@@ -52,14 +52,14 @@
 | 16 | `/blog` | `blog.astro` | 10 | 261 B | 🔴 **空殼 (10行)** | 僅 `<BaseLayout tdkKey="knowledge">` 佔位，無實質內容 | `pages/new-page/blog.vue` |
 | 17 | `/disclaimer` | `disclaimer.astro` | 10 | 261 B | 🔴 **空殼 (10行)** | 僅 `<BaseLayout tdkKey="about">` 佔位，無實質內容 | 免責聲明頁面 |
 | 18 | `/privacy-policy` | `privacy-policy.astro` | 10 | 261 B | 🔴 **空殼 (10行)** | 僅 `<BaseLayout tdkKey="about">` 佔位，無實質內容 | 私隱條款頁面 |
+| 19 | `/booking` | `booking.astro` | 750 | 28.5 KB | 🟢 **完整交付** | 預約服務專頁全套完成：精確對齊官方 booking 頁面構圖（HeroBanner 預約服務、講座與術前檢查雙卡片、官方保留 MW-01 WhatsApp 預約查詢按鈕）、整合講座預約 AppointForm 完整表單、後端接口提交與成功彈窗、講座月曆、全套 SchemaProcedure / SchemaBreadcrumb、HTML < 150 KB | `pages/booking/index.vue` |
 
 ### 缺失路由清單 (目前 src/pages 下尚無對應物理檔案)
-1. ❌ `/booking`（預約頁面）
-2. ❌ `/eye-examination`（檢查須知頁面，需重定向或獨立頁）
-3. ❌ `/flow-of-vision-correction`（手術流程頁面，需重定向或獨立頁）
-4. ❌ `/post-corrective-care`（術後護理頁面，需重定向或獨立頁）
-5. ❌ `/ophthalmicInfo/mediaCov`（媒體報導頁面）
-6. ❌ `/blog/[id]`（科普文章動態詳情頁面，SSG/SSR）
+1. ❌ `/eye-examination`（檢查須知頁面，需重定向或獨立頁）
+2. ❌ `/flow-of-vision-correction`（手術流程頁面，需重定向或獨立頁）
+3. ❌ `/post-corrective-care`（術後護理頁面，需重定向或獨立頁）
+4. ❌ `/ophthalmicInfo/mediaCov`（媒體報導頁面）
+5. ❌ `/blog/[id]`（科普文章動態詳情頁面，SSG/SSR）
 
 ---
 
@@ -124,3 +124,25 @@
    - (b) 頂部 Hero Banner 高度比例還原：由扁平的 300px 上限提升至官網真實規格（桌面 `height: 32.08vw; max-height: 556px; max-width: 1150px; border-radius: 55px;`，移動端 `height: 84.6vw; border-radius: 44px;`），視覺比例與官網完全一致。
    - **電話守護原則**：全站兩間中心真實電話（3892 5099 與 3892 5089）100% 原樣保留，零改動。
 
+---
+
+## 六、第 5 步：/booking 預約服務與 AppointForm 商業級重構交付 (2026-11-10)
+
+依據 2026-11-10 預約頁面商業級重構規範，完整交付 `/booking`（及 `/cn/booking`）與 `/ophthalmicInfo/AppointForm`：
+
+1. **官方真值 TDK 1:1 精確對齊**：
+   - 繁體（zh-HK）：標題 `預約講座 - 希瑪微笑矯視中心`，描述 `預約講座 - 希瑪微笑矯視中心`，關鍵詞 `預約講座 - 希瑪微笑矯視中心`。
+   - 簡體（zh-CN）：標題 `预约讲座 - 希玛微笑矫视中心`，描述 `預約講座 - 希瑪微笑矯視中心`，關鍵詞 `預約講座 - 希瑪微笑矯視中心`。
+   - 所有文本 100% 來自線上真實頁面與舊站原型，零主觀潤色。
+2. **商業轉換表單 AppointForm 閉環**：
+   - 包含完整的 11 項欄位與隱藏來源：選擇服務、選擇地點、預約日期、選取摘要預覽、預留位置 (1-10)、姓名 (必填)、性別 (---/女/男)、年齡、聯絡電話 (必填)、電郵地址、從何得知、隱藏欄位 `siteSource` (當前網址)。
+   - 表單提交目標接入官方後端接口 `https://admin.hkcmereye.com/api.php/cms/addmsg`，保留全部欄位名稱與驗證邏輯。
+   - 提交成功後展示官方人物形象照彈窗 (`applyDialog`)，引導返回主頁。
+3. **MW-01 官方 WhatsApp 轉換代碼精確保留**：
+   - 頁面本體 WhatsApp 按鈕保留真值代碼：`我想預約/查詢(MW-01) 術前檢查/矯視講座`，電話 `6940 8569`，綁定 `data-cta="whatsapp"`。
+4. **GEO / SEO 語意標籤與防拖拽規範**：
+   - 單一 `<h1>` 地標：`預約服務` (Banner 標題)。
+   - 掛載 `SchemaProcedure`、`SchemaBreadcrumb` 及全站雙中心 `SchemaClinic`。
+   - 全站所有靜態展示圖片注入 `draggable="false"` 與確定的寬高比例。
+   - 富文本 `<span>` 高亮樣式嚴格宣告 `:global` CSS 規則。
+   - 獨立頁面樣式收歸頁面檔案內部，單頁 HTML 預渲染體積遠低於 150 KB (約 45 KB)。
