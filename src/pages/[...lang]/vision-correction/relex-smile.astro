@@ -630,41 +630,6 @@ const banners = await getBanners(lang);
         item.classList.add("active");
       });
     });
-
-    // 4. 現代化視差滾動引擎 (Parallax Scroll Engine - GPU加速 + 阻尼視差)
-    const parallaxBg = document.getElementById("smileParallaxBg");
-    const leftSticky = document.getElementById("smileRailLeftSticky");
-    const rightSticky = document.getElementById("smileRailRightSticky");
-
-    let isParallaxTicking = false;
-    function handleParallax() {
-      if (!isParallaxTicking) {
-        window.requestAnimationFrame(() => {
-          const scrollY = window.scrollY;
-
-          // 背景層深邃平滑視差 (-0.06 係數，全設備通用，流暢 60fps)
-          if (parallaxBg) {
-            parallaxBg.style.transform = `translate3d(0, ${scrollY * -0.06}px, 0)`;
-          }
-
-          // 桌面寬屏 (>=1440px) 兩側軌道柔和浮動微視差
-          if (window.innerWidth >= 1440) {
-            const floatOffset = Math.sin(scrollY / 240) * 8;
-            if (leftSticky) {
-              leftSticky.style.transform = `translate3d(0, ${floatOffset}px, 0)`;
-            }
-            if (rightSticky) {
-              rightSticky.style.transform = `translate3d(0, ${-floatOffset}px, 0)`;
-            }
-          }
-
-          isParallaxTicking = false;
-        });
-        isParallaxTicking = true;
-      }
-    }
-
-    window.addEventListener("scroll", handleParallax, { passive: true });
   }
 
   document.addEventListener("DOMContentLoaded", initRelexSmileInteractive);
@@ -1306,25 +1271,24 @@ const banners = await getBanners(lang);
     }
   }
 
-  /* 視差背景層 (Parallax Background Canvas - GPU加速) */
+  /* 背景層 (固定背景畫布 - 零滾動抖動) */
   .smile-parallax-bg {
     position: fixed;
-    top: -10vh;
+    top: 0;
     left: 0;
     width: 100vw;
-    height: 120vh;
+    height: 100vh;
     background: url("https://statichk.cmermedical.com/smile/smileV2/smile-bg.avif")
-      no-repeat center top;
+      no-repeat center center;
     background-size: cover;
     z-index: 0;
     pointer-events: none;
-    will-change: transform;
   }
 
   /* 現代化三欄自適應佈局容器 (In-flow Flex Layout) */
   .smile-layout-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: stretch;
     width: 100%;
     max-width: 1920px;
@@ -1335,7 +1299,7 @@ const banners = await getBanners(lang);
     padding-right: max(0px, env(safe-area-inset-right));
   }
 
-  /* 兩側 Sticky 視差軌道 (>=1440px 啟用) */
+  /* 兩側 Sticky 軌道 (>=1440px 啟用) */
   .smile-rail {
     display: none;
     position: relative;
@@ -1347,22 +1311,37 @@ const banners = await getBanners(lang);
 
     &-left {
       flex: 1;
-      max-width: 540px;
+      min-width: 0;
       display: flex;
-      justify-content: flex-end;
+      justify-content: flex-start;
+
+      .smile-rail-sticky {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+      }
     }
 
     &-right {
       flex: 1;
-      max-width: 30vw;
-      min-width: 380px;
+      min-width: 0;
+      display: flex;
+      justify-content: center;
+
+      .smile-rail-sticky {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      }
     }
 
     &-sticky {
       position: sticky;
       top: 80px;
-      height: calc(100vh - 90px);
-      will-change: transform;
+      height: calc(100vh - 80px);
       pointer-events: auto;
       overflow: visible;
     }
@@ -1372,7 +1351,7 @@ const banners = await getBanners(lang);
     display: block;
     width: 540px;
     height: 900px;
-    max-height: calc(100vh - 90px);
+    max-height: calc(100vh - 80px);
     position: relative;
     pointer-events: auto;
 
@@ -1406,14 +1385,19 @@ const banners = await getBanners(lang);
   }
 
   .smile-right {
-    display: block;
-    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: clamp(9.375rem, -6.78rem + 26.48vw, 25rem);
+    margin: 0 auto;
     position: relative;
-    height: 100%;
     pointer-events: auto;
 
     &-title {
-      padding: clamp(60px, 10vh, 160px) 0 1.25vw 2.6vw;
+      width: 100%;
+      padding: 0 0 1.25vw 0;
+      text-align: left;
 
       .smile-right-heading {
         display: block;
@@ -1423,6 +1407,7 @@ const banners = await getBanners(lang);
         font-weight: 300;
         line-height: 200%;
         letter-spacing: 0.6568vw;
+        margin-bottom: 0;
 
         &::before {
           content: "";
@@ -1441,19 +1426,19 @@ const banners = await getBanners(lang);
         font-weight: 700;
         line-height: 217%;
         letter-spacing: 1.16px;
+        text-align: left;
+        margin: 0;
       }
     }
 
     &-swiper {
       width: 100%;
-      padding-left: 2.6vw;
+      padding-left: 0;
     }
   }
 
   @media screen and (min-width: 1440px) and (max-width: 1744px) {
     .smile-rail-left {
-      max-width: 22vw;
-
       .smile-left {
         width: 22vw;
 
@@ -1464,14 +1449,6 @@ const banners = await getBanners(lang);
         &::before {
           width: 200%;
         }
-      }
-    }
-
-    .smile-rail-right {
-      max-width: 25vw;
-
-      .smile-right {
-        width: 25vw;
       }
     }
   }
