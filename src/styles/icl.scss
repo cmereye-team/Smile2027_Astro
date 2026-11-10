@@ -3,7 +3,7 @@
 @media screen and (max-width: 1140px) {
   .smile-NewBanner {
     padding: 0 15px;
-    // margin-top: 80px;
+    /* margin-top: 80px; */
     height: 203px;
     position: relative;
     img {
@@ -98,7 +98,7 @@
         font-weight: 500;
       }
     }
-    // 内容
+    /* 内容 */
     .smile-newCenter-content {
       overflow: hidden;
       padding-top: 62px;
@@ -264,7 +264,7 @@
     text-align: center;
     margin: 0px auto 30px;
   }
-  // icl好处
+  /* icl好处 */
   .icl-Good {
     .icl-Good-List {
       display: flex;
@@ -310,7 +310,7 @@
       }
     }
   }
-  // tese
+  /* tese */
   .icl-peculiarity {
     padding-top: 40px;
     padding-bottom: 40px;
@@ -454,10 +454,10 @@
     }
   }
   .icl-introVedio {
-    //     background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-intro-bg.webp")
-    //       no-repeat;
-    //     background-size: cover;
-    //  background-position: -30px -86px;
+    /*     background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-intro-bg.webp") */
+    /*       no-repeat; */
+    /*     background-size: cover; */
+    /*  background-position: -30px -86px; */
     padding: 40px 15px 0px;
     .icl-introVedio-intro {
       padding-bottom: 66px;
@@ -568,7 +568,7 @@
         }
       }
     }
-    // vedio
+    /* vedio */
     .icl-introVedio-vedio {
       padding-top: 40px;
       padding-bottom: 40px;
@@ -627,7 +627,7 @@
     }
     & > .SuitableObject-item:nth-child(3) {
       &::after {
-        // content: "ICL矯視";
+        /* content: "ICL矯視"; */
         position: absolute;
         top: 5px;
         right: 15px;
@@ -701,7 +701,7 @@
       }
     }
   }
-  // 检查项目
+  /* 检查项目 */
   .icl-CheckObject {
     margin-top: 40px;
     padding: 0 15px;
@@ -766,123 +766,7 @@
       }
     }
   }
-  // 案例分享
-  .CaseSharing {
-    margin-top: 40px;
-    margin-bottom: 30px;
-    background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/share/icl-mobile-share.avif")
-      no-repeat;
-    background-size: 100%;
-    background-position: center center;
-    padding: 86px 0 110px;
-    position: relative;
-    .CaseSharing-Box {
-      position: relative;
-      h3 {
-        position: absolute;
-        top: -40px;
-        right: 30px;
-        text-align: right;
-        color: #4570b6;
-        font-family: "Noto Sans TC";
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 900;
-        line-height: 20px;
-      }
-      .CaseSharing-list::-webkit-scrollbar {
-        display: none;
-      }
-      .CaseSharing-list {
-        display: flex;
-        // justify-content: center;
-        gap: 13.26px;
-        width: 100vw;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        scrollbar-width: none;
-        & > .CaseSharing-list-item:nth-child(1) {
-          padding-top: 43px;
-        }
-        & > .CaseSharing-list-item:nth-child(2) {
-          padding-top: 0px;
-        }
-        & > .CaseSharing-list-item:nth-child(3) {
-          padding-top: 42px;
-        }
-        & > .CaseSharing-list-item:nth-child(4) {
-          padding-top: 170px;
-        }
-        .CaseSharing-list-item {
-          a {
-            display: block;
-            width: 175px;
-            box-shadow: -1.768px 1.768px 0px 0px #4570b6;
-            position: relative;
-            margin-bottom: 13.26px;
-            span {
-              position: absolute;
-              left: 8px;
-              bottom: 8px;
-              color: #fff;
-              text-align: center;
-              font-family: "Noto Sans TC";
-              font-size: 13.263px;
-              font-style: normal;
-              font-weight: 700;
-              line-height: 0.83;
-              background: #4570b6;
-              padding: 4px 6px;
-            }
-            i {
-              position: absolute;
-              right: 8px;
-              bottom: 8px;
-              width: 23px;
-              height: 23px;
-              border-radius: 2.21px;
-              background: #f00;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              svg {
-                width: 11px;
-              }
-            }
-          }
-        }
-      }
-    }
-    // .CaseSharing-btn {
-    //   width: 114.287px;
-    //   height: 113.922px;
-    //   position: absolute;
-    //   bottom: 0px;
-    //   right: 0;
-    // }
-    // 按钮
-    .CaseSharing-btn {
-      position: absolute;
-      background: url("https://statichk.cmermedical.com/smile/smileproV2/icl-share-btn.png");
-      background-repeat: no-repeat;
-      background-position: -41px -17px;
-      width: 116.287px;
-      height: 120.922px;
-      border-radius: 50%;
-      top: 0;
-      right: 0;
-      p {
-        margin-top: 30px;
-        color: #fff;
-        text-align: center;
-        font-family: "Poppins", sans-serif;
-        font-size: 13.93px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 1.25;
-      }
-    }
-  }
+  /* 案例分享 */
   .latestNews {
     margin-top: 40px;
     margin-bottom: 40px;
@@ -891,17 +775,17 @@
     background-size: cover;
     position: relative;
     height: 209vw;
-    // padding-top: 130px;
+    /* padding-top: 130px; */
     padding-top: 33.33vw;
     .latestNews-tip {
       position: absolute;
-      // top: 55px;
+      /* top: 55px; */
       top: 14.1vw;
       left: 0;
       background: #c13550;
       color: #fff;
       font-family: "Noto Sans TC";
-      // font-size: 20px;
+      /* font-size: 20px; */
       font-size: 5.12vw;
       font-style: normal;
       font-weight: 700;
@@ -909,13 +793,13 @@
       padding: 5px 24px;
     }
     .latestNews-in {
-      // width: 252px;
+      /* width: 252px; */
       width: 64.61vw;
       margin: 0 auto;
       .latestNews-title {
         color: #c13550;
         font-family: "Poppins", sans-serif;
-        // font-size: 20.81px;
+        /* font-size: 20.81px; */
         font-size: 5.12vw;
         font-style: normal;
         font-weight: 700;
@@ -930,11 +814,11 @@
           display: inline-block;
           color: #fff;
           font-family: "Poppins", sans-serif;
-          // font-size: 20.81px;
+          /* font-size: 20.81px; */
           font-size: 5.1vw;
           font-style: normal;
           font-weight: 700;
-          // line-height: 33px;
+          /* line-height: 33px; */
           line-height: 1.65;
           background: #c13550;
           padding: 0 5px;
@@ -945,7 +829,7 @@
         color: #6d6e71;
         text-align: justify;
         font-family: "Noto Sans TC";
-        // font-size: 16px;
+        /* font-size: 16px; */
         font-size: 4.1vw;
         font-style: normal;
         font-weight: 500;
@@ -956,8 +840,8 @@
     .latestNews-btn {
       border: 1px solid #c13550;
       border-radius: 50%;
-      // width: 172px;
-      // height: 172px;
+      /* width: 172px; */
+      /* height: 172px; */
       width: 44.1vw;
       height: 44.1vw;
       margin-top: 24px;
@@ -969,8 +853,8 @@
       align-items: center;
       gap: 17px;
       svg {
-        // width: 19px;
-        // height: 19px;
+        /* width: 19px; */
+        /* height: 19px; */
         width: 4.84vw;
         height: 4.87vw;
       }
@@ -978,7 +862,7 @@
         color: #c13550;
         text-align: center;
         font-family: "Noto Sans TC";
-        // font-size: 18.133px;
+        /* font-size: 18.133px; */
         font-size: 4.6vw;
         font-style: normal;
         font-weight: 900;
@@ -1024,7 +908,7 @@
 @media screen and (max-width: 450px) {
   .smile-NewBanner {
     padding: 0 15px;
-    // margin-top: 20.51vw;
+    /* margin-top: 20.51vw; */
     height: 52.5vw;
     position: relative;
     img {
@@ -1032,14 +916,14 @@
       position: absolute;
       top: -8px;
       right: 14vw;
-      // z-index: 103;
+      /* z-index: 103; */
       pointer-events: none;
     }
     .smile-NewBanner-Title {
       position: absolute;
       bottom: 14.87vw;
       left: 7.179vw;
-      // z-index: 104;
+      /* z-index: 104; */
       span {
         color: #4570b6;
         font-family: "Poppins", sans-serif;
@@ -1070,7 +954,7 @@
       position: absolute;
       right: 15px;
       bottom: 0;
-      // z-index: 104;
+      /* z-index: 104; */
       div {
         background: #4570b6;
       }
@@ -1120,7 +1004,7 @@
         font-weight: 500;
       }
     }
-    // 内容
+    /* 内容 */
     .smile-newCenter-content {
       overflow: hidden;
       padding-top: 15.89vw;
@@ -1248,12 +1132,12 @@
       }
     }
   }
-  // icl好处
+  /* icl好处 */
   .icl-Good {
     .icl-Good-List {
       .icl-Good-List-item {
         width: 49.7vw;
-        // height: 194px;
+        /* height: 194px; */
         border: 1px solid #4570b6;
         background: #fff;
         text-align: center;
@@ -1306,7 +1190,7 @@
       }
     }
   }
-  // tese
+  /* tese */
   .icl-peculiarity {
     padding-top: 40px;
     padding-bottom: 40px;
@@ -1450,10 +1334,10 @@
     }
   }
   .icl-introVedio {
-    //     background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-intro-bg.webp")
-    //       no-repeat;
-    //     background-size: cover;
-    // background-position: -7.69vw -22.05vw;
+    /*     background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-intro-bg.webp") */
+    /*       no-repeat; */
+    /*     background-size: cover; */
+    /* background-position: -7.69vw -22.05vw; */
     padding: 10.25vw 3.84vw 0px;
     .icl-introVedio-intro {
       padding-bottom: 66px;
@@ -1525,7 +1409,7 @@
             p {
               color: #4570b6;
               font-family: "Noto Sans TC";
-              // font-size: 16px;
+              /* font-size: 16px; */
               font-size: clamp(12px, 4.1vw, 16px);
               font-style: normal;
               font-weight: 900;
@@ -1548,7 +1432,7 @@
             }
             .content-area-text {
               position: absolute;
-              // bottom: 3.07vw;
+              /* bottom: 3.07vw; */
               bottom: -16.92vw;
               left: 50%;
               transform: translateX(-50%);
@@ -1565,7 +1449,7 @@
         }
       }
     }
-    // vedio
+    /* vedio */
     .icl-introVedio-vedio {
       padding-top: 40px;
       padding-bottom: 40px;
@@ -1605,7 +1489,7 @@
     }
     & > .SuitableObject-item:nth-child(3) {
       &::after {
-        // content: "ICL矯視";
+        /* content: "ICL矯視"; */
         position: absolute;
         top: 5px;
         right: 15px;
@@ -1679,7 +1563,7 @@
       }
     }
   }
-  // 检查项目
+  /* 检查项目 */
   .icl-CheckObject {
     margin-top: 40px;
     padding: 0 15px;
@@ -1745,101 +1629,7 @@
       }
     }
   }
-  // 案例分享
-  .CaseSharing {
-    margin-top: 40px;
-    margin-bottom: 30px;
-    background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/share/icl-mobile-share.avif")
-      no-repeat;
-    background-size: 100%;
-    background-position: center center;
-    padding: 22.05vw 0 28.21vw;
-    position: relative;
-    .CaseSharing-Box {
-      position: relative;
-      h3 {
-        position: absolute;
-        top: -10.26vw;
-        right: 7.69vw;
-        text-align: right;
-        color: #4570b6;
-        font-family: "Noto Sans TC";
-        font-size: 4.1vw;
-        font-style: normal;
-        font-weight: 900;
-        line-height: 1.25;
-      }
-      .CaseSharing-list::-webkit-scrollbar {
-        display: none;
-      }
-      .CaseSharing-list {
-        display: flex;
-        // justify-content: center;
-        gap: 3.4vw;
-        width: 100vw;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        scrollbar-width: none;
-        & > .CaseSharing-list-item:nth-child(1) {
-          padding-top: 11.03vw;
-        }
-        & > .CaseSharing-list-item:nth-child(2) {
-          padding-top: 0;
-        }
-        & > .CaseSharing-list-item:nth-child(3) {
-          padding-top: 10.77vw;
-        }
-        & > .CaseSharing-list-item:nth-child(4) {
-          padding-top: 43.59vw;
-        }
-        .CaseSharing-list-item {
-          a {
-            display: block;
-            width: 44.87vw;
-            box-shadow: -1.768px 1.768px 0px 0px #4570b6;
-            position: relative;
-            margin-bottom: 3.4vw;
-            span {
-              position: absolute;
-              left: 2.05vw;
-              bottom: 2.05vw;
-              color: #fff;
-              text-align: center;
-              font-family: "Noto Sans TC";
-              font-size: 3.4vw;
-              font-style: normal;
-              font-weight: 700;
-              line-height: 0.83;
-              background: #4570b6;
-              padding: 1.03vw 1.54vw;
-            }
-            i {
-              position: absolute;
-              right: 2.05vw;
-              bottom: 2.05vw;
-              width: 5.9vw;
-              height: 5.9vw;
-              border-radius: 2.21px;
-              background: #f00;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              svg {
-                width: 2.82vw;
-              }
-            }
-          }
-        }
-      }
-    }
-    .CaseSharing-btn {
-      width: 29.23vw;
-      height: 29.23vw;
-      position: absolute;
-      bottom: 0px;
-      right: 0;
-    }
-  }
+  /* 案例分享 */
   .latestNews {
     margin-bottom: 40px;
     background: url("https://statichk.cmermedical.com/smile/smileproV2/icl-newdongtai-mobile.jpg")
@@ -1847,17 +1637,17 @@
     background-size: cover;
     position: relative;
     height: 209vw;
-    // padding-top: 130px;
+    /* padding-top: 130px; */
     padding-top: 33.33vw;
     .latestNews-tip {
       position: absolute;
-      // top: 55px;
+      /* top: 55px; */
       top: 14.1vw;
       left: 0;
       background: #c13550;
       color: #fff;
       font-family: "Noto Sans TC";
-      // font-size: 20px;
+      /* font-size: 20px; */
       font-size: 5.12vw;
       font-style: normal;
       font-weight: 700;
@@ -1865,13 +1655,13 @@
       padding: 1.28vw 6.15vw;
     }
     .latestNews-in {
-      // width: 252px;
+      /* width: 252px; */
       width: 64.61vw;
       margin: 0 auto;
       .latestNews-title {
         color: #c13550;
         font-family: "Poppins", sans-serif;
-        // font-size: 20.81px;
+        /* font-size: 20.81px; */
         font-size: 5.12vw;
         font-style: normal;
         font-weight: 700;
@@ -1886,11 +1676,11 @@
           display: inline-block;
           color: #fff;
           font-family: "Poppins", sans-serif;
-          // font-size: 20.81px;
+          /* font-size: 20.81px; */
           font-size: 5.1vw;
           font-style: normal;
           font-weight: 700;
-          // line-height: 33px;
+          /* line-height: 33px; */
           line-height: 1.65;
           background: #c13550;
           padding: 0 1.28vw;
@@ -1901,7 +1691,7 @@
         color: #6d6e71;
         text-align: justify;
         font-family: "Noto Sans TC";
-        // font-size: 16px;
+        /* font-size: 16px; */
         font-size: 4.1vw;
         font-style: normal;
         font-weight: 500;
@@ -1912,8 +1702,8 @@
     .latestNews-btn {
       border: 1px solid #c13550;
       border-radius: 50%;
-      // width: 172px;
-      // height: 172px;
+      /* width: 172px; */
+      /* height: 172px; */
       width: 44.1vw;
       height: 44.1vw;
       margin-top: 6.15vw;
@@ -1925,8 +1715,8 @@
       align-items: center;
       gap: 4.36vw;
       svg {
-        // width: 19px;
-        // height: 19px;
+        /* width: 19px; */
+        /* height: 19px; */
         width: 4.84vw;
         height: 4.87vw;
       }
@@ -1934,7 +1724,7 @@
         color: #c13550;
         text-align: center;
         font-family: "Noto Sans TC";
-        // font-size: 18.133px;
+        /* font-size: 18.133px; */
         font-size: 4.6vw;
         font-style: normal;
         font-weight: 900;
@@ -1986,7 +1776,7 @@
   }
   .smile-NewBanner {
     padding: 0px;
-    // margin-top: 80px;
+    /* margin-top: 80px; */
     height: 529px;
     position: relative;
     img {
@@ -2087,11 +1877,11 @@
         font-weight: 500;
       }
     }
-    // 内容
+    /* 内容 */
     .smile-newCenter-content {
-      // padding-top: 232px;
-      // padding-bottom: 72px;npm
-      // max-height: 832px;
+      /* padding-top: 232px; */
+      /* padding-bottom: 72px;npm */
+      /* max-height: 832px; */
       height: 832px;
       background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-pc-center.avif");
       background-repeat: no-repeat;
@@ -2141,9 +1931,9 @@
               letter-spacing: 4px;
             }
           }
-          // & > p:nth-child(3) {
-          //   text-align: initial;
-          // }
+          /* & > p:nth-child(3) { */
+          /*   text-align: initial; */
+          /* } */
           & > p:nth-child(3) > span:nth-of-type(1),
           & > p:nth-child(3) > i:nth-child(1) {
             letter-spacing: 5px !important;
@@ -2178,8 +1968,8 @@
       & > div {
         max-width: 468px;
       }
-      // .icl-WhatChoose-content-one-img{
-      // }
+      /* .icl-WhatChoose-content-one-img{ */
+      /* } */
       .icl-WhatChoose-content-one-text {
         p {
           text-align: justify;
@@ -2272,13 +2062,13 @@
       font-family: "Poppins", sans-serif;
     }
   }
-  // icl好处
+  /* icl好处 */
   .icl-Good {
     .icl-Good-List {
       margin: 0 auto;
       max-width: 992px;
-      // display: flex;
-      // flex-wrap: wrap;
+      /* display: flex; */
+      /* flex-wrap: wrap; */
       width: fit-content;
       display: grid;
       height: auto;
@@ -2303,8 +2093,8 @@
         z-index: 99;
         opacity: 1;
         aspect-ratio: 1/1;
-        // width: 16.5vw;
-        // height: 16.4vw;
+        /* width: 16.5vw; */
+        /* height: 16.4vw; */
         padding-top: 82px;
         padding-bottom: 55px;
         box-sizing: border-box;
@@ -2326,7 +2116,7 @@
           color: #4570b6;
           font-family: "Noto Sans TC";
           font-size: clamp(15px, 1.3vw, 25px);
-          // font-size: 1.354vw;
+          /* font-size: 1.354vw; */
           font-style: normal;
           font-weight: 700;
           line-height: 0.8;
@@ -2337,7 +2127,7 @@
           text-align: center;
           font-family: "Noto Sans TC";
           font-size: clamp(12px, 1.19vw, 23px);
-          // font-size: 1.25vw;
+          /* font-size: 1.25vw; */
           font-style: normal;
           font-weight: 300;
           line-height: 35px;
@@ -2346,7 +2136,7 @@
       }
     }
   }
-  // 特色
+  /* 特色 */
   .icl-peculiarity {
     width: 100vw;
     padding-top: 105px;
@@ -2366,8 +2156,8 @@
     }
     .icl-peculiarity-container {
       display: flex;
-      // justify-content: center;
-      // flex-wrap: nowrap;
+      /* justify-content: center; */
+      /* flex-wrap: nowrap; */
       flex-direction: column-reverse;
       align-items: center;
       gap: 158px;
@@ -2511,19 +2301,19 @@
       }
     }
   }
-  // vedio
+  /* vedio */
   .icl-introVedio {
     width: 100vw;
     background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-intro-pc-bg.webp")
       no-repeat;
-    // background-size: cover;
+    /* background-size: cover; */
     background-position: 100% 0px;
     padding: 110px 0 0;
     .icl-introVedio-intro {
-      // background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-intro-pc-bg2.webp")
-      //   no-repeat;
-      // background-size: contain;
-      // background-position: 0 120%;
+      /* background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-intro-pc-bg2.webp") */
+      /*   no-repeat; */
+      /* background-size: contain; */
+      /* background-position: 0 120%; */
       padding-bottom: 110px;
       .icl-introVedio-intro-number {
         position: relative;
@@ -2626,7 +2416,7 @@
         }
       }
     }
-    // vedio
+    /* vedio */
     .icl-introVedio-vedio {
       position: relative;
       z-index: 2;
@@ -2691,7 +2481,7 @@
     }
     & > .SuitableObject-item:nth-child(5) {
       &::after {
-        // content: "ICL矯視";
+        /* content: "ICL矯視"; */
         position: absolute;
         top: 58px;
         left: 50%;
@@ -2774,7 +2564,7 @@
       }
     }
   }
-  // 检查项目
+  /* 检查项目 */
   .icl-CheckObject {
     margin-top: 80px;
     .CheckObject {
@@ -2794,9 +2584,9 @@
         text-align: left;
         padding-top: 186px;
         padding-left: 131px;
-        // display: flex;
-        // justify-content: center;
-        // align-items: center;
+        /* display: flex; */
+        /* justify-content: center; */
+        /* align-items: center; */
       }
       ul {
         flex: 1;
@@ -2846,122 +2636,8 @@
       margin-top: 65px;
     }
   }
-  // 案例分享
-  .CaseSharing {
-    max-width: 100vw;
-    margin-top: 104px;
-    margin-bottom: 80px;
-    background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/share/icl-pc-share.avif")
-      no-repeat;
-    background-position: center center;
-    padding: 140px 0 140px;
-    position: relative;
-    .CaseSharing-Box {
-      max-width: 1750px !important;
-      position: relative;
-      h3 {
-        position: absolute;
-        top: -70px;
-        right: 10px;
-        text-align: right;
-        color: #4570b6;
-        font-family: "Noto Sans TC";
-        font-size: 30px;
-        font-style: normal;
-        font-weight: 900;
-        line-height: 39px;
-      }
-      .CaseSharing-list {
-        display: flex;
-        &::-webkit-scrollbar {
-          display: none;
-        }
-        gap: 60px;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        & > .CaseSharing-list-item:nth-child(1) {
-          padding-top: 94px;
-        }
-        & > .CaseSharing-list-item:nth-child(2) {
-          padding-top: 0px;
-        }
-        & > .CaseSharing-list-item:nth-child(3) {
-          padding-top: 97px;
-        }
-        & > .CaseSharing-list-item:nth-child(4) {
-          padding-top: 369px;
-        }
-        .CaseSharing-list-item {
-          a {
-            display: block;
-            width: 396px;
-            box-shadow: -4px 4px 0px 0px #4570b6;
-            position: relative;
-            margin-bottom: 30px;
-            span {
-              position: absolute;
-              left: 20px;
-              bottom: 16px;
-              color: #fff;
-              text-align: center;
-              font-family: "Noto Sans TC";
-              font-size: 30px;
-              font-style: normal;
-              font-weight: 700;
-              line-height: 0.83;
-              background: #4570b6;
-              padding: 10px 15px;
-            }
-            i {
-              position: absolute;
-              right: 20px;
-              bottom: 16px;
-              width: 53px;
-              height: 53px;
-              border-radius: 5px;
-              background: #f00;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              svg {
-                width: 26px;
-              }
-            }
-          }
-        }
-      }
-    }
-    // .CaseSharing-btn {
-    //   width: 164.085px;
-    //   height: 163.562px;
-    //   position: absolute;
-    //   bottom: 60px;
-    //   right: -20px;
-    // }
-    // 按钮
-    .CaseSharing-btn {
-      position: absolute;
-      background: url("https://statichk.cmermedical.com/smile/smileproV2/icl-share-btn-pc.png");
-      background-repeat: no-repeat;
-      background-position: -58px -25px;
-      width: 166.085px;
-      height: 165.562px;
-      border-radius: 50%;
-      top: 0;
-      right: 0;
-      p {
-        margin-top: 43px;
-        color: #fff;
-        text-align: center;
-        font-family: "Poppins", sans-serif;
-        font-size: 20px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 1.25; /* 125% */
-      }
-    }
-  }
-  // 最新资讯
+  /* 案例分享 */
+  /* 最新资讯 */
   .latestNews {
     margin-top: 70px;
     margin-bottom: 60px;
@@ -2973,7 +2649,7 @@
     overflow: hidden;
     height: 36.66vw;
     max-height: 800px;
-    // padding-top: 260px;
+    /* padding-top: 260px; */
     display: flex;
     flex-direction: column;
     justify-content: center;
