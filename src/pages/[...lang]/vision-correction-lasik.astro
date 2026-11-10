@@ -1,17 +1,1029 @@
 ---
+/*
+ * @Author: Antigravity AI
+ * @Date: 2026-11-10
+ * @FilePath: /src/pages/[...lang]/vision-correction-lasik.astro
+ * @Description: LASIK 激光矯視專頁 (100% 官方真值對齊 + 雙端響應式 + W-07 轉換追蹤 + 完整 Schema)
+ */
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { i18nPaths, useI18n } from "@/i18n/utils";
+import SchemaProcedure from "@/components/seo/SchemaProcedure.astro";
+import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
+import { i18nPaths, getLangFromUrl } from "@/i18n/utils";
+import {
+  LASIK_ZH_HK,
+  LASIK_ZH_CN,
+} from "@/data/lasikData";
+
 export function getStaticPaths() {
   return [...i18nPaths];
 }
-const { dict } = useI18n(Astro.url);
+
+const lang = getLangFromUrl(Astro.url);
+const isCn = lang === "zh-cn";
+const content = isCn ? LASIK_ZH_CN : LASIK_ZH_HK;
 ---
 
 <BaseLayout tdkKey="lasik">
-  <section class="wrapper">
-    <h1 class="flex flex-col text-primary">
-      <span>LASIK</span>
-      <span>{dict.service.lasik.title}</span>
-    </h1>
-  </section>
+  <SchemaProcedure
+    name={`LASIK ${content.banner.title}`}
+    description={content.principle.desc}
+  />
+  <SchemaBreadcrumb
+    items={[
+      { name: content.breadcrumb.home, url: isCn ? "/cn/" : "/" },
+      {
+        name: content.breadcrumb.service,
+        url: isCn ? "/cn/vision-correction-lasik" : "/vision-correction-lasik",
+      },
+      {
+        name: content.breadcrumb.current,
+        url: isCn ? "/cn/vision-correction-lasik" : "/vision-correction-lasik",
+      },
+    ]}
+  />
+
+  <div class="lasik font-hk text-desc relative overflow-x-hidden">
+    {/* 1. 頂部橫幅 Hero Banner */}
+    <div class="Banner banner-box">
+      <div class="banner-img banner-text-default">
+        <h1 class="banner-title">
+          LASIK<br class="md:hidden" />{content.banner.title}
+        </h1>
+        <p class="banner-subtitle">
+          Laser-Assisted <br class="md:hidden" />in Situ Keratomileusis
+        </p>
+      </div>
+    </div>
+
+    {/* 2. 激光技術介紹 */}
+    <section class="laser_technology" aria-labelledby="laser-tech-heading">
+      <h2 id="laser-tech-heading">
+        <span>{content.laserTechnology.title}</span>
+      </h2>
+      <p class="laser_technology-in">
+        {content.laserTechnology.desc}
+      </p>
+    </section>
+
+    {/* 3. 激光矯視原理 */}
+    <section class="principle" aria-labelledby="principle-heading">
+      <div class="principle-top">
+        <div>
+          <img
+            draggable="false"
+            loading="lazy"
+            decoding="async"
+            src={content.principle.icon}
+            alt={content.principle.iconAlt}
+            title={content.principle.iconAlt}
+            width="108"
+            height="108"
+          />
+        </div>
+        <h3 id="principle-heading">
+          LASIK<br />
+          {content.principle.title}
+        </h3>
+      </div>
+      <div class="principle-img">
+        {content.principle.images.map((imgSrc, idx) => (
+          <div class="principle-img-in">
+            <img
+              draggable="false"
+              loading="lazy"
+              decoding="async"
+              src={imgSrc}
+              alt={`${content.principle.title} 步驟 ${idx + 1}`}
+              width="185"
+              height="185"
+            />
+          </div>
+        ))}
+      </div>
+      <div class="principle-text">
+        <p>
+          {content.principle.desc}
+        </p>
+      </div>
+    </section>
+
+    {/* 4. LASIK激光矯視的好處 */}
+    <section class="benefits" aria-labelledby="benefits-heading">
+      <h2 id="benefits-heading">
+        <span>{content.benefits.title}</span>
+      </h2>
+      <div class="benefits-lists">
+        {content.benefits.items.map((item) => (
+          <div class="benefits-lists-in">
+            <div class="images">
+              <img
+                draggable="false"
+                loading="lazy"
+                decoding="async"
+                src={item.img}
+                alt={item.title}
+                title={item.title}
+              />
+            </div>
+            <h4>{item.title}</h4>
+            <p>{item.text}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* 5. 合適對象 */}
+    <section class="suitable_object" aria-labelledby="suitable-heading">
+      <div class="suitable_object-top">
+        <img
+          draggable="false"
+          loading="lazy"
+          decoding="async"
+          src={content.suitable.icon}
+          alt={content.suitable.title}
+          title={content.suitable.title}
+        />
+        <h2 id="suitable-heading">
+          <span>{content.suitable.title}</span>
+        </h2>
+      </div>
+      <div class="suitable_object-lists">
+        {content.suitable.items.map((item) => (
+          <div class="suitable_object-lists-in">
+            <div class="box">
+              <div class="image">
+                <img
+                  draggable="false"
+                  loading="lazy"
+                  decoding="async"
+                  src={item.img}
+                  alt={item.text.join(" ")}
+                />
+              </div>
+              <div class="text">
+                {item.text.map((textItem) => (
+                  <p>{textItem}</p>
+                ))}
+              </div>
+              {item.mbText && (
+                <div class="text mbText">
+                  {item.mbText.map((textItem) => (
+                    <p>{textItem}</p>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* 6. 預約諮詢按鈕 */}
+    <div class="smile-pro-btn">
+      <a
+        href={content.appointment.whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-cta="whatsapp-w07"
+      >
+        {content.appointment.btn}
+      </a>
+    </div>
+  </div>
 </BaseLayout>
+
+<style lang="scss">
+@media screen and (min-width: 768px) {
+  .smile-pro-btn {
+    margin: 85px auto;
+    display: flex;
+    justify-content: center;
+    & > a {
+      margin: 0 auto;
+      width: fit-content;
+      background: #4570b6;
+      border-radius: 50px;
+      padding: 16px 50px;
+      color: #fff;
+      text-align: center;
+      font-family: "Noto Sans HK", var(--font-hk), sans-serif;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 20px; /* 100% */
+      letter-spacing: 6px;
+      display: inline-block;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background: #365b96;
+      }
+    }
+  }
+
+  .banner-box {
+    box-sizing: border-box;
+    padding: 0 3vw;
+    max-width: 1270px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  .banner-img {
+    background: url("https://statichk.cmermedical.com/imgs/2024/04/8764882bb5d61bd6.webp")
+      no-repeat;
+    background-size: cover;
+    height: 32.08vw;
+    width: 100%;
+    max-width: 1150px;
+    max-height: 556px;
+    background-position: top;
+    border-radius: 55px;
+
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 70px;
+
+    .banner-title {
+      color: #fff;
+      font-family: "Microsoft YaHei", "Noto Sans HK", var(--font-hk), sans-serif;
+      font-size: 30px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 50.75px; /* 169.167% */
+      letter-spacing: 7.5px;
+      margin: 0;
+    }
+
+    .banner-subtitle {
+      color: #fff;
+      font-family: "Microsoft YaHei", "Noto Sans HK", var(--font-hk), sans-serif;
+      font-size: 15px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 43.5px; /* 290% */
+      letter-spacing: 0.45px;
+      margin: 0;
+    }
+  }
+}
+
+.laser_technology {
+  margin-top: 85px;
+  margin-bottom: 20px;
+
+  h2 {
+    border: none;
+    margin-bottom: 45px;
+    position: relative;
+    text-align: center;
+    padding-bottom: 32px;
+
+    &::before {
+      content: none;
+      border: none;
+    }
+
+    span {
+      color: #4570b6;
+      font-family: "Noto Sans HK", var(--font-hk), sans-serif;
+      font-size: 30px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 30px; /* 100% */
+      letter-spacing: 7.5px;
+      padding-left: 5px;
+    }
+
+    &::after {
+      content: "";
+      background: #a6e1d6;
+      width: 39px;
+      height: 5px;
+      border-radius: 3px;
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+    }
+  }
+
+  &-in {
+    margin: 45px auto 0;
+    width: 100%;
+    max-width: 945px;
+    color: #6d6e71;
+    text-align: center;
+    font-family: "Noto Sans HK", var(--font-hk), sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 35px; /* 175% */
+    letter-spacing: 6px;
+  }
+}
+
+.principle-top {
+  & > div:nth-child(1) {
+    width: 108px;
+    height: 108px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & > img {
+      width: 100%;
+    }
+  }
+}
+
+.principle {
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  padding-bottom: 130px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 0;
+    padding-bottom: 200%;
+    background: url("https://statichk.cmermedical.com/imgs/2024/05/18206225b503de8f.png")
+      no-repeat;
+    background-size: 100% 100%;
+    top: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+
+  &-top {
+    width: 307px;
+    height: 307px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    border-radius: 50%;
+    margin: 0 auto;
+    z-index: 3;
+    position: relative;
+
+    h3 {
+      color: #4570b6;
+      text-align: center;
+      font-family: "Noto Sans HK", var(--font-hk), sans-serif;
+      font-size: 30px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 50px; /* 166.667% */
+      letter-spacing: 7.5px;
+      margin: 0;
+    }
+  }
+
+  &-img {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1140px;
+    margin: 85px auto 0;
+    position: relative;
+    z-index: 3;
+
+    &-in {
+      display: flex;
+      align-items: flex-end;
+      width: 185px;
+      height: 185px;
+      position: relative;
+
+      & > img {
+        width: 100%;
+      }
+
+      &:not(:last-child) {
+        &::after {
+          content: "";
+          width: 44px;
+          height: 14px;
+          background: url("/images/service/lasik/icon-1.svg") no-repeat;
+          background-size: 100% 100%;
+          position: absolute;
+          right: -88px;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+    }
+  }
+
+  &-text {
+    max-width: 941px;
+    margin: 58px auto 0;
+    position: relative;
+    z-index: 3;
+
+    p {
+      color: #6d6e71;
+      text-align: center;
+      font-family: "Noto Sans HK", var(--font-hk), sans-serif;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 300;
+      line-height: 35px; /* 175% */
+      letter-spacing: 6px;
+    }
+  }
+}
+
+.benefits {
+  margin-top: 88px;
+
+  h2 {
+    border: none;
+    margin-bottom: 0;
+    position: relative;
+    text-align: center;
+    padding-bottom: 32px;
+
+    &::before {
+      content: none;
+      border: none;
+    }
+
+    span {
+      color: #4570b6;
+      font-family: "Noto Sans HK", var(--font-hk), sans-serif;
+      font-size: 30px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 30px; /* 100% */
+      letter-spacing: 7.5px;
+      padding-left: 5px;
+    }
+
+    &::after {
+      content: "";
+      background: #a6e1d6;
+      width: 39px;
+      height: 5px;
+      border-radius: 3px;
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+    }
+  }
+
+  &-lists {
+    margin: 142px auto 0;
+    display: flex;
+    justify-content: space-between;
+    max-width: 1184px;
+
+    &-in {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .images {
+        height: 138px;
+        img {
+          width: 100%;
+        }
+      }
+
+      h4 {
+        color: #4570b6;
+        font-family: "Noto Sans HK", var(--font-hk), sans-serif;
+        font-size: 25px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 20px; /* 80% */
+        letter-spacing: 8.75px;
+        margin: 0 auto 45px;
+        text-align: center;
+      }
+
+      p {
+        color: #6d6e71;
+        text-align: center;
+        font-family: "Noto Sans HK", var(--font-hk), sans-serif;
+        font-size: 23px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 35px; /* 152.174% */
+        letter-spacing: 10.35px;
+        max-width: 194px;
+      }
+
+      &:nth-of-type(1) {
+        p {
+          max-width: 220px;
+        }
+      }
+
+      &:nth-of-type(4) {
+        p {
+          max-width: 154px;
+        }
+      }
+    }
+  }
+}
+
+.suitable_object {
+  width: 100%;
+  margin: 0 auto 85px;
+  overflow: hidden;
+  position: relative;
+  padding-bottom: 96px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 0;
+    padding-bottom: 200%;
+    background: url("https://statichk.cmermedical.com/imgs/2024/05/53bf2271c231b37d.png")
+      no-repeat;
+    background-size: 100% 100%;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -2;
+  }
+
+  &::after {
+    content: "";
+    width: 100%;
+    height: 150px;
+    background: #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+
+  &-top {
+    width: 307px;
+    height: 307px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    border-radius: 50%;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+
+    h2 {
+      border: none;
+      margin-bottom: 0;
+      margin-top: 30px;
+      padding-bottom: 0;
+      font-weight: 400;
+      position: relative;
+      text-align: center;
+
+      &::before,
+      &::after {
+        display: none;
+      }
+
+      span {
+        color: #4570b6;
+        font-family: "Noto Sans HK", var(--font-hk), sans-serif;
+        font-size: 30px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 30px; /* 100% */
+        letter-spacing: 7.5px;
+      }
+    }
+  }
+
+  &-lists {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    max-width: 1207px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+
+    &-in {
+      width: calc(100% / 3);
+      display: flex;
+      justify-content: center;
+      margin-top: 66px;
+
+      .box {
+        width: 307px;
+        height: 307px;
+        background: #fff;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .image {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+          max-width: 50%;
+          margin: 0 auto;
+        }
+      }
+
+      .text {
+        margin-top: 25px;
+        color: #6d6e71;
+        text-align: center;
+        font-family: "Noto Sans HK", var(--font-hk), sans-serif;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 35px; /* 175% */
+        letter-spacing: 4px;
+        min-height: 51px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .mbText {
+        display: none;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .smile-pro-btn {
+    margin-top: 25px;
+    margin-bottom: 55px;
+    display: flex;
+    justify-content: center;
+
+    & > a {
+      color: #fff;
+      text-align: center;
+      font-family: "Noto Sans HK", var(--font-hk), sans-serif;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 20px; /* 100% */
+      letter-spacing: 6px;
+      background: #4570b6;
+      border-radius: 55px;
+      padding: 17px 55px;
+      display: inline-block;
+      text-decoration: none;
+    }
+  }
+
+  .banner-box {
+    margin: 0 auto;
+  }
+
+  .banner-img {
+    background: url("https://statichk.cmermedical.com/imgs/2024/04/6fdcba3b3d5247bc.webp")
+      no-repeat;
+    background-size: 100% 100%;
+    height: 84.6vw;
+    margin: 24px 30px;
+    border-radius: 44px;
+
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 20px;
+
+    .banner-title {
+      color: #fff;
+      font-family: "Microsoft YaHei", "Noto Sans HK", var(--font-hk), sans-serif;
+      font-style: normal;
+      font-weight: 700;
+      letter-spacing: 3.5px;
+      font-size: 32px;
+      line-height: 36px;
+      margin: 0;
+    }
+
+    .banner-subtitle {
+      color: #fff;
+      font-family: "Microsoft YaHei", "Noto Sans HK", var(--font-hk), sans-serif;
+      font-style: normal;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      font-size: 18px;
+      line-height: 28px;
+      margin: 0;
+    }
+  }
+
+  .laser_technology {
+    margin-top: 50px;
+
+    h2 {
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 25px;
+      margin-bottom: 25px;
+
+      span {
+        color: #4570b6;
+        text-align: center;
+        font-family: "Noto Sans HK", var(--font-hk), sans-serif;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 30px; /* 150% */
+        letter-spacing: 5px;
+      }
+
+      &::after {
+        content: "";
+        background: #a6e1d6;
+        width: 37px;
+        height: 5px;
+        border-radius: 3px;
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+      }
+    }
+
+    &-in {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 30px; /* 200% */
+      letter-spacing: 4.5px;
+      margin-top: 28px;
+      padding: 0 20px;
+    }
+  }
+
+  .principle-top {
+    & > div:nth-child(1) {
+      width: 85px;
+      height: 85px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      & > img {
+        width: 100%;
+      }
+    }
+  }
+
+  .principle {
+    padding-bottom: 36px;
+
+    &::before {
+      top: 103px;
+      padding-bottom: 500%;
+      border-radius: 50% / 20%;
+    }
+
+    &-top {
+      width: 206px;
+      height: 206px;
+
+      img {
+        width: 86px;
+      }
+
+      h3 {
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 25px; /* 175% */
+        letter-spacing: 5px;
+        position: relative;
+        top: -10px;
+      }
+    }
+
+    &-img {
+      margin-top: 22px;
+      flex-direction: column;
+      align-items: center;
+
+      &-in {
+        margin-top: 0;
+        margin-bottom: 100px;
+        height: auto;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        &:not(:last-child) {
+          &::after {
+            left: 50%;
+            right: auto;
+            top: auto;
+            bottom: -55px;
+            transform: translateX(-50%) rotate(90deg);
+          }
+        }
+      }
+    }
+
+    &-text {
+      margin: 41px auto 0;
+      padding: 0 30px;
+
+      p {
+        font-size: 15px;
+        font-weight: 300;
+        line-height: 30px; /* 200% */
+        letter-spacing: 4.5px;
+      }
+    }
+  }
+
+  .benefits {
+    margin-top: 50px;
+
+    h2 {
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 25px;
+      margin-bottom: 25px;
+
+      span {
+        color: #4570b6;
+        text-align: center;
+        font-family: "Noto Sans HK", var(--font-hk), sans-serif;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 30px; /* 150% */
+        letter-spacing: 5px;
+      }
+
+      &::after {
+        content: "";
+        background: #a6e1d6;
+        width: 37px;
+        height: 5px;
+        border-radius: 3px;
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+      }
+    }
+
+    &-lists {
+      flex-wrap: wrap;
+      margin-top: 55px;
+      padding: 0 30px;
+
+      &-in {
+        width: 50%;
+        margin-bottom: 50px;
+
+        .images {
+          height: 82px;
+          max-width: 50%;
+          img {
+            max-height: 64px;
+          }
+        }
+
+        h4 {
+          font-size: 18px;
+          line-height: 20px;
+          letter-spacing: 3.6px;
+          margin: 0 auto 25px;
+          font-weight: 400;
+        }
+
+        p {
+          font-size: 15px;
+          font-weight: 300;
+          line-height: 22px; /* 146.667% */
+          letter-spacing: 3px;
+          max-width: 105px;
+        }
+
+        &:nth-of-type(4) {
+          p {
+            max-width: 84px;
+          }
+        }
+      }
+    }
+  }
+
+  .suitable_object {
+    margin: 0 auto 60px;
+    padding-bottom: 50px;
+
+    &::before {
+      padding-bottom: 300%;
+    }
+
+    &::after {
+      height: 85px;
+    }
+
+    &-top {
+      width: 171px;
+      height: 171px;
+
+      img {
+        width: 33px;
+      }
+
+      h2 {
+        margin-top: 15px;
+
+        span {
+          font-size: 20px;
+          line-height: 30px; /* 150% */
+          letter-spacing: 5px;
+        }
+      }
+    }
+
+    &-lists {
+      padding: 0 20px;
+
+      &-in {
+        width: 50%;
+        margin-top: 39px;
+
+        .box {
+          width: 39.7vw;
+          height: 39.7vw;
+        }
+
+        .image {
+          max-height: 40%;
+          img {
+            max-width: 60%;
+            max-height: 100%;
+          }
+        }
+
+        .text {
+          margin-top: 10px;
+          font-size: 3.5vw;
+          font-weight: 300;
+          line-height: 20px; /* 178.571% */
+          letter-spacing: 1.4px;
+          min-height: 0;
+        }
+
+        &:nth-of-type(1) {
+          .text {
+            max-width: 80%;
+            display: none;
+          }
+          .mbText {
+            display: block;
+          }
+        }
+
+        &:nth-of-type(5) {
+          .text {
+            display: none;
+          }
+          .mbText {
+            display: block;
+          }
+        }
+      }
+
+      &-in:nth-child(4) {
+        .image {
+          max-width: 68px;
+          img {
+            max-width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+</style>
