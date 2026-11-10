@@ -30,3 +30,11 @@ pagespeed-*.json
 schema-*.json
 schema-*.txt
 scratch_*.json
+
+# wrangler & caches
+.wrangler/
+.cache/
+*-account.json
+fetch_*.mjs
+scratch_*.mjs
+*.scratch.*
