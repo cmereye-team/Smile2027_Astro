@@ -126,4 +126,23 @@
 3. **Scoped styles only for component-specific geometry** — no full-page private stylesheets.
 
 ---
+
+## 10. Git 提交規範與 Webhook 機器人推送約制 (Git Commit & Webhook Guidelines)
+
+倉庫已接入 GitHub Webhook 即時推送到團隊釘釘機器人。為杜絕群消息中只顯示被截斷的超長單行標題（如 `feat(faq): ... (verbatim...`），所有 Git Commit 必須嚴格遵循「標題 + 空行 + 條理化正文」結構：
+
+1. **首行標題 (Subject Line) ≤ 50 字符**：
+   - 嚴格採用 Conventional Commits 規範：`<type>(<scope>): <精煉主旨>`（如 `fix(booking): 修復報名彈窗首屏可見缺陷`、`feat(fee): 遷移收費專頁`）。
+   - **嚴禁超長單行**，確保釘釘推送卡片標題 100% 完整展示、零 `...` 截斷。
+2. **正文主體 (Commit Body) 結構化**：
+   - 標題下方必須**空一行**，隨後列出改動要點清單（使用 `-` 條列）。
+   - 清楚說明：變更根因、核心修復點或受影響模組。
+   - 規範範例：
+     ```bash
+     git commit -m "fix(booking): 修復報名彈窗首屏可見缺陷" -m "- 根因：Scoped CSS .applyDialog 覆蓋 Tailwind hidden 類
+     - 修復：預設 display:none，非 hidden 狀態切換 display:flex
+     - 驗證：pnpm check:all (0 錯誤 0 警告) + 雙端無首屏覆蓋"
+     ```
+
+---
 *文檔由 Antigravity Agent 自動維護 | 版本：2026.11*
