@@ -87,10 +87,11 @@ const banners: BannerItem[] = await getBanners(lang);
 
   
 
-  /* 輪播視窗卡片 (防 CLS 固定比例 + 現代圓角陰影) */
+  /* 輪播視窗卡片 (防 CLS 固定比例 + 現代圓角陰影 + GPU 圖層隔離) */
   .banner-swiper {
     @apply w-full rounded-xl sm:rounded-2xl overflow-hidden shadow-xs relative bg-gray-50;
     aspect-ratio: 1 / 1;
+    isolation: isolate;
 
     @media (min-width: 768px) {
       aspect-ratio: 8 / 3;
@@ -100,11 +101,16 @@ const banners: BannerItem[] = await getBanners(lang);
       display: flex;
       width: 100%;
       height: 100%;
+      box-sizing: content-box;
     }
   }
 
   .banner-slide {
     @apply size-full shrink-0;
+    box-sizing: border-box;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0);
   }
 
   .banner-card-link {
@@ -175,6 +181,13 @@ const banners: BannerItem[] = await getBanners(lang);
         clickable: true,
       },
       slidesPerView: 1,
+      spaceBetween: 16,
+      breakpoints: {
+        768: {
+          spaceBetween: 24,
+        },
+      },
+      roundLengths: true,
       speed: 600,
     });
   }

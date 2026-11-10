@@ -39,7 +39,7 @@ const awardBadges = [
     
     {/* 1. 頂部 Hero Banner (Container 寬度約束 + 最大高度 300px) */}
     <section class="group-hero-banner py-4 md:py-8" aria-label="集團簡介導言區">
-      <div class="container mx-auto px-4">
+      <div class="site-container">
         <header class="group-hero-card">
           <div class="group-hero-card-content">
             <div class="group-hero-card-bg" aria-hidden="true"></div>
@@ -59,7 +59,7 @@ const awardBadges = [
       {/* 獨立的山水畫無縫滾動背景圖層 */}
       <div class="group-landscape-bg" aria-hidden="true"></div>
 
-      <div class="container mx-auto px-4 relative z-10">
+      <div class="site-container relative z-10">
         <article class="group-philosophy-card">
           {/* 標題與引言 */}
           <header class="text-center">
@@ -254,14 +254,14 @@ const awardBadges = [
       </div>
 
       {/* 中心主體描述文案 (Container 寬度約束 + 精緻排版) */}
-      <div class="container mx-auto px-4">
+      <div class="site-container">
         <div class="center-intro-content" set:html={dict.about.group.center.desc} />
       </div>
     </section>
 
     {/* 4. 希瑪關懷大使專區 (與上方藍色波浪背景向上負外邊距重疊 -mt-10 lg:-mt-24 + 100% 精確官方文案與藍色加粗高亮) */}
     <section class="care-ambassador-section relative z-10 -mt-10 lg:-mt-24 mb-16 md:mb-24" aria-labelledby="section-care-heading">
-      <div class="container mx-auto px-4">
+      <div class="site-container">
         <article class="care-ambassador-card">
           <div class="care-ambassador-body">
             <h2 id="section-care-heading" class="care-ambassador-title">
@@ -330,7 +330,7 @@ const awardBadges = [
 
     {/* 5. 中心環境雙層聯動輪播 (主圖 + 縮略圖同步切換 + 100% 官方說明文案) */}
     <section class="center-env-section my-16 md:my-24" aria-labelledby="section-env-heading">
-      <div class="container mx-auto px-4">
+      <div class="site-container">
         <h2 id="section-env-heading" class="section-title-pill">
           {dict.about.group.environment.title}
         </h2>
@@ -405,7 +405,7 @@ const awardBadges = [
       </div>
 
       {/* 獎項徽章無縫跑馬燈 Swiper (平滑循環展示) */}
-      <div class="container mx-auto px-4">
+      <div class="site-container">
         <div class="swiper awards-marquee-swiper" id="awardsMarqueeSwiper">
           <div class="swiper-wrapper">
             {[...awardBadges, ...awardBadges].map((badge) => (

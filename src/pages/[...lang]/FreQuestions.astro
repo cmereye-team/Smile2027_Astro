@@ -43,7 +43,7 @@ const breadcrumbItems = [
       content.sections.map((section) => (
         <section id={section.id} class="faq-section" aria-labelledby={`title-${section.id}`}>
           <h2 id={`title-${section.id}`} class="section-title">
-            <span>{section.title}</span>
+            {section.title}
           </h2>
 
           <div class="faq-accordion-list">
@@ -98,24 +98,21 @@ const breadcrumbItems = [
     }
   }
 
-  /* 區塊標題 H2 樣式 (100% 匹配 2024 H2Tag 組件) */
+  /* 區塊標題 H2 樣式 (純淨語意 Heading，無巢狀 span，底線裝飾收斂至 ::after) */
   .section-title {
     position: relative;
     text-align: center;
     border: none;
     padding-bottom: 32px;
     margin-bottom: 20px;
-
-    span {
-      color: #4570b6;
-      font-family: var(--font-hk), "Noto Sans HK", sans-serif;
-      font-size: 30px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 30px;
-      letter-spacing: 7.5px;
-      padding-left: 5px;
-    }
+    color: #4570b6;
+    font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 30px;
+    letter-spacing: 7.5px;
+    padding-left: 5px;
 
     &::after {
       content: "";
@@ -163,7 +160,7 @@ const breadcrumbItems = [
     border: none;
     cursor: pointer;
     box-sizing: border-box;
-    padding: 20px 80px 20px 85px;
+    padding: 20px 80px 20px 60px;
     position: relative;
     list-style: none;
     transition: background-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
@@ -180,13 +177,14 @@ const breadcrumbItems = [
       font-size: 18px;
       font-weight: 800;
       line-height: 1.5;
+      letter-spacing: 3px;
       background-image: linear-gradient(to top, #81dbec, #4570b6);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       color: #4570b6;
     }
 
-    /* 左側 Q 圖標：全域統一左側內嵌距離 (28px)，藍色展開條與收起行 100% 垂直對齊 */
+    /* 左側 Q 圖標：全域統一左側內嵌距離 (28px)，尺寸與回答正文字體大小一致 (20px) */
     &::before {
       position: absolute;
       content: "";
@@ -197,8 +195,9 @@ const breadcrumbItems = [
       top: 50%;
       transform: translateY(-50%);
       display: inline-block;
-      height: 38px;
-      width: 38px;
+      font-size: 20px;
+      height: 20px;
+      width: 20px;
       pointer-events: none;
     }
   }
@@ -299,7 +298,7 @@ const breadcrumbItems = [
     font-weight: 300;
     letter-spacing: 3px;
     line-height: 35px;
-    padding: 20px 40px 20px 85px;
+    padding: 20px 40px 20px 60px;
 
     /* set:html 富文本高亮 span 樣式遵循全域 :global 規範 */
     :global(span) {
@@ -329,12 +328,9 @@ const breadcrumbItems = [
       flex-direction: column;
       align-items: center;
       padding-bottom: 25px;
-
-      span {
-        font-size: 20px;
-        letter-spacing: 5px;
-        padding-left: 0;
-      }
+      font-size: 20px;
+      letter-spacing: 5px;
+      padding-left: 0;
 
       &::after {
         width: 37px;
@@ -343,7 +339,7 @@ const breadcrumbItems = [
     }
 
     summary.faq-header {
-      padding: 14px 45px 14px 50px;
+      padding: 14px 45px 14px 40px;
 
       .faq-header-text {
         font-size: 15px;
@@ -355,8 +351,9 @@ const breadcrumbItems = [
         left: 14px;
         top: 50%;
         transform: translateY(-50%);
-        height: 22px;
-        width: 22px;
+        font-size: 14px;
+        height: 14px;
+        width: 14px;
       }
     }
 
@@ -380,7 +377,7 @@ const breadcrumbItems = [
       font-size: 14px;
       letter-spacing: 0.05em;
       line-height: 24px;
-      padding: 15px 15px 15px 50px;
+      padding: 15px 15px 15px 40px;
     }
   }
 </style>
