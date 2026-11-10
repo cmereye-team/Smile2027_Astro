@@ -1,0 +1,291 @@
+---
+/*
+ * @Author: Antigravity AI
+ * @Date: 2026-11-10
+ * @FilePath: /src/components/booking/BookingBanner.astro
+ * @Description: 預約系列動態 Hero Banner 組件 (CMS API 驅動 + 支援單張靜態 / 多張 5s 自動輪播 + 雙端自適應 + 智慧鏈接轉換)
+ */
+interface Props {
+  title?: string;
+  gid?: number;
+  pageSize?: number;
+}
+
+const { title = "希瑪微笑矯視中心", gid = 2, pageSize = 5 } = Astro.props;
+---
+
+<section
+  id="top-banner-section"
+  class="main_banner hidden"
+  aria-label={title}
+  data-gid={gid}
+  data-page-size={pageSize}
+>
+  <div class="banner-container">
+    <div id="top-banner-content" class="top-banner-content"></div>
+  </div>
+</section>
+
+<style>
+  .main_banner {
+    width: 100%;
+    padding-top: 16px;
+    padding-bottom: 8px;
+  }
+
+  .banner-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  .top-banner-content {
+    width: 100%;
+  }
+
+  :global(.banner-link),
+  :global(.banner-item) {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  :global(.banner-img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+
+  :global(.banner-swiper) {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  :global(.banner-swiper .swiper-wrapper) {
+    display: flex;
+    width: 100%;
+    height: 100%;
+  }
+
+  :global(.banner-slide) {
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  :global(.banner-pagination) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    position: absolute;
+    bottom: 12px !important;
+    z-index: 10;
+  }
+
+  :global(.banner-pagination .swiper-pagination-bullet) {
+    background: #ffffff;
+    opacity: 0.6;
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0 3px !important;
+  }
+
+  :global(.banner-pagination .swiper-pagination-bullet:hover) {
+    opacity: 0.9;
+  }
+
+  :global(.banner-pagination .swiper-pagination-bullet-active) {
+    background: #4570b6;
+    opacity: 1;
+    width: 22px;
+    border-radius: 9999px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .main_banner {
+      padding-top: 10px;
+      padding-bottom: 0;
+    }
+
+    .banner-container {
+      padding: 0 15px;
+    }
+  }
+</style>
+
+<script>
+  import Swiper from "swiper";
+  import { Autoplay, Pagination } from "swiper/modules";
+
+  interface SlideItem {
+    id: number;
+    acode?: string;
+    gid?: string;
+    pic?: string;
+    pic_mobile?: string;
+    link?: string;
+    title?: string;
+    subtitle?: string;
+    button_text?: string;
+  }
+
+  function isExternalUrl(url: string): boolean {
+    if (!url || url.startsWith("#")) return false;
+    return (
+      /^[a-z][a-z0-9+.-]*:\/\//i.test(url) ||
+      url.startsWith("//") ||
+      url.startsWith("tel:") ||
+      url.startsWith("mailto:") ||
+      url.startsWith("whatsapp:")
+    );
+  }
+
+  function resolveSlideLink(rawLink?: string): string {
+    if (!rawLink || rawLink === "#") return "";
+    const trimmed = rawLink.replace(/&amp;/g, "&").trim();
+    if (isExternalUrl(trimmed)) return trimmed;
+    const isCn = window.location.pathname.startsWith("/cn");
+    if (isCn && trimmed.startsWith("/") && !trimmed.startsWith("/cn")) {
+      return "/cn" + trimmed;
+    }
+    return trimmed;
+  }
+
+  function renderSlideElement(slide: SlideItem): HTMLElement {
+    const linkUrl = resolveSlideLink(slide.link);
+    const isExt = isExternalUrl(linkUrl);
+    const desktopImg = slide.pic || "";
+    const mobileImg = slide.pic_mobile || desktopImg;
+    const altText = slide.title || "";
+    const titleText = slide.subtitle || slide.title || "";
+
+    const pictureHtml = `
+      <picture class="banner-picture">
+        <source media="(min-width: 768px)" srcset="${desktopImg}">
+        <img
+          src="${mobileImg}"
+          alt="${altText}"
+          title="${titleText}"
+          class="banner-img"
+          loading="eager"
+          fetchpriority="high"
+          draggable="false"
+        >
+      </picture>
+    `;
+
+    if (linkUrl) {
+      const a = document.createElement("a");
+      a.href = linkUrl;
+      a.className = "banner-link";
+      if (isExt) {
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+      } else {
+        a.target = "_self";
+      }
+      a.setAttribute("data-cta", "top_banner");
+      a.innerHTML = pictureHtml;
+      return a;
+    } else {
+      const div = document.createElement("div");
+      div.className = "banner-item";
+      div.innerHTML = pictureHtml;
+      return div;
+    }
+  }
+
+  let activeSwiperInstance: Swiper | null = null;
+
+  async function initTopBanner() {
+    const topBannerSection = document.getElementById("top-banner-section");
+    const topBannerContent = document.getElementById("top-banner-content");
+    if (!topBannerSection || !topBannerContent) return;
+
+    if (activeSwiperInstance) {
+      activeSwiperInstance.destroy(true, true);
+      activeSwiperInstance = null;
+    }
+
+    const gid = topBannerSection.dataset.gid || "2";
+    const pageSize = topBannerSection.dataset.pageSize || "5";
+
+    try {
+      const res = await fetch(
+        `https://cms.cmermedical.com.hk/api/v1/slides?gid=${gid}&pageSize=${pageSize}`,
+        {
+          headers: { "X-Site-Id": "smile" },
+        }
+      );
+      if (!res.ok) return;
+
+      const json = await res.json();
+      const slides: SlideItem[] = Array.isArray(json?.data) ? json.data : [];
+      if (slides.length === 0) return;
+
+      topBannerContent.innerHTML = "";
+
+      if (slides.length === 1) {
+        topBannerContent.appendChild(renderSlideElement(slides[0]));
+        topBannerSection.classList.remove("hidden");
+      } else {
+        const swiperContainer = document.createElement("div");
+        swiperContainer.className = "swiper banner-swiper";
+
+        const swiperWrapper = document.createElement("div");
+        swiperWrapper.className = "swiper-wrapper";
+
+        slides.forEach((slide) => {
+          const slideItem = document.createElement("div");
+          slideItem.className = "swiper-slide banner-slide";
+          slideItem.appendChild(renderSlideElement(slide));
+          swiperWrapper.appendChild(slideItem);
+        });
+
+        const pagination = document.createElement("div");
+        pagination.className = "swiper-pagination banner-pagination";
+        pagination.setAttribute("aria-hidden", "true");
+
+        swiperContainer.appendChild(swiperWrapper);
+        swiperContainer.appendChild(pagination);
+        topBannerContent.appendChild(swiperContainer);
+
+        topBannerSection.classList.remove("hidden");
+
+        activeSwiperInstance = new Swiper(swiperContainer, {
+          modules: [Autoplay, Pagination],
+          loop: true,
+          autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          },
+          pagination: {
+            el: pagination,
+            clickable: true,
+          },
+          slidesPerView: 1,
+          speed: 600,
+        });
+      }
+    } catch (err) {
+      console.warn("Top banner load skipped:", err);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initTopBanner);
+  } else {
+    initTopBanner();
+  }
+  document.addEventListener("astro:page-load", initTopBanner);
+</script>
