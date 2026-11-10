@@ -41,9 +41,9 @@ export const tdk = {
     keywords: "lasik,lasik 激光矯視,激光 手術,lasik 散光,激光 矯 視 手術,LASIK激光矯視, 激光矯視 價錢, 激光矯視 香港, 視力矯正, 眼睛健康, 激光矯視, 深近視, 眼睛檢查",
   },
   fee: {
-    title: "近视手术收费详情与价格表 | SMILE Pro / ICL / LASIK 明码实价 - 香港希玛微笑矫视中心",
-    description: "香港希玛微笑矫视中心收费透明、明码实价。包含 SMILE Pro 2.0、SMILE、ICL、LASIK 及老花手术清晰价格表，支持各大银行信用卡免息分期。立即查阅收费详情。",
-    keywords: "近视手术价格, 矫视收费, SMILE Pro 价格, ICL 费用, LASIK 费用, 近视手术分期, 希玛收费",
+    title: "收费详情 - 希玛微笑矫视中心",
+    description: "希瑪微笑矯視中心價目清晰，絕無其他額外收費。立即查看各項激光矯視價錢。",
+    keywords: "smile 矯視 價錢,激光矯視費用,smile價錢,激光矯視 價錢,微笑矯視 價錢,矯視價錢,老花手術費用,smile pro 價錢",
   },
   faq: {
     title: "近视手术常见问题 FAQ | SMILE Pro / ICL / LASIK 术前术后须知 - 香港希玛微笑矫视中心",
