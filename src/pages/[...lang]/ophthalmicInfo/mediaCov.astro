@@ -1,0 +1,353 @@
+---
+/*
+ * @FilePath: /src/pages/[...lang]/ophthalmicInfo/mediaCov.astro
+ * @Description: 媒體報導專頁 (100% 對齊舊站 pages/ophthalmicInfo/mediaCov/index.vue + 繁簡雙語 + 共享 .site-container + BreadcrumbList Schema)
+ */
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
+import { i18nPaths, getLangFromUrl } from "@/i18n/utils";
+import {
+  MEDIA_COV_ZH_HK,
+  MEDIA_COV_ZH_CN,
+} from "@/data/mediaCovData";
+
+export function getStaticPaths() {
+  return [...i18nPaths];
+}
+
+const lang = getLangFromUrl(Astro.url);
+const isCn = lang === "zh-cn";
+const content = isCn ? MEDIA_COV_ZH_CN : MEDIA_COV_ZH_HK;
+
+const breadcrumbItems = [
+  { name: content.breadcrumb.home, url: isCn ? "/cn/" : "/" },
+  {
+    name: content.breadcrumb.current,
+    url: isCn ? "/cn/ophthalmicInfo/mediaCov" : "/ophthalmicInfo/mediaCov",
+  },
+];
+---
+
+<BaseLayout tdkKey="mediaCov">
+  <SchemaBreadcrumb items={breadcrumbItems} />
+
+  <div class="media-cov-page font-hk text-desc relative overflow-x-clip">
+    {/* 1. 頂部橫幅 Banner */}
+    <section class="main_banner" aria-label={content.banner.title}>
+      <div class="site-container">
+        <div class="banner">
+          <div class="des_box">
+            <h1 class="gradient_font">{content.banner.title}</h1>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* 2. 媒體報導文章列表 */}
+    <section
+      class="media-section site-container"
+      aria-labelledby="media-cov-heading"
+    >
+      <div class="flex justify-center md:mt-28 mt-10">
+        <h2 id="media-cov-heading">{content.sectionTitle}</h2>
+      </div>
+
+      <div class="media-buju">
+        {
+          content.articles.map((item) => (
+            <article class="media-box">
+              <a
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="media-link"
+              >
+                <img
+                  src={item.img}
+                  alt={item.title}
+                  draggable="false"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div class="meida">
+                  <div class="meida-data">
+                    <span class="icon">{item.tag}</span>
+                    <span class="data">{item.date}</span>
+                  </div>
+                  <p>{item.title}</p>
+                </div>
+              </a>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="flex justify-center more-btn">
+        <span>{content.moreText}</span>
+      </div>
+
+      <div class="flex justify-center my-10 mbShow">
+        <a href={content.mobileCta.href} class="btn-yuyue-link">
+          <div class="flex btn-yuyue items-center">
+            <img
+              src={content.mobileCta.icon}
+              alt=""
+              draggable="false"
+              loading="lazy"
+              decoding="async"
+              class="btn-yuyue-icon"
+            />
+            <div class="flex flex-col justify-center btn-yuyue-text">
+              <span>{content.mobileCta.label}</span>
+              <span>{content.mobileCta.phone}</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style lang="scss">
+  .media-cov-page {
+    background: #ffffff;
+
+    h2 {
+      font-size: 25px;
+      color: #4570b6;
+      text-align: center;
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .gradient_font {
+      display: inline-block;
+      background: linear-gradient(90.57deg, #4570b6 0, #81dbec 60%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .banner {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .des_box {
+      h1 {
+        font-style: normal;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        letter-spacing: 0.15em;
+        margin: 0;
+      }
+    }
+
+    .media-box {
+      border: 2px solid #4570b6;
+      border-radius: 18px;
+      overflow: hidden;
+
+      .media-link {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+      }
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+
+      .meida {
+        padding: 10px 13px;
+      }
+
+      p {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 20px;
+        padding: 10px 0;
+        text-align: justify;
+        letter-spacing: 0.06em;
+        color: #000000;
+      }
+    }
+
+    .meida-data {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .icon {
+        background: linear-gradient(104.24deg, #5184c1 5.95%, #7cd3e8 114.4%);
+        border-radius: 3px;
+        padding: 5px;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 1.1;
+        text-align: center;
+        letter-spacing: 0.06em;
+        color: #fbfbf6;
+      }
+
+      .data {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.1;
+        text-align: right;
+        letter-spacing: 0.06em;
+        color: #6d6e71;
+      }
+    }
+
+    .more-btn {
+      display: flex;
+      justify-content: center;
+      background: linear-gradient(104.24deg, #5184c1 5.95%, #7cd3e8 114.4%);
+      cursor: pointer;
+
+      span {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        letter-spacing: 0.1em;
+        color: #ffffff;
+      }
+    }
+
+    .btn-yuyue-link {
+      text-decoration: none;
+    }
+
+    .btn-yuyue-icon {
+      width: 12vw;
+      max-width: 54px;
+      height: auto;
+    }
+
+    .btn-yuyue-text {
+      padding: 0 10px;
+    }
+
+    .btn-yuyue {
+      border: 1px solid transparent;
+      border-radius: 99px;
+      background-clip: padding-box, border-box;
+      background-origin: padding-box, border-box;
+      background-image:
+        linear-gradient(to right, #fff, #fff),
+        linear-gradient(90deg, #4671b7 -23.33%, #7cd2e7 122.38%);
+      padding: 2.5vw 5vw;
+
+      span {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        text-align: center;
+        letter-spacing: 0.1em;
+        background: linear-gradient(90deg, #4671b7 -23.33%, #7cd2e7 122.38%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .media-cov-page {
+      .mbShow {
+        display: none !important;
+      }
+
+      .banner {
+        background-image: url("https://statichk.cmermedical.com/imgs/2023/04/2994861390bba46b.jpg");
+        height: 480px;
+        padding-left: 50px;
+        margin-top: 16px;
+      }
+
+      .des_box {
+        width: 930px;
+        max-width: 100%;
+        margin-bottom: 35px;
+
+        h1 {
+          font-size: 38px;
+          line-height: 42px;
+        }
+      }
+
+      .media-buju {
+        display: grid;
+        grid-auto-flow: row;
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .media-box {
+        width: 82%;
+        margin: 50px 0;
+      }
+
+      .more-btn {
+        width: fit-content;
+        padding: 13px 23px;
+        margin: 0 auto 40px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .media-cov-page {
+      h2 {
+        font-size: 16px;
+      }
+
+      .banner {
+        background-image: url("https://statichk.cmermedical.com/imgs/2023/04/57f11ecb499e2b25.jpg");
+        background-position: top;
+        background-size: 100% auto;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        margin: 12px auto 10vw;
+        padding: 0 20px;
+        font-size: 20px;
+      }
+
+      .des_box {
+        h1 {
+          font-size: 30px;
+          line-height: 1.25;
+        }
+      }
+
+      .media-buju {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .media-box {
+        width: 82%;
+        margin: 0 0 50px;
+      }
+
+      .more-btn {
+        width: 40%;
+        margin: 0 auto;
+        padding: 10px 0;
+      }
+    }
+  }
+</style>

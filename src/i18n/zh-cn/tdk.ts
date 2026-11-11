@@ -115,4 +115,9 @@ export const tdk = {
     description: "術後護理 - 希瑪微笑矯視中心",
     keywords: "術後護理 - 希瑪微笑矯視中心",
   },
+  mediaCov: {
+    title: "媒体报导 | 眼科资讯 - 希玛微笑矫视中心",
+    description: "",
+    keywords: "",
+  },
 } as const;
