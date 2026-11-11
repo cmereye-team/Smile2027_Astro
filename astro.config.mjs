@@ -31,7 +31,13 @@ export default defineConfig({
       fallbackType: "redirect",
     },
   },
-  integrations: [vue(), sitemap(), icon()],
+  integrations: [
+    vue(),
+    sitemap({
+      filter: (page) => !page.includes("/blog-article"),
+    }),
+    icon(),
+  ],
   vite: {
     plugins: [tailwindcss()],
     resolve: {

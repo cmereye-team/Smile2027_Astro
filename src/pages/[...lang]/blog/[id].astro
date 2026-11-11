@@ -1,0 +1,49 @@
+---
+/*
+ * @FilePath: /src/pages/[...lang]/blog/[id].astro
+ * @Description: 眼科科普文章詳情路由 (/blog/[id] 及 /cn/blog/[id])
+ */
+import BlogArticleView from "@/components/views/BlogArticleView.astro";
+import { getLangFromUrl } from "@/i18n/utils";
+
+export async function getStaticPaths() {
+  const fallbackIds = ["161", "162", "169", "178", "179", "166"];
+  const idSet = new Set<string>(fallbackIds);
+
+  const listEndpoints = [
+    "https://admin.hkcmereye.com/api.php/list/32",
+    "https://admin.hkcmereye.com/api.php/list/35",
+  ];
+
+  for (const endpoint of listEndpoints) {
+    try {
+      const response = await fetch(endpoint);
+      if (response.ok) {
+        const json = await response.json();
+        if (Array.isArray(json?.data)) {
+          for (const item of json.data) {
+            if (item?.id !== undefined && item?.id !== null) {
+              idSet.add(String(item.id));
+            }
+          }
+        }
+      }
+    } catch {
+      // 構建期離線或遠端超時時回退至已知文章 ID 列表
+    }
+  }
+
+  const paths: Array<{ params: { lang: string | undefined; id: string } }> = [];
+  for (const id of idSet) {
+    paths.push({ params: { lang: undefined, id } });
+    paths.push({ params: { lang: "cn", id } });
+  }
+  return paths;
+}
+
+const lang = getLangFromUrl(Astro.url);
+const isCn = lang === "zh-cn";
+const idParam = Astro.params.id || "";
+---
+
+<BlogArticleView isCn={isCn} idParam={idParam} />

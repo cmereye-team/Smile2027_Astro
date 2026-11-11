@@ -1,0 +1,741 @@
+---
+/*
+ * @FilePath: /src/components/views/BlogArticleView.astro
+ * @Description: 眼科科普文章詳情視圖組件 (對齊舊站 pages/new-page/blog_news/_id.vue + 繁簡雙語 + 共享 .site-container + BreadcrumbList & BlogPosting Schema)
+ */
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
+import { ui } from "@/i18n/ui";
+
+interface Props {
+  isCn: boolean;
+  idParam?: string;
+}
+
+const { isCn, idParam = "" } = Astro.props;
+const sectionLabel = isCn ? "科普知识" : "科普知識";
+const homeLabel = isCn ? "首页" : "首頁";
+const blogListPath = isCn ? "/cn/blog" : "/blog";
+const currentPath = idParam ? `${blogListPath}/${idParam}` : blogListPath;
+const siteUrl = Astro.site?.origin || "https://smile.hkcmereye.com";
+const knowledgeTdk = isCn ? ui["zh-cn"].tdk.knowledge : ui["zh-hk"].tdk.knowledge;
+
+const breadcrumbItems = [
+  { name: homeLabel, url: isCn ? "/cn/" : "/" },
+  { name: sectionLabel, url: blogListPath },
+  { name: sectionLabel, url: currentPath },
+];
+
+const initialBlogPostingSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: sectionLabel,
+  url: new URL(currentPath, siteUrl).href,
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": new URL(currentPath, siteUrl).href,
+  },
+  inLanguage: isCn ? "zh-CN" : "zh-HK",
+  publisher: {
+    "@type": "MedicalOrganization",
+    name: "香港希瑪微笑矯視中心 CMER Smile",
+    url: siteUrl,
+  },
+};
+---
+
+<BaseLayout seo={knowledgeTdk}>
+  <SchemaBreadcrumb items={breadcrumbItems} />
+  <script
+    type="application/ld+json"
+    id="blog-posting-schema"
+    is:inline
+    set:html={JSON.stringify(initialBlogPostingSchema)}
+  />
+
+  <div class="blog-article-page">
+    <article
+      id="article-shell"
+      class="site-container article-container"
+      aria-live="polite"
+      aria-busy="true"
+      data-param-id={idParam}
+      data-is-cn={isCn ? "true" : "false"}
+      data-site-origin={siteUrl}
+      data-blog-list-path={blogListPath}
+      data-default-title={knowledgeTdk.title}
+      data-section-label={sectionLabel}
+      data-not-found-text={isCn
+        ? "找不到相关文章，或文章已被移除。"
+        : "找不到相關文章，或文章已被移除。"}
+      data-error-text={isCn
+        ? "暂时未能加载文章内容，请稍后再试。"
+        : "暫時未能載入文章內容，請稍後再試。"}
+    >
+      <header class="article-header">
+        <h1 id="article-title" class="article-title">{sectionLabel}</h1>
+      </header>
+
+      <div id="article-loading" class="article-loading" aria-hidden="true">
+        <div class="article-skeleton-img" />
+        <div class="article-skeleton-line" />
+        <div class="article-skeleton-line" />
+        <div class="article-skeleton-line article-skeleton-line--short" />
+      </div>
+
+      <div id="article-empty" class="article-empty" hidden>
+        <p id="article-empty-text" class="article-empty-text" />
+        <a href={blogListPath} class="article-back-link">
+          {isCn ? "返回科普专栏" : "返回科普專欄"}
+        </a>
+      </div>
+
+      <div id="article-body" class="content_box" />
+
+      <div id="article-source" class="source" hidden>
+        <div>{isCn ? "资料来源：" : "資料來源："}</div>
+        <a id="article-source-link" href="#" target="_blank" rel="noopener noreferrer" />
+      </div>
+    </article>
+  </div>
+</BaseLayout>
+
+<script>
+  interface ArticleApiData {
+    id?: string | number;
+    title?: string;
+    subtitle?: string;
+    description?: string;
+    keywords?: string;
+    content?: string;
+    author?: string;
+    source?: string;
+    ico?: string;
+    date?: string;
+    update_time?: string;
+    ext_list_des?: string;
+  }
+
+  function resolveMediaUrl(path?: string): string {
+    if (!path) return "";
+    return path.startsWith("http")
+      ? path
+      : `https://admin.hkcmereye.com${path}`;
+  }
+
+  function toIsoDate(raw?: string): string | undefined {
+    if (!raw) return undefined;
+    const trimmed = raw.trim();
+    if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(trimmed)) {
+      return `${trimmed.replace(" ", "T")}+08:00`;
+    }
+    return undefined;
+  }
+
+  function resolveArticleId(paramId: string): string {
+    const segments = window.location.pathname
+      .replace(/\/+$/, "")
+      .split("/")
+      .filter(Boolean);
+    const lastSeg = segments[segments.length - 1] || "";
+    if (/^\d+$/.test(lastSeg)) {
+      return lastSeg;
+    }
+    if (/^\d+$/.test(paramId)) {
+      return paramId;
+    }
+    return "";
+  }
+
+  function setMetaContent(selector: string, content?: string) {
+    if (!content) return;
+    const el = document.querySelector<HTMLMetaElement>(selector);
+    if (el) {
+      el.setAttribute("content", content);
+    }
+  }
+
+  function updateSchemas(
+    data: ArticleApiData,
+    isCn: boolean,
+    siteOrigin: string
+  ) {
+    const pageUrl = `${window.location.origin}${window.location.pathname}`;
+
+    const postingEl = document.getElementById("blog-posting-schema");
+    if (postingEl) {
+      const schema: Record<string, any> = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        headline: data.title || data.subtitle || "",
+        url: pageUrl,
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": pageUrl,
+        },
+        inLanguage: isCn ? "zh-CN" : "zh-HK",
+        publisher: {
+          "@type": "MedicalOrganization",
+          name: "香港希瑪微笑矯視中心 CMER Smile",
+          url: siteOrigin,
+        },
+      };
+      if (data.subtitle && data.subtitle !== data.title) {
+        schema.alternativeHeadline = data.subtitle;
+      }
+      const desc = data.description || data.ext_list_des;
+      if (desc) schema.description = desc;
+      if (data.keywords) schema.keywords = data.keywords;
+      const imgUrl = resolveMediaUrl(data.ico);
+      if (imgUrl) schema.image = imgUrl;
+      const datePublished = toIsoDate(data.date);
+      if (datePublished) schema.datePublished = datePublished;
+      const dateModified = toIsoDate(data.update_time);
+      if (dateModified) schema.dateModified = dateModified;
+
+      postingEl.textContent = JSON.stringify(schema);
+    }
+
+    const ldScripts = document.querySelectorAll<HTMLScriptElement>(
+      'script[type="application/ld+json"]'
+    );
+    ldScripts.forEach((script) => {
+      if (!script.textContent) return;
+      try {
+        const parsed = JSON.parse(script.textContent);
+        if (
+          parsed &&
+          parsed["@type"] === "BreadcrumbList" &&
+          Array.isArray(parsed.itemListElement) &&
+          parsed.itemListElement.length >= 3
+        ) {
+          parsed.itemListElement[2].name = data.title || data.subtitle || parsed.itemListElement[2].name;
+          parsed.itemListElement[2].item = pageUrl;
+          script.textContent = JSON.stringify(parsed);
+        }
+      } catch {
+        // Ignore invalid JSON-LD block
+      }
+    });
+  }
+
+  function showEmptyState(
+    shell: HTMLElement,
+    loadingEl: HTMLElement | null,
+    emptyEl: HTMLElement | null,
+    emptyTextEl: HTMLElement | null,
+    message: string
+  ) {
+    shell.setAttribute("aria-busy", "false");
+    if (loadingEl) loadingEl.hidden = true;
+    if (emptyTextEl) emptyTextEl.textContent = message;
+    if (emptyEl) emptyEl.hidden = false;
+  }
+
+  async function initBlogArticle() {
+    const shell = document.getElementById("article-shell");
+    if (!shell) return;
+
+    const titleEl = document.getElementById("article-title");
+    const loadingEl = document.getElementById("article-loading");
+    const emptyEl = document.getElementById("article-empty");
+    const emptyTextEl = document.getElementById("article-empty-text");
+    const bodyEl = document.getElementById("article-body");
+    const sourceEl = document.getElementById("article-source");
+    const sourceLinkEl = document.getElementById(
+      "article-source-link"
+    ) as HTMLAnchorElement | null;
+
+    const paramId = shell.dataset.paramId || "";
+    const isCn = shell.dataset.isCn === "true";
+    const siteOrigin = shell.dataset.siteOrigin || window.location.origin;
+    const defaultTitle = shell.dataset.defaultTitle || document.title;
+    const notFoundText = shell.dataset.notFoundText || "找不到相關文章。";
+    const errorText =
+      shell.dataset.errorText || "暫時未能載入文章內容，請稍後再試。";
+
+    const canonicalEl = document.querySelector<HTMLLinkElement>(
+      'link[rel="canonical"]'
+    );
+    if (canonicalEl) {
+      canonicalEl.href = `${window.location.origin}${window.location.pathname}`;
+    }
+
+    const articleId = resolveArticleId(paramId);
+    if (!articleId) {
+      showEmptyState(shell, loadingEl, emptyEl, emptyTextEl, notFoundText);
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `https://admin.hkcmereye.com/api.php/content/${encodeURIComponent(articleId)}`
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+      const res = await response.json();
+      if (!res || res.code === 0 || !res.data || typeof res.data !== "object") {
+        showEmptyState(shell, loadingEl, emptyEl, emptyTextEl, notFoundText);
+        return;
+      }
+
+      const data: ArticleApiData = res.data;
+      const browserTitle = data.subtitle || data.title || defaultTitle;
+      document.title = browserTitle;
+      setMetaContent('meta[name="description"]', data.description);
+      setMetaContent('meta[name="keywords"]', data.keywords);
+      setMetaContent('meta[property="og:title"]', browserTitle);
+      setMetaContent('meta[property="og:description"]', data.description);
+      setMetaContent('meta[name="twitter:title"]', browserTitle);
+      setMetaContent('meta[name="twitter:description"]', data.description);
+
+      if (titleEl && data.title) {
+        titleEl.textContent = data.title;
+      }
+
+      if (loadingEl) loadingEl.hidden = true;
+      if (emptyEl) emptyEl.hidden = true;
+
+      if (bodyEl) {
+        bodyEl.innerHTML = data.content || "";
+      }
+
+      const excludedSourceIds = ["159"];
+      if (
+        sourceEl &&
+        sourceLinkEl &&
+        data.source &&
+        !excludedSourceIds.includes(articleId)
+      ) {
+        sourceLinkEl.href = data.source;
+        sourceLinkEl.textContent = data.author || data.source;
+        sourceEl.hidden = false;
+      }
+
+      shell.setAttribute("aria-busy", "false");
+      updateSchemas(data, isCn, siteOrigin);
+    } catch {
+      showEmptyState(shell, loadingEl, emptyEl, emptyTextEl, errorText);
+    }
+  }
+
+  initBlogArticle();
+</script>
+
+<style lang="scss">
+  .blog-article-page {
+    width: 100%;
+    overflow-x: clip;
+    padding-top: 2.5rem;
+    padding-bottom: 5rem;
+  }
+
+  .article-header {
+    margin-bottom: 24px;
+  }
+
+  .article-title {
+    margin: 0 auto;
+    color: #4570b6;
+    font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.45;
+    letter-spacing: 3px;
+    text-align: center;
+  }
+
+  .article-loading {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 16px 0 40px;
+  }
+
+  .article-skeleton-img {
+    width: 100%;
+    max-width: 870px;
+    aspect-ratio: 16 / 9;
+    margin: 0 auto;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+    background-size: 200% 100%;
+    animation: article-shimmer 1.4s infinite;
+  }
+
+  .article-skeleton-line {
+    width: 100%;
+    height: 20px;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+    background-size: 200% 100%;
+    animation: article-shimmer 1.4s infinite;
+  }
+
+  .article-skeleton-line--short {
+    width: 65%;
+  }
+
+  @keyframes article-shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+
+    100% {
+      background-position: -200% 0;
+    }
+  }
+
+  .article-empty {
+    text-align: center;
+    padding: 48px 16px;
+  }
+
+  .article-empty-text {
+    color: #6d6e71;
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0 0 24px;
+  }
+
+  .article-back-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 28px;
+    border-radius: 9999px;
+    background: #4570b6;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color var(--dur-fast) var(--ease-out);
+
+    &:hover {
+      background: #355995;
+    }
+  }
+
+  .content_box :global(a) {
+    color: #4570b6;
+    font-weight: 500;
+  }
+
+  .content_box :global(a:hover) {
+    color: #4570b6;
+    font-weight: 500;
+  }
+
+  .content_box :global(h1),
+  .content_box :global(h2) {
+    color: #4570b6;
+    font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    text-align: center;
+    border-bottom: none;
+    padding: 0;
+  }
+
+  .content_box :global(h2::before),
+  .content_box :global(h2::after) {
+    content: none;
+  }
+
+  .content_box :global(h3),
+  .content_box :global(h3 span) {
+    color: #4570b6;
+    font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    text-align: left;
+  }
+
+  .content_box :global(p) {
+    color: #6d6e71;
+    font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+    font-style: normal;
+    font-weight: 300;
+  }
+
+  .content_box :global(p img) {
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .content_box :global(ul > li p) {
+    text-align: left;
+    margin: 0;
+  }
+
+  .content_box :global(.img_context) {
+    margin: 30px auto;
+    max-width: 870px;
+  }
+
+  .content_box :global(.table_box),
+  .content_box :global(.table_box_2) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .content_box :global(.firstRow > td p) {
+    color: #fff;
+    margin-bottom: 0;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  @media screen and (min-width: 768px) {
+    .blog-article-page {
+      padding-top: 3.5rem;
+      padding-bottom: 6rem;
+    }
+
+    .article-title {
+      font-size: 30px;
+      line-height: 40px;
+      letter-spacing: 6px;
+    }
+
+    .source {
+      margin-top: 20px;
+      margin-bottom: 0;
+
+      & > div {
+        color: #6d6e71;
+        font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 35px;
+        letter-spacing: 3.75px;
+      }
+
+      & > a {
+        color: #6d6e71;
+        font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 35px;
+        letter-spacing: 3.75px;
+        border-bottom: 1px solid #6d6e71;
+        text-decoration: none;
+      }
+
+      & > a:hover {
+        color: #4570b6;
+        border-bottom: 1px solid #4570b6;
+        font-weight: 500;
+      }
+    }
+
+    .content_box :global(h1),
+    .content_box :global(h2) {
+      font-size: 25px;
+      letter-spacing: 6.25px;
+      line-height: 30px;
+      margin: 60px auto 30px;
+    }
+
+    .content_box :global(h3),
+    .content_box :global(h3 span) {
+      font-size: 22px;
+      letter-spacing: 4.25px;
+      line-height: 30px;
+      margin: 30px 0;
+    }
+
+    .content_box :global(p) {
+      font-size: 20px;
+      line-height: 35px;
+      letter-spacing: 5px;
+      margin: 30px 0;
+    }
+
+    .content_box :global(p img) {
+      border-radius: 30px;
+    }
+
+    .content_box :global(.headline) {
+      color: #4570b6;
+      font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+      font-size: 30px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 35px;
+      letter-spacing: 6px;
+      text-align: center;
+    }
+
+    .content_box :global(.first_level_heading) {
+      color: #4570b6;
+      font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+      font-size: 25px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 30px;
+      letter-spacing: 6.25px;
+      margin: 54px auto;
+      text-align: center;
+    }
+
+    .content_box :global(.h3_box) {
+      color: #4570b6;
+      font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+      font-size: 22px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 30px;
+      letter-spacing: 4.25px;
+      text-align: left;
+    }
+
+    .content_box :global(.firstRow > td:nth-child(1)) {
+      width: 180px;
+    }
+
+    .content_box :global(.firstRow > td:nth-child(2)),
+    .content_box :global(.firstRow > td:nth-child(3)) {
+      width: 280px;
+    }
+
+    .content_box :global(.list-paddingleft-2) {
+      padding-left: 40px;
+    }
+
+    .content_box :global(ul) {
+      margin-top: -30px;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .source {
+      margin-top: 10px;
+      margin-bottom: 40px;
+
+      & > div {
+        color: #6d6e71;
+        font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 30px;
+        letter-spacing: 0.6px;
+      }
+
+      & > a {
+        color: #6d6e71;
+        font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 30px;
+        letter-spacing: 0.6px;
+        border-bottom: 1px solid #6d6e71;
+        text-decoration: none;
+      }
+
+      & > a:hover {
+        color: #113d85;
+        border-bottom: 1px solid #113d85;
+        font-weight: 400;
+      }
+    }
+
+    .content_box :global(h1),
+    .content_box :global(h2) {
+      font-size: 20px;
+      letter-spacing: 5px;
+      margin: 40px auto 25px;
+    }
+
+    .content_box :global(h3),
+    .content_box :global(h3 span) {
+      font-size: 20px;
+      line-height: 30px;
+      letter-spacing: 5px;
+      margin: 25px 0;
+    }
+
+    .content_box :global(p) {
+      font-size: 16px;
+      line-height: 30px;
+      letter-spacing: 0.7px;
+      margin: 25px 0;
+      text-align: left;
+    }
+
+    .content_box :global(p img) {
+      border-radius: 15px;
+    }
+
+    .content_box :global(.headline) {
+      color: #4570b6;
+      text-align: center;
+      font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 30px;
+      letter-spacing: 3px;
+    }
+
+    .content_box :global(.first_level_heading) {
+      color: #4570b6;
+      text-align: center;
+      font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 28px;
+      letter-spacing: 8px;
+      margin: 24px auto;
+    }
+
+    .content_box :global(.h3_box) {
+      color: #4570b6;
+      font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 26px;
+      letter-spacing: 2.25px;
+      text-align: left;
+    }
+
+    .content_box :global(.firstRow > td:nth-child(1)) {
+      width: 120px;
+    }
+
+    .content_box :global(.firstRow > td:nth-child(2)),
+    .content_box :global(.firstRow > td:nth-child(3)) {
+      width: 140px;
+    }
+
+    .content_box :global(.list-paddingleft-2) {
+      padding-left: 20px;
+    }
+
+    .content_box :global(ul) {
+      margin-top: -25px;
+    }
+  }
+
+  :global(html[lang="zh-cn"]) .article-title,
+  :global(html[lang="zh-cn"]) .content_box :global(h1),
+  :global(html[lang="zh-cn"]) .content_box :global(h2),
+  :global(html[lang="zh-cn"]) .content_box :global(h3),
+  :global(html[lang="zh-cn"]) .content_box :global(h3 span),
+  :global(html[lang="zh-cn"]) .content_box :global(p),
+  :global(html[lang="zh-cn"]) .source > div,
+  :global(html[lang="zh-cn"]) .source > a {
+    font-family: var(--font-sc), "Noto Sans SC", sans-serif;
+  }
+</style>

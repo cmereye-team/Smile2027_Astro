@@ -1,0 +1,17 @@
+---
+/*
+ * @FilePath: /src/pages/[...lang]/blog-article.astro
+ * @Description: Cloudflare Pages 動態文章路由兜底殼頁 (用於未在構建期預生成的新文章 ID)
+ */
+import BlogArticleView from "@/components/views/BlogArticleView.astro";
+import { i18nPaths, getLangFromUrl } from "@/i18n/utils";
+
+export function getStaticPaths() {
+  return [...i18nPaths];
+}
+
+const lang = getLangFromUrl(Astro.url);
+const isCn = lang === "zh-cn";
+---
+
+<BlogArticleView isCn={isCn} />
