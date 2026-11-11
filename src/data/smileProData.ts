@@ -413,7 +413,7 @@ export const SMILE_PRO_ZH_HK: SmileProData = {
   },
   whyChoose: {
     title: "為何選擇希瑪?",
-    img: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-why-pc-.avif",
+    img: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-why-pc.avif",
     imgMobile: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-why-mobile.avif",
     alt: "希瑪眼科微笑矯視中心診所環境",
     p1Text1: "希瑪微笑矯視中心憑藉尖端科技與卓越的客戶體驗，成為大眾進行 SMILE® Pro 1.0/2.0 矯視的首選。作為",
@@ -713,7 +713,7 @@ export const SMILE_PRO_ZH_CN: SmileProData = {
   },
   whyChoose: {
     title: "为何选择希玛?",
-    img: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-why-pc-.avif",
+    img: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-why-pc.avif",
     imgMobile: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-why-mobile.avif",
     alt: "希玛眼科微笑矫视中心诊所环境",
     p1Text1: "希玛微笑矫视中心以尖端科技和卓越的客户体验；同时作为",

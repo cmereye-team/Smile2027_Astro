@@ -340,7 +340,7 @@ export const VISION_CORRECTION_ICL_ZH_HK: IclData = {
   },
   whyChoose: {
     title: "為何選擇希瑪?",
-    imgPc: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-why-pc-.avif",
+    imgPc: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-why-pc.avif",
     imgMb: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-why-mobile.avif",
     one: {
       text1: "希瑪自創辦以來與STAAR Surgical公司建立良好的合作關係",
@@ -696,7 +696,7 @@ export const VISION_CORRECTION_ICL_ZH_CN: IclData = {
   },
   whyChoose: {
     title: "为何选择希玛?",
-    imgPc: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-why-pc-.avif",
+    imgPc: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-why-pc.avif",
     imgMb: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-why-mobile.avif",
     one: {
       text1: "希玛自创办以来与STAAR Surgical公司建立良好的合作关系",
