@@ -105,4 +105,14 @@ export const tdk = {
     description: "以下是希瑪眼科醫療控股有限公司與其附屬公 […]",
     keywords: "以下是希瑪眼科醫療控股有限公司與其附屬公 […]",
   },
+  flowOfVisionCorrection: {
+    title: "矫视流程 - 希玛微笑矫视中心",
+    description: "矯視流程 - 希瑪微笑矯視中心",
+    keywords: "矯視流程 - 希瑪微笑矯視中心",
+  },
+  postCorrectiveCare: {
+    title: "术后护理 - 希玛微笑矫视中心",
+    description: "術後護理 - 希瑪微笑矯視中心",
+    keywords: "術後護理 - 希瑪微笑矯視中心",
+  },
 } as const;

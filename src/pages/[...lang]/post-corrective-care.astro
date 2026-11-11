@@ -1,0 +1,514 @@
+---
+/*
+ * @FilePath: /src/pages/[...lang]/post-corrective-care.astro
+ * @Description: 術後護理專頁 (100% 對齊舊站 pages/post-corrective-care/index.vue + 繁簡雙語 + 共享 .site-container + BreadcrumbList Schema)
+ */
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
+import { i18nPaths, getLangFromUrl } from "@/i18n/utils";
+import {
+  POST_CARE_ZH_HK,
+  POST_CARE_ZH_CN,
+} from "@/data/postCorrectiveCareData";
+
+export function getStaticPaths() {
+  return [...i18nPaths];
+}
+
+const lang = getLangFromUrl(Astro.url);
+const isCn = lang === "zh-cn";
+const content = isCn ? POST_CARE_ZH_CN : POST_CARE_ZH_HK;
+
+const breadcrumbItems = [
+  { name: content.breadcrumb.home, url: isCn ? "/cn/" : "/" },
+  {
+    name: content.breadcrumb.current,
+    url: isCn ? "/cn/post-corrective-care" : "/post-corrective-care",
+  },
+];
+---
+
+<BaseLayout tdkKey="postCorrectiveCare">
+  <SchemaBreadcrumb items={breadcrumbItems} />
+
+  <div class="post-care-page font-hk text-desc relative overflow-x-clip">
+    {/* 1. 頂部橫幅 Banner */}
+    <section class="main_banner" aria-label={content.banner.title}>
+      <div class="site-container">
+        <div class="banner">
+          <div class="des_box">
+            <h1 class="gradient_font">{content.banner.title}</h1>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* 2. 矯視後覆診時間線 */}
+    <section
+      class="follow-section site-container"
+      aria-labelledby="follow-heading"
+    >
+      <div class="flex justify-center md:mt-28 mt-10">
+        <h2 id="follow-heading">{content.followUp.title}</h2>
+      </div>
+      <div class="time-box">
+        {
+          content.followUp.steps.map((step) => (
+            <div class={`time-item ${step.key}`}>
+              <div class="piont" aria-hidden="true" />
+              {step.key === "four" && <div class="arrow" aria-hidden="true" />}
+              <span set:html={step.labelHtml} />
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    {/* 3. 視後護理及注意事項影片 + 矯視後護理指引 */}
+    <section
+      class="precautions-section site-container"
+      aria-labelledby="precautions-video-heading"
+    >
+      <div class="flex justify-center md:mt-28 mt-10">
+        <h2 id="precautions-video-heading">
+          {content.precautions.videoTitle}
+        </h2>
+      </div>
+
+      <div class="flex justify-center">
+        <div class="video-wrap">
+          <iframe
+            src={content.precautions.videoSrc}
+            title={content.precautions.videoIframeTitle}
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+
+      <div class="flex justify-center md:mt-28 mt-10">
+        <h2>{content.precautions.careTitle}</h2>
+      </div>
+
+      <div
+        class="text-box-detail"
+        set:html={content.precautions.detailHtml}
+      />
+
+      <div class="flex justify-center my-10 mbShow">
+        <a
+          href={content.cta.whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-yuyue-link"
+          data-cta="whatsapp"
+        >
+          <div class="flex btn-yuyue items-center">
+            <img
+              src={content.cta.icon}
+              alt=""
+              draggable="false"
+              loading="lazy"
+              decoding="async"
+              class="btn-yuyue-icon"
+            />
+            <div class="flex flex-col justify-center btn-yuyue-text">
+              <span>{content.cta.label}</span>
+              <span>{content.cta.phone}</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style lang="scss">
+  .post-care-page {
+    background: #ffffff;
+
+    h2 {
+      font-size: 25px;
+      color: #4570b6;
+      text-align: center;
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .gradient_font {
+      display: inline-block;
+      background: linear-gradient(90.57deg, #4570b6 0, #81dbec 60%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .banner {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .des_box {
+      h1 {
+        font-style: normal;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        letter-spacing: 0.15em;
+        margin: 0;
+      }
+    }
+
+    .video-wrap {
+      width: 100%;
+      max-width: 999px;
+      aspect-ratio: 999 / 563;
+
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        display: block;
+      }
+    }
+
+    .btn-yuyue-link {
+      text-decoration: none;
+    }
+
+    .btn-yuyue-icon {
+      width: 12vw;
+      max-width: 54px;
+      height: auto;
+    }
+
+    .btn-yuyue-text {
+      padding: 0 10px;
+    }
+
+    .btn-yuyue {
+      border: 1px solid transparent;
+      border-radius: 99px;
+      background-clip: padding-box, border-box;
+      background-origin: padding-box, border-box;
+      background-image:
+        linear-gradient(to right, #fff, #fff),
+        linear-gradient(90deg, #4671b7 -23.33%, #7cd2e7 122.38%);
+      padding: 2.5vw 5vw;
+
+      span {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        text-align: center;
+        letter-spacing: 0.1em;
+        background: linear-gradient(90deg, #4671b7 -23.33%, #7cd2e7 122.38%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .post-care-page {
+      .mbShow {
+        display: none !important;
+      }
+
+      .banner {
+        background-image: url("https://statichk.cmermedical.com/imgs/2023/04/8f47623cd90f0a16.jpg");
+        height: 480px;
+        padding-left: 50px;
+        margin-top: 16px;
+      }
+
+      .des_box {
+        width: 930px;
+        max-width: 100%;
+        margin-bottom: 35px;
+
+        h1 {
+          font-size: 38px;
+          line-height: 42px;
+        }
+      }
+
+      .time-box {
+        display: flex;
+        justify-content: space-evenly;
+        text-align: center;
+      }
+
+      .time-item {
+        flex: 1;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        span {
+          font-size: 16px;
+        }
+      }
+
+      .piont {
+        width: 29px;
+        height: 29px;
+        border-radius: 50%;
+        margin-bottom: 20px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .one .piont,
+      .two .piont {
+        background: #7ed7ea;
+      }
+
+      .three .piont,
+      .four .piont {
+        background: #62a5d1;
+      }
+
+      .five .piont {
+        background: #4b7bbc;
+        border: 2px solid #4b7bbc;
+      }
+
+      .one::after,
+      .two::after,
+      .three::after {
+        content: "";
+        position: absolute;
+        top: 13px;
+        left: calc(50% + 14.5px);
+        width: calc(100% - 29px);
+        height: 3px;
+        z-index: 1;
+      }
+
+      .one::after {
+        background: linear-gradient(229.22deg, #7ed7ea 6.93%, #7ed7ea 93.07%);
+      }
+
+      .two::after {
+        background: linear-gradient(229.22deg, #62a5d1 6.93%, #7ed7ea 93.07%);
+      }
+
+      .three::after {
+        background: linear-gradient(229.22deg, #4e81bf 6.93%, #62a5d1 93.07%);
+      }
+
+      .four .arrow {
+        background: linear-gradient(229.22deg, #4e81bf 6.93%, #62a5d1 93.07%);
+        height: 3px;
+        left: calc(50% + 14.5px);
+        position: absolute;
+        top: 13px;
+        width: calc(100% - 33px);
+        z-index: 1;
+      }
+
+      .four .arrow::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        right: 0;
+        border-color: #4b7bbc;
+        border-style: solid;
+        border-width: 3px 3px 0 0;
+        transform: rotate(45deg);
+        width: 20px;
+        height: 20px;
+        background-color: transparent;
+      }
+
+      .text-box-detail {
+        margin-bottom: 96px;
+
+        :global(strong) {
+          font-style: normal;
+          font-weight: 700;
+          font-size: 18px;
+          line-height: 30px;
+          letter-spacing: 0.1em;
+          color: #6d6e71;
+        }
+
+        :global(p) {
+          font-style: normal;
+          font-weight: 350;
+          font-size: 16px;
+          line-height: 30px;
+          letter-spacing: 0.1em;
+          color: #6d6e71;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .post-care-page {
+      h2 {
+        font-size: 16px;
+      }
+
+      .banner {
+        background-image: url("https://statichk.cmermedical.com/imgs/2023/04/8fa6057ae84f4a7d.jpg");
+        background-position: top;
+        background-size: 100% auto;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        margin: 12px auto 10vw;
+        font-size: 20px;
+        padding: 0 20px;
+      }
+
+      .des_box h1 {
+        font-size: 30px;
+        line-height: 1.25;
+      }
+
+      .time-box {
+        display: flex;
+        text-align: center;
+        flex-direction: column;
+      }
+
+      .time-item {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .one,
+      .two,
+      .three,
+      .four {
+        margin-bottom: 96px;
+      }
+
+      .piont {
+        position: relative;
+        width: 29px;
+        height: 29px;
+        border-radius: 50%;
+        margin-bottom: 5px;
+        z-index: 2;
+      }
+
+      .one .piont,
+      .two .piont {
+        background: #7ed7ea;
+      }
+
+      .three .piont,
+      .four .piont {
+        background: #62a5d1;
+      }
+
+      .five .piont {
+        background: #4b7bbc;
+        border: 2px solid #4b7bbc;
+      }
+
+      .one span,
+      .three span {
+        position: absolute;
+        margin-left: 150px;
+        max-width: 150px;
+        top: 2px;
+      }
+
+      .two span,
+      .four span {
+        position: absolute;
+        margin-right: 150px;
+        max-width: 150px;
+        top: 2px;
+      }
+
+      .one .piont::after,
+      .two .piont::after,
+      .three .piont::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 29px;
+        width: 3px;
+        height: 96px;
+      }
+
+      .one .piont::after {
+        background: linear-gradient(180deg, #7ed7ea 6.93%, #7ed7ea 93.07%);
+      }
+
+      .two .piont::after {
+        background: linear-gradient(180deg, #7ed7ea 6.93%, #62a5d1 93.07%);
+      }
+
+      .three .piont::after {
+        background: linear-gradient(180deg, #62a5d1 6.93%, #4e81bf 93.07%);
+      }
+
+      .four .arrow {
+        background: linear-gradient(180deg, #62a5d1 6.93%, #4e81bf 93.07%);
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 29px;
+        width: 3px;
+        height: 92px;
+        z-index: 1;
+      }
+
+      .four .arrow::after {
+        content: "";
+        position: absolute;
+        bottom: 2px;
+        left: 50%;
+        border-color: #4b7bbc;
+        border-style: solid;
+        border-width: 3px 3px 0 0;
+        transform: translateX(-50%) rotate(135deg);
+        width: 20px;
+        height: 20px;
+        background-color: transparent;
+      }
+
+      .video-wrap {
+        aspect-ratio: auto;
+        height: 220px;
+      }
+
+      .text-box-detail {
+        margin-bottom: 40px;
+
+        :global(strong) {
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 24px;
+          color: #6d6e71;
+        }
+
+        :global(p) {
+          font-weight: 300;
+          font-size: 16px;
+          line-height: 24px;
+          color: #6d6e71;
+        }
+      }
+    }
+  }
+</style>
