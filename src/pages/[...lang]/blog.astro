@@ -54,12 +54,20 @@ const blogSchema = {
   />
 
   <div class="blog-page">
-    {/* 1. 頂部橫幅 Banner */}
-    <section class="banner-section" aria-label={pageTitle}>
-      <div class="site-container banner-box">
-        <div class="banner-img banner-text-default">
-          <h1 class="banner-title">{pageTitle}</h1>
-          <p class="banner-subtitle">blog</p>
+    {/* 1. 頂部統一橫幅 Banner */}
+    <section class="page-banner" aria-label={pageTitle}>
+      <div class="site-container">
+        <div
+          class="page-banner-card"
+          style={{
+            "--banner-bg-pc": "url('https://statichk.cmermedical.com/imgs/2024/05/ab7f3a79d8c7379e.png')",
+            "--banner-bg-mb": "url('https://statichk.cmermedical.com/imgs/2024/05/700a09eef040b407.png')",
+          }}
+        >
+          <div class="page-banner-content">
+            <h1 class="page-banner-title">{pageTitle}</h1>
+            <p class="page-banner-subtitle">blog</p>
+          </div>
         </div>
       </div>
     </section>
@@ -73,27 +81,31 @@ const blogSchema = {
         <span>{pageTitle}</span>
       </h2>
 
-      <div
-        id="blog-list"
-        class="blog-list"
-        aria-live="polite"
-        aria-busy="true"
-        data-api-url={apiUrl}
-        data-base-href={blogPath}
-        data-site-origin={siteUrl}
-        data-more-label="更多"
-        data-empty-text={isCn ? "暂无科普文章" : "暫無科普文章"}
-        data-error-text={isCn
-          ? "暂时未能加载文章，请稍后再试。"
-          : "暫時未能載入文章，請稍後再試。"}
-      >
-        {[0, 1, 2].map(() => (
-          <div class="blog-skeleton-card" aria-hidden="true">
-            <div class="blog-skeleton-img" />
-            <div class="blog-skeleton-line blog-skeleton-line--title" />
-            <div class="blog-skeleton-line blog-skeleton-line--desc" />
-          </div>
-        ))}
+      <div class="media-fluid-section">
+        <div
+          id="blog-list"
+          class="blog-list media-fluid-grid"
+          aria-live="polite"
+          aria-busy="true"
+          data-api-url={apiUrl}
+          data-base-href={blogPath}
+          data-site-origin={siteUrl}
+          data-more-label="更多"
+          data-empty-text={isCn ? "暂无科普文章" : "暫無科普文章"}
+          data-error-text={isCn
+            ? "暂时未能加载文章，请稍后再试。"
+            : "暫時未能載入文章，請稍後再試。"}
+        >
+          {[0, 1, 2, 3].map(() => (
+            <div class="media-skeleton-card" aria-hidden="true">
+              <div class="media-skeleton-thumb" />
+              <div class="media-skeleton-body">
+                <div class="media-skeleton-line media-skeleton-line--title" />
+                <div class="media-skeleton-line media-skeleton-line--desc" />
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   </div>
@@ -197,18 +209,15 @@ const blogSchema = {
 
       items.forEach((item) => {
         const article = document.createElement("article");
-        article.className = "blog-card";
+        article.className = "media-card blog-card";
 
         const link = document.createElement("a");
-        link.className = "blog-card-link";
+        link.className = "media-card-link";
         link.href = `${baseHref}/${item.id}`;
         link.draggable = false;
 
-        const mediaBox = document.createElement("div");
-        mediaBox.className = "blog-card-media";
-
-        const imgWrap = document.createElement("div");
-        imgWrap.className = "blog-card-img-wrap";
+        const thumb = document.createElement("div");
+        thumb.className = "media-card-thumb";
 
         const img = document.createElement("img");
         const desktopSrc = resolveMediaUrl(item.ico);
@@ -218,42 +227,59 @@ const blogSchema = {
           img.srcset = `${mobileSrc} 400w, ${desktopSrc}`;
         }
         img.alt = item.ext_type_tags || item.title || "";
-        img.className = "blog-card-img";
         img.draggable = false;
         img.setAttribute("draggable", "false");
         img.loading = "lazy";
         img.decoding = "async";
 
-        imgWrap.appendChild(img);
-        mediaBox.appendChild(imgWrap);
+        thumb.appendChild(img);
 
         const moreBadge = document.createElement("span");
-        moreBadge.className = "blog-card-more";
+        moreBadge.className = "media-card-badge bg-[#4570B6]";
         moreBadge.textContent = moreLabel;
-        mediaBox.appendChild(moreBadge);
+        thumb.appendChild(moreBadge);
 
         const bodyBox = document.createElement("div");
-        bodyBox.className = "blog-card-body";
+        bodyBox.className = "media-card-body";
 
-        const titleBox = document.createElement("div");
-        titleBox.className = "blog-card-title";
+        const titleEl = document.createElement("h3");
+        titleEl.className = "media-card-title";
+        titleEl.textContent = item.title || "";
 
-        const tagEl = document.createElement("div");
-        tagEl.textContent = item.ext_type_tags || "";
-        const headlineEl = document.createElement("div");
-        headlineEl.textContent = item.title || "";
-
-        titleBox.appendChild(tagEl);
-        titleBox.appendChild(headlineEl);
-
-        const descEl = document.createElement("div");
-        descEl.className = "blog-card-desc";
+        const descEl = document.createElement("p");
+        descEl.className = "media-card-excerpt";
         descEl.textContent = item.ext_list_des || "";
 
-        bodyBox.appendChild(titleBox);
-        bodyBox.appendChild(descEl);
+        bodyBox.appendChild(titleEl);
+        if (item.ext_list_des) {
+          bodyBox.appendChild(descEl);
+        }
 
-        link.appendChild(mediaBox);
+        const metaTag = (item.ext_type_tags || "").trim();
+        const metaDate = (item.date || "").trim().slice(0, 10);
+        if (metaTag || metaDate) {
+          const metaEl = document.createElement("p");
+          metaEl.className = "media-card-meta";
+          if (metaTag) {
+            const tagSpan = document.createElement("span");
+            tagSpan.textContent = metaTag;
+            metaEl.appendChild(tagSpan);
+          }
+          if (metaTag && metaDate) {
+            const dotSpan = document.createElement("span");
+            dotSpan.setAttribute("aria-hidden", "true");
+            dotSpan.textContent = "·";
+            metaEl.appendChild(dotSpan);
+          }
+          if (metaDate) {
+            const dateSpan = document.createElement("span");
+            dateSpan.textContent = metaDate;
+            metaEl.appendChild(dateSpan);
+          }
+          bodyBox.appendChild(metaEl);
+        }
+
+        link.appendChild(thumb);
         link.appendChild(bodyBox);
         article.appendChild(link);
         fragment.appendChild(article);
@@ -281,7 +307,7 @@ const blogSchema = {
     text-align: center;
     position: relative;
     border: none;
-    margin: 0 auto 40px;
+    margin: 0 auto 36px;
 
     &::before {
       content: none;
@@ -307,6 +333,11 @@ const blogSchema = {
     }
   }
 
+  .blog-box {
+    margin-top: 24px;
+    margin-bottom: 64px;
+  }
+
   .blog-page :global(.blog-status-message) {
     grid-column: 1 / -1;
     text-align: center;
@@ -317,179 +348,10 @@ const blogSchema = {
     margin: 0 auto;
   }
 
-  .blog-skeleton-card {
-    width: 100%;
-    max-width: 383px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .blog-skeleton-img {
-    width: 100%;
-    aspect-ratio: 383 / 280;
-    border-radius: 12px;
-    background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
-    background-size: 200% 100%;
-    animation: blog-shimmer 1.4s infinite;
-  }
-
-  .blog-skeleton-line {
-    height: 20px;
-    border-radius: 8px;
-    background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
-    background-size: 200% 100%;
-    animation: blog-shimmer 1.4s infinite;
-  }
-
-  .blog-skeleton-line--title {
-    width: 75%;
-    height: 26px;
-    margin: 34px auto 17px;
-  }
-
-  .blog-skeleton-line--desc {
-    width: 90%;
-    height: 44px;
-  }
-
-  @keyframes blog-shimmer {
-    0% {
-      background-position: 200% 0;
-    }
-
-    100% {
-      background-position: -200% 0;
-    }
-  }
-
-  .blog-page :global(.blog-card) {
-    width: 100%;
-    max-width: 383px;
-    margin: 0 auto;
-  }
-
-  .blog-page :global(.blog-card-link) {
-    cursor: pointer;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .blog-page :global(.blog-card-media) {
-    position: relative;
-    width: 100%;
-  }
-
-  .blog-page :global(.blog-card-img-wrap) {
-    overflow: hidden;
-    border-radius: 10px;
-    width: 100%;
-  }
-
-  .blog-page :global(.blog-card-img) {
-    width: 100%;
-    height: auto;
-    display: block;
-    transition: transform var(--dur) var(--ease-out);
-    -webkit-user-drag: none;
-    user-select: none;
-  }
-
-  .blog-page :global(.blog-card-more) {
-    position: absolute;
-    background: #4570b6;
-    color: #fff;
-    text-align: center;
-    font-family: var(--font-hk), "Noto Sans HK", sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    box-sizing: border-box;
-    transition:
-      transform var(--dur) var(--ease-out),
-      box-shadow var(--dur) var(--ease-out);
-  }
-
-  .blog-page :global(.blog-card-body) {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-  }
-
-  .blog-page :global(.blog-card-title) {
-    color: #4570b6;
-    font-family: var(--font-hk), "Noto Sans HK", sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    text-align: center;
-    transition:
-      background-color var(--dur) var(--ease-out),
-      color var(--dur) var(--ease-out);
-  }
-
-  .blog-page :global(.blog-card-desc) {
-    color: #6d6e71;
-    text-align: center;
-    font-family: var(--font-hk), "Noto Sans HK", sans-serif;
-    font-style: normal;
-    font-weight: 300;
-  }
-
   @media screen and (min-width: 768px) {
-    .banner-box {
-      padding-top: 16px;
-      display: flex;
-      justify-content: center;
-    }
-
-    .banner-img {
-      background: url("https://statichk.cmermedical.com/imgs/2024/05/ab7f3a79d8c7379e.png")
-        no-repeat;
-      background-size: cover;
-      background-position: center;
-      height: clamp(180px, 22vw, 300px);
-      width: 100%;
-      max-width: 1270px;
-      max-height: 300px;
-      border-radius: 55px;
-      display: flex;
-      align-items: flex-start;
-      flex-direction: column;
-      justify-content: center;
-      padding-left: 70px;
-      box-sizing: border-box;
-    }
-
-    .banner-title {
-      color: #4570b6;
-      font-family: "Microsoft YaHei", var(--font-hk), "Noto Sans HK", sans-serif;
-      font-size: 30px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: 50.75px;
-      letter-spacing: 7.5px;
-      margin: 0;
-    }
-
-    .banner-subtitle {
-      color: #4570b6;
-      font-family: "Microsoft YaHei", var(--font-hk), "Noto Sans HK", sans-serif;
-      font-size: 15px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 43.5px;
-      letter-spacing: 0.45px;
-      margin: -10px 0 0;
-    }
-
     .blog-box {
-      margin-top: 75px;
+      margin-top: 40px;
+      margin-bottom: 85px;
     }
 
     .blog-heading {
@@ -506,107 +368,14 @@ const blogSchema = {
         width: 39px;
       }
     }
-
-    .blog-list {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 64px 36px;
-      margin: 0 auto 85px;
-    }
-
-    @media screen and (min-width: 1139px) {
-      .blog-list {
-        gap: 85px 50px;
-      }
-    }
-
-    .blog-page :global(.blog-card-more) {
-      right: -12px;
-      bottom: 10px;
-      border-radius: 20px;
-      font-size: 25px;
-      line-height: 30px;
-      letter-spacing: 3.75px;
-      padding: 5px 25px;
-    }
-
-    .blog-page :global(.blog-card-link:hover .blog-card-more) {
-      box-shadow: 0 0 5px 3px #89b0face;
-      transform: translate(0, -10px) scale(1.1);
-    }
-
-    .blog-page :global(.blog-card-link:hover .blog-card-img) {
-      transform: scale(1.1);
-    }
-
-    .blog-page :global(.blog-card-title) {
-      margin: 34px auto 17px;
-      font-size: 25px;
-      line-height: 30px;
-      letter-spacing: 5px;
-      padding: 0 8px;
-    }
-
-    .blog-page :global(.blog-card-link:hover .blog-card-title) {
-      background: #4570b6;
-      color: #fff;
-      padding-bottom: 3px;
-    }
-
-    .blog-page :global(.blog-card-desc) {
-      font-size: 20px;
-      line-height: 35px;
-      letter-spacing: 6px;
-    }
   }
 
   @media screen and (max-width: 767px) {
-    .banner-img {
-      background: url("https://statichk.cmermedical.com/imgs/2024/05/700a09eef040b407.png")
-        no-repeat;
-      background-size: 100% 100%;
-      height: 84.6vw;
-      margin: 24px 0 55px;
-      border-radius: 11.28vw;
-      padding-left: 5.128vw;
-      display: flex;
-      align-items: flex-start;
-      flex-direction: column;
-      justify-content: center;
-      box-sizing: border-box;
-    }
-
-    .banner-title {
-      color: #4570b6;
-      font-family: "Microsoft YaHei", var(--font-hk), "Noto Sans HK", sans-serif;
-      font-style: normal;
-      font-weight: 700;
-      font-size: 32px;
-      line-height: 36px;
-      letter-spacing: 0.7px;
-      margin: 0;
-    }
-
-    .banner-subtitle {
-      color: #4570b6;
-      font-family: "Microsoft YaHei", var(--font-hk), "Noto Sans HK", sans-serif;
-      font-style: normal;
-      font-weight: 500;
-      font-size: 24px;
-      line-height: 28px;
-      letter-spacing: 0.5px;
-      margin: 0;
-    }
-
-    .blog-box {
-      margin-bottom: 60px;
-    }
-
     .blog-heading {
       display: flex;
       flex-direction: column;
       padding-bottom: 25px;
-      margin-bottom: 30px;
+      margin-bottom: 28px;
 
       span {
         text-align: center;
@@ -619,63 +388,9 @@ const blogSchema = {
         width: 37px;
       }
     }
-
-    .blog-list {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 28px 0;
-    }
-
-    .blog-page :global(.blog-card) {
-      box-sizing: border-box;
-      padding: 0 15px;
-    }
-
-    .blog-page :global(.blog-card-img) {
-      width: 98%;
-      margin: 0 auto;
-    }
-
-    .blog-page :global(.blog-card-more) {
-      right: -12px;
-      bottom: 0;
-      border-radius: 20px;
-      padding: 4px 12px;
-      font-size: 18px;
-      line-height: 28px;
-      letter-spacing: 2.5px;
-    }
-
-    .blog-page :global(.blog-card-body) {
-      margin-top: 28px;
-      padding-bottom: 18px;
-      border-bottom: 1px solid #afafaf;
-    }
-
-    .blog-page :global(.blog-card:last-child .blog-card-body) {
-      border-bottom: none;
-    }
-
-    .blog-page :global(.blog-card-title) {
-      font-size: 18px;
-      line-height: 28px;
-      letter-spacing: 3.6px;
-      margin-bottom: 8px;
-    }
-
-    .blog-page :global(.blog-card-desc) {
-      font-size: 16px;
-      line-height: 1.75;
-      letter-spacing: 2.8px;
-      padding: 0 16px;
-    }
   }
 
-  :global(html[lang="zh-cn"]) .blog-heading span,
-  :global(html[lang="zh-cn"]) :global(.blog-card-more),
-  :global(html[lang="zh-cn"]) :global(.blog-card-title),
-  :global(html[lang="zh-cn"]) :global(.blog-card-desc) {
+  :global(html[lang="zh-cn"]) .blog-heading span {
     font-family: var(--font-sc), "Noto Sans SC", sans-serif;
   }
 </style>

@@ -36,12 +36,20 @@ const initialMapSrc = content.maps.smileList[0]?.src ?? "";
   <SchemaBreadcrumb items={breadcrumbItems} />
 
   <div class="contact-us">
-    {/* 1. 頂部橫幅 Banner */}
-    <section class="banner-section" aria-label={content.banner.title}>
-      <div class="site-container banner-box">
-        <div class="banner-img banner-text-default">
-          <h1 class="banner-title">{content.banner.title}</h1>
-          <p class="banner-subtitle">{content.banner.subtitle}</p>
+    {/* 1. 頂部統一橫幅 Banner */}
+    <section class="page-banner" aria-label={content.banner.title}>
+      <div class="site-container">
+        <div
+          class="page-banner-card"
+          style={{
+            "--banner-bg-pc": "url('https://statichk.cmermedical.com/smile/contact-us/6839f5bebcf0b8ba.webp')",
+            "--banner-bg-mb": "url('https://statichk.cmermedical.com/imgs/2024/05/5af12daebe688f16.png')",
+          }}
+        >
+          <div class="page-banner-content">
+            <h1 class="page-banner-title">{content.banner.title}</h1>
+            <p class="page-banner-subtitle">{content.banner.subtitle}</p>
+          </div>
         </div>
       </div>
     </section>
@@ -368,52 +376,6 @@ const initialMapSrc = content.maps.smileList[0]?.src ?? "";
   }
 
   @media screen and (min-width: 768px) {
-    .banner-box {
-      padding-top: 16px;
-      display: flex;
-      justify-content: center;
-    }
-
-    .banner-img {
-      background: url("https://statichk.cmermedical.com/smile/contact-us/6839f5bebcf0b8ba.webp")
-        no-repeat;
-      background-size: cover;
-      background-position: center;
-      height: clamp(180px, 22vw, 300px);
-      width: 100%;
-      max-width: 1150px;
-      max-height: 300px;
-      border-radius: 55px;
-      display: flex;
-      align-items: flex-start;
-      flex-direction: column;
-      justify-content: center;
-      padding-left: 70px;
-      box-sizing: border-box;
-    }
-
-    .banner-title {
-      color: #4570b6;
-      font-family: "Microsoft YaHei", var(--font-hk), "Noto Sans HK", sans-serif;
-      font-size: 30px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: 50.75px;
-      letter-spacing: 7.5px;
-      margin: 0;
-    }
-
-    .banner-subtitle {
-      color: #4570b6;
-      font-family: "Microsoft YaHei", var(--font-hk), "Noto Sans HK", sans-serif;
-      font-size: 15px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 43.5px;
-      letter-spacing: 0.45px;
-      margin: -10px 0 0;
-    }
-
     .contact-us-box {
       background: url("https://statichk.cmermedical.com/imgs/2024/05/55ff6541825e2b1d.png")
         no-repeat;
@@ -650,43 +612,6 @@ const initialMapSrc = content.maps.smileList[0]?.src ?? "";
   }
 
   @media screen and (max-width: 767px) {
-    .banner-img {
-      background: url("https://statichk.cmermedical.com/imgs/2024/05/5af12daebe688f16.png")
-        no-repeat;
-      background-size: 100% 100%;
-      height: 84.6vw;
-      margin: 24px 15px 55px;
-      border-radius: 44px;
-      display: flex;
-      align-items: flex-start;
-      flex-direction: column;
-      justify-content: center;
-      padding-left: 20px;
-      box-sizing: border-box;
-    }
-
-    .banner-title {
-      color: #4570b6;
-      font-family: "Microsoft YaHei", var(--font-hk), "Noto Sans HK", sans-serif;
-      font-size: 32px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 36px;
-      letter-spacing: 0.7px;
-      margin: 0;
-    }
-
-    .banner-subtitle {
-      color: #4570b6;
-      font-family: "Microsoft YaHei", var(--font-hk), "Noto Sans HK", sans-serif;
-      font-size: 24px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 28px;
-      letter-spacing: 0.5px;
-      margin: 0;
-    }
-
     .contact-us-box {
       background: url("https://statichk.cmermedical.com/imgs/2024/05/0494a17f8b314d6f.png")
         no-repeat;

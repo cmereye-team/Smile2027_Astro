@@ -12,9 +12,9 @@ const typeConfig: Record<VideoType, { bg: string; label: string; color: string }
 ---
 
 <section class="site-container mb-12 lg:mb-17">
-  <div class="search mb-10 lg:mb-18 px-7 md:px-0">
-    <div class="border border-primary flex w-full md:w-fit mx-auto">
-      <div class="center p-3 bg-primary size-13">
+  <div class="search mb-8 lg:mb-10 px-4 md:px-0">
+    <div class="border border-primary rounded-lg overflow-hidden flex w-full max-w-md mx-auto">
+      <div class="center p-3 bg-primary size-12 shrink-0">
         <img draggable="false"
           src="/images/icons/icon-search.svg"
           alt=""
@@ -23,89 +23,105 @@ const typeConfig: Record<VideoType, { bg: string; label: string; color: string }
           aria-hidden="true"
         />
       </div>
-      <div class="py-2 px-3">
+      <div class="flex-1 py-2 px-3 flex items-center">
         <input
           id="video-search"
           type="search"
           placeholder={dict.page.video.search}
-          class="w-full md:min-w-xs focus:outline-none text-desc xs:text-xl font-light leading-[1.75] tracking-[0.3em]"
+          class="w-full focus:outline-none text-desc text-base font-normal leading-normal tracking-wider"
           maxlength="20"
         />
       </div>
     </div>
   </div>
+
   <div
-    class="grid grid-cols-3 text-center text-xl lg:text-3xl font-en font-bold lg:tracking-[0.25em] mb-12 md:mb-20 lg:mb-30"
+    class="media-pill-tabs"
     id="video-tabs-container"
+    role="tablist"
+    aria-label={dict.common.menu.news.case}
   >
     {
-      VIDEO_TABS.map((tab) => (
-        <button
-          data-tab-key={tab.key}
-          class={`py-7 transition-colors cursor-pointer ${
-            defaultType === tab.key ? "bg-primary text-white" : "text-primary border-b border-[#4570b64d]"
-          }`}
-        >
-          {tab.label}
-        </button>
-      ))
-    }
-  </div>
-
-  <div class="video-list overflow-hidden grid grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-9 w-full lg:w-fit mx-auto">
-    {
-      ALL_VIDEOS.map((item, index) => {
-        const hasDefault = item.type.includes(defaultType);
-        const cardDisplayType = hasDefault ? defaultType : item.type[0];
-        const currentConfig = typeConfig[cardDisplayType];
+      VIDEO_TABS.map((tab) => {
+        const isActive = defaultType === tab.key;
         return (
-          <div
-            class="video-item shrink-0 grow-0 aspect-3/5 w-full lg:w-66 overflow-hidden group"
-            data-types={item.type.join(",")}
-            data-name={item.name || ""}
-            data-en-name={item.enName || ""}
-            style={{ display: hasDefault ? "block" : "none" }}
+          <button
+            type="button"
+            role="tab"
+            aria-selected={isActive ? "true" : "false"}
+            data-tab-key={tab.key}
+            class={`media-pill-tab ${isActive ? "is-active" : ""}`}
           >
-            <a href={item.link} target="_blank" rel="noopener noreferrer" class="block size-full">
-              <Image
-                src={item.img}
-                alt={item.name}
-                width={265}
-                height={439}
-                class="size-full object-cover transition-transform duration-300 group-hover:scale-105"
-                loading={index < 4 ? "eager" : "lazy"}
-                draggable="false"
-              />
-              {currentConfig && (
-                <span
-                  data-label
-                  data-smilepro-bg="bg-[#4570B6]"
-                  data-smilepro-text="SMILE Pro"
-                  data-smile-bg="bg-[#30ABE2]"
-                  data-smile-text="SMILE"
-                  data-icl-bg="bg-[#EB981A]"
-                  data-icl-text="ICL"
-                  class={`absolute top-3 right-3 lg:top-4 z-10 text-white text-base lg:text-xl px-4 py-1 rounded-full font-en font-bold ${currentConfig.bg}`}
-                >
-                  {currentConfig.label}
-                </span>
-              )}
-              <div class="z-10 absolute bottom-3 left-3 right-3 text-white whitespace-nowarp">
-                <h3
-                  set:html={item.title}
-                  class="video-title text-sm lg:text-base font-bold tracking-wider leading-normal mb-1 pb-4 lg:pb-7"
-                  style={currentConfig ? `--title-color: ${currentConfig.color}` : ""}
-                />
-                <p class="flex flex-wrap items-baseline gap-x-1.5 mt-1">
-                  {item.name && <span class="text-sm lg:text-base font-semibold tracking-wider">{item.name}</span>}
-                  {item.enName && <span class="text-xs lg:text-sm font-bold tracking-wider">{item.enName}</span>}
-                </p>
-              </div>
-            </a>
-          </div>
+            {tab.label}
+          </button>
         );
       })
     }
+  </div>
+
+  <div class="media-fluid-section">
+    <div class="video-list media-fluid-grid">
+      {
+        ALL_VIDEOS.map((item, index) => {
+          const hasDefault = item.type.includes(defaultType);
+          const cardDisplayType = hasDefault ? defaultType : item.type[0];
+          const currentConfig = typeConfig[cardDisplayType];
+          return (
+            <article
+              class="video-item media-card group"
+              data-types={item.type.join(",")}
+              data-name={item.name || ""}
+              data-en-name={item.enName || ""}
+              style={{ display: hasDefault ? "flex" : "none" }}
+            >
+              <a href={item.link} target="_blank" rel="noopener noreferrer" class="media-card-link">
+                <div class="media-card-thumb">
+                  <Image
+                    src={item.img}
+                    alt={item.name}
+                    width={480}
+                    height={270}
+                    loading={index < 4 ? "eager" : "lazy"}
+                    draggable="false"
+                  />
+                  {currentConfig && (
+                    <span
+                      data-label
+                      data-smilepro-bg="bg-[#4570B6]"
+                      data-smilepro-text="SMILE Pro"
+                      data-smilepro-color="#4570B6"
+                      data-smile-bg="bg-[#30ABE2]"
+                      data-smile-text="SMILE"
+                      data-smile-color="#30ABE2"
+                      data-icl-bg="bg-[#EB981A]"
+                      data-icl-text="ICL"
+                      data-icl-color="#EB981A"
+                      class={`media-card-badge ${currentConfig.bg}`}
+                    >
+                      {currentConfig.label}
+                    </span>
+                  )}
+                </div>
+                <div class="media-card-body">
+                  <h3
+                    set:html={item.title}
+                    class="video-title media-card-title"
+                    style={currentConfig ? `--title-color: ${currentConfig.color}` : ""}
+                  />
+                  {(item.name || item.enName) && (
+                    <p class="media-card-meta">
+                      {item.name && <span>{item.name}</span>}
+                      {item.name && item.enName && <span aria-hidden="true">·</span>}
+                      {item.enName && <span>{item.enName}</span>}
+                    </p>
+                  )}
+                </div>
+              </a>
+            </article>
+          );
+        })
+      }
+    </div>
   </div>
 </section>
 <script>
@@ -128,13 +144,11 @@ const typeConfig: Record<VideoType, { bg: string; label: string; color: string }
 
         currentType = activeType;
 
-        // 切换 Tab 激活状态的 class
+        // 切换 Tab 激活状态
         tabs.forEach((t) => {
-          if (t === tab) {
-            t.className = "py-7 transition-colors cursor-pointer bg-primary text-white";
-          } else {
-            t.className = "py-7 transition-colors cursor-pointer text-primary border-b border-[#4570b64d]";
-          }
+          const selected = t === tab;
+          t.classList.toggle("is-active", selected);
+          t.setAttribute("aria-selected", selected ? "true" : "false");
         });
 
         // 执行联合过滤
@@ -146,10 +160,7 @@ const typeConfig: Record<VideoType, { bg: string; label: string; color: string }
     if (searchInput) {
       searchInput.addEventListener("input", (e) => {
         const target = e.target as HTMLInputElement;
-        // 转换为小写并去除两端空格，实现英文不区分大小写
         searchQuery = target.value.trim().toLowerCase();
-
-        // 执行联合过滤
         applyFilter();
       });
     }
@@ -161,22 +172,16 @@ const typeConfig: Record<VideoType, { bg: string; label: string; color: string }
       videoList.forEach((card) => {
         const htmlCard = card as HTMLElement;
 
-        // 获取当前卡片的数据
         const typesStr = htmlCard.getAttribute("data-types") || "";
         const typesArray = typesStr.split(",");
         const name = htmlCard.getAttribute("data-name") || "";
-        const enName = (htmlCard.getAttribute("data-en-name") || "").toLowerCase(); // 转小写用于匹配
+        const enName = (htmlCard.getAttribute("data-en-name") || "").toLowerCase();
 
-        // 条件 1: 判定 Tab 分类是否匹配
         const matchesType = typesArray.includes(currentType);
-
-        // 条件 2: 判定 搜索框 关键词是否匹配 (中文名包含 或 英文名包含)
-        // 如果 searchQuery 为空，则默认视为匹配成功
         const matchesSearch = !searchQuery || name.includes(searchQuery) || enName.includes(searchQuery);
 
-        // 只有两个条件同时满足才显示
         if (matchesType && matchesSearch) {
-          htmlCard.style.display = "block";
+          htmlCard.style.display = "flex";
 
           const labelEl = htmlCard.querySelector("[data-label]") as HTMLElement | null;
           const titleEl = htmlCard.querySelector(".video-title") as HTMLElement | null;
@@ -203,36 +208,11 @@ const typeConfig: Record<VideoType, { bg: string; label: string; color: string }
     }
   }
 
-  // 确保在 Astro 首屏和启用 ViewTransitions 时都能正常运行
   initVideoFilter();
   document.addEventListener("astro:page-load", initVideoFilter);
 </script>
 <style>
-  .video-item {
-    position: relative;
-    &::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.2));
-      pointer-events: none;
-    }
-  }
-  .video-title {
-    position: relative;
-    &::before {
-      content: "";
-      position: absolute;
-      bottom: 8px;
-      left: 0;
-      height: 2px;
-      width: 52px;
-      background: var(--title-color, white);
-      @media screen and (min-width: 1024px) {
-        bottom: 16px;
-        height: 3px;
-        width: 68px;
-      }
-    }
+  .video-title :global(br) {
+    display: none;
   }
 </style>

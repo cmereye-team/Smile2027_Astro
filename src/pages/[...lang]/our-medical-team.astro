@@ -48,18 +48,21 @@ const doctorsList = (dict.about.doctor.list || []).map((doc: any, index: number)
 
   <div class="our-medical-team-page">
     
-    {/* 1. 頂部 Hero Banner (Banner 區塊) */}
-    <section class="doctor-hero-banner py-4 md:py-8" aria-label="醫生團隊導言區">
-      <div class="container mx-auto px-4">
-        <header class="doctor-hero-card">
-          <div class="doctor-hero-card-content">
-            <div class="doctor-hero-card-bg" aria-hidden="true"></div>
-            <div class="relative z-10">
-              <h1 class="doctor-hero-title">
-                {dict.about.doctor.title}
-              </h1>
-              <p class="doctor-hero-subtitle">Doctor team</p>
-            </div>
+    {/* 1. 頂部統一 Hero Banner (Banner 區塊) */}
+    <section class="page-banner" aria-label="醫生團隊導言區">
+      <div class="site-container">
+        <header
+          class="page-banner-card"
+          style={{
+            "--banner-bg-pc": "url('https://statichk.cmermedical.com/smile/323517741e434c1d.webp')",
+            "--banner-bg-mb": "url('https://statichk.cmermedical.com/imgs/2024/04/c58f958bc4b6ee29.png')",
+          }}
+        >
+          <div class="page-banner-content">
+            <h1 class="page-banner-title">
+              {dict.about.doctor.title}
+            </h1>
+            <p class="page-banner-subtitle">Doctor team</p>
           </div>
         </header>
       </div>

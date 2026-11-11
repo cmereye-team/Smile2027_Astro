@@ -61,8 +61,8 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
         alt="ICL 植入式隱形眼鏡 - 香港希瑪微笑矯視中心"
         loading="eager"
         fetchpriority="high"
-        width="684"
-        height="529"
+        width="685"
+        height="563"
         srcset={`${content.banner.imgMb} 400w, ${content.banner.imgMb} 640w, ${content.banner.imgPc}`}
         sizes="(max-width: 992px) 100vw, 1216px"
       />
@@ -88,7 +88,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
           <a href={isCn ? "/cn/" : "/"}>{content.breadcrumb.home}</a>&nbsp;&gt;&nbsp;<span class="text-text">{content.breadcrumb.service}</span>&nbsp;&gt;&nbsp;<a href={isCn ? "/cn/vision-correction-icl" : "/vision-correction-icl"}>{content.breadcrumb.current}</a>
         </nav>
       </div>
-      <div class="w-100 smile-newCenter-content">
+      <div class="w-full smile-newCenter-content">
         <div class="site-container smile-newCenter-content-text">
           <h2 id="center-intro-title" class="text-center d-xl-none">
             {content.center.title}
@@ -633,8 +633,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
   }
 
   .banner-lens-img {
-    aspect-ratio: 684 / 529;
-    object-fit: contain;
+    height: auto;
   }
 
   .icl-tag-badge {

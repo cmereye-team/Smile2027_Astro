@@ -54,51 +54,136 @@ function getColor(type: string) {
           </div>
         </div>
 
-        <ul class="UserShareBox-list" id={id}>
-          {
-            items.map((item) => (
-              <li class="UserShareBox-list-item">
-                <a
-                  class="UserShareBox-list-item-link"
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-cta="user_share"
-                  title={`觀看 ${item.nameCn || item.nameEn} 的 ${item.type} 矯視真實用家心得分享影片`}
-                >
-                  <img draggable="false"
-                    src={item.img}
-                    alt={`${item.nameCn || item.nameEn} - 香港希瑪 ${item.type} 矯視用家分享`}
-                    title={`${item.nameCn || item.nameEn} ${item.type} 微笑矯視親身感受`}
-                    loading="lazy"
-                    width="280"
-                    height="190"
-                  />
-                  <span
-                    class="UserShareBox-list-item-link-title"
-                    style={`background-color: ${getColor(item.type)}`}
+        <div class="swiper UserShareBox-list" id={id} data-usershare-swiper>
+          <ul class="swiper-wrapper m-0 p-0 list-none">
+            {
+              items.map((item) => (
+                <li class="swiper-slide UserShareBox-list-item">
+                  <a
+                    class="UserShareBox-list-item-link"
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-cta="user_share"
+                    draggable="false"
+                    title={`觀看 ${item.nameCn || item.nameEn} 的 ${item.type} 矯視真實用家心得分享影片`}
                   >
-                    {item.type}
-                  </span>
-                  <div class="UserShareBox-list-item-link-text">
-                    {item.text.map((text) => (
-                      <p>{text}</p>
-                    ))}
-                    <i style={`background-color: ${getColor(item.type)}`} />
-                    <div class="UserShareBox-list-item-link-text-name">
-                      <span>{item.nameCn}</span>&nbsp;
-                      <span class="UserShareBox-list-item-link-text-name-en">{item.nameEn}</span>
+                    <img draggable="false"
+                      src={item.img}
+                      alt={`${item.nameCn || item.nameEn} - 香港希瑪 ${item.type} 矯視用家分享`}
+                      title={`${item.nameCn || item.nameEn} ${item.type} 微笑矯視親身感受`}
+                      loading="lazy"
+                      width="280"
+                      height="190"
+                    />
+                    <span
+                      class="UserShareBox-list-item-link-title"
+                      style={`background-color: ${getColor(item.type)}`}
+                    >
+                      {item.type}
+                    </span>
+                    <div class="UserShareBox-list-item-link-text">
+                      {item.text.map((text) => (
+                        <p>{text}</p>
+                      ))}
+                      <i style={`background-color: ${getColor(item.type)}`} />
+                      <div class="UserShareBox-list-item-link-text-name">
+                        <span>{item.nameCn}</span>&nbsp;
+                        <span class="UserShareBox-list-item-link-text-name-en">{item.nameEn}</span>
+                      </div>
                     </div>
-                  </div>
-                </a>
-              </li>
-            ))
-          }
-        </ul>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  import Swiper from "swiper";
+  import { FreeMode, Mousewheel } from "swiper/modules";
+
+  function initUserShareSwipers() {
+    const containers = document.querySelectorAll<HTMLElement>(
+      ".UserShareBox-list[data-usershare-swiper]"
+    );
+
+    containers.forEach((el) => {
+      if ((el as any).swiper) {
+        (el as any).swiper.destroy(true, true);
+      }
+
+      let isDragging = false;
+      let startX = 0;
+      let startY = 0;
+
+      const swiper = new Swiper(el, {
+        modules: [FreeMode, Mousewheel],
+        slidesPerView: "auto",
+        spaceBetween: 3.75,
+        freeMode: {
+          enabled: true,
+        },
+        mousewheel: {
+          forceToAxis: true,
+        },
+        grabCursor: true,
+        preventClicks: true,
+        preventClicksPropagation: true,
+        breakpoints: {
+          992: {
+            spaceBetween: 5,
+          },
+          1139: {
+            spaceBetween: 5,
+            slidesOffsetAfter: 85,
+          },
+        },
+      });
+
+      if (el.dataset.dragBound === "1") return;
+      el.dataset.dragBound = "1";
+
+      el.addEventListener("pointerdown", (e) => {
+        startX = e.clientX;
+        startY = e.clientY;
+        isDragging = false;
+      });
+
+      el.addEventListener("pointermove", (e) => {
+        if (
+          Math.abs(e.clientX - startX) > 6 ||
+          Math.abs(e.clientY - startY) > 6
+        ) {
+          isDragging = true;
+        }
+      });
+
+      swiper.on("sliderMove", () => {
+        isDragging = true;
+      });
+
+      el.addEventListener(
+        "click",
+        (e) => {
+          if (isDragging) {
+            e.preventDefault();
+            e.stopPropagation();
+            isDragging = false;
+          }
+        },
+        true
+      );
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", initUserShareSwipers);
+  document.addEventListener("astro:page-load", initUserShareSwipers);
+</script>
 
 <style lang="scss">
   /* ==================== UserShare ==================== */
@@ -211,32 +296,18 @@ function getColor(type: string) {
           .UserShareBox-list {
             margin-top: 26px;
             padding-bottom: 30px;
-            display: flex;
-            gap: 3.75px;
+            width: 100%;
             max-width: 100%;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
+            overflow: hidden;
 
-            &::-webkit-scrollbar {
-              height: 3px;
-            }
-
-            &::-webkit-scrollbar-thumb {
-              background-color: #4570b6;
-              border: 0px solid rgba(0, 0, 0, 0);
-            }
-
-            &::-webkit-scrollbar-track {
-              background-color: #fff;
-              width: 50%;
+            .swiper-wrapper {
+              display: flex;
             }
 
             .UserShareBox-list-item {
               position: relative;
-              scroll-snap-align: start;
-              scroll-snap-stop: normal;
+              width: auto !important;
+              flex-shrink: 0;
 
               &::after {
                 content: "";
@@ -397,33 +468,18 @@ function getColor(type: string) {
           .UserShareBox-list {
             margin-top: 35px;
             padding-bottom: 77px;
-            display: flex;
-            gap: 5px;
             max-width: 1544px;
-            width: 1544px;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
+            width: 100%;
+            overflow: hidden;
 
-            &::-webkit-scrollbar {
-              height: 3px;
-            }
-
-            &::-webkit-scrollbar-thumb {
-              background-color: #4570b6;
-              border: 0px solid rgba(0, 0, 0, 0);
-            }
-
-            &::-webkit-scrollbar-track {
-              background-color: #fff;
-              width: 50%;
+            .swiper-wrapper {
+              display: flex;
             }
 
             .UserShareBox-list-item {
               position: relative;
-              scroll-snap-align: start;
-              scroll-snap-stop: normal;
+              width: auto !important;
+              flex-shrink: 0;
 
               &::after {
                 content: "";
@@ -523,9 +579,20 @@ function getColor(type: string) {
       .UserShareContainer {
         .UserShareBox {
           .UserShareBox-list {
-            max-width: calc(100vw - calc(100vw - 1320px) / 2);
-            width: fit-content;
-            padding-right: 85px;
+            max-width: calc(100vw - max(0px, (100vw - 1320px) / 2));
+            width: calc(100vw - max(0px, (100vw - 1140px) / 2));
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 1310px) {
+    .UserShare {
+      .UserShareContainer {
+        .UserShareBox {
+          .UserShareBox-list {
+            width: calc(100vw - max(0px, (100vw - 1320px) / 2));
           }
         }
       }

@@ -726,58 +726,42 @@ const currentUrl = isCn
     </a>
 
     <!-- 9. 常見問題 FAQ -->
-    <section class="question-mencare">
+    <section
+      class="faq-section py-10 lg:py-16"
+      aria-labelledby="presbyopia-faq-title"
+    >
       <div class="site-container">
-        <h2 class="publicTitle-mencare">{content.faq.title}</h2>
-        <div class="question-section-Box">
-          <div id="accordion">
-            {content.faq.items.map((faq, idx) => (
+        <h2 id="presbyopia-faq-title" class="section-title mb-6 lg:mb-10">
+          {content.faq.title}
+        </h2>
+        <div class="faq-accordion-list">
+          {content.faq.items.map((faq, idx) => (
+            <details
+              id={faq.id}
+              name="presbyopia-faq"
+              class="faq-item"
+              open={idx === 0}
+              itemscope
+              itemtype="https://schema.org/Question"
+            >
+              <summary class="faq-header">
+                <div class="faq-header-text" itemprop="name">
+                  {faq.question}
+                </div>
+                <span class="faq-toggle-indicator" aria-hidden="true" />
+              </summary>
               <div
-                class={`card collapseActive ${idx === 0 ? "expanded" : ""}`}
-                data-faq-card
+                class="faq-content"
+                itemscope
+                itemprop="acceptedAnswer"
+                itemtype="https://schema.org/Answer"
               >
-                <div class="card-header d-flex flex-column-reverse">
-                  <div
-                    id={faq.id}
-                    class={`collapse ${idx === 0 ? "show" : ""}`}
-                    data-faq-body
-                  >
-                    <div class="card-body">
-                      <span class="text-justify">{faq.answer}</span>
-                    </div>
-                  </div>
-                  <a
-                    href={`#${faq.id}`}
-                    aria-expanded={idx === 0 ? "true" : "false"}
-                    class="d-flex header-title position-relative cursor-pointer"
-                    data-faq-toggle
-                  >
-                    <span>{faq.question}</span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="28"
-                      height="14"
-                      viewBox="0 0 28 14"
-                      fill="none"
-                    >
-                      <path
-                        d="M26.7441 1L13.879 12.0273"
-                        stroke="white"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                      />
-                      <path
-                        d="M1 1L13.8652 12.0273"
-                        stroke="white"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                      />
-                    </svg>
-                  </a>
+                <div class="faq-answer" itemprop="text">
+                  {faq.answer}
                 </div>
               </div>
-            ))}
-          </div>
+            </details>
+          ))}
         </div>
       </div>
     </section>
@@ -909,36 +893,7 @@ const currentUrl = isCn
 
 <script is:inline>
   function initPresbyopiaPage() {
-    // 1. FAQ 手風琴摺疊切換
-    const faqCards = document.querySelectorAll("[data-faq-card]");
-    faqCards.forEach((card) => {
-      const toggle = card.querySelector("[data-faq-toggle]");
-      const body = card.querySelector("[data-faq-body]");
-      if (toggle && body) {
-        toggle.addEventListener("click", (e) => {
-          e.preventDefault();
-          const isExpanded = card.classList.contains("expanded");
-          if (isExpanded) {
-            card.classList.remove("expanded");
-            body.classList.remove("show");
-            toggle.setAttribute("aria-expanded", "false");
-          } else {
-            faqCards.forEach((otherCard) => {
-              otherCard.classList.remove("expanded");
-              const otherBody = otherCard.querySelector("[data-faq-body]");
-              const otherToggle = otherCard.querySelector("[data-faq-toggle]");
-              if (otherBody) otherBody.classList.remove("show");
-              if (otherToggle) otherToggle.setAttribute("aria-expanded", "false");
-            });
-            card.classList.add("expanded");
-            body.classList.add("show");
-            toggle.setAttribute("aria-expanded", "true");
-          }
-        });
-      }
-    });
-
-    // 2. 第一視角預覽 Swiper 切換
+    // 1. 第一視角預覽 Swiper 切換
     const prevBtn = document.getElementById("lbvPrevBtn");
     const nextBtn = document.getElementById("lbvNextBtn");
     const sceneTitle = document.getElementById("lbvSceneTitle");

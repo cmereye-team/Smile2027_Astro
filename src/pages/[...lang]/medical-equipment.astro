@@ -34,15 +34,23 @@ const breadcrumbItems = [
   <SchemaBreadcrumb items={breadcrumbItems} />
 
   <div class="equipment">
-    {/* 1. 頂部橫幅 Banner */}
+    {/* 1. 頂部統一橫幅 Banner */}
     <section
-      class="banner-section"
+      class="page-banner"
       aria-label={content.banner.title}
     >
-      <div class="site-container banner-box">
-        <div class="banner-img banner-text-default">
-          <h1 class="banner-title">{content.banner.title}</h1>
-          <p class="banner-subtitle" set:html={content.banner.subtitleHtml} />
+      <div class="site-container">
+        <div
+          class="page-banner-card page-banner-card--light"
+          style={{
+            "--banner-bg-pc": "url('https://statichk.cmermedical.com/smile/bf7a6b723e77c2a8.webp')",
+            "--banner-bg-mb": "url('https://statichk.cmermedical.com/imgs/2024/05/b1b778ced1d15d71.png')",
+          }}
+        >
+          <div class="page-banner-content">
+            <h1 class="page-banner-title">{content.banner.title}</h1>
+            <p class="page-banner-subtitle" set:html={content.banner.subtitleHtml} />
+          </div>
         </div>
       </div>
     </section>
@@ -238,52 +246,6 @@ const breadcrumbItems = [
       display: none;
     }
 
-    .banner-box {
-      padding-top: 16px;
-      display: flex;
-      justify-content: center;
-    }
-
-    .banner-img {
-      background: url("https://statichk.cmermedical.com/smile/bf7a6b723e77c2a8.webp")
-        no-repeat;
-      background-size: cover;
-      background-position: center;
-      height: clamp(180px, 22vw, 300px);
-      width: 100%;
-      max-width: 1150px;
-      max-height: 300px;
-      border-radius: 55px;
-      display: flex;
-      align-items: flex-start;
-      flex-direction: column;
-      justify-content: center;
-      padding-left: 70px;
-      box-sizing: border-box;
-    }
-
-    .banner-title {
-      color: #fff;
-      font-family: "Microsoft YaHei", var(--font-hk), "Noto Sans HK", sans-serif;
-      font-size: 30px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: 50.75px;
-      letter-spacing: 7.5px;
-      margin: 0;
-    }
-
-    .banner-subtitle {
-      color: #fff;
-      font-family: "Microsoft YaHei", var(--font-hk), "Noto Sans HK", sans-serif;
-      font-size: 15px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 43.5px;
-      letter-spacing: 0.45px;
-      margin: -10px 0 0;
-    }
-
     .equipment-heading {
       padding-bottom: 32px;
       margin-bottom: 10px;
@@ -461,43 +423,6 @@ const breadcrumbItems = [
   @media screen and (max-width: 767px) {
     .equipment-name-text :global(br.mbShow) {
       display: inline;
-    }
-
-    .banner-img {
-      background: url("https://statichk.cmermedical.com/imgs/2024/05/b1b778ced1d15d71.png")
-        no-repeat;
-      background-size: 100% 100%;
-      height: 84.6vw;
-      margin: 24px 15px 55px;
-      border-radius: 44px;
-      display: flex;
-      align-items: flex-start;
-      flex-direction: column;
-      justify-content: center;
-      padding-left: 20px;
-      box-sizing: border-box;
-    }
-
-    .banner-title {
-      color: #fff;
-      font-family: "Microsoft YaHei", var(--font-hk), "Noto Sans HK", sans-serif;
-      font-style: normal;
-      font-weight: 700;
-      font-size: 32px;
-      line-height: 36px;
-      letter-spacing: 0.7px;
-      margin: 0;
-    }
-
-    .banner-subtitle {
-      color: #fff;
-      font-family: "Microsoft YaHei", var(--font-hk), "Noto Sans HK", sans-serif;
-      font-style: normal;
-      font-weight: 500;
-      font-size: 24px;
-      line-height: 28px;
-      letter-spacing: 0.5px;
-      margin: 0;
     }
 
     .equipment-heading {

@@ -67,9 +67,7 @@ export interface SmileProData {
     noticeImgMb: string;
     noticeMarqueeImg: string;
     heroImgPc: string;
-    heroImgPcJpg: string;
     heroImgMb: string;
-    heroImgMbJpg: string;
     heroAlt: string;
     heroTitle: string;
     tipTitle: string;
@@ -358,14 +356,12 @@ export const SMILE_PRO_ZH_HK: SmileProData = {
     current: "SMILE Pro 2.0 微笑激光矯視",
   },
   banner: {
-    noticeImgPc: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-banner-02-pc-v1.webp",
-    noticeImgMb: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-banner-02-mb-v1.webp",
-    noticeMarqueeImg: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-notice-mb-02-v3.webp",
-    heroImgPc: "https://statichk.cmermedical.com/smile/smileproV2/banner/banner-smilepro-pc-02-v1.webp",
-    heroImgPcJpg: "https://statichk.cmermedical.com/smile/smileproV2/banner/banner-smilepro-pc-02-v1.jpg",
-    heroImgMb: "https://statichk.cmermedical.com/smile/smileproV2/banner/banner-smilepro-mb-02-v1.webp",
-    heroImgMbJpg: "https://statichk.cmermedical.com/smile/smileproV2/banner/banner-smilepro-mb-02-v1.jpg",
-    heroAlt: "SMILE PRO 1.0/2.0 秋日最新價格",
+    noticeImgPc: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-banner-03-pc-v1.webp",
+    noticeImgMb: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-banner-03-mb-v1.webp",
+    noticeMarqueeImg: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-notice-mb-03-v2.webp",
+    heroImgPc: "https://static.cmermedical.com.hk/smile/uploads/2026/11/11/gnjyyi02_iwEZAqNqcGcDAQTRBQAF0QHgBrDC7hFoTYc2XwrCvXZrxcoBB9.webp",
+    heroImgMb: "https://static.cmermedical.com.hk/smile/uploads/2026/11/11/trqms04n_iwEZAqNqcGcDAQTRAUsF0QFLBrBoxJln_el2TgrCvXZrxcoAB9.webp",
+    heroAlt: "SMILE PRO 1.0/2.0 冬日最新價格",
     heroTitle: "秋日限定·睛采視界",
     tipTitle: "可矯正",
     tipItem1: "1,000度以下的近視",
@@ -539,20 +535,12 @@ export const SMILE_PRO_ZH_HK: SmileProData = {
         col4: "無",
       },
       {
-        title: "視軸及散光導航",
+        title: "定位追蹤\n技術",
         iconType: "nav",
-        col1: "-",
-        col2: "視軸輔助導航",
-        col3: "視軸及散光導航",
-        col4: "散光導航",
-      },
-      {
-        title: "可矯正視力範圍",
-        iconType: "range",
-        col1: "近視最高1000度\n散光最高500度",
-        col2: "近視最高1000度\n散光最高500度",
-        col3: "近視最高1000度\n散光最高500度",
-        col4: "近視最高1800度\n散光最高600度",
+        col1: "手動追蹤",
+        col2: "手動追蹤",
+        col3: "自動追蹤",
+        col4: "自動追蹤",
       },
       {
         title: "康復時間",
@@ -658,14 +646,12 @@ export const SMILE_PRO_ZH_CN: SmileProData = {
     current: "SMILE Pro 2.0 微笑激光矫视",
   },
   banner: {
-    noticeImgPc: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-banner-02-pc-v1.webp",
-    noticeImgMb: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-banner-02-mb-v1.webp",
-    noticeMarqueeImg: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-notice-mb-02-v3.webp",
-    heroImgPc: "https://statichk.cmermedical.com/smile/smileproV2/banner/banner-smilepro-pc-02-v1.webp",
-    heroImgPcJpg: "https://statichk.cmermedical.com/smile/smileproV2/banner/banner-smilepro-pc-02-v1.jpg",
-    heroImgMb: "https://statichk.cmermedical.com/smile/smileproV2/banner/banner-smilepro-mb-02-v1.webp",
-    heroImgMbJpg: "https://statichk.cmermedical.com/smile/smileproV2/banner/banner-smilepro-mb-02-v1.jpg",
-    heroAlt: "SMILE PRO 1.0/2.0 秋日最新价格",
+    noticeImgPc: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-banner-03-pc-v1.webp",
+    noticeImgMb: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-banner-03-mb-v1.webp",
+    noticeMarqueeImg: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-notice-mb-03-v2.webp",
+    heroImgPc: "https://static.cmermedical.com.hk/smile/uploads/2026/11/11/gnjyyi02_iwEZAqNqcGcDAQTRBQAF0QHgBrDC7hFoTYc2XwrCvXZrxcoBB9.webp",
+    heroImgMb: "https://static.cmermedical.com.hk/smile/uploads/2026/11/11/trqms04n_iwEZAqNqcGcDAQTRAUsF0QFLBrBoxJln_el2TgrCvXZrxcoAB9.webp",
+    heroAlt: "SMILE PRO 1.0/2.0 冬日最新价格",
     heroTitle: "秋日限定·睛采视界",
     tipTitle: "可矫正",
     tipItem1: "1,000度以下的近视",
@@ -839,20 +825,12 @@ export const SMILE_PRO_ZH_CN: SmileProData = {
         col4: "无",
       },
       {
-        title: "视轴及散光导航",
+        title: "定位追踪\n技术",
         iconType: "nav",
-        col1: "-",
-        col2: "视轴辅助导航",
-        col3: "视轴及散光导航",
-        col4: "散光导航",
-      },
-      {
-        title: "可矫正视力范围",
-        iconType: "range",
-        col1: "近视最高1000度\n散光最高500度",
-        col2: "近视最高1000度\n散光最高500度",
-        col3: "近视最高1000度\n散光最高500度",
-        col4: "近视最高1800度\n散光最高600度",
+        col1: "手动追踪",
+        col2: "手动追踪",
+        col3: "自动追踪",
+        col4: "自动追踪",
       },
       {
         title: "康复时间",
