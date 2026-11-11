@@ -1,18 +1,15 @@
 ---
 /*
  * @Author: Antigravity AI
- * @Date: 2026-11-10
+ * @Date: 2026-11-11
  * @FilePath: /src/pages/[...lang]/vision-correction-lasik.astro
- * @Description: LASIK 激光矯視專頁 (100% 官方真值對齊 + 雙端響應式 + W-07 轉換追蹤 + 完整 Schema)
+ * @Description: LASIK 激光矯視 V2 專頁 (對齊線上 vision-correction-lasikV2 + 共享 .site-container + 節制動態 + 完整 Schema & W-07 埋點)
  */
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import SchemaProcedure from "@/components/seo/SchemaProcedure.astro";
 import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
 import { i18nPaths, getLangFromUrl } from "@/i18n/utils";
-import {
-  LASIK_ZH_HK,
-  LASIK_ZH_CN,
-} from "@/data/lasikData";
+import { LASIK_ZH_HK, LASIK_ZH_CN } from "@/data/lasikData";
 
 export function getStaticPaths() {
   return [...i18nPaths];
@@ -21,11 +18,14 @@ export function getStaticPaths() {
 const lang = getLangFromUrl(Astro.url);
 const isCn = lang === "zh-cn";
 const content = isCn ? LASIK_ZH_CN : LASIK_ZH_HK;
+const currentUrl = isCn
+  ? "/cn/vision-correction-lasik"
+  : "/vision-correction-lasik";
 ---
 
 <BaseLayout tdkKey="lasik">
   <SchemaProcedure
-    name={`LASIK ${content.banner.title}`}
+    name={content.intro.title}
     description={content.principle.desc}
   />
   <SchemaBreadcrumb
@@ -33,997 +33,649 @@ const content = isCn ? LASIK_ZH_CN : LASIK_ZH_HK;
       { name: content.breadcrumb.home, url: isCn ? "/cn/" : "/" },
       {
         name: content.breadcrumb.service,
-        url: isCn ? "/cn/vision-correction-lasik" : "/vision-correction-lasik",
+        url: currentUrl,
       },
       {
         name: content.breadcrumb.current,
-        url: isCn ? "/cn/vision-correction-lasik" : "/vision-correction-lasik",
+        url: currentUrl,
       },
     ]}
   />
 
-  <div class="lasik font-hk text-desc relative overflow-x-hidden">
-    {/* 1. 頂部橫幅 Hero Banner */}
-    <div class="Banner banner-box">
-      <div class="banner-img banner-text-default">
-        <h1 class="banner-title">
-          LASIK<br class="md:hidden" />{content.banner.title}
-        </h1>
-        <p class="banner-subtitle">
-          Laser-Assisted <br class="md:hidden" />in Situ Keratomileusis
-        </p>
+  <div class="page-lasik font-hk text-[#6d6e71] relative overflow-x-hidden">
+    {/* 1. 頂部橫幅 Hero Banner + 可矯正度數範圍 + 麵包屑 */}
+    <section
+      class="banner site-container relative pb-4 md:pb-7 px-5 flex justify-between items-end"
+      aria-label={content.intro.title}
+    >
+      <div class="banner-bg before:absolute before:aspect-[1.37/1] before:w-[37.982vw] xl:before:w-[22.083vw] before:max-w-[220px] xl:before:max-w-none before:bg-[url(https://statichk.cmermedical.com/smile/lasik/lasik-banner-bg.svg)] before:bg-no-repeat before:bg-contain before:bg-center before:-z-[1]">
+        <div class="text-primary pt-10 md:pt-40 mb-16 md:mb-24">
+          <p class="banner-hero-heading flex flex-col pb-2 md:pb-5">
+            <span class="banner-lasik-en font-en text-4xl md:text-[136px] leading-none font-bold">
+              {content.banner.tag}
+            </span>
+            <span class="banner-lasik-zh text-2xl md:text-7xl">
+              {content.banner.title}
+            </span>
+          </p>
+          <p class="banner-subtitle text-[clamp(0.438rem,0.214rem_+_1.12vw,0.75rem)] md:text-[clamp(1.25rem,-0.625rem_+_3.91vw,1.875rem)]">
+            {content.banner.subtitle}
+          </p>
+        </div>
+        <nav
+          aria-label={isCn ? "面包屑导航" : "麵包屑導航"}
+          class="banner-breadcrumb tracking-wide text-[#6d6e71] text-xs md:text-xl font-light leading-[3] md:leading-loose whitespace-nowrap"
+        >
+          <a
+            href={isCn ? "/cn/" : "/"}
+            class="hover:text-primary transition-colors duration-[var(--dur)] ease-[var(--ease-out)]"
+          >
+            {content.breadcrumb.home}
+          </a>
+          &nbsp;&gt;&nbsp;<span>{content.breadcrumb.service}</span>
+          &nbsp;&gt;&nbsp;<span class="text-primary font-medium">
+            {content.breadcrumb.current}
+          </span>
+        </nav>
       </div>
-    </div>
 
-    {/* 2. 激光技術介紹 */}
-    <section class="laser_technology" aria-labelledby="laser-tech-heading">
-      <h2 id="laser-tech-heading">
-        <span>{content.laserTechnology.title}</span>
-      </h2>
-      <p class="laser_technology-in">
-        {content.laserTechnology.desc}
-      </p>
+      <div class="conditions-card h-fit text-white text-xs md:text-xl font-light whitespace-nowrap absolute right-3 bottom-[52px] md:bottom-[72px]">
+        <p class="conditions-title bg-primary w-fit pb-1 -mb-1 pt-1 px-5 md:pt-2 md:px-9 rounded-t-sm md:rounded-t-md">
+          {content.conditions.title}
+        </p>
+        <ul class="bg-primary list-disc list-inside py-3 px-5 md:py-6 md:px-9 rounded-sm md:rounded-md rounded-tl-none">
+          {content.conditions.items.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
     </section>
 
-    {/* 3. 激光矯視原理 */}
-    <section class="principle" aria-labelledby="principle-heading">
-      <div class="principle-top">
-        <div>
-          <img
-            draggable="false"
-            loading="lazy"
-            decoding="async"
-            src={content.principle.icon}
-            alt={content.principle.iconAlt}
-            title={content.principle.iconAlt}
-            width="108"
-            height="108"
-          />
-        </div>
-        <h3 id="principle-heading">
-          LASIK<br />
-          {content.principle.title}
-        </h3>
-      </div>
-      <div class="principle-img">
-        {content.principle.images.map((imgSrc, idx) => (
-          <div class="principle-img-in">
-            <img
-              draggable="false"
-              loading="lazy"
-              decoding="async"
-              src={imgSrc}
-              alt={`${content.principle.title} 步驟 ${idx + 1}`}
-              width="185"
-              height="185"
+    {/* 2. 圓形視軸中心介紹 (含唯一 <h1>) */}
+    <section
+      class="intro overflow-hidden aspect-[77/100] md:aspect-[30/13] flex justify-center items-center md:justify-end bg-[url(https://statichk.cmermedical.com/smile/lasik/lasik-intro-bg-m.avif)] md:bg-[url(https://statichk.cmermedical.com/smile/lasik/lasik-intro-bg-pc.avif)] bg-no-repeat bg-cover"
+      aria-labelledby="lasik-intro-heading"
+    >
+      <div class="site-container flex justify-center items-center md:justify-end h-full">
+        <div class="intro-main relative size-[110vw] md:size-[35vw] aspect-square md:min-w-[440px] md:min-h-[440px] lg:min-w-[480px] lg:min-h-[480px] md:mr-[8%] border-primary border-[2px] rounded-full flex justify-center items-center">
+          <div class="size-[88%] bg-white rounded-full relative flex justify-center items-center">
+            <div
+              class="size-full absolute before:absolute before:size-full before:content-[''] before:bg-[url(https://statichk.cmermedical.com/smile/lasik/lasik-intro-crosshair-m.svg)] md:before:bg-[url(https://statichk.cmermedical.com/smile/lasik/lasik-intro-crosshair-pc.svg)] before:bg-no-repeat before:bg-cover before:bg-center"
+              aria-hidden="true"
             />
+            <div class="w-[65%] z-10">
+              <h1
+                id="lasik-intro-heading"
+                class="title-normal text-center pb-2 md:pb-4"
+              >
+                {content.intro.title}
+              </h1>
+              <p class="text-[#6d6e71] text-justify text-base lg:text-xl font-light">
+                {content.intro.desc}
+              </p>
+            </div>
           </div>
-        ))}
+        </div>
       </div>
-      <div class="principle-text">
-        <p>
+    </section>
+
+    {/* 3. LASIK 激光矯視原理四步驟 */}
+    <section
+      class="principle bg-[#F6FAFD] pt-10 pb-8 md:py-[72px] mb-16"
+      aria-labelledby="lasik-principle-heading"
+    >
+      <div class="site-container px-6 xl:px-3 2xl:px-0">
+        <h2 id="lasik-principle-heading" class="title-normal">
+          {content.principle.title}
+        </h2>
+        <div
+          role="list"
+          class="grid grid-cols-2 md:grid-cols-4 mb-5 md:mb-[72px] gap-x-[21.538vw] gap-y-14 md:gap-[7%]"
+        >
+          {
+            content.principle.steps.map((step) => (
+              <div
+                role="listitem"
+                class="principle-item relative flex flex-col justify-between w-full"
+              >
+                <span class="principle-num font-en">{step.num}</span>
+                <img
+                  src={step.img}
+                  alt={step.alt}
+                  width={step.width}
+                  height={step.height}
+                  draggable="false"
+                  loading="lazy"
+                  decoding="async"
+                  class="w-full"
+                />
+              </div>
+            ))
+          }
+        </div>
+        <p class="w-full md:w-2/3 mx-auto text-[#6d6e71] text-base md:text-xl font-light tracking-[0.3em]">
           {content.principle.desc}
         </p>
       </div>
     </section>
 
-    {/* 4. LASIK激光矯視的好處 */}
-    <section class="benefits" aria-labelledby="benefits-heading">
-      <h2 id="benefits-heading">
-        <span>{content.benefits.title}</span>
+    {/* 4. LASIK 激光矯視的好處 */}
+    <section
+      id="lasik-benefits"
+      class="benefits site-container"
+      aria-labelledby="lasik-benefits-heading"
+    >
+      <h2 id="lasik-benefits-heading" class="title-normal mb-7 md:mb-[52px]">
+        {content.benefits.title}
       </h2>
-      <div class="benefits-lists">
-        {content.benefits.items.map((item) => (
-          <div class="benefits-lists-in">
-            <div class="images">
-              <img
-                draggable="false"
-                loading="lazy"
-                decoding="async"
-                src={item.img}
-                alt={item.title}
-                title={item.title}
-              />
-            </div>
-            <h4>{item.title}</h4>
-            <p>{item.text}</p>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    {/* 5. 合適對象 */}
-    <section class="suitable_object" aria-labelledby="suitable-heading">
-      <div class="suitable_object-top">
-        <img
-          draggable="false"
-          loading="lazy"
-          decoding="async"
-          src={content.suitable.icon}
-          alt={content.suitable.title}
-          title={content.suitable.title}
-        />
-        <h2 id="suitable-heading">
-          <span>{content.suitable.title}</span>
-        </h2>
-      </div>
-      <div class="suitable_object-lists">
-        {content.suitable.items.map((item) => (
-          <div class="suitable_object-lists-in">
-            <div class="box">
-              <div class="image">
-                <img
-                  draggable="false"
-                  loading="lazy"
-                  decoding="async"
-                  src={item.img}
-                  alt={item.text.join(" ")}
-                />
-              </div>
-              <div class="text">
-                {item.text.map((textItem) => (
-                  <p>{textItem}</p>
-                ))}
-              </div>
-              {item.mbText && (
-                <div class="text mbText">
-                  {item.mbText.map((textItem) => (
-                    <p>{textItem}</p>
-                  ))}
+      <ul class="grid grid-cols-2 md:grid-cols-4 border-[#4570B6] border md:border-2">
+        {
+          content.benefits.items.map((item) => (
+            <li class="benefits-item aspect-square flex justify-center items-center flex-col">
+              <figure>
+                <div class="size-[68px] md:size-[4.792vw] flex justify-center items-center mb-3 md:mb-[0.625vw] mx-auto">
+                  <img
+                    src={item.icon}
+                    alt={item.title}
+                    title={item.title}
+                    draggable="false"
+                    loading="lazy"
+                    decoding="async"
+                    class="size-full object-contain"
+                  />
                 </div>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
+                <figcaption>
+                  <h3 class="mb-2 md:mb-[0.625vw] tracking-widest md:tracking-[0.35em] text-lg md:text-[clamp(1.25rem,0.833rem_+_0.87vw,1.875rem)] text-primary font-bold text-center">
+                    {item.title}
+                  </h3>
+                  <p class="text-base md:text-[clamp(1rem,0.667rem_+_0.69vw,1.5rem)] font-light text-[#6d6e71] text-center tracking-[0.15em] md:tracking-[0.2em] leading-[18px] md:leading-normal">
+                    {item.lines.map((line, i) => (
+                      <>
+                        {i > 0 && <br />}
+                        {line}
+                      </>
+                    ))}
+                  </p>
+                </figcaption>
+              </figure>
+            </li>
+          ))
+        }
+      </ul>
     </section>
 
-    {/* 6. 預約諮詢按鈕 */}
-    <div class="smile-pro-btn">
+    {/* 5 & 6. 合適對象與預約諮詢 CTA */}
+    <section
+      id="lasik-suitable"
+      class="suitable overflow-hidden pt-20 md:pt-40 xl:pt-[220px] pb-12 lg:pb-0 lg:mb-[152px] relative before:absolute before:bg-[url(https://statichk.cmermedical.com/smile/lasik/line-animate-m.svg)] md:before:bg-[url(https://statichk.cmermedical.com/smile/lasik/line-animate-pc.svg)] before:w-[120vw] before:h-[80vw] before:bg-no-repeat before:bg-contain before:rotate-[2deg] md:before:-rotate-[10deg] before:-left-0 md:before:w-[120vw] before:-z-[1] md:before:-left-[12vw] md:before:top-[5%]"
+      aria-labelledby="lasik-suitable-heading"
+    >
+      <div class="suitable-bg site-container text-base md:text-xl font-light mb-8 md:mb-[clamp(15rem,-2.391rem_+_36.23vw,27.5rem)] relative after:absolute after:bg-[url(https://statichk.cmermedical.com/smile/lasik/tumbling-e.svg)] after:bg-contain after:bg-no-repeat after:size-[22.564vw] md:after:size-[9.375vw] after:-rotate-[42deg] md:after:-rotate-[15deg] after:-top-20 after:right-1 md:after:-top-24 after:max-w-[180px] after:max-h-[180px]">
+        <div class="suitable-intro border-primary border md:border-[2px] bg-[linear-gradient(210deg,#FFF_13.8%,#F2F7FF_70.44%)] rounded-full aspect-square h-auto w-[80vw] md:w-[55vw] lg:w-[45vw] xl:w-1/2 pt-[15%] md:pt-[8%] xl:pt-[15%] -mb-[30%] md:-mb-[40%] mx-auto">
+          <h2 id="lasik-suitable-heading" class="title-normal mb-0">
+            {content.suitable.title}
+          </h2>
+          <p class="suitable-desc whitespace-pre-line text-primary text-center tracking-[0.25em]">
+            {content.suitable.desc}
+          </p>
+        </div>
+
+        <ul
+          role="list"
+          class="suitable-list flex flex-wrap justify-center px-3"
+        >
+          {
+            content.suitable.items.map((item) => (
+              <li role="listitem" class="suitable-item">
+                <figure>
+                  <div class="flex justify-center items-center size-[16.41vw] md:size-[6.25vw] md:max-w-[120px] md:max-h-[120px] mx-auto mb-2 md:mb-2">
+                    <img
+                      src={item.icon}
+                      alt=""
+                      aria-hidden="true"
+                      draggable="false"
+                      loading="lazy"
+                      decoding="async"
+                      class="size-full object-contain"
+                    />
+                  </div>
+                  <figcaption>
+                    <p class="text-[#6d6e71] text-center leading-[1.1] lg:leading-relaxed">
+                      <span class="hidden lg:inline">
+                        {item.pcText.map((line, i) => (
+                          <>
+                            {i > 0 && <br />}
+                            {line}
+                          </>
+                        ))}
+                      </span>
+                      <span class="lg:hidden">
+                        {item.mbText.map((line, i) => (
+                          <>
+                            {i > 0 && <br />}
+                            {line}
+                          </>
+                        ))}
+                      </span>
+                    </p>
+                  </figcaption>
+                </figure>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
       <a
         href={content.appointment.whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
         data-cta="whatsapp-w07"
+        class="lasik-cta-btn flex justify-center items-center gap-2 md:gap-4 bg-primary hover:bg-primary-hover text-white text-xl md:text-4xl w-fit mx-auto rounded-[100px] md:rounded-[180px] py-3 px-8 md:py-7 md:px-14 transition-colors duration-[var(--dur)] ease-[var(--ease-out)]"
       >
-        {content.appointment.btn}
+        <span>{content.appointment.btn}</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="29"
+          height="29"
+          viewBox="0 0 29 29"
+          fill="none"
+          aria-hidden="true"
+          class="w-4 h-4 md:w-[29px] md:h-[29px]"
+        >
+          <path
+            d="M2.69922 25.7785L25.3278 3.1499"
+            stroke="white"
+            stroke-width="5.4"
+            stroke-linecap="round"
+          />
+          <path
+            d="M5.99609 2.42993H26.0987V21.8699"
+            stroke="white"
+            stroke-width="4.86"
+            stroke-linecap="round"
+          />
+        </svg>
       </a>
-    </div>
+    </section>
   </div>
 </BaseLayout>
 
 <style lang="scss">
-@media screen and (min-width: 768px) {
-  .smile-pro-btn {
-    margin: 85px auto;
-    display: flex;
-    justify-content: center;
-    & > a {
-      margin: 0 auto;
-      width: fit-content;
-      background: #4570b6;
-      border-radius: 50px;
-      padding: 16px 50px;
-      color: #fff;
-      text-align: center;
-      font-family: "Noto Sans HK", var(--font-hk), sans-serif;
+  .page-lasik {
+    .title-normal {
+      color: #4570b6;
       font-size: 20px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 20px; /* 100% */
-      letter-spacing: 6px;
-      display: inline-block;
-      text-decoration: none;
-      transition: background-color 0.3s ease;
-
-      &:hover {
-        background: #365b96;
-      }
-    }
-  }
-
-  .banner-box {
-    box-sizing: border-box;
-    padding: 0 3vw;
-    max-width: 1270px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-  }
-
-  .banner-img {
-    background: url("https://statichk.cmermedical.com/imgs/2024/04/8764882bb5d61bd6.webp")
-      no-repeat;
-    background-size: cover;
-    height: 32.08vw;
-    width: 100%;
-    max-width: 1150px;
-    max-height: 556px;
-    background-position: top;
-    border-radius: 55px;
-
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    justify-content: center;
-    padding-left: 70px;
-
-    .banner-title {
-      color: #fff;
-      font-family: "Microsoft YaHei", "Noto Sans HK", var(--font-hk), sans-serif;
-      font-size: 30px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: 50.75px; /* 169.167% */
-      letter-spacing: 7.5px;
-      margin: 0;
+      font-weight: 900;
     }
 
-    .banner-subtitle {
-      color: #fff;
-      font-family: "Microsoft YaHei", "Noto Sans HK", var(--font-hk), sans-serif;
-      font-size: 15px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 43.5px; /* 290% */
-      letter-spacing: 0.45px;
-      margin: 0;
-    }
-  }
-}
-
-.laser_technology {
-  margin-top: 85px;
-  margin-bottom: 20px;
-
-  h2 {
-    border: none;
-    margin-bottom: 45px;
-    position: relative;
-    text-align: center;
-    padding-bottom: 32px;
-
-    &::before {
-      content: none;
-      border: none;
-    }
-
-    span {
-      color: #4570b6;
-      font-family: "Noto Sans HK", var(--font-hk), sans-serif;
-      font-size: 30px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 30px; /* 100% */
-      letter-spacing: 7.5px;
-      padding-left: 5px;
-    }
-
-    &::after {
-      content: "";
-      background: #a6e1d6;
-      width: 39px;
-      height: 5px;
-      border-radius: 3px;
-      position: absolute;
-      left: 50%;
-      bottom: 0;
-      transform: translateX(-50%);
-    }
-  }
-
-  &-in {
-    margin: 45px auto 0;
-    width: 100%;
-    max-width: 945px;
-    color: #6d6e71;
-    text-align: center;
-    font-family: "Noto Sans HK", var(--font-hk), sans-serif;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 300;
-    line-height: 35px; /* 175% */
-    letter-spacing: 6px;
-  }
-}
-
-.principle-top {
-  & > div:nth-child(1) {
-    width: 108px;
-    height: 108px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    & > img {
-      width: 100%;
-    }
-  }
-}
-
-.principle {
-  width: 100%;
-  margin: 0 auto;
-  overflow: hidden;
-  position: relative;
-  padding-bottom: 130px;
-
-  &::before {
-    content: "";
-    position: absolute;
-    width: 200%;
-    height: 0;
-    padding-bottom: 200%;
-    background: url("https://statichk.cmermedical.com/imgs/2024/05/18206225b503de8f.png")
-      no-repeat;
-    background-size: 100% 100%;
-    top: 150px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1;
-  }
-
-  &-top {
-    width: 307px;
-    height: 307px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: #fff;
-    border-radius: 50%;
-    margin: 0 auto;
-    z-index: 3;
-    position: relative;
-
-    h3 {
-      color: #4570b6;
-      text-align: center;
-      font-family: "Noto Sans HK", var(--font-hk), sans-serif;
-      font-size: 30px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 50px; /* 166.667% */
-      letter-spacing: 7.5px;
-      margin: 0;
-    }
-  }
-
-  &-img {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 1140px;
-    margin: 85px auto 0;
-    position: relative;
-    z-index: 3;
-
-    &-in {
-      display: flex;
-      align-items: flex-end;
-      width: 185px;
-      height: 185px;
+    /* 覆寫 comm.css 移動端 span/p 統一字號限制以精確還原 V2 視覺字階 */
+    .banner {
       position: relative;
 
-      & > img {
-        width: 100%;
+      .banner-hero-heading {
+        .banner-lasik-en {
+          font-size: 2.25rem;
+          line-height: 1;
+        }
+
+        .banner-lasik-zh {
+          font-size: 1.5rem;
+          line-height: 2rem;
+        }
       }
 
-      &:not(:last-child) {
+      .banner-subtitle {
+        font-size: clamp(0.438rem, 0.214rem + 1.12vw, 0.75rem);
+      }
+
+      .banner-bg::before {
+        left: clamp(7.5rem, 3.026rem + 22.37vw, 13.75rem);
+        rotate: -10deg;
+        top: -8px;
+      }
+    }
+
+    .intro {
+      .intro-main::before,
+      .intro-main::after {
+        background-repeat: no-repeat;
+        background-size: contain;
+        content: "";
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+      }
+
+      .intro-main::before {
+        background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3NjMiIGhlaWdodD0iNzYzIiBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgNzYzIDc2MyI+PHBhdGggZmlsbD0iIzQ1NzBiNiIgZD0ibTM4MS4yNTEgMC0yOS43OSAxNS42OGg1OS41N3pNMzgxLjI1MSA3NjIuNDlsLTI5Ljc5LTE1LjY3aDU5LjU3ek0wIDM4MS4yNWwxNS42OCAyOS43OHYtNTkuNTd6TTc2Mi41IDM4MS4yNWwtMTUuNjggMjkuNzh2LTU5LjU3eiIvPjwvc3ZnPg==");
+        height: 107%;
+        width: 107%;
+      }
+
+      .intro-main::after {
+        background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NzQiIGhlaWdodD0iNjc0IiBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgNjc0IDY3NCI+PHBhdGggZmlsbD0iIzQ1NzBiNiIgZD0iTTM2Ni42MzEgMGgtNTkuNTd2NC45M2g1OS41N3pNMzY2LjYzMSA2NjguNzZoLTU5LjU3djQuOTNoNTkuNTd6TTAgMzA3LjA3djU5LjU3aDQuOTN2LTU5LjU3ek02NjguNzcgMzA3LjA2djU5LjU3aDQuOTN2LTU5LjU3eiIvPjwvc3ZnPg==");
+        height: 95%;
+        width: 95%;
+      }
+    }
+
+    .benefits {
+      .benefits-item:nth-child(-n + 2) {
+        border-bottom: 1px solid #4570b6;
+      }
+
+      .benefits-item:nth-child(odd) {
+        border-right: 1px solid #4570b6;
+      }
+    }
+
+    .principle {
+      .principle-item:nth-child(3) {
+        order: 4;
+      }
+
+      .principle-item:nth-child(4) {
+        order: 3;
+      }
+
+      .principle-item .principle-num {
+        font-size: 12.308vw;
+        font-weight: 700;
+        -webkit-text-stroke-color: #4570b6;
+        -webkit-text-stroke-width: 0.5px;
+        color: transparent;
+        line-height: 1;
+      }
+    }
+
+    .suitable {
+      .suitable-intro {
+        position: relative;
+
+        &::before,
         &::after {
+          background-repeat: no-repeat;
+          background-size: contain;
           content: "";
-          width: 44px;
-          height: 14px;
-          background: url("/images/service/lasik/icon-1.svg") no-repeat;
-          background-size: 100% 100%;
           position: absolute;
-          right: -88px;
-          top: 50%;
-          transform: translateY(-50%);
         }
-      }
-    }
-  }
 
-  &-text {
-    max-width: 941px;
-    margin: 58px auto 0;
-    position: relative;
-    z-index: 3;
+        &::before {
+          background-image: url("https://statichk.cmermedical.com/smile/lasik/playing-basketball.svg");
+          height: 51.282vw;
+          left: -12%;
+          top: -18%;
+          width: 25.641vw;
+          z-index: 10;
+        }
 
-    p {
-      color: #6d6e71;
-      text-align: center;
-      font-family: "Noto Sans HK", var(--font-hk), sans-serif;
-      font-size: 20px;
-      font-style: normal;
-      font-weight: 300;
-      line-height: 35px; /* 175% */
-      letter-spacing: 6px;
-    }
-  }
-}
-
-.benefits {
-  margin-top: 88px;
-
-  h2 {
-    border: none;
-    margin-bottom: 0;
-    position: relative;
-    text-align: center;
-    padding-bottom: 32px;
-
-    &::before {
-      content: none;
-      border: none;
-    }
-
-    span {
-      color: #4570b6;
-      font-family: "Noto Sans HK", var(--font-hk), sans-serif;
-      font-size: 30px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 30px; /* 100% */
-      letter-spacing: 7.5px;
-      padding-left: 5px;
-    }
-
-    &::after {
-      content: "";
-      background: #a6e1d6;
-      width: 39px;
-      height: 5px;
-      border-radius: 3px;
-      position: absolute;
-      left: 50%;
-      bottom: 0;
-      transform: translateX(-50%);
-    }
-  }
-
-  &-lists {
-    margin: 142px auto 0;
-    display: flex;
-    justify-content: space-between;
-    max-width: 1184px;
-
-    &-in {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      .images {
-        height: 138px;
-        img {
-          width: 100%;
+        &::after {
+          background-image: url("https://statichk.cmermedical.com/smile/lasik/basketball-stick.svg");
+          height: 55.385vw;
+          left: 18%;
+          top: -68px;
+          width: 20vw;
+          z-index: -1;
         }
       }
 
-      h4 {
-        color: #4570b6;
-        font-family: "Noto Sans HK", var(--font-hk), sans-serif;
-        font-size: 25px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 20px; /* 80% */
-        letter-spacing: 8.75px;
-        margin: 0 auto 45px;
-        text-align: center;
-      }
+      .suitable-list {
+        position: relative;
 
-      p {
-        color: #6d6e71;
-        text-align: center;
-        font-family: "Noto Sans HK", var(--font-hk), sans-serif;
-        font-size: 23px;
-        font-style: normal;
-        font-weight: 300;
-        line-height: 35px; /* 152.174% */
-        letter-spacing: 10.35px;
-        max-width: 194px;
-      }
+        &::before,
+        &::after {
+          background-repeat: no-repeat;
+          background-size: contain;
+          content: "";
+          position: absolute;
+          z-index: 10;
+        }
 
-      &:nth-of-type(1) {
-        p {
-          max-width: 220px;
+        &::before {
+          background-image: url("https://statichk.cmermedical.com/smile/lasik/optometry.svg");
+          bottom: 8%;
+          height: 18.462vw;
+          left: -30px;
+          max-height: 300px;
+          max-width: 388px;
+          rotate: 22deg;
+          width: 34.872vw;
+        }
+
+        &::after {
+          background-image: url("https://statichk.cmermedical.com/smile/lasik/reading.svg");
+          bottom: 22%;
+          height: 28.718vw;
+          right: 18px;
+          rotate: 5deg;
+          width: 21.538vw;
         }
       }
 
-      &:nth-of-type(4) {
-        p {
-          max-width: 154px;
-        }
-      }
-    }
-  }
-}
-
-.suitable_object {
-  width: 100%;
-  margin: 0 auto 85px;
-  overflow: hidden;
-  position: relative;
-  padding-bottom: 96px;
-
-  &::before {
-    content: "";
-    position: absolute;
-    width: 200%;
-    height: 0;
-    padding-bottom: 200%;
-    background: url("https://statichk.cmermedical.com/imgs/2024/05/53bf2271c231b37d.png")
-      no-repeat;
-    background-size: 100% 100%;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: -2;
-  }
-
-  &::after {
-    content: "";
-    width: 100%;
-    height: 150px;
-    background: #fff;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-  }
-
-  &-top {
-    width: 307px;
-    height: 307px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: #fff;
-    border-radius: 50%;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-
-    h2 {
-      border: none;
-      margin-bottom: 0;
-      margin-top: 30px;
-      padding-bottom: 0;
-      font-weight: 400;
-      position: relative;
-      text-align: center;
-
-      &::before,
-      &::after {
-        display: none;
-      }
-
-      span {
-        color: #4570b6;
-        font-family: "Noto Sans HK", var(--font-hk), sans-serif;
-        font-size: 30px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 30px; /* 100% */
-        letter-spacing: 7.5px;
-      }
-    }
-  }
-
-  &-lists {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 100%;
-    max-width: 1207px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-
-    &-in {
-      width: calc(100% / 3);
-      display: flex;
-      justify-content: center;
-      margin-top: 66px;
-
-      .box {
-        width: 307px;
-        height: 307px;
-        background: #fff;
+      .suitable-item {
+        align-items: center;
+        aspect-ratio: 1 / 1;
+        background-color: #fff;
+        border: 1px solid #4570b6;
         border-radius: 50%;
         display: flex;
-        flex-direction: column;
         justify-content: center;
-        align-items: center;
+        width: 54%;
       }
+    }
+  }
 
-      .image {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+  @media screen and (max-width: 767px) {
+    .page-lasik {
+      .principle {
+        .principle-item::before {
+          background-repeat: no-repeat;
+          background-size: contain;
+          content: "";
+          height: 3.077vw;
+          position: absolute;
+          width: 27.692vw;
+        }
 
-        img {
-          max-width: 50%;
-          margin: 0 auto;
+        .principle-item:first-child::before {
+          background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMTAiIGhlaWdodD0iMTMiIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCAxMTAgMTMiPjxwYXRoIHN0cm9rZT0iIzQ1NzBiNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2Utd2lkdGg9Ii40NjgiIGQ9Ik0xMDguODc1IDEyLjM5OCA5Ni43MTEuMjM0Ii8+PHBhdGggc3Ryb2tlPSIjNDU3MGI2IiBzdHJva2Utd2lkdGg9Ii40NjgiIGQ9Ik0wIDEyLjQwNmgxMDguODc2Ii8+PC9zdmc+");
+          left: 100%;
+          top: 60%;
+        }
+
+        .principle-item:nth-child(2)::before {
+          background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNCIgaGVpZ2h0PSI3MyIgZmlsbD0ibm9uZSIgdmlld0JveD0iMCAwIDE0IDczIj48cGF0aCBzdHJva2U9IiM0NTcwYjYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIuNDY4IiBkPSJNMS4xNTMgNzIuMjEzIDEyLjExIDU4Ljk1Ii8+PHBhdGggc3Ryb2tlPSIjNDU3MGI2IiBzdHJva2Utd2lkdGg9Ii40NjgiIGQ9Ik0uNzAzIDB2NzIuNTE5Ii8+PC9zdmc+");
+          bottom: -20vw;
+          height: 18.462vw;
+          right: 35%;
+          width: 3.59vw;
+        }
+
+        .principle-item:nth-child(3)::before {
+          background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDUiIGhlaWdodD0iMTMiIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCAxMDUgMTMiPjxwYXRoIHN0cm9rZT0iIzQ1NzBiNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2Utd2lkdGg9Ii40NjgiIGQ9Ik0uMjM0IDEyLjM5OCAxMi4zOTguMjM0Ii8+PHBhdGggc3Ryb2tlPSIjNDU3MGI2IiBzdHJva2Utd2lkdGg9Ii40NjgiIGQ9Ik0uMjM0IDEyLjYzMkgxMDQuNzkiLz48L3N2Zz4=");
+          right: 90%;
+          top: 55%;
         }
       }
 
-      .text {
-        margin-top: 25px;
-        color: #6d6e71;
-        text-align: center;
-        font-family: "Noto Sans HK", var(--font-hk), sans-serif;
-        font-size: 20px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 35px; /* 175% */
-        letter-spacing: 4px;
-        min-height: 51px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
-
-      .mbText {
-        display: none;
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .smile-pro-btn {
-    margin-top: 25px;
-    margin-bottom: 55px;
-    display: flex;
-    justify-content: center;
-
-    & > a {
-      color: #fff;
-      text-align: center;
-      font-family: "Noto Sans HK", var(--font-hk), sans-serif;
-      font-size: 20px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 20px; /* 100% */
-      letter-spacing: 6px;
-      background: #4570b6;
-      border-radius: 55px;
-      padding: 17px 55px;
-      display: inline-block;
-      text-decoration: none;
-    }
-  }
-
-  .banner-box {
-    margin: 0 auto;
-  }
-
-  .banner-img {
-    background: url("https://statichk.cmermedical.com/imgs/2024/04/6fdcba3b3d5247bc.webp")
-      no-repeat;
-    background-size: 100% 100%;
-    height: 84.6vw;
-    margin: 24px 30px;
-    border-radius: 44px;
-
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    justify-content: center;
-    padding-left: 20px;
-
-    .banner-title {
-      color: #fff;
-      font-family: "Microsoft YaHei", "Noto Sans HK", var(--font-hk), sans-serif;
-      font-style: normal;
-      font-weight: 700;
-      letter-spacing: 3.5px;
-      font-size: 32px;
-      line-height: 36px;
-      margin: 0;
-    }
-
-    .banner-subtitle {
-      color: #fff;
-      font-family: "Microsoft YaHei", "Noto Sans HK", var(--font-hk), sans-serif;
-      font-style: normal;
-      font-weight: 500;
-      letter-spacing: 0.3px;
-      font-size: 18px;
-      line-height: 28px;
-      margin: 0;
-    }
-  }
-
-  .laser_technology {
-    margin-top: 50px;
-
-    h2 {
-      display: flex;
-      flex-direction: column;
-      padding-bottom: 25px;
-      margin-bottom: 25px;
-
-      span {
-        color: #4570b6;
-        text-align: center;
-        font-family: "Noto Sans HK", var(--font-hk), sans-serif;
-        font-size: 20px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 30px; /* 150% */
-        letter-spacing: 5px;
-      }
-
-      &::after {
-        content: "";
-        background: #a6e1d6;
-        width: 37px;
-        height: 5px;
-        border-radius: 3px;
-        position: absolute;
-        left: 50%;
-        bottom: 0;
-        transform: translateX(-50%);
-      }
-    }
-
-    &-in {
-      font-size: 15px;
-      font-weight: 300;
-      line-height: 30px; /* 200% */
-      letter-spacing: 4.5px;
-      margin-top: 28px;
-      padding: 0 20px;
-    }
-  }
-
-  .principle-top {
-    & > div:nth-child(1) {
-      width: 85px;
-      height: 85px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      & > img {
-        width: 100%;
-      }
-    }
-  }
-
-  .principle {
-    padding-bottom: 36px;
-
-    &::before {
-      top: 103px;
-      padding-bottom: 500%;
-      border-radius: 50% / 20%;
-    }
-
-    &-top {
-      width: 206px;
-      height: 206px;
-
-      img {
-        width: 86px;
-      }
-
-      h3 {
-        font-size: 20px;
-        font-weight: 400;
-        line-height: 25px; /* 175% */
-        letter-spacing: 5px;
-        position: relative;
-        top: -10px;
-      }
-    }
-
-    &-img {
-      margin-top: 22px;
-      flex-direction: column;
-      align-items: center;
-
-      &-in {
-        margin-top: 0;
-        margin-bottom: 100px;
-        height: auto;
-
-        &:last-child {
-          margin-bottom: 0;
+      .suitable {
+        .suitable-item:nth-child(2) {
+          margin-left: -8%;
+          z-index: 10;
         }
 
-        &:not(:last-child) {
-          &::after {
-            left: 50%;
-            right: auto;
-            top: auto;
-            bottom: -55px;
-            transform: translateX(-50%) rotate(90deg);
+        .suitable-item:nth-child(3) {
+          margin-right: -8%;
+        }
+
+        .suitable-item:nth-child(3),
+        .suitable-item:nth-child(4) {
+          margin-top: -8%;
+        }
+
+        .suitable-item:nth-child(5) {
+          margin-top: -6%;
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .page-lasik {
+      .title-normal {
+        font-size: 30px;
+        letter-spacing: 0.1em;
+      }
+
+      .banner {
+        .banner-hero-heading {
+          .banner-lasik-en {
+            font-size: 136px;
+            line-height: 1;
           }
-        }
-      }
-    }
 
-    &-text {
-      margin: 41px auto 0;
-      padding: 0 30px;
-
-      p {
-        font-size: 15px;
-        font-weight: 300;
-        line-height: 30px; /* 200% */
-        letter-spacing: 4.5px;
-      }
-    }
-  }
-
-  .benefits {
-    margin-top: 50px;
-
-    h2 {
-      display: flex;
-      flex-direction: column;
-      padding-bottom: 25px;
-      margin-bottom: 25px;
-
-      span {
-        color: #4570b6;
-        text-align: center;
-        font-family: "Noto Sans HK", var(--font-hk), sans-serif;
-        font-size: 20px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 30px; /* 150% */
-        letter-spacing: 5px;
-      }
-
-      &::after {
-        content: "";
-        background: #a6e1d6;
-        width: 37px;
-        height: 5px;
-        border-radius: 3px;
-        position: absolute;
-        left: 50%;
-        bottom: 0;
-        transform: translateX(-50%);
-      }
-    }
-
-    &-lists {
-      flex-wrap: wrap;
-      margin-top: 55px;
-      padding: 0 30px;
-
-      &-in {
-        width: 50%;
-        margin-bottom: 50px;
-
-        .images {
-          height: 82px;
-          max-width: 50%;
-          img {
-            max-height: 64px;
+          .banner-lasik-zh {
+            font-size: 4.5rem;
+            line-height: 1;
           }
         }
 
-        h4 {
-          font-size: 18px;
-          line-height: 20px;
-          letter-spacing: 3.6px;
-          margin: 0 auto 25px;
-          font-weight: 400;
+        .banner-subtitle {
+          font-size: clamp(1.25rem, -0.625rem + 3.91vw, 1.875rem);
         }
 
-        p {
-          font-size: 15px;
-          font-weight: 300;
-          line-height: 22px; /* 146.667% */
-          letter-spacing: 3px;
-          max-width: 105px;
+        .banner-bg::before {
+          left: auto;
+          right: 20%;
+          top: 16px;
+        }
+      }
+
+      .benefits {
+        .benefits-item {
+          border-width: 0;
+
+          &:not(:last-child) {
+            border-right: 2px solid #4570b6;
+          }
+        }
+      }
+
+      .principle {
+        .principle-item:nth-child(3) {
+          order: 3;
         }
 
-        &:nth-of-type(4) {
-          p {
-            max-width: 84px;
+        .principle-item:nth-child(4) {
+          order: 4;
+        }
+
+        .principle-item .principle-num {
+          font-size: clamp(3.75rem, 2.083rem + 3.47vw, 6.25rem);
+          -webkit-text-stroke-width: 1px;
+        }
+      }
+
+      .suitable {
+        .suitable-intro::before {
+          height: 26vw;
+          left: -44px;
+          max-height: 333px;
+          max-width: 166px;
+          top: -80px;
+          width: 16vw;
+          z-index: 10;
+        }
+
+        .suitable-intro::after {
+          height: 30vw;
+          max-height: 364px;
+          max-width: 132px;
+          width: 14vw;
+          z-index: -1;
+        }
+
+        .suitable-list::before {
+          bottom: -60%;
+          height: 9.531vw;
+          left: -12px;
+          max-height: 182px;
+          max-width: 344px;
+          width: 17.969vw;
+        }
+
+        .suitable-list::after {
+          bottom: -10%;
+          height: 20vw;
+          max-height: 288px;
+          max-width: 232px;
+          right: 27%;
+          rotate: 2deg;
+          width: 16vw;
+        }
+
+        .suitable-item {
+          border-width: 2px;
+          width: 27%;
+
+          &:nth-child(2n) {
+            margin: 0 -9%;
+            z-index: 10;
+          }
+
+          &:first-child {
+            transform: translate(5%);
+          }
+
+          &:nth-child(5) {
+            transform: translate(-5%);
+          }
+
+          &:nth-child(2) {
+            transform: translate(-15%, 75%);
+          }
+
+          &:nth-child(4) {
+            transform: translate(15%, 75%);
+          }
+
+          &:nth-child(3) {
+            transform: translateY(100%);
           }
         }
       }
     }
   }
 
-  .suitable_object {
-    margin: 0 auto 60px;
-    padding-bottom: 50px;
-
-    &::before {
-      padding-bottom: 300%;
-    }
-
-    &::after {
-      height: 85px;
-    }
-
-    &-top {
-      width: 171px;
-      height: 171px;
-
-      img {
-        width: 33px;
+  @media screen and (min-width: 1024px) {
+    .page-lasik {
+      .banner .banner-bg::before {
+        top: 48px;
       }
 
-      h2 {
-        margin-top: 15px;
-
-        span {
-          font-size: 20px;
-          line-height: 30px; /* 150% */
-          letter-spacing: 5px;
-        }
-      }
-    }
-
-    &-lists {
-      padding: 0 20px;
-
-      &-in {
-        width: 50%;
-        margin-top: 39px;
-
-        .box {
-          width: 39.7vw;
-          height: 39.7vw;
-        }
-
-        .image {
-          max-height: 40%;
-          img {
-            max-width: 60%;
-            max-height: 100%;
-          }
-        }
-
-        .text {
-          margin-top: 10px;
-          font-size: 3.5vw;
-          font-weight: 300;
-          line-height: 20px; /* 178.571% */
-          letter-spacing: 1.4px;
-          min-height: 0;
-        }
-
-        &:nth-of-type(1) {
-          .text {
-            max-width: 80%;
-            display: none;
-          }
-          .mbText {
-            display: block;
-          }
-        }
-
-        &:nth-of-type(5) {
-          .text {
-            display: none;
-          }
-          .mbText {
-            display: block;
-          }
-        }
-      }
-
-      &-in:nth-child(4) {
-        .image {
-          max-width: 68px;
-          img {
-            max-width: 100%;
-          }
-        }
+      .suitable .suitable-intro::after {
+        top: -100px;
       }
     }
   }
-}
+
+  @media screen and (max-width: 359px) {
+    .page-lasik .suitable .suitable-desc {
+      letter-spacing: 0.1em;
+      margin-top: -12px;
+    }
+  }
+
+  @media screen and (min-width: 1920px) {
+    .page-lasik .suitable .suitable-list::before {
+      left: -15%;
+    }
+  }
+
+  @media screen and (min-width: 2560px) {
+    .page-lasik .suitable::before {
+      top: -8vw;
+    }
+  }
 </style>
