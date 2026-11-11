@@ -38,3 +38,13 @@ scratch_*.json
 fetch_*.mjs
 scratch_*.mjs
 *.scratch.*
+
+# images and binary files
+*.jpg
+*.jpeg
+*.png
+*.webp
+*.gif
+*.avif
+*.ico
+*.svg
