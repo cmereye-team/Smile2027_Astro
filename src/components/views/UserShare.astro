@@ -97,6 +97,7 @@ function getColor(type: string) {
               ))
             }
           </ul>
+          <div class="swiper-scrollbar UserShareBox-scrollbar"></div>
         </div>
       </div>
     </div>
@@ -105,7 +106,7 @@ function getColor(type: string) {
 
 <script>
   import Swiper from "swiper";
-  import { Autoplay, FreeMode, Mousewheel } from "swiper/modules";
+  import { Autoplay, FreeMode, Mousewheel, Scrollbar } from "swiper/modules";
 
   function initUserShareSwipers() {
     const containers = document.querySelectorAll<HTMLElement>(
@@ -117,12 +118,13 @@ function getColor(type: string) {
         (el as any).swiper.destroy(true, true);
       }
 
+      const scrollbarEl = el.querySelector<HTMLElement>(".UserShareBox-scrollbar");
       let isDragging = false;
       let startX = 0;
       let startY = 0;
 
       const swiper = new Swiper(el, {
-        modules: [Autoplay, FreeMode, Mousewheel],
+        modules: [Autoplay, FreeMode, Mousewheel, Scrollbar],
         slidesPerView: "auto",
         spaceBetween: 3.75,
         autoplay: {
@@ -136,6 +138,13 @@ function getColor(type: string) {
         mousewheel: {
           forceToAxis: true,
         },
+        scrollbar: scrollbarEl
+          ? {
+              el: scrollbarEl,
+              draggable: true,
+              hide: false,
+            }
+          : false,
         grabCursor: true,
         preventClicks: true,
         preventClicksPropagation: true,
@@ -601,6 +610,36 @@ function getColor(type: string) {
           }
         }
       }
+    }
+  }
+
+  .UserShare .UserShareBox .UserShareBox-list .UserShareBox-scrollbar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 6px;
+    width: 100%;
+    height: 4px;
+    border-radius: 9999px;
+    background-color: rgba(69, 112, 182, 0.16);
+    opacity: 1 !important;
+
+    :global(.swiper-scrollbar-drag) {
+      background-color: #4570b6;
+      border-radius: 9999px;
+      cursor: grab;
+
+      &:active {
+        cursor: grabbing;
+      }
+    }
+  }
+
+  @media screen and (min-width: 992px) {
+    .UserShare .UserShareBox .UserShareBox-list .UserShareBox-scrollbar {
+      bottom: 32px;
+      max-width: 1320px;
+      height: 5px;
     }
   }
 </style>

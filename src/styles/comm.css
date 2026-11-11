@@ -10,6 +10,7 @@
 @import "swiper/css/pagination";
 @import "swiper/css/navigation";
 @import "swiper/css/thumbs";
+@import "swiper/css/scrollbar";
 
 :root {
   /* 全域字體與數字變量控制 (Single Source of Truth) */
@@ -947,5 +948,74 @@ html[lang="zh-cn"] .media-card .media-card-title,
 html[lang="zh-cn"] .media-card .media-card-excerpt {
   font-family: var(--font-sc), "Noto Sans SC", sans-serif;
 }
+
+/* -------------------------------------------------------------------------- */
+/* 全站主要 CTA（預約諮詢 / WhatsApp 膠囊按鈕）柔光脈衝動效 (Single Source)  */
+/* 僅動畫化 transform 與 opacity；prefers-reduced-motion 下完全關閉          */
+/* -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes cta-soft-pulse {
+    0% {
+      transform: scale(1);
+      opacity: 0;
+    }
+
+    22% {
+      transform: scale(1);
+      opacity: 0.48;
+    }
+
+    82%,
+    100% {
+      transform: scale(1.06, 1.2);
+      opacity: 0;
+    }
+  }
+
+  :where(
+    .btn-primary,
+    .btn-whatsapp,
+    .icl-btn,
+    .publicBtn-booking[data-cta^="whatsapp"],
+    .lasik-cta-btn,
+    .more-button,
+    .meal-btn,
+    .CorrectedVisionBefore-button > a,
+    .whatsapp-booking-btn .btn-yuyue,
+    .btn-yuyue-link[data-cta="whatsapp"] .btn-yuyue,
+    .cta-pulse
+  ) {
+    position: relative;
+  }
+
+  :where(
+    .btn-primary,
+    .btn-whatsapp,
+    .icl-btn,
+    .publicBtn-booking[data-cta^="whatsapp"],
+    .lasik-cta-btn,
+    .more-button,
+    .meal-btn,
+    .CorrectedVisionBefore-button > a,
+    .whatsapp-booking-btn .btn-yuyue,
+    .btn-yuyue-link[data-cta="whatsapp"] .btn-yuyue,
+    .cta-pulse
+  )::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    border: 2px solid rgba(69, 112, 182, 0.45);
+    box-shadow: 0 0 14px rgba(69, 112, 182, 0.28);
+    pointer-events: none;
+    animation: cta-soft-pulse 3.6s var(--ease-out) infinite;
+  }
+
+  :where(.btn-whatsapp)::after {
+    border-color: rgba(78, 169, 66, 0.45);
+    box-shadow: 0 0 14px rgba(78, 169, 66, 0.28);
+  }
+}
+
 
 
