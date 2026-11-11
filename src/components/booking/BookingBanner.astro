@@ -157,8 +157,8 @@ const { title = "希瑪微笑矯視中心", gid = 2, pageSize = 5 } = Astro.prop
     const isExt = isExternalUrl(linkUrl);
     const desktopImg = slide.pic || "";
     const mobileImg = slide.pic_mobile || desktopImg;
-    const altText = slide.title || "";
-    const titleText = slide.subtitle || slide.title || "";
+    const altText = slide.title || slide.subtitle || "希瑪微笑矯視中心";
+    const titleText = slide.subtitle || slide.title || "希瑪微笑矯視中心";
 
     const pictureHtml = `
       <picture class="banner-picture">
@@ -179,6 +179,8 @@ const { title = "希瑪微笑矯視中心", gid = 2, pageSize = 5 } = Astro.prop
       const a = document.createElement("a");
       a.href = linkUrl;
       a.className = "banner-link";
+      a.title = titleText;
+      a.setAttribute("aria-label", titleText);
       if (isExt) {
         a.target = "_blank";
         a.rel = "noopener noreferrer";

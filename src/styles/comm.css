@@ -100,25 +100,27 @@
 }
 
 /* 現代化 CSS Reset 與效能優化 */
-*, *::before, *::after {
-  box-sizing: border-box;
-}
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
 
-html {
-  scroll-behavior: smooth;
-  text-size-adjust: 100%;
-}
+  html {
+    scroll-behavior: smooth;
+    text-size-adjust: 100%;
+  }
 
-body {
-  min-height: 100vh;
-  font-family: inherit;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: var(--color-desc);
-  background-color: #ffffff;
-  line-height: 1.6;
-  overflow-x: hidden;
+  body {
+    min-height: 100vh;
+    font-family: inherit;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: var(--color-desc);
+    background-color: #ffffff;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
 }
 
 /* 移動端漢字無特殊用意最低字號 16px */
@@ -131,20 +133,22 @@ body {
   }
 }
 
-/* 圖片與媒體默認防 CLS 抖動 */
-img, picture, video, canvas, svg {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
+@layer base {
+  /* 圖片與媒體默認防 CLS 抖動 */
+  img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
 
-/* 輸入框與按鈕重設 */
-input, button, textarea, select {
-  font: inherit;
-}
+  /* 輸入框與按鈕重設 */
+  input, button, textarea, select {
+    font: inherit;
+  }
 
-p, h1, h2, h3, h4, h5, h6 {
-  overflow-wrap: break-word;
+  p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+  }
 }
 
 /* 錨點跳轉頂部防遮擋偏移 (針對 sticky header) */
@@ -578,13 +582,7 @@ summary.faq-header::before {
 /* -------------------------------------------------------------------------- */
 .page-banner {
   width: 100%;
-  padding-block: 16px;
-}
-
-@media (min-width: 768px) {
-  .page-banner {
-    padding-block: 32px;
-  }
+  padding-block: 0;
 }
 
 .page-banner-card {
@@ -593,14 +591,12 @@ summary.faq-header::before {
   width: 100%;
   height: clamp(180px, 22vw, 300px);
   max-height: 300px;
-  border-radius: clamp(20px, 3.5vw, 55px);
+  border-radius: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
-  padding-inline: clamp(20px, 4vw, 36px);
+  align-items: stretch;
   box-sizing: border-box;
-  box-shadow: 0 4px 20px rgba(69, 112, 182, 0.06);
   background-color: #f4f8fc;
   background-repeat: no-repeat;
   background-position: var(--banner-bg-pos-mb, center);
@@ -610,7 +606,6 @@ summary.faq-header::before {
 
 @media (min-width: 768px) {
   .page-banner-card {
-    padding-inline: 70px;
     background-position: var(--banner-bg-pos-pc, center);
     background-image: var(--banner-bg-pc, linear-gradient(125deg, #f4f9fd 0%, #e5f1fc 65%, #d9ecf8 100%));
   }

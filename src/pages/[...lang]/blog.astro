@@ -56,14 +56,14 @@ const blogSchema = {
   <div class="blog-page">
     {/* 1. 頂部統一橫幅 Banner */}
     <section class="page-banner" aria-label={pageTitle}>
-      <div class="site-container">
-        <div
-          class="page-banner-card"
-          style={{
-            "--banner-bg-pc": "url('https://statichk.cmermedical.com/imgs/2024/05/ab7f3a79d8c7379e.png')",
-            "--banner-bg-mb": "url('https://statichk.cmermedical.com/imgs/2024/05/700a09eef040b407.png')",
-          }}
-        >
+      <div
+        class="page-banner-card"
+        style={{
+          "--banner-bg-pc": "url('https://statichk.cmermedical.com/imgs/2024/05/ab7f3a79d8c7379e.png')",
+          "--banner-bg-mb": "url('https://statichk.cmermedical.com/imgs/2024/05/700a09eef040b407.png')",
+        }}
+      >
+        <div class="site-container">
           <div class="page-banner-content">
             <h1 class="page-banner-title">{pageTitle}</h1>
             <p class="page-banner-subtitle">blog</p>
@@ -214,6 +214,7 @@ const blogSchema = {
         const link = document.createElement("a");
         link.className = "media-card-link";
         link.href = `${baseHref}/${item.id}`;
+        link.title = item.title || item.ext_type_tags || "";
         link.draggable = false;
 
         const thumb = document.createElement("div");
@@ -222,11 +223,13 @@ const blogSchema = {
         const img = document.createElement("img");
         const desktopSrc = resolveMediaUrl(item.ico);
         const mobileSrc = resolveMediaUrl(item.pics);
+        const imgLabel = item.ext_type_tags || item.title || "";
         img.src = desktopSrc;
         if (mobileSrc) {
           img.srcset = `${mobileSrc} 400w, ${desktopSrc}`;
         }
-        img.alt = item.ext_type_tags || item.title || "";
+        img.alt = imgLabel;
+        img.title = imgLabel;
         img.draggable = false;
         img.setAttribute("draggable", "false");
         img.loading = "lazy";

@@ -54,7 +54,7 @@ const faqQuickLinks = [
         {
           faqQuickLinks.map((link, index) => (
             <li class={index === 0 ? "active" : ""} data-faq-tab={link.id}>
-              <a href={`#${link.id}`}>{link.label}</a>
+              <a href={`#${link.id}`} title={link.label}>{link.label}</a>
             </li>
           ))
         }

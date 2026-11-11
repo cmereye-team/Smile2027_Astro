@@ -46,6 +46,7 @@ const navList = [
       navList.map((item) => (
         <a
           href={getLocalizedHref(item.href, lang)}
+          title={item.label}
           class="bottom-nav-btn"
           data-cta={item.cta}
           data-position="mobile_bottom_bar"

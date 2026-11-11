@@ -34,14 +34,14 @@ const breadcrumbItems = [
   <div class="media-cov-page font-hk text-desc relative overflow-x-clip">
     {/* 1. 頂部統一橫幅 Banner */}
     <section class="page-banner" aria-label={content.banner.title}>
-      <div class="site-container">
-        <div
-          class="page-banner-card"
-          style={{
-            "--banner-bg-pc": "url('https://statichk.cmermedical.com/imgs/2023/04/2994861390bba46b.jpg')",
-            "--banner-bg-mb": "url('https://statichk.cmermedical.com/imgs/2023/04/57f11ecb499e2b25.jpg')",
-          }}
-        >
+      <div
+        class="page-banner-card"
+        style={{
+          "--banner-bg-pc": "url('https://statichk.cmermedical.com/imgs/2023/04/2994861390bba46b.jpg')",
+          "--banner-bg-mb": "url('https://statichk.cmermedical.com/imgs/2023/04/57f11ecb499e2b25.jpg')",
+        }}
+      >
+        <div class="site-container">
           <div class="page-banner-content">
             <h1 class="page-banner-title">{content.banner.title}</h1>
           </div>
@@ -66,11 +66,13 @@ const breadcrumbItems = [
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
+                title={item.title}
                 class="media-link"
               >
                 <img
                   src={item.img}
                   alt={item.title}
+                  title={item.title}
                   draggable="false"
                   loading="lazy"
                   decoding="async"
@@ -93,11 +95,12 @@ const breadcrumbItems = [
       </div>
 
       <div class="flex justify-center my-10 mbShow">
-        <a href={content.mobileCta.href} class="btn-yuyue-link">
+        <a href={content.mobileCta.href} title={content.mobileCta.label} class="btn-yuyue-link">
           <div class="flex btn-yuyue items-center">
             <img
               src={content.mobileCta.icon}
-              alt=""
+              alt={content.mobileCta.label}
+              title={content.mobileCta.label}
               draggable="false"
               loading="lazy"
               decoding="async"

@@ -32,6 +32,8 @@ const whatsappUrl =
 
 const feeUrl = getLocalizedHref("/fee#table1", lang);
 const careUrl = getLocalizedHref("/smileProCare", lang);
+const smallTitleLines = content.fourFeature.smallTitle.split("\n");
+const userRatingSlides = [...content.userRating.list, ...content.userRating.list];
 ---
 
 <BaseLayout tdkKey="smilepro">
@@ -63,6 +65,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
       <a
         href="#price"
         class="rounded-lg overflow-hidden flex relative min-h-[52px] md:h-auto"
+        title="查看 SMILE Pro 最新收費禮遇"
         aria-label="查看 SMILE Pro 最新收費禮遇"
       >
         <picture class="w-full">
@@ -73,6 +76,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
           <img draggable="false"
             src={content.banner.noticeImgMb}
             alt="冬日限定"
+            title="冬日限定"
             width="1240"
             height="80"
             loading="eager"
@@ -90,6 +94,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
                 src={content.banner.noticeMarqueeImg}
                 class="h-full w-auto object-contain pr-8"
                 alt="立即了解SMILE/SMILE PRO 1.0&2.0 微笑激光矯視"
+                title="立即了解SMILE/SMILE PRO 1.0&2.0 微笑激光矯視"
                 width="280"
                 height="52"
               />
@@ -97,6 +102,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
                 src={content.banner.noticeMarqueeImg}
                 class="h-full w-auto object-contain pr-8"
                 alt="立即了解SMILE/SMILE PRO 1.0&2.0 微笑激光矯視"
+                title="立即了解SMILE/SMILE PRO 1.0&2.0 微笑激光矯視"
                 width="280"
                 height="52"
               />
@@ -106,6 +112,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
                 src={content.banner.noticeMarqueeImg}
                 class="h-full w-auto object-contain pr-8"
                 alt="立即了解SMILE/SMILE PRO 1.0&2.0 微笑激光矯視"
+                title="立即了解SMILE/SMILE PRO 1.0&2.0 微笑激光矯視"
                 width="280"
                 height="52"
               />
@@ -113,6 +120,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
                 src={content.banner.noticeMarqueeImg}
                 class="h-full w-auto object-contain pr-8"
                 alt="立即了解SMILE/SMILE PRO 1.0&2.0 微笑激光矯視"
+                title="立即了解SMILE/SMILE PRO 1.0&2.0 微笑激光矯視"
                 width="280"
                 height="52"
               />
@@ -133,6 +141,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
         data-cta="whatsapp"
         class="block"
         title="WhatsApp 諮詢 SMILE Pro 微笑矯視"
+        aria-label="WhatsApp 諮詢 SMILE Pro 微笑矯視"
       >
         <picture class="w-full">
           <source
@@ -170,11 +179,11 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
         class="smile-newCenter-menu"
         aria-label="麵包屑導航"
       >
-        <a href={isCn ? "/cn/" : "/"}>{content.breadcrumb.home}</a>
+        <a href={isCn ? "/cn/" : "/"} title={content.breadcrumb.home}>{content.breadcrumb.home}</a>
         <span>&nbsp;&gt;&nbsp;</span>
         <span>{content.breadcrumb.service}</span>
         <span>&nbsp;&gt;&nbsp;</span>
-        <a href={isCn ? "/cn/smilePro" : "/smilePro"}>
+        <a href={isCn ? "/cn/smilePro" : "/smilePro"} title={content.breadcrumb.current}>
           {content.breadcrumb.current}
         </a>
       </nav>
@@ -194,6 +203,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
             <img draggable="false"
               src={content.summary.fullUpgradedImg}
               alt="全面升級"
+              title="全面升級"
               width="232"
               height="38"
               loading="lazy"
@@ -225,8 +235,8 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
             </p>
           </div>
         </div>
-        <div class="flex-1">
-          <picture class="w-full">
+        <div class="flex-1 w-full">
+          <picture class="block w-[78%] ml-auto">
             <source
               media="(min-width: 1024px)"
               srcset={content.summary.introImgPc}
@@ -234,13 +244,14 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
             <img draggable="false"
               src={content.summary.introImgMb}
               alt="SMILE Pro 設備介紹"
+              title="SMILE Pro 設備介紹"
               width="512"
               height="300"
               loading="lazy"
-              class="mb-6 md:-mb-[50%] lg:-mb-[60px] w-full max-w-sm lg:max-w-lg ml-auto"
+              class="w-full h-auto block"
             />
           </picture>
-          <div class="aspect-video w-full max-w-lg relative z-[1]">
+          <div class="aspect-video w-[90%] mr-auto -mt-[14%] relative z-[1] shadow-md">
             <iframe
               width="100%"
               height="100%"
@@ -264,6 +275,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
             <img draggable="false"
               src={content.pro2Intro.logoImg}
               alt="SMILE PRO 2.0"
+              title="SMILE PRO 2.0"
               width="360"
               height="128"
               loading="lazy"
@@ -316,6 +328,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
             decoding="async"
             src={content.whyChoose.img}
             alt={content.whyChoose.alt}
+            title={content.whyChoose.alt}
             loading="lazy"
             srcset={content.whyChoose.imgMobile + " 400w, " + content.whyChoose.imgMobile + " 640w, " + content.whyChoose.img}
             sizes="(max-width: 992px) 100vw, 480px"
@@ -337,57 +350,62 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
             <span>{content.whyChoose.p2Span3}</span>
             {content.whyChoose.p2Text4}
           </p>
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-cta="whatsapp"
-            class="mx-auto icl-btn"
-            title="WhatsApp 諮詢預約"
-          >
-            <span>{content.whyChoose.btn}</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true">
-              <path d="M2 14.54 14.571 1.969" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
-              <path d="M3.832 1.569H15v10.8" stroke="#fff" stroke-width="2.7" stroke-linecap="round"/>
-            </svg>
-          </a>
         </div>
       </div>
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-cta="whatsapp"
+        class="mx-auto icl-btn"
+        title="WhatsApp 諮詢預約"
+      >
+        <span>{content.whyChoose.btn}</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true">
+          <path d="M2 14.54 14.571 1.969" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+          <path d="M3.832 1.569H15v10.8" stroke="#fff" stroke-width="2.7" stroke-linecap="round"/>
+        </svg>
+      </a>
     </section>
 
     {/* Section 4: 四大特點 (Four Features) */}
-    <section class="smilepro-four-feature site-container mb-16 lg:mb-28" aria-labelledby="four-features-heading">
-      <div class="smilepro-four-feature-Box max-w-4xl mx-auto">
-        <div class="smilepro-four-feature-Box-top text-center mb-10 lg:mb-14">
-          <h2 id="four-features-heading" class="title-normal text-2xl lg:text-3xl font-black text-primary">
-            <span>{content.fourFeature.titlePrefix}</span>{" "}
-            <span>{content.fourFeature.title}</span>
-          </h2>
-          <p class="text-primary text-sm lg:text-base font-medium tracking-wider mt-3 whitespace-pre-line">
-            {content.fourFeature.smallTitle}
-          </p>
-        </div>
-        <div
-          class="smilepro-four-feature-Box-List grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8"
-        >
-          {
-            content.fourFeature.items.map((item) => (
-              <div class="smilepro-four-feature-Box-List-item flex items-center gap-5 p-6 rounded-2xl bg-white border border-blue-100 shadow-xs hover:shadow-md transition">
-                <div class="smilepro-four-feature-Box-List-item-number text-primary font-en text-4xl lg:text-5xl font-bold shrink-0">
-                  {item.number}
+    <section class="smilepro-four-feature mb-[60px] lg:mb-[120px]" aria-labelledby="four-features-heading">
+      <div class="site-container">
+        <div class="smilepro-four-feature-Box">
+          <div class="smilepro-four-feature-Box-top">
+            <h2 id="four-features-heading" class="title-normal">
+              <span>{content.fourFeature.titlePrefix}</span><br class="hidden lg:block" />{content.fourFeature.title}
+            </h2>
+            <p>
+              {smallTitleLines[0]}<br />
+              {smallTitleLines[1]}
+            </p>
+          </div>
+          <div
+            class="smilepro-four-feature-Box-List grid grid-cols-1 gap-6 lg:gap-10"
+          >
+            {
+              content.fourFeature.items.map((item) => (
+                <div class="smilepro-four-feature-Box-List-item">
+                  <div class="smilepro-four-feature-Box-List-item-number">
+                    {item.number}
+                  </div>
+                  <div class="smilepro-four-feature-Box-List-item-text">
+                    <h3>{item.title}</h3>
+                    <p>
+                      {item.desc}
+                      {item.sub && (
+                        <>
+                          <br class="lg:hidden" />
+                          {item.sub}
+                        </>
+                      )}
+                    </p>
+                  </div>
                 </div>
-                <div class="smilepro-four-feature-Box-List-item-text">
-                  <h3 class="text-primary font-bold text-lg lg:text-xl mb-1 tracking-[0.05em]">
-                    {item.title}
-                  </h3>
-                  <p class="text-gray-600 text-sm lg:text-base tracking-[0.05em]">
-                    {item.desc}
-                    {item.sub && <span class="block text-gray-500 text-xs lg:text-sm mt-0.5 tracking-[0.05em]">{item.sub}</span>}
-                  </p>
-                </div>
-              </div>
-            ))
-          }
+              ))
+            }
+          </div>
         </div>
       </div>
     </section>
@@ -434,6 +452,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
                 <a
                   href={careUrl}
                   data-cta="care"
+                  title={content.price.card2.careLinkText}
                   class="price-button-care block text-center py-2.5 px-4 rounded-full text-xs lg:text-sm font-bold bg-gradient-to-r from-blue-500 to-blue-700 text-white border border-white/60 shadow hover:brightness-110 transition"
                 >
                   {content.price.card2.careLinkText}
@@ -446,10 +465,10 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
                   content.price.card2.upgrades?.map((up) => (
                     <div class="flex justify-between items-center px-4 py-2 bg-blue-950/40">
                       <div class="flex items-center gap-2">
-                        <img draggable="false" src={up.icon} loading="lazy" class="w-5 lg:w-6" alt="" width="24" height="24" />
+                        <img draggable="false" src={up.icon} loading="lazy" class="w-5 lg:w-6" alt={up.text} title={up.text} aria-hidden="true" width="24" height="24" />
                         <span>{up.text}</span>
                       </div>
-                      <img draggable="false" src={up.badge} loading="lazy" class="w-20 lg:w-28" alt="升級點" width="112" height="24" />
+                      <img draggable="false" src={up.badge} loading="lazy" class="w-20 lg:w-28" alt="升級點" title="升級點" width="112" height="24" />
                     </div>
                   ))
                 }
@@ -464,6 +483,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
               <a
                 href={feeUrl}
                 data-cta="fee"
+                title={content.price.card2.feeLinkText}
                 class="price-button-normal flex justify-center items-center gap-3 py-3 px-6 rounded-xl font-bold text-base lg:text-xl bg-gradient-to-r from-[#528be9] to-[#4d80d4] text-white shadow-md hover:brightness-110 transition text-center"
               >
                 <span>{content.price.card2.feeLinkText}</span>
@@ -514,6 +534,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
               <a
                 href={feeUrl}
                 data-cta="fee"
+                title={content.price.card1.feeLinkText}
                 class="price-button-normal flex justify-center items-center gap-3 py-3 px-6 rounded-xl font-bold text-base lg:text-xl bg-gradient-to-r from-[#528be9] to-[#4d80d4] text-white shadow-md hover:brightness-110 transition text-center"
               >
                 <span>{content.price.card1.feeLinkText}</span>
@@ -528,8 +549,14 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
       </div>
 
       {/* 費用條款與免責細則 */}
-      <div class="price-notes text-gray-500 text-center text-sm lg:text-[20px] font-light leading-relaxed max-w-4xl mx-auto space-y-1">
-        {content.price.notes.map((note) => <p>{note}</p>)}
+      <div class="price-notes text-gray-500 text-center font-light leading-relaxed max-w-4xl mx-auto space-y-1">
+        {
+          content.price.notes.map((note) => (
+            <p class={note.startsWith("#") ? "price-disclaimer" : undefined}>
+              {note}
+            </p>
+          ))
+        }
       </div>
     </section>
 
@@ -614,6 +641,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
                           draggable="false"
                           src="https://statichk.cmermedical.com/smile/smileproV2/table/smilepro-table-up.svg"
                           alt="SMILE PRO 2.0 精準度提升"
+                          title="SMILE PRO 2.0 精準度提升"
                           loading="lazy"
                           class="w-[68px] lg:w-[144px] mx-auto mt-2"
                         />
@@ -668,6 +696,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
                 <img draggable="false"
                   src={step.image}
                   alt={"SMILE Pro 2.0 步驟" + (index + 1)}
+                  title={"SMILE Pro 2.0 步驟" + (index + 1)}
                   loading="lazy"
                   width="280"
                   height="180"
@@ -699,6 +728,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
                 <img draggable="false"
                   src={step.image}
                   alt={"SMILE Pro 1.0 步驟" + (index + 1)}
+                  title={"SMILE Pro 1.0 步驟" + (index + 1)}
                   loading="lazy"
                   width="280"
                   height="180"
@@ -725,7 +755,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
         {content.suitable.title}
       </h2>
       <div class="center flex-col lg:flex-row gap-5 md:gap-12 lg:gap-20 w-full lg:w-fit mx-auto">
-        <picture>
+        <picture class="block w-full max-w-[460px] lg:w-[448px] shrink-0">
           <source
             media="(min-width: 1024px)"
             srcset={content.suitable.imgPc}
@@ -733,8 +763,9 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
           <img draggable="false"
             src={content.suitable.imgMb}
             alt="適合矯視對象"
+            title="適合矯視對象"
             loading="lazy"
-            class="w-full max-w-md"
+            class="w-full max-w-md h-auto mx-auto"
           />
         </picture>
         <ol class="w-full lg:w-auto process-list space-y-2 lg:space-y-5">
@@ -765,7 +796,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
           <div class="swiper swiperWrap" id="smileProEvaluateSwiper">
             <div class="swiper-wrapper">
               {
-                content.userRating.list.map((review, idx) => (
+                userRatingSlides.map((review, idx) => (
                   <div class="swiper-slide swiperWrap-item">
                     <div>
                       <svg width="69" height="69" viewBox="0 0 69 69" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -842,7 +873,7 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
       loop: true,
       autoplay: {
         delay: 4000,
-        disableOnInteraction: true,
+        disableOnInteraction: false,
         pauseOnMouseEnter: true,
       },
       navigation: {
@@ -1268,9 +1299,6 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
 
         .icl-WhatChoose-content-one-text {
           margin-top: 0;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
         }
       }
     }
@@ -1306,28 +1334,251 @@ const careUrl = getLocalizedHref("/smileProCare", lang);
     }
   }
 
+  /* Section 4: 四大特點 (1714788 原版佈局 + 保留字距微調與 scroll-reveal 階梯入場) */
+  .smilepro-four-feature {
+    @media screen and (max-width: 991px) {
+      padding: 0 12px;
+
+      .smilepro-four-feature-Box {
+        max-width: 332px;
+        margin: 0 auto;
+
+        .smilepro-four-feature-Box-top {
+          h2 {
+            color: $primary;
+            font-size: 20px;
+            font-weight: 900;
+            line-height: 1;
+            text-align: left;
+          }
+
+          p {
+            margin-top: 13.75px;
+            color: $primary;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.42;
+            letter-spacing: 2.1px;
+          }
+        }
+
+        .smilepro-four-feature-Box-List {
+          margin-top: 40px;
+          background-image: url("https://statichk.cmermedical.com/smile/smileproV2/smilepro-four-feature/smilepro-four-feature-mobileBg4.avif");
+          background-repeat: no-repeat;
+          background-position: right top;
+          background-size: 72%;
+
+          .smilepro-four-feature-Box-List-item {
+            display: flex;
+            align-items: center;
+            gap: 20.32px;
+            min-width: 284px;
+
+            .smilepro-four-feature-Box-List-item-number {
+              width: 74px;
+              color: $primary;
+              font-family: var(--font-en);
+              font-size: 60.224px;
+              font-weight: 700;
+              line-height: 0.3;
+              flex-shrink: 0;
+            }
+
+            .smilepro-four-feature-Box-List-item-text {
+              h3 {
+                color: $primary;
+                font-size: 14.501px;
+                font-weight: 700;
+                line-height: 1.5;
+                letter-spacing: 0.05em;
+              }
+
+              p {
+                color: $primary;
+                font-size: 14.501px;
+                font-weight: 400;
+                line-height: 21.751px;
+                letter-spacing: 0.05em;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    @media screen and (max-width: 389px) {
+      .smilepro-four-feature-Box {
+        max-width: 85.13vw;
+
+        .smilepro-four-feature-Box-top {
+          h2 {
+            font-size: 5.13vw;
+          }
+
+          p {
+            margin-top: 3.53vw;
+            font-size: 3.59vw;
+            letter-spacing: 0.54vw;
+          }
+        }
+
+        .smilepro-four-feature-Box-List {
+          .smilepro-four-feature-Box-List-item {
+            gap: 5.21vw;
+            min-width: 72.82vw;
+
+            .smilepro-four-feature-Box-List-item-number {
+              width: 18.97vw;
+              font-size: 15.44vw;
+            }
+
+            .smilepro-four-feature-Box-List-item-text {
+              h3 {
+                font-size: 3.72vw;
+              }
+
+              p {
+                font-size: 3.72vw;
+                line-height: 1.44;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    @media screen and (min-width: 992px) {
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        background-image: url("https://statichk.cmermedical.com/smile/smileproV2/smilepro-four-feature/smilepro-four-feature-pcBg.webp");
+        background-repeat: no-repeat;
+        background-size: 100%;
+        right: max((100vw - 1320px) / 2, 0px);
+        top: -81px;
+        pointer-events: none;
+        width: clamp(324px, 33.75vw, 648px);
+        height: clamp(325px, 33.85vw, 650px);
+      }
+
+      .smilepro-four-feature-Box {
+        max-width: clamp(538px, 56.04vw, 1076px);
+        margin: 0 auto;
+
+        .smilepro-four-feature-Box-top {
+          display: flex;
+          gap: clamp(23.5px, 2.45vw, 47px);
+
+          h2 {
+            color: $primary;
+            font-size: clamp(15px, 1.56vw, 30px);
+            font-weight: 900;
+            line-height: 1;
+            text-align: left;
+
+            span {
+              font-family: var(--font-en);
+              font-weight: 700;
+            }
+          }
+
+          p {
+            color: $primary;
+            font-size: clamp(10px, 1.04vw, 20px);
+            font-weight: 500;
+            line-height: 1.8;
+            letter-spacing: clamp(2.5px, 0.26vw, 5px);
+          }
+        }
+
+        .smilepro-four-feature-Box-List {
+          margin-top: clamp(50px, 5.21vw, 100px);
+          position: relative;
+          z-index: 2;
+
+          .smilepro-four-feature-Box-List-item {
+            display: flex;
+            align-items: center;
+            gap: clamp(10px, 1.04vw, 20px);
+            min-width: clamp(262px, 27.29vw, 524px);
+
+            .smilepro-four-feature-Box-List-item-number {
+              color: $primary;
+              font-family: var(--font-en);
+              font-size: clamp(41.5px, 4.32vw, 83px);
+              font-weight: 700;
+              line-height: 0.3;
+              width: clamp(52.5px, 5.47vw, 105px);
+              flex-shrink: 0;
+            }
+
+            .smilepro-four-feature-Box-List-item-text {
+              h3 {
+                color: $primary;
+                font-size: clamp(10px, 1.04vw, 20px);
+                font-weight: 700;
+                line-height: 1.5;
+                letter-spacing: 0.05em;
+              }
+
+              p {
+                color: $primary;
+                font-size: clamp(10px, 1.04vw, 20px);
+                font-weight: 400;
+                line-height: 1.5;
+                letter-spacing: 0.05em;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
   /* Section 4: 四大特點 scroll-reveal 階梯入場 */
   @media (prefers-reduced-motion: no-preference) {
     .smilepro-four-feature-Box-List-item.scroll-reveal {
       transition:
         opacity var(--dur-slow) var(--ease-out),
-        transform var(--dur-slow) var(--ease-out),
-        box-shadow var(--dur) var(--ease-out);
+        transform var(--dur-slow) var(--ease-out);
 
       &:nth-child(1) {
-        transition-delay: 0ms, 0ms, 0ms;
+        transition-delay: 0ms, 0ms;
       }
 
       &:nth-child(2) {
-        transition-delay: calc(var(--dur-fast) * 0.6), calc(var(--dur-fast) * 0.6), 0ms;
+        transition-delay: calc(var(--dur-fast) * 0.6), calc(var(--dur-fast) * 0.6);
       }
 
       &:nth-child(3) {
-        transition-delay: calc(var(--dur-fast) * 1.2), calc(var(--dur-fast) * 1.2), 0ms;
+        transition-delay: calc(var(--dur-fast) * 1.2), calc(var(--dur-fast) * 1.2);
       }
 
       &:nth-child(4) {
-        transition-delay: calc(var(--dur-fast) * 1.8), calc(var(--dur-fast) * 1.8), 0ms;
+        transition-delay: calc(var(--dur-fast) * 1.8), calc(var(--dur-fast) * 1.8);
+      }
+    }
+  }
+
+  /* Section 5: 價錢備註字號規範 (移動端 14px / 桌面端一般 20px / 免責聲明 16px) */
+  .price {
+    .price-notes {
+      p {
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      @media screen and (min-width: 1024px) {
+        p {
+          font-size: 20px;
+        }
+
+        p.price-disclaimer {
+          font-size: 16px;
+        }
       }
     }
   }

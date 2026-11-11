@@ -49,6 +49,7 @@ const bookingTitle = dict.home.book.title;
                             <img draggable="false"
                               src="/images/icons/icon-fivestar.svg"
                               alt="5星評價"
+                              title="5星評價"
                               class="fivestar-img"
                               width="149"
                               height="25"
@@ -79,6 +80,7 @@ const bookingTitle = dict.home.book.title;
               rel="noopener noreferrer"
               class="UserShareBox-Link-btnone"
               data-cta="whatsapp"
+              title={dict.home.book.button.appoint}
               aria-label={dict.home.book.button.appoint}
             >
               <span class="btn-action-icon" aria-hidden="true"></span>
@@ -90,11 +92,13 @@ const bookingTitle = dict.home.book.title;
               href={appointFormUrl}
               class="UserShareBox-Link-btntwo"
               data-cta="lecture"
+              title={dict.home.book.button.lecture}
               aria-label={dict.home.book.button.lecture}
             >
               <img draggable="false"
                 src="/images/icons/icon-lecture-dialog.svg"
-                alt=""
+                alt={dict.home.book.button.lecture}
+                title={dict.home.book.button.lecture}
                 width="141"
                 height="106"
                 class="btn-action-icon"

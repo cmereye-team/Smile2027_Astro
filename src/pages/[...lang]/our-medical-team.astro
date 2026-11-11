@@ -50,22 +50,22 @@ const doctorsList = (dict.about.doctor.list || []).map((doc: any, index: number)
     
     {/* 1. 頂部統一 Hero Banner (Banner 區塊) */}
     <section class="page-banner" aria-label="醫生團隊導言區">
-      <div class="site-container">
-        <header
-          class="page-banner-card"
-          style={{
-            "--banner-bg-pc": "url('https://statichk.cmermedical.com/smile/323517741e434c1d.webp')",
-            "--banner-bg-mb": "url('https://statichk.cmermedical.com/imgs/2024/04/c58f958bc4b6ee29.png')",
-          }}
-        >
+      <header
+        class="page-banner-card"
+        style={{
+          "--banner-bg-pc": "url('https://statichk.cmermedical.com/smile/323517741e434c1d.webp')",
+          "--banner-bg-mb": "url('https://statichk.cmermedical.com/imgs/2024/04/c58f958bc4b6ee29.png')",
+        }}
+      >
+        <div class="site-container">
           <div class="page-banner-content">
             <h1 class="page-banner-title">
               {dict.about.doctor.title}
             </h1>
             <p class="page-banner-subtitle">Doctor team</p>
           </div>
-        </header>
-      </div>
+        </div>
+      </header>
     </section>
 
     {/* 2. 創辦人專區 (林順潮醫生 - Container 罐頭約束) */}

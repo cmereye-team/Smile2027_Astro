@@ -37,21 +37,19 @@ const awardBadges = [
 <BaseLayout tdkKey="about">
   <div class="group-profile-page w-full overflow-hidden">
     
-    {/* 1. 頂部 Hero Banner (Container 寬度約束 + 最大高度 300px) */}
-    <section class="group-hero-banner py-4 md:py-8" aria-label="集團簡介導言區">
-      <div class="site-container">
-        <header class="group-hero-card">
-          <div class="group-hero-card-content">
-            <div class="group-hero-card-bg" aria-hidden="true"></div>
-            <div class="relative z-10">
-              <h1 class="group-hero-title">
-                {dict.about.group.intro.title}
-              </h1>
-              <p class="group-hero-subtitle">Group Profile</p>
-            </div>
+    {/* 1. 頂部 Hero Banner (全寬背景圖層 + Container 標題約束 + 最大高度 300px) */}
+    <section class="group-hero-banner" aria-label="集團簡介導言區">
+      <header class="group-hero-card">
+        <div class="group-hero-card-content">
+          <div class="group-hero-card-bg" aria-hidden="true"></div>
+          <div class="site-container relative z-10">
+            <h1 class="group-hero-title">
+              {dict.about.group.intro.title}
+            </h1>
+            <p class="group-hero-subtitle">Group Profile</p>
           </div>
-        </header>
-      </div>
+        </div>
+      </header>
     </section>
 
     {/* 2. 集團簡介與 C-M-E-R 經營理念板塊 (WebP 山水畫 X 軸無縫循環背景 + 內嵌 Container 卡片) */}
@@ -86,6 +84,7 @@ const awardBadges = [
                 target="_blank"
                 rel="noopener noreferrer"
                 class="group-network-link"
+                title="www.hkcmereye.com"
                 aria-label="瀏覽香港希瑪眼科中心官方網站 (在新視窗中開啟)"
               >
                 www.hkcmereye.com
@@ -168,6 +167,7 @@ const awardBadges = [
               <img draggable="false"
                 src="/assets/images/group-profile/gallery-01.webp"
                 alt={isCn ? "香港希玛眼科医疗集团中环眼科中心现代化门市环境" : "香港希瑪眼科醫療集團中環眼科中心現代化門市環境"}
+                title={isCn ? "香港希玛眼科医疗集团中环眼科中心现代化门市环境" : "香港希瑪眼科醫療集團中環眼科中心現代化門市環境"}
                 loading="lazy"
                 decoding="async"
                 width="344"
@@ -180,6 +180,7 @@ const awardBadges = [
               <img draggable="false"
                 src="/assets/images/group-profile/gallery-02.webp"
                 alt={isCn ? "香港希玛国际眼科医疗团队与眼科专科医生阵容" : "香港希瑪國際眼科醫療團隊與眼科專科醫生陣容"}
+                title={isCn ? "香港希玛国际眼科医疗团队与眼科专科医生阵容" : "香港希瑪國際眼科醫療團隊與眼科專科醫生陣容"}
                 loading="lazy"
                 decoding="async"
                 width="344"
@@ -192,6 +193,7 @@ const awardBadges = [
               <img draggable="false"
                 src="/assets/images/group-profile/gallery-03.webp"
                 alt={isCn ? "香港希玛微笑矫视中心无菌手术室与舒适候诊大堂" : "香港希瑪微笑矯視中心無菌手術室與舒適候診大堂"}
+                title={isCn ? "香港希玛微笑矫视中心无菌手术室与舒适候诊大堂" : "香港希瑪微笑矯視中心無菌手術室與舒適候診大堂"}
                 loading="lazy"
                 decoding="async"
                 width="344"
@@ -285,6 +287,7 @@ const awardBadges = [
               rel="noopener noreferrer"
               class="care-ambassador-whatsapp-btn"
               data-cta="whatsapp"
+              title={isCn ? "「希玛关怀大使」联系方式 WhatsApp 9603 6825" : "「希瑪關懷大使」聯繫方式 WhatsApp 9603 6825"}
               aria-label={isCn ? "通过 WhatsApp 联络「希玛关怀大使」联系方式 (+852 9603 6825)" : "透過 WhatsApp 聯絡「希瑪關懷大使」聯繫方式 (+852 9603 6825)"}
             >
               <svg
@@ -317,6 +320,7 @@ const awardBadges = [
             <img draggable="false"
               src="https://statichk.cmermedical.com/smile/group-profile/cmer-group-care-ambassador.svg"
               alt={isCn ? "香港希玛眼科医疗集团关怀大使吉祥物" : "香港希瑪眼科醫療集團關懷大使吉祥物"}
+              title={isCn ? "香港希玛眼科医疗集团关怀大使吉祥物" : "香港希瑪眼科醫療集團關懷大使吉祥物"}
               loading="lazy"
               decoding="async"
               width="320"
@@ -413,6 +417,7 @@ const awardBadges = [
                 <img draggable="false"
                   src={badge.src}
                   alt={badge.alt}
+                  title={badge.alt}
                   loading="lazy"
                   decoding="async"
                   width="132"

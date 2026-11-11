@@ -54,17 +54,21 @@ const typeConfig: Record<VideoType, { bg: string; label: string; color: string }
             displayVideos.map((item) => {
               const primaryType = item.type[0];
               const currentConfig = typeConfig[primaryType];
+              const cleanTitle = item.title.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+              const cardTitle = [cleanTitle, item.name, item.enName].filter(Boolean).join(" - ");
               return (
                 <a
                   href={item.link}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title={cardTitle}
                   class="video-item shrink-0 grow-0 aspect-3/5 w-50 lg:w-66 overflow-hidden group"
                   draggable="false"
                 >
                   <Picture
                     src={item.img}
-                    alt={item.name}
+                    alt={cardTitle}
+                    title={cardTitle}
                     formats={["avif", "webp"]}
                     fallbackFormat="jpg"
                     width={265}

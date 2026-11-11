@@ -85,7 +85,11 @@ const initialBlogPostingSchema = {
 
       <div id="article-empty" class="article-empty" hidden>
         <p id="article-empty-text" class="article-empty-text" />
-        <a href={blogListPath} class="article-back-link">
+        <a
+          href={blogListPath}
+          class="article-back-link"
+          title={isCn ? "返回科普专栏" : "返回科普專欄"}
+        >
           {isCn ? "返回科普专栏" : "返回科普專欄"}
         </a>
       </div>
@@ -94,7 +98,15 @@ const initialBlogPostingSchema = {
 
       <div id="article-source" class="source" hidden>
         <div>{isCn ? "资料来源：" : "資料來源："}</div>
-        <a id="article-source-link" href="#" target="_blank" rel="noopener noreferrer" />
+        <a
+          id="article-source-link"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          title={isCn ? "资料来源" : "資料來源"}
+        >
+          {isCn ? "资料来源" : "資料來源"}
+        </a>
       </div>
     </article>
   </div>
@@ -299,6 +311,15 @@ const initialBlogPostingSchema = {
 
       if (bodyEl) {
         bodyEl.innerHTML = data.content || "";
+        bodyEl.querySelectorAll("img").forEach((img) => {
+          const fallback = img.getAttribute("alt")?.trim() || data.title || "";
+          if (!img.getAttribute("alt")?.trim() && fallback) img.setAttribute("alt", fallback);
+          if (!img.getAttribute("title")?.trim() && fallback) img.setAttribute("title", fallback);
+        });
+        bodyEl.querySelectorAll("a").forEach((a) => {
+          const text = a.textContent?.trim() || a.getAttribute("aria-label")?.trim() || data.title || "";
+          if (!a.getAttribute("title")?.trim() && text) a.setAttribute("title", text);
+        });
       }
 
       const excludedSourceIds = ["159"];
@@ -308,8 +329,10 @@ const initialBlogPostingSchema = {
         data.source &&
         !excludedSourceIds.includes(articleId)
       ) {
+        const sourceLabel = data.author || data.source;
         sourceLinkEl.href = data.source;
-        sourceLinkEl.textContent = data.author || data.source;
+        sourceLinkEl.textContent = sourceLabel;
+        sourceLinkEl.title = sourceLabel;
         sourceEl.hidden = false;
       }
 

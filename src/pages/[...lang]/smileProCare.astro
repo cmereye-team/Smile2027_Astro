@@ -57,6 +57,7 @@ const currentUrl = isCn ? "/cn/smileProCare" : "/smileProCare";
           href={content.banner.ctaUrl}
           target="_blank"
           rel="noopener noreferrer"
+          title={`${content.banner.ctaLine1} ${content.banner.ctaLine2}`}
           data-cta="whatsapp"
           class="button-round center"
         >
@@ -244,6 +245,7 @@ const currentUrl = isCn ? "/cn/smileProCare" : "/smileProCare";
           href={content.choose.ctaUrl}
           target="_blank"
           rel="noopener noreferrer"
+          title={content.choose.ctaText}
           data-cta="whatsapp"
           class="choose-btn center bg-care py-3 px-6 lg:px-5 rounded-lg w-fit mx-auto"
         >

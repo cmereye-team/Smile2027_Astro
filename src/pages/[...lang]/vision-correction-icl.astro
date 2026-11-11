@@ -59,6 +59,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
         decoding="async"
         src={content.banner.imgPc}
         alt="ICL 植入式隱形眼鏡 - 香港希瑪微笑矯視中心"
+        title="ICL 植入式隱形眼鏡 - 香港希瑪微笑矯視中心"
         loading="eager"
         fetchpriority="high"
         width="685"
@@ -85,7 +86,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
     <section class="smile-newCenter" aria-labelledby="center-intro-title">
       <div class="site-container">
         <nav class="smile-newCenter-menu" aria-label="麵包屑導航">
-          <a href={isCn ? "/cn/" : "/"}>{content.breadcrumb.home}</a>&nbsp;&gt;&nbsp;<span class="text-text">{content.breadcrumb.service}</span>&nbsp;&gt;&nbsp;<a href={isCn ? "/cn/vision-correction-icl" : "/vision-correction-icl"}>{content.breadcrumb.current}</a>
+          <a href={isCn ? "/cn/" : "/"} title={content.breadcrumb.home}>{content.breadcrumb.home}</a>&nbsp;&gt;&nbsp;<span class="text-text">{content.breadcrumb.service}</span>&nbsp;&gt;&nbsp;<a href={isCn ? "/cn/vision-correction-icl" : "/vision-correction-icl"} title={content.breadcrumb.current}>{content.breadcrumb.current}</a>
         </nav>
       </div>
       <div class="w-full smile-newCenter-content">
@@ -119,6 +120,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
             decoding="async"
             src={content.whyChoose.imgPc}
             alt="為何選擇希瑪 - 官方認證EVO ICL國際培訓中心"
+            title="為何選擇希瑪 - 官方認證EVO ICL國際培訓中心"
             loading="lazy"
             width="595"
             height="384"
@@ -154,6 +156,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
         href={content.whyChoose.whatsappUrl}
         class="mx-auto icl-btn"
         data-cta="whatsapp"
+        title={content.whyChoose.btn}
         aria-label="預約諮詢 (W-13)"
       >
         <span>{content.whyChoose.btn}</span>
@@ -209,6 +212,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
           <div class="mt-8 md:mt-12 flex flex-col items-center">
             <a
               href={feeUrl}
+              title={content.fee.btn}
               class="md:w-auto bg-[#4570B6] text-white px-10 py-4 md:py-5 md:px-[100px] rounded-full text-2xl md:text-4xl font-bold flex items-center justify-center gap-3 transition-colors hover:bg-[#345996]"
               data-cta="fee"
             >
@@ -318,7 +322,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
         {content.good.items.map((item) => (
           <div class="icl-Good-List-item">
             <div class="lg:size-20 flex justify-center items-center">
-              <img draggable="false" src={item.icon} alt={item.title} loading="lazy" width="60" height="60" />
+              <img draggable="false" src={item.icon} alt={item.title} title={item.title} loading="lazy" width="60" height="60" />
             </div>
             <h3>{item.title}</h3>
             <div>
@@ -346,7 +350,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
                 <p class="icl-peculiarity-list-item-text-title">{item.title}</p>
                 <div class="icl-peculiarity-list-item-text-show">
                   <div class="icl-peculiarity-list-item-text-show-box">
-                    <img draggable="false" src={item.boxImg} alt={item.title} loading="lazy" width="80" height="80" />
+                    <img draggable="false" src={item.boxImg} alt={item.title} title={item.title} loading="lazy" width="80" height="80" />
                     <div class="icl-peculiarity-list-item-box-title">
                       {item.boxTitleText.map((t) => <p>{t}</p>)}
                     </div>
@@ -419,6 +423,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
                   class="d-xl-none"
                   src={content.steps.list[0].image}
                   alt="ICL 手術過程"
+                  title="ICL 手術過程"
                   loading="lazy"
                   width="300"
                   height="200"
@@ -428,6 +433,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
                   class="d-none d-xl-block"
                   src={content.steps.list[0].imagePc}
                   alt="ICL 手術過程"
+                  title="ICL 手術過程"
                   loading="lazy"
                   width="440"
                   height="290"
@@ -471,7 +477,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
           <div class="SuitableObject-description">
             {item.desc.map((d) => <p>{d}</p>)}
           </div>
-          <img draggable="false" class="SuitableObject-image" src={item.image} alt={item.desc.join('')} loading="lazy" width="220" height="220" />
+          <img draggable="false" class="SuitableObject-image" src={item.image} alt={item.desc.join('')} title={item.desc.join('')} loading="lazy" width="220" height="220" />
         </div>
       ))}
       <div class="SuitableObject-speical">
@@ -503,6 +509,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
         class="mx-auto icl-btn"
         data-cta="whatsapp"
         aria-label="預約諮詢 (W-13)"
+        title={content.check.btn}
       >
         <span>{content.check.btn}</span>
         <svg
@@ -548,7 +555,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
           {content.latestNews.desc}
         </p>
       </div>
-      <a href={getLocalizedHref(content.latestNews.href, lang)} class="latestNews-btn">
+      <a href={getLocalizedHref(content.latestNews.href, lang)} class="latestNews-btn" title={content.latestNews.btn}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="23"
@@ -664,8 +671,14 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
       });
       const data = stepsData[activeStep];
       if (data) {
-        if (stepImgMb) stepImgMb.src = data.image;
-        if (stepImgPc) stepImgPc.src = data.imagePc;
+        if (stepImgMb) {
+          stepImgMb.src = data.image;
+          stepImgMb.title = data.text;
+        }
+        if (stepImgPc) {
+          stepImgPc.src = data.imagePc;
+          stepImgPc.title = data.text;
+        }
         if (stepText) stepText.textContent = data.text;
       }
     }

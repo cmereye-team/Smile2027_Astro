@@ -68,6 +68,7 @@ const currentUrl = isCn
         >
           <a
             href={isCn ? "/cn/" : "/"}
+            title={content.breadcrumb.home}
             class="hover:text-primary transition-colors duration-[var(--dur)] ease-[var(--ease-out)]"
           >
             {content.breadcrumb.home}
@@ -140,6 +141,7 @@ const currentUrl = isCn
                 <img
                   src={step.img}
                   alt={step.alt}
+                  title={step.alt}
                   width={step.width}
                   height={step.height}
                   draggable="false"
@@ -223,43 +225,47 @@ const currentUrl = isCn
           class="suitable-list flex flex-wrap justify-center px-3"
         >
           {
-            content.suitable.items.map((item) => (
-              <li role="listitem" class="suitable-item">
-                <figure>
-                  <div class="flex justify-center items-center size-[16.41vw] md:size-[6.25vw] md:max-w-[120px] md:max-h-[120px] mx-auto mb-2 md:mb-2">
-                    <img
-                      src={item.icon}
-                      alt=""
-                      aria-hidden="true"
-                      draggable="false"
-                      loading="lazy"
-                      decoding="async"
-                      class="size-full object-contain"
-                    />
-                  </div>
-                  <figcaption>
-                    <p class="text-[#6d6e71] text-center leading-[1.1] lg:leading-relaxed">
-                      <span class="hidden lg:inline">
-                        {item.pcText.map((line, i) => (
-                          <>
-                            {i > 0 && <br />}
-                            {line}
-                          </>
-                        ))}
-                      </span>
-                      <span class="lg:hidden">
-                        {item.mbText.map((line, i) => (
-                          <>
-                            {i > 0 && <br />}
-                            {line}
-                          </>
-                        ))}
-                      </span>
-                    </p>
-                  </figcaption>
-                </figure>
-              </li>
-            ))
+            content.suitable.items.map((item) => {
+              const suitableLabel = item.pcText.join(" ");
+              return (
+                <li role="listitem" class="suitable-item">
+                  <figure>
+                    <div class="flex justify-center items-center size-[16.41vw] md:size-[6.25vw] md:max-w-[120px] md:max-h-[120px] mx-auto mb-2 md:mb-2">
+                      <img
+                        src={item.icon}
+                        alt={suitableLabel}
+                        title={suitableLabel}
+                        aria-hidden="true"
+                        draggable="false"
+                        loading="lazy"
+                        decoding="async"
+                        class="size-full object-contain"
+                      />
+                    </div>
+                    <figcaption>
+                      <p class="text-[#6d6e71] text-center leading-[1.1] lg:leading-relaxed">
+                        <span class="hidden lg:inline">
+                          {item.pcText.map((line, i) => (
+                            <>
+                              {i > 0 && <br />}
+                              {line}
+                            </>
+                          ))}
+                        </span>
+                        <span class="lg:hidden">
+                          {item.mbText.map((line, i) => (
+                            <>
+                              {i > 0 && <br />}
+                              {line}
+                            </>
+                          ))}
+                        </span>
+                      </p>
+                    </figcaption>
+                  </figure>
+                </li>
+              );
+            })
           }
         </ul>
       </div>
@@ -268,6 +274,7 @@ const currentUrl = isCn
         href={content.appointment.whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
+        title={content.appointment.btn}
         data-cta="whatsapp-w07"
         class="lasik-cta-btn flex justify-center items-center gap-2 md:gap-4 bg-primary hover:bg-primary-hover text-white text-xl md:text-4xl w-fit mx-auto rounded-[100px] md:rounded-[180px] py-3 px-8 md:py-7 md:px-14 transition-colors duration-[var(--dur)] ease-[var(--ease-out)]"
       >

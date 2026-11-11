@@ -43,12 +43,15 @@ const items: BannerItem[] = banners || (await getBanners(lang));
               href={item.link || "#"}
               target={item.isExternal ? "_blank" : undefined}
               rel={item.isExternal ? "noopener noreferrer" : undefined}
+              title={item.title}
+              aria-label={item.title}
               tabindex={index === 0 ? 0 : -1}
               draggable="false"
             >
               <img
                 src={item.mbImg || item.pcImg}
                 alt={item.title}
+                title={item.title}
                 width="400"
                 height="400"
                 loading="lazy"

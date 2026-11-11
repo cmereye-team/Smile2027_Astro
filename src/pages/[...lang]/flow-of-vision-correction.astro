@@ -41,14 +41,14 @@ const breadcrumbItems = [
   <div class="flow-page font-hk text-desc relative overflow-x-clip">
     {/* 1. 頂部統一橫幅 Banner */}
     <section class="page-banner" aria-label={content.banner.title}>
-      <div class="site-container">
-        <div
-          class="page-banner-card"
-          style={{
-            "--banner-bg-pc": "url('https://statichk.cmermedical.com/imgs/2023/03/f749408bdb90b101.jpg')",
-            "--banner-bg-mb": "url('https://statichk.cmermedical.com/imgs/2023/03/8a339705a6d7abed.jpg')",
-          }}
-        >
+      <div
+        class="page-banner-card"
+        style={{
+          "--banner-bg-pc": "url('https://statichk.cmermedical.com/imgs/2023/03/f749408bdb90b101.jpg')",
+          "--banner-bg-mb": "url('https://statichk.cmermedical.com/imgs/2023/03/8a339705a6d7abed.jpg')",
+        }}
+      >
+        <div class="site-container">
           <div class="page-banner-content">
             <h1 class="page-banner-title">{content.banner.title}</h1>
           </div>
@@ -70,22 +70,26 @@ const breadcrumbItems = [
       <div>
         <div class="flex my-10 process-step justify-around">
           {
-            content.process.steps.map((item) => (
-              <div class="step-box">
-                <div class="step">
-                  <img
-                    src={item.img}
-                    alt=""
-                    draggable="false"
-                    loading="lazy"
-                    decoding="async"
-                  />
+            content.process.steps.map((item) => {
+              const stepText = item.textHtml.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+              return (
+                <div class="step-box">
+                  <div class="step">
+                    <img
+                      src={item.img}
+                      alt={stepText}
+                      title={stepText}
+                      draggable="false"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  <div class="step-txt">
+                    <span set:html={item.textHtml} />
+                  </div>
                 </div>
-                <div class="step-txt">
-                  <span set:html={item.textHtml} />
-                </div>
-              </div>
-            ))
+              );
+            })
           }
         </div>
       </div>
@@ -106,19 +110,23 @@ const breadcrumbItems = [
             <div class="regard-box text-center">
               <span class="title">{box.title}</span>
               <div class="md:flex regard-items">
-                {box.items.map((item) => (
-                  <div class="regard">
-                    <img
-                      src={item.img}
-                      alt=""
-                      draggable="false"
-                      loading="lazy"
-                      decoding="async"
-                      class:list={["mb-5", item.imgClass]}
-                    />
-                    <span set:html={item.textHtml} />
-                  </div>
-                ))}
+                {box.items.map((item) => {
+                  const itemText = item.textHtml.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+                  return (
+                    <div class="regard">
+                      <img
+                        src={item.img}
+                        alt={itemText}
+                        title={itemText}
+                        draggable="false"
+                        loading="lazy"
+                        decoding="async"
+                        class:list={["mb-5", item.imgClass]}
+                      />
+                      <span set:html={item.textHtml} />
+                    </div>
+                  );
+                })}
               </div>
             </div>
           ))
@@ -129,19 +137,23 @@ const breadcrumbItems = [
         <div class="regard-box text-center">
           <span class="title">{content.regard.bottomCard.title}</span>
           {
-            content.regard.bottomCard.items.map((item) => (
-              <div class="regard">
-                <img
-                  src={item.img}
-                  alt=""
-                  draggable="false"
-                  loading="lazy"
-                  decoding="async"
-                  class:list={["mb-5", item.imgClass]}
-                />
-                <span set:html={item.textHtml} />
-              </div>
-            ))
+            content.regard.bottomCard.items.map((item) => {
+              const itemText = item.textHtml.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+              return (
+                <div class="regard">
+                  <img
+                    src={item.img}
+                    alt={itemText}
+                    title={itemText}
+                    draggable="false"
+                    loading="lazy"
+                    decoding="async"
+                    class:list={["mb-5", item.imgClass]}
+                  />
+                  <span set:html={item.textHtml} />
+                </div>
+              );
+            })
           }
         </div>
       </div>
@@ -151,13 +163,15 @@ const breadcrumbItems = [
           href={content.cta.whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
+          title={content.cta.label}
           class="btn-yuyue-link"
           data-cta="whatsapp"
         >
           <div class="flex btn-yuyue items-center">
             <img
               src={content.cta.icon}
-              alt=""
+              alt={content.cta.label}
+              title={content.cta.label}
               draggable="false"
               loading="lazy"
               decoding="async"

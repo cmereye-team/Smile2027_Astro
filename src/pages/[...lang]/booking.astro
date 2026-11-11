@@ -48,12 +48,14 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
         {/* 卡片 1: 講座 (跳轉至講座預約專頁 /ophthalmicInfo/AppointForm) */}
         <a
           href={isCn ? "/cn/ophthalmicInfo/AppointForm" : "/ophthalmicInfo/AppointForm"}
+          title={content.serve.lectureTitle}
           class="serve-box-link"
         >
           <div class="serve-box">
             <img
               src={content.serve.lectureIcon}
               alt={content.serve.lectureTitle}
+              title={content.serve.lectureTitle}
               draggable="false"
               loading="eager"
               width="100"
@@ -66,12 +68,14 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
         {/* 卡片 2: 術前眼睛檢查 (跳轉至診症須知術前檢查) */}
         <a
           href={isCn ? "/cn/patient-info#PreCorrection" : "/patient-info#PreCorrection"}
+          title={content.serve.examTitle}
           class="serve-box-link"
         >
           <div class="serve-box">
             <img
               src={content.serve.examIcon}
               alt={content.serve.examTitle}
+              title={content.serve.examTitle}
               draggable="false"
               loading="eager"
               width="100"
@@ -88,13 +92,15 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
           href={content.serve.whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
+          title={content.serve.whatsappCta}
           class="whatsapp-booking-btn"
           data-cta="whatsapp"
         >
           <div class="flex btn-yuyue items-center">
             <img
               src={content.serve.whatsappIcon}
-              alt=""
+              alt={content.serve.whatsappCta}
+              title={content.serve.whatsappCta}
               draggable="false"
               class="w-10 h-10 md:w-12 md:h-12"
               width="48"

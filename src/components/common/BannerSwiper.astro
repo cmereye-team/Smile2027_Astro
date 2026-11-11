@@ -28,6 +28,7 @@ const banners: BannerItem[] = await getBanners(lang);
                   rel={banner.isExternal ? "noopener noreferrer" : undefined}
                   class="banner-card-link"
                   title={banner.title}
+                  aria-label={banner.title}
                   data-cta="banner"
                   data-banner-id={banner.id}
                 >

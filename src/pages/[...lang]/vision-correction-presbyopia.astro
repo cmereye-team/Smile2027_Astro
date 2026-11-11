@@ -62,7 +62,7 @@ const currentUrl = isCn
         <div class="ClearVisionBanner-Box">
           <div class="ClearVisionBanner-Box-content">
             <div class="ClearVisionBanner-Box-content-title">
-              <a href={content.banner.smallTagLink} class="cursor-pointer">
+              <a href={content.banner.smallTagLink} class="cursor-pointer" title="Presbyopia Treatments">
                 Presbyopia <br class="d-lg-none" />
                 Treatments
               </a>
@@ -71,7 +71,7 @@ const currentUrl = isCn
                 希瑪微笑矯視中心主要提供三種<br class="d-lg-none" />可矯正老花的矯視服務
               </p>
               <p>
-                <a href={content.banner.p2Link1Href}>{content.banner.p2Link1Text}</a>{content.banner.p2And}<a href={content.banner.p2Link2Href}>{content.banner.p2Link2Text}</a>
+                <a href={content.banner.p2Link1Href} title={content.banner.p2Link1Text}>{content.banner.p2Link1Text}</a>{content.banner.p2And}<a href={content.banner.p2Link2Href} title={content.banner.p2Link2Text}>{content.banner.p2Link2Text}</a>
               </p>
               <p>
                 {content.banner.p3}
@@ -83,6 +83,7 @@ const currentUrl = isCn
                 decoding="async"
                 src={content.banner.imgPc}
                 alt={content.banner.imgAlt}
+                title={content.banner.imgAlt}
                 loading="lazy"
                 width="100%"
                 height="100%"
@@ -126,6 +127,7 @@ const currentUrl = isCn
             decoding="async"
             src={content.schemes.showImgPc}
             alt={content.schemes.title}
+            title={content.schemes.title}
             loading="lazy"
             width="100%"
             height="100%"
@@ -138,8 +140,9 @@ const currentUrl = isCn
             {content.schemes.title}
           </div>
           <div class="CorrectionProgram-Box-hide-item-container">
-            {content.schemes.items.map((item) => (
-              !item.isSimple ? (
+            {content.schemes.items.map((item) => {
+              const schemeAlt = item.imgAlt || item.title.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+              return !item.isSimple ? (
                 <div class="CorrectionProgram-Box-hide-item" id={item.id}>
                   <div class="CorrectionProgram-Box-hide-item-top">
                     <picture>
@@ -149,7 +152,8 @@ const currentUrl = isCn
                       <img
                         draggable="false"
                         src={item.imgJpg || item.imgWp}
-                        alt={item.imgAlt || ""}
+                        alt={schemeAlt}
+                        title={schemeAlt}
                       />
                     </picture>
                     <div class="CorrectionProgram-Box-hide-item-top-text">
@@ -176,8 +180,8 @@ const currentUrl = isCn
                     <h3 set:html={item.title} />
                   </div>
                 </div>
-              )
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
@@ -188,6 +192,7 @@ const currentUrl = isCn
         href={content.schemes.whatsappUrl}
         class="publicBtn-booking"
         data-cta="whatsapp-w06"
+        title={content.schemes.ctaBtnText}
       >
         <span>{content.schemes.ctaBtnText}</span>
         <svg
@@ -219,7 +224,9 @@ const currentUrl = isCn
         draggable="false"
         decoding="async"
         src={content.battle.bgPc}
-        alt="背景圖"
+        alt={content.battle.title}
+        title={content.battle.title}
+        aria-hidden="true"
         loading="lazy"
         width="100%"
         height="100%"
@@ -239,6 +246,7 @@ const currentUrl = isCn
                     draggable="false"
                     src="https://statichk.cmermedical.com/smile/clear-visionV2/clearAppointment/success.svg"
                     alt="對勾"
+                    title="對勾"
                   />
                   <span set:html={pt} />
                 </p>
@@ -281,6 +289,7 @@ const currentUrl = isCn
                     draggable="false"
                     src="https://statichk.cmermedical.com/smile/clear-visionV2/clearAppointment/success.svg"
                     alt="對勾"
+                    title="對勾"
                   />
                   <span set:html={pt} />
                 </p>
@@ -312,6 +321,7 @@ const currentUrl = isCn
                     draggable="false"
                     src="https://statichk.cmermedical.com/smile/clear-visionV2/clearAppointment/success.svg"
                     alt="對勾"
+                    title="對勾"
                   />
                   <span set:html={pt} />
                 </p>
@@ -440,7 +450,8 @@ const currentUrl = isCn
                               ? "https://statichk.cmermedical.com/smile/feeV2/success.svg"
                               : "https://statichk.cmermedical.com/smile/feeV2/error.svg"
                           }
-                          alt="標記"
+                          alt={row.col1Badge.text}
+                          title={row.col1Badge.text}
                         />
                         {row.col1Badge.text}
                       </span>
@@ -452,7 +463,8 @@ const currentUrl = isCn
                             ? "https://statichk.cmermedical.com/smile/feeV2/success.svg"
                             : "https://statichk.cmermedical.com/smile/feeV2/error.svg"
                         }
-                        alt="不包括"
+                        alt={row.col1Badge?.success ? "包括" : "不包括"}
+                        title={row.col1Badge?.success ? "包括" : "不包括"}
                         class="mx-auto"
                       />
                     )}
@@ -467,7 +479,8 @@ const currentUrl = isCn
                               ? "https://statichk.cmermedical.com/smile/feeV2/success.svg"
                               : "https://statichk.cmermedical.com/smile/feeV2/error.svg"
                           }
-                          alt="標記"
+                          alt={row.col2Badge.text}
+                          title={row.col2Badge.text}
                         />
                         {row.col2Badge.text}
                       </span>
@@ -479,7 +492,8 @@ const currentUrl = isCn
                             ? "https://statichk.cmermedical.com/smile/feeV2/success.svg"
                             : "https://statichk.cmermedical.com/smile/feeV2/error.svg"
                         }
-                        alt="不包括"
+                        alt={row.col2Badge?.success ? "包括" : "不包括"}
+                        title={row.col2Badge?.success ? "包括" : "不包括"}
                         class="mx-auto"
                       />
                     )}
@@ -494,7 +508,8 @@ const currentUrl = isCn
                               ? "https://statichk.cmermedical.com/smile/feeV2/success.svg"
                               : "https://statichk.cmermedical.com/smile/feeV2/error.svg"
                           }
-                          alt="標記"
+                          alt={row.col3Badge.text}
+                          title={row.col3Badge.text}
                         />
                         {row.col3Badge.text}
                       </div>
@@ -506,7 +521,8 @@ const currentUrl = isCn
                             ? "https://statichk.cmermedical.com/smile/feeV2/success.svg"
                             : "https://statichk.cmermedical.com/smile/feeV2/error.svg"
                         }
-                        alt="不包括"
+                        alt={row.col3Badge?.success ? "包括" : "不包括"}
+                        title={row.col3Badge?.success ? "包括" : "不包括"}
                         class="mx-auto"
                       />
                     )}
@@ -551,6 +567,7 @@ const currentUrl = isCn
                         draggable="false"
                         src={s.img}
                         alt={s.alt}
+                        title={s.alt || s.title}
                         class="lbv-background-image"
                       />
                     </div>
@@ -589,11 +606,13 @@ const currentUrl = isCn
     <!-- 7. 預約講座與諮詢 -->
     <section class="clearAppointment">
       <div class="clearAppointment-Box">
-        <a href={appointFormUrl} class="clearAppointment-Box-item">
+        <a href={appointFormUrl} class="clearAppointment-Box-item" title={content.appointment.lectureText}>
           <img
             draggable="false"
             src={content.appointment.lectureIcon}
-            alt=""
+            alt={content.appointment.lectureText}
+            title={content.appointment.lectureText}
+            aria-hidden="true"
           />
           <p>{content.appointment.lectureText}</p>
           <div class="clearAppointment-Box-item-icon">
@@ -625,11 +644,14 @@ const currentUrl = isCn
           href={content.appointment.consultHref}
           class="clearAppointment-Box-item"
           data-cta="whatsapp-w06"
+          title={content.appointment.consultText}
         >
           <img
             draggable="false"
             src={content.appointment.consultIcon}
-            alt=""
+            alt={content.appointment.consultText}
+            title={content.appointment.consultText}
+            aria-hidden="true"
           />
           <p>{content.appointment.consultText}</p>
           <div class="clearAppointment-Box-item-icon">
@@ -664,7 +686,9 @@ const currentUrl = isCn
         draggable="false"
         decoding="async"
         src={content.suitable.bgRightPc}
-        alt=""
+        alt={content.suitable.title}
+        title={content.suitable.title}
+        aria-hidden="true"
         loading="lazy"
         width="100%"
         height="100%"
@@ -675,13 +699,17 @@ const currentUrl = isCn
       <img
         draggable="false"
         src={content.suitable.bgLeft1}
-        alt=""
+        alt={content.suitable.title}
+        title={content.suitable.title}
+        aria-hidden="true"
         class="SuitableObject-bgLeft1"
       />
       <img
         draggable="false"
         src={content.suitable.bgLeft2}
-        alt=""
+        alt={content.suitable.title}
+        title={content.suitable.title}
+        aria-hidden="true"
         class="SuitableObject-bgLeft2"
       />
       <div class="SuitableObject-Box site-container">
@@ -690,18 +718,21 @@ const currentUrl = isCn
           <p set:html={content.suitable.subtitleHtml} />
         </div>
         <div class="SuitableObject-Box-List">
-          {content.suitable.items.map((it) => (
-            <div class="SuitableObject-Box-List-item">
-              <img draggable="false" src={it.icon} alt="" />
-              <p set:html={it.html} />
-            </div>
-          ))}
+          {content.suitable.items.map((it) => {
+            const itemText = it.html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+            return (
+              <div class="SuitableObject-Box-List-item">
+                <img draggable="false" src={it.icon} alt={itemText} title={itemText} />
+                <p set:html={it.html} />
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
 
     <!-- 了解老花矯視價格 按鈕 -->
-    <a href={feeUrl} class="publicBtn-booking">
+    <a href={feeUrl} class="publicBtn-booking" title={content.suitable.feeBtnText}>
       <span>{content.suitable.feeBtnText}</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -802,6 +833,9 @@ const currentUrl = isCn
           id="shareCurrentPagePresbyopia"
           class="cursor-pointer"
           aria-label="分享本頁"
+          title="分享本頁"
+          role="button"
+          tabindex="0"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -820,6 +854,9 @@ const currentUrl = isCn
           id="copyCurrentUrlPresbyopia"
           class="cursor-pointer"
           aria-label="複製本頁鏈接"
+          title="複製本頁鏈接"
+          role="button"
+          tabindex="0"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

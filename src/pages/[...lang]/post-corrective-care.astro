@@ -34,15 +34,15 @@ const breadcrumbItems = [
   <div class="post-care-page font-hk text-desc relative overflow-x-clip">
     {/* 1. 頂部統一橫幅 Banner */}
     <section class="page-banner" aria-label={content.banner.title}>
-      <div class="site-container">
-        <div
-          class="page-banner-card"
-          style={{
-            "--banner-bg-pc": "url('https://statichk.cmermedical.com/imgs/2023/04/8f47623cd90f0a16.jpg')",
-            "--banner-bg-mb": "url('https://statichk.cmermedical.com/imgs/2023/04/8fa6057ae84f4a7d.jpg')",
-            "--banner-bg-pos-pc": "top right",
-          }}
-        >
+      <div
+        class="page-banner-card"
+        style={{
+          "--banner-bg-pc": "url('https://statichk.cmermedical.com/imgs/2023/04/8f47623cd90f0a16.jpg')",
+          "--banner-bg-mb": "url('https://statichk.cmermedical.com/imgs/2023/04/8fa6057ae84f4a7d.jpg')",
+          "--banner-bg-pos-pc": "top right",
+        }}
+      >
+        <div class="site-container">
           <div class="page-banner-content">
             <h1 class="page-banner-title">{content.banner.title}</h1>
           </div>
@@ -109,13 +109,15 @@ const breadcrumbItems = [
           href={content.cta.whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
+          title={content.cta.label}
           class="btn-yuyue-link"
           data-cta="whatsapp"
         >
           <div class="flex btn-yuyue items-center">
             <img
               src={content.cta.icon}
-              alt=""
+              alt={content.cta.label}
+              title={content.cta.label}
               draggable="false"
               loading="lazy"
               decoding="async"

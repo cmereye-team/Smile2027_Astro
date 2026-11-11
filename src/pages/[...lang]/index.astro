@@ -70,8 +70,8 @@ const serverList = [
         <!-- 希瑪微笑矯視中心 (100% 原版還原) -->
     <section class="centerIntro">
       <div class="container centerIntroBox">
-        <img draggable="false" class="centerSevice-svg-top" src="/images/home/deco/aiming-circle.svg" alt="" width="278" height="278" aria-hidden="true" />
-        <img draggable="false" class="centerSevice-svg-bottom" src="/images/home/deco/lens-path.svg" alt="" width="299" height="285" aria-hidden="true" />
+        <img draggable="false" class="centerSevice-svg-top" src="/images/home/deco/aiming-circle.svg" alt="" title={dict.home.title} width="278" height="278" aria-hidden="true" />
+        <img draggable="false" class="centerSevice-svg-bottom" src="/images/home/deco/lens-path.svg" alt="" title={dict.home.title} width="299" height="285" aria-hidden="true" />
         <div class="centerIntroBox-top">
           <h2 class="centerIntroBox-top-title">
             {dict.home.title}
@@ -91,29 +91,33 @@ const serverList = [
         <div class="centerSevice">
           <div class="centerSeviceNewList">
             {
-              serverList.map((item) => (
-                <a
-                  href={getLocalizedHref(item.link, lang)}
-                  class="centerSeviceNewItem"
-                  data-cta="service_card"
-                  title={`了解更多 ${item.title.replace(/<[^>]*>/g, "")} 矯視方案詳情`}
-                >
-                  <h3 set:html={item.title} />
-                  <div class="centerSeviceNewItem-text">
-                    {item.text.map((text) => (
-                      <p>{text}</p>
-                    ))}
-                  </div>
-                  <img draggable="false"
-                    class="centerSeviceNewItem-arrow"
-                    src="/images/icons/arrow-up-right.svg"
-                    alt=""
-                    width="29"
-                    height="30"
-                    aria-hidden="true"
-                  />
-                </a>
-              ))
+              serverList.map((item) => {
+                const serviceTitle = item.title.replace(/<[^>]*>/g, "");
+                return (
+                  <a
+                    href={getLocalizedHref(item.link, lang)}
+                    class="centerSeviceNewItem"
+                    data-cta="service_card"
+                    title={`了解更多 ${serviceTitle} 矯視方案詳情`}
+                  >
+                    <h3 set:html={item.title} />
+                    <div class="centerSeviceNewItem-text">
+                      {item.text.map((text) => (
+                        <p>{text}</p>
+                      ))}
+                    </div>
+                    <img draggable="false"
+                      class="centerSeviceNewItem-arrow"
+                      src="/images/icons/arrow-up-right.svg"
+                      alt={serviceTitle}
+                      title={serviceTitle}
+                      width="29"
+                      height="30"
+                      aria-hidden="true"
+                    />
+                  </a>
+                );
+              })
             }
           </div>
           <div class="centerSevice-btn-List">
@@ -156,6 +160,7 @@ const serverList = [
                 class="fourFeature-Box-title-right-svgone"
                 src="/images/home/features/title-text.svg"
                 alt="四大特色"
+                title="四大特色"
                 width="157"
                 height="82"
                 aria-hidden="true"
@@ -189,6 +194,7 @@ const serverList = [
               <img draggable="false"
                 src="/images/home/features/icon-cases.svg"
                 alt="35,000宗微笑矯視案例"
+                title="35,000宗微笑矯視案例"
                 width="110"
                 height="114"
                 aria-hidden="true"
@@ -201,6 +207,7 @@ const serverList = [
               <img draggable="false"
                 src="/images/home/features/icon-training.svg"
                 alt="香港上市眼科中心"
+                title="香港上市眼科中心"
                 width="98"
                 height="116"
                 aria-hidden="true"
@@ -213,6 +220,7 @@ const serverList = [
               <img draggable="false"
                 src="/images/home/features/icon-doctors.svg"
                 alt="眼科專科醫生團隊"
+                title="眼科專科醫生團隊"
                 width="106"
                 height="107"
                 aria-hidden="true"
@@ -225,6 +233,7 @@ const serverList = [
               <img draggable="false"
                 src="/images/home/features/icon-space.svg"
                 alt="8000尺中心環境"
+                title="8000尺中心環境"
                 width="142"
                 height="100"
                 aria-hidden="true"

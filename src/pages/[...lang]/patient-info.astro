@@ -40,7 +40,8 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
         draggable="false"
         decoding="async"
         src={content.banner.imgPc}
-        alt=""
+        alt={content.banner.title}
+        title={content.banner.title}
         loading="eager"
         fetchpriority="high"
         width="100%"
@@ -59,8 +60,8 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
       class="site-container menu-breadcrumb"
       aria-label={isCn ? "面包屑导航" : "麵包屑導航"}
     >
-      <a href={isCn ? "/cn/" : "/"}>{content.breadcrumb.home} &gt; </a>
-      <a href={isCn ? "/cn/patient-info" : "/patient-info"}
+      <a href={isCn ? "/cn/" : "/"} title={content.breadcrumb.home}>{content.breadcrumb.home} &gt; </a>
+      <a href={isCn ? "/cn/patient-info" : "/patient-info"} title={content.breadcrumb.current}
         >{content.breadcrumb.current}</a
       >
     </nav>
@@ -74,7 +75,7 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
         {
           content.tabs.map((tab, index) => (
             <li class={index === 0 ? "active" : ""} data-tab-id={tab.id}>
-              <a href={`#${tab.id}`}>{tab.label}</a>
+              <a href={`#${tab.id}`} title={tab.label}>{tab.label}</a>
             </li>
           ))
         }
@@ -98,11 +99,12 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
         </div>
         <ul class="check-eye-list d-flex flex-wrap">
           {
-            content.checkEye.images.map((src) => (
+            content.checkEye.images.map((src, idx) => (
               <li>
                 <img
                   src={src}
-                  alt=""
+                  alt={`${content.tabs[0].label} (${idx + 1})`}
+                  title={`${content.tabs[0].label} (${idx + 1})`}
                   draggable="false"
                   loading="eager"
                   decoding="async"
@@ -122,7 +124,8 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
       <div class="CorrectedVisionBefore-iframe">
         <img
           src={content.correctedVisionBefore.icon}
-          alt=""
+          alt={content.correctedVisionBefore.iframeTitle}
+          title={content.correctedVisionBefore.iframeTitle}
           draggable="false"
           loading="lazy"
           decoding="async"
@@ -148,27 +151,33 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
         </h2>
         <div class="CorrectedVisionBefore-Process">
           {
-            content.correctedVisionBefore.steps.map((step) => (
-              <div class="CorrectedVisionBefore-Process-item">
-                <img
-                  class="CorrectedVisionBefore-Process-item-content"
-                  src={step.img}
-                  alt=""
-                  draggable="false"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <p set:html={step.textHtml} />
-                <img
-                  class="CorrectedVisionBefore-Process-item-icon"
-                  src={step.icon}
-                  alt=""
-                  draggable="false"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-            ))
+            content.correctedVisionBefore.steps.map((step) => {
+              const stepLabel = step.textHtml.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+              return (
+                <div class="CorrectedVisionBefore-Process-item">
+                  <img
+                    class="CorrectedVisionBefore-Process-item-content"
+                    src={step.img}
+                    alt={stepLabel}
+                    title={stepLabel}
+                    draggable="false"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <p set:html={step.textHtml} />
+                  <img
+                    class="CorrectedVisionBefore-Process-item-icon"
+                    src={step.icon}
+                    alt={stepLabel}
+                    title={stepLabel}
+                    aria-hidden="true"
+                    draggable="false"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              );
+            })
           }
         </div>
       </div>
@@ -176,7 +185,9 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
       <img
         class="CorrectedVisionBefore-line"
         src={content.correctedVisionBefore.lineImg}
-        alt=""
+        alt={content.correctedVisionBefore.processTitle}
+        title={content.correctedVisionBefore.processTitle}
+        aria-hidden="true"
         draggable="false"
         loading="lazy"
         decoding="async"
@@ -201,6 +212,7 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
           rel="noopener noreferrer"
           target="_blank"
           data-cta="whatsapp-w16"
+          title={content.correctedVisionBefore.cta.text}
         >
           <span>{content.correctedVisionBefore.cta.text}</span>
           <svg
@@ -268,7 +280,8 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
         <div class="visionProcess-Notice">
           <img
             src={content.visionProcess.noticeIcon}
-            alt=""
+            alt={content.visionProcess.noticeTitle}
+            title={content.visionProcess.noticeTitle}
             draggable="false"
             loading="lazy"
             decoding="async"
@@ -279,18 +292,22 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
               <div class={`visionProcess-Notice-Card ${card.extraClass || ""}`}>
                 <h3>{card.title}</h3>
                 <ul>
-                  {card.items.map((item) => (
-                    <li>
-                      <img
-                        src={item.img}
-                        alt=""
-                        draggable="false"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                      <p set:html={item.textHtml} />
-                    </li>
-                  ))}
+                  {card.items.map((item) => {
+                    const noticeItemText = item.textHtml.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+                    return (
+                      <li>
+                        <img
+                          src={item.img}
+                          alt={noticeItemText}
+                          title={noticeItemText}
+                          draggable="false"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                        <p set:html={item.textHtml} />
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             ))
@@ -316,6 +333,7 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
                     <img
                       src={item.img}
                       alt={item.alt}
+                      title={item.alt || item.label}
                       draggable="false"
                       loading="lazy"
                       decoding="async"
@@ -351,7 +369,8 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
         <div class="section-last-3">
           <img
             src={content.afterJiaoShi.careIcon}
-            alt=""
+            alt={content.afterJiaoShi.careTitle}
+            title={content.afterJiaoShi.careTitle}
             draggable="false"
             loading="lazy"
             decoding="async"

@@ -99,13 +99,14 @@ const banners = await getBanners(lang);
             class="newCenter-card-nav mt-8 md:mt-[68.39px] text-text font-tc text-sm md:text-xl font-light leading-[21.822px] md:leading-[43.5px] tracking-[0.36px] md:tracking-[0.6px]"
             aria-label="麵包屑導航"
           >
-            <a href={isCn ? "/cn/" : "/"}>{content.breadcrumb.home}</a>&nbsp;&gt;&nbsp;
+            <a href={isCn ? "/cn/" : "/"} title={content.breadcrumb.home}>{content.breadcrumb.home}</a>&nbsp;&gt;&nbsp;
             <span>{content.breadcrumb.service}</span>&nbsp;&gt;&nbsp;
             <a
               class="text-primary font-medium"
               href={isCn
                 ? "/cn/vision-correction/relex-smile"
                 : "/vision-correction/relex-smile"}
+              title={content.breadcrumb.current}
             >
               {content.breadcrumb.current}
             </a>
@@ -204,7 +205,8 @@ const banners = await getBanners(lang);
               id="relex-step-img"
               src={content.steps.list[0].image}
               srcset={`${content.steps.list[0].image} 768w, ${content.steps.list[0].imagePc} 1200w`}
-              alt="步骤图像"
+              alt={content.steps.list[0].text}
+              title={content.steps.list[0].text}
               width="649"
               height="649"
               loading="lazy"
@@ -232,6 +234,7 @@ const banners = await getBanners(lang);
             class="w-full rounded-[8.19px]"
             src={content.whyChoose.img}
             alt={content.whyChoose.alt}
+            title={content.whyChoose.alt}
             width="647"
             height="471"
             loading="lazy"
@@ -339,6 +342,7 @@ const banners = await getBanners(lang);
                     <img draggable="false"
                       src={benefit.icon}
                       alt={benefit.title}
+                      title={benefit.title}
                       width="53"
                       height="53"
                       loading="lazy"
@@ -470,7 +474,9 @@ const banners = await getBanners(lang);
               <img draggable="false"
                 class="xtra-paper-icon"
                 src="https://statichk.cmermedical.com/smile/smileV2/smile-xtra-2.svg"
-                alt=""
+                alt={content.xtra.card1TitleHtml.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()}
+                title={content.xtra.card1TitleHtml.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()}
+                aria-hidden="true"
                 width="80"
                 height="80"
                 loading="lazy"
@@ -484,7 +490,9 @@ const banners = await getBanners(lang);
               <img draggable="false"
                 class="xtra-paper-icon"
                 src="https://statichk.cmermedical.com/smile/smileV2/smile-xtra-1.svg"
-                alt=""
+                alt={content.xtra.card2TitleHtml.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()}
+                title={content.xtra.card2TitleHtml.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()}
+                aria-hidden="true"
                 width="80"
                 height="80"
                 loading="lazy"
@@ -536,6 +544,7 @@ const banners = await getBanners(lang);
           <img draggable="false"
             src={content.exercise.img}
             alt={content.exercise.alt}
+            title={content.exercise.alt}
             width="449"
             height="449"
             loading="lazy"

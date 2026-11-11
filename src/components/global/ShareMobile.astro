@@ -5,9 +5,9 @@ const { dict } = useI18n(Astro.url);
 
 <section class="lg:hidden wrapper mb-7">
   <div class="mb-5 flex items-center justify-center gap-2">
-    <img draggable="false" src="/images/icons/icon-slash-l.svg" alt="" width="20" height="19" aria-hidden="true" />
+    <img draggable="false" src="/images/icons/icon-slash-l.svg" alt={dict.common.share.title} title={dict.common.share.title} width="20" height="19" aria-hidden="true" />
     <p class="text-[24px] font-bold text-center text-primary leading-tight">{dict.common.share.title}</p>
-    <img draggable="false" src="/images/icons/icon-slash-r.svg" alt="" width="20" height="19" aria-hidden="true" />
+    <img draggable="false" src="/images/icons/icon-slash-r.svg" alt={dict.common.share.title} title={dict.common.share.title} width="20" height="19" aria-hidden="true" />
   </div>
   <div class="center gap-3">
     <button
@@ -15,14 +15,14 @@ const { dict } = useI18n(Astro.url);
       class="size-14 rounded-full border border-primary center"
       aria-label={dict.common.share.btnShare}
     >
-      <img draggable="false" src="/images/icons/icon-share-node.svg" alt="" width="20" height="22" aria-hidden="true" />
+      <img draggable="false" src="/images/icons/icon-share-node.svg" alt={dict.common.share.btnShare} title={dict.common.share.btnShare} width="20" height="22" aria-hidden="true" />
     </button>
     <button
       id="btn-copy"
       class="size-14 rounded-full border border-primary center relative"
       aria-label={dict.common.share.btnCopy}
     >
-      <img draggable="false" src="/images/icons/icon-link-copy.svg" alt="" width="22" height="22" aria-hidden="true" />
+      <img draggable="false" src="/images/icons/icon-link-copy.svg" alt={dict.common.share.btnCopy} title={dict.common.share.btnCopy} width="22" height="22" aria-hidden="true" />
     </button>
   </div>
   <div
@@ -30,7 +30,7 @@ const { dict } = useI18n(Astro.url);
     class="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-4 py-2.5 rounded border border-[#e1f3d8] bg-[#f0f9eb] text-[#67c23a] shadow-sm transition-all duration-300 transform -translate-y-10 opacity-0 pointer-events-none"
     role="alert"
   >
-    <img draggable="false" src="/images/icons/icon-toast-success.svg" alt="" class="size-4" aria-hidden="true" />
+    <img draggable="false" src="/images/icons/icon-toast-success.svg" alt={dict.common.share.success} title={dict.common.share.success} class="size-4" aria-hidden="true" />
     <span class="text-sm font-medium leading-none">{dict.common.share.success}</span>
   </div>
 </section>

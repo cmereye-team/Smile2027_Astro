@@ -126,7 +126,7 @@ export const PRIVACY_POLICY_ZH_HK: LegalPageContent = {
     },
     {
       type: "html",
-      html: `用戶如對我們之私隱政策及慣例有任何疑問，請電郵<a href="mailto:info@hkcmer.com">info@hkcmer.com</a>致希瑪眼科醫療控股有限公司。`,
+      html: `用戶如對我們之私隱政策及慣例有任何疑問，請電郵<a href="mailto:info@hkcmer.com" title="info@hkcmer.com">info@hkcmer.com</a>致希瑪眼科醫療控股有限公司。`,
     },
     {
       type: "heading",
@@ -178,7 +178,7 @@ export const PRIVACY_POLICY_ZH_HK: LegalPageContent = {
     },
     {
       type: "html",
-      html: `閣下有權根據《個人資料（私隱）條例》(第486章)的規定，要求查閱或更正閣下之個人資料。如有任何查閱或更正資料的要求，請電郵至<a href="mailto:info@hkcmer.com">info@hkcmer.com</a>。 此乃中文譯本，如有任何爭議，一切以英文為準。`,
+      html: `閣下有權根據《個人資料（私隱）條例》(第486章)的規定，要求查閱或更正閣下之個人資料。如有任何查閱或更正資料的要求，請電郵至<a href="mailto:info@hkcmer.com" title="info@hkcmer.com">info@hkcmer.com</a>。 此乃中文譯本，如有任何爭議，一切以英文為準。`,
     },
     {
       type: "paragraph",
@@ -186,7 +186,7 @@ export const PRIVACY_POLICY_ZH_HK: LegalPageContent = {
     },
     {
       type: "html",
-      html: `希瑪眼科醫療控股有限公司感謝貴客戶長期支持，我們不時與貴客戶分享希瑪眼科醫療控股有限公司的各種最新資訊。如貴客戶不願意收取希瑪眼科醫療控股有限公司的直接促銷材料及/或資訊，可以電郵至：<a href="mailto:info@hkcmer.com">info@hkcmer.com</a>。`,
+      html: `希瑪眼科醫療控股有限公司感謝貴客戶長期支持，我們不時與貴客戶分享希瑪眼科醫療控股有限公司的各種最新資訊。如貴客戶不願意收取希瑪眼科醫療控股有限公司的直接促銷材料及/或資訊，可以電郵至：<a href="mailto:info@hkcmer.com" title="info@hkcmer.com">info@hkcmer.com</a>。`,
     },
     {
       type: "paragraph",
@@ -228,7 +228,7 @@ export const PRIVACY_POLICY_ZH_CN: LegalPageContent = {
     },
     {
       type: "html",
-      html: `用户如对我们之私隐政策及惯例有任何疑问，请电邮<a href="mailto:info@hkcmer.com">info@hkcmer.com</a>致希玛眼科医疗控股有限公司。`,
+      html: `用户如对我们之私隐政策及惯例有任何疑问，请电邮<a href="mailto:info@hkcmer.com" title="info@hkcmer.com">info@hkcmer.com</a>致希玛眼科医疗控股有限公司。`,
     },
     {
       type: "heading",
@@ -280,7 +280,7 @@ export const PRIVACY_POLICY_ZH_CN: LegalPageContent = {
     },
     {
       type: "html",
-      html: `阁下有权根据《个人资料（私隐）条例》(第486章)的规定，要求查阅或更正阁下之个人资料。如有任何查阅或更正资料的要求，请电邮至<a href="mailto:info@hkcmer.com">info@hkcmer.com</a>。 此乃中文译本，如有任何争议，一切以英文为准。`,
+      html: `阁下有权根据《个人资料（私隐）条例》(第486章)的规定，要求查阅或更正阁下之个人资料。如有任何查阅或更正资料的要求，请电邮至<a href="mailto:info@hkcmer.com" title="info@hkcmer.com">info@hkcmer.com</a>。 此乃中文译本，如有任何争议，一切以英文为准。`,
     },
     {
       type: "paragraph",
@@ -288,7 +288,7 @@ export const PRIVACY_POLICY_ZH_CN: LegalPageContent = {
     },
     {
       type: "html",
-      html: `希玛眼科医疗控股有限公司感谢贵客户长期支持，我们不时与贵客户分享希玛眼科医疗控股有限公司的各种最新信息。如贵客户不愿意收取希玛眼科医疗控股有限公司的直接促销材料及/或信息，可以电邮至：<a href="mailto:info@hkcmer.com">info@hkcmer.com</a>。`,
+      html: `希玛眼科医疗控股有限公司感谢贵客户长期支持，我们不时与贵客户分享希玛眼科医疗控股有限公司的各种最新信息。如贵客户不愿意收取希玛眼科医疗控股有限公司的直接促销材料及/或信息，可以电邮至：<a href="mailto:info@hkcmer.com" title="info@hkcmer.com">info@hkcmer.com</a>。`,
     },
     {
       type: "paragraph",

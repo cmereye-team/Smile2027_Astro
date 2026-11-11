@@ -12,14 +12,14 @@ const homeUrl = getLocalizedHref("/", lang);
 
 <BaseLayout tdkKey="video">
   <section class="page-banner" aria-label={dict.common.menu.news.case}>
-    <div class="site-container">
-      <div class="page-banner-card">
+    <div class="page-banner-card">
+      <div class="site-container">
         <div class="page-banner-content">
           <span class="page-banner-eyebrow">VIDEO</span>
           <h1 class="page-banner-title">{dict.common.menu.news.case}</h1>
           <p class="page-banner-subtitle">Case Sharing</p>
           <nav class="page-banner-breadcrumb" aria-label="麵包屑導航">
-            <a href={homeUrl}>{dict.common.menu.home}</a>
+            <a href={homeUrl} title={dict.common.menu.home}>{dict.common.menu.home}</a>
             <span aria-hidden="true"> &gt; </span>
             <span>{dict.common.menu.news.title}</span>
             <span aria-hidden="true"> &gt; </span>

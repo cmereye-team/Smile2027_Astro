@@ -17,7 +17,8 @@ const typeConfig: Record<VideoType, { bg: string; label: string; color: string }
       <div class="center p-3 bg-primary size-12 shrink-0">
         <img draggable="false"
           src="/images/icons/icon-search.svg"
-          alt=""
+          alt={dict.page.video.search}
+          title={dict.page.video.search}
           width="24"
           height="25"
           aria-hidden="true"
@@ -66,6 +67,8 @@ const typeConfig: Record<VideoType, { bg: string; label: string; color: string }
           const hasDefault = item.type.includes(defaultType);
           const cardDisplayType = hasDefault ? defaultType : item.type[0];
           const currentConfig = typeConfig[cardDisplayType];
+          const cleanTitle = item.title.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+          const cardTitle = [cleanTitle, item.name, item.enName].filter(Boolean).join(" - ");
           return (
             <article
               class="video-item media-card group"
@@ -74,11 +77,18 @@ const typeConfig: Record<VideoType, { bg: string; label: string; color: string }
               data-en-name={item.enName || ""}
               style={{ display: hasDefault ? "flex" : "none" }}
             >
-              <a href={item.link} target="_blank" rel="noopener noreferrer" class="media-card-link">
+              <a
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={cardTitle}
+                class="media-card-link"
+              >
                 <div class="media-card-thumb">
                   <Image
                     src={item.img}
-                    alt={item.name}
+                    alt={cardTitle}
+                    title={cardTitle}
                     width={480}
                     height={270}
                     loading={index < 4 ? "eager" : "lazy"}
