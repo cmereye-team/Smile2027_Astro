@@ -124,6 +124,7 @@
 1. **Colors and fonts must use the CSS variables defined in `src/styles/comm.css`** — never hard-code brand hex values.
 2. **Build layout with Tailwind utilities first**.
 3. **Scoped styles only for component-specific geometry** — no full-page private stylesheets.
+4. **Shared components carry their own scoped styles.** Page stylesheets must not contain selectors for shared components.
 
 ---
 

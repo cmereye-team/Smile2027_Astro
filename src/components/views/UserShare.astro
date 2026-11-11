@@ -100,93 +100,424 @@ function getColor(type: string) {
   </div>
 </section>
 
-<script>
-  function initUserShareDrag() {
-    const lists = document.querySelectorAll<HTMLElement>(".UserShareBox-list");
-    if (!lists.length) return;
+<style lang="scss">
+  /* ==================== UserShare ==================== */
+  .bg {
+    background-color: #f2f7ff;
+    position: relative;
 
-    lists.forEach((list) => {
-      let isDown = false;
-      let downX = 0;
-      let downY = 0;
-      let startScrollLeft = 0;
-      let hasDragged = false;
-      let dragLockTimer: ReturnType<typeof setTimeout> | null = null;
-      const DRAG_THRESHOLD = 6; // 6px 閾值：位移超過 6px 視為拖拽，否則為精準點擊
-
-      // 1. 禁用瀏覽器原生拖拽行為 (防止圖片與連結被拽出幽靈重影)
-      list.addEventListener("dragstart", (e) => e.preventDefault());
-
-      // 2. 滑鼠滾輪橫向滾動支援
-      list.addEventListener(
-        "wheel",
-        (e: WheelEvent) => {
-          if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-            e.preventDefault();
-            list.scrollLeft += e.deltaY * 1.6;
-          }
-        },
-        { passive: false }
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 2.8s cubic-bezier(0.25, 1, 0.5, 1);
+      z-index: 0;
+      background: radial-gradient(
+        ellipse 85% 65% at 20% 30%,
+        rgba(195, 218, 255, 0.5) 0%,
+        rgba(242, 247, 255, 0) 75%
       );
+    }
 
-      // 3. 高靈敏度平滑拖拽 (速度放大 2.2x)
-      list.addEventListener("mousedown", (e) => {
-        if (window.innerWidth <= 992) return;
-        isDown = true;
-        hasDragged = false;
-        downX = e.pageX;
-        downY = e.pageY;
-        startScrollLeft = list.scrollLeft;
-        list.style.cursor = "grabbing";
-        list.style.userSelect = "none";
-        if (dragLockTimer) clearTimeout(dragLockTimer);
-      });
+    & > * {
+      position: relative;
+      z-index: 1;
+    }
 
-      window.addEventListener("mousemove", (e) => {
-        if (!isDown || window.innerWidth <= 992) return;
-        const distX = e.pageX - downX;
-        const distY = e.pageY - downY;
-
-        if (!hasDragged && Math.hypot(distX, distY) > DRAG_THRESHOLD) {
-          hasDragged = true;
-        }
-
-        if (hasDragged) {
-          e.preventDefault();
-          // 2.2x 速度放大係數，拖拽無延遲、輕快敏捷
-          const walk = distX * 2.2;
-          const maxScroll = list.scrollWidth - list.clientWidth;
-          list.scrollLeft = Math.max(0, Math.min(maxScroll, startScrollLeft - walk));
-        }
-      });
-
-      window.addEventListener("mouseup", () => {
-        if (!isDown) return;
-        isDown = false;
-        list.style.cursor = "grab";
-        list.style.removeProperty("user-select");
-
-        if (hasDragged) {
-          // 保持 250ms 鎖定，徹底杜絕鬆開滑鼠瞬間誤觸 click 跳轉
-          dragLockTimer = setTimeout(() => {
-            hasDragged = false;
-          }, 250);
-        }
-      });
-
-      // 4. 點擊與拖拽絕對分離：拖拽過後精準攔截，純點擊無阻礙直達
-      list.querySelectorAll<HTMLAnchorElement>(".UserShareBox-list-item-link").forEach((link) => {
-        link.addEventListener("click", (e) => {
-          if (hasDragged) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-            return false;
-          }
-        });
-      });
-    });
+    &.is-inview::before {
+      animation: ambient-soft-breath 4.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
   }
 
-  document.addEventListener("DOMContentLoaded", initUserShareDrag);
-  document.addEventListener("astro:page-load", initUserShareDrag);
-</script>
+  @keyframes ambient-soft-breath {
+    0% {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+    35% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    70% {
+      opacity: 0.6;
+      transform: scale(1.01);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1);
+    }
+  }
+
+  @media screen and (max-width: 992px) {
+    .UserShare {
+      width: 100%;
+      padding-top: 40px;
+
+      .UserShareContainer {
+        margin: 0 auto;
+
+        .UserShareBox {
+          padding-bottom: 40px;
+
+          .UserShareBox-title {
+            padding-top: 27px;
+            position: relative;
+            text-align: center;
+
+            &::after {
+              content: "";
+              position: absolute;
+              left: 11.282vw;
+              top: -12px;
+              width: 50px;
+              height: 45px;
+              background: url("https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShare-title-eyes.svg")
+                no-repeat;
+              background-size: contain;
+            }
+
+            h2,
+            h3 {
+              color: #4570b6;
+              font-family: "Noto Sans HK", sans-serif;
+              font-size: 24px;
+              font-style: normal;
+              font-weight: 700;
+              line-height: 1.25;
+              letter-spacing: 4px;
+            }
+
+            .UserShareBox-title-text {
+              img {
+                width: 300px;
+                margin: 18px auto 0;
+              }
+
+              p {
+                color: #6d6e71;
+                font-family: "Noto Sans HK", sans-serif;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 1.6;
+                letter-spacing: 2px;
+                margin-top: 8px;
+              }
+            }
+          }
+
+          .UserShareBox-list {
+            margin-top: 26px;
+            padding-bottom: 30px;
+            display: flex;
+            gap: 3.75px;
+            max-width: 100%;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+
+            &::-webkit-scrollbar {
+              height: 3px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+              background-color: #4570b6;
+              border: 0px solid rgba(0, 0, 0, 0);
+            }
+
+            &::-webkit-scrollbar-track {
+              background-color: #fff;
+              width: 50%;
+            }
+
+            .UserShareBox-list-item {
+              position: relative;
+              scroll-snap-align: start;
+              scroll-snap-stop: normal;
+
+              &::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(
+                  to bottom,
+                  transparent,
+                  rgba(0, 0, 0, 0.2)
+                );
+                pointer-events: none;
+              }
+
+              .UserShareBox-list-item-link {
+                position: relative;
+                display: block;
+                width: 200px;
+                height: 330px;
+                overflow: hidden;
+
+                img {
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                }
+
+                .UserShareBox-list-item-link-title {
+                  position: absolute;
+                  right: 10px;
+                  top: 10px;
+                  border-radius: 75px;
+                  background: #eb981a;
+                  padding: 4px 12px;
+                  color: #fff;
+                  font-family: "Poppins", sans-serif;
+                  font-size: 16px;
+                  font-style: normal;
+                  font-weight: 700;
+                  line-height: 1.4;
+                }
+
+                .UserShareBox-list-item-link-text {
+                  position: absolute;
+                  left: 18px;
+                  bottom: 18px;
+                  z-index: 1;
+
+                  p {
+                    color: #fff;
+                    font-family: "Noto Sans TC", sans-serif;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: 1.4;
+                    letter-spacing: 0.5px;
+                  }
+
+                  i {
+                    display: block;
+                    margin: 10px 0;
+                    width: 50px;
+                    height: 2px;
+                    background: #eb981a;
+                  }
+
+                  .UserShareBox-list-item-link-text-name {
+                    span {
+                      color: #fff;
+                      font-size: 16px;
+                      font-style: normal;
+                      line-height: normal;
+                      letter-spacing: 0.5px;
+                    }
+
+                    & > span:nth-child(1) {
+                      font-family: "Noto Sans TC", sans-serif;
+                      font-weight: 600;
+                    }
+
+                    & > .UserShareBox-list-item-link-text-name-en {
+                      font-family: "Poppins", sans-serif;
+                      font-weight: 700;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 992px) {
+    .UserShare {
+      padding-top: 100px;
+
+      .UserShareContainer {
+        margin: 0 auto;
+
+        .UserShareBox {
+          padding-bottom: 40px;
+
+          .UserShareBox-title {
+            padding-top: 70px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 94px;
+
+            &::after {
+              content: "";
+              position: absolute;
+              left: -160px;
+              top: -42px;
+              width: 110px;
+              height: 98px;
+              background: url("https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShare-title-bg.png")
+                no-repeat;
+              background-size: contain;
+            }
+
+            h2,
+            h3 {
+              color: #4570b6;
+              font-family: "Noto Sans TC";
+              font-size: 30px;
+              font-style: normal;
+              font-weight: 900;
+              line-height: 1;
+              letter-spacing: 3px;
+            }
+
+            .UserShareBox-title-text {
+              p {
+                color: #6d6e71;
+                font-family: "Noto Sans HK";
+                font-size: 20px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 1.75;
+                letter-spacing: 5px;
+              }
+            }
+          }
+
+          .UserShareBox-list {
+            margin-top: 35px;
+            padding-bottom: 77px;
+            display: flex;
+            gap: 5px;
+            max-width: 1544px;
+            width: 1544px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+
+            &::-webkit-scrollbar {
+              height: 3px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+              background-color: #4570b6;
+              border: 0px solid rgba(0, 0, 0, 0);
+            }
+
+            &::-webkit-scrollbar-track {
+              background-color: #fff;
+              width: 50%;
+            }
+
+            .UserShareBox-list-item {
+              position: relative;
+              scroll-snap-align: start;
+              scroll-snap-stop: normal;
+
+              &::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(
+                  to bottom,
+                  transparent,
+                  rgba(0, 0, 0, 0.2)
+                );
+                pointer-events: none;
+              }
+
+              .UserShareBox-list-item-link {
+                position: relative;
+                display: block;
+                width: 265px;
+                height: 437px;
+                overflow: hidden;
+
+                img {
+                  width: 100%;
+                  pointer-events: none;
+                }
+
+                .UserShareBox-list-item-link-title {
+                  pointer-events: none;
+                  position: absolute;
+                  right: 14px;
+                  top: 14px;
+                  border-radius: 75px;
+                  background: #eb981a;
+                  padding: 2px 18px;
+                  color: #fff;
+                  font-family: "Poppins", sans-serif;
+                  font-size: 20px;
+                  font-style: normal;
+                  font-weight: 700;
+                  line-height: 1.75;
+                  letter-spacing: 0;
+                }
+
+                .UserShareBox-list-item-link-text {
+                  position: absolute;
+                  pointer-events: none;
+                  left: 24px;
+                  bottom: 24px;
+
+                  p {
+                    color: #fff;
+                    font-family: "Noto Sans TC";
+                    font-size: 18px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: 26px;
+                    letter-spacing: 0.9px;
+                  }
+
+                  i {
+                    display: block;
+                    margin: 12px 0;
+                    width: 68px;
+                    height: 3px;
+                    background: #eb981a;
+                  }
+
+                  .UserShareBox-list-item-link-text-name {
+                    span {
+                      color: #fff;
+                      font-size: 20px;
+                      font-style: normal;
+                      line-height: normal;
+                      letter-spacing: 1.2px;
+                    }
+
+                    & > span:nth-child(1) {
+                      font-family: "Noto Sans TC";
+                      font-weight: 600;
+                    }
+
+                    & > .UserShareBox-list-item-link-text-name-en {
+                      font-family: "Poppins", sans-serif;
+                      font-weight: 700;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 1139px) {
+    .UserShare {
+      .UserShareContainer {
+        .UserShareBox {
+          .UserShareBox-list {
+            max-width: calc(100vw - calc(100vw - 1320px) / 2);
+            width: fit-content;
+            padding-right: 85px;
+          }
+        }
+      }
+    }
+  }
+</style>

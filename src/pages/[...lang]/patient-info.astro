@@ -142,10 +142,7 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
         </div>
       </div>
 
-      <div
-        class="pt-8 lg:pt-15 scroll-mt-[112px] md:scroll-mt-[140px] lg:scroll-mt-[180px] xl:scroll-mt-[208px] 2xl:scroll-mt-[284px]"
-        id="PreCorrection"
-      >
+      <div class="pt-8 lg:pt-15" id="PreCorrection">
         <h2 class="CorrectedVisionBefore-Process-title">
           {content.correctedVisionBefore.processTitle}
         </h2>
@@ -394,51 +391,65 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
 </BaseLayout>
 
 <script>
-  function initPatientInfoTabs() {
-    const tabItems = Array.from(
-      document.querySelectorAll<HTMLLIElement>(".navgation-link li[data-tab-id]")
-    );
-    if (!tabItems.length) return;
+  const tabs = Array.from(
+    document.querySelectorAll<HTMLLIElement>(".navgation-link li[data-tab-id]")
+  );
+  const setActive = (id: string) => {
+    tabs.forEach((li) => li.classList.toggle("active", li.dataset.tabId === id));
+  };
+  const syncFromHash = () => {
+    const h = window.location.hash.slice(1);
+    if (tabs.some((li) => li.dataset.tabId === h)) setActive(h);
+    else if (h === "PreCorrection") setActive("beforeJiaoShi");
+  };
+  syncFromHash();
+  window.addEventListener("hashchange", syncFromHash);
 
-    const setActiveTab = (id: string) => {
-      tabItems.forEach((li) => {
-        li.classList.toggle("active", li.dataset.tabId === id);
-      });
-    };
+  tabs.forEach((li) => {
+    li.querySelector("a")?.addEventListener("click", (e) => {
+      const id = li.dataset.tabId;
+      const target = id ? document.getElementById(id) : null;
+      if (!id || !target) return;
+      e.preventDefault();
+      setActive(id);
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
+      history.replaceState(null, "", `${window.location.pathname}#${id}`);
+    });
+  });
 
-    const hash = window.location.hash.replace("#", "");
-    if (hash && tabItems.some((li) => li.dataset.tabId === hash)) {
-      setActiveTab(hash);
-    }
-
-    tabItems.forEach((li) => {
-      const link = li.querySelector("a");
-      if (!link) return;
-      link.addEventListener("click", (e) => {
-        const id = li.dataset.tabId;
-        if (!id) return;
-        const target = document.getElementById(id);
-        if (target) {
-          e.preventDefault();
-          setActiveTab(id);
-          target.scrollIntoView({ behavior: "smooth" });
-          history.replaceState(null, "", `${window.location.pathname}#${id}`);
+  const sections: Array<[Element | null, string]> = [
+    [document.getElementById("beforeJiaoShi"), "beforeJiaoShi"],
+    [document.querySelector(".CorrectedVisionBefore"), "beforeJiaoShi"],
+    [document.getElementById("inJiaoShi"), "inJiaoShi"],
+    [document.getElementById("afterJiaoShi"), "afterJiaoShi"],
+  ];
+  if (tabs.length && "IntersectionObserver" in window) {
+    const idMap = new Map(sections.filter(([el]) => el) as Array<[Element, string]>);
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const tabId = idMap.get(entry.target);
+          if (entry.isIntersecting && tabId) setActive(tabId);
         }
-      });
-    });
-
-    window.addEventListener("hashchange", () => {
-      const nextHash = window.location.hash.replace("#", "");
-      if (nextHash && tabItems.some((li) => li.dataset.tabId === nextHash)) {
-        setActiveTab(nextHash);
-      }
-    });
+      },
+      { rootMargin: "-25% 0px -65% 0px" }
+    );
+    idMap.forEach((_, el) => io.observe(el));
   }
-
-  initPatientInfoTabs();
 </script>
 
 <style lang="scss">
+  :global(html) {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(html) {
+      scroll-behavior: auto;
+    }
+  }
+
   .patient-info {
     background: #fff;
 
@@ -559,9 +570,15 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
       }
     }
 
+    [id="beforeJiaoShi"],
+    [id="PreCorrection"],
+    [id="inJiaoShi"],
+    [id="afterJiaoShi"] {
+      scroll-margin-top: calc(72px + 10.26vw + 2px);
+    }
+
     /* 眼睛檢查及矯視前 */
     .check-eye {
-      scroll-margin-top: 30.77vw;
       padding-top: 6.41vw;
       padding-bottom: 17.18vw;
 
@@ -931,7 +948,6 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
 
     /* 矯視流程 */
     .visionProcess {
-      scroll-margin-top: 30.77vw;
       padding-top: 7.69vw;
       background: #f4fafc;
 
@@ -1215,7 +1231,6 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
 
     /* 矯視後覆診 */
     .section-last {
-      scroll-margin-top: 30.77vw;
       background: #def1ff;
       padding-top: 10.26vw;
       padding-bottom: 7.69vw;
@@ -1661,9 +1676,15 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
       }
     }
 
+    [id="beforeJiaoShi"],
+    [id="PreCorrection"],
+    [id="inJiaoShi"],
+    [id="afterJiaoShi"] {
+      scroll-margin-top: calc(115px + clamp(43px, 4.48vw, 86px) + 2px);
+    }
+
     /* 眼睛檢查及矯視前 */
     .check-eye {
-      scroll-margin-top: clamp(125px, 13.02vw, 250px);
       margin-top: clamp(6px, 0.63vw, 12px);
       padding-top: clamp(43px, 4.48vw, 86px);
       padding-bottom: clamp(77px, 8.02vw, 154px);
@@ -2046,7 +2067,6 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
 
     /* 矯視流程 */
     .visionProcess {
-      scroll-margin-top: clamp(125px, 13.02vw, 250px);
       background: #f4fafc;
       padding-top: clamp(47.5px, 4.95vw, 95px);
       padding-bottom: clamp(75px, 7.81vw, 150px);
@@ -2288,7 +2308,6 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
 
     /* 矯視後覆診 */
     .section-last {
-      scroll-margin-top: clamp(125px, 13.02vw, 250px);
       background: #def1ff;
       padding-top: clamp(50px, 5.21vw, 100px);
       padding-bottom: clamp(50px, 5.21vw, 100px);
