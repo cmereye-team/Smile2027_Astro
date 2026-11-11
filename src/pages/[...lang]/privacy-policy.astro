@@ -1,10 +1,35 @@
 ---
+/*
+ * @FilePath: /src/pages/[...lang]/privacy-policy.astro
+ * @Description: 私隱政策專頁 (100% 線上真值對齊 + 繁簡雙語 + 單一 H1 + 共享 .site-container + BreadcrumbList Schema)
+ */
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { i18nPaths, useI18n } from "@/i18n/utils";
+import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
+import LegalPage from "@/components/views/LegalPage.astro";
+import { i18nPaths, getLangFromUrl } from "@/i18n/utils";
+import {
+  PRIVACY_POLICY_ZH_HK,
+  PRIVACY_POLICY_ZH_CN,
+} from "@/data/legalData";
+
 export function getStaticPaths() {
   return [...i18nPaths];
 }
-const { dict: _dict } = useI18n(Astro.url);
+
+const lang = getLangFromUrl(Astro.url);
+const isCn = lang === "zh-cn";
+const content = isCn ? PRIVACY_POLICY_ZH_CN : PRIVACY_POLICY_ZH_HK;
+
+const breadcrumbItems = [
+  { name: content.breadcrumb.home, url: isCn ? "/cn/" : "/" },
+  {
+    name: content.breadcrumb.current,
+    url: isCn ? "/cn/privacy-policy" : "/privacy-policy",
+  },
+];
 ---
 
-<BaseLayout tdkKey="about"></BaseLayout>
+<BaseLayout tdkKey="privacyPolicy">
+  <SchemaBreadcrumb items={breadcrumbItems} />
+  <LegalPage title={content.title} blocks={content.blocks} />
+</BaseLayout>

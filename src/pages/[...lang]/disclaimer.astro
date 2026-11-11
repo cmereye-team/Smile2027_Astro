@@ -1,10 +1,32 @@
 ---
+/*
+ * @FilePath: /src/pages/[...lang]/disclaimer.astro
+ * @Description: 免責條款專頁 (100% 線上真值對齊 + 繁簡雙語 + 單一 H1 + 共享 .site-container + BreadcrumbList Schema)
+ */
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { i18nPaths, useI18n } from "@/i18n/utils";
+import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
+import LegalPage from "@/components/views/LegalPage.astro";
+import { i18nPaths, getLangFromUrl } from "@/i18n/utils";
+import { DISCLAIMER_ZH_HK, DISCLAIMER_ZH_CN } from "@/data/legalData";
+
 export function getStaticPaths() {
   return [...i18nPaths];
 }
-const { dict: _dict } = useI18n(Astro.url);
+
+const lang = getLangFromUrl(Astro.url);
+const isCn = lang === "zh-cn";
+const content = isCn ? DISCLAIMER_ZH_CN : DISCLAIMER_ZH_HK;
+
+const breadcrumbItems = [
+  { name: content.breadcrumb.home, url: isCn ? "/cn/" : "/" },
+  {
+    name: content.breadcrumb.current,
+    url: isCn ? "/cn/disclaimer" : "/disclaimer",
+  },
+];
 ---
 
-<BaseLayout tdkKey="about"></BaseLayout>
+<BaseLayout tdkKey="disclaimer">
+  <SchemaBreadcrumb items={breadcrumbItems} />
+  <LegalPage title={content.title} blocks={content.blocks} />
+</BaseLayout>

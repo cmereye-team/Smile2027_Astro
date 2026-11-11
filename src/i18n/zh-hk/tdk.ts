@@ -95,4 +95,14 @@ export const tdk = {
     description: "預約講座 - 希瑪微笑矯視中心",
     keywords: "預約講座 - 希瑪微笑矯視中心",
   },
+  disclaimer: {
+    title: "私隱政策 - 希瑪微笑矯視中心",
+    description: "以下是希瑪眼科醫療控股有限公司與其附屬公 […]",
+    keywords: "以下是希瑪眼科醫療控股有限公司與其附屬公 […]",
+  },
+  privacyPolicy: {
+    title: "私隱政策 - 希瑪微笑矯視中心",
+    description: "以下是希瑪眼科醫療控股有限公司與其附屬公 […]",
+    keywords: "以下是希瑪眼科醫療控股有限公司與其附屬公 […]",
+  },
 } as const;
