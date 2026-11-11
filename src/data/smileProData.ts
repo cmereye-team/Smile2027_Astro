@@ -457,7 +457,7 @@ export const SMILE_PRO_ZH_HK: SmileProData = {
     ],
   },
   price: {
-    title: "SMILE Pro 微笑激光矯視夏日禮遇",
+    title: "SMILE Pro 微笑激光矯視冬日禮遇",
     card2: {
       header: "SMILE Pro 2.0 費用",
       title1: "SMILE Pro 2.0",
@@ -747,7 +747,7 @@ export const SMILE_PRO_ZH_CN: SmileProData = {
     ],
   },
   price: {
-    title: "SMILE Pro 微笑激光矯視夏日禮遇",
+    title: "SMILE Pro 微笑激光矫视冬日礼遇",
     card2: {
       header: "SMILE Pro 2.0 费用",
       title1: "SMILE Pro 2.0",

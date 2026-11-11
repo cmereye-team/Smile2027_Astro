@@ -105,7 +105,7 @@ function getColor(type: string) {
 
 <script>
   import Swiper from "swiper";
-  import { FreeMode, Mousewheel } from "swiper/modules";
+  import { Autoplay, FreeMode, Mousewheel } from "swiper/modules";
 
   function initUserShareSwipers() {
     const containers = document.querySelectorAll<HTMLElement>(
@@ -122,9 +122,14 @@ function getColor(type: string) {
       let startY = 0;
 
       const swiper = new Swiper(el, {
-        modules: [FreeMode, Mousewheel],
+        modules: [Autoplay, FreeMode, Mousewheel],
         slidesPerView: "auto",
         spaceBetween: 3.75,
+        autoplay: {
+          delay: 3000,
+          pauseOnMouseEnter: true,
+          disableOnInteraction: false,
+        },
         freeMode: {
           enabled: true,
         },
