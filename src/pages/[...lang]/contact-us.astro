@@ -1,27 +1,986 @@
 ---
 /*
- * @Author: 谭洁莹
- * @Date: 2026-04-24 18:42:52
- * @LastEditTime: 2026-04-27 09:59:18
+ * @Author: Antigravity AI
+ * @Date: 2026-11-11
  * @FilePath: /src/pages/[...lang]/contact-us.astro
- * @Description: 联络我们
+ * @Description: 聯絡我們專頁 (100% 線上官網逐字與版面還原 + 繁簡雙語 + 共享 .site-container + 結構化數據)
  */
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { i18nPaths, useI18n } from "@/i18n/utils";
+import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
+import { i18nPaths, getLangFromUrl } from "@/i18n/utils";
+import {
+  CONTACT_US_ZH_HK,
+  CONTACT_US_ZH_CN,
+} from "@/data/contactUsData";
+
 export function getStaticPaths() {
   return [...i18nPaths];
 }
-const { dict } = useI18n(Astro.url);
+
+const lang = getLangFromUrl(Astro.url);
+const isCn = lang === "zh-cn";
+const content = isCn ? CONTACT_US_ZH_CN : CONTACT_US_ZH_HK;
+
+const breadcrumbItems = [
+  { name: content.breadcrumb.home, url: isCn ? "/cn/" : "/" },
+  {
+    name: content.breadcrumb.current,
+    url: isCn ? "/cn/contact-us" : "/contact-us",
+  },
+];
+
+const initialMapSrc = content.maps.smileList[0]?.src ?? "";
 ---
 
 <BaseLayout tdkKey="contact">
-  <section class="bg-bg-subtle h-[120vh]">
-    <div class="wrapper text-center">
-      <h1
-        set:html={dict.home.title}
-        class="text-primary text-xl lg:text-3xl font-black"
-      />
-      <p set:html={dict.home.subtitle} class="text-primary" />
-    </div>
-  </section>
+  <SchemaBreadcrumb items={breadcrumbItems} />
+
+  <div class="contact-us">
+    {/* 1. 頂部橫幅 Banner */}
+    <section class="banner-section" aria-label={content.banner.title}>
+      <div class="site-container banner-box">
+        <div class="banner-img banner-text-default">
+          <h1 class="banner-title">{content.banner.title}</h1>
+          <p class="banner-subtitle">{content.banner.subtitle}</p>
+        </div>
+      </div>
+    </section>
+
+    {/* 2. 服務熱線表格 */}
+    <section class="contact-us-box" aria-labelledby="contact-hotline-heading">
+      <div class="site-container hotline-inner">
+        <div class="hotline-badge">
+          <div class="hotline-badge-icon" aria-hidden="true">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="43"
+              height="49"
+              viewBox="0 0 43 49"
+              fill="none"
+            >
+              <path
+                d="M24.4519 36.2473C25.5929 36.2473 26.4486 35.9438 27.0762 35.2154C28.046 34.1834 29.0159 33.2122 30.0427 32.3016C31.6401 30.9661 33.2946 30.9054 35.0631 31.816C36.5464 32.5444 37.7444 33.6978 38.9995 34.7905C39.8553 35.5796 40.711 36.308 41.4527 37.2186C42.1372 38.0077 42.7648 38.8576 42.9359 39.9503C43.1641 41.1036 42.7648 42.0749 42.0231 42.864C40.7681 44.1388 39.513 45.4743 38.0297 46.5062C36.2041 47.781 34.2074 48.6309 32.0395 48.8737C30.2709 49.1165 28.5024 48.9951 26.7339 48.6309C25.0794 48.2666 23.4821 47.6596 21.9417 46.8705C20.1732 45.9599 18.5187 44.8065 16.9784 43.5925C15.4381 42.3177 13.9548 40.9822 12.5856 39.4646C10.1895 36.9151 7.96458 34.1834 5.96785 31.2696C4.82686 29.57 3.74292 27.7488 2.83013 25.867C1.80324 23.8031 1.00454 21.6178 0.491097 19.3111C0.0917501 17.49 -0.0793987 15.6081 0.0347003 13.787C0.205849 10.9947 0.947493 8.44513 2.37373 6.13839C3.34357 4.5601 4.65571 3.28533 6.0249 2.07126C6.65244 1.52492 7.16589 0.917888 7.90753 0.492963C9.10557 -0.235479 10.3607 -0.174774 11.5017 0.796482C12.5856 1.70704 13.3843 2.92111 14.1259 4.13518C14.8105 5.22784 15.4951 6.32051 16.0656 7.47387C16.6361 8.62724 17.1496 9.84131 17.2066 11.2375C17.2066 12.6944 16.7502 13.9084 15.7804 14.8797C14.7535 15.9117 13.6695 16.8222 12.5285 17.7328C11.4446 18.6433 11.1594 19.9181 11.3876 21.3143C11.6158 22.7105 12.2433 23.9852 12.9279 25.1993C13.8977 26.899 15.0958 28.4773 16.3509 29.9949C17.2637 31.0875 18.1764 32.1802 19.2033 33.1515C20.4014 34.3048 21.6565 35.3975 23.1968 36.0045C23.6532 36.1866 24.1096 36.308 24.3948 36.308L24.4519 36.2473Z"
+                fill="#4570B6"
+              ></path>
+            </svg>
+          </div>
+          <h2 id="contact-hotline-heading" class="hotline-badge-title">
+            {content.hotline.title}
+          </h2>
+        </div>
+
+        <div class="contact-us-table">
+          <div class="hotline-row hotline-header">
+            <div class="hotline-col-center">
+              {content.hotline.headers.center}
+            </div>
+            <div class="hotline-col-channels hotline-header-channels">
+              <div class="hotline-phone-head">
+                {content.hotline.headers.phone}
+              </div>
+              <div class="hotline-wa-head">
+                {content.hotline.headers.whatsapp}
+              </div>
+            </div>
+          </div>
+
+          {
+            content.hotline.rows.map((row) => (
+              <div class="hotline-row hotline-body-row">
+                <div class="hotline-cell-center">{row.center}</div>
+                <div class="hotline-col-channels hotline-body-channels">
+                  <div class="hotline-channel-item hotline-phone-cell">
+                    <div class="hotline-phone-icon" aria-hidden="true">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="29"
+                        height="33"
+                        viewBox="0 0 29 33"
+                        fill="none"
+                      >
+                        <path
+                          d="M16.4908 24.4115C17.2603 24.4115 17.8374 24.2071 18.2607 23.7165C18.9148 23.0215 19.5688 22.3674 20.2614 21.7541C21.3387 20.8547 22.4545 20.8139 23.6472 21.4271C24.6476 21.9177 25.4555 22.6944 26.302 23.4303C26.8791 23.9618 27.4563 24.4524 27.9564 25.0656C28.4181 25.597 28.8414 26.1694 28.9568 26.9053C29.1107 27.682 28.8414 28.3361 28.3412 28.8676C27.4947 29.7261 26.6483 30.6255 25.6479 31.3205C24.4167 32.179 23.0701 32.7514 21.608 32.9149C20.4153 33.0784 19.2226 32.9967 18.0298 32.7514C16.914 32.5061 15.8367 32.0973 14.7979 31.5658C13.6052 30.9526 12.4894 30.1758 11.4506 29.3582C10.4117 28.4997 9.41136 27.6003 8.48796 26.5782C6.872 24.8612 5.37146 23.0215 4.02483 21.0592C3.25532 19.9145 2.52429 18.688 1.90869 17.4207C1.21614 16.0307 0.677482 14.5589 0.331205 13.0054C0.061878 11.7789 -0.0535479 10.5116 0.0234026 9.28515C0.138828 7.40458 0.639007 5.68753 1.60089 4.13402C2.25497 3.07109 3.1399 2.21257 4.0633 1.39493C4.48653 1.02699 4.83281 0.61817 5.33299 0.331996C6.14097 -0.158588 6.98742 -0.117705 7.75693 0.536406C8.48796 1.14964 9.02661 1.96728 9.52679 2.78492C9.98849 3.52079 10.4502 4.25667 10.8349 5.03342C11.2197 5.81018 11.566 6.62782 11.6045 7.56811C11.6045 8.54927 11.2967 9.36691 10.6426 10.021C9.95002 10.716 9.21899 11.3292 8.44948 11.9425C7.71845 12.5557 7.52608 13.4142 7.67998 14.3545C7.83388 15.2948 8.25711 16.1533 8.71881 16.971C9.37289 18.1157 10.1809 19.1786 11.0273 20.2006C11.6429 20.9365 12.2585 21.6724 12.9511 22.3265C13.7591 23.1033 14.6055 23.8391 15.6444 24.2479C15.9522 24.3706 16.26 24.4524 16.4523 24.4524L16.4908 24.4115Z"
+                          fill="#A6E1D6"
+                        ></path>
+                      </svg>
+                    </div>
+                    <div class="hotline-number">{row.phone}</div>
+                  </div>
+                  <div class="hotline-channel-item hotline-wa-cell">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="41"
+                      height="41"
+                      viewBox="0 0 41 41"
+                      fill="none"
+                      aria-hidden="true"
+                      class="hotline-wa-icon"
+                    >
+                      <path
+                        d="M20.5 40.9985C16.8586 40.9985 13.3014 40.0371 10.176 38.2126L0.631682 40.8152L3.75329 32.3247C2.62287 30.7271 1.7313 28.9853 1.09887 27.1368C0.369545 25.0051 0 22.7721 0 20.4993C0 17.7322 0.5423 15.0477 1.61113 12.5195C2.6439 10.0784 4.12133 7.88589 6.00361 6.00361C7.88589 4.12133 10.0784 2.64315 12.5195 1.61113C15.0485 0.5423 17.7329 0 20.5 0C23.2671 0 25.9515 0.5423 28.4798 1.61113C30.9209 2.6439 33.1134 4.12133 34.9956 6.00361C36.8779 7.88589 38.3554 10.0784 39.3881 12.5195C40.4577 15.0477 41 17.7322 41 20.4993C41 23.2663 40.4577 25.9508 39.3881 28.479C38.3554 30.9201 36.8779 33.1126 34.9956 34.9941C33.1134 36.8764 30.9216 38.3546 28.4798 39.3866C25.9515 40.4562 23.2671 40.9985 20.5 40.9985ZM10.5501 35.58L11.0015 35.8602C13.8482 37.6245 17.1328 38.5574 20.5 38.5574C30.4567 38.5574 38.5574 30.4567 38.5574 20.5C38.5574 10.5433 30.4567 2.44185 20.5 2.44185C10.5433 2.44185 2.4426 10.5426 2.4426 20.4993C2.4426 24.4704 3.70672 28.2379 6.099 31.3941L6.50235 31.9259L4.55848 37.2137L10.5508 35.5793L10.5501 35.58Z"
+                        fill="#85A6D7"
+                      ></path>
+                      <path
+                        d="M13.4073 9.89655C13.8625 9.7298 14.3792 9.80041 14.7999 10.0295C15.0522 10.1684 15.243 10.3878 15.4458 10.5868C16.4793 11.6211 17.5144 12.6546 18.5479 13.6889C18.8604 14.0059 19.0624 14.4408 19.0572 14.8899C19.0737 15.261 18.946 15.623 18.7499 15.9325C18.6185 16.106 18.478 16.2742 18.3181 16.4229C17.8178 16.9254 17.3131 17.4234 16.8158 17.9282C16.9571 18.2331 17.1403 18.5155 17.3011 18.81C17.4625 19.1074 17.6458 19.3913 17.8268 19.6767C18.4593 20.7118 19.2329 21.6589 20.0974 22.5077C20.8929 23.2881 21.7709 23.9873 22.7233 24.5672C23.2851 24.9345 23.8733 25.2575 24.4644 25.5759C25.0232 25.0156 25.582 24.456 26.1431 23.8972C26.3497 23.6884 26.5968 23.5179 26.8777 23.427C27.3028 23.2648 27.794 23.2941 28.2041 23.4894C28.5271 23.6291 28.7585 23.904 29.0048 24.1443C30.0271 25.1673 31.0516 26.1888 32.0731 27.2134C32.3901 27.5281 32.5703 27.9682 32.5831 28.4129V28.4925C32.5733 28.7561 32.4892 29.01 32.3826 29.2496C32.164 29.6822 31.7674 29.9782 31.4362 30.3192C31.2822 30.4611 31.153 30.6362 30.9607 30.7278C30.468 31.0913 29.9159 31.3782 29.3316 31.5623C29.0604 31.6667 28.772 31.7087 28.4896 31.7688C28.1771 31.8327 27.8564 31.8432 27.5402 31.8094C27.1398 31.8064 26.744 31.744 26.3497 31.6824C25.9996 31.6381 25.6616 31.5315 25.3161 31.4609C24.9751 31.3542 24.6259 31.2716 24.2946 31.1356C23.8657 31.0095 23.4639 30.8127 23.0493 30.6482C22.679 30.4724 22.3125 30.2891 21.9474 30.1036C21.4442 29.8129 20.9319 29.5343 20.455 29.2008C19.8601 28.8305 19.3133 28.3918 18.7522 27.9742C18.1363 27.4762 17.5369 26.9572 16.9676 26.4067C16.4328 25.9214 15.9491 25.3837 15.4443 24.8684C13.9992 23.3204 12.6307 21.6664 11.6572 19.7736C11.172 18.8009 10.7852 17.7659 10.6282 16.6858C10.4908 15.9197 10.4772 15.1325 10.5606 14.3604C10.6462 13.3209 11.0113 12.3008 11.6339 11.4619C11.6888 11.3792 11.7203 11.2808 11.7947 11.2117C12.0546 10.9511 12.3145 10.6905 12.5743 10.4298C12.8094 10.1947 13.0836 9.98593 13.4081 9.8973L13.4073 9.89655Z"
+                        fill="#85A6D7"
+                      ></path>
+                    </svg>
+                    <div class="hotline-number">{row.whatsapp}</div>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* 3. 地圖與診所分店切換區 */}
+    <section
+      id="contact-us-maps"
+      class="contact-us-maps site-container"
+      aria-label={content.maps.iframeTitle}
+    >
+      <div class="maps-table">
+        <iframe
+          id="contact-map-iframe"
+          title={content.maps.iframeTitle}
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          src={initialMapSrc}
+        ></iframe>
+      </div>
+
+      <div class="maps-title" role="tablist" aria-label={content.maps.iframeTitle}>
+        <button
+          type="button"
+          id="clickable-item-center"
+          role="tab"
+          aria-selected="true"
+          aria-controls="maps-panel-smile"
+          data-map-tab="smile"
+          class="maps-tab-btn maps-title-active-left"
+        >
+          {content.maps.tabs.smile}
+        </button>
+        <button
+          type="button"
+          id="clickable-item-eye"
+          role="tab"
+          aria-selected="false"
+          aria-controls="maps-panel-eye"
+          data-map-tab="eye"
+          class="maps-tab-btn"
+        >
+          {content.maps.tabs.eye}
+        </button>
+      </div>
+
+      <div
+        id="maps-panel-smile"
+        role="tabpanel"
+        aria-labelledby="clickable-item-center"
+        data-map-panel="smile"
+        class="maps-paper"
+      >
+        {
+          content.maps.smileList.map((item, index) => (
+            <button
+              type="button"
+              data-map-kind="smile"
+              data-map-index={index}
+              data-map-src={item.src}
+              aria-pressed={index === 0 ? "true" : "false"}
+              class:list={["maps-row", { "maps-paper-item": index === 0 }]}
+            >
+              <span class="maps-row-title">
+                {item.title.map((ele) => (
+                  <span class="maps-text">{ele}</span>
+                ))}
+              </span>
+              <span class="maps-row-info">
+                <span class="maps-row-address">
+                  {item.address.map((el) => (
+                    <span class="maps-addr-text">{el}</span>
+                  ))}
+                </span>
+                <span class="maps-row-pin" aria-hidden="true">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="28"
+                    height="42"
+                    viewBox="0 0 28 42"
+                    fill="none"
+                  >
+                    <path
+                      d="M13.9994 41.8545L2.09553 22.4853C0.78312 20.3387 0.0609509 17.8763 0.00369167 15.3526C-0.0535676 12.8289 0.556162 10.3355 1.76983 8.1303C2.98351 5.92506 4.75706 4.08803 6.90712 2.80914C9.05717 1.53026 11.5057 0.855957 13.9994 0.855957C16.4932 0.855957 18.9417 1.53026 21.0917 2.80914C23.2418 4.08803 25.0153 5.92506 26.229 8.1303C27.4427 10.3355 28.0524 12.8289 27.9952 15.3526C27.9379 17.8763 27.2157 20.3387 25.9033 22.4853L13.9994 41.8545ZM13.9994 2.37306C11.773 2.37306 9.58689 2.97507 7.66727 4.11684C5.74765 5.25861 4.16414 6.89871 3.08049 8.86754C1.99683 10.8364 1.45236 13.0625 1.50336 15.3157C1.55437 17.5689 2.19901 19.7674 3.37062 21.6839L13.9994 38.9799L24.6294 21.6828C25.8004 19.7661 26.4444 17.5677 26.495 15.3147C26.5457 13.0617 26.001 10.8359 24.9173 8.86734C23.8336 6.89879 22.2502 5.2589 20.3308 4.11719C18.4114 2.97547 16.2257 2.37336 13.9994 2.37306Z"
+                      fill="#8CDBCC"
+                    ></path>
+                    <path
+                      d="M13.9996 22.249C12.5889 22.249 11.21 21.8256 10.037 21.0322C8.86413 20.2389 7.94995 19.1113 7.41011 17.792C6.87028 16.4727 6.72903 15.021 7.00424 13.6205C7.27944 12.22 7.95874 10.9335 8.95623 9.92376C9.95371 8.91403 11.2246 8.2264 12.6081 7.94782C13.9917 7.66923 15.4258 7.81221 16.7291 8.35867C18.0323 8.90513 19.1463 9.83054 19.93 11.0179C20.7137 12.2052 21.132 13.6011 21.132 15.0291C21.1299 16.9432 20.3777 18.7784 19.0406 20.132C17.7035 21.4855 15.8906 22.2469 13.9996 22.249ZM13.9996 9.3276C12.8856 9.3276 11.7967 9.66199 10.8705 10.2885C9.94423 10.915 9.22233 11.8054 8.79603 12.8472C8.36973 13.889 8.25819 15.0354 8.47552 16.1414C8.69284 17.2473 9.22927 18.2632 10.017 19.0606C10.8047 19.858 11.8082 20.401 12.9008 20.621C13.9934 20.8409 15.1258 20.728 16.155 20.2965C17.1842 19.865 18.0638 19.1342 18.6827 18.1966C19.3016 17.259 19.6319 16.1567 19.6319 15.0291C19.6301 13.5175 19.0361 12.0684 17.9802 10.9996C16.9244 9.93074 15.4928 9.32946 13.9996 9.3276Z"
+                      fill="#8CDBCC"
+                    ></path>
+                  </svg>
+                </span>
+              </span>
+            </button>
+          ))
+        }
+      </div>
+
+      <div
+        id="maps-panel-eye"
+        role="tabpanel"
+        aria-labelledby="clickable-item-eye"
+        data-map-panel="eye"
+        class="maps-paper"
+        hidden
+      >
+        {
+          content.maps.eyeList.map((item, index) => (
+            <button
+              type="button"
+              data-map-kind="eye"
+              data-map-index={index}
+              data-map-src={item.src}
+              aria-pressed={index === 0 ? "true" : "false"}
+              class:list={["maps-row", { "maps-paper-item": index === 0 }]}
+            >
+              <span class="maps-row-title">
+                {item.title.map((ele) => (
+                  <span class="maps-text">{ele}</span>
+                ))}
+              </span>
+              <span class="maps-row-info">
+                <span class="maps-row-address">
+                  {item.address.map((el) => (
+                    <span class="maps-addr-text">{el}</span>
+                  ))}
+                </span>
+                <span class="maps-row-pin" aria-hidden="true">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="28"
+                    height="42"
+                    viewBox="0 0 28 42"
+                    fill="none"
+                  >
+                    <path
+                      d="M13.9994 41.8545L2.09553 22.4853C0.78312 20.3387 0.0609509 17.8763 0.00369167 15.3526C-0.0535676 12.8289 0.556162 10.3355 1.76983 8.1303C2.98351 5.92506 4.75706 4.08803 6.90712 2.80914C9.05717 1.53026 11.5057 0.855957 13.9994 0.855957C16.4932 0.855957 18.9417 1.53026 21.0917 2.80914C23.2418 4.08803 25.0153 5.92506 26.229 8.1303C27.4427 10.3355 28.0524 12.8289 27.9952 15.3526C27.9379 17.8763 27.2157 20.3387 25.9033 22.4853L13.9994 41.8545ZM13.9994 2.37306C11.773 2.37306 9.58689 2.97507 7.66727 4.11684C5.74765 5.25861 4.16414 6.89871 3.08049 8.86754C1.99683 10.8364 1.45236 13.0625 1.50336 15.3157C1.55437 17.5689 2.19901 19.7674 3.37062 21.6839L13.9994 38.9799L24.6294 21.6828C25.8004 19.7661 26.4444 17.5677 26.495 15.3147C26.5457 13.0617 26.001 10.8359 24.9173 8.86734C23.8336 6.89879 22.2502 5.2589 20.3308 4.11719C18.4114 2.97547 16.2257 2.37336 13.9994 2.37306Z"
+                      fill="#8CDBCC"
+                    ></path>
+                    <path
+                      d="M13.9996 22.249C12.5889 22.249 11.21 21.8256 10.037 21.0322C8.86413 20.2389 7.94995 19.1113 7.41011 17.792C6.87028 16.4727 6.72903 15.021 7.00424 13.6205C7.27944 12.22 7.95874 10.9335 8.95623 9.92376C9.95371 8.91403 11.2246 8.2264 12.6081 7.94782C13.9917 7.66923 15.4258 7.81221 16.7291 8.35867C18.0323 8.90513 19.1463 9.83054 19.93 11.0179C20.7137 12.2052 21.132 13.6011 21.132 15.0291C21.1299 16.9432 20.3777 18.7784 19.0406 20.132C17.7035 21.4855 15.8906 22.2469 13.9996 22.249ZM13.9996 9.3276C12.8856 9.3276 11.7967 9.66199 10.8705 10.2885C9.94423 10.915 9.22233 11.8054 8.79603 12.8472C8.36973 13.889 8.25819 15.0354 8.47552 16.1414C8.69284 17.2473 9.22927 18.2632 10.017 19.0606C10.8047 19.858 11.8082 20.401 12.9008 20.621C13.9934 20.8409 15.1258 20.728 16.155 20.2965C17.1842 19.865 18.0638 19.1342 18.6827 18.1966C19.3016 17.259 19.6319 16.1567 19.6319 15.0291C19.6301 13.5175 19.0361 12.0684 17.9802 10.9996C16.9244 9.93074 15.4928 9.32946 13.9996 9.3276Z"
+                      fill="#8CDBCC"
+                    ></path>
+                  </svg>
+                </span>
+              </span>
+            </button>
+          ))
+        }
+      </div>
+    </section>
+  </div>
 </BaseLayout>
+
+<script>
+  function initContactUsMapTabs() {
+    const iframe = document.getElementById(
+      "contact-map-iframe"
+    ) as HTMLIFrameElement | null;
+    const smileTab = document.getElementById("clickable-item-center");
+    const eyeTab = document.getElementById("clickable-item-eye");
+    const smilePanel = document.querySelector<HTMLElement>(
+      '[data-map-panel="smile"]'
+    );
+    const eyePanel = document.querySelector<HTMLElement>(
+      '[data-map-panel="eye"]'
+    );
+
+    if (!iframe || !smileTab || !eyeTab || !smilePanel || !eyePanel) return;
+
+    function selectClinicRow(panel: HTMLElement, targetIndex: number) {
+      const rows = panel.querySelectorAll<HTMLButtonElement>(".maps-row");
+      rows.forEach((btn, idx) => {
+        const isSelected = idx === targetIndex;
+        btn.classList.toggle("maps-paper-item", isSelected);
+        btn.setAttribute("aria-pressed", String(isSelected));
+        if (isSelected && btn.dataset.mapSrc && iframe) {
+          iframe.src = btn.dataset.mapSrc;
+        }
+      });
+    }
+
+    function switchMode(mode: "smile" | "eye") {
+      const isSmile = mode === "smile";
+      smileTab?.classList.toggle("maps-title-active-left", isSmile);
+      eyeTab?.classList.toggle("maps-title-active-right", !isSmile);
+      smileTab?.setAttribute("aria-selected", String(isSmile));
+      eyeTab?.setAttribute("aria-selected", String(!isSmile));
+
+      if (smilePanel && eyePanel) {
+        smilePanel.hidden = !isSmile;
+        eyePanel.hidden = isSmile;
+        selectClinicRow(isSmile ? smilePanel : eyePanel, 0);
+      }
+    }
+
+    smileTab.addEventListener("click", () => switchMode("smile"));
+    eyeTab.addEventListener("click", () => switchMode("eye"));
+
+    [smilePanel, eyePanel].forEach((panel) => {
+      panel.addEventListener("click", (event) => {
+        const target = (event.target as HTMLElement | null)?.closest<HTMLButtonElement>(
+          ".maps-row"
+        );
+        if (!target) return;
+        const idx = Number(target.dataset.mapIndex ?? "0");
+        selectClinicRow(panel, Number.isFinite(idx) ? idx : 0);
+      });
+    });
+  }
+
+  initContactUsMapTabs();
+</script>
+
+<style lang="scss">
+  .contact-us {
+    width: 100%;
+    overflow-x: clip;
+  }
+
+  .maps-table iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+
+  .maps-tab-btn,
+  .maps-row {
+    border: 0;
+    margin: 0;
+    font: inherit;
+    cursor: pointer;
+    background: transparent;
+  }
+
+  @media screen and (min-width: 768px) {
+    .banner-box {
+      padding-top: 16px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .banner-img {
+      background: url("https://statichk.cmermedical.com/smile/contact-us/6839f5bebcf0b8ba.webp")
+        no-repeat;
+      background-size: cover;
+      background-position: center;
+      height: 32.08vw;
+      width: 100%;
+      max-width: 1150px;
+      max-height: 556px;
+      border-radius: 55px;
+      display: flex;
+      align-items: flex-start;
+      flex-direction: column;
+      justify-content: center;
+      padding-left: 70px;
+      box-sizing: border-box;
+    }
+
+    .banner-title {
+      color: #4570b6;
+      font-family: "Microsoft YaHei", var(--font-hk), "Noto Sans HK", sans-serif;
+      font-size: 30px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 50.75px;
+      letter-spacing: 7.5px;
+      margin: 0;
+    }
+
+    .banner-subtitle {
+      color: #4570b6;
+      font-family: "Microsoft YaHei", var(--font-hk), "Noto Sans HK", sans-serif;
+      font-size: 15px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 43.5px;
+      letter-spacing: 0.45px;
+      margin: -10px 0 0;
+    }
+
+    .contact-us-box {
+      background: url("https://statichk.cmermedical.com/imgs/2024/05/55ff6541825e2b1d.png")
+        no-repeat;
+      background-size: 100% 100%;
+      padding: 240px 0 100px;
+      margin-top: 155px;
+      position: relative;
+    }
+
+    .hotline-badge {
+      width: 305px;
+      height: 305px;
+      background: #fff;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: -25%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .hotline-badge-icon {
+      padding-left: 10px;
+    }
+
+    .hotline-badge-title {
+      margin: 30px 0 0;
+      color: #4570b6;
+      text-align: center;
+      font-family: "Noto Sans", var(--font-hk), "Noto Sans HK", sans-serif;
+      font-size: 30px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 50px;
+      letter-spacing: 7.5px;
+    }
+
+    .contact-us-table {
+      max-width: 1110px;
+      margin: 0 auto;
+    }
+
+    .hotline-row {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      background: #fff;
+    }
+
+    .hotline-col-channels {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .hotline-header {
+      background: #8ba9da;
+      border-radius: 55px 55px 0 0;
+      color: #fff;
+      text-align: center;
+      font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+      font-size: 30px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 2.8;
+      letter-spacing: 9px;
+      overflow: hidden;
+    }
+
+    .hotline-col-center,
+    .hotline-phone-head,
+    .hotline-wa-head,
+    .hotline-cell-center,
+    .hotline-channel-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hotline-phone-head {
+      background: #8cdbcc;
+    }
+
+    .hotline-cell-center {
+      color: #4570b6;
+      text-align: center;
+      font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+      font-size: 30px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 2.8;
+      letter-spacing: 4.5px;
+    }
+
+    .hotline-phone-cell {
+      border-left: 2px solid #e2eaf7;
+      border-right: 2px solid #e2eaf7;
+    }
+
+    .hotline-number {
+      margin-left: 15px;
+      color: #4570b6;
+      text-align: center;
+      font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+      font-size: 30px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 2.8;
+      letter-spacing: 4.5px;
+    }
+
+    .contact-us-maps {
+      margin-top: 85px;
+      margin-bottom: 70px;
+    }
+
+    .maps-table {
+      width: 100%;
+      height: 480px;
+    }
+
+    .maps-title {
+      display: flex;
+    }
+
+    .maps-tab-btn {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      text-align: center;
+      font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+      font-size: 30px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 3.2;
+      letter-spacing: 7.5px;
+
+      &:nth-child(1) {
+        border-right: 2px solid #5b7bb0;
+        background: #8ba9da;
+      }
+
+      &:nth-child(2) {
+        background: #8cdbcc;
+      }
+
+      &.maps-title-active-left {
+        background: #3c65a7;
+      }
+
+      &.maps-title-active-right {
+        background: #309683;
+      }
+    }
+
+    .maps-paper[hidden] {
+      display: none;
+    }
+
+    .maps-row {
+      width: 100%;
+      display: flex;
+      transition: background-color var(--dur-fast) var(--ease-out);
+
+      &:hover,
+      &.maps-paper-item {
+        background: rgb(176 203 249 / 52%);
+      }
+
+      &:nth-child(6) .maps-row-title,
+      &:nth-child(8) .maps-row-title {
+        font-size: 24px;
+      }
+    }
+
+    .maps-row-title {
+      width: 50%;
+      border-right: 2px solid #e2eaf7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #4570b6;
+      text-align: center;
+      font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+      font-size: 28px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 40px;
+      letter-spacing: 6.5px;
+    }
+
+    .maps-row-info {
+      width: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      padding: 5px 32px;
+    }
+
+    .maps-row-address {
+      flex: 9;
+      color: #4570b6;
+      text-align: center;
+      font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 35px;
+      letter-spacing: 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 70px;
+    }
+
+    .maps-row-pin {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 1279px) {
+    .maps-row:nth-child(6) .maps-row-title,
+    .maps-row:nth-child(8) .maps-row-title {
+      flex-direction: column;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .banner-img {
+      background: url("https://statichk.cmermedical.com/imgs/2024/05/5af12daebe688f16.png")
+        no-repeat;
+      background-size: 100% 100%;
+      height: 84.6vw;
+      margin: 24px 15px 55px;
+      border-radius: 44px;
+      display: flex;
+      align-items: flex-start;
+      flex-direction: column;
+      justify-content: center;
+      padding-left: 20px;
+      box-sizing: border-box;
+    }
+
+    .banner-title {
+      color: #4570b6;
+      font-family: "Microsoft YaHei", var(--font-hk), "Noto Sans HK", sans-serif;
+      font-size: 32px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 36px;
+      letter-spacing: 0.7px;
+      margin: 0;
+    }
+
+    .banner-subtitle {
+      color: #4570b6;
+      font-family: "Microsoft YaHei", var(--font-hk), "Noto Sans HK", sans-serif;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 28px;
+      letter-spacing: 0.5px;
+      margin: 0;
+    }
+
+    .contact-us-box {
+      background: url("https://statichk.cmermedical.com/imgs/2024/05/0494a17f8b314d6f.png")
+        no-repeat;
+      background-size: 100% 100%;
+      padding: 115px 0 30px;
+      margin-top: 155px;
+      position: relative;
+    }
+
+    .hotline-inner {
+      padding-inline: 10px;
+    }
+
+    .hotline-badge {
+      width: 171px;
+      height: 171px;
+      background: #fff;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: -25%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .hotline-badge-icon {
+      width: 35px;
+      height: 41px;
+
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .hotline-badge-title {
+      margin: 20px 0 0;
+      color: #4570b6;
+      text-align: center;
+      font-family: "Noto Sans", var(--font-hk), "Noto Sans HK", sans-serif;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 35px;
+      letter-spacing: 1px;
+    }
+
+    .hotline-row {
+      display: flex;
+    }
+
+    .hotline-col-center,
+    .hotline-cell-center,
+    .hotline-col-channels {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hotline-col-channels {
+      flex-direction: column;
+    }
+
+    .hotline-header {
+      border-radius: 30px 30px 0 0;
+      overflow: hidden;
+    }
+
+    .hotline-col-center {
+      background: #85a6d7;
+      color: #fff;
+      text-align: center;
+      font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 3;
+      letter-spacing: 1px;
+      border-right: 1px solid #5b7bb0;
+    }
+
+    .hotline-header-channels {
+      background: #86d7ca;
+      color: #fff;
+      text-align: center;
+      font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: 2px;
+    }
+
+    .hotline-body-row {
+      border-bottom: 1px solid #e2eaf7;
+      background: #fff;
+    }
+
+    .hotline-cell-center {
+      color: #4570b6;
+      text-align: center;
+      font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 20px;
+      letter-spacing: 0.8px;
+      border-right: 1px solid #e2eaf7;
+    }
+
+    .hotline-body-channels {
+      color: #4570b6;
+      text-align: center;
+      font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 20px;
+      letter-spacing: 0.8px;
+      padding: 5px 0;
+    }
+
+    .hotline-channel-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hotline-number {
+      margin-left: 15px;
+    }
+
+    .hotline-phone-icon {
+      width: 15px;
+      height: 17px;
+
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      path {
+        fill: #86d7ca;
+      }
+    }
+
+    .hotline-wa-icon {
+      width: 19px;
+      height: 19px;
+
+      path {
+        fill: #86d7ca;
+      }
+    }
+
+    .contact-us-maps {
+      margin-top: 40px;
+      margin-bottom: 50px;
+    }
+
+    .maps-table {
+      width: 100%;
+      height: 348px;
+    }
+
+    .maps-title {
+      margin: 40px 5px 0;
+      display: flex;
+    }
+
+    .maps-tab-btn {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      text-align: center;
+      font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 40px;
+      letter-spacing: 1px;
+
+      &:nth-child(1) {
+        border-right: 2px solid #5b7bb0;
+        background: #8ba9da;
+      }
+
+      &:nth-child(2) {
+        background: #8cdbcc;
+      }
+
+      &.maps-title-active-left {
+        background: #3c65a7;
+      }
+
+      &.maps-title-active-right {
+        background: #309683;
+      }
+    }
+
+    .maps-paper {
+      padding: 0 5px;
+
+      &[hidden] {
+        display: none;
+      }
+    }
+
+    .maps-row {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 6px 0;
+
+      &.maps-paper-item {
+        background: rgb(176 203 249 / 52%);
+      }
+    }
+
+    #contact-us-maps .maps-row-title {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #4570b6;
+      text-align: center;
+      font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 1.6;
+      letter-spacing: 2.1px;
+      border-right: 1px solid #e2eaf7;
+    }
+
+    #contact-us-maps .maps-row-title .maps-text {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .maps-row-info {
+      width: 50%;
+      padding-right: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      box-sizing: border-box;
+    }
+
+    #contact-us-maps .maps-row-address {
+      color: #4570b6;
+      text-align: center;
+      font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+      font-size: 10px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 15px;
+      display: flex;
+      flex-direction: column;
+      letter-spacing: 0.5px;
+    }
+
+    #contact-us-maps .maps-row-address .maps-addr-text {
+      font-size: 10px;
+      line-height: 15px;
+    }
+
+    .maps-row-pin {
+      position: absolute;
+      right: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+
+      svg {
+        width: 13px;
+        height: 100%;
+      }
+    }
+  }
+
+  :global(html[lang="zh-cn"]) .hotline-header,
+  :global(html[lang="zh-cn"]) .hotline-cell-center,
+  :global(html[lang="zh-cn"]) .hotline-number,
+  :global(html[lang="zh-cn"]) .maps-tab-btn,
+  :global(html[lang="zh-cn"]) .maps-row-title,
+  :global(html[lang="zh-cn"]) .maps-row-address {
+    font-family: var(--font-sc), "Noto Sans SC", sans-serif;
+  }
+</style>
