@@ -1,0 +1,700 @@
+---
+/*
+ * @FilePath: /src/pages/[...lang]/smileProCare.astro
+ * @Description: SMILE Pro Care 1.0/2.0 專頁 (100% 對齊舊站 pages/smileProCare/index.vue 與線上官網文案、共享 .site-container、節制動態、WSPC-2025/WSPC-01 埋點與 Schema)
+ */
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SchemaProcedure from "@/components/seo/SchemaProcedure.astro";
+import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
+import { i18nPaths, getLangFromUrl } from "@/i18n/utils";
+import {
+  SMILE_PRO_CARE_ZH_HK,
+  SMILE_PRO_CARE_ZH_CN,
+} from "@/data/smileProCareData";
+
+export function getStaticPaths() {
+  return [...i18nPaths];
+}
+
+const lang = getLangFromUrl(Astro.url);
+const isCn = lang === "zh-cn";
+const content = isCn ? SMILE_PRO_CARE_ZH_CN : SMILE_PRO_CARE_ZH_HK;
+const currentUrl = isCn ? "/cn/smileProCare" : "/smileProCare";
+---
+
+<BaseLayout tdkKey="smileprocare">
+  <SchemaProcedure
+    name={content.procedureSchema.name}
+    description={content.procedureSchema.description}
+  />
+  <SchemaBreadcrumb
+    items={[
+      { name: content.breadcrumb.home, url: isCn ? "/cn/" : "/" },
+      { name: content.breadcrumb.service, url: currentUrl },
+      { name: content.breadcrumb.current, url: currentUrl },
+    ]}
+  />
+
+  <div class="page-smileprocare font-hk">
+    {/* 1. 頂部主視覺 Banner (唯一 H1 + WSPC-2025 圓形按鈕) */}
+    <section class="banner relative" aria-labelledby="care-hero-title">
+      <div class="site-container">
+        <div class="text-care pt-20 md:pt-33 pl-[5px] min-[1139px]:pl-0">
+          <div class="md:w-fit">
+            <h1
+              id="care-hero-title"
+              class="text-3xl md:text-5xl xl:text-6xl font-bold font-en md:mb-2"
+            >
+              {content.banner.title}
+            </h1>
+            <p
+              class="banner-subtitle text-sm md:text-lg xl:text-xl md:text-center"
+              set:html={content.banner.subtitleHtml}
+            />
+          </div>
+        </div>
+        <a
+          href={content.banner.ctaUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-cta="whatsapp"
+          class="button-round center"
+        >
+          <span>{content.banner.ctaLine1}</span>
+          <span>{content.banner.ctaLine2}</span>
+        </a>
+      </div>
+      <div
+        class="banner-scroll-hint center flex-col gap-4 md:gap-6 text-care absolute left-1/2 -translate-x-1/2 bottom-8 md:bottom-10"
+      >
+        <span class="text-xs md:text-base font-medium">
+          {content.banner.scrollHint}
+        </span>
+        <svg
+          class="w-4 md:w-10 h-auto"
+          xmlns="http://www.w3.org/2000/svg"
+          width="45"
+          height="40"
+          viewBox="0 0 45 40"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="m1.5 1.5 21 17.898L43.5 1.5m-42 18 21 17.898 21-17.898"
+            stroke="#000"
+            stroke-width="3"
+            stroke-linecap="round"
+          />
+        </svg>
+      </div>
+    </section>
+
+    {/* 2. SMILE Pro Care 介紹 */}
+    <section
+      class="intro px-8 bg-white"
+      aria-labelledby="care-intro-title"
+    >
+      <div class="site-container intro-inner">
+        <h2
+          id="care-intro-title"
+          class="care-title flex flex-col lg:flex-row lg:justify-center gap-1 mb-6 lg:mb-8 text-right lg:text-center pt-2 lg:pt-0"
+        >
+          {content.intro.titleParts.map((part) => <span>{part}</span>)}
+        </h2>
+        <div class="intro-copy lg:text-center text-[#6D6E71] text-sm lg:text-lg">
+          <p set:html={content.intro.p1Html} />
+          <p set:html={content.intro.p2Html} />
+          <p set:html={content.intro.p3Html} />
+        </div>
+      </div>
+    </section>
+
+    {/* 3. 方案比較表 */}
+    <section
+      class="comparison"
+      aria-labelledby="care-comparison-title"
+    >
+      <div class="site-container">
+        <h2
+          id="care-comparison-title"
+          class="care-title center flex-col lg:flex-row gap-1 whitespace-nowrap"
+        >
+          <span>{content.comparison.titleLine1}</span>
+          <span>{content.comparison.titleLine2}</span>
+        </h2>
+        <div class="care-table text-center overflow-x-auto">
+          <table class="mx-auto">
+            <thead>
+              <tr>
+                <th>{content.comparison.headers.service}</th>
+                <th set:html={content.comparison.headers.standardHtml} />
+                <th>
+                  <div class="care-table-crown">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="26"
+                      height="26"
+                      viewBox="0 0 26 26"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M12.925 4.342s1.313.203 1.313 1.211v1.313h1.01s.605.06.605.909c0 .848-.505 1.394-.505 2.524s.996 2.114 2.114 2.114 1.971-1.176 1.971-1.972-.349-2.35-.349-2.868.364-.693.693-.693h.923s-.011-2.029 2.144-2.384a.505.505 0 0 1 .585.574l-2.224 14.317H4.645L2.42 5.07a.505.505 0 0 1 .586-.575C5.16 4.851 5.15 6.88 5.15 6.88h.922c.33 0 .693.175.693.693s-.349 2.072-.349 2.868.854 1.972 1.972 1.972 2.114-.984 2.114-2.114-.505-1.676-.505-2.524.605-.909.605-.909h1.01V5.553c0-1.008 1.313-1.211 1.313-1.211"
+                        fill="#ffb41f"
+                      />
+                      <path
+                        d="M4.41 17.872 2.42 5.07a.505.505 0 0 1 .586-.575C5.16 4.851 5.15 6.88 5.15 6.88h.922c.33 0 .693.175.693.693s-.349 2.072-.349 2.868.854 1.972 1.972 1.972 2.114-.984 2.114-2.114-.505-1.676-.505-2.524.605-.909.605-.909h1.01V5.553c0-1.008 1.313-1.211 1.313-1.211s1.313.203 1.313 1.211v1.313h1.01s.605.06.605.909c0 .848-.505 1.394-.505 2.524s.996 2.114 2.114 2.114q.17-.001.331-.035l-.2 4.249c0 .687-.542 1.245-1.209 1.245z"
+                        fill="#ffc556"
+                      />
+                      <path
+                        d="M12.444 11.122a.578.578 0 0 1 .962 0l1.324 1.987a.58.58 0 0 1 0 .642l-1.324 1.987a.578.578 0 0 1-.962 0l-1.325-1.987a.58.58 0 0 1 0-.642z"
+                        fill="#ff2a5c"
+                      />
+                      <path
+                        d="M11.673 13.33a.18.18 0 0 1-.143-.29l1.072-1.406a.18.18 0 0 1 .323.109v1.406a.18.18 0 0 1-.053.128.18.18 0 0 1-.127.052z"
+                        fill="#fff"
+                        fill-opacity=".3"
+                      />
+                      <path
+                        d="M21.76 19.614a.63.63 0 0 0-.63-.632H4.72a.63.63 0 0 0-.63.631v1.263a.63.63 0 0 0 .63.63h16.41a.63.63 0 0 0 .63-.63z"
+                        fill="#ffa652"
+                      />
+                      <path
+                        d="M16.106 19.614a.63.63 0 0 0-.631-.632H4.72a.63.63 0 0 0-.631.631v1.263a.63.63 0 0 0 .63.63h10.755a.63.63 0 0 0 .63-.63z"
+                        fill="#ffb443"
+                      />
+                      <path
+                        d="M9.946 19.614a.63.63 0 0 0-.63-.632H4.72a.63.63 0 0 0-.631.631v1.263a.63.63 0 0 0 .63.63h4.595a.63.63 0 0 0 .631-.63z"
+                        fill="#ffcd61"
+                      />
+                    </svg>
+                    {content.comparison.headers.crownLabel}
+                  </div>
+                  <span set:html={content.comparison.headers.careHtml} />
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                content.comparison.rows.map((row) => (
+                  <tr>
+                    <td set:html={row.serviceHtml} />
+                    <td set:html={row.standardHtml} />
+                    <td set:html={row.careHtml} />
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+        <p
+          class="comparison-note text-[#F89B03] text-center text-[11px] lg:text-xl font-bold tracking-widest py-4 lg:py-10 border-b border-[#D0D0D0]"
+          set:html={content.comparison.upgradeNoteHtml}
+        />
+      </div>
+    </section>
+
+    {/* 4. 專享福利 */}
+    <section
+      class="benefits pt-8 pb-10 lg:pt-15 lg:pb-12 px-3 mb-8"
+      aria-labelledby="care-benefits-title"
+    >
+      <div class="site-container">
+        <h2 id="care-benefits-title" class="care-title text-center mb-1">
+          {content.benefits.title}
+        </h2>
+        <p
+          class="benefits-desc mb-10 lg:mb-12 text-xs lg:text-base text-[#4B5563] text-center"
+        >
+          {content.benefits.subtitle}
+        </p>
+        <div class="center gap-4 lg:gap-[100px]">
+          {
+            content.benefits.items.map((item) => (
+              <div class="benefits-item">
+                <span class="benefits-name" set:html={item.nameHtml} />
+                <div class="benefits-time">
+                  <div class="flex items-end">
+                    <span>×</span>
+                    <span>{item.times}</span>
+                    <span>次</span>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* 5. 如何選擇與 WSPC-01 WhatsApp 預約 */}
+    <section
+      class="choose bg-white px-6 lg:px-0 mb-10"
+      aria-labelledby="care-choose-title"
+    >
+      <div class="site-container">
+        <h2 id="care-choose-title" class="care-title text-center mb-2 lg:mb-6">
+          {content.choose.title}
+        </h2>
+        <p
+          class="choose-desc mb-4 lg:mb-8 text-justify lg:text-center text-sm lg:text-base leading-6 text-[#4B5563]"
+          set:html={content.choose.descHtml}
+        />
+        <a
+          href={content.choose.ctaUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-cta="whatsapp"
+          class="choose-btn center bg-care py-3 px-6 lg:px-5 rounded-lg w-fit mx-auto"
+        >
+          <span class="text-sm lg:text-base text-white font-medium">
+            {content.choose.ctaText}
+          </span>
+        </a>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style lang="scss">
+  $care: #0a2342;
+
+  .page-smileprocare {
+    .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .text-care {
+      color: $care;
+    }
+
+    .bg-care {
+      background-color: $care;
+    }
+
+    .care-title {
+      color: $care;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 24px;
+      letter-spacing: 0.025em;
+    }
+
+    .banner {
+      background: url("https://statichk.cmermedical.com/smile/smileProCare/banner-smileprocare-mb-v1.webp")
+        no-repeat center / cover;
+      height: 336px;
+
+      .banner-subtitle {
+        font-size: 14px;
+        line-height: 20px;
+      }
+
+      .banner-scroll-hint span {
+        font-size: 12px;
+        line-height: 16px;
+      }
+
+      .button-round {
+        width: 36.92vw;
+        height: 36.92vw;
+        flex-direction: column;
+        border-radius: 50%;
+        position: relative;
+        left: 5px;
+        bottom: -80px;
+        z-index: 10;
+        box-shadow: 4.244px 4.244px 0 rgba(99, 107, 122, 0.75);
+        background-color: $care;
+        color: #fff;
+        white-space: nowrap;
+        letter-spacing: 0.025em;
+        transition:
+          transform var(--dur) var(--ease-out),
+          opacity var(--dur) var(--ease-out);
+
+        &:hover {
+          transform: translateY(-2px);
+          opacity: 0.92;
+        }
+
+        &:active {
+          transform: scale(0.98);
+        }
+
+        span {
+          &:first-child {
+            font-size: 4.61vw;
+            font-weight: 900;
+          }
+
+          &:last-child {
+            font-size: 3.58vw;
+            font-weight: 700;
+          }
+        }
+      }
+    }
+
+    .intro {
+      background: url("https://statichk.cmermedical.com/smile/smileProCare/smileprocare-device-v1.webp")
+        no-repeat;
+      background-position: 60% 300%;
+      background-size: 328px;
+      height: 380px;
+
+      .intro-copy p {
+        font-size: 14px;
+        line-height: 20px;
+      }
+    }
+
+    .comparison {
+      background-color: #fbfbfb;
+      padding-top: 24px;
+      padding-bottom: 24px;
+
+      .care-table {
+        font-size: clamp(12px, 3.58vw, 20px);
+
+        table {
+          min-width: 436px;
+          white-space: nowrap;
+        }
+
+        thead th,
+        tbody td {
+          border-bottom: 1px solid #d0d0d0;
+          padding-left: 3vw;
+          padding-right: 3vw;
+        }
+
+        thead th {
+          height: 100px;
+
+          span {
+            font-size: inherit;
+          }
+        }
+
+        tbody td {
+          height: 64px;
+        }
+
+        thead th:nth-child(1),
+        tbody td:nth-child(1) {
+          color: $care;
+          font-weight: 700;
+        }
+
+        thead th:nth-child(1) {
+          font-weight: 800;
+        }
+
+        thead th:nth-child(2),
+        tbody td:nth-child(2) {
+          background-color: #eaf2ff;
+        }
+
+        thead th:nth-child(2),
+        tbody tr:last-child td:nth-child(2) {
+          color: #4570b6;
+        }
+
+        tbody td:nth-child(2) {
+          color: #60605f;
+        }
+
+        thead th:nth-child(3),
+        tbody td:nth-child(3) {
+          background-color: $care;
+          color: #fff;
+          border-color: #fff;
+        }
+
+        tbody tr:last-child td:nth-child(3) {
+          color: #ffb41f;
+        }
+      }
+
+      .care-table-crown {
+        background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMjIiIGhlaWdodD0iMzEiIHZpZXdCb3g9IjAgMCAyMjIgMzEiIGZpbGw9Im5vbmUiPjxwYXRoIGQ9Ik0xODAuNzg5IDBINDAuNTM5TDI5LjYwMSAxNi4yOTNsMTAuOTM4IDE0LjY1M2gxNDAuMjVsMTAuOTM5LTE0LjQ5OHoiIGZpbGw9InVybCgjYSkiLz48cGF0aCBzdHJva2U9IiMwMmUyZmQiIHN0cm9rZS1vcGFjaXR5PSIuNiIgc3Ryb2tlLXdpZHRoPSIuNjczIiBkPSJNMzAuMjczIDE2LjQ4M0gwIi8+PHBhdGggc3Ryb2tlPSIjNjdhYWZmIiBzdHJva2Utd2lkdGg9Ii42NzMiIGQ9Ik0yMjIgMTYuNDgzaC0zMC4yNzIiLz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImEiIHgxPSIyOS42MDEiIHkxPSIxNS40NzMiIHgyPSIxOTEuNzI4IiB5Mj0iMTUuNDczIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agc3RvcC1jb2xvcj0iIzAyZTJmZCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzAyNWFjOCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjwvc3ZnPg==")
+          no-repeat center / contain;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+      }
+
+      .comparison-note {
+        font-size: 11px;
+        line-height: 16px;
+      }
+    }
+
+    .benefits {
+      background: linear-gradient(
+        81deg,
+        #dedbde 3.15%,
+        rgba(216, 221, 230, 0.5) 93.3%
+      );
+
+      .benefits-desc {
+        font-size: 12px;
+        line-height: 16px;
+      }
+
+      .benefits-item {
+        background-color: #fff;
+        position: relative;
+        width: clamp(120px, 40vw, 200px);
+        height: clamp(120px, 40vw, 200px);
+        font-size: clamp(16px, 5.12vw, 28px);
+        font-weight: 700;
+        line-height: 1.2;
+        color: $care;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .benefits-name {
+          font-size: inherit;
+        }
+      }
+
+      .benefits-time {
+        width: clamp(32px, 10.25vw, 60px);
+        height: clamp(32px, 10.25vw, 60px);
+        top: 1%;
+        right: 0.5%;
+        background-color: $care;
+        color: #fff;
+        border-radius: 50%;
+        position: absolute;
+        font-weight: 800;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: clamp(10px, 3.2vw, 16px);
+        line-height: 1;
+        letter-spacing: 0em;
+
+        span {
+          font-size: inherit;
+
+          &:nth-child(2) {
+            font-size: clamp(12px, 4.5vw, 20px);
+          }
+
+          &:nth-child(3) {
+            font-weight: 400;
+          }
+        }
+      }
+    }
+
+    .choose {
+      .choose-desc {
+        font-size: 14px;
+        line-height: 24px;
+      }
+
+      .choose-btn {
+        transition:
+          transform var(--dur) var(--ease-out),
+          opacity var(--dur) var(--ease-out);
+
+        span {
+          font-size: 14px;
+          line-height: 20px;
+        }
+
+        &:hover {
+          transform: translateY(-2px);
+          opacity: 0.92;
+        }
+
+        &:active {
+          transform: scale(0.98);
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .page-smileprocare {
+      .banner {
+        background-image: url("https://statichk.cmermedical.com/smile/smileProCare/banner-smileprocare-pc-v1.webp");
+        height: 600px;
+        overflow: hidden;
+
+        .banner-subtitle {
+          font-size: 18px;
+          line-height: 28px;
+        }
+
+        .banner-scroll-hint span {
+          font-size: 16px;
+          line-height: 24px;
+        }
+
+        .button-round {
+          box-shadow: 10px 10px 0 0 rgba(99, 107, 122, 0.75);
+          left: 5px;
+          bottom: -140px;
+
+          span {
+            &:first-child {
+              font-size: 44px;
+            }
+
+            &:last-child {
+              font-size: 30px;
+            }
+          }
+        }
+      }
+
+      .comparison {
+        .care-table {
+          thead th {
+            height: 152px;
+          }
+
+          tbody td {
+            height: 80px;
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .page-smileprocare {
+      .care-title {
+        font-size: 36px;
+        line-height: 40px;
+      }
+
+      .banner {
+        .button-round {
+          width: 336px;
+          height: 336px;
+        }
+      }
+
+      .intro {
+        height: 344px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background-size: 444px;
+        background-position: 90% 0;
+
+        .intro-copy p {
+          font-size: 18px;
+          line-height: 28px;
+        }
+      }
+
+      .comparison {
+        padding-top: 92px;
+        padding-bottom: 60px;
+
+        .care-table {
+          font-size: 20px;
+
+          thead th {
+            font-size: 20px;
+            height: 184px;
+          }
+
+          thead th:nth-child(1) {
+            font-size: 26px;
+            width: 232px;
+          }
+
+          tbody td {
+            height: 116px;
+          }
+        }
+
+        .care-table-crown {
+          font-size: 16px;
+        }
+
+        .comparison-note {
+          font-size: 20px;
+          line-height: 28px;
+        }
+      }
+
+      .benefits {
+        background: url("https://statichk.cmermedical.com/smile/smileProCare/smileprocare-benefits-bg.webp")
+          no-repeat center / cover;
+
+        .benefits-desc {
+          font-size: 16px;
+          line-height: 24px;
+        }
+
+        .benefits-item {
+          font-size: 36px;
+          width: 300px;
+          height: 300px;
+        }
+
+        .benefits-time {
+          width: 76px;
+          height: 76px;
+          font-size: 24px;
+
+          span {
+            &:nth-child(2) {
+              font-size: 32px;
+            }
+          }
+        }
+      }
+
+      .choose {
+        .choose-desc {
+          font-size: 16px;
+          line-height: 24px;
+        }
+
+        .choose-btn span {
+          font-size: 16px;
+          line-height: 24px;
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 1139px) {
+    .page-smileprocare {
+      .banner {
+        .button-round {
+          left: 0;
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 1280px) {
+    .page-smileprocare {
+      .banner {
+        .banner-subtitle {
+          font-size: 20px;
+          line-height: 28px;
+        }
+      }
+    }
+  }
+</style>

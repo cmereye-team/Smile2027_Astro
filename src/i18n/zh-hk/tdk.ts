@@ -16,9 +16,9 @@ export const tdk = {
     keywords: "SMILE Pro, SMILE Pro 2.0, 微笑激光矯視, 蔡司 VisuMax 800, 近視矯視, 散光矯視, 希瑪矯視",
   },
   smileprocare: {
-    title: "SMILE Pro Care 矯視升級保障計劃 | 術後彩光護理與全方位覆診 - 香港希瑪微笑矯視中心",
-    description: "希瑪 SMILE Pro Care 專屬升級計劃：升級即享 5 次術後覆診、1 次術後眼部彩光護理 (價值HK$4,000) 及眼科專科醫生增進手術保障，為您的眼睛健康提供更長遠全面的守護。",
-    keywords: "SMILE Pro Care, 矯視升級計劃, 眼部彩光護理, 矯視覆診保障, 希瑪微笑矯視",
+    title: "SMILE Pro Care 1.0/2.0 - 希瑪微笑矯視中心",
+    description: "SMILE PRO 2.0 Care 微笑矯視 - 希瑪微笑矯視中心",
+    keywords: "SMILE PRO 2.0 Care 微笑矯視 - 希瑪微笑矯視中心",
   },
   smile: {
     title: "SMILE 微笑激光矯視 | 微創切口・無需掀角膜瓣 - 香港希瑪微笑矯視中心",
