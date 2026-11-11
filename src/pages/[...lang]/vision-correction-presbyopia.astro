@@ -1031,6 +1031,38 @@ const currentUrl = isCn
         }
       });
     }
+
+    // 5. #CorrectionProgram 封面滑開動畫
+    const correctionProgram = document.getElementById("CorrectionProgram");
+    const presbyopiaBoxShow = document.getElementById("presbyopiaBoxShow");
+    if (correctionProgram && presbyopiaBoxShow && !presbyopiaBoxShow.dataset.observed) {
+      presbyopiaBoxShow.dataset.observed = "true";
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+      const correctionObserver = new IntersectionObserver(
+        (entries, obs) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              const box = document.getElementById("presbyopiaBoxShow");
+              if (box) {
+                if (prefersReducedMotion) {
+                  box.style.transition = "none";
+                }
+                box.style.transform = "translateY(-100%)";
+              }
+              obs.unobserve(entry.target);
+              break;
+            }
+          }
+        },
+        {
+          rootMargin: "0px 0px 600px 0px",
+          threshold: 0,
+        }
+      );
+      correctionObserver.observe(correctionProgram);
+    }
   }
 
   if (document.readyState === "loading") {
