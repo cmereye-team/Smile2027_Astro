@@ -36,6 +36,11 @@
     box-sizing: border-box;
     box-shadow: 0 4px 20px rgba(69, 112, 182, 0.06);
 
+    @media (min-width: 768px) {
+      height: clamp(180px, 22vw, 300px);
+      max-height: 300px;
+    }
+
     @media (max-width: 767px) {
       height: 84.6vw;
       border-radius: 44px;

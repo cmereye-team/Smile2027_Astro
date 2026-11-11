@@ -41,7 +41,7 @@ function getColor(type: string) {
               alt="更舒適生活從希瑪矯視開始 - 聽聽各位真實用家親身感受"
               title="希瑪微笑矯視用家真實口碑分享"
               loading="lazy"
-              width="1216"
+              width="772"
               height="60"
               srcset="
                 https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShare-newtitle-mb.svg 400w,
@@ -361,6 +361,8 @@ function getColor(type: string) {
 
             h2,
             h3 {
+              flex-shrink: 0;
+              white-space: nowrap;
               color: #4570b6;
               font-family: "Noto Sans TC";
               font-size: 30px;
@@ -371,6 +373,15 @@ function getColor(type: string) {
             }
 
             .UserShareBox-title-text {
+              min-width: 0;
+              flex: 1;
+
+              img {
+                max-width: 100%;
+                width: auto;
+                height: auto;
+              }
+
               p {
                 color: #6d6e71;
                 font-family: "Noto Sans HK";

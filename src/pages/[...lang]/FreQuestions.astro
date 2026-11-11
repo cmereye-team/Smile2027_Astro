@@ -29,6 +29,13 @@ const breadcrumbItems = [
   { name: content.breadcrumb.home, url: isCn ? "/cn/" : "/" },
   { name: content.breadcrumb.faq, url: isCn ? "/cn/FreQuestions" : "/FreQuestions" },
 ];
+
+const faqQuickLinks = [
+  { id: "faq-smile", label: "SMILE" },
+  { id: "faq-lasik", label: "LASIK" },
+  { id: "faq-icl", label: "ICL" },
+  { id: "faq-presbyopia", label: isCn ? "老花矫视" : "老花矯視" },
+];
 ---
 
 <BaseLayout tdkKey="faq">
@@ -39,6 +46,20 @@ const breadcrumbItems = [
   <h1 class="sr-only">{content.h1}</h1>
 
   <div class="questions site-container">
+    <nav
+      class="faq-quick-nav"
+      aria-label={isCn ? "常见问题分类导航" : "常見問題分類導航"}
+    >
+      <ul>
+        {
+          faqQuickLinks.map((link, index) => (
+            <li class={index === 0 ? "active" : ""} data-faq-tab={link.id}>
+              <a href={`#${link.id}`}>{link.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
     {
       content.sections.map((section) => (
         <section id={section.id} class="faq-section" aria-labelledby={`title-${section.id}`}>
@@ -79,6 +100,57 @@ const breadcrumbItems = [
   </div>
 </BaseLayout>
 
+<script>
+  const faqTabs = Array.from(
+    document.querySelectorAll<HTMLLIElement>(".faq-quick-nav li[data-faq-tab]")
+  );
+  const setActiveFaq = (id: string) => {
+    faqTabs.forEach((li) =>
+      li.classList.toggle("active", li.dataset.faqTab === id)
+    );
+  };
+  const syncFaqFromHash = () => {
+    const h = window.location.hash.slice(1);
+    if (faqTabs.some((li) => li.dataset.faqTab === h)) setActiveFaq(h);
+  };
+  syncFaqFromHash();
+  window.addEventListener("hashchange", syncFaqFromHash);
+
+  faqTabs.forEach((li) => {
+    li.querySelector("a")?.addEventListener("click", (e) => {
+      const id = li.dataset.faqTab;
+      const target = id ? document.getElementById(id) : null;
+      if (!id || !target) return;
+      e.preventDefault();
+      setActiveFaq(id);
+      const reduced = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+      target.scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
+      history.replaceState(null, "", `${window.location.pathname}#${id}`);
+    });
+  });
+
+  if (faqTabs.length && "IntersectionObserver" in window) {
+    const idMap = new Map<Element, string>();
+    faqTabs.forEach((li) => {
+      const id = li.dataset.faqTab;
+      const el = id ? document.getElementById(id) : null;
+      if (el && id) idMap.set(el, id);
+    });
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const tabId = idMap.get(entry.target);
+          if (entry.isIntersecting && tabId) setActiveFaq(tabId);
+        }
+      },
+      { rootMargin: "-25% 0px -65% 0px" }
+    );
+    idMap.forEach((_, el) => io.observe(el));
+  }
+</script>
+
 <style lang="scss">
   :root {
     interpolate-size: allow-keywords;
@@ -90,10 +162,61 @@ const breadcrumbItems = [
 
     & > section {
       padding-top: 60px;
-      scroll-margin-top: 130px;
+      scroll-margin-top: 195px;
 
       &:first-of-type {
         padding-top: 10px;
+      }
+    }
+  }
+
+  .faq-quick-nav {
+    position: sticky;
+    top: 112px;
+    z-index: 9;
+    padding: 8px 0 12px;
+    margin-bottom: 24px;
+    background: #fff;
+
+    ul {
+      display: flex;
+      border: 1px solid #4570b6;
+      width: fit-content;
+      padding-inline: 0;
+      margin: 0 auto;
+      list-style: none;
+      background: #fff;
+
+      li {
+        a {
+          display: block;
+          width: clamp(140px, 14vw, 240px);
+          padding: clamp(12px, 1.1vw, 18px) 0;
+          text-align: center;
+          box-sizing: border-box;
+          color: #4570b6;
+          font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+          font-size: clamp(14px, 1.35vw, 22px);
+          font-style: normal;
+          font-weight: 500;
+          line-height: 1;
+          letter-spacing: clamp(2px, 0.25vw, 4px);
+          background: #fff;
+          text-decoration: none;
+          transition:
+            background-color var(--dur-fast) var(--ease-out),
+            color var(--dur-fast) var(--ease-out);
+        }
+
+        & + li a {
+          border-left: 1px solid #4570b6;
+        }
+
+        &.active a {
+          font-weight: 900;
+          color: #fff;
+          background: #4570b6;
+        }
       }
     }
   }
@@ -313,10 +436,30 @@ const breadcrumbItems = [
 
       & > section {
         padding-top: 40px;
-        scroll-margin-top: 90px;
+        scroll-margin-top: 130px;
 
         &:first-of-type {
           padding-top: 0;
+        }
+      }
+    }
+
+    .faq-quick-nav {
+      top: 72px;
+      margin-bottom: 20px;
+
+      ul {
+        width: 100%;
+
+        li {
+          flex: 1 1 0;
+
+          a {
+            width: 100%;
+            padding: 10px 4px;
+            font-size: 14px;
+            letter-spacing: 0.05em;
+          }
         }
       }
     }

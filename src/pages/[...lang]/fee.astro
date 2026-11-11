@@ -297,9 +297,11 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
 
         {/* 表格二：老花矯視 */}
         <section id="table2" class="smilepro-difference smilepro-difference-two">
-          <h2 class="clear-title font-black tracking-wider text-primary">
-            {fee.table2.title}
-          </h2>
+          <div class="site-container">
+            <h2 class="clear-title font-black tracking-wider text-primary">
+              {fee.table2.title}
+            </h2>
+          </div>
 
           {/* 2.1 CMER CLEAR-Vision */}
           <table class="table table-clear custom-comparison-table site-container">
@@ -1117,23 +1119,23 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
     position: relative;
     // margin-top: 160px;
     z-index: 3;
-    height: clamp(300px, 30vw, 600px);
+    height: clamp(240px, 22vw, 300px);
     &::before {
       position: absolute;
       content: "";
-      width: clamp(128.5px, 13.39vw, 257px);
-      height: clamp(154px, 16.04vw, 308px);
+      width: clamp(100px, 10vw, 150px);
+      height: clamp(120px, 12vw, 180px);
       background: url("https://statichk.cmermedical.com/smile/feeV2/fee-Banner-beforePc.avif")
         no-repeat;
       background-size: 100% auto;
       left: clamp(-94px, -4.9vw, -47px);
-      top: clamp(35px, 3.65vw, 70px);
+      top: clamp(24px, 2.5vw, 40px);
     }
     &::after {
       position: absolute;
       content: "";
-      width: clamp(135px, 14.06vw, 270px);
-      height: clamp(184px, 19.17vw, 368px);
+      width: clamp(110px, 11vw, 160px);
+      height: clamp(150px, 15vw, 220px);
       background: url("https://statichk.cmermedical.com/smile/feeV2/fee-Banner-afterPc.avif")
         no-repeat;
       background-size: 100% auto;
@@ -1141,7 +1143,7 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
       top: 0;
     }
     .fee-Banner-Box {
-      padding-top: clamp(80px, 8.33vw, 160px);
+      padding-top: clamp(28px, 3vw, 44px);
       .fee-Banner-Box-Title {
         padding-left: clamp(39px, 4.06vw, 78px);
         span {
@@ -1149,7 +1151,7 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
           text-align: left;
           color: #4570b6;
           font-family: "Poppins", sans-serif;
-          font-size: clamp(68.5px, 7.14vw, 137px);
+          font-size: clamp(50px, 4.8vw, 72px);
           font-style: normal;
           font-weight: 700;
           line-height: 109.4%;
@@ -1157,21 +1159,21 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
         h1 {
           color: #4570b6;
           font-family: "Noto Sans HK";
-          font-size: clamp(37px, 3.85vw, 74px);
+          font-size: clamp(28px, 2.7vw, 40px);
           font-style: normal;
           font-weight: 400;
           line-height: 109.4%;
         }
         p {
-          margin-top: clamp(32.5px, 3.39vw, 65px);
-          height: clamp(22px, 2.29vw, 44px);
+          margin-top: clamp(16px, 1.8vw, 28px);
+          height: clamp(24px, 2vw, 32px);
           a {
             color: #6d6e71;
             font-family: "Noto Sans HK";
-            font-size: clamp(10px, 1.04vw, 20px);
+            font-size: clamp(12px, 1.04vw, 18px);
             font-style: normal;
             font-weight: 300;
-            line-height: 217.5%;
+            line-height: 1.8;
             letter-spacing: clamp(0.3px, 0.03vw, 0.6px);
           }
           & > a:last-child {
@@ -1191,7 +1193,7 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
     position: absolute;
     top: 0;
     z-index: -1;
-    height: clamp(300px, 30vw, 600px);
+    height: clamp(240px, 22vw, 300px);
     .fee-img-Box {
       .fee-img-Box-image {
         width: clamp(442px, 46.04vw, 884px);
@@ -1242,7 +1244,7 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
           // bottom: clamp(65px, 6.77vw, 130px);
           // left: clamp(67.5px, 7.03vw, 135px);
           right: clamp(72px, calc((100vw - 1320px) / 2 + 1vw), 700px);
-          bottom: 40px;
+          bottom: clamp(16px, 2vw, 28px);
           border-radius: 5px;
           display: flex;
           justify-content: center;
