@@ -67,8 +67,8 @@ export const tdk = {
   },
   equipment: {
     title: "中心设备 - 香港希玛微笑矫视中心",
-    description: "中心設備 - 希瑪微笑矯視中心",
-    keywords: "中心設備 - 希瑪微笑矯視中心",
+    description: "中心設備 - 香港希瑪微笑矯視中心",
+    keywords: "中心設備 - 香港希瑪微笑矯視中心",
   },
   video: {
     title: "案例分享及真实体验视频 | 明星名人与客户亲身体验 - 香港希玛微笑矫视中心",
