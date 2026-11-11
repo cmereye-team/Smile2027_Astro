@@ -71,7 +71,7 @@ const typeConfig: Record<VideoType, { bg: string; label: string; color: string }
           const cardTitle = [cleanTitle, item.name, item.enName].filter(Boolean).join(" - ");
           return (
             <article
-              class="video-item media-card group"
+              class="video-item media-card video-media-card group"
               data-types={item.type.join(",")}
               data-name={item.name || ""}
               data-en-name={item.enName || ""}
@@ -89,8 +89,8 @@ const typeConfig: Record<VideoType, { bg: string; label: string; color: string }
                     src={item.img}
                     alt={cardTitle}
                     title={cardTitle}
-                    width={480}
-                    height={270}
+                    width={265}
+                    height={439}
                     loading={index < 4 ? "eager" : "lazy"}
                     draggable="false"
                   />
@@ -111,20 +111,20 @@ const typeConfig: Record<VideoType, { bg: string; label: string; color: string }
                       {currentConfig.label}
                     </span>
                   )}
-                </div>
-                <div class="media-card-body">
-                  <h3
-                    set:html={item.title}
-                    class="video-title media-card-title"
-                    style={currentConfig ? `--title-color: ${currentConfig.color}` : ""}
-                  />
-                  {(item.name || item.enName) && (
-                    <p class="media-card-meta">
-                      {item.name && <span>{item.name}</span>}
-                      {item.name && item.enName && <span aria-hidden="true">·</span>}
-                      {item.enName && <span>{item.enName}</span>}
-                    </p>
-                  )}
+                  <div class="media-card-body video-card-scrim">
+                    <h3
+                      set:html={item.title}
+                      class="video-title media-card-title"
+                      style={currentConfig ? `--title-color: ${currentConfig.color}` : ""}
+                    />
+                    {(item.name || item.enName) && (
+                      <p class="media-card-meta">
+                        {item.name && <span>{item.name}</span>}
+                        {item.name && item.enName && <span aria-hidden="true">·</span>}
+                        {item.enName && <span>{item.enName}</span>}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </a>
             </article>
@@ -222,6 +222,51 @@ const typeConfig: Record<VideoType, { bg: string; label: string; color: string }
   document.addEventListener("astro:page-load", initVideoFilter);
 </script>
 <style>
+  .video-list.media-fluid-grid {
+    align-items: start;
+  }
+
+  .video-media-card {
+    border: 0;
+  }
+
+  .video-media-card .media-card-thumb {
+    aspect-ratio: auto;
+  }
+
+  .video-media-card .media-card-thumb img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+  }
+
+  .video-media-card .video-card-scrim {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: 2;
+    padding: 48px 16px 16px;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.58) 45%,
+      rgba(0, 0, 0, 0.85) 100%
+    );
+    gap: 4px;
+  }
+
+  .video-media-card .media-card-title {
+    color: #ffffff;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+  }
+
+  .video-media-card .media-card-meta {
+    margin: 0;
+    padding-top: 2px;
+    color: rgba(255, 255, 255, 0.92);
+  }
+
   .video-title :global(br) {
     display: none;
   }

@@ -37,19 +37,21 @@ const awardBadges = [
 <BaseLayout tdkKey="about">
   <div class="group-profile-page w-full overflow-hidden">
     
-    {/* 1. 頂部 Hero Banner (全寬背景圖層 + Container 標題約束 + 最大高度 300px) */}
+    {/* 1. 頂部 Hero Banner (Container 寬度約束 + 最大高度 300px + 統一 --banner-space 垂直間距) */}
     <section class="group-hero-banner" aria-label="集團簡介導言區">
-      <header class="group-hero-card">
-        <div class="group-hero-card-content">
-          <div class="group-hero-card-bg" aria-hidden="true"></div>
-          <div class="site-container relative z-10">
-            <h1 class="group-hero-title">
-              {dict.about.group.intro.title}
-            </h1>
-            <p class="group-hero-subtitle">Group Profile</p>
+      <div class="site-container">
+        <header class="group-hero-card">
+          <div class="group-hero-card-content">
+            <div class="group-hero-card-bg" aria-hidden="true"></div>
+            <div class="relative z-10">
+              <h1 class="group-hero-title">
+                {dict.about.group.intro.title}
+              </h1>
+              <p class="group-hero-subtitle">Group Profile</p>
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
+      </div>
     </section>
 
     {/* 2. 集團簡介與 C-M-E-R 經營理念板塊 (WebP 山水畫 X 軸無縫循環背景 + 內嵌 Container 卡片) */}

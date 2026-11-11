@@ -32,6 +32,9 @@
   --container-pad: 15px;
   --container-pad-sm: 10px;
 
+  /* 橫幅統一垂直留白變量 (Unified Banner Vertical Spacing) */
+  --banner-space: 12px;
+
   /* 核心動態時間與緩動函式 (Motion Tokens) */
   --dur-fast: 150ms;
   --dur: 250ms;
@@ -579,11 +582,17 @@ summary.faq-header::before {
 }
 
 /* -------------------------------------------------------------------------- */
-/* 全站統一內頁橫幅系統 (.page-banner - Canonical Pattern aligned with group-profile) */
+/* 全站統一內頁橫幅系統 (.page-banner - Canonical Pattern aligned with .site-container) */
 /* -------------------------------------------------------------------------- */
+@media (min-width: 768px) {
+  :root {
+    --banner-space: 20px;
+  }
+}
+
 .page-banner {
   width: 100%;
-  padding-block: 0;
+  padding-block: var(--banner-space);
 }
 
 .page-banner-card {
@@ -592,12 +601,14 @@ summary.faq-header::before {
   width: 100%;
   height: clamp(180px, 22vw, 300px);
   max-height: 300px;
-  border-radius: 0;
+  border-radius: clamp(20px, 3.5vw, 55px);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: stretch;
+  align-items: flex-start;
+  padding-inline: clamp(20px, 4vw, 36px);
   box-sizing: border-box;
+  box-shadow: 0 4px 20px rgba(69, 112, 182, 0.06);
   background-color: #f4f8fc;
   background-repeat: no-repeat;
   background-position: var(--banner-bg-pos-mb, center);
@@ -607,6 +618,7 @@ summary.faq-header::before {
 
 @media (min-width: 768px) {
   .page-banner-card {
+    padding-inline: 70px;
     background-position: var(--banner-bg-pos-pc, center);
     background-image: var(--banner-bg-pc, linear-gradient(125deg, #f4f9fd 0%, #e5f1fc 65%, #d9ecf8 100%));
   }

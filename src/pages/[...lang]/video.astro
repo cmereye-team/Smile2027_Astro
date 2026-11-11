@@ -11,23 +11,177 @@ const homeUrl = getLocalizedHref("/", lang);
 ---
 
 <BaseLayout tdkKey="video">
-  <section class="page-banner" aria-label={dict.common.menu.news.case}>
-    <div class="page-banner-card">
-      <div class="site-container">
-        <div class="page-banner-content">
-          <span class="page-banner-eyebrow">VIDEO</span>
-          <h1 class="page-banner-title">{dict.common.menu.news.case}</h1>
-          <p class="page-banner-subtitle">Case Sharing</p>
-          <nav class="page-banner-breadcrumb" aria-label="麵包屑導航">
-            <a href={homeUrl} title={dict.common.menu.home}>{dict.common.menu.home}</a>
-            <span aria-hidden="true"> &gt; </span>
-            <span>{dict.common.menu.news.title}</span>
-            <span aria-hidden="true"> &gt; </span>
-            <span class="page-banner-breadcrumb-current">{dict.common.menu.news.case}</span>
-          </nav>
+  <section class="video-banner-section" aria-label={dict.common.menu.news.case}>
+    <div class="site-container">
+      <div class="smile-NewBanner">
+        <img
+          class="smile-NewBanner-img"
+          decoding="async"
+          src="https://statichk.cmermedical.com/smile/orthopedic-video/videoBanner-pc.avif"
+          alt={dict.common.menu.news.case}
+          title={dict.common.menu.news.case}
+          loading="eager"
+          fetchpriority="high"
+          width="388"
+          height="453"
+          srcset="
+            https://statichk.cmermedical.com/smile/orthopedic-video/videoBanner-mb.avif 400w,
+            https://statichk.cmermedical.com/smile/orthopedic-video/videoBanner-mb.avif 640w,
+            https://statichk.cmermedical.com/smile/orthopedic-video/videoBanner-pc.avif
+          "
+          sizes="(max-width: 992px) 100vw, 1216px"
+          draggable="false"
+        />
+        <div class="smile-NewBanner-Title">
+          <span class="smile-NewBanner-eyebrow">VIDEO</span>
+          <h1 class="smile-NewBanner-heading">
+            {dict.common.menu.news.case}
+            <span class="smile-NewBanner-sub">Case Sharing</span>
+          </h1>
         </div>
       </div>
     </div>
   </section>
+  <nav class="site-container video-breadcrumb" aria-label="麵包屑導航">
+    <a href={homeUrl} title={dict.common.menu.home}>{dict.common.menu.home}</a>
+    <span aria-hidden="true"> &gt; </span>
+    <span>{dict.common.menu.news.title}</span>
+    <span aria-hidden="true"> &gt; </span>
+    <span class="video-breadcrumb-current">{dict.common.menu.news.case}</span>
+  </nav>
   <VideoList />
 </BaseLayout>
+
+<style lang="scss">
+  .video-banner-section {
+    width: 100%;
+    padding-block: var(--banner-space);
+  }
+
+  .smile-NewBanner {
+    position: relative;
+    width: 100%;
+    height: clamp(180px, 50vw, 240px);
+    overflow: hidden;
+  }
+
+  .smile-NewBanner-img {
+    position: absolute;
+    top: 5vw;
+    right: 2.5vw;
+    width: 39vw;
+    max-width: 150px;
+    height: auto;
+    object-fit: cover;
+    object-position: center;
+    pointer-events: none;
+  }
+
+  .smile-NewBanner-Title {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    padding-left: clamp(16px, 4vw, 28px);
+  }
+
+  .smile-NewBanner-eyebrow {
+    display: block;
+    color: var(--color-primary);
+    font-family: var(--font-en), "Poppins", sans-serif;
+    font-size: clamp(36px, 11.5vw, 56px);
+    font-weight: 700;
+    line-height: 1.09;
+    letter-spacing: 0;
+  }
+
+  .smile-NewBanner-heading {
+    margin: 0;
+    color: var(--color-primary);
+    font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+    font-size: clamp(22px, 6.28vw, 32px);
+    font-weight: 400;
+    line-height: 1.15;
+  }
+
+  .smile-NewBanner-sub {
+    display: block;
+    margin-top: 4px;
+    color: var(--color-primary);
+    font-family: var(--font-en), "Poppins", sans-serif;
+    font-size: clamp(12px, 2.56vw, 15px);
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0.03em;
+  }
+
+  .video-breadcrumb {
+    margin-bottom: 20px;
+    color: var(--color-desc);
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.8;
+    letter-spacing: 0.04em;
+  }
+
+  .video-breadcrumb a,
+  .video-breadcrumb span {
+    font-size: inherit;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .video-breadcrumb a:hover {
+    text-decoration: underline;
+  }
+
+  .video-breadcrumb-current {
+    color: var(--color-primary);
+    font-weight: 500;
+  }
+
+  @media (min-width: 768px) {
+    .smile-NewBanner {
+      height: clamp(220px, 22vw, 300px);
+      max-height: 300px;
+    }
+
+    .smile-NewBanner-img {
+      top: 0;
+      right: auto;
+      left: clamp(260px, 26vw, 460px);
+      width: clamp(180px, 19vw, 255px);
+      max-width: none;
+    }
+
+    .smile-NewBanner-Title {
+      justify-content: flex-end;
+      padding-left: clamp(24px, 4vw, 70px);
+      padding-bottom: clamp(24px, 3vw, 44px);
+    }
+
+    .smile-NewBanner-eyebrow {
+      font-size: clamp(54px, 5.8vw, 88px);
+    }
+
+    .smile-NewBanner-heading {
+      font-size: clamp(32px, 3.2vw, 48px);
+    }
+
+    .smile-NewBanner-sub {
+      font-size: clamp(14px, 1.3vw, 20px);
+    }
+
+    .video-breadcrumb {
+      padding-left: clamp(24px, 4vw, 70px);
+      margin-bottom: 28px;
+      font-size: 16px;
+    }
+  }
+
+  :global(html[lang="zh-cn"]) .smile-NewBanner-heading {
+    font-family: var(--font-sc), "Noto Sans SC", sans-serif;
+  }
+</style>

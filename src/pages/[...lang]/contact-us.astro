@@ -38,14 +38,14 @@ const initialMapSrc = content.maps.smileList[0]?.src ?? "";
   <div class="contact-us">
     {/* 1. 頂部統一橫幅 Banner */}
     <section class="page-banner" aria-label={content.banner.title}>
-      <div
-        class="page-banner-card"
-        style={{
-          "--banner-bg-pc": "url('https://statichk.cmermedical.com/smile/contact-us/6839f5bebcf0b8ba.webp')",
-          "--banner-bg-mb": "url('https://statichk.cmermedical.com/imgs/2024/05/5af12daebe688f16.png')",
-        }}
-      >
-        <div class="site-container">
+      <div class="site-container">
+        <div
+          class="page-banner-card"
+          style={{
+            "--banner-bg-pc": "url('https://statichk.cmermedical.com/smile/contact-us/6839f5bebcf0b8ba.webp')",
+            "--banner-bg-mb": "url('https://statichk.cmermedical.com/imgs/2024/05/5af12daebe688f16.png')",
+          }}
+        >
           <div class="page-banner-content">
             <h1 class="page-banner-title">{content.banner.title}</h1>
             <p class="page-banner-subtitle">{content.banner.subtitle}</p>

@@ -56,14 +56,14 @@ const blogSchema = {
   <div class="blog-page">
     {/* 1. 頂部統一橫幅 Banner */}
     <section class="page-banner" aria-label={pageTitle}>
-      <div
-        class="page-banner-card"
-        style={{
-          "--banner-bg-pc": "url('https://statichk.cmermedical.com/imgs/2024/05/ab7f3a79d8c7379e.png')",
-          "--banner-bg-mb": "url('https://statichk.cmermedical.com/imgs/2024/05/700a09eef040b407.png')",
-        }}
-      >
-        <div class="site-container">
+      <div class="site-container">
+        <div
+          class="page-banner-card"
+          style={{
+            "--banner-bg-pc": "url('https://statichk.cmermedical.com/imgs/2024/05/ab7f3a79d8c7379e.png')",
+            "--banner-bg-mb": "url('https://statichk.cmermedical.com/imgs/2024/05/700a09eef040b407.png')",
+          }}
+        >
           <div class="page-banner-content">
             <h1 class="page-banner-title">{pageTitle}</h1>
             <p class="page-banner-subtitle">blog</p>
@@ -337,7 +337,6 @@ const blogSchema = {
   }
 
   .blog-box {
-    margin-top: 24px;
     margin-bottom: 64px;
   }
 
@@ -353,7 +352,6 @@ const blogSchema = {
 
   @media screen and (min-width: 768px) {
     .blog-box {
-      margin-top: 40px;
       margin-bottom: 85px;
     }
 

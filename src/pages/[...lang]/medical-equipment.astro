@@ -39,14 +39,14 @@ const breadcrumbItems = [
       class="page-banner"
       aria-label={content.banner.title}
     >
-      <div
-        class="page-banner-card page-banner-card--light"
-        style={{
-          "--banner-bg-pc": "url('https://statichk.cmermedical.com/smile/bf7a6b723e77c2a8.webp')",
-          "--banner-bg-mb": "url('https://statichk.cmermedical.com/imgs/2024/05/b1b778ced1d15d71.png')",
-        }}
-      >
-        <div class="site-container">
+      <div class="site-container">
+        <div
+          class="page-banner-card page-banner-card--light"
+          style={{
+            "--banner-bg-pc": "url('https://statichk.cmermedical.com/smile/bf7a6b723e77c2a8.webp')",
+            "--banner-bg-mb": "url('https://statichk.cmermedical.com/imgs/2024/05/b1b778ced1d15d71.png')",
+          }}
+        >
           <div class="page-banner-content">
             <h1 class="page-banner-title">{content.banner.title}</h1>
             <p class="page-banner-subtitle" set:html={content.banner.subtitleHtml} />
@@ -264,7 +264,6 @@ const breadcrumbItems = [
     }
 
     .equipment-box {
-      margin-top: 55px;
       margin-bottom: 160px;
     }
 

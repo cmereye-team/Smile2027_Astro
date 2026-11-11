@@ -46,6 +46,7 @@
 // --------------------------------------------------------------------------
 .group-hero-banner {
   width: 100%;
+  padding-block: var(--banner-space);
 }
 
 .group-hero-card {
@@ -58,12 +59,18 @@
     width: 100%;
     height: clamp(180px, 22vw, 300px);
     max-height: 300px;
-    border-radius: 0;
+    border-radius: clamp(20px, 3.5vw, 55px);
     display: flex;
-    align-items: stretch;
+    align-items: flex-start;
     flex-direction: column;
     justify-content: center;
+    padding-inline: clamp(20px, 4vw, 36px);
     box-sizing: border-box;
+    box-shadow: 0 4px 20px rgba(69, 112, 182, 0.06);
+
+    @media (min-width: 768px) {
+      padding-inline: 70px;
+    }
   }
 
   &-bg {
