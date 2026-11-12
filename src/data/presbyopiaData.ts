@@ -75,6 +75,26 @@ export interface PresbyopiaFaqItem {
   answer: string;
 }
 
+export interface PresbyopiaFeeItem {
+  title: string;
+  prices: string[];
+  note1?: string;
+  note2?: string;
+}
+
+export interface PresbyopiaFeeGroup {
+  pillTitle: string;
+  items: PresbyopiaFeeItem[];
+}
+
+export interface PresbyopiaFeeSection {
+  title: string;
+  groups: PresbyopiaFeeGroup[];
+  btnText: string;
+  btnLink: string;
+  footnotes: string[];
+}
+
 export interface PresbyopiaData {
   breadcrumb: {
     home: string;
@@ -114,6 +134,7 @@ export interface PresbyopiaData {
     ctaBtnText: string;
     whatsappUrl: string;
   };
+  fee: PresbyopiaFeeSection;
   battle: {
     title: string;
     bgPc: string;
@@ -209,7 +230,7 @@ export const PRESBYOPIA_ZH_HK: PresbyopiaData = {
         suitTag: "適合",
         suitList: ["• 39歲以上有老花", "• 未有白內障"],
         title: "PRESBYOND Laser <br /> Blended Vision <br /> 視覺融合老花激光手術",
-        descHtml: "又名視覺融合老花激光手術，是一項<span>結合微單眼視力 (Micro-Monovision) 與角膜球面像差 (Spherical Aberrations) 調控技術</span>的激光矯視方案。手術會根據客人的年齡、眼睛調節力及角膜像差，度身訂造專屬切削方案，使大腦更容易將雙眼影像融合，令雙眼能輕鬆自然地適應遠、中、近全距離視力。此項矯視技術亦可同時矯正老花及原有的散光、近視或遠視。",
+        descHtml: "又名視覺融合老花激光手術，是一項個性化的<span>全距離視力</span>老花矯視方案；透過結合Zeiss蔡司系統及準分子激光技術<span>矯正老花、近視、遠視、散光</span>。希瑪更使用蔡司最新技術進行，縮短激光打磨所需時間，準確度更高。",
       },
       {
         id: "scheme-02",
@@ -217,9 +238,9 @@ export const PRESBYOPIA_ZH_HK: PresbyopiaData = {
         imgJpg: "https://statichk.cmermedical.com/cmermedical/image/20260317/image22.webp",
         imgAlt: "人工晶體置換術",
         suitTag: "適合",
-        suitList: ["• 40歲以上有老花", "• 出現早期或已形成白內障"],
-        title: "CMER CLEAR-Vision <br /> 人工晶體置換術",
-        descHtml: "<span>坊間稱之為人工晶體置換術</span>。透過更換人工晶體，致力為客人視野帶來煥然一新的感覺，一次過解決近視、遠視、散光、老花等問題。<br /><br />希瑪微笑矯視中心針對客人眼睛實際狀況、職業、生活需要等因素，度身訂造矯視方案；專業諮詢過後，眼科專科醫生按客人視力需求選取及植入合適之人工晶體，以替代原有已老化之晶體。",
+        suitList: ["• 39歲以上有老花", "• 同時有近視/遠視/散光問題"],
+        title: "CMER CLEAR-Vision <br />人工晶體置換術",
+        descHtml: "坊間稱之為<span>人工晶體置換術</span>。透過更換人工晶體，致力為客人視野帶來煥然一新的感覺，<span>一次過解決近視、遠視、散光、老花</span>等問題。希瑪微笑矯視中心針對客人眼睛實際狀況、職業、生活需要等因素，度身訂造矯視方案；諮詢過後，眼科專科醫生按客人視力需求選取及植入合適之人工晶體，以替代原有已老化和混濁的晶體。",
       },
       {
         id: "scheme-03",
@@ -227,9 +248,9 @@ export const PRESBYOPIA_ZH_HK: PresbyopiaData = {
         imgJpg: "https://statichk.cmermedical.com/cmermedical/image/20260317/image23.webp",
         imgAlt: "ICL Viva V6 植入式隱形眼鏡",
         suitTag: "適合",
-        suitList: ["• 40歲以上有老花", "• 未有白內障", "• 角膜偏薄/不適合激光矯視"],
-        title: "ICL Viva V6 <br /> 植入式隱形眼鏡",
-        descHtml: "EVO Viva™ 是 EVO ICL 系列中專門針對老花的型號，獲歐洲 CE 認證。這款矯視晶體<span>採用專利 Collamer® 生物相容材質</span>，並結合延伸景深（EDOF）技術，為 40 歲或以上、希望擺脫老花鏡束縛的人士，提供兼顧遠、中、近距離的全視程清晰視力。",
+        suitList: ["• 39歲或以上有老花", "• 1,000度以下近視", "• 未有白內障"],
+        title: "ICL Viva V6<br />植入式隱形眼鏡",
+        descHtml: "是有晶體眼後房型植入式隱形眼鏡植入手術的一種，而ICL Viva (ICL V6) 則是一種<span>擴展景深</span>，專為矯正老花而設的<span>植入式隱形眼鏡，適合未有白內障</span>，而正受近視及老花困擾的人士。",
       },
       {
         isSimple: true,
@@ -246,6 +267,71 @@ export const PRESBYOPIA_ZH_HK: PresbyopiaData = {
     ],
     ctaBtnText: "預約諮詢合適矯視方案",
     whatsappUrl: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-06)%20CMER%20CLEAR-Vision%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5%E5%8F%8A%E8%AB%AE%E8%A9%A2",
+  },
+  fee: {
+    title: "老花矯視費用",
+    groups: [
+      {
+        pillTitle: "人工晶體費用",
+        items: [
+          {
+            title: "單焦點人工晶體(單眼)<br />不帶散光",
+            prices: ["港幣$25,000-", "港幣$28,000"],
+          },
+          {
+            title: "單焦點人工晶體(單眼)<br />帶散光",
+            prices: ["港幣$30,000-", "港幣$35,000"],
+          },
+          {
+            title: "EDOF /多焦點人工晶體<br />(單眼)不帶散光",
+            prices: ["港幣$35,000-", "港幣$45,000"],
+          },
+          {
+            title: "EDOF /多焦點人工晶體<br />(單眼)帶散光",
+            prices: ["港幣$43,000-", "港幣$51,000"],
+          },
+          {
+            title: "術前檢查費用",
+            prices: ["港幣$680"],
+          },
+        ],
+      },
+      {
+        pillTitle: "Presbyond LBV費用",
+        items: [
+          {
+            title: "Presbyond LBV<br class=\"block sm:hidden\" />（雙眼）",
+            prices: ["港幣$48,000*"],
+            note1: "指定信用卡（東亞/渣打/滙豐）<br class=\"block sm:hidden\" />可享6/12/18/24/36個月免息分期",
+            note2: "EPS用戶港幣$47,500<sup>#</sup>",
+          },
+          {
+            title: "術前檢查費用",
+            prices: ["港幣$100"],
+          },
+        ],
+      },
+      {
+        pillTitle: "ICL Viva V6費用",
+        items: [
+          {
+            title: "ICL Viva V6（雙眼）",
+            prices: ["港幣$80,000"],
+          },
+          {
+            title: "術前檢查費用",
+            prices: ["港幣$500"],
+          },
+        ],
+      },
+    ],
+    btnText: "查看矯視費用詳情",
+    btnLink: "/fee#table1",
+    footnotes: [
+      "此為香港價錢",
+      "矯視費用已包括術前檢查費用港幣$100（若沒有預約進行矯視，需另外繳付術前檢查費用）",
+      "免責聲明：受條款及細則約束。優惠僅適用於以 EPS 全數支付之客戶。如有任何爭議，希瑪眼科將保留最終決定權。",
+    ],
   },
   battle: {
     title: "老花矯視技術好處對比",
@@ -510,7 +596,7 @@ export const PRESBYOPIA_ZH_CN: PresbyopiaData = {
         suitTag: "適合",
         suitList: ["• 39歲以上有老花", "• 未有白內障"],
         title: "PRESBYOND Laser <br /> Blended Vision <br /> 視覺融合老花激光手術",
-        descHtml: "又名視覺融合老花激光手術，是一項<span>結合微單眼視力 (Micro-Monovision) 與角膜球面像差 (Spherical Aberrations) 調控技術</span>的激光矯視方案。手術會根據客人的年齡、眼睛調節力及角膜像差，度身訂造專屬切削方案，使大腦更容易將雙眼影像融合，令雙眼能輕鬆自然地適應遠、中、近全距離視力。此項矯視技術亦可同時矯正老花及原有的散光、近視或遠視。",
+        descHtml: "又名視覺融合老花激光手術，是一項個性化的<span>全距離視力</span>老花矯視方案；透過結合Zeiss蔡司系統及準分子激光技術<span>矯正老花、近視、遠視、散光</span>。希瑪更使用蔡司最新技術進行，縮短激光打磨所需時間，準確度更高。",
       },
       {
         id: "scheme-02",
@@ -518,9 +604,9 @@ export const PRESBYOPIA_ZH_CN: PresbyopiaData = {
         imgJpg: "https://statichk.cmermedical.com/cmermedical/image/20260317/image22.webp",
         imgAlt: "人工晶體置換術",
         suitTag: "適合",
-        suitList: ["• 40歲以上有老花", "• 出現早期或已形成白內障"],
-        title: "CMER CLEAR-Vision <br /> 人工晶體置換術",
-        descHtml: "<span>坊間稱之為人工晶體置換術</span>。透過更換人工晶體，致力為客人視野帶來煥然一新的感覺，一次過解決近視、遠視、散光、老花等問題。<br /><br />希瑪微笑矯視中心針對客人眼睛實際狀況、職業、生活需要等因素，度身訂造矯視方案；專業諮詢過後，眼科專科醫生按客人視力需求選取及植入合適之人工晶體，以替代原有已老化之晶體。",
+        suitList: ["• 39歲以上有老花", "• 同時有近視/遠視/散光問題"],
+        title: "CMER CLEAR-Vision <br />人工晶體置換術",
+        descHtml: "坊間稱之為<span>人工晶體置換術</span>。透過更換人工晶體，致力為客人視野帶來煥然一新的感覺，<span>一次過解決近視、遠視、散光、老花</span>等問題。希瑪微笑矯視中心針對客人眼睛實際狀況、職業、生活需要等因素，度身訂造矯視方案；諮詢過後，眼科專科醫生按客人視力需求選取及植入合適之人工晶體，以替代原有已老化和混濁的晶體。",
       },
       {
         id: "scheme-03",
@@ -528,9 +614,9 @@ export const PRESBYOPIA_ZH_CN: PresbyopiaData = {
         imgJpg: "https://statichk.cmermedical.com/cmermedical/image/20260317/image23.webp",
         imgAlt: "ICL Viva V6 植入式隱形眼鏡",
         suitTag: "適合",
-        suitList: ["• 40歲以上有老花", "• 未有白內障", "• 角膜偏薄/不適合激光矯視"],
-        title: "ICL Viva V6 <br /> 植入式隱形眼鏡",
-        descHtml: "EVO Viva™ 是 EVO ICL 系列中專門針對老花的型號，獲歐洲 CE 認證。這款矯視晶體<span>採用專利 Collamer® 生物相容材質</span>，並結合延伸景深（EDOF）技術，為 40 歲或以上、希望擺脫老花鏡束縛的人士，提供兼顧遠、中、近距離的全視程清晰視力。",
+        suitList: ["• 39歲或以上有老花", "• 1,000度以下近視", "• 未有白內障"],
+        title: "ICL Viva V6<br />植入式隱形眼鏡",
+        descHtml: "是有晶體眼後房型植入式隱形眼鏡植入手術的一種，而ICL Viva (ICL V6) 則是一種<span>擴展景深</span>，專為矯正老花而設的<span>植入式隱形眼鏡，適合未有白內障</span>，而正受近視及老花困擾的人士。",
       },
       {
         isSimple: true,
@@ -547,6 +633,71 @@ export const PRESBYOPIA_ZH_CN: PresbyopiaData = {
     ],
     ctaBtnText: "預約諮詢合適矯視方案",
     whatsappUrl: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-06)%20CMER%20CLEAR-Vision%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5%E5%8F%8A%E8%AB%AE%E8%A9%A2",
+  },
+  fee: {
+    title: "老花矯視費用",
+    groups: [
+      {
+        pillTitle: "人工晶體費用",
+        items: [
+          {
+            title: "單焦點人工晶體(單眼)<br />不帶散光",
+            prices: ["港幣$25,000-", "港幣$28,000"],
+          },
+          {
+            title: "單焦點人工晶體(單眼)<br />帶散光",
+            prices: ["港幣$30,000-", "港幣$35,000"],
+          },
+          {
+            title: "EDOF /多焦點人工晶體<br />(單眼)不帶散光",
+            prices: ["港幣$35,000-", "港幣$45,000"],
+          },
+          {
+            title: "EDOF /多焦點人工晶體<br />(單眼)帶散光",
+            prices: ["港幣$43,000-", "港幣$51,000"],
+          },
+          {
+            title: "術前檢查費用",
+            prices: ["港幣$680"],
+          },
+        ],
+      },
+      {
+        pillTitle: "Presbyond LBV費用",
+        items: [
+          {
+            title: "Presbyond LBV<br class=\"block sm:hidden\" />（雙眼）",
+            prices: ["港幣$48,000*"],
+            note1: "指定信用卡（東亞/渣打/滙豐）<br class=\"block sm:hidden\" />可享6/12/18/24/36個月免息分期",
+            note2: "EPS用戶港幣$47,500<sup>#</sup>",
+          },
+          {
+            title: "術前檢查費用",
+            prices: ["港幣$100"],
+          },
+        ],
+      },
+      {
+        pillTitle: "ICL Viva V6費用",
+        items: [
+          {
+            title: "ICL Viva V6（雙眼）",
+            prices: ["港幣$80,000"],
+          },
+          {
+            title: "術前檢查費用",
+            prices: ["港幣$500"],
+          },
+        ],
+      },
+    ],
+    btnText: "查看矯視費用詳情",
+    btnLink: "/fee#table1",
+    footnotes: [
+      "此為香港價錢",
+      "矯視費用已包括術前檢查費用港幣$100（若沒有預約進行矯視，需另外繳付術前檢查費用）",
+      "免責聲明：受條款及細則約束。優惠僅適用於以 EPS 全數支付之客戶。如有任何爭議，希瑪眼科將保留最終決定權。",
+    ],
   },
   battle: {
     title: "老花矯視技術好處對比",

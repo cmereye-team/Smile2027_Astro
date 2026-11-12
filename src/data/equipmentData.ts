@@ -5,8 +5,15 @@
  * @Description: 中心設備專頁繁簡雙語數據字典 (100% 對齊線上官網逐字真值)
  */
 
+export interface EquipmentCategory {
+  id: string;
+  name: string;
+  count: number;
+}
+
 export interface EquipmentItem {
   id: number;
+  category: string;
   img: string;
   alt: string;
   nameLines: string[];
@@ -26,6 +33,7 @@ export interface EquipmentPageContent {
   sectionTitle: string;
   seeAllLabel: string;
   toggleAriaLabel: string;
+  categories: EquipmentCategory[];
   items: EquipmentItem[];
 }
 
@@ -41,9 +49,18 @@ export const EQUIPMENT_ZH_HK: EquipmentPageContent = {
   "sectionTitle": "中心設備",
   "seeAllLabel": "觀看更多",
   "toggleAriaLabel": "查看設備詳情",
+  "categories": [
+    { "id": "all", "name": "全部", "count": 27 },
+    { "id": "refractive-laser", "name": "矯視及手術激光", "count": 7 },
+    { "id": "pre-exam", "name": "術前檢查儀器", "count": 15 },
+    { "id": "retina-glaucoma", "name": "眼底及青光眼激光治療", "count": 2 },
+    { "id": "navigation-microscope", "name": "術中導航及顯微鏡", "count": 2 },
+    { "id": "data-management", "name": "數據管理", "count": 1 }
+  ],
   "items": [
     {
       "id": 27,
+      "category": "navigation-microscope",
       "img": "https://statichk.cmermedical.com/smile/equipment/equipment-027-v1.webp",
       "alt": "Alcon VERION 術中定位系統",
       "nameLines": [
@@ -55,6 +72,7 @@ export const EQUIPMENT_ZH_HK: EquipmentPageContent = {
     },
     {
       "id": 26,
+      "category": "refractive-laser",
       "img": "https://statichk.cmermedical.com/smile/equipment/equipment-026-v2.webp",
       "alt": "ZEISS PRESBYOND",
       "nameLines": [
@@ -66,6 +84,7 @@ export const EQUIPMENT_ZH_HK: EquipmentPageContent = {
     },
     {
       "id": 1,
+      "category": "refractive-laser",
       "img": "https://statichk.cmermedical.com/smile/equipment/equipment-001-v2.webp",
       "alt": "ZEISS VISUMAX 800",
       "nameLines": [
@@ -77,6 +96,7 @@ export const EQUIPMENT_ZH_HK: EquipmentPageContent = {
     },
     {
       "id": 2,
+      "category": "refractive-laser",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/f434fa3c9560d7c6.png",
       "alt": "Carl Zeiss Visumax",
       "nameLines": [
@@ -88,6 +108,7 @@ export const EQUIPMENT_ZH_HK: EquipmentPageContent = {
     },
     {
       "id": 3,
+      "category": "pre-exam",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/4e22294924611584.png",
       "alt": "德國蔡司掃頻OCT生物測量儀",
       "nameLines": [
@@ -99,6 +120,7 @@ export const EQUIPMENT_ZH_HK: EquipmentPageContent = {
     },
     {
       "id": 4,
+      "category": "pre-exam",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/d9a4ebd0979eb0ad.png",
       "alt": "Icare回彈式眼壓計",
       "nameLines": [
@@ -109,6 +131,7 @@ export const EQUIPMENT_ZH_HK: EquipmentPageContent = {
     },
     {
       "id": 5,
+      "category": "pre-exam",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/17d09f2b2552fb10.png",
       "alt": "日本尼德克",
       "nameLines": [
@@ -120,6 +143,7 @@ export const EQUIPMENT_ZH_HK: EquipmentPageContent = {
     },
     {
       "id": 6,
+      "category": "pre-exam",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/91cae30bfe64c887.png",
       "alt": "日本尼德克",
       "nameLines": [
@@ -131,6 +155,7 @@ export const EQUIPMENT_ZH_HK: EquipmentPageContent = {
     },
     {
       "id": 7,
+      "category": "pre-exam",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/e09ae8645106fe23.png",
       "alt": "天狼星三維角膜地形圖",
       "nameLines": [
@@ -142,6 +167,7 @@ export const EQUIPMENT_ZH_HK: EquipmentPageContent = {
     },
     {
       "id": 8,
+      "category": "pre-exam",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/a61d712eb35ef590.png",
       "alt": "Pentacam® ",
       "nameLines": [
@@ -153,6 +179,7 @@ export const EQUIPMENT_ZH_HK: EquipmentPageContent = {
     },
     {
       "id": 9,
+      "category": "pre-exam",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/1bb210c58784b1c0.png",
       "alt": "德國蔡司眼前節",
       "nameLines": [
@@ -164,6 +191,7 @@ export const EQUIPMENT_ZH_HK: EquipmentPageContent = {
     },
     {
       "id": 10,
+      "category": "pre-exam",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/2c4cff31c0a31522.png",
       "alt": "德國蔡司角膜地形圖系統",
       "nameLines": [
@@ -175,6 +203,7 @@ export const EQUIPMENT_ZH_HK: EquipmentPageContent = {
     },
     {
       "id": 11,
+      "category": "pre-exam",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/bf7b6a0bef660626.png",
       "alt": "德國蔡司光學相干斷層掃描儀",
       "nameLines": [
@@ -186,6 +215,7 @@ export const EQUIPMENT_ZH_HK: EquipmentPageContent = {
     },
     {
       "id": 12,
+      "category": "pre-exam",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/9215afd7f26f11e5.png",
       "alt": "德國蔡司免散瞳彩色",
       "nameLines": [
@@ -197,6 +227,7 @@ export const EQUIPMENT_ZH_HK: EquipmentPageContent = {
     },
     {
       "id": 13,
+      "category": "pre-exam",
       "img": "https://statichk.cmermedical.com/smile/medical-equipment/8d48fd9571a47602.webp",
       "alt": "A型及B型超聲波掃描儀",
       "nameLines": [
@@ -207,6 +238,7 @@ export const EQUIPMENT_ZH_HK: EquipmentPageContent = {
     },
     {
       "id": 14,
+      "category": "pre-exam",
       "img": "https://statichk.cmermedical.com/smile/medical-equipment/5aacde002af24ada.webp",
       "alt": "全視網膜掃描相機",
       "nameLines": [
@@ -218,6 +250,7 @@ export const EQUIPMENT_ZH_HK: EquipmentPageContent = {
     },
     {
       "id": 15,
+      "category": "pre-exam",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/4b8f230a2d7a956d.png",
       "alt": "角膜內皮層細胞分析儀",
       "nameLines": [
@@ -229,6 +262,7 @@ export const EQUIPMENT_ZH_HK: EquipmentPageContent = {
     },
     {
       "id": 16,
+      "category": "pre-exam",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/a01cb16a551eb1ce.png",
       "alt": "德國蔡司視野分析儀",
       "nameLines": [
@@ -239,6 +273,7 @@ export const EQUIPMENT_ZH_HK: EquipmentPageContent = {
     },
     {
       "id": 17,
+      "category": "data-management",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/c7a828125d9153ac.png",
       "alt": "FORUM – 眼科專業化",
       "nameLines": [
@@ -250,6 +285,7 @@ export const EQUIPMENT_ZH_HK: EquipmentPageContent = {
     },
     {
       "id": 18,
+      "category": "pre-exam",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/993e14dfac448fa5.png",
       "alt": "Haag-Streit BQ900 裂隙燈",
       "nameLines": [
@@ -261,6 +297,7 @@ export const EQUIPMENT_ZH_HK: EquipmentPageContent = {
     },
     {
       "id": 19,
+      "category": "retina-glaucoma",
       "img": "https://statichk.cmermedical.com/smile/medical-equipment/2a24a1b68dc187d6.webp",
       "alt": "ELLEX Integre pro scan",
       "nameLines": [
@@ -272,6 +309,7 @@ export const EQUIPMENT_ZH_HK: EquipmentPageContent = {
     },
     {
       "id": 20,
+      "category": "refractive-laser",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/9561a582b715533f.png",
       "alt": "PESCHKE Trade PXL",
       "nameLines": [
@@ -283,6 +321,7 @@ export const EQUIPMENT_ZH_HK: EquipmentPageContent = {
     },
     {
       "id": 21,
+      "category": "retina-glaucoma",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/4bb384e3fe377bb6.png",
       "alt": "Ellex Tango Reflex",
       "nameLines": [
@@ -294,6 +333,7 @@ export const EQUIPMENT_ZH_HK: EquipmentPageContent = {
     },
     {
       "id": 22,
+      "category": "refractive-laser",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/d11dd8d263f2f6a0.png",
       "alt": "飛秒激光白內障矯視儀",
       "nameLines": [
@@ -304,6 +344,7 @@ export const EQUIPMENT_ZH_HK: EquipmentPageContent = {
     },
     {
       "id": 23,
+      "category": "navigation-microscope",
       "img": "https://statichk.cmermedical.com/smile/medical-equipment/a50ca0c214529046.webp",
       "alt": "徠卡Proveo8融合光學",
       "nameLines": [
@@ -315,6 +356,7 @@ export const EQUIPMENT_ZH_HK: EquipmentPageContent = {
     },
     {
       "id": 24,
+      "category": "refractive-laser",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/bb7c87b456ee6118.png",
       "alt": "白內障超聲乳化儀（Alcon",
       "nameLines": [
@@ -326,6 +368,7 @@ export const EQUIPMENT_ZH_HK: EquipmentPageContent = {
     },
     {
       "id": 25,
+      "category": "refractive-laser",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/ed06ff1c76aaed7d.png",
       "alt": "高速率玻切超聲乳化一體機",
       "nameLines": [
@@ -351,9 +394,18 @@ export const EQUIPMENT_ZH_CN: EquipmentPageContent = {
   "sectionTitle": "中心设备",
   "seeAllLabel": "观看更多",
   "toggleAriaLabel": "查看设备详情",
+  "categories": [
+    { "id": "all", "name": "全部", "count": 27 },
+    { "id": "refractive-laser", "name": "矫视及手术激光", "count": 7 },
+    { "id": "pre-exam", "name": "术前检查仪器", "count": 15 },
+    { "id": "retina-glaucoma", "name": "眼底及青光眼激光治疗", "count": 2 },
+    { "id": "navigation-microscope", "name": "术中导航及显微镜", "count": 2 },
+    { "id": "data-management", "name": "数据管理", "count": 1 }
+  ],
   "items": [
     {
       "id": 27,
+      "category": "navigation-microscope",
       "img": "https://statichk.cmermedical.com/smile/equipment/equipment-027-v1.webp",
       "alt": "Alcon VERION 术中定位系统",
       "nameLines": [
@@ -365,6 +417,7 @@ export const EQUIPMENT_ZH_CN: EquipmentPageContent = {
     },
     {
       "id": 26,
+      "category": "refractive-laser",
       "img": "https://statichk.cmermedical.com/smile/equipment/equipment-026-v2.webp",
       "alt": "ZEISS PRESBYOND",
       "nameLines": [
@@ -376,6 +429,7 @@ export const EQUIPMENT_ZH_CN: EquipmentPageContent = {
     },
     {
       "id": 1,
+      "category": "refractive-laser",
       "img": "https://statichk.cmermedical.com/smile/equipment/equipment-001-v2.webp",
       "alt": "ZEISS VISUMAX 800",
       "nameLines": [
@@ -387,6 +441,7 @@ export const EQUIPMENT_ZH_CN: EquipmentPageContent = {
     },
     {
       "id": 2,
+      "category": "refractive-laser",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/f434fa3c9560d7c6.png",
       "alt": "Carl Zeiss Visumax",
       "nameLines": [
@@ -398,6 +453,7 @@ export const EQUIPMENT_ZH_CN: EquipmentPageContent = {
     },
     {
       "id": 3,
+      "category": "pre-exam",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/4e22294924611584.png",
       "alt": "德国蔡司扫频OCT生物测量仪",
       "nameLines": [
@@ -409,6 +465,7 @@ export const EQUIPMENT_ZH_CN: EquipmentPageContent = {
     },
     {
       "id": 4,
+      "category": "pre-exam",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/d9a4ebd0979eb0ad.png",
       "alt": "Icare回弹式眼压计",
       "nameLines": [
@@ -419,6 +476,7 @@ export const EQUIPMENT_ZH_CN: EquipmentPageContent = {
     },
     {
       "id": 5,
+      "category": "pre-exam",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/17d09f2b2552fb10.png",
       "alt": "日本尼德克",
       "nameLines": [
@@ -430,6 +488,7 @@ export const EQUIPMENT_ZH_CN: EquipmentPageContent = {
     },
     {
       "id": 6,
+      "category": "pre-exam",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/91cae30bfe64c887.png",
       "alt": "日本尼德克",
       "nameLines": [
@@ -441,6 +500,7 @@ export const EQUIPMENT_ZH_CN: EquipmentPageContent = {
     },
     {
       "id": 7,
+      "category": "pre-exam",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/e09ae8645106fe23.png",
       "alt": "天狼星三维角膜地形图",
       "nameLines": [
@@ -452,6 +512,7 @@ export const EQUIPMENT_ZH_CN: EquipmentPageContent = {
     },
     {
       "id": 8,
+      "category": "pre-exam",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/a61d712eb35ef590.png",
       "alt": "Pentacam® ",
       "nameLines": [
@@ -463,6 +524,7 @@ export const EQUIPMENT_ZH_CN: EquipmentPageContent = {
     },
     {
       "id": 9,
+      "category": "pre-exam",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/1bb210c58784b1c0.png",
       "alt": "德国蔡司眼前节",
       "nameLines": [
@@ -474,6 +536,7 @@ export const EQUIPMENT_ZH_CN: EquipmentPageContent = {
     },
     {
       "id": 10,
+      "category": "pre-exam",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/2c4cff31c0a31522.png",
       "alt": "德国蔡司角膜地形图系统",
       "nameLines": [
@@ -485,6 +548,7 @@ export const EQUIPMENT_ZH_CN: EquipmentPageContent = {
     },
     {
       "id": 11,
+      "category": "pre-exam",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/bf7b6a0bef660626.png",
       "alt": "德国蔡司光学相干断层扫描仪",
       "nameLines": [
@@ -496,6 +560,7 @@ export const EQUIPMENT_ZH_CN: EquipmentPageContent = {
     },
     {
       "id": 12,
+      "category": "pre-exam",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/9215afd7f26f11e5.png",
       "alt": "德国蔡司免散瞳彩色",
       "nameLines": [
@@ -507,6 +572,7 @@ export const EQUIPMENT_ZH_CN: EquipmentPageContent = {
     },
     {
       "id": 13,
+      "category": "pre-exam",
       "img": "https://statichk.cmermedical.com/smile/medical-equipment/8d48fd9571a47602.webp",
       "alt": "A型及B型超声波扫描仪",
       "nameLines": [
@@ -517,6 +583,7 @@ export const EQUIPMENT_ZH_CN: EquipmentPageContent = {
     },
     {
       "id": 14,
+      "category": "pre-exam",
       "img": "https://statichk.cmermedical.com/smile/medical-equipment/5aacde002af24ada.webp",
       "alt": "全视网膜扫描相机",
       "nameLines": [
@@ -528,6 +595,7 @@ export const EQUIPMENT_ZH_CN: EquipmentPageContent = {
     },
     {
       "id": 15,
+      "category": "pre-exam",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/4b8f230a2d7a956d.png",
       "alt": "角膜内皮层细胞分析仪",
       "nameLines": [
@@ -539,6 +607,7 @@ export const EQUIPMENT_ZH_CN: EquipmentPageContent = {
     },
     {
       "id": 16,
+      "category": "pre-exam",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/a01cb16a551eb1ce.png",
       "alt": "德国蔡司视野分析仪",
       "nameLines": [
@@ -549,6 +618,7 @@ export const EQUIPMENT_ZH_CN: EquipmentPageContent = {
     },
     {
       "id": 17,
+      "category": "data-management",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/c7a828125d9153ac.png",
       "alt": "FORUM – 眼科专业化",
       "nameLines": [
@@ -560,6 +630,7 @@ export const EQUIPMENT_ZH_CN: EquipmentPageContent = {
     },
     {
       "id": 18,
+      "category": "pre-exam",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/993e14dfac448fa5.png",
       "alt": "Haag-Streit BQ900 裂隙灯",
       "nameLines": [
@@ -571,6 +642,7 @@ export const EQUIPMENT_ZH_CN: EquipmentPageContent = {
     },
     {
       "id": 19,
+      "category": "retina-glaucoma",
       "img": "https://statichk.cmermedical.com/smile/medical-equipment/2a24a1b68dc187d6.webp",
       "alt": "ELLEX Integre pro scan",
       "nameLines": [
@@ -582,6 +654,7 @@ export const EQUIPMENT_ZH_CN: EquipmentPageContent = {
     },
     {
       "id": 20,
+      "category": "refractive-laser",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/9561a582b715533f.png",
       "alt": "PESCHKE Trade PXL",
       "nameLines": [
@@ -593,6 +666,7 @@ export const EQUIPMENT_ZH_CN: EquipmentPageContent = {
     },
     {
       "id": 21,
+      "category": "retina-glaucoma",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/4bb384e3fe377bb6.png",
       "alt": "Ellex Tango Reflex",
       "nameLines": [
@@ -604,6 +678,7 @@ export const EQUIPMENT_ZH_CN: EquipmentPageContent = {
     },
     {
       "id": 22,
+      "category": "refractive-laser",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/d11dd8d263f2f6a0.png",
       "alt": "飞秒激光白内障矫视仪",
       "nameLines": [
@@ -614,6 +689,7 @@ export const EQUIPMENT_ZH_CN: EquipmentPageContent = {
     },
     {
       "id": 23,
+      "category": "navigation-microscope",
       "img": "https://statichk.cmermedical.com/smile/medical-equipment/a50ca0c214529046.webp",
       "alt": "徕卡Proveo8融合光学",
       "nameLines": [
@@ -625,6 +701,7 @@ export const EQUIPMENT_ZH_CN: EquipmentPageContent = {
     },
     {
       "id": 24,
+      "category": "refractive-laser",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/bb7c87b456ee6118.png",
       "alt": "白内障超声乳化仪（Alcon",
       "nameLines": [
@@ -636,6 +713,7 @@ export const EQUIPMENT_ZH_CN: EquipmentPageContent = {
     },
     {
       "id": 25,
+      "category": "refractive-laser",
       "img": "https://statichk.cmermedical.com/imgs/2024/05/ed06ff1c76aaed7d.png",
       "alt": "高速率玻切超声乳化一体机",
       "nameLines": [

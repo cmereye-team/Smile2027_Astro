@@ -285,7 +285,7 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
           <div class="aspect-video w-[90%] mr-auto -mt-[14%] relative z-[1] shadow-md">
             <VideoFacade
               videoId={content.summary.videoUrl}
-              title="YouTube video player"
+              title={`${content.summary.titlePrefix} ${content.summary.titleStrong}`}
               class="w-full h-full border-0"
             />
           </div>

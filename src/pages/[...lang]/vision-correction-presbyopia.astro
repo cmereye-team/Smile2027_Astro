@@ -28,6 +28,9 @@ const appointFormUrl = getLocalizedHref("/ophthalmicInfo/AppointForm", lang);
 const currentUrl = isCn
   ? "/cn/vision-correction-presbyopia"
   : "/vision-correction-presbyopia";
+
+const mainSchemes = content.schemes.items.filter((item) => !item.isSimple);
+const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
 ---
 
 <BaseLayout tdkKey="presbyopia">
@@ -55,7 +58,7 @@ const currentUrl = isCn
     }))}
   />
 
-  <div class="page-presbyopia font-hk text-desc relative overflow-x-hidden">
+  <div class="page-presbyopia font-hk text-desc relative overflow-x-clip">
     <!-- 1. 頂部主橫幅 Hero Banner -->
     <section class="ClearVisionBanner">
       <div class="site-container">
@@ -140,11 +143,13 @@ const currentUrl = isCn
             {content.schemes.title}
           </div>
           <div class="CorrectionProgram-Box-hide-item-container">
-            {content.schemes.items.map((item) => {
+            {mainSchemes.map((item, idx) => {
+              const numStr = String(idx + 1).padStart(2, "0");
               const schemeAlt = item.imgAlt || item.title.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
-              return !item.isSimple ? (
+              return (
                 <div class="CorrectionProgram-Box-hide-item" id={item.id}>
                   <div class="CorrectionProgram-Box-hide-item-top">
+                    <span class="scheme-num-badge" aria-hidden="true">{numStr}</span>
                     <picture>
                       {item.imgWp && (
                         <source srcset={item.imgWp} type="image/webp" />
@@ -174,14 +179,17 @@ const currentUrl = isCn
                     />
                   </div>
                 </div>
-              ) : (
-                <div class="CorrectionProgram-Box-hide-item">
-                  <div class="CorrectionProgram-Box-hide-item-bottom2">
-                    <h3 set:html={item.title} />
-                  </div>
-                </div>
               );
             })}
+          </div>
+
+          <!-- 3 個簡易方案選項 (Monovision / Cataract Surgery / 藥物方案) 晶片列 -->
+          <div class="simple-schemes-row">
+            {simpleSchemes.map((item) => (
+              <div class="simple-scheme-chip">
+                <h3 set:html={item.title} />
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -216,6 +224,78 @@ const currentUrl = isCn
           />
         </svg>
       </a>
+    </div>
+
+    <!-- 3.5 老花矯視費用 (100% 官方真值對齊) -->
+    <div class="bg-[#F6FAFD] py-8 px-2 md:px-0 md:pb-32 md:pt-8 mb-8 mt-[50px] md:mb-22 md:mt-[90px]">
+      <div class="w-full flex flex-col items-center mx-auto site-container">
+        <h2 class="text-[#4A74B8] text-xl md:text-3xl font-black mb-6 md:mb-10 tracking-wider text-center">
+          {content.fee.title}
+        </h2>
+
+        {content.fee.groups.map((group, gIdx) => (
+          <div class="w-full">
+            <div class:list={[
+              "text-base font-bold tracking-[4.8px] text-center text-[#4570B6] rounded-[5.005px] bg-[rgba(140,179,243,0.20)] px-[60px] py-[6px] md:px-[139px] md:py-[11px] md:text-3xl w-fit mx-auto mb-[20px]",
+              gIdx === 0 ? "mb-[20px]" : "mt-[25px] md:mt-[58px] md:mb-5"
+            ]}>
+              {group.pillTitle}
+            </div>
+            <div class="space-y-2 md:space-y-4 max-w-[1187px] mx-auto w-full">
+              {group.items.map((item) => (
+                <div class="bg-white border border-[#4570B6] rounded-2xl lbv-item flex flex-row justify-between items-center transition-all group p-[10px] md:px-[50px] md:py-[40px]">
+                  <div class="text-text text-base md:text-3xl font-bold">
+                    <span set:html={item.title} />
+                  </div>
+                  <div class:list={[
+                    "text-[#F59E0B] font-bold tracking-tight group-hover:scale-105 transition-transform",
+                    item.note1 ? "-ml-[68px] sm:ml-0 text-right flex flex-col" : (item.prices.length > 1 ? "flex flex-col md:flex-row md:gap-4" : "")
+                  ]}>
+                    {item.prices.length > 1 ? (
+                      item.prices.map((p) => (
+                        <span class="text-2xl md:text-5xl">{p}</span>
+                      ))
+                    ) : item.note1 ? (
+                      <>
+                        <p class="text-2xl md:text-5xl pb-1 md:pb-3">{item.prices[0]}</p>
+                        <p class="text-xs min-[360px]:text-sm md:text-xl font-normal text-desc" set:html={item.note1} />
+                        {item.note2 && (
+                          <p class="text-text text-xs min-[360px]:text-sm md:text-xl font-normal text-desc" set:html={item.note2} />
+                        )}
+                      </>
+                    ) : (
+                      <span class="text-2xl md:text-5xl">{item.prices[0]}</span>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+
+        <div class="mt-8 md:mt-12 flex flex-col items-center">
+          <a
+            href={isCn ? "/cn/fee#table1" : "/fee#table1"}
+            class="md:w-auto bg-[#4570B6] hover:bg-[#345c99] transition-colors text-white px-10 py-4 md:py-5 md:px-[100px] rounded-full text-2xl md:text-4xl font-bold flex items-center justify-center gap-3"
+            title={content.fee.btnText}
+          >
+            {content.fee.btnText}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34 34" fill="none" class="h-[13px] w-[13px] md:h-[26px] md:w-[26px]" aria-hidden="true">
+              <path d="M3.18018 30.3632L29.8334 3.70996" stroke="white" stroke-width="6.36042" stroke-linecap="round" />
+              <path d="M7.06396 2.8623H30.742V25.7598" stroke="white" stroke-width="5.72438" stroke-linecap="round" />
+            </svg>
+          </a>
+          <div class="text-text mt-2 md:mt-4 text-center font-light text-base md:text-2xl leading-relaxed min-[360px]:tracking-wider min-[390px]:tracking-normal">
+            <p>此為香港價錢</p>
+            <p>
+              <sup>*</sup>矯視費用已包括術前檢查費用港幣$100<br class="block md:hidden" />（若沒有預約進行矯視，需另外繳付術前檢查費用）
+            </p>
+            <p>
+              <sup>#</sup>免責聲明：受條款及細則約束。優惠僅適用於以 EPS 全數支付之客戶。<br class="block md:hidden" />如有任何爭議，希瑪眼科將保留最終決定權。
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- 4. 老花矯視技術好處對比 & EVO ICL 產品系列介紹 — V6 -->

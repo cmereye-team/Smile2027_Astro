@@ -291,20 +291,34 @@ i {
         .CorrectionProgram-Box-hide-item-container {
           display: flex;
           justify-content: center;
-          align-items: center;
+          align-items: stretch;
           flex-direction: column;
-          gap: 12.82vw;
-          padding-bottom: 50px;
+          gap: 32px;
+          padding-bottom: 24px;
         }
         .CorrectionProgram-Box-hide-item {
-          /*   background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/CorrectionProgram/CorrectionProgram-Box-mbItemBg.avif") */
-          /*     no-repeat; */
-          /*   background-size: 100% 100%; */
           background-repeat: no-repeat;
           width: 86.92vw;
+          max-width: 400px;
+          margin: 0 auto;
           background-color: #fff;
           position: relative;
-          border-radius: 12px;
+          border-radius: 16px;
+          display: flex;
+          flex-direction: column;
+          box-shadow: 0 4px 16px rgba(69, 112, 182, 0.08);
+          transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+          &:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(69, 112, 182, 0.16);
+          }
+          @media (prefers-reduced-motion: reduce) {
+            &:hover {
+              transform: none;
+            }
+          }
+
           &::after {
             content: "";
             position: absolute;
@@ -317,96 +331,158 @@ i {
             border-right: 15px solid transparent;
             border-top: 15px solid #fff;
           }
+
           .CorrectionProgram-Box-hide-item-top {
             position: relative;
-            border-radius: 12px;
-            /* overflow: hidden; */
+            border-radius: 16px 16px 0 0;
+            overflow: hidden;
+            aspect-ratio: 4 / 3;
+            width: 100%;
+
             img {
-              border-radius: 12px;
+              border-radius: 16px 16px 0 0;
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              display: block;
             }
+
+            .scheme-num-badge {
+              position: absolute;
+              top: 10px;
+              right: 10px;
+              font-family: var(--font-en);
+              font-weight: 700;
+              font-size: 15px;
+              color: #4570b6;
+              background: rgba(255, 255, 255, 0.95);
+              border-radius: 9999px;
+              width: 32px;
+              height: 32px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+              z-index: 5;
+            }
+
             .CorrectionProgram-Box-hide-item-top-text {
               position: absolute;
-              bottom: -10px;
-              left: -4.36vw;
-              background: #4570b6;
-              padding: 2.05vw 1.54vw 3.08vw 2.05vw;
-              border-radius: 5px;
-              border-top-left-radius: 0px;
+              top: 10px;
+              left: 10px;
+              bottom: auto;
+              background: rgba(69, 112, 182, 0.95);
+              padding: 6px 10px;
+              border-radius: 6px;
               color: #fff;
-              font-family: "Noto Sans TC";
-              font-size: 3.08vw;
+              font-family: "Noto Sans TC", var(--font-hk), sans-serif;
+              font-size: 12px;
               font-style: normal;
               font-weight: 400;
-              line-height: 1.5;
-              letter-spacing: 0.62vw;
+              line-height: 1.4;
+              letter-spacing: 0.3px;
+              z-index: 5;
+              max-width: calc(100% - 60px);
+
               p {
                 margin-bottom: 0;
+                font-size: 12px;
+                line-height: 1.4;
               }
+
               .CorrectionProgram-Box-hide-item-sub {
-                position: absolute;
-                top: -6.41vw;
-                left: 0;
-                /* content: "適合"; */
+                position: static;
+                display: block;
                 width: fit-content;
-                background: #4570b6;
-                padding: 1.03vw 2.05vw 0px 2.05vw;
-                border-top-left-radius: 5px;
-                border-top-right-radius: 5px;
+                background: transparent;
+                padding: 0;
                 color: #fff;
-                font-family: "Noto Sans TC";
-                font-size: 3.08vw;
-                font-style: normal;
+                font-family: "Noto Sans TC", var(--font-hk), sans-serif;
+                font-size: 12px;
                 font-weight: 700;
-                line-height: 6.1vw;
-                letter-spacing: 0.62vw;
+                line-height: 1.4;
+                letter-spacing: 0.5px;
+                margin-bottom: 2px;
               }
             }
           }
-          .CorrectionProgram-Box-hide-item-bottom2 {
-            padding: 20px 20px 20px 20px;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            h3 {
-              text-align: center;
-              color: #4570b6;
-              font-family: "Poppins", sans-serif;
-              font-size: 5.13vw;
-              font-style: normal;
-              font-weight: 700;
-              line-height: 1;
-              letter-spacing: 0.26vw;
-            }
-          }
+
           .CorrectionProgram-Box-hide-item-bottom {
-            padding: 30px 20px 20px 20px;
+            padding: 24px 20px 20px 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+
             h3 {
               text-align: center;
               color: #4570b6;
-              font-family: "Poppins", sans-serif;
-              font-size: 5.13vw;
+              font-family: "Poppins", var(--font-hk), sans-serif;
+              font-size: 18px;
               font-style: normal;
               font-weight: 700;
-              line-height: 1;
-              letter-spacing: 0.26vw;
+              line-height: 1.35;
+              letter-spacing: 0.5px;
+              margin: 0 0 16px;
             }
+
             .CorrectionProgram-Box-hide-item-bottom-text {
-              margin-top: 3.59vw;
-              color: #6d6e71;
-              text-align: justify;
-              font-family: "Noto Sans HK";
-              font-size: 3.59vw;
+              margin-top: 0;
+              color: var(--color-desc);
+              text-align: left;
+              font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+              font-size: 14px;
               font-style: normal;
-              font-weight: 300;
-              line-height: 1.285;
-              letter-spacing: 0.72vw;
+              font-weight: 400;
+              line-height: 1.8;
+              letter-spacing: normal;
+              flex-grow: 1;
+
               span {
                 color: #4570b6;
                 font-weight: 700;
               }
             }
+          }
+        }
+
+        .simple-schemes-row {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          width: 86.92vw;
+          max-width: 400px;
+          margin: 16px auto 30px;
+        }
+        .simple-scheme-chip {
+          background: #fff;
+          border: 1.5px solid #4570b6;
+          border-radius: 12px;
+          padding: 16px 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          min-height: 64px;
+          box-shadow: 0 2px 8px rgba(69, 112, 182, 0.06);
+          transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+          &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(69, 112, 182, 0.12);
+          }
+          @media (prefers-reduced-motion: reduce) {
+            &:hover {
+              transform: none;
+            }
+          }
+
+          h3 {
+            color: #4570b6;
+            font-family: "Poppins", var(--font-hk), sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            line-height: 1.35;
+            margin: 0;
           }
         }
       }
@@ -1158,20 +1234,32 @@ i {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
           justify-content: center;
-          align-items: start;
-          gap: clamp(30px, 3.13vw, 60px);
-          padding-bottom: 120px;
+          align-items: stretch;
+          gap: clamp(24px, 2.5vw, 40px);
+          max-width: 1240px;
+          margin: 0 auto;
+          padding-bottom: 24px;
         }
         .CorrectionProgram-Box-hide-item {
-          /*   background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/CorrectionProgram/CorrectionProgram-Box-pcItemBg.avif") */
-          /*     no-repeat; */
-          /*   background-repeat: no-repeat; */
-          /*   background-size: 100% 100%; */
-          /*   width: clamp(383px, 39.9vw, 766px); */
+          display: flex;
+          flex-direction: column;
           height: 100%;
           position: relative;
           background: #fff;
-          border-radius: 28px;
+          border-radius: 24px;
+          box-shadow: 0 6px 20px rgba(69, 112, 182, 0.08);
+          transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+          &:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 32px rgba(69, 112, 182, 0.16);
+          }
+          @media (prefers-reduced-motion: reduce) {
+            &:hover {
+              transform: none;
+            }
+          }
+
           &::after {
             content: "";
             position: absolute;
@@ -1186,100 +1274,155 @@ i {
           }
           .CorrectionProgram-Box-hide-item-top {
             position: relative;
-            border-radius: clamp(14.5px, 1.51vw, 29px);
-            /* overflow: hidden; */
+            border-radius: 24px 24px 0 0;
+            overflow: hidden;
+            aspect-ratio: 4 / 3;
+            width: 100%;
+
             img {
               width: 100%;
               height: 100%;
               object-fit: cover;
-              border-radius: 28px;
+              border-radius: 24px 24px 0 0;
+              display: block;
             }
+
+            .scheme-num-badge {
+              position: absolute;
+              top: 14px;
+              right: 14px;
+              font-family: var(--font-en);
+              font-weight: 700;
+              font-size: 18px;
+              color: #4570b6;
+              background: rgba(255, 255, 255, 0.95);
+              border-radius: 9999px;
+              width: 38px;
+              height: 38px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+              z-index: 5;
+            }
+
             .CorrectionProgram-Box-hide-item-top-text {
               position: absolute;
-              bottom: -10px;
-              left: clamp(-22px, -1.15vw, -11px);
-              background: #4570b6;
-              padding: clamp(10px, 1.04vw, 20px) clamp(17.5px, 1.82vw, 35px)
-                clamp(14px, 1.46vw, 28px) clamp(11px, 1.15vw, 22px);
-              border-radius: 5px;
-              border-top-left-radius: 0px;
+              top: 14px;
+              left: 14px;
+              bottom: auto;
+              background: rgba(69, 112, 182, 0.95);
+              padding: 8px 14px;
+              border-radius: 8px;
               color: #fff;
-              font-family: "Noto Sans TC";
-              font-size: clamp(10px, 1.04vw, 20px);
+              font-family: "Noto Sans TC", var(--font-hk), sans-serif;
+              font-size: 13px;
               font-style: normal;
               font-weight: 400;
-              line-height: 2.2;
-              letter-spacing: clamp(2px, 0.21vw, 4px);
+              line-height: 1.5;
+              letter-spacing: 0.5px;
+              z-index: 5;
+              max-width: calc(100% - 70px);
+
               p {
                 margin-bottom: 0;
+                font-size: 13px;
+                line-height: 1.5;
               }
+
               .CorrectionProgram-Box-hide-item-sub {
-                position: absolute;
-                top: clamp(-39px, -2.03vw, -19.5px);
-                left: 0;
-                /* content: "適合"; */
+                position: static;
+                display: block;
                 width: fit-content;
-                background: #4570b6;
-                padding: clamp(5px, 0.52vw, 10px) clamp(11px, 1.15vw, 22px) 0
-                  clamp(11px, 1.15vw, 22px);
-                border-top-left-radius: 5px;
-                border-top-right-radius: 5px;
+                background: transparent;
+                padding: 0;
                 color: #fff;
-                font-family: "Noto Sans TC";
-                font-size: clamp(10px, 1.04vw, 20px);
-                font-style: normal;
+                font-family: "Noto Sans TC", var(--font-hk), sans-serif;
+                font-size: 13px;
                 font-weight: 700;
                 line-height: 1.5;
-                letter-spacing: clamp(2px, 0.21vw, 4px);
+                letter-spacing: 0.5px;
+                margin-bottom: 2px;
               }
             }
           }
-          .CorrectionProgram-Box-hide-item-bottom2 {
-            padding: 24px 30px 24px 30px;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            h3 {
-              text-align: center;
-              color: #4570b6;
-              font-family: "Poppins", sans-serif;
-              font-size: clamp(15px, 1.56vw, 30px);
-              font-style: normal;
-              font-weight: 700;
-              line-height: 1;
-              letter-spacing: clamp(0.75px, 0.08vw, 1.5px);
-            }
-            /* background: #fff; */
-          }
+
           .CorrectionProgram-Box-hide-item-bottom {
-            padding: 54px 30px 24px 30px;
-            /* background: #fff; */
+            padding: 32px 28px 28px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+
             h3 {
               text-align: center;
               color: #4570b6;
-              font-family: "Poppins", sans-serif;
-              font-size: clamp(15px, 1.56vw, 30px);
+              font-family: "Poppins", var(--font-hk), sans-serif;
+              font-size: 22px;
               font-style: normal;
               font-weight: 700;
-              line-height: 1;
-              letter-spacing: clamp(0.75px, 0.08vw, 1.5px);
+              line-height: 1.35;
+              letter-spacing: 0.5px;
+              margin: 0 0 16px;
             }
+
             .CorrectionProgram-Box-hide-item-bottom-text {
-              margin-top: clamp(18.5px, 1.93vw, 37px);
-              color: #6d6e71;
-              text-align: justify;
-              font-family: "Noto Sans HK";
-              font-size: clamp(10px, 1.04vw, 20px);
+              margin-top: 0;
+              color: var(--color-desc);
+              text-align: left;
+              font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+              font-size: 15px;
               font-style: normal;
-              font-weight: 300;
-              line-height: 1.75;
-              letter-spacing: clamp(2px, 0.21vw, 4px);
+              font-weight: 400;
+              line-height: 1.8;
+              letter-spacing: normal;
+              flex-grow: 1;
+
               span {
                 color: #4570b6;
                 font-weight: 700;
               }
             }
+          }
+        }
+
+        .simple-schemes-row {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: clamp(24px, 2.5vw, 40px);
+          max-width: 1240px;
+          margin: 24px auto 80px;
+          width: 100%;
+        }
+        .simple-scheme-chip {
+          background: #fff;
+          border: 1.5px solid #4570b6;
+          border-radius: 16px;
+          padding: 24px 28px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          min-height: 80px;
+          box-shadow: 0 4px 14px rgba(69, 112, 182, 0.06);
+          transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+          &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(69, 112, 182, 0.12);
+          }
+          @media (prefers-reduced-motion: reduce) {
+            &:hover {
+              transform: none;
+            }
+          }
+
+          h3 {
+            color: #4570b6;
+            font-family: "Poppins", var(--font-hk), sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.4;
+            margin: 0;
           }
         }
       }
