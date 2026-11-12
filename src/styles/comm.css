@@ -214,6 +214,40 @@ html[lang="zh-cn"] {
     @apply text-desc text-sm md:text-base lg:text-lg leading-relaxed lg:leading-loose font-light;
   }
 
+  /* 全站統一排版類 (Mainstream Typography System - Tables Excluded) */
+  .typo-section-title {
+    font-family: var(--font-hk), sans-serif;
+    color: var(--color-primary);
+    font-size: clamp(20px, 2.2vw, 30px);
+    font-weight: 900;
+    line-height: 1.35;
+    letter-spacing: clamp(2px, 0.25vw, 3px);
+  }
+  .typo-card-title {
+    font-family: var(--font-hk), sans-serif;
+    color: var(--color-primary);
+    font-size: clamp(18px, 1.5vw, 24px);
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: 0.06em;
+  }
+  .typo-body {
+    font-family: var(--font-hk), sans-serif;
+    color: var(--color-desc);
+    font-size: clamp(16px, 1.15vw, 18px);
+    font-weight: 400;
+    line-height: 1.75;
+    letter-spacing: 0.05em;
+  }
+  .typo-list-text {
+    font-family: var(--font-hk), sans-serif;
+    color: var(--color-desc);
+    font-size: clamp(16px, 1.1vw, 17px);
+    font-weight: 400;
+    line-height: 1.65;
+    letter-spacing: 0.04em;
+  }
+
   /* 業務語意卡片類 (Semantic Business Cards) */
   .service-card {
     @apply flex flex-col justify-between p-6 border-b sm:border-b-0 sm:border-r border-primary transition-colors duration-300 relative min-h-[180px] lg:min-h-[220px];
@@ -252,6 +286,13 @@ html[lang="zh-cn"] {
   .btn-outline {
     @apply inline-flex items-center justify-center px-6 py-3 rounded-full border-2 border-primary text-primary font-bold hover:bg-primary hover:text-white transition-all duration-300 active:scale-95;
   }
+}
+
+html[lang="zh-cn"] .typo-section-title,
+html[lang="zh-cn"] .typo-card-title,
+html[lang="zh-cn"] .typo-body,
+html[lang="zh-cn"] .typo-list-text {
+  font-family: var(--font-sc), sans-serif;
 }
 
 /* -------------------------------------------------------------------------- */
