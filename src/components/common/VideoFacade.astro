@@ -1,0 +1,123 @@
+---
+interface Props {
+  videoId: string;
+  title?: string;
+  embedParams?: string;
+  class?: string;
+  loading?: "lazy" | "eager";
+}
+
+const {
+  videoId,
+  title = "YouTube video player",
+  embedParams = "",
+  class: className = "",
+  loading = "lazy",
+} = Astro.props;
+
+let cleanId = videoId;
+let existingParams = embedParams;
+
+if (cleanId.includes("youtube.com/embed/")) {
+  const urlParts = cleanId.split("youtube.com/embed/")[1].split("?");
+  cleanId = urlParts[0];
+  if (urlParts[1] && !existingParams) {
+    existingParams = urlParts[1];
+  }
+} else if (cleanId.includes("youtu.be/")) {
+  const urlParts = cleanId.split("youtu.be/")[1].split("?");
+  cleanId = urlParts[0];
+  if (urlParts[1] && !existingParams) {
+    existingParams = urlParts[1];
+  }
+} else if (cleanId.includes("?")) {
+  const urlParts = cleanId.split("?");
+  cleanId = urlParts[0];
+  if (urlParts[1] && !existingParams) {
+    existingParams = urlParts[1];
+  }
+}
+
+const paramsSuffix = existingParams ? `&${existingParams}` : "";
+const finalIframeSrc = `https://www.youtube-nocookie.com/embed/${cleanId}?autoplay=1&rel=0${paramsSuffix}`;
+
+const posterUrl = `https://i.ytimg.com/vi/${cleanId}/maxresdefault.jpg`;
+const fallbackPosterUrl = `https://i.ytimg.com/vi/${cleanId}/hqdefault.jpg`;
+---
+
+<div class:list={["video-facade-container relative w-full h-full aspect-video bg-black overflow-hidden", className]}>
+  <button
+    type="button"
+    class="video-facade-btn group relative block w-full h-full p-0 m-0 border-0 bg-transparent cursor-pointer text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4570b6]"
+    aria-label={`播放影片：${title}`}
+    data-iframe-src={finalIframeSrc}
+    data-video-title={title}
+  >
+    <img
+      src={posterUrl}
+      onerror={`this.onerror=null;this.src='${fallbackPosterUrl}';`}
+      alt={title}
+      title={title}
+      loading={loading}
+      decoding="async"
+      width="1280"
+      height="720"
+      class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+    />
+    <span class="absolute inset-0 bg-black/20 group-hover:bg-black/35 transition-colors flex items-center justify-center">
+      <span class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#c13550] text-white flex items-center justify-center shadow-lg transition-transform duration-200 group-hover:scale-110">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          class="w-6 h-6 md:w-7 md:h-7 ml-1"
+          aria-hidden="true"
+        >
+          <path d="M8 5v14l11-7z" />
+        </svg>
+      </span>
+    </span>
+    <span class="sr-only">{title}</span>
+  </button>
+</div>
+
+<script>
+  function setupVideoFacades() {
+    document.querySelectorAll<HTMLButtonElement>(".video-facade-btn").forEach((btn) => {
+      if (btn.dataset.bound) return;
+      btn.dataset.bound = "true";
+      btn.addEventListener("click", () => {
+        const iframeSrc = btn.dataset.iframeSrc;
+        const videoTitle = btn.dataset.videoTitle || "YouTube video player";
+        if (!iframeSrc) return;
+
+        const iframe = document.createElement("iframe");
+        iframe.src = iframeSrc;
+        iframe.title = videoTitle;
+        iframe.width = "100%";
+        iframe.height = "100%";
+        iframe.setAttribute(
+          "allow",
+          "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        );
+        iframe.setAttribute("allowfullscreen", "");
+        iframe.className = "w-full h-full border-0 absolute inset-0";
+
+        const container = btn.closest(".video-facade-container");
+        if (container) {
+          btn.remove();
+          container.appendChild(iframe);
+        } else {
+          btn.replaceWith(iframe);
+        }
+      });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupVideoFacades);
+  } else {
+    setupVideoFacades();
+  }
+  document.addEventListener("astro:page-load", setupVideoFacades);
+</script>

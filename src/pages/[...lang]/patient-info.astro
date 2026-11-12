@@ -7,6 +7,7 @@
  */
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
+import VideoFacade from "@/components/common/VideoFacade.astro";
 import { i18nPaths, getLangFromUrl } from "@/i18n/utils";
 import {
   PATIENT_INFO_ZH_HK,
@@ -140,13 +141,9 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
           {content.correctedVisionBefore.iframeTitle}
         </h2>
         <div class="iframe-container">
-          <iframe
-            src={content.correctedVisionBefore.iframeSrc}
-            title="YouTube video player"
-            loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
+          <VideoFacade
+            videoId={content.correctedVisionBefore.iframeSrc}
+            title={content.correctedVisionBefore.iframeTitle || "YouTube video player"}
           />
         </div>
       </div>
@@ -361,13 +358,9 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
           </p>
           <h2 class="typo-section-title">{content.afterJiaoShi.careVideoTitle}</h2>
           <div class="iframe-container">
-            <iframe
-              src={content.afterJiaoShi.careVideoSrc}
-              title="YouTube video player"
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allowfullscreen
+            <VideoFacade
+              videoId={content.afterJiaoShi.careVideoSrc}
+              title={content.afterJiaoShi.careVideoTitle || "YouTube video player"}
             />
           </div>
         </div>

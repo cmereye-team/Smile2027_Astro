@@ -1035,8 +1035,7 @@ html[lang="zh-cn"] .media-card .media-card-excerpt {
     .meal-btn,
     .CorrectedVisionBefore-button > a,
     .whatsapp-booking-btn .btn-yuyue,
-    .btn-yuyue-link[data-cta="whatsapp"] .btn-yuyue,
-    .cta-pulse
+    .btn-yuyue-link[data-cta="whatsapp"] .btn-yuyue
   ) {
     position: relative;
   }
@@ -1051,8 +1050,7 @@ html[lang="zh-cn"] .media-card .media-card-excerpt {
     .meal-btn,
     .CorrectedVisionBefore-button > a,
     .whatsapp-booking-btn .btn-yuyue,
-    .btn-yuyue-link[data-cta="whatsapp"] .btn-yuyue,
-    .cta-pulse
+    .btn-yuyue-link[data-cta="whatsapp"] .btn-yuyue
   )::after {
     content: "";
     position: absolute;
@@ -1069,6 +1067,104 @@ html[lang="zh-cn"] .media-card .media-card-excerpt {
     box-shadow: 0 0 14px rgba(78, 169, 66, 0.28);
   }
 }
+
+/* -------------------------------------------------------------------------- */
+/* 全站 EETA 權威外鏈樣式 (Single Source)                                     */
+/* -------------------------------------------------------------------------- */
+.authority-link {
+  color: #4570b6;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: rgba(0, 146, 201, 0.4);
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+  display: inline;
+  overflow-wrap: break-word;
+}
+
+.authority-link:hover {
+  color: #0b4d82;
+  text-decoration-color: #0b4d82;
+}
+
+.authority-link::after {
+  content: "";
+  display: inline-block;
+  width: 0.75em;
+  height: 0.75em;
+  margin-left: 2px;
+  margin-right: 2px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230092c9' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'%3E%3C/path%3E%3Cpolyline points='15 3 21 3 21 9'%3E%3C/polyline%3E%3Cline x1='10' y1='14' x2='21' y2='3'%3E%3C/line%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  vertical-align: -1px;
+  opacity: 0.75;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.authority-link:hover::after {
+  opacity: 1;
+  transform: translate(1px, -1px);
+}
+
+/* -------------------------------------------------------------------------- */
+/* CTA 循環微動效 (柔光脈衝環 + 緩慢高光掠影)                                  */
+/* -------------------------------------------------------------------------- */
+@keyframes cta-pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(69, 112, 182, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(69, 112, 182, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(69, 112, 182, 0);
+  }
+}
+
+@keyframes cta-shine-sweep {
+  0% {
+    transform: translateX(-120%) skewX(-20deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.7;
+  }
+  40%, 100% {
+    transform: translateX(220%) skewX(-20deg);
+    opacity: 0;
+  }
+}
+
+.cta-pulse {
+  position: relative;
+  overflow: hidden;
+  animation: cta-pulse-ring 2.4s ease-in-out infinite;
+}
+
+.cta-pulse::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  animation: cta-shine-sweep 3.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-pulse,
+  .cta-pulse::after {
+    animation: none;
+  }
+}
+
 
 
 

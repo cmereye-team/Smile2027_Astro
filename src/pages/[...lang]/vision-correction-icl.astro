@@ -9,6 +9,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import SchemaProcedure from "@/components/seo/SchemaProcedure.astro";
 import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
 import UserShare from "@/components/views/UserShare.astro";
+import VideoFacade from "@/components/common/VideoFacade.astro";
 import { i18nPaths, getLangFromUrl, getLocalizedHref } from "@/i18n/utils";
 import {
   VISION_CORRECTION_ICL_ZH_HK,
@@ -130,7 +131,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
         </div>
         <div class="icl-WhatChoose-content-one-text">
           <p>
-            {content.whyChoose.one.text1}<span>{content.whyChoose.one.text2}</span>{content.whyChoose.one.text3}<span>{content.whyChoose.one.text4}</span>{content.whyChoose.one.text5}<span>{content.whyChoose.one.text6}</span>{content.whyChoose.one.text7}
+            <Fragment set:html={content.whyChoose.one.text1} /><span>{content.whyChoose.one.text2}</span><Fragment set:html={content.whyChoose.one.text3} /><span>{content.whyChoose.one.text4}</span>{content.whyChoose.one.text5}<span><Fragment set:html={content.whyChoose.one.text6} /></span>{content.whyChoose.one.text7}
           </p>
           <p>
             {content.whyChoose.one.text8}
@@ -154,7 +155,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
         target="_blank"
         rel="noopener noreferrer"
         href={content.whyChoose.whatsappUrl}
-        class="mx-auto icl-btn"
+        class="mx-auto icl-btn cta-pulse"
         data-cta="whatsapp"
         title={content.whyChoose.btn}
         aria-label="預約諮詢 (W-13)"
@@ -213,7 +214,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
             <a
               href={feeUrl}
               title={content.fee.btn}
-              class="md:w-auto bg-[#4570B6] text-white px-10 py-4 md:py-5 md:px-[100px] rounded-full text-2xl md:text-4xl font-bold flex items-center justify-center gap-3 transition-colors hover:bg-[#345996]"
+              class="md:w-auto bg-[#4570B6] text-white px-10 py-4 md:py-5 md:px-[100px] rounded-full text-2xl md:text-4xl font-bold flex items-center justify-center gap-3 transition-colors hover:bg-[#345996] cta-pulse"
               data-cta="fee"
             >
               {content.fee.btn}
@@ -256,57 +257,57 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
           <thead>
             <tr>
               <th class="table-item line-bottom line-project">{content.modelComparison.project}</th>
-              <th class="project-name line-bottom line-right">{content.modelComparison.cols[0]}</th>
-              <th class="project-name line-bottom line-right model-star">{content.modelComparison.cols[1]}</th>
-              <th class="project-name line-bottom line-right model-star">{content.modelComparison.cols[2]}</th>
+              <th class="project-name line-bottom line-project">{content.modelComparison.cols[0]}</th>
+              <th class="project-name line-bottom line-project">{content.modelComparison.cols[1]}</th>
+              <th class="project-name line-bottom">{content.modelComparison.cols[2]}</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="table-item line-bottom line-project">{content.modelComparison.range.title}</td>
-              <td class="line-bottom line-right">
+              <th class="table-item line-bottom line-project">{content.modelComparison.range.title}</th>
+              <td class="line-bottom line-right model-star">
                 {content.modelComparison.range.v4c.prefix}<br class="md:hidden" />
-                <span class="font-bold">{content.modelComparison.range.v4c.strong1}</span>
-                <span class="font-bold">{content.modelComparison.range.v4c.strong2}</span>
+                <strong class="text-[#F89B03] font-bold">{content.modelComparison.range.v4c.strong1}</strong>
+                <strong class="text-[#F89B03] font-bold">{content.modelComparison.range.v4c.strong2}</strong>
                 {content.modelComparison.range.v4c.mid}<br />
                 {content.modelComparison.range.v4c.suffix}
               </td>
               <td class="line-bottom line-right">
                 {content.modelComparison.range.v5}
               </td>
-              <td class="line-bottom line-right">
+              <td class="line-bottom">
                 {content.modelComparison.range.v6.p1}<br />
                 {content.modelComparison.range.v6.p2}
               </td>
             </tr>
             <tr>
-              <td class="table-item line-bottom line-project">{content.modelComparison.tech.title}</td>
+              <th class="table-item line-bottom line-project">{content.modelComparison.tech.title}</th>
               <td class="line-bottom line-right">{content.modelComparison.tech.v4c}</td>
               <td class="line-bottom line-right">{content.modelComparison.tech.v5}</td>
-              <td class="line-bottom line-right">{content.modelComparison.tech.v6}</td>
+              <td class="line-bottom model-star text-[#F89B03] font-bold">{content.modelComparison.tech.v6}</td>
             </tr>
             <tr>
-              <td class="table-item line-bottom line-project">{content.modelComparison.materials.title}</td>
+              <th class="table-item line-bottom line-project">{content.modelComparison.materials.title}</th>
               <td class="line-bottom line-right">{content.modelComparison.materials.v4c}</td>
-              <td colspan="2" class="line-bottom line-right">{content.modelComparison.materials.intro}</td>
+              <td colspan="2" class="line-bottom">{content.modelComparison.materials.intro}</td>
             </tr>
             <tr>
-              <td class="table-item line-bottom line-project">{content.modelComparison.audience.title}</td>
+              <th class="table-item line-bottom line-project">{content.modelComparison.audience.title}</th>
               <td class="line-bottom line-right">{content.modelComparison.audience.v4c}</td>
               <td class="line-bottom line-right">{content.modelComparison.audience.v5}</td>
-              <td class="line-bottom line-right">
+              <td class="line-bottom">
                 {content.modelComparison.audience.v6.p1}<br />
                 {content.modelComparison.audience.v6.p2}
               </td>
             </tr>
             <tr>
-              <td class="table-item line-bottom line-project">{content.modelComparison.night.title}</td>
+              <th class="table-item line-bottom line-project">{content.modelComparison.night.title}</th>
               <td class="line-bottom line-right">{content.modelComparison.night.v4c}</td>
-              <td colspan="2" class="line-bottom line-right">{content.modelComparison.night.intro}</td>
+              <td colspan="2" class="line-bottom">{content.modelComparison.night.intro}</td>
             </tr>
             <tr>
-              <td class="table-item line-project">{content.modelComparison.reversibility.title}</td>
-              <td colspan="3" class="line-right">{content.modelComparison.reversibility.intro}</td>
+              <th class="table-item line-project">{content.modelComparison.reversibility.title}</th>
+              <td colspan="3">{content.modelComparison.reversibility.intro}</td>
             </tr>
           </tbody>
         </table>
@@ -342,9 +343,16 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
         <p class="icl-peculiarity-text">
           {content.peculiarity.desc}
         </p>
-        <div class="icl-peculiarity-list">
-          {content.peculiarity.items.map((item) => (
-            <div class="icl-peculiarity-list-item">
+        <div class="icl-peculiarity-list" role="region" aria-label="EVO Visian ICL 7大特色">
+          {content.peculiarity.items.map((item, idx) => (
+            <div
+              class="icl-peculiarity-list-item"
+              tabindex="0"
+              role="button"
+              aria-expanded="false"
+              aria-label={`特色 ${item.footerNum}: ${item.title}`}
+              style={`--card-idx: ${idx};`}
+            >
               <span class="icl-tag-badge">{item.tag}</span>
               <div class="icl-peculiarity-list-item-text">
                 <p class="icl-peculiarity-list-item-text-title">{item.title}</p>
@@ -454,14 +462,9 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
           <div class="icl-introVedio-vedio-list">
             {content.videos.list.map((vid) => (
               <div>
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src={vid.src}
+                <VideoFacade
+                  videoId={vid.src}
                   title={vid.title}
-                  loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen
                 />
               </div>
             ))}
@@ -506,7 +509,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
         target="_blank"
         rel="noopener noreferrer"
         href={content.check.whatsappUrl}
-        class="mx-auto icl-btn"
+        class="mx-auto icl-btn cta-pulse"
         data-cta="whatsapp"
         aria-label="預約諮詢 (W-13)"
         title={content.check.btn}
@@ -555,7 +558,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
           {content.latestNews.desc}
         </p>
       </div>
-      <a href={getLocalizedHref(content.latestNews.href, lang)} class="latestNews-btn" title={content.latestNews.btn}>
+      <a href={getLocalizedHref(content.latestNews.href, lang)} class="latestNews-btn cta-pulse" title={content.latestNews.btn}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="23"
@@ -662,6 +665,9 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
     const stepImgMb = document.getElementById("iclStepImgMb");
     const stepImgPc = document.getElementById("iclStepImgPc");
     const stepText = document.getElementById("iclStepText");
+    const stepsContainer = document.querySelector(".icl-introVedio-intro");
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     function setStep(idx) {
       if (idx < 0 || idx >= stepsData.length) return;
@@ -670,7 +676,9 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
         btn.classList.toggle("active", i === activeStep);
       });
       const data = stepsData[activeStep];
-      if (data) {
+      if (!data) return;
+
+      if (prefersReducedMotion) {
         if (stepImgMb) {
           stepImgMb.src = data.image;
           stepImgMb.title = data.text;
@@ -680,10 +688,33 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
           stepImgPc.title = data.text;
         }
         if (stepText) stepText.textContent = data.text;
+        return;
       }
+
+      // Fade on content change (opacity transition 250ms)
+      [stepImgMb, stepImgPc, stepText].forEach((el) => {
+        if (el) el.style.opacity = "0";
+      });
+
+      setTimeout(() => {
+        if (stepImgMb) {
+          stepImgMb.src = data.image;
+          stepImgMb.title = data.text;
+        }
+        if (stepImgPc) {
+          stepImgPc.src = data.imagePc;
+          stepImgPc.title = data.text;
+        }
+        if (stepText) stepText.textContent = data.text;
+
+        [stepImgMb, stepImgPc, stepText].forEach((el) => {
+          if (el) el.style.opacity = "1";
+        });
+      }, 120);
     }
 
     function startTimer() {
+      if (prefersReducedMotion) return;
       stopTimer();
       timer = setInterval(() => {
         activeStep = (activeStep + 1) % stepsData.length;
@@ -701,18 +732,59 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
     stepBtns.forEach((btn, idx) => {
       btn.addEventListener("click", () => {
         setStep(idx);
-        stopTimer();
       });
       btn.addEventListener("mouseenter", () => {
         setStep(idx);
-        stopTimer();
-      });
-      btn.addEventListener("mouseleave", () => {
-        startTimer();
       });
     });
 
-    startTimer();
+    if (stepsContainer) {
+      stepsContainer.addEventListener("mouseenter", stopTimer);
+      stepsContainer.addEventListener("mouseleave", startTimer);
+      stepsContainer.addEventListener("focusin", stopTimer);
+      stepsContainer.addEventListener("focusout", startTimer);
+    }
+
+    if (!prefersReducedMotion) {
+      startTimer();
+    }
+
+    // I7. EVO Visian ICL 7 features (Touch & Keyboard flip)
+    const featureCards = document.querySelectorAll(".icl-peculiarity-list-item");
+    featureCards.forEach((card) => {
+      function toggleFlip() {
+        const isFlipped = card.classList.toggle("is-flipped");
+        card.setAttribute("aria-expanded", isFlipped ? "true" : "false");
+      }
+
+      card.addEventListener("click", () => {
+        toggleFlip();
+      });
+
+      card.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggleFlip();
+        }
+      });
+    });
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("revealed");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+      featureCards.forEach((card) => observer.observe(card));
+    } else {
+      featureCards.forEach((card) => card.classList.add("revealed"));
+    }
 
     // 社交分享及複製鏈接
     const copyBtn = document.getElementById("copyCurrentUrlIcl");
