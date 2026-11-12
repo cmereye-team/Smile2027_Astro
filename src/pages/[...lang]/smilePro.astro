@@ -45,6 +45,36 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
       content.summary.p1.strong2 +
       content.summary.p1.text3}
   />
+  {/* 蔡司官方認證醫療設備結構化數據 (EEAT & GEO 實體圖譜增強) */}
+  <script
+    type="application/ld+json"
+    is:inline
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "MedicalDevice",
+      "name": "ZEISS VISUMAX 800",
+      "alternateName": ["VISUMAX 800", "SMILE Pro 2.0 激光矯視系統"],
+      "description": isCn
+        ? "蔡司下一代飞秒激光屈光手术系统，支持 SMILE® Pro 2.0 矫视，具备虹膜辨识与 CentraLign / OcuLign 自动散光轴向校正技术。"
+        : "蔡司下一代飛秒激光屈光手術系統，支援 SMILE® Pro 2.0 矯視，具備虹膜辨識與 CentraLign / OcuLign 自動散光軸向校正技術。",
+      "manufacturer": {
+        "@type": "MedicalOrganization",
+        "name": "Carl Zeiss Meditec AG",
+        "alternateName": "蔡司醫療科技",
+        "url": "https://www.zeiss.com/meditec/en/home.html",
+        "sameAs": [
+          "https://www.zeiss.com.hk/",
+          "https://en.wikipedia.org/wiki/Carl_Zeiss_AG",
+          "https://www.wikidata.org/wiki/Q565985"
+        ]
+      },
+      "url": "https://www.zeiss.com/meditec/en/products/refractive-lasers/visumax-800.html",
+      "recognizingAuthority": {
+        "@type": "Organization",
+        "name": isCn ? "蔡司官方认证伙伴" : "蔡司官方認證夥伴"
+      }
+    })}
+  />
   <SchemaBreadcrumb
     items={[
       { name: content.breadcrumb.home, url: isCn ? "/cn/" : "/" },
@@ -281,11 +311,17 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
               loading="lazy"
               class="w-full max-w-xs lg:max-w-sm aspect-[45/16] object-contain"
             />
-            <span
-              class="text-gray-500 text-sm lg:text-base font-light tracking-[0.3em] mt-3"
+            <a
+              href="https://www.zeiss.com.hk/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-gray-500 hover:text-primary transition-colors text-sm lg:text-base font-light tracking-[0.3em] mt-3 inline-flex items-center gap-1 group/cert"
+              title="前往蔡司香港官方網站（另開新分頁）"
+              aria-label="前往蔡司香港官方網站（另開新分頁）"
             >
-              {content.pro2Intro.certText}
-            </span>
+              <span>{content.pro2Intro.certText}</span>
+              <svg class="w-3.5 h-3.5 opacity-60 group-hover/cert:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
           </div>
           <div
             class="text-base lg:text-lg leading-relaxed text-gray-700 lg:flex-1"
@@ -299,18 +335,14 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
                 <span class="inline-block w-2.5 h-2.5 rounded-full bg-primary"></span>
                 {content.pro2Intro.feature1Title}
               </h3>
-              <p class="text-gray-600 font-light leading-relaxed">
-                {content.pro2Intro.feature1Desc}
-              </p>
+              <p class="text-gray-600 font-light leading-relaxed" set:html={content.pro2Intro.feature1Desc} />
             </div>
             <div class="bg-white p-5 rounded-xl shadow-xs border border-blue-100/60">
               <h3 class="text-primary font-bold text-lg lg:text-xl mb-2 flex items-center gap-2">
                 <span class="inline-block w-2.5 h-2.5 rounded-full bg-primary"></span>
                 {content.pro2Intro.feature2Title}
               </h3>
-              <p class="text-gray-600 font-light leading-relaxed">
-                {content.pro2Intro.feature2Desc}
-              </p>
+              <p class="text-gray-600 font-light leading-relaxed" set:html={content.pro2Intro.feature2Desc} />
             </div>
           </div>
         </div>
@@ -862,52 +894,70 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
   function initSmileProEvaluateSwiper() {
     const el = document.getElementById("smileProEvaluateSwiper");
     if (!el) return;
-    if ((el as any).swiper) {
-      (el as any).swiper.destroy(true, true);
-    }
 
-    new Swiper(el, {
-      modules: [Autoplay, Navigation],
-      slidesPerView: 5,
-      spaceBetween: 60,
-      loop: true,
-      autoplay: {
-        delay: 4000,
-        disableOnInteraction: false,
-        pauseOnMouseEnter: true,
-      },
-      navigation: {
-        nextEl: "#smileProEvaluateNext",
-        prevEl: "#smileProEvaluatePrev",
-      },
-      breakpoints: {
-        0: {
-          slidesPerView: 1.2,
-          spaceBetween: 24,
+    const runInit = () => {
+      if ((el as any).swiper) {
+        (el as any).swiper.destroy(true, true);
+      }
+
+      new Swiper(el, {
+        modules: [Autoplay, Navigation],
+        slidesPerView: 5,
+        spaceBetween: 60,
+        loop: true,
+        autoplay: {
+          delay: 4000,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
         },
-        768: {
-          slidesPerView: 2.5,
-          spaceBetween: 24,
+        navigation: {
+          nextEl: "#smileProEvaluateNext",
+          prevEl: "#smileProEvaluatePrev",
         },
-        1024: {
-          slidesPerView: "auto",
-          spaceBetween: 14,
+        breakpoints: {
+          0: {
+            slidesPerView: 1.2,
+            spaceBetween: 24,
+          },
+          768: {
+            slidesPerView: 2.5,
+            spaceBetween: 24,
+          },
+          1024: {
+            slidesPerView: "auto",
+            spaceBetween: 14,
+          },
+          1440: {
+            slidesPerView: "auto",
+            spaceBetween: 18,
+          },
         },
-        1440: {
-          slidesPerView: "auto",
-          spaceBetween: 18,
+        on: {
+          slideChangeTransitionStart(swiper) {
+            swiper.updateSlides();
+            swiper.setTranslate(-swiper.slidesGrid[swiper.activeIndex]);
+          },
+          slideChangeTransitionEnd(swiper) {
+            swiper.update();
+          },
         },
-      },
-      on: {
-        slideChangeTransitionStart(swiper) {
-          swiper.updateSlides();
-          swiper.setTranslate(-swiper.slidesGrid[swiper.activeIndex]);
+      });
+    };
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          if (entries[0]?.isIntersecting) {
+            obs.disconnect();
+            runInit();
+          }
         },
-        slideChangeTransitionEnd(swiper) {
-          swiper.update();
-        },
-      },
-    });
+        { rootMargin: "200px" }
+      );
+      observer.observe(el);
+    } else {
+      runInit();
+    }
   }
 
   function initFourFeatureReveal() {
@@ -1214,9 +1264,47 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
     }
   }
 
-  /* Section 2: SMILE Pro 2.0 旗艦亮點 */
-  .pro2-intro .title-normal {
-    text-align: left;
+  /* Section 2: SMILE Pro 2.0 旗艦亮點權威外鏈樣式 (EEAT / GEO 增強) */
+  .pro2-intro {
+    .title-normal {
+      text-align: left;
+    }
+
+    :global(.pro2-authority-link) {
+      color: $primary;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-color: rgba(0, 146, 201, 0.4);
+      font-weight: 600;
+      transition: all 0.2s ease-in-out;
+      display: inline;
+      overflow-wrap: break-word;
+
+      &:hover {
+        color: #0b4d82;
+        text-decoration-color: #0b4d82;
+      }
+
+      &::after {
+        content: "";
+        display: inline-block;
+        width: 0.75em;
+        height: 0.75em;
+        margin-left: 2px;
+        margin-right: 2px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230092c9' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'%3E%3C/path%3E%3Cpolyline points='15 3 21 3 21 9'%3E%3C/polyline%3E%3Cline x1='10' y1='14' x2='21' y2='3'%3E%3C/line%3E%3C/svg%3E");
+        background-size: contain;
+        background-repeat: no-repeat;
+        vertical-align: -1px;
+        opacity: 0.75;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+      }
+
+      &:hover::after {
+        opacity: 1;
+        transform: translate(1px, -1px);
+      }
+    }
   }
 
   /* Section 3: 為何選擇希瑪 */
