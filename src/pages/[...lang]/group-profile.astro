@@ -446,29 +446,47 @@ const awardBadges = [
   function initAwardsMarqueeSwiper() {
     const el = document.getElementById("awardsMarqueeSwiper");
     if (!el) return;
-    if ((el as any).swiper) {
-      (el as any).swiper.destroy(true, true);
-    }
 
-    new Swiper(el, {
-      modules: [Autoplay, FreeMode],
-      loop: true,
-      slidesPerView: "auto",
-      spaceBetween: 20,
-      speed: 4000,
-      autoplay: {
-        delay: 0,
-        disableOnInteraction: false,
-        pauseOnMouseEnter: true,
-      },
-      freeMode: {
-        enabled: true,
-        momentum: true,
-        momentumRatio: 1.2,
-      },
-      allowTouchMove: true,
-      grabCursor: true,
-    });
+    const runInit = () => {
+      if ((el as any).swiper) {
+        (el as any).swiper.destroy(true, true);
+      }
+
+      new Swiper(el, {
+        modules: [Autoplay, FreeMode],
+        loop: true,
+        slidesPerView: "auto",
+        spaceBetween: 20,
+        speed: 4000,
+        autoplay: {
+          delay: 0,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        },
+        freeMode: {
+          enabled: true,
+          momentum: true,
+          momentumRatio: 1.2,
+        },
+        allowTouchMove: true,
+        grabCursor: true,
+      });
+    };
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          if (entries[0]?.isIntersecting) {
+            obs.disconnect();
+            runInit();
+          }
+        },
+        { rootMargin: "200px" }
+      );
+      observer.observe(el);
+    } else {
+      runInit();
+    }
   }
 
   // 2. GSAP C-M-E-R 經營理念支柱滾動逐項交錯浮現 (Stagger Reveal) + 字母懸停微彈性反饋

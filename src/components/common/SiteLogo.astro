@@ -31,6 +31,7 @@ const logoSrc = variant === "white" ? "/images/logo-white.svg" : "/images/logo.s
   width={width}
   height={height}
   loading={loading}
+  decoding={loading === "eager" ? "sync" : "async"}
   fetchpriority={loading === "eager" ? "high" : "auto"}
   class:list={["site-logo block h-auto w-auto max-h-full object-contain", className]}
 />

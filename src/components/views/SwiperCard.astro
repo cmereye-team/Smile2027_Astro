@@ -55,6 +55,7 @@ const items: BannerItem[] = banners || (await getBanners(lang));
                 width="400"
                 height="400"
                 loading="lazy"
+                decoding="async"
                 draggable="false"
               />
             </a>
@@ -296,7 +297,22 @@ const items: BannerItem[] = banners || (await getBanners(lang));
     });
 
     renderState();
-    startAutoPlay();
+
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          if (entries[0]?.isIntersecting) {
+            startAutoPlay();
+          } else {
+            pauseAutoPlay();
+          }
+        },
+        { rootMargin: "200px" }
+      );
+      io.observe(cardRoot);
+    } else {
+      startAutoPlay();
+    }
   }
 
   if (document.readyState === "loading") {

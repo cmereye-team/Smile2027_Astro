@@ -97,6 +97,9 @@ if (tdkKey && dict.tdk[tdkKey]) {
 
     <!-- Schema.org 診所實體標記 (Local SEO / E-E-A-T) -->
     {showClinicSchema && <SchemaClinic lang={lang} />}
+
+    <!-- 頁面自定義 Head 內容 (如專屬 LCP Preload 標籤) -->
+    <slot name="head" />
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->

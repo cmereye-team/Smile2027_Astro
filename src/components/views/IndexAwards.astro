@@ -124,6 +124,7 @@ const awards = [
                   width="132"
                   height="132"
                   loading="lazy"
+                  decoding="async"
                   class="award-img object-contain"
                 />
               ) : (
@@ -350,31 +351,53 @@ const awards = [
   function initAwardsSwiper() {
     const el = document.getElementById("awardsSwiper");
     if (!el) return;
-    if ((el as any).swiper) {
-      (el as any).swiper.destroy(true, true);
-    }
 
-    new Swiper(el, {
-      modules: [Autoplay, FreeMode],
-      loop: true,
-      slidesPerView: "auto",
-      spaceBetween: 0,
-      speed: 4000,
-      autoplay: {
-        delay: 0,
-        disableOnInteraction: false,
-        pauseOnMouseEnter: true,
-      },
-      freeMode: {
-        enabled: true,
-        momentum: true,
-        momentumRatio: 1.2,
-      },
-      allowTouchMove: true,
-      grabCursor: true,
-    });
+    const runInit = () => {
+      if ((el as any).swiper) {
+        (el as any).swiper.destroy(true, true);
+      }
+
+      new Swiper(el, {
+        modules: [Autoplay, FreeMode],
+        loop: true,
+        slidesPerView: "auto",
+        spaceBetween: 0,
+        speed: 4000,
+        autoplay: {
+          delay: 0,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        },
+        freeMode: {
+          enabled: true,
+          momentum: true,
+          momentumRatio: 1.2,
+        },
+        allowTouchMove: true,
+        grabCursor: true,
+      });
+    };
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          if (entries[0]?.isIntersecting) {
+            obs.disconnect();
+            runInit();
+          }
+        },
+        { rootMargin: "200px" }
+      );
+      observer.observe(el);
+    } else {
+      runInit();
+    }
   }
 
-  document.addEventListener("DOMContentLoaded", initAwardsSwiper);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initAwardsSwiper);
+  } else {
+    initAwardsSwiper();
+  }
   document.addEventListener("astro:page-load", initAwardsSwiper);
 </script>

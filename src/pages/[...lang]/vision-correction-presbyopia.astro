@@ -149,7 +149,7 @@ const currentUrl = isCn
                       {item.imgWp && (
                         <source srcset={item.imgWp} type="image/webp" />
                       )}
-                      <img
+                      <img decoding="async" loading="lazy"
                         draggable="false"
                         src={item.imgJpg || item.imgWp}
                         alt={schemeAlt}
@@ -242,7 +242,7 @@ const currentUrl = isCn
               <h3 set:html={content.battle.items[0].title} />
               {content.battle.items[0].points.map((pt) => (
                 <p>
-                  <img
+                  <img decoding="async" loading="lazy"
                     draggable="false"
                     src="https://statichk.cmermedical.com/smile/clear-visionV2/clearAppointment/success.svg"
                     alt="對勾"
@@ -285,7 +285,7 @@ const currentUrl = isCn
               <h3 set:html={content.battle.items[1].title} />
               {content.battle.items[1].points.map((pt) => (
                 <p>
-                  <img
+                  <img decoding="async" loading="lazy"
                     draggable="false"
                     src="https://statichk.cmermedical.com/smile/clear-visionV2/clearAppointment/success.svg"
                     alt="對勾"
@@ -317,7 +317,7 @@ const currentUrl = isCn
               <h3 set:html={content.battle.items[2].title} />
               {content.battle.items[2].points.map((pt) => (
                 <p>
-                  <img
+                  <img decoding="async" loading="lazy"
                     draggable="false"
                     src="https://statichk.cmermedical.com/smile/clear-visionV2/clearAppointment/success.svg"
                     alt="對勾"
@@ -443,7 +443,7 @@ const currentUrl = isCn
                   <td>
                     {row.col1Badge?.text ? (
                       <span class="flex items-center justify-center gap-2">
-                        <img
+                        <img decoding="async" loading="lazy"
                           draggable="false"
                           src={
                             row.col1Badge.success
@@ -456,7 +456,7 @@ const currentUrl = isCn
                         {row.col1Badge.text}
                       </span>
                     ) : (
-                      <img
+                      <img decoding="async" loading="lazy"
                         draggable="false"
                         src={
                           row.col1Badge?.success
@@ -472,7 +472,7 @@ const currentUrl = isCn
                   <td>
                     {row.col2Badge?.text ? (
                       <span class="flex items-center justify-center gap-2">
-                        <img
+                        <img decoding="async" loading="lazy"
                           draggable="false"
                           src={
                             row.col2Badge.success
@@ -485,7 +485,7 @@ const currentUrl = isCn
                         {row.col2Badge.text}
                       </span>
                     ) : (
-                      <img
+                      <img decoding="async" loading="lazy"
                         draggable="false"
                         src={
                           row.col2Badge?.success
@@ -501,7 +501,7 @@ const currentUrl = isCn
                   <td>
                     {row.col3Badge?.text ? (
                       <div class="flex items-center justify-center gap-2">
-                        <img
+                        <img decoding="async" loading="lazy"
                           draggable="false"
                           src={
                             row.col3Badge.success
@@ -514,7 +514,7 @@ const currentUrl = isCn
                         {row.col3Badge.text}
                       </div>
                     ) : (
-                      <img
+                      <img decoding="async" loading="lazy"
                         draggable="false"
                         src={
                           row.col3Badge?.success
@@ -563,7 +563,7 @@ const currentUrl = isCn
                 >
                   <div class="lbv-slide-content">
                     <div class="lbv-slide-image">
-                      <img
+                      <img decoding="async" loading="lazy"
                         draggable="false"
                         src={s.img}
                         alt={s.alt}
@@ -607,7 +607,7 @@ const currentUrl = isCn
     <section class="clearAppointment">
       <div class="clearAppointment-Box">
         <a href={appointFormUrl} class="clearAppointment-Box-item" title={content.appointment.lectureText}>
-          <img
+          <img decoding="async" loading="lazy"
             draggable="false"
             src={content.appointment.lectureIcon}
             alt={content.appointment.lectureText}
@@ -646,7 +646,7 @@ const currentUrl = isCn
           data-cta="whatsapp-w06"
           title={content.appointment.consultText}
         >
-          <img
+          <img decoding="async" loading="lazy"
             draggable="false"
             src={content.appointment.consultIcon}
             alt={content.appointment.consultText}
@@ -696,7 +696,7 @@ const currentUrl = isCn
         sizes="(max-width: 992px) 100vw, 1216px"
         class="SuitableObject-bg-right"
       />
-      <img
+      <img decoding="async" loading="lazy"
         draggable="false"
         src={content.suitable.bgLeft1}
         alt={content.suitable.title}
@@ -704,7 +704,7 @@ const currentUrl = isCn
         aria-hidden="true"
         class="SuitableObject-bgLeft1"
       />
-      <img
+      <img decoding="async" loading="lazy"
         draggable="false"
         src={content.suitable.bgLeft2}
         alt={content.suitable.title}
@@ -722,7 +722,7 @@ const currentUrl = isCn
             const itemText = it.html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
             return (
               <div class="SuitableObject-Box-List-item">
-                <img draggable="false" src={it.icon} alt={itemText} title={itemText} />
+                <img decoding="async" loading="lazy" draggable="false" src={it.icon} alt={itemText} title={itemText} />
                 <p set:html={it.html} />
               </div>
             );

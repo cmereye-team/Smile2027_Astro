@@ -73,6 +73,7 @@ function getColor(type: string) {
                       alt={`${item.nameCn || item.nameEn} - 香港希瑪 ${item.type} 矯視用家分享`}
                       title={`${item.nameCn || item.nameEn} ${item.type} 微笑矯視親身感受`}
                       loading="lazy"
+                      decoding="async"
                       width="280"
                       height="190"
                     />
@@ -114,88 +115,109 @@ function getColor(type: string) {
     );
 
     containers.forEach((el) => {
-      if ((el as any).swiper) {
-        (el as any).swiper.destroy(true, true);
-      }
-
-      const scrollbarEl = el.querySelector<HTMLElement>(".UserShareBox-scrollbar");
-      let isDragging = false;
-      let startX = 0;
-      let startY = 0;
-
-      const swiper = new Swiper(el, {
-        modules: [Autoplay, FreeMode, Mousewheel, Scrollbar],
-        slidesPerView: "auto",
-        spaceBetween: 3.75,
-        autoplay: {
-          delay: 3000,
-          pauseOnMouseEnter: true,
-          disableOnInteraction: false,
-        },
-        freeMode: {
-          enabled: true,
-        },
-        mousewheel: {
-          forceToAxis: true,
-        },
-        scrollbar: scrollbarEl
-          ? {
-              el: scrollbarEl,
-              draggable: true,
-              hide: false,
-            }
-          : false,
-        grabCursor: true,
-        preventClicks: true,
-        preventClicksPropagation: true,
-        breakpoints: {
-          992: {
-            spaceBetween: 5,
-          },
-          1139: {
-            spaceBetween: 5,
-            slidesOffsetAfter: 85,
-          },
-        },
-      });
-
-      if (el.dataset.dragBound === "1") return;
-      el.dataset.dragBound = "1";
-
-      el.addEventListener("pointerdown", (e) => {
-        startX = e.clientX;
-        startY = e.clientY;
-        isDragging = false;
-      });
-
-      el.addEventListener("pointermove", (e) => {
-        if (
-          Math.abs(e.clientX - startX) > 6 ||
-          Math.abs(e.clientY - startY) > 6
-        ) {
-          isDragging = true;
+      const runInit = () => {
+        if ((el as any).swiper) {
+          (el as any).swiper.destroy(true, true);
         }
-      });
 
-      swiper.on("sliderMove", () => {
-        isDragging = true;
-      });
+        const scrollbarEl = el.querySelector<HTMLElement>(".UserShareBox-scrollbar");
+        let isDragging = false;
+        let startX = 0;
+        let startY = 0;
 
-      el.addEventListener(
-        "click",
-        (e) => {
-          if (isDragging) {
-            e.preventDefault();
-            e.stopPropagation();
-            isDragging = false;
+        const swiper = new Swiper(el, {
+          modules: [Autoplay, FreeMode, Mousewheel, Scrollbar],
+          slidesPerView: "auto",
+          spaceBetween: 3.75,
+          autoplay: {
+            delay: 3000,
+            pauseOnMouseEnter: true,
+            disableOnInteraction: false,
+          },
+          freeMode: {
+            enabled: true,
+          },
+          mousewheel: {
+            forceToAxis: true,
+          },
+          scrollbar: scrollbarEl
+            ? {
+                el: scrollbarEl,
+                draggable: true,
+                hide: false,
+              }
+            : false,
+          grabCursor: true,
+          preventClicks: true,
+          preventClicksPropagation: true,
+          breakpoints: {
+            992: {
+              spaceBetween: 5,
+            },
+            1139: {
+              spaceBetween: 5,
+              slidesOffsetAfter: 85,
+            },
+          },
+        });
+
+        if (el.dataset.dragBound === "1") return;
+        el.dataset.dragBound = "1";
+
+        el.addEventListener("pointerdown", (e) => {
+          startX = e.clientX;
+          startY = e.clientY;
+          isDragging = false;
+        });
+
+        el.addEventListener("pointermove", (e) => {
+          if (
+            Math.abs(e.clientX - startX) > 6 ||
+            Math.abs(e.clientY - startY) > 6
+          ) {
+            isDragging = true;
           }
-        },
-        true
-      );
+        });
+
+        swiper.on("sliderMove", () => {
+          isDragging = true;
+        });
+
+        el.addEventListener(
+          "click",
+          (e) => {
+            if (isDragging) {
+              e.preventDefault();
+              e.stopPropagation();
+              isDragging = false;
+            }
+          },
+          true
+        );
+      };
+
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(
+          (entries, obs) => {
+            if (entries[0]?.isIntersecting) {
+              obs.disconnect();
+              runInit();
+            }
+          },
+          { rootMargin: "200px" }
+        );
+        observer.observe(el);
+      } else {
+        runInit();
+      }
     });
   }
 
-  document.addEventListener("DOMContentLoaded", initUserShareSwipers);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initUserShareSwipers);
+  } else {
+    initUserShareSwipers();
+  }
   document.addEventListener("astro:page-load", initUserShareSwipers);
 </script>
 

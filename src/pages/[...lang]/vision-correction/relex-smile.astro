@@ -210,7 +210,7 @@ const banners = await getBanners(lang);
               width="649"
               height="649"
               loading="lazy"
-            />
+             decoding="async"/>
             <p
               id="relex-step-text"
               class="steps-content-text steps-content-01"
@@ -238,7 +238,7 @@ const banners = await getBanners(lang);
             width="647"
             height="471"
             loading="lazy"
-          />
+           decoding="async"/>
         </div>
         <div class="whyChoose-intro mt-8">
           <p set:html={content.whyChoose.p1} />
@@ -346,7 +346,7 @@ const banners = await getBanners(lang);
                       width="53"
                       height="53"
                       loading="lazy"
-                    />
+                     decoding="async"/>
                   </div>
                   <p class="benefit-item-desc" style="white-space: pre-line;">
                     {benefit.desc}
@@ -474,7 +474,7 @@ const banners = await getBanners(lang);
               <img draggable="false"
                 class="xtra-paper-icon"
                 src="https://statichk.cmermedical.com/smile/smileV2/smile-xtra-2.svg"
-                alt={content.xtra.card1TitleHtml.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()}
+                alt={content.xtra.card1TitleHtml.replace(/<[^ loading="lazy" decoding="async">]+>/g, " ").replace(/\s+/g, " ").trim()}
                 title={content.xtra.card1TitleHtml.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()}
                 aria-hidden="true"
                 width="80"
@@ -490,7 +490,7 @@ const banners = await getBanners(lang);
               <img draggable="false"
                 class="xtra-paper-icon"
                 src="https://statichk.cmermedical.com/smile/smileV2/smile-xtra-1.svg"
-                alt={content.xtra.card2TitleHtml.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()}
+                alt={content.xtra.card2TitleHtml.replace(/<[^ loading="lazy" decoding="async">]+>/g, " ").replace(/\s+/g, " ").trim()}
                 title={content.xtra.card2TitleHtml.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()}
                 aria-hidden="true"
                 width="80"
@@ -548,7 +548,7 @@ const banners = await getBanners(lang);
             width="449"
             height="449"
             loading="lazy"
-          />
+           decoding="async"/>
         </div>
         <div class="exercise-intro">
           {content.exercise.tips.map((tip) => <p>{tip}</p>)}

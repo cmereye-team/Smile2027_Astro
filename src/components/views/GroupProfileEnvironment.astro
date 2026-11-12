@@ -251,50 +251,71 @@ const slides = [
     const thumbsEl = document.getElementById("gpEnvThumbsSwiper");
     if (!mainEl || !thumbsEl) return;
 
-    if ((mainEl as any).swiper) {
-      (mainEl as any).swiper.destroy(true, true);
-    }
-    if ((thumbsEl as any).swiper) {
-      (thumbsEl as any).swiper.destroy(true, true);
-    }
+    const runInit = () => {
+      if ((mainEl as any).swiper) {
+        (mainEl as any).swiper.destroy(true, true);
+      }
+      if ((thumbsEl as any).swiper) {
+        (thumbsEl as any).swiper.destroy(true, true);
+      }
 
-    const thumbsSwiper = new Swiper(thumbsEl, {
-      modules: [Thumbs],
-      spaceBetween: 12,
-      slidesPerView: 5,
-      freeMode: true,
-      watchSlidesProgress: true,
-      breakpoints: {
-        320: {
-          slidesPerView: 4,
-          spaceBetween: 8,
+      const thumbsSwiper = new Swiper(thumbsEl, {
+        modules: [Thumbs],
+        spaceBetween: 12,
+        slidesPerView: 5,
+        freeMode: true,
+        watchSlidesProgress: true,
+        breakpoints: {
+          320: {
+            slidesPerView: 4,
+            spaceBetween: 8,
+          },
+          768: {
+            slidesPerView: 5,
+            spaceBetween: 12,
+          },
         },
-        768: {
-          slidesPerView: 5,
-          spaceBetween: 12,
-        },
-      },
-    });
+      });
 
-    new Swiper(mainEl, {
-      modules: [Navigation, Thumbs, Autoplay],
-      spaceBetween: 0,
-      loop: true,
-      autoplay: {
-        delay: 4500,
-        disableOnInteraction: false,
-        pauseOnMouseEnter: true,
-      },
-      navigation: {
-        nextEl: ".gp-env-nav-btn--next",
-        prevEl: ".gp-env-nav-btn--prev",
-      },
-      thumbs: {
-        swiper: thumbsSwiper,
-      },
-    });
+      new Swiper(mainEl, {
+        modules: [Navigation, Thumbs, Autoplay],
+        spaceBetween: 0,
+        loop: true,
+        autoplay: {
+          delay: 4500,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        },
+        navigation: {
+          nextEl: ".gp-env-nav-btn--next",
+          prevEl: ".gp-env-nav-btn--prev",
+        },
+        thumbs: {
+          swiper: thumbsSwiper,
+        },
+      });
+    };
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          if (entries[0]?.isIntersecting) {
+            obs.disconnect();
+            runInit();
+          }
+        },
+        { rootMargin: "200px" }
+      );
+      observer.observe(mainEl);
+    } else {
+      runInit();
+    }
   }
 
-  document.addEventListener("DOMContentLoaded", initGroupProfileSwiper);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initGroupProfileSwiper);
+  } else {
+    initGroupProfileSwiper();
+  }
   document.addEventListener("astro:page-load", initGroupProfileSwiper);
 </script>

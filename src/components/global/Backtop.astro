@@ -7,6 +7,7 @@
   height="36"
   class="z-50 fixed right-4 bottom-50 lg:right-[8.75vw] lg:bottom-35 size-9 cursor-pointer transition-opacity duration-300 opacity-0 pointer-events-none"
   loading="lazy"
+  decoding="async"
 />
 <script>
   // 封装初始化函数，防止在多页切换（如开启 View Transitions）时失效
@@ -15,15 +16,19 @@
     if (!backTopBtn) return;
 
     // 监听滚动事件：当向下滚动超过 300px 时显示按钮，否则隐藏
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 300) {
-        backTopBtn.classList.remove("opacity-0", "pointer-events-none");
-        backTopBtn.classList.add("opacity-100");
-      } else {
-        backTopBtn.classList.remove("opacity-100");
-        backTopBtn.classList.add("opacity-0", "pointer-events-none");
-      }
-    });
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (window.scrollY > 300) {
+          backTopBtn.classList.remove("opacity-0", "pointer-events-none");
+          backTopBtn.classList.add("opacity-100");
+        } else {
+          backTopBtn.classList.remove("opacity-100");
+          backTopBtn.classList.add("opacity-0", "pointer-events-none");
+        }
+      },
+      { passive: true }
+    );
 
     // 监听点击事件：实现平滑滚动（丝滑回顶）
     backTopBtn.addEventListener("click", () => {

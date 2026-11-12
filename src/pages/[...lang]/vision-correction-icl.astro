@@ -322,7 +322,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
         {content.good.items.map((item) => (
           <div class="icl-Good-List-item">
             <div class="lg:size-20 flex justify-center items-center">
-              <img draggable="false" src={item.icon} alt={item.title} title={item.title} loading="lazy" width="60" height="60" />
+              <img decoding="async" draggable="false" src={item.icon} alt={item.title} title={item.title} loading="lazy" width="60" height="60" />
             </div>
             <h3>{item.title}</h3>
             <div>
@@ -350,7 +350,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
                 <p class="icl-peculiarity-list-item-text-title">{item.title}</p>
                 <div class="icl-peculiarity-list-item-text-show">
                   <div class="icl-peculiarity-list-item-text-show-box">
-                    <img draggable="false" src={item.boxImg} alt={item.title} title={item.title} loading="lazy" width="80" height="80" />
+                    <img decoding="async" draggable="false" src={item.boxImg} alt={item.title} title={item.title} loading="lazy" width="80" height="80" />
                     <div class="icl-peculiarity-list-item-box-title">
                       {item.boxTitleText.map((t) => <p>{t}</p>)}
                     </div>
@@ -418,7 +418,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
                 </svg>
               </div>
               <div class="content-area-img">
-                <img draggable="false"
+                <img decoding="async" draggable="false"
                   id="iclStepImgMb"
                   class="d-xl-none"
                   src={content.steps.list[0].image}
@@ -428,7 +428,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
                   width="300"
                   height="200"
                 />
-                <img draggable="false"
+                <img decoding="async" draggable="false"
                   id="iclStepImgPc"
                   class="d-none d-xl-block"
                   src={content.steps.list[0].imagePc}
@@ -477,7 +477,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
           <div class="SuitableObject-description">
             {item.desc.map((d) => <p>{d}</p>)}
           </div>
-          <img draggable="false" class="SuitableObject-image" src={item.image} alt={item.desc.join('')} title={item.desc.join('')} loading="lazy" width="220" height="220" />
+          <img decoding="async" draggable="false" class="SuitableObject-image" src={item.image} alt={item.desc.join('')} title={item.desc.join('')} loading="lazy" width="220" height="220" />
         </div>
       ))}
       <div class="SuitableObject-speical">

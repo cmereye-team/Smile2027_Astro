@@ -14,6 +14,7 @@ import UserRating from "@/components/views/UserRating.astro";
 import IndexAwards from "@/components/views/IndexAwards.astro";
 import IndexEnvironment from "@/components/views/IndexEnvironment.astro";
 import FourFeatureShield from "@/components/views/FourFeatureShield.astro";
+import { getBanners } from "@/data/bannerData";
 
 export async function getStaticPaths() {
   return [
@@ -27,6 +28,8 @@ const { dict } = useI18n(Astro.url);
 
 
 const isCn = lang === "zh-cn";
+const banners = await getBanners(lang);
+const heroBanner = banners && banners.length > 0 ? banners[0] : null;
 
 // 5 大核心服務 (對標線上原版 home.vue 1:1，支援繁簡自適應)
 const serverList = [
@@ -59,6 +62,18 @@ const serverList = [
 ---
 
 <BaseLayout tdkKey="home">
+  <Fragment slot="head">
+    {heroBanner && (
+      <link
+        rel="preload"
+        as="image"
+        href={heroBanner.mbImg}
+        imagesrcset={`${heroBanner.mbImg} 800w, ${heroBanner.pcImg} 1280w`}
+        imagesizes="(min-width: 768px) 1280px, 100vw"
+        fetchpriority="high"
+      />
+    )}
+  </Fragment>
   <!-- 全域唯一 <h1> (無障礙與 SEO/GEO 核心實體標籤) -->
   <h1 class="sr-only">
       {lang === "zh-cn" ? "香港希玛微笑矫视中心 (CMER Smile) - SMILE Pro 2.0 / ICL / 激光矫视" : "香港希瑪微笑矯視中心 (CMER Smile) - SMILE Pro 2.0 / ICL / 激光矯視"}
@@ -70,8 +85,8 @@ const serverList = [
         <!-- 希瑪微笑矯視中心 (100% 原版還原) -->
     <section class="centerIntro">
       <div class="container centerIntroBox">
-        <img draggable="false" class="centerSevice-svg-top" src="/images/home/deco/aiming-circle.svg" alt="" title={dict.home.title} width="278" height="278" aria-hidden="true" />
-        <img draggable="false" class="centerSevice-svg-bottom" src="/images/home/deco/lens-path.svg" alt="" title={dict.home.title} width="299" height="285" aria-hidden="true" />
+        <img draggable="false" class="centerSevice-svg-top" src="/images/home/deco/aiming-circle.svg" alt="" title={dict.home.title} width="278" height="278" aria-hidden="true" loading="lazy" decoding="async" />
+        <img draggable="false" class="centerSevice-svg-bottom" src="/images/home/deco/lens-path.svg" alt="" title={dict.home.title} width="299" height="285" aria-hidden="true" loading="lazy" decoding="async" />
         <div class="centerIntroBox-top">
           <h2 class="centerIntroBox-top-title">
             {dict.home.title}
@@ -109,6 +124,8 @@ const serverList = [
                     <img draggable="false"
                       class="centerSeviceNewItem-arrow"
                       src="/images/icons/arrow-up-right.svg"
+                      loading="lazy"
+                      decoding="async"
                       alt={serviceTitle}
                       title={serviceTitle}
                       width="29"
@@ -159,6 +176,8 @@ const serverList = [
               <img draggable="false"
                 class="fourFeature-Box-title-right-svgone"
                 src="/images/home/features/title-text.svg"
+                loading="lazy"
+                decoding="async"
                 alt="四大特色"
                 title="四大特色"
                 width="157"
@@ -193,6 +212,8 @@ const serverList = [
               <h3>{dict.home.feature.case.type}</h3>
               <img draggable="false"
                 src="/images/home/features/icon-cases.svg"
+                loading="lazy"
+                decoding="async"
                 alt="35,000宗微笑矯視案例"
                 title="35,000宗微笑矯視案例"
                 width="110"
@@ -206,6 +227,8 @@ const serverList = [
               <h3>{dict.home.feature.first.type}</h3>
               <img draggable="false"
                 src="/images/home/features/icon-training.svg"
+                loading="lazy"
+                decoding="async"
                 alt="香港上市眼科中心"
                 title="香港上市眼科中心"
                 width="98"
@@ -219,6 +242,8 @@ const serverList = [
               <h3>{dict.home.feature.doctor.type}</h3>
               <img draggable="false"
                 src="/images/home/features/icon-doctors.svg"
+                loading="lazy"
+                decoding="async"
                 alt="眼科專科醫生團隊"
                 title="眼科專科醫生團隊"
                 width="106"
@@ -232,6 +257,8 @@ const serverList = [
               <h3>{dict.home.feature.size.type}</h3>
               <img draggable="false"
                 src="/images/home/features/icon-space.svg"
+                loading="lazy"
+                decoding="async"
                 alt="8000尺中心環境"
                 title="8000尺中心環境"
                 width="142"
@@ -327,28 +354,50 @@ const serverList = [
     const halfItems = totalItems / 2;
     const scrollDistance = halfItems * cardHeight;
 
-    const tween = gsap.to(track, {
-      y: -scrollDistance,
-      duration: 30,
-      ease: "none",
-      repeat: -1,
-      modifiers: {
-        y: gsap.utils.unitize((y) => parseFloat(y) % scrollDistance),
-      },
-    });
+    let tween: gsap.core.Tween | null = null;
+
+    const runMarquee = () => {
+      if (tween) return;
+      tween = gsap.to(track, {
+        y: -scrollDistance,
+        duration: 30,
+        ease: "none",
+        repeat: -1,
+        modifiers: {
+          y: gsap.utils.unitize((y) => parseFloat(y) % scrollDistance),
+        },
+      });
+    };
 
     // 採用 GSAP timeScale 絲滑阻尼減速與加速，徹底告別生硬瞬停
     const pauseMarquee = () => {
-      gsap.to(tween, { timeScale: 0, duration: 0.4, ease: "power1.out" });
+      if (tween) gsap.to(tween, { timeScale: 0, duration: 0.4, ease: "power1.out" });
     };
     const playMarquee = () => {
-      gsap.to(tween, { timeScale: 1, duration: 0.5, ease: "power1.in" });
+      if (tween) gsap.to(tween, { timeScale: 1, duration: 0.5, ease: "power1.in" });
     };
 
     marquee.addEventListener("mouseenter", pauseMarquee);
     marquee.addEventListener("mouseleave", playMarquee);
     marquee.addEventListener("touchstart", pauseMarquee, { passive: true });
     marquee.addEventListener("touchend", playMarquee, { passive: true });
+
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          if (entries[0]?.isIntersecting) {
+            if (!tween) runMarquee();
+            else tween.play();
+          } else if (tween) {
+            tween.pause();
+          }
+        },
+        { rootMargin: "200px" }
+      );
+      io.observe(marquee);
+    } else {
+      runMarquee();
+    }
   }
 
   function initFourFeatureObserver() {

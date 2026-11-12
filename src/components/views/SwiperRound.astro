@@ -60,6 +60,7 @@ const { shareList = [], title = "用家分享" } = Astro.props;
                   width="180"
                   height="180"
                   loading="lazy"
+                decoding="async"
                   draggable="false"
                 />
               </div>
@@ -344,9 +345,25 @@ const { shareList = [], title = "用家分享" } = Astro.props;
       popover.addEventListener("cancel", closeVideo);
     }
 
-    // 初始啟動
+    // 初始靜態狀態設定 (0 CLS)
     updateState(0);
-    startAuto();
+
+    // 視口外惰性啟動自動播放與計時器 (rootMargin 200px)
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          if (entries[0]?.isIntersecting) {
+            startAuto();
+          } else {
+            stopAuto();
+          }
+        },
+        { rootMargin: "200px" }
+      );
+      io.observe(root);
+    } else {
+      startAuto();
+    }
   }
 
   document.addEventListener("DOMContentLoaded", initSwiperRoundTrack);

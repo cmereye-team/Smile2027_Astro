@@ -54,7 +54,7 @@ const bookingTitle = dict.home.book.title;
                               width="149"
                               height="25"
                               loading="lazy"
-                            />
+                             decoding="async"/>
                           </div>
                         </div>
                       </article>
@@ -103,7 +103,7 @@ const bookingTitle = dict.home.book.title;
                 height="106"
                 class="btn-action-icon"
                 aria-hidden="true"
-              />
+               loading="lazy" decoding="async"/>
               <span>{dict.home.book.button.lecture}</span>
             </a>
           </div>
@@ -120,60 +120,82 @@ const bookingTitle = dict.home.book.title;
   function initUserRatingSwiper() {
     const el = document.getElementById("userRatingSwiper");
     if (!el) return;
-    if ((el as any).swiper) {
-      (el as any).swiper.destroy(true, true);
-    }
 
-    let isDragging = false;
-    let dragDist = 0;
-    let startY = 0;
-
-    new Swiper(el, {
-      modules: [Autoplay, FreeMode],
-      direction: "vertical",
-      loop: true,
-      slidesPerView: "auto",
-      spaceBetween: 0,
-      speed: 1800, // 速度加快，流暢快速滾動推進
-      autoplay: {
-        delay: 1500, // 1.5s 即推進下一條，節奏輕快敏捷
-        disableOnInteraction: false,
-        pauseOnMouseEnter: true, // 鼠標懸停自動暫停
-      },
-      freeMode: {
-        enabled: true,
-        momentum: true,
-        momentumRatio: 1.5,
-      },
-      allowTouchMove: true, // 支援滑鼠拖拽滑動
-      grabCursor: true,
-    });
-
-    // 拖拽與點擊分離：拖拽位移 > 6px 時攔截 a 標籤跳轉
-    el.addEventListener("mousedown", (e) => {
-      startY = e.pageY;
-      dragDist = 0;
-      isDragging = false;
-    });
-
-    el.addEventListener("mousemove", (e) => {
-      dragDist = Math.abs(e.pageY - startY);
-      if (dragDist > 6) {
-        isDragging = true;
+    const runInit = () => {
+      if ((el as any).swiper) {
+        (el as any).swiper.destroy(true, true);
       }
-    });
 
-    el.querySelectorAll<HTMLAnchorElement>(".swiper-slide").forEach((link) => {
-      link.addEventListener("click", (e) => {
-        if (isDragging) {
-          e.preventDefault();
-          e.stopPropagation();
+      let isDragging = false;
+      let dragDist = 0;
+      let startY = 0;
+
+      new Swiper(el, {
+        modules: [Autoplay, FreeMode],
+        direction: "vertical",
+        loop: true,
+        slidesPerView: "auto",
+        spaceBetween: 0,
+        speed: 1800, // 速度加快，流暢快速滾動推進
+        autoplay: {
+          delay: 1500, // 1.5s 即推進下一條，節奏輕快敏捷
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true, // 鼠標懸停自動暫停
+        },
+        freeMode: {
+          enabled: true,
+          momentum: true,
+          momentumRatio: 1.5,
+        },
+        allowTouchMove: true, // 支援滑鼠拖拽滑動
+        grabCursor: true,
+      });
+
+      // 拖拽與點擊分離：拖拽位移 > 6px 時攔截 a 標籤跳轉
+      el.addEventListener("mousedown", (e) => {
+        startY = e.pageY;
+        dragDist = 0;
+        isDragging = false;
+      });
+
+      el.addEventListener("mousemove", (e) => {
+        dragDist = Math.abs(e.pageY - startY);
+        if (dragDist > 6) {
+          isDragging = true;
         }
       });
-    });
+
+      el.querySelectorAll<HTMLAnchorElement>(".swiper-slide").forEach((link) => {
+        link.addEventListener("click", (e) => {
+          if (isDragging) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+        });
+      });
+    };
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          if (entries[0]?.isIntersecting) {
+            obs.disconnect();
+            runInit();
+          }
+        },
+        { rootMargin: "200px" }
+      );
+      observer.observe(el);
+    } else {
+      runInit();
+    }
   }
 
-  document.addEventListener("DOMContentLoaded", initUserRatingSwiper);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initUserRatingSwiper);
+  } else {
+    initUserRatingSwiper();
+  }
   document.addEventListener("astro:page-load", initUserRatingSwiper);
 </script>
 
