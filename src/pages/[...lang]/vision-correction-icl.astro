@@ -334,74 +334,46 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
       </div>
     </section>
 
-    {/* 7. EVO Visian ICL鏡片7大特色 (Master-Detail Redesign) */}
-    <section class="icl-peculiarity" aria-labelledby="icl-peculiarity-title" id="iclFeatureSection">
+    {/* 7. EVO Visian ICL鏡片7大特色 */}
+    <section class="icl-peculiarity" aria-labelledby="icl-peculiarity-title">
       <h2 id="icl-peculiarity-title" class="new-pubile-title">
         <span>{content.peculiarity.tag}</span>{content.peculiarity.title}
       </h2>
-      <div class="icl-peculiarity-container site-container">
+      <div class="icl-peculiarity-container">
         <p class="icl-peculiarity-text">
           {content.peculiarity.desc}
         </p>
-
-        <div class="icl-feature-master-detail">
-          {/* Left Rail (Desktop) / Horizontal Chips (Mobile) */}
-          <div class="icl-feature-nav" role="tablist" aria-label="EVO Visian ICL 7大特色">
-            {content.peculiarity.items.map((item, idx) => (
-              <button
-                type="button"
-                role="tab"
-                id={`icl-feature-tab-${idx}`}
-                class:list={["icl-feature-tab", { active: idx === 0 }]}
-                aria-selected={idx === 0 ? "true" : "false"}
-                aria-controls={`icl-feature-panel-${idx}`}
-                data-feature-index={idx}
-              >
-                <span class="icl-feature-tab-num">{item.footerNum.slice(-2)}</span>
-                <span class="icl-feature-tab-title">{item.title}</span>
-              </button>
-            ))}
-          </div>
-
-          {/* Right Detail Panel */}
-          <div class="icl-feature-panels" id="iclFeaturePanels">
-            {content.peculiarity.items.map((item, idx) => (
-              <div
-                class:list={["icl-feature-panel", { active: idx === 0 }]}
-                id={`icl-feature-panel-${idx}`}
-                role="tabpanel"
-                aria-labelledby={`icl-feature-tab-${idx}`}
-                hidden={idx !== 0}
-              >
-                <div class="icl-feature-panel-card">
-                  <div class="icl-feature-panel-icon-wrap">
-                    <img
-                      decoding="async"
-                      draggable="false"
-                      src={item.boxImg}
-                      alt={item.title}
-                      title={item.title}
-                      loading="lazy"
-                      width="120"
-                      height="120"
-                    />
+        <div class="icl-peculiarity-list" role="region" aria-label="EVO Visian ICL 7大特色">
+          {content.peculiarity.items.map((item, idx) => (
+            <div
+              class="icl-peculiarity-list-item"
+              tabindex="0"
+              role="button"
+              aria-expanded="false"
+              aria-label={`特色 ${item.footerNum}: ${item.title}`}
+              style={`--card-idx: ${idx};`}
+            >
+              <span class="icl-tag-badge">{item.tag}</span>
+              <div class="icl-peculiarity-list-item-text">
+                <p class="icl-peculiarity-list-item-text-title">{item.title}</p>
+                <div class="icl-peculiarity-list-item-text-show">
+                  <div class="icl-peculiarity-list-item-text-show-box">
+                    <img decoding="async" draggable="false" src={item.boxImg} alt={item.title} title={item.title} loading="lazy" width="80" height="80" />
+                    <div class="icl-peculiarity-list-item-box-title">
+                      {item.boxTitleText.map((t) => <p>{t}</p>)}
+                    </div>
                   </div>
-                  <div class="icl-feature-panel-info">
-                    <div class="icl-feature-panel-meta">
-                      <span class="icl-tag-badge">{item.tag}</span>
-                      <span class="icl-feature-panel-marker">feature {item.footerNum}</span>
-                    </div>
-                    <h3 class="icl-feature-panel-title">
-                      {item.boxTitleText.join("") || item.title}
-                    </h3>
-                    <div class="icl-feature-panel-desc">
-                      {item.boxDes.map((d) => <p>{d}</p>)}
-                    </div>
+                  <div class="icl-peculiarity-list-item-text-des">
+                    {item.boxDes.map((d) => <p>{d}</p>)}
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
+              <div class="icl-peculiarity-list-item-footer">
+                <p>feature</p>
+                <p>{item.footerNum}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -425,7 +397,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
           </div>
           {/* 右側內容區域 */}
           <div class="content-area">
-            <div class="content-panel">
+            <div>
               <div class="content-area-title">
                 <h2 id="icl-intro-title" class="m-0 p-0 text-inherit font-inherit">
                   {content.steps.titlePrefix}<br />
@@ -471,8 +443,8 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
                   alt="ICL 手術過程"
                   title="ICL 手術過程"
                   loading="lazy"
-                  width="540"
-                  height="360"
+                  width="440"
+                  height="290"
                 />
                 <p id="iclStepText" class="content-area-text">
                   {content.steps.list[0].text}
@@ -777,78 +749,25 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
       startTimer();
     }
 
-    // I19. 7大特色 Master-Detail Controller
-    const featureTabs = document.querySelectorAll(".icl-feature-tab");
-    const featurePanels = document.querySelectorAll(".icl-feature-panel");
-    const featureContainer = document.getElementById("iclFeatureSection");
-    let activeFeature = 0;
-    let featureTimer = null;
-
-    function setFeature(idx) {
-      if (idx < 0 || idx >= featureTabs.length) return;
-      activeFeature = idx;
-
-      featureTabs.forEach((tab, i) => {
-        const isActive = i === activeFeature;
-        tab.classList.toggle("active", isActive);
-        tab.setAttribute("aria-selected", String(isActive));
-        if (isActive && window.innerWidth < 1024) {
-          tab.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "nearest", inline: "nearest" });
-        }
-      });
-
-      featurePanels.forEach((panel, i) => {
-        const isActive = i === activeFeature;
-        panel.classList.toggle("active", isActive);
-        panel.hidden = !isActive;
-      });
-    }
-
-    function startFeatureTimer() {
-      if (prefersReducedMotion) return;
-      stopFeatureTimer();
-      featureTimer = setInterval(() => {
-        setFeature((activeFeature + 1) % featureTabs.length);
-      }, 5000);
-    }
-
-    function stopFeatureTimer() {
-      if (featureTimer) {
-        clearInterval(featureTimer);
-        featureTimer = null;
+    // I7. EVO Visian ICL 7 features (Touch & Keyboard flip)
+    const featureCards = document.querySelectorAll(".icl-peculiarity-list-item");
+    featureCards.forEach((card) => {
+      function toggleFlip() {
+        const isFlipped = card.classList.toggle("is-flipped");
+        card.setAttribute("aria-expanded", isFlipped ? "true" : "false");
       }
-    }
 
-    featureTabs.forEach((tab, idx) => {
-      tab.addEventListener("click", () => {
-        setFeature(idx);
+      card.addEventListener("click", () => {
+        toggleFlip();
       });
 
-      tab.addEventListener("keydown", (e) => {
-        if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+      card.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
-          const next = (idx + 1) % featureTabs.length;
-          featureTabs[next].focus();
-          setFeature(next);
-        } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
-          e.preventDefault();
-          const prev = (idx - 1 + featureTabs.length) % featureTabs.length;
-          featureTabs[prev].focus();
-          setFeature(prev);
+          toggleFlip();
         }
       });
     });
-
-    if (featureContainer) {
-      featureContainer.addEventListener("mouseenter", stopFeatureTimer);
-      featureContainer.addEventListener("mouseleave", startFeatureTimer);
-      featureContainer.addEventListener("focusin", stopFeatureTimer);
-      featureContainer.addEventListener("focusout", startFeatureTimer);
-    }
-
-    if (!prefersReducedMotion) {
-      startFeatureTimer();
-    }
 
     if ("IntersectionObserver" in window) {
       const observer = new IntersectionObserver(
