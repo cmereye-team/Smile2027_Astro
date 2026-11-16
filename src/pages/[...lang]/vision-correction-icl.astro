@@ -54,24 +54,29 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
 
   <div class="page-icl font-hk text-desc relative overflow-x-clip">
     {/* 1. 頂部主橫幅 Hero Banner */}
-    <div class="site-container smile-NewBanner position-relative">
-      <img draggable="false"
-        class="banner-lens-img"
-        decoding="async"
-        src={content.banner.imgPc}
-        alt="ICL 植入式隱形眼鏡 - 香港希瑪微笑矯視中心"
-        title="ICL 植入式隱形眼鏡 - 香港希瑪微笑矯視中心"
-        loading="eager"
-        fetchpriority="high"
-        width="685"
-        height="563"
-        srcset={`${content.banner.imgMb} 400w, ${content.banner.imgMb} 640w, ${content.banner.imgPc}`}
-        sizes="(max-width: 992px) 100vw, 1216px"
-      />
-      <div class="smile-NewBanner-Title">
-        <span>{content.banner.tag}</span>
-        <h1 class="icl-h1">{content.banner.title}</h1>
-        <p>{content.banner.subtitle}</p>
+    <section class="site-container smile-NewBanner" aria-labelledby="banner-h1">
+      <div class="smile-NewBanner-content">
+        <div class="smile-NewBanner-Title">
+          <span class="banner-tag">{content.banner.tag}</span>
+          <h1 id="banner-h1" class="icl-h1">{content.banner.title}</h1>
+          <p class="banner-sub">{content.banner.subtitle}</p>
+        </div>
+        <div class="smile-NewBanner-visual">
+          <img
+            draggable="false"
+            class="banner-lens-img"
+            decoding="async"
+            src={content.banner.imgPc}
+            alt="ICL 植入式隱形眼鏡 - 香港希瑪微笑矯視中心"
+            title="ICL 植入式隱形眼鏡 - 香港希瑪微笑矯視中心"
+            loading="eager"
+            fetchpriority="high"
+            width="685"
+            height="563"
+            srcset={`${content.banner.imgMb} 400w, ${content.banner.imgMb} 640w, ${content.banner.imgPc}`}
+            sizes="(max-width: 768px) 45vw, (max-width: 1024px) 48vw, 685px"
+          />
+        </div>
       </div>
       <div class="smile-NewBanner-Tip">
         <div class="smile-NewBanner-Tip-Title">
@@ -81,7 +86,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
           {content.banner.tipItems.map((tip) => <p>{tip}</p>)}
         </div>
       </div>
-    </div>
+    </section>
 
     {/* 2. 中心介紹與麵包屑導航 */}
     <section class="smile-newCenter" aria-labelledby="center-intro-title">
@@ -502,19 +507,33 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
     </section>
 
     {/* 9. 合適對象 */}
-    <div class="SuitableObject">
-      {content.suitable.items.map((item, idx) => (
-        <div class="SuitableObject-item" data-number={idx + 1}>
-          <div class="SuitableObject-description">
-            {item.desc.map((d) => <p>{d}</p>)}
-          </div>
-          <img decoding="async" draggable="false" class="SuitableObject-image" src={item.image} alt={item.desc.join('')} title={item.desc.join('')} loading="lazy" width="220" height="220" />
+    <section class="SuitableObject" aria-labelledby="suitable-heading">
+      <div class="site-container">
+        <h2 id="suitable-heading" class="new-pubile-title">
+          {content.suitable.title}
+        </h2>
+        <div class="SuitableObject-grid">
+          {content.suitable.items.map((item, idx) => (
+            <div class="SuitableObject-item" data-number={idx + 1}>
+              <div class="SuitableObject-description">
+                {item.desc.map((d) => <p>{d}</p>)}
+              </div>
+              <img
+                decoding="async"
+                draggable="false"
+                class="SuitableObject-image"
+                src={item.image}
+                alt={item.desc.join('')}
+                title={item.desc.join('')}
+                loading="lazy"
+                width="220"
+                height="220"
+              />
+            </div>
+          ))}
         </div>
-      ))}
-      <div class="SuitableObject-speical">
-        <span>合適<br />對象</span>
       </div>
-    </div>
+    </section>
 
     {/* 10. 全面術前眼睛檢查項目 */}
     <section class="icl-CheckObject" aria-labelledby="icl-check-title">
@@ -657,19 +676,6 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
 </BaseLayout>
 
 <style lang="scss">
-  .icl-h1 {
-    font-size: 24.55px;
-    font-weight: 400;
-    line-height: 26.858px;
-    color: #4570b6;
-    margin: 0;
-
-    @media screen and (min-width: 1140px) {
-      font-size: 74.332px;
-      line-height: 1.09;
-    }
-  }
-
   .banner-lens-img {
     height: auto;
   }

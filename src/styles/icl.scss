@@ -21,83 +21,358 @@ h2 {
   transition: opacity var(--dur, 250ms) ease;
 }
 
+/* ==========================================================================
+   1. 頂部主橫幅 Hero Banner (.smile-NewBanner)
+   Modern Flexbox/Grid responsive layout (Zero brittle absolute positioning, Zero CLS)
+   ========================================================================== */
+.smile-NewBanner {
+  padding-top: 20px;
+  padding-bottom: 24px;
+  position: relative;
 
+  @media (min-width: 768px) {
+    padding-top: 28px;
+    padding-bottom: 36px;
+  }
 
-@media screen and (max-width: 1140px) {
-  .smile-NewBanner {
-    padding: 0 15px;
-    /* margin-top: 80px; */
-    height: 203px;
-    position: relative;
-    img {
-      width: 200px;
-      position: absolute;
-      top: -59px;
-      right: 80px;
+  @media (min-width: 1024px) {
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+
+  .smile-NewBanner-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+
+    @media (min-width: 768px) {
+      gap: 32px;
     }
-    .smile-NewBanner-Title {
-      position: absolute;
-      bottom: 58px;
-      left: 28px;
-      span {
-        color: #4570b6;
-        font-family: var(--font-en);
-        font-size: 45.469px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 49.743px;
-      }
-      h3 {
-        color: #4570b6;
-        font-family: var(--font-hk);
-        font-size: 24.55px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 26.858px; /* 109.4% */
-      }
-      p {
-        color: #4570b6;
-        font-family: var(--font-hk);
-        font-size: 9.82px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 21.358px; /* 217.5% */
-        letter-spacing: 0.295px;
+
+    @media (min-width: 1024px) {
+      gap: 48px;
+    }
+  }
+
+  .smile-NewBanner-Title {
+    flex: 1;
+    min-width: 0;
+
+    .banner-tag {
+      color: #4570b6;
+      font-family: var(--font-en);
+      font-size: clamp(38px, 8vw, 137px);
+      font-style: normal;
+      font-weight: 700;
+      line-height: 1.05;
+      display: block;
+      letter-spacing: -0.01em;
+    }
+
+    .icl-h1 {
+      color: #4570b6;
+      font-family: var(--font-hk);
+      font-size: clamp(22px, 4.5vw, 74px);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1.12;
+      margin: 4px 0 0;
+
+      @media (min-width: 768px) {
+        margin-top: 8px;
       }
     }
-    .smile-NewBanner-Tip {
-      position: absolute;
-      right: 15px;
-      bottom: 0;
-      div {
-        background: #4570b6;
-      }
-      & > div:nth-child(1) {
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-        padding: 5px 20px 0px 10px;
-        display: inline-block;
-        color: #fff;
-        font-family: var(--font-hk);
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 300;
-        line-height: 25px;
-      }
-      & > div:nth-child(2) {
-        border-radius: 5px;
-        border-top-left-radius: 0px;
-        padding: 5px 20px 11px 10px;
-        width: fit-content;
-        color: #fff;
-        font-family: var(--font-hk);
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 300;
-        line-height: 25px;
+
+    .banner-sub {
+      color: #4570b6;
+      font-family: var(--font-hk);
+      font-size: clamp(10px, 2vw, 30px);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1.6;
+      letter-spacing: 0.5px;
+      margin: 4px 0 0;
+
+      @media (min-width: 768px) {
+        letter-spacing: 0.9px;
+        margin-top: 8px;
       }
     }
   }
+
+  .smile-NewBanner-visual {
+    flex-shrink: 0;
+    width: 44%;
+    max-width: 580px;
+
+    @media (min-width: 1024px) {
+      width: 48%;
+      max-width: 684px;
+    }
+
+    .banner-lens-img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 685 / 563;
+      object-fit: contain;
+      display: block;
+    }
+  }
+
+  .smile-NewBanner-Tip {
+    margin-left: auto;
+    width: fit-content;
+    margin-top: 14px;
+
+    @media (min-width: 768px) {
+      margin-top: 18px;
+    }
+
+    @media (min-width: 1024px) {
+      margin-top: 24px;
+    }
+
+    .smile-NewBanner-Tip-Title {
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+      background: #4570b6;
+      padding: 4px 14px 2px;
+      display: inline-block;
+
+      @media (min-width: 768px) {
+        padding: 6px 18px 2px;
+      }
+
+      @media (min-width: 1024px) {
+        padding: 8px 22px 2px;
+      }
+
+      p {
+        color: #fff;
+        font-family: var(--font-hk);
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 1.5;
+        letter-spacing: 1px;
+        margin: 0;
+
+        @media (min-width: 768px) {
+          font-size: 15px;
+          letter-spacing: 2px;
+        }
+
+        @media (min-width: 1024px) {
+          font-size: 20px;
+          line-height: 30px;
+          letter-spacing: 4px;
+        }
+      }
+    }
+
+    .smile-NewBanner-Tip-Content {
+      border-radius: 6px;
+      border-top-left-radius: 0;
+      background: #4570b6;
+      padding: 6px 14px 8px;
+      width: fit-content;
+
+      @media (min-width: 768px) {
+        padding: 8px 20px 12px;
+      }
+
+      @media (min-width: 1024px) {
+        padding: 10px 32px 18px 22px;
+      }
+
+      p {
+        color: #fff;
+        font-family: var(--font-hk);
+        font-size: 11px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 1.6;
+        margin: 0;
+
+        @media (min-width: 768px) {
+          font-size: 14px;
+          line-height: 1.8;
+          letter-spacing: 1px;
+        }
+
+        @media (min-width: 1024px) {
+          font-size: 20px;
+          font-weight: 400;
+          line-height: 44px;
+          letter-spacing: 4px;
+        }
+      }
+    }
+  }
+}
+
+/* ==========================================================================
+   9. 合適對象 SuitableObject
+   Semantic HTML5 Section + Responsive Grid (2-column on mobile, 5-column on desktop)
+   ========================================================================== */
+.SuitableObject {
+  padding: 40px 0;
+  background: #f4fafc;
+
+  @media (min-width: 1024px) {
+    padding: 70px 0 80px;
+  }
+
+  .SuitableObject-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+
+    @media (min-width: 640px) {
+      gap: 16px;
+    }
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+
+    @media (min-width: 1280px) {
+      gap: 20px;
+    }
+  }
+
+  .SuitableObject-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #4570b6;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 24px 16px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(69, 112, 182, 0.08);
+    transition: transform var(--dur, 250ms) ease, box-shadow var(--dur, 250ms) ease;
+
+    @media (max-width: 1023px) {
+      &:last-child {
+        grid-column: 1 / -1;
+        max-width: 480px;
+        width: 100%;
+        margin: 0 auto;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      min-height: 340px;
+      padding: 32px 18px;
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 24px rgba(69, 112, 182, 0.18);
+      }
+    }
+
+    // Number watermark
+    &::before {
+      content: attr(data-number);
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-en);
+      font-size: 80px;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.15);
+      line-height: 1;
+      pointer-events: none;
+      transition: opacity var(--dur, 250ms) ease;
+
+      @media (min-width: 1024px) {
+        font-size: 130px;
+        top: 20px;
+      }
+    }
+
+    // Decorative star on item 1
+    &:first-child::after {
+      content: "";
+      background-image: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/hsdx/hsdx-bgxing1.png");
+      background-repeat: no-repeat;
+      background-size: contain;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      opacity: 0.8;
+      pointer-events: none;
+
+      @media (min-width: 1024px) {
+        width: 26px;
+        height: 26px;
+        left: 20px;
+        top: 20px;
+      }
+    }
+
+    .SuitableObject-description {
+      position: relative;
+      z-index: 2;
+      color: #fff;
+      font-family: var(--font-hk);
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.6;
+      letter-spacing: 1px;
+      margin: 0;
+
+      @media (min-width: 640px) {
+        font-size: 15px;
+      }
+
+      @media (min-width: 1024px) {
+        font-size: 17px;
+        line-height: 1.7;
+        letter-spacing: 1.5px;
+      }
+
+      p {
+        margin: 0;
+      }
+    }
+
+    .SuitableObject-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity var(--dur, 250ms) ease;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    &:hover {
+      .SuitableObject-image {
+        opacity: 0.45;
+      }
+      &::before {
+        opacity: 0.08;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1140px) {
   .smile-newCenter {
     .smile-newCenter-menu {
       padding: 0 15px;
@@ -163,7 +438,7 @@ h2 {
             color: #6d6e71;
             text-align: justify;
             font-family: var(--font-hk);
-            font-size: 16px clamp(14px, 4vw, 16px);
+            font-size: clamp(14px, 4vw, 16px);
             font-style: normal;
             font-weight: 300;
             line-height: 20px; /* 125% */
@@ -194,12 +469,12 @@ h2 {
     }
     .icl-WhatChoose-content-one {
       margin: 0 auto;
-      max-width: 100vw;
+      width: 100%;
       margin-top: 30px;
       
       .icl-WhatChoose-content-one-text {
         margin: 0 auto;
-        max-width: 100vw;
+        width: 100%;
         margin-top: 30px;
         p {
           color: #6d6e71;
@@ -240,7 +515,7 @@ h2 {
 
   .icl-WhatChoose-content-two {
       margin: 0 auto;
-      max-width: 100vw;
+      width: 100%;
       & > div {
         margin-top: 30px;
         border-radius: 7.168px;
@@ -797,118 +1072,6 @@ h2 {
       }
     }
   }
-  .SuitableObject {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    margin: 0 auto;
-    .SuitableObject-speical {
-      width: 33.2%;
-      display: flex;
-      justify-items: center;
-      align-items: center;
-      border: 1px solid rgba(69, 112, 182, 0.5);
-      span {
-        color: #4570b6;
-        text-align: center;
-        font-family: var(--font-hk);
-        font-size: 20px;
-        font-style: normal;
-        font-weight: 900;
-        line-height: 1.15;
-        display: block;
-        margin: 0 auto;
-      }
-    }
-    & > .SuitableObject-item:nth-child(1) {
-      &::after {
-        content: "";
-        background-image: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/hsdx/hsdx-bgxing1.png");
-        background-repeat: no-repeat;
-        background-size: contain;
-        width: 16px;
-        height: 10px;
-        position: absolute;
-        left: 30px;
-        top: 14px;
-      }
-    }
-    & > .SuitableObject-item:nth-child(3) {
-      &::after {
-        /* content: "ICL矯視"; */
-        position: absolute;
-        top: 5px;
-        right: 15px;
-        width: auto;
-        height: none;
-        background: none;
-        color: #fff;
-        font-family: var(--font-hk);
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 2.78;
-      }
-    }
-    & > .SuitableObject-item:nth-child(4),
-    & > .SuitableObject-item:nth-child(5) {
-      padding-top: 126px;
-    }
-    .SuitableObject-item {
-      width: 33.2%;
-      height: 261px;
-      border: 0.599px solid rgba(255, 255, 255, 0.5);
-      background: #4570b6;
-      position: relative;
-      display: flex;
-      padding-top: 174px;
-      justify-content: center;
-      padding-bottom: 25px;
-      overflow: hidden;
-      &:hover {
-        &::before {
-          content: "";
-        }
-        .SuitableObject-image {
-          opacity: 0.5;
-        }
-      }
-      &::before {
-        content: attr(data-number);
-        font-size: 100px;
-        color: rgba(255, 255, 255, 0.2);
-        position: absolute;
-        top: -8px;
-        left: 50%;
-        opacity: 1;
-        transform: translateX(-50%);
-      }
-      .SuitableObject-description {
-        color: #fff;
-        text-align: justify;
-        font-family: var(--font-hk);
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 1.64;
-        letter-spacing: 2.1px;
-        opacity: 1;
-        position: relative;
-        z-index: 2;
-      }
-      .SuitableObject-image {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        opacity: 0;
-        transition: all 0.3s ease;
-      }
-    }
-  }
   /* 检查项目 */
   .icl-CheckObject {
     margin-top: 40px;
@@ -1114,81 +1277,6 @@ h2 {
   }
 }
 @media screen and (max-width: 450px) {
-  .smile-NewBanner {
-    padding: 0 15px;
-    /* margin-top: 20.51vw; */
-    height: 52.5vw;
-    position: relative;
-    img {
-      width: 45vw;
-      position: absolute;
-      top: -8px;
-      right: 14vw;
-      /* z-index: 103; */
-      pointer-events: none;
-    }
-    .smile-NewBanner-Title {
-      position: absolute;
-      bottom: 14.87vw;
-      left: 7.179vw;
-      /* z-index: 104; */
-      span {
-        color: #4570b6;
-        font-family: var(--font-en);
-        font-size: 11.53vw;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 1.1;
-      }
-      h3 {
-        color: #4570b6;
-        font-family: var(--font-hk);
-        font-size: 6.29vw;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 1.09;
-      }
-      p {
-        color: #4570b6;
-        font-family: var(--font-hk);
-        font-size: 2.517vw;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 2.175;
-        letter-spacing: 0.295px;
-      }
-    }
-    .smile-NewBanner-Tip {
-      position: absolute;
-      right: 15px;
-      bottom: 0;
-      /* z-index: 104; */
-      div {
-        background: #4570b6;
-      }
-      & > div:nth-child(1) {
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-        padding: 5px 10px 0px 10px;
-        font-size: 3.07vw;
-        font-style: normal;
-        font-weight: 300;
-        line-height: 2;
-      }
-      & > div:nth-child(2) {
-        border-radius: 5px;
-        border-top-left-radius: 0px;
-        padding: 5px 10px 11px 10px;
-        width: fit-content;
-        color: #fff;
-        font-family: var(--font-hk);
-        font-size: 3.07vw;
-        font-style: normal;
-        font-weight: 300;
-        line-height: 2;
-      }
-    }
-  }
   .smile-newCenter {
     .smile-newCenter-menu {
       padding: 0 15px;
@@ -1709,101 +1797,6 @@ h2 {
       }
     }
   }
-  .SuitableObject {
-    .SuitableObject-speical {
-      span {
-        font-size: 5.12vw;
-      }
-    }
-    & > .SuitableObject-item:nth-child(1) {
-      &::after {
-        content: "";
-        background-image: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/hsdx/hsdx-bgxing1.png");
-        background-repeat: no-repeat;
-        background-size: contain;
-        width: 16px;
-        height: 10px;
-        position: absolute;
-        left: 30px;
-        top: 14px;
-      }
-    }
-    & > .SuitableObject-item:nth-child(3) {
-      &::after {
-        /* content: "ICL矯視"; */
-        position: absolute;
-        top: 5px;
-        right: 15px;
-        width: auto;
-        height: none;
-        background: none;
-        color: #fff;
-        font-family: var(--font-hk);
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 2.78;
-      }
-    }
-    & > .SuitableObject-item:nth-child(4),
-    & > .SuitableObject-item:nth-child(5) {
-      padding-top: 32.31vw;
-    }
-    .SuitableObject-item {
-      width: 33.2%;
-      height: 66.9vw;
-      border: 0.599px solid rgba(255, 255, 255, 0.5);
-      background: #4570b6;
-      position: relative;
-      display: flex;
-      padding-top: 44.6vw;
-      justify-content: center;
-      padding-bottom: 6.41vw;
-      overflow: hidden;
-      &:hover {
-        &::before {
-          content: "";
-        }
-        .SuitableObject-image {
-          opacity: 0.5;
-        }
-      }
-      &::before {
-        content: attr(data-number);
-        font-size: 25.64vw;
-        color: rgba(255, 255, 255, 0.2);
-        position: absolute;
-        top: -8px;
-        left: 50%;
-        opacity: 1;
-        transform: translateX(-50%);
-      }
-      .SuitableObject-description {
-        color: #fff;
-        text-align: justify;
-        font-family: var(--font-hk);
-        font-size: clamp(10px, 3.58vw, 14px);
-        font-style: normal;
-        font-weight: 700;
-        line-height: 1.64;
-        letter-spacing: 1px;
-        opacity: 1;
-        position: relative;
-        z-index: 2;
-      }
-      .SuitableObject-image {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        opacity: 0;
-        transition: all 0.3s ease;
-      }
-    }
-  }
   /* 检查项目 */
   .icl-CheckObject {
     margin-top: 40px;
@@ -2014,85 +2007,6 @@ h2 {
   }
   .d-xl-block {
     display: block;
-  }
-  .smile-NewBanner {
-    padding: 0px;
-    /* margin-top: 80px; */
-    height: 529px;
-    position: relative;
-    img {
-      width: 684px;
-      position: absolute;
-      top: -64px;
-      left: inherit;
-      right: 160px;
-      pointer-events: none;
-    }
-    .smile-NewBanner-Title {
-      position: absolute;
-      bottom: 90px;
-      left: 77px;
-      span {
-        color: #4570b6;
-        font-family: var(--font-en);
-        font-size: 137.67px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 150.611px; /* 109.4% */
-      }
-      h3 {
-        color: #4570b6;
-        font-family: var(--font-hk);
-        font-size: 74.332px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 1.09;
-      }
-      p {
-        color: #4570b6;
-        font-family: var(--font-hk);
-        font-size: 29.733px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 64.668px; /* 217.5% */
-        letter-spacing: 0.892px;
-      }
-    }
-    .smile-NewBanner-Tip {
-      position: absolute;
-      right: 15px;
-      bottom: 0;
-      div {
-        background: #4570b6;
-      }
-      & > div:nth-child(1) {
-        border-bottom: 1px solid #4570b6;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-        padding: 8px 22px 0px 22px;
-        display: inline-block;
-        color: #fff;
-        font-family: var(--font-hk);
-        font-size: 20px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 30px; /* 150% */
-        letter-spacing: 4px;
-      }
-      & > div:nth-child(2) {
-        border-radius: 5px;
-        border-top-left-radius: 0px;
-        padding: 8px 35px 23px 22px;
-        width: fit-content;
-        color: #fff;
-        font-family: var(--font-hk);
-        font-size: 20px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 44px;
-        letter-spacing: 4px;
-      }
-    }
   }
   .smile-newCenter {
     .smile-newCenter-menu {
@@ -2682,128 +2596,6 @@ h2 {
       }
     }
   }
-  .SuitableObject {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    margin: 0 auto;
-    position: relative;
-    &::after {
-      content: "合適對象";
-      position: absolute;
-      top: 58px;
-      left: 50%;
-      transform: translate(-50%);
-      color: #fff;
-      font-family: var(--font-hk);
-      font-size: 30px;
-      font-style: normal;
-      font-weight: 900;
-      line-height: 1.3;
-    }
-    .SuitableObject-speical {
-      display: none;
-    }
-    & > .SuitableObject-item:nth-child(1) {
-      border-right: 1px solid rgba(255, 255, 255, 0.5);
-      &::after {
-        content: "";
-        background-image: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/hsdx/hsdx-bgxing1.png");
-        background-repeat: no-repeat;
-        background-size: contain;
-        width: 28px;
-        height: 28px;
-        position: absolute;
-        left: 145px;
-        top: 68px;
-        background-color: transparent;
-      }
-    }
-    & > .SuitableObject-item:nth-child(5) {
-      &::after {
-        /* content: "ICL矯視"; */
-        position: absolute;
-        top: 58px;
-        left: 50%;
-        transform: translateX(-50%);
-        right: auto;
-        width: auto;
-        height: none;
-        background: none;
-        color: #fff;
-        font-family: var(--font-hk);
-        font-size: 20px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 1.95;
-      }
-    }
-    .SuitableObject-item {
-      overflow: hidden;
-      cursor: pointer;
-      width: calc(20vw - 4px);
-      height: 38.02vw;
-      max-height: 730px;
-      background: #4570b6;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding-top: clamp(200px, 26.04vw, 500px);
-      transition: all 0.3s ease;
-      &::after {
-        content: "";
-        position: absolute;
-        right: 0;
-        top: 0;
-        width: 1px;
-        height: 100%;
-        background-color: rgba(255, 255, 255, 0.5);
-      }
-      &:hover {
-        &::before {
-          content: "";
-        }
-        .SuitableObject-image {
-          opacity: 0.5;
-        }
-      }
-      &::before {
-        content: attr(data-number);
-        font-size: 200px;
-        color: rgba(255, 255, 255, 0.2);
-        position: absolute;
-        top: 100px;
-        left: 50%;
-        opacity: 1;
-        transform: translateX(-50%);
-      }
-      .SuitableObject-description {
-        color: #fff;
-        text-align: center;
-        font-family: var(--font-hk);
-        font-size: clamp(20px, 1.5625vw, 30px);
-        font-style: normal;
-        font-weight: 700;
-        line-height: 1.33;
-        letter-spacing: 4.5px;
-        opacity: 1;
-        position: relative;
-        z-index: 2;
-      }
-      .SuitableObject-image {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        opacity: 0;
-        transition: all 0.3s ease;
-      }
-    }
-  }
   /* 检查项目 */
   .icl-CheckObject {
     margin-top: 80px;
@@ -3035,10 +2827,11 @@ h2 {
     }
   }
 }
-@media screen and (min-width: 1319px) {
+@media screen and (min-width: 1280px) {
   .icl-Good {
     .icl-Good-List {
-      max-width: 100vw;
+      max-width: 1280px;
+      width: 100%;
       grid-template-columns: repeat(6, 1fr);
       & > .icl-Good-List-item:nth-child(3) {
         border-right: none;
@@ -3049,8 +2842,9 @@ h2 {
         border-bottom: 2px solid #4570b6;
       }
       .icl-Good-List-item {
-        width: 16.5vw;
-        height: 16.4vw;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
         border-collapse: collapse;
         box-sizing: border-box;
         border: 2px solid #4570b6;
