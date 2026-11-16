@@ -191,15 +191,15 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
     </section>
 
     {/* 4. ICL植入式隱形眼鏡費用 */}
-    <div class="bg-[#F6FAFD] py-8 px-2 md:px-0 md:pb-32 md:pt-24 mb-9 md:mb-[72px]">
+    <div class="bg-[#F6FAFD] py-8 px-2 md:px-0 md:pb-24 md:pt-16 mb-9 md:mb-[72px]">
       <div class="w-full flex flex-col items-center mx-auto">
-        <h2 class="text-[#4A74B8] text-xl md:text-3xl font-black mb-[40px] md:mb-10 tracking-wider text-center">
+        <h2 class="text-[#4A74B8] text-xl md:text-3xl font-black mb-[32px] md:mb-10 tracking-wider text-center">
           {content.fee.title}
         </h2>
-        <div class="w-full">
-          <div class="site-container space-y-2 md:space-y-4">
+        <div class="w-full max-w-[1100px] mx-auto px-4">
+          <div class="space-y-3 md:space-y-4">
             {content.fee.cards.map((card) => (
-              <div class="bg-white border border-[#4570B6] rounded-2xl p-5 md:p-8 flex flex-row justify-between items-center transition-all group">
+              <div class="bg-white border border-[#4570B6] rounded-2xl p-5 md:p-8 flex flex-row justify-between items-center transition-all group shadow-sm hover:shadow-md">
                 <div class="text-[#6D6E71] text-base md:text-3xl font-bold">
                   {card.title}
                 </div>
@@ -339,47 +339,32 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
       </div>
     </section>
 
-    {/* 7. EVO Visian ICL鏡片7大特色 (Master-Detail Redesign) */}
+    {/* 7. EVO Visian ICL鏡片7大特色 */}
     <section class="icl-peculiarity" aria-labelledby="icl-peculiarity-title" id="iclFeatureSection">
       <h2 id="icl-peculiarity-title" class="new-pubile-title">
-        <span>{content.peculiarity.tag}</span>{content.peculiarity.title}
+        <span>{content.peculiarity.tag} </span>{content.peculiarity.title}
       </h2>
       <div class="icl-peculiarity-container site-container">
         <p class="icl-peculiarity-text">
           {content.peculiarity.desc}
         </p>
 
-        <div class="icl-feature-master-detail">
-          {/* Left Rail (Desktop) / Horizontal Chips (Mobile) */}
-          <div class="icl-feature-nav" role="tablist" aria-label="EVO Visian ICL 7大特色">
-            {content.peculiarity.items.map((item, idx) => (
-              <button
-                type="button"
-                role="tab"
-                id={`icl-feature-tab-${idx}`}
-                class:list={["icl-feature-tab", { active: idx === 0 }]}
-                aria-selected={idx === 0 ? "true" : "false"}
-                aria-controls={`icl-feature-panel-${idx}`}
-                data-feature-index={idx}
-              >
-                <span class="icl-feature-tab-num">{item.footerNum.slice(-2)}</span>
-                <span class="icl-feature-tab-title">{item.title}</span>
-              </button>
-            ))}
-          </div>
-
-          {/* Right Detail Panel */}
-          <div class="icl-feature-panels" id="iclFeaturePanels">
-            {content.peculiarity.items.map((item, idx) => (
-              <div
-                class:list={["icl-feature-panel", { active: idx === 0 }]}
-                id={`icl-feature-panel-${idx}`}
-                role="tabpanel"
-                aria-labelledby={`icl-feature-tab-${idx}`}
-                hidden={idx !== 0}
-              >
-                <div class="icl-feature-panel-card">
-                  <div class="icl-feature-panel-icon-wrap">
+        <div class="icl-peculiarity-list" id="iclPeculiarityList" role="region" aria-label="EVO Visian ICL 7大特色">
+          {content.peculiarity.items.map((item, idx) => (
+            <div
+              class:list={["icl-peculiarity-list-item", { active: idx === 0 }]}
+              data-feature-index={idx}
+              tabindex="0"
+              role="button"
+              aria-label={`${item.title} (feature ${item.footerNum})`}
+            >
+              <h4>{item.tag}</h4>
+              <div class="icl-peculiarity-list-item-text">
+                <p class="icl-peculiarity-list-item-text-title">
+                  {item.title}
+                </p>
+                <div class="icl-peculiarity-list-item-text-show">
+                  <div class="icl-peculiarity-list-item-text-show-box">
                     <img
                       decoding="async"
                       draggable="false"
@@ -387,26 +372,28 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
                       alt={item.title}
                       title={item.title}
                       loading="lazy"
-                      width="120"
-                      height="120"
+                      width="123"
+                      height="123"
                     />
+                    <div class="icl-peculiarity-list-item-box-title">
+                      {item.boxTitleText.map((titleText) => (
+                        <p>{titleText}</p>
+                      ))}
+                    </div>
                   </div>
-                  <div class="icl-feature-panel-info">
-                    <div class="icl-feature-panel-meta">
-                      <span class="icl-tag-badge">{item.tag}</span>
-                      <span class="icl-feature-panel-marker">feature {item.footerNum}</span>
-                    </div>
-                    <h3 class="icl-feature-panel-title">
-                      {item.boxTitleText.join("") || item.title}
-                    </h3>
-                    <div class="icl-feature-panel-desc">
-                      {item.boxDes.map((d) => <p>{d}</p>)}
-                    </div>
+                  <div class="icl-peculiarity-list-item-text-des">
+                    {item.boxDes.map((des) => (
+                      <p>{des}</p>
+                    ))}
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
+              <div class="icl-peculiarity-list-item-footer">
+                <p>feature</p>
+                <p>{item.footerNum}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -508,29 +495,31 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
 
     {/* 9. 合適對象 */}
     <section class="SuitableObject" aria-labelledby="suitable-heading">
-      <div class="site-container">
-        <h2 id="suitable-heading" class="new-pubile-title">
-          {content.suitable.title}
-        </h2>
-        <div class="SuitableObject-grid">
-          {content.suitable.items.map((item, idx) => (
-            <div class="SuitableObject-item" data-number={idx + 1}>
-              <div class="SuitableObject-description">
-                {item.desc.map((d) => <p>{d}</p>)}
-              </div>
-              <img
-                decoding="async"
-                draggable="false"
-                class="SuitableObject-image"
-                src={item.image}
-                alt={item.desc.join('')}
-                title={item.desc.join('')}
-                loading="lazy"
-                width="220"
-                height="220"
-              />
+      <h2 id="suitable-heading" class="sr-only">
+        {content.suitable.title}
+      </h2>
+      <div class="SuitableObject-container">
+        {content.suitable.items.map((item, idx) => (
+          <div class="SuitableObject-item" data-number={idx + 1} tabindex="0">
+            <div class="SuitableObject-description">
+              {item.desc.map((d) => <p>{d}</p>)}
             </div>
-          ))}
+            <img
+              decoding="async"
+              draggable="false"
+              class="SuitableObject-image"
+              src={item.image}
+              alt={item.desc.join('')}
+              title={item.desc.join('')}
+              loading="lazy"
+              width="384"
+              height="640"
+            />
+          </div>
+        ))}
+        {/* Mobile 6th cell in 3x2 grid */}
+        <div class="SuitableObject-speical" aria-hidden="true">
+          <span>合適<br />對象</span>
         </div>
       </div>
     </section>
@@ -783,30 +772,19 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
       startTimer();
     }
 
-    // I19. 7大特色 Master-Detail Controller
-    const featureTabs = document.querySelectorAll(".icl-feature-tab");
-    const featurePanels = document.querySelectorAll(".icl-feature-panel");
+    // 7大特色 Accordion Strip Controller
+    const featureItems = document.querySelectorAll(".icl-peculiarity-list-item");
     const featureContainer = document.getElementById("iclFeatureSection");
     let activeFeature = 0;
     let featureTimer = null;
 
-    function setFeature(idx) {
-      if (idx < 0 || idx >= featureTabs.length) return;
+    function setFeatureActive(idx) {
+      if (idx < 0 || idx >= featureItems.length) return;
       activeFeature = idx;
-
-      featureTabs.forEach((tab, i) => {
+      featureItems.forEach((card, i) => {
         const isActive = i === activeFeature;
-        tab.classList.toggle("active", isActive);
-        tab.setAttribute("aria-selected", String(isActive));
-        if (isActive && window.innerWidth < 1024) {
-          tab.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "nearest", inline: "nearest" });
-        }
-      });
-
-      featurePanels.forEach((panel, i) => {
-        const isActive = i === activeFeature;
-        panel.classList.toggle("active", isActive);
-        panel.hidden = !isActive;
+        card.classList.toggle("active", isActive);
+        card.setAttribute("aria-expanded", String(isActive));
       });
     }
 
@@ -814,7 +792,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
       if (prefersReducedMotion) return;
       stopFeatureTimer();
       featureTimer = setInterval(() => {
-        setFeature((activeFeature + 1) % featureTabs.length);
+        setFeatureActive((activeFeature + 1) % featureItems.length);
       }, 5000);
     }
 
@@ -825,22 +803,31 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
       }
     }
 
-    featureTabs.forEach((tab, idx) => {
-      tab.addEventListener("click", () => {
-        setFeature(idx);
+    featureItems.forEach((card, idx) => {
+      card.addEventListener("mouseenter", () => {
+        setFeatureActive(idx);
       });
-
-      tab.addEventListener("keydown", (e) => {
-        if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+      card.addEventListener("click", () => {
+        setFeatureActive(idx);
+      });
+      card.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
-          const next = (idx + 1) % featureTabs.length;
-          featureTabs[next].focus();
-          setFeature(next);
+          setFeatureActive(idx);
+        } else if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+          e.preventDefault();
+          const next = (idx + 1) % featureItems.length;
+          if (featureItems[next] && typeof featureItems[next].focus === "function") {
+            featureItems[next].focus();
+          }
+          setFeatureActive(next);
         } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
           e.preventDefault();
-          const prev = (idx - 1 + featureTabs.length) % featureTabs.length;
-          featureTabs[prev].focus();
-          setFeature(prev);
+          const prev = (idx - 1 + featureItems.length) % featureItems.length;
+          if (featureItems[prev] && typeof featureItems[prev].focus === "function") {
+            featureItems[prev].focus();
+          }
+          setFeatureActive(prev);
         }
       });
     });
@@ -854,23 +841,6 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
 
     if (!prefersReducedMotion) {
       startFeatureTimer();
-    }
-
-    if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("revealed");
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.15 }
-      );
-      featurePanels.forEach((card) => observer.observe(card));
-    } else {
-      featurePanels.forEach((card) => card.classList.add("revealed"));
     }
 
     // 社交分享及複製鏈接
