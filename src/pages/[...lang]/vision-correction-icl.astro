@@ -255,7 +255,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
     </div>
 
     {/* 5. EVO ICL 產品系列介紹 — V4C｜V5｜V6 型號比較 */}
-    <div class="icl-model mb-9 lg:mb-20 site-container">
+    <div class="icl-model mb-9 lg:mb-20 site-container max-w-[1100px] mx-auto">
       <h2 class="model-title mb-6 lg:mb-10 text-center">
         {content.modelComparison.titlePrefix} <span class="hidden md:inline"> — </span><br class="block md:hidden" />{content.modelComparison.titleSuffix}
       </h2>
@@ -502,7 +502,22 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
       </h2>
       <div class="SuitableObject-container">
         {content.suitable.items.map((item, idx) => (
-          <div class="SuitableObject-item" data-number={idx + 1} tabindex="0">
+          <div
+            class:list={["SuitableObject-item", `SuitableObject-item-${idx + 1}`]}
+            data-number={idx + 1}
+            tabindex="0"
+          >
+            {idx === 0 && <span class="suitable-star" aria-hidden="true">✦</span>}
+            {idx === 2 && (
+              <div class="suitable-badge" aria-hidden="true">
+                <span>{content.suitable.title}</span>
+              </div>
+            )}
+            {idx === 4 && (
+              <div class="suitable-top-text" aria-hidden="true">
+                <span>ICL矯視</span>
+              </div>
+            )}
             <div class="SuitableObject-description">
               {item.desc.map((d) => <p>{d}</p>)}
             </div>

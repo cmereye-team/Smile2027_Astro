@@ -53,8 +53,7 @@ i {
   .publicBtn-booking {
     width: fit-content;
     padding: 1.54vw 7.44vw;
-    margin-left: auto;
-    margin-right: auto;
+    margin: clamp(28px, 6vw, 40px) auto clamp(32px, 6vw, 48px);
     border-radius: 25.64vw;
     border: 0.51vw solid #4570b6;
     background: #4570b6;
@@ -80,7 +79,6 @@ i {
   .presbyopia-hero,
   .ClearVisionBanner {
     width: 100%;
-    border-bottom: 2px solid #4570b6;
     background: #fff;
 
     .presbyopia-hero-container {
@@ -197,7 +195,7 @@ i {
           span {
             color: #4570b6;
             font-family: "Noto Sans TC";
-            font-size: clamp(14px, 3.8vw, 18px);
+            font-size: clamp(16px, 4.4vw, 20px);
             font-style: normal;
             font-weight: 900;
             line-height: 1.25;
@@ -222,18 +220,22 @@ i {
           position: absolute;
           pointer-events: auto;
           width: fit-content;
+          max-width: clamp(120px, 35vw, 145px);
           display: inline-block;
-          border-radius: 9999px;
+          border-radius: 12px;
           border: 1px solid #4570b6;
           background: rgba(242, 247, 255, 0.96);
-          padding: 4px 9px;
+          padding: 3px 8px;
           color: #4570b6;
           font-family: var(--font-hk), sans-serif;
-          font-size: clamp(12px, 3.2vw, 13.5px);
+          font-size: clamp(12px, 3.2vw, 13px);
           font-style: normal;
           font-weight: 500;
           line-height: 1.35;
-          white-space: nowrap;
+          text-align: center;
+          white-space: normal;
+          word-break: keep-all;
+          overflow-wrap: break-word;
           box-shadow: 0 2px 8px rgba(69, 112, 182, 0.12);
         }
 
@@ -241,35 +243,35 @@ i {
         & > span:nth-child(1),
         .banner-tag-1 {
           right: 2%;
-          top: 66%;
+          top: 64%;
         }
 
         .hero-symptom-tag-2,
         & > span:nth-child(2),
         .banner-tag-2 {
           left: 2%;
-          top: 50%;
+          top: 38%;
         }
 
         .hero-symptom-tag-3,
         & > span:nth-child(3),
         .banner-tag-3 {
-          left: 3%;
-          top: 14%;
+          left: 2%;
+          top: 10%;
         }
 
         .hero-symptom-tag-4,
         & > span:nth-child(4),
         .banner-tag-4 {
-          right: 3%;
-          top: 10%;
+          right: 2%;
+          top: 8%;
         }
 
         .hero-symptom-tag-5,
         & > span:nth-child(5),
         .banner-tag-5 {
           right: 2%;
-          top: 38%;
+          top: 34%;
         }
       }
     }
@@ -424,41 +426,30 @@ i {
 
             .scheme-card-badge {
               position: absolute;
-              top: auto;
               bottom: 10px;
               left: 10px;
               background: rgba(69, 112, 182, 0.95);
-              padding: 6px 10px;
-              border-radius: 6px;
+              padding: 8px 12px;
+              border-radius: 8px;
               color: #fff;
               font-family: var(--font-hk), sans-serif;
-              font-size: 12px;
+              font-size: 16px;
               font-style: normal;
               font-weight: 400;
-              line-height: 1.4;
+              line-height: 1.5;
               letter-spacing: 0.3px;
               z-index: 5;
-              max-width: calc(100% - 60px);
+              max-width: calc(100% - 48px);
+              backdrop-filter: blur(4px);
 
               p {
-                margin-bottom: 0;
-                font-size: 12px;
-                line-height: 1.4;
+                margin: 0;
               }
 
               .scheme-card-tag {
-                position: static;
                 display: block;
-                width: fit-content;
-                background: transparent;
-                padding: 0;
-                color: #fff;
-                font-family: var(--font-hk), sans-serif;
-                font-size: 12px;
                 font-weight: 700;
-                line-height: 1.4;
-                letter-spacing: 0.5px;
-                margin-bottom: 2px;
+                margin-bottom: 4px;
               }
             }
           }
@@ -1244,7 +1235,8 @@ i {
   /* 什么事老花 */
   .WhatLaoHua {
     margin: 0 auto;
-    padding-block: clamp(48px, 5vw, 80px);
+    padding-top: clamp(48px, 5vw, 80px);
+    padding-bottom: 0;
     .WhatLaoHuaBox {
       display: flex;
       justify-content: center;
@@ -1404,7 +1396,6 @@ i {
 
             .scheme-card-badge {
               position: absolute;
-              top: auto;
               bottom: 14px;
               left: 14px;
               background: rgba(69, 112, 182, 0.95);
@@ -1422,24 +1413,13 @@ i {
               backdrop-filter: blur(4px);
 
               p {
-                margin-bottom: 0;
-                font-size: inherit;
-                line-height: 1.5;
+                margin: 0;
               }
 
               .scheme-card-tag {
-                position: static;
                 display: block;
-                width: fit-content;
-                background: transparent;
-                padding: 0;
-                color: #fff;
-                font-family: var(--font-hk), sans-serif;
-                font-size: clamp(14px, 1.05vw, 16px);
                 font-weight: 700;
-                line-height: 1.5;
-                letter-spacing: 0.5px;
-                margin-bottom: 2px;
+                margin-bottom: 4px;
               }
             }
           }
@@ -2124,11 +2104,11 @@ i {
 
   /* 表格 */
   .smilepro-difference {
+    width: 100%;
+    max-width: 100%;
     margin: 0 auto;
     padding-block: clamp(32px, 5vw, 48px);
-    max-width: 1260px;
-    margin-left: auto;
-    margin-right: auto;
+    overflow: hidden;
     .smilepro-difference-title {
       display: flex;
       justify-content: center;
@@ -2172,7 +2152,9 @@ i {
     }
 
     .table-scroll-wrapper {
-      width: 100%;
+      width: calc(100% + 30px);
+      margin-left: -15px;
+      margin-right: -15px;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       margin-top: 24px;
@@ -2182,7 +2164,7 @@ i {
 
     .custom-comparison-table {
       width: 100%;
-      min-width: 480px;
+      table-layout: fixed;
       border-collapse: collapse;
       border-spacing: 0;
     }
@@ -2198,7 +2180,8 @@ i {
       border-bottom: 1px solid #d0d0d0;
       text-align: center;
       vertical-align: middle;
-      padding: 8px 6px;
+      padding: 8px 3px;
+      overflow-wrap: break-word;
     }
 
     .custom-comparison-table thead th {
@@ -2207,16 +2190,16 @@ i {
       color: #4570b6;
       text-align: center;
       font-family: var(--font-en), var(--font-hk), sans-serif;
-      font-size: 13.5px;
+      font-size: 13px;
       font-style: normal;
       font-weight: 700;
       line-height: 1.35;
-      width: 28%;
-      padding: 10px 6px;
+      width: 27.3%;
+      padding: 8px 3px;
     }
 
     .custom-comparison-table thead th:nth-child(1) {
-      width: 16%;
+      width: 18%;
     }
 
     .custom-comparison-table thead tr > th:nth-child(1) {
@@ -2227,10 +2210,10 @@ i {
       color: #4a4a4a;
       text-align: center;
       font-family: var(--font-en), var(--font-hk), sans-serif;
-      font-size: 13.5px;
+      font-size: 12px;
       font-style: normal;
       line-height: 1.35;
-      padding: 8px 4px;
+      padding: 8px 3px;
     }
 
     .custom-comparison-table tbody tr > td:nth-child(1) {
@@ -2275,7 +2258,8 @@ i {
 
   /* 表格 */
   .smilepro-difference {
-    margin-top: 23.85vw;
+    width: 100%;
+    max-width: 100%;
     .smilepro-difference-title {
       display: flex;
       justify-content: center;
@@ -2710,7 +2694,8 @@ i {
 /* 响应式设计 */
 @media screen and (max-width: 767px) {
   .lbv-swiper {
-    max-width: 90%;
+    width: 100%;
+    max-width: 100%;
   }
   .lbv-phone-image {
     width: 100px;
@@ -2738,20 +2723,18 @@ i {
     }
   }
   .lbv-slide {
-    padding: 20px 15px;
+    padding: 0;
   }
 }
 
 @media screen and (max-width: 480px) {
- 
-  
   .lbv-phone-image {
     width: 80px;
     bottom: -10px;
   }
   
   .lbv-slide {
-    padding: 20px 15px;
+    padding: 0;
   }
 }
 
