@@ -60,6 +60,13 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
           <span class="banner-tag">{content.banner.tag}</span>
           <h1 id="banner-h1" class="icl-h1">{content.banner.title}</h1>
           <p class="banner-sub">{content.banner.subtitle}</p>
+          <nav class="banner-breadcrumb" aria-label="麵包屑導航">
+            <a href={isCn ? "/cn/" : "/"} title={content.breadcrumb.home}>{content.breadcrumb.home}</a>
+            <span class="breadcrumb-sep" aria-hidden="true">&gt;</span>
+            <span class="breadcrumb-mid">{content.breadcrumb.service}</span>
+            <span class="breadcrumb-sep" aria-hidden="true">&gt;</span>
+            <a href={isCn ? "/cn/vision-correction-icl" : "/vision-correction-icl"} class="breadcrumb-curr" title={content.breadcrumb.current}>{content.breadcrumb.current}</a>
+          </nav>
         </div>
         <div class="smile-NewBanner-visual">
           <img
@@ -74,27 +81,22 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
             width="685"
             height="563"
             srcset={`${content.banner.imgMb} 400w, ${content.banner.imgMb} 640w, ${content.banner.imgPc}`}
-            sizes="(max-width: 768px) 45vw, (max-width: 1024px) 48vw, 685px"
+            sizes="(max-width: 768px) 60vw, (max-width: 1024px) 40vw, 440px"
           />
         </div>
-      </div>
-      <div class="smile-NewBanner-Tip">
-        <div class="smile-NewBanner-Tip-Title">
-          <p>{content.banner.tipTitle}</p>
-        </div>
-        <div class="smile-NewBanner-Tip-Content">
-          {content.banner.tipItems.map((tip) => <p>{tip}</p>)}
+        <div class="smile-NewBanner-Tip">
+          <div class="smile-NewBanner-Tip-Title">
+            <p>{content.banner.tipTitle}</p>
+          </div>
+          <div class="smile-NewBanner-Tip-Content">
+            {content.banner.tipItems.map((tip) => <p>{tip}</p>)}
+          </div>
         </div>
       </div>
     </section>
 
-    {/* 2. 中心介紹與麵包屑導航 */}
+    {/* 2. 中心介紹 */}
     <section class="smile-newCenter" aria-labelledby="center-intro-title">
-      <div class="site-container">
-        <nav class="smile-newCenter-menu" aria-label="麵包屑導航">
-          <a href={isCn ? "/cn/" : "/"} title={content.breadcrumb.home}>{content.breadcrumb.home}</a>&nbsp;&gt;&nbsp;<span class="text-text">{content.breadcrumb.service}</span>&nbsp;&gt;&nbsp;<a href={isCn ? "/cn/vision-correction-icl" : "/vision-correction-icl"} title={content.breadcrumb.current}>{content.breadcrumb.current}</a>
-        </nav>
-      </div>
       <div class="w-full smile-newCenter-content">
         <div class="site-container smile-newCenter-content-text">
           <h2 id="center-intro-title" class="text-center d-xl-none">

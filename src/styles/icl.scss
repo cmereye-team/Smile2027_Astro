@@ -31,37 +31,49 @@ h2 {
   position: relative;
 
   @media (min-width: 768px) {
-    padding-top: 28px;
-    padding-bottom: 36px;
+    padding-top: 24px;
+    padding-bottom: 28px;
   }
 
   @media (min-width: 1024px) {
-    padding-top: 16px;
-    padding-bottom: 20px;
+    padding-top: 24px;
+    padding-bottom: 24px;
     max-height: 500px;
     box-sizing: border-box;
   }
 
   .smile-NewBanner-content {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
+    flex-direction: column;
+    gap: 18px;
 
     @media (min-width: 768px) {
-      gap: 28px;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
     }
 
     @media (min-width: 1024px) {
-      gap: 36px;
-      max-height: 380px;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      height: 100%;
+      max-height: 440px;
     }
   }
 
   .smile-NewBanner-Title {
-    flex: 1;
+    flex: 1 1 auto;
     min-width: 0;
+
+    @media (min-width: 1024px) {
+      flex: 0 0 350px;
+      max-width: 380px;
+    }
 
     .banner-tag {
       color: #4570b6;
@@ -91,10 +103,10 @@ h2 {
     .banner-sub {
       color: #4570b6;
       font-family: var(--font-hk);
-      font-size: clamp(10px, 1.4vw, 20px);
+      font-size: clamp(10px, 1.4vw, 18px);
       font-style: normal;
       font-weight: 400;
-      line-height: 1.6;
+      line-height: 1.5;
       letter-spacing: 0.5px;
       margin: 4px 0 0;
 
@@ -103,17 +115,75 @@ h2 {
         margin-top: 6px;
       }
     }
+
+    .banner-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 14px;
+      font-family: var(--font-hk);
+      font-size: 13px;
+      color: #6d6e71;
+      white-space: nowrap;
+
+      @media (min-width: 768px) {
+        font-size: 14px;
+        margin-top: 18px;
+        gap: 8px;
+      }
+
+      @media (min-width: 1024px) {
+        font-size: 15px;
+        margin-top: 24px;
+      }
+
+      a {
+        color: #6d6e71;
+        text-decoration: none;
+        transition: color var(--dur, 250ms) ease;
+
+        &:hover {
+          color: #4570b6;
+        }
+
+        &.breadcrumb-curr {
+          color: #4570b6;
+          font-weight: 700;
+        }
+      }
+
+      .breadcrumb-sep {
+        color: #9ca3af;
+        font-size: 12px;
+      }
+
+      .breadcrumb-mid {
+        color: #6d6e71;
+      }
+    }
   }
 
   .smile-NewBanner-visual {
     flex-shrink: 0;
-    width: 44%;
-    max-width: 460px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 767px) {
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 768px) and (max-width: 1023px) {
+      width: 48%;
+      max-width: 380px;
+    }
 
     @media (min-width: 1024px) {
-      width: 45%;
-      max-width: 480px;
-      max-height: 340px;
+      flex: 1 1 auto;
+      max-width: 440px;
+      margin: 0 auto;
     }
 
     .banner-lens-img {
@@ -127,16 +197,22 @@ h2 {
   }
 
   .smile-NewBanner-Tip {
-    margin-left: auto;
+    flex-shrink: 0;
     width: fit-content;
-    margin-top: 8px;
 
-    @media (min-width: 768px) {
+    @media (max-width: 767px) {
+      margin-left: auto;
+      margin-top: 8px;
+    }
+
+    @media (min-width: 768px) and (max-width: 1023px) {
+      margin-left: auto;
       margin-top: 10px;
     }
 
     @media (min-width: 1024px) {
-      margin-top: 10px;
+      margin: 0;
+      align-self: center;
     }
 
     .smile-NewBanner-Tip-Title {
@@ -151,7 +227,7 @@ h2 {
       }
 
       @media (min-width: 1024px) {
-        padding: 8px 22px 2px;
+        padding: 6px 20px 2px;
       }
 
       p {
@@ -165,14 +241,14 @@ h2 {
         margin: 0;
 
         @media (min-width: 768px) {
-          font-size: 15px;
+          font-size: 14px;
           letter-spacing: 2px;
         }
 
         @media (min-width: 1024px) {
-          font-size: 20px;
-          line-height: 30px;
-          letter-spacing: 4px;
+          font-size: 16px;
+          line-height: 26px;
+          letter-spacing: 3px;
         }
       }
     }
@@ -185,11 +261,11 @@ h2 {
       width: fit-content;
 
       @media (min-width: 768px) {
-        padding: 8px 20px 12px;
+        padding: 8px 18px 12px;
       }
 
       @media (min-width: 1024px) {
-        padding: 10px 32px 18px 22px;
+        padding: 10px 24px 16px 18px;
       }
 
       p {
@@ -200,18 +276,19 @@ h2 {
         font-weight: 300;
         line-height: 1.6;
         margin: 0;
+        white-space: nowrap;
 
         @media (min-width: 768px) {
-          font-size: 14px;
-          line-height: 1.8;
+          font-size: 13px;
+          line-height: 1.7;
           letter-spacing: 1px;
         }
 
         @media (min-width: 1024px) {
-          font-size: 20px;
+          font-size: 15px;
           font-weight: 400;
-          line-height: 44px;
-          letter-spacing: 4px;
+          line-height: 32px;
+          letter-spacing: 2px;
         }
       }
     }

@@ -18,6 +18,36 @@ i {
   font-style: normal;
 }
 
+.page-presbyopia {
+  .hero-category-link,
+  .hero-desc-schemes a,
+  .hero-symptom-tag,
+  .lbv-slide-title,
+  .lbv-banner-title,
+  .project-name,
+  .smilepro-difference-title,
+  .smilepro-difference-title div,
+  .smilepro-difference-title span,
+  .custom-comparison-table th,
+  .custom-comparison-table td,
+  .custom-comparison-table span,
+  .visionBattle-Box-list-item h3,
+  .publicBtn-booking,
+  .hero-badge span:first-child,
+  [lang="en"] {
+    font-family: var(--font-en), var(--font-hk), sans-serif !important;
+  }
+}
+
+@keyframes fx-spotlight {
+  0% {
+    background-position: 125% 0;
+  }
+  100% {
+    background-position: -25% 0;
+  }
+}
+
 @media screen and (max-width: 991px) {
   /* 按钮 */
   .publicBtn-booking {
@@ -36,97 +66,128 @@ i {
       color: #fff;
       text-align: justify;
       font-family: "Noto Sans TC";
-      font-size: 5.13vw;
+      font-size: 18px;
       font-style: normal;
       font-weight: 700;
-      line-height: 1.75;
-      letter-spacing: 0.26vw;
+      line-height: 1.35;
+      letter-spacing: 0.5px;
     }
     svg {
-      width: 4.36vw;
+      width: 18px;
+      height: 18px;
     }
   }
+  .presbyopia-hero,
   .ClearVisionBanner {
-    /* margin-top: 88px; */
-    .ClearVisionBanner-Box {
+    width: 100%;
+    border-bottom: 2px solid #4570b6;
+    background: #fff;
+
+    .presbyopia-hero-container {
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      .ClearVisionBanner-Box-content {
-        overflow: hidden;
-        margin-top: 20px;
-        .ClearVisionBanner-Stage {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          width: 100%;
+      width: 100%;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+
+    .hero-header,
+    .ClearVisionBanner-Box-content-title {
+      text-align: center;
+      width: 100%;
+      margin-bottom: 16px;
+
+      & > a,
+      .hero-category-link {
+        --ink: #162c4e;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+        text-align: center;
+        font-family: "Poppins", sans-serif !important;
+        font-size: clamp(34px, 11vw, 46px);
+        font-style: normal;
+        font-weight: 700;
+        line-height: 1.15;
+        text-decoration: none;
+        display: inline-block;
+        background: radial-gradient(
+          5ch 100% at 50% 50%,
+          #162c4e 25%,
+          #8cb3f3 85%
+        ) 0 0 / 260% 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        animation: fx-spotlight 4.5s ease-in-out infinite alternate;
+        transition: filter 0.25s ease;
+
+        &:active,
+        &:hover {
+          filter: brightness(1.25);
+          animation-duration: 2.2s;
         }
-        /* width: 100vw; */
-        h3 {
-          text-align: center;
-          color: #4570b6;
-          font-family: "Noto Sans TC";
-          font-size: 10.26vw;
-          font-style: normal;
-          font-weight: 250;
-          line-height: 1;
-          /* letter-spacing:7.15vw; */
-        }
-        .ClearVisionBanner-Box-content-title {
-          text-align: center;
-          & > a {
-            color: #4570b6;
-            text-align: center;
-            font-family: "Poppins", sans-serif;
-            font-size: 11.64vw;
-            font-style: normal;
-            font-weight: 700;
-            line-height: 109.4%;
-            text-decoration: none;
-          }
-          h1 {
-            color: #4570b6;
-            text-align: center;
-            font-family: "Noto Sans TC";
-            font-size: 6.29vw;
-            font-style: normal;
-            font-weight: 400;
-            line-height: 1.8;
-          }
-          p {
-            color: #6d6e71;
-            text-align: center;
-            font-family: "Noto Sans HK";
-            font-size: 3.59vw;
-            font-style: normal;
-            font-weight: 300;
-            line-height: 221.429%;
-            letter-spacing: 0.9vw;
-            a {
-              color: #6d6e71;
-              font-family: "Poppins", sans-serif;
-              font-size: 3.59vw;
-              font-style: normal;
-              font-weight: 700;
-              line-height: 2.2;
-              letter-spacing: 0.36vw;
-            }
-          }
+
+        @media (prefers-reduced-motion: reduce) {
+          animation: none;
+          background-position: 50% 0;
         }
       }
+      .hero-title,
+      h1 {
+        color: #4570b6;
+        text-align: center;
+        font-family: "Noto Sans TC";
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 1.35;
+        margin: 8px 0 10px;
+      }
+      p {
+        color: #6d6e71;
+        text-align: center;
+        font-family: var(--font-hk), sans-serif;
+        font-size: 16px;
+        font-style: normal;
+        line-height: 1.6;
+        letter-spacing: 0.2px;
+        a {
+          color: #4570b6;
+          font-family: "Poppins", sans-serif;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 1.6;
+          letter-spacing: 0.2px;
+        }
+      }
+    }
+
+    .hero-stage,
+    .ClearVisionBanner-Stage {
+      position: relative;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .hero-figure-wrapper,
       .ClearVisionBanner-Box-content-img {
-        margin-top: 11.28vw;
+        margin-top: 4vw;
         max-width: 100vw;
         overflow: hidden;
         position: relative;
         display: flex;
         justify-content: center;
         border-bottom: 0.26vw solid #4570b6;
+
+        .hero-figure-img,
         img {
           min-width: 130.77vw;
           text-align: center;
         }
+
+        .hero-badge,
         p {
           position: absolute;
           bottom: 2.22vw;
@@ -136,83 +197,108 @@ i {
           span {
             color: #4570b6;
             font-family: "Noto Sans TC";
-            font-size: 3.59vw;
+            font-size: clamp(14px, 3.8vw, 18px);
             font-style: normal;
             font-weight: 900;
-            line-height: 1.17;
+            line-height: 1.25;
             i {
               font-style: normal;
-              /* letter-spacing: -5.32px; */
             }
           }
         }
       }
+
+      .hero-symptoms,
       .ClearVisionBanner-Box-text {
-        margin-top: 11.54vw;
-        display: flex;
-        flex-direction: column;
-        gap: 3.85vw;
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        width: 100%;
+        height: 100%;
+        margin-top: 0;
+
+        .hero-symptom-tag,
         span {
-          position: relative;
+          position: absolute;
+          pointer-events: auto;
           width: fit-content;
           display: inline-block;
-          border-radius: 25.64vw;
-          border: 0.26vw solid #4570b6;
-          background: #f2f7ff;
-          padding: 1.03vw 6.41vw;
-          color: #6d6e71;
-          font-family: "Noto Sans HK";
-          font-size: 3.59vw;
+          border-radius: 9999px;
+          border: 1px solid #4570b6;
+          background: rgba(242, 247, 255, 0.96);
+          padding: 4px 9px;
+          color: #4570b6;
+          font-family: var(--font-hk), sans-serif;
+          font-size: clamp(12px, 3.2vw, 13.5px);
           font-style: normal;
-          font-weight: 300;
-          line-height: 2.5;
-          letter-spacing: 1.08vw;
+          font-weight: 500;
+          line-height: 1.35;
           white-space: nowrap;
+          box-shadow: 0 2px 8px rgba(69, 112, 182, 0.12);
         }
-        & > span:nth-child(1) {
-          left: 1.28vw;
+
+        .hero-symptom-tag-1,
+        & > span:nth-child(1),
+        .banner-tag-1 {
+          right: 2%;
+          top: 66%;
         }
-        & > span:nth-child(2) {
-          right: 2.56vw;
+
+        .hero-symptom-tag-2,
+        & > span:nth-child(2),
+        .banner-tag-2 {
+          left: 2%;
+          top: 50%;
         }
-        & > span:nth-child(3) {
-          left: 16.92vw;
+
+        .hero-symptom-tag-3,
+        & > span:nth-child(3),
+        .banner-tag-3 {
+          left: 3%;
+          top: 14%;
         }
-        & > span:nth-child(4) {
-          left: 5.64vw;
+
+        .hero-symptom-tag-4,
+        & > span:nth-child(4),
+        .banner-tag-4 {
+          right: 3%;
+          top: 10%;
         }
-        & > span:nth-child(5) {
-          left: 22.05vw;
+
+        .hero-symptom-tag-5,
+        & > span:nth-child(5),
+        .banner-tag-5 {
+          right: 2%;
+          top: 38%;
         }
       }
     }
   }
   /* 什么事老花 */
   .WhatLaoHua {
-    margin-top: 10.26vw;
+    margin-top: clamp(32px, 5vw, 48px);
     .WhatLaoHuaBox {
       text-align: center;
       h2 {
         color: #4570b6;
-        font-family: "Noto Sans TC";
-        font-size: 5.13vw;
+        font-family: var(--font-hk), sans-serif;
+        font-size: 24px;
         font-style: normal;
         font-weight: 900;
-        line-height: 1.95;
+        line-height: 1.35;
       }
       .WhatLaoHuaBox-text {
-        margin-top: 2.56vw;
+        margin-top: 16px;
         p {
           margin: 0 auto;
-          max-width: 84.62vw;
-          color: #6d6e71;
-          text-align: center;
-          font-family: "Noto Sans HK";
-          font-size: 3.59vw;
+          max-width: 92%;
+          color: #4a4a4a;
+          text-align: left;
+          font-family: var(--font-hk), sans-serif;
+          font-size: 16px;
           font-style: normal;
-          font-weight: 300;
-          line-height: 2.5;
-          letter-spacing: 1.08vw;
+          line-height: 1.8;
+          letter-spacing: 0.3px;
           span {
             color: #4570b6;
             font-weight: 700;
@@ -221,80 +307,47 @@ i {
       }
     }
   }
-  /* 矫视方案 */
-  .CorrectionProgram {
+  /* 矫视方案 (重构精简：彻底移除 96 重冗余选择器 + 提升正文至 16px) */
+  .scheme-section {
     margin-top: 15.38vw;
     margin-bottom: 40px;
     position: relative;
-    /* overflow: hidden; */
-    /* height: 222.05vw; */
-    .CorrectionProgram-Box {
+
+    .scheme-wrapper {
       position: relative;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      .CorrectionProgram-Box-show {
-        opacity: 1;
-        z-index: 2;
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-      }
-      .CorrectionProgram-Box-show {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        transition: transform 0.3s ease-out;
-      }
-      .CorrectionProgram-Box-hide {
+
+      .scheme-main {
         position: relative;
         bottom: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        transition: transform 0.3s ease-out;
-      }
-      .CorrectionProgram-Box-hide {
         background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/CorrectionProgram/CorrectionProgram-Box-hide-mbBg.avif")
           no-repeat;
         background-size: 100% 100%;
         background-repeat: no-repeat;
-        .CorrectionProgram-Box-hide-title {
+        padding: 0;
+
+        .scheme-heading {
           color: #4570b6;
-          font-family: "Noto Sans TC";
-          font-size: 20px;
+          font-family: var(--font-hk), sans-serif;
+          font-size: 24px;
           font-style: normal;
           font-weight: 900;
-          line-height: 39px;
-          /* 195% */
+          line-height: 1.4;
           padding-top: 26px;
           margin-bottom: 26px;
           display: flex;
           justify-content: center;
           align-items: center;
+          text-align: center;
         }
-        /*                 .CorrectionProgram-Box-hide-item__bottom-btn{ */
-        /*                     display: flex; */
-        /*                     justify-content: center; */
-        /*                     align-items: center; */
-        /*                     gap: 8px; */
-        /*                     >span{ */
-        /*                         color: #FFF; */
-        /* text-align: justify; */
-        /* font-family: "Noto Sans TC"; */
-        /* font-size: 20px; */
-        /* font-style: normal; */
-        /* font-weight: 700; */
-        /* line-height: 35px; *//* 175% */
-        /* letter-spacing: 1px; */
-        /*                     } */
-        /*                 } */
-        .CorrectionProgram-Box-hide-item-container {
+
+        .scheme-grid {
           display: flex;
           justify-content: center;
           align-items: stretch;
@@ -302,28 +355,24 @@ i {
           gap: 32px;
           padding-bottom: 24px;
         }
-        .CorrectionProgram-Box-hide-item {
-          background-repeat: no-repeat;
+
+        .scheme-column {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
           width: 86.92vw;
           max-width: 400px;
           margin: 0 auto;
+        }
+
+        .scheme-card {
+          width: 100%;
           background-color: #fff;
           position: relative;
           border-radius: 16px;
           display: flex;
           flex-direction: column;
           box-shadow: 0 4px 16px rgba(69, 112, 182, 0.08);
-          transition: transform 0.25s ease, box-shadow 0.25s ease;
-
-          &:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(69, 112, 182, 0.16);
-          }
-          @media (prefers-reduced-motion: reduce) {
-            &:hover {
-              transform: none;
-            }
-          }
 
           &::after {
             content: "";
@@ -333,12 +382,13 @@ i {
             transform: translateX(-50%);
             width: 0;
             height: 0;
-            border-left: 15px solid transparent;
-            border-right: 15px solid transparent;
-            border-top: 15px solid #fff;
+            border-left: 14px solid transparent;
+            border-right: 14px solid transparent;
+            border-top: 14px solid #fff;
+            z-index: 2;
           }
 
-          .CorrectionProgram-Box-hide-item-top {
+          .scheme-card-top {
             position: relative;
             border-radius: 16px 16px 0 0;
             overflow: hidden;
@@ -372,7 +422,7 @@ i {
               z-index: 5;
             }
 
-            .CorrectionProgram-Box-hide-item-top-text {
+            .scheme-card-badge {
               position: absolute;
               top: auto;
               bottom: 10px;
@@ -381,7 +431,7 @@ i {
               padding: 6px 10px;
               border-radius: 6px;
               color: #fff;
-              font-family: "Noto Sans TC", var(--font-hk), sans-serif;
+              font-family: var(--font-hk), sans-serif;
               font-size: 12px;
               font-style: normal;
               font-weight: 400;
@@ -396,14 +446,14 @@ i {
                 line-height: 1.4;
               }
 
-              .CorrectionProgram-Box-hide-item-sub {
+              .scheme-card-tag {
                 position: static;
                 display: block;
                 width: fit-content;
                 background: transparent;
                 padding: 0;
                 color: #fff;
-                font-family: "Noto Sans TC", var(--font-hk), sans-serif;
+                font-family: var(--font-hk), sans-serif;
                 font-size: 12px;
                 font-weight: 700;
                 line-height: 1.4;
@@ -413,13 +463,13 @@ i {
             }
           }
 
-          .CorrectionProgram-Box-hide-item-bottom {
-            padding: 24px 20px 20px 20px;
+          .scheme-card-body {
+            padding: 20px 20px 24px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
 
-            h3 {
+            .scheme-card-title {
               text-align: center;
               color: #4570b6;
               font-family: "Poppins", var(--font-hk), sans-serif;
@@ -431,15 +481,15 @@ i {
               margin: 0 0 16px;
             }
 
-            .CorrectionProgram-Box-hide-item-bottom-text {
+            .scheme-card-desc {
               margin-top: 0;
-              color: var(--color-desc);
+              color: #4a4a4a;
               text-align: left;
               font-family: var(--font-hk), "Noto Sans HK", sans-serif;
-              font-size: 14px;
+              font-size: 16px; /* User explicit request: 16px */
               font-style: normal;
               font-weight: 400;
-              line-height: 1.8;
+              line-height: 1.7;
               letter-spacing: normal;
               flex-grow: 1;
 
@@ -451,14 +501,6 @@ i {
           }
         }
 
-        .simple-schemes-row {
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
-          width: 86.92vw;
-          max-width: 400px;
-          margin: 16px auto 30px;
-        }
         .simple-scheme-chip {
           background: #fff;
           border: 1.5px solid #4570b6;
@@ -470,24 +512,13 @@ i {
           text-align: center;
           min-height: 64px;
           box-shadow: 0 2px 8px rgba(69, 112, 182, 0.06);
-          transition: transform 0.25s ease, box-shadow 0.25s ease;
-
-          &:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 14px rgba(69, 112, 182, 0.12);
-          }
-          @media (prefers-reduced-motion: reduce) {
-            &:hover {
-              transform: none;
-            }
-          }
 
           h3 {
             color: #4570b6;
             font-family: "Poppins", var(--font-hk), sans-serif;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 700;
-            line-height: 1.35;
+            line-height: 1.4;
             margin: 0;
           }
         }
@@ -503,6 +534,7 @@ i {
     margin-top: 12.05vw;
     /* visionBattle overflow fix */
     overflow: hidden;
+    isolation: isolate;
     .visionBattle-Bg {
       position: absolute;
       min-width: 354vw;
@@ -511,16 +543,18 @@ i {
       left: 50%;
       transform: translateX(-50%);
       z-index: -1;
+      pointer-events: none !important;
+      user-select: none;
     }
     .visionBattle-Box {
       h2 {
         text-align: center;
         color: #4570b6;
         font-family: "Noto Sans TC";
-        font-size: 5.13vw;
+        font-size: 24px;
         font-style: normal;
-        font-weight: 900;
-        line-height: 1.95;
+        font-weight: 700;
+        line-height: 1.35;
         margin-bottom: 24px;
       }
       .visionBattle-Box-list {
@@ -532,12 +566,12 @@ i {
             text-align: center;
             color: #4570b6;
             font-family: "Poppins", sans-serif;
-            font-size: 5.13vw;
+            font-size: 20px;
             font-style: normal;
             font-weight: 700;
-            line-height: 1.2;
-            letter-spacing: 0.26vw;
-            padding: 0 6.41vw;
+            line-height: 1.35;
+            letter-spacing: 0.5px;
+            padding: 0 16px;
             flex-shrink: 0;
           }
           .visionBattle-Box-list-item-content {
@@ -546,21 +580,23 @@ i {
             p {
               display: flex;
               align-items: flex-start;
-              gap: 1.28vw;
+              gap: 10px;
+              margin-bottom: 12px;
               img {
-                width: 4.36vw;
-                height: 4.36vw;
-                margin-top: 0.77vw;
+                width: 20px;
+                height: 20px;
+                flex-shrink: 0;
+                margin-top: 2px;
               }
               span {
                 display: inline-block;
                 color: #4570b6;
-                font-family: "Noto Sans HK";
-                font-size: 3.59vw;
+                font-family: var(--font-hk), sans-serif;
+                font-size: 16px;
                 font-style: normal;
                 font-weight: 500;
-                line-height: 165.171%;
-                letter-spacing: 0.18vw;
+                line-height: 1.6;
+                letter-spacing: 0.3px;
               }
             }
           }
@@ -751,22 +787,22 @@ i {
         h2 {
           color: #4570b6;
           font-family: "Noto Sans TC";
-          font-size: 5.13vw;
+          font-size: 22px;
           font-style: normal;
-          font-weight: 900;
-          line-height: 0.83;
+          font-weight: 700;
+          line-height: 1.35;
         }
         p {
           max-width: 51.79vw;
-          margin: 5.38vw auto 0;
+          margin: 12px auto 0;
           color: #4570b6;
           text-align: center;
-          font-family: "Noto Sans HK";
-          font-size: 3.59vw;
+          font-family: var(--font-hk), sans-serif;
+          font-size: 16px;
           font-style: normal;
-          font-weight: 300;
-          line-height: 1.394;
-          letter-spacing: 0.9vw;
+          font-weight: 500;
+          line-height: 1.5;
+          letter-spacing: 0.3px;
         }
       }
       .SuitableObject-Box-List {
@@ -798,14 +834,14 @@ i {
             width: 100%;
             color: #6d6e71;
             text-align: center;
-            font-family: "Noto Sans HK";
-            font-size: 3.59vw;
+            font-family: var(--font-hk), sans-serif;
+            font-size: 14.5px;
             font-style: normal;
-            font-weight: 300;
-            line-height: 1.394;
-            letter-spacing: 0.9vw;
+            font-weight: 500;
+            line-height: 1.35;
+            letter-spacing: 0.2px;
             span {
-              font-size: 3.08vw;
+              font-size: 14px;
             }
           }
         }
@@ -913,10 +949,10 @@ i {
           color: #4570b6;
           text-align: center;
           font-family: "Noto Sans TC";
-          font-size: 5.13vw;
+          font-size: 18px;
           font-style: normal;
-          font-weight: 900;
-          line-height: 0.73;
+          font-weight: 700;
+          line-height: 1.35;
         }
         .clearAppointment-Box-item-icon {
           position: absolute;
@@ -925,49 +961,21 @@ i {
           height: 13.85vw;
           border-radius: 50%;
           background: #4570b6;
+          color: #ffffff;
           display: flex;
           align-items: center;
           justify-content: center;
+          padding: 0;
           svg {
             width: 7.69vw;
+            height: auto;
+            display: block;
+            margin: auto;
+            path {
+              stroke: currentColor;
+            }
           }
         }
-      }
-    }
-  }
-  .CaseSharingV2 {
-    width: fit-content;
-    margin: 0 auto;
-    margin-top: 50px;
-    & > div:nth-child(1) {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7.58px;
-      span {
-        color: #000;
-        text-align: center;
-        font-family: "Noto Sans TC";
-        font-size: 20px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 0.82px;
-        /* 82.478% */
-      }
-    }
-    & > div:nth-child(2) {
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      a {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 54px;
-        height: 54px;
-        border-radius: 50%;
-        border: 1px solid #4570b6;
       }
     }
   }
@@ -978,10 +986,6 @@ i {
   }
   .d-lg-block {
     display: block;
-  }
-  /* 分享给朋友 */
-  .CaseSharingV2 {
-    display: none;
   }
   /* 按钮 */
   .publicBtn-booking {
@@ -1011,265 +1015,227 @@ i {
       height: clamp(15px, 1.56vw, 30px);
     }
   }
+  .presbyopia-hero,
   .ClearVisionBanner {
-    border-bottom: clamp(1px, 0.1vw, 2px) solid #4570b6;
     width: 100%;
-    height: calc(100vh - 136px);
-    max-height: 960px;
-    min-height: clamp(520px, calc(100vh - 136px), 960px);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+    border-bottom: 2px solid #4570b6;
+    background: #fff;
     position: relative;
-    overflow: hidden;
     scroll-snap-align: start;
-    scroll-margin-top: 136px;
+    scroll-margin-top: 90px;
 
-    .ClearVisionBanner-Container {
-      width: 100%;
-      max-width: 1920px;
-      height: 100%;
-      flex: 1 1 auto;
+    .presbyopia-hero-container {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       align-items: center;
-      margin-inline: auto;
-      padding-inline: clamp(16px, 2vw, 40px);
-      position: relative;
+      padding-top: clamp(28px, 3.5vw, 48px);
+      padding-bottom: clamp(16px, 2.5vw, 32px);
     }
 
-    .ClearVisionBanner-Box {
+    .hero-header,
+    .ClearVisionBanner-header {
+      text-align: center;
+      margin-bottom: clamp(16px, 2vw, 28px);
       width: 100%;
-      height: 100%;
-      flex: 1 1 auto;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
 
-      .ClearVisionBanner-Box-content {
+      & > a,
+      .hero-category-link {
+        --ink: #162c4e;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+        text-align: center;
+        font-family: "Poppins", sans-serif !important;
+        font-size: clamp(48px, 6.25vw, 98px);
+        font-style: normal;
+        font-weight: 700;
+        line-height: 1.15;
+        letter-spacing: 0.04em;
+        text-decoration: none;
+        white-space: nowrap;
+        display: inline-block;
+        padding-top: 2px;
+        background: radial-gradient(
+          7ch 100% at 50% 50%,
+          #162c4e 25%,
+          #8cb3f3 85%
+        ) 0 0 / 260% 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        animation: fx-spotlight 4.5s ease-in-out infinite alternate;
+        transition: filter 0.25s ease;
+
+        &:hover {
+          filter: brightness(1.15) drop-shadow(0 2px 10px rgba(22, 44, 78, 0.2));
+          animation-duration: 2.2s;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          animation: none;
+          background-position: 50% 0;
+        }
+      }
+
+      .hero-title,
+      h1 {
+        color: #4570b6;
+        text-align: center;
+        font-family: "Noto Sans TC", sans-serif;
+        font-size: clamp(24px, 2.6vw, 40px);
+        font-style: normal;
+        font-weight: 700;
+        line-height: 1.3;
+        margin: clamp(6px, 0.6vw, 12px) 0 clamp(8px, 0.8vw, 14px);
+      }
+
+      p {
+        color: #6d6e71;
+        text-align: center;
+        font-family: "Noto Sans HK", sans-serif;
+        font-size: clamp(18.5px, 1.25vw, 24px);
+        font-style: normal;
+        font-weight: 350;
+        line-height: 1.7;
+        letter-spacing: clamp(1px, 0.12vw, 2px);
+        margin-bottom: 6px;
+
+        a {
+          color: #6d6e71;
+          font-family: "Poppins", sans-serif;
+          font-size: inherit;
+          font-style: normal;
+          font-weight: 700;
+          line-height: inherit;
+          letter-spacing: clamp(0.5px, 0.08vw, 1.2px);
+          text-decoration: none;
+          transition: color 0.2s ease;
+          &:hover {
+            color: #4570b6;
+          }
+        }
+      }
+    }
+
+    .hero-stage,
+    .ClearVisionBanner-Stage {
+      position: relative;
+      width: 100%;
+      max-width: 1140px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+
+      .hero-figure-wrapper,
+      .ClearVisionBanner-Box-content-img {
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+
+        .hero-figure-img,
+        img {
+          width: 100%;
+          max-width: 960px;
+          height: auto;
+          display: block;
+          margin: 0 auto;
+        }
+
+        .hero-badge,
+        p.ClearVisionBanner-Badge {
+          position: absolute;
+          bottom: clamp(10px, 1.8vw, 22px);
+          left: 50%;
+          transform: translateX(-50%);
+          width: max-content;
+          text-shadow: 0px 0px 10px #fff, 0px 0px 10px #fff,
+            0px 0px 10px #fff, 0px 0px 10px #fff;
+          pointer-events: none;
+          white-space: nowrap;
+
+          span {
+            color: #4570b6;
+            font-family: "Noto Sans TC", sans-serif;
+            font-size: clamp(18px, 1.8vw, 32px);
+            font-style: normal;
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: clamp(1.5px, 0.15vw, 3px);
+          }
+        }
+      }
+
+      .hero-symptoms,
+      .ClearVisionBanner-Box-text {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
         width: 100%;
         height: 100%;
-        flex: 1 1 auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
 
-        .ClearVisionBanner-Box-content-title {
-          text-align: center;
-          margin-top: clamp(6px, 1.4vh, 22px);
-          flex-shrink: 0;
-
-          & > a {
-            color: #4570b6;
-            text-align: center;
-            font-family: "Poppins", sans-serif;
-            font-size: clamp(34px, 3.8vw, 76px);
-            font-style: normal;
-            font-weight: 700;
-            line-height: 1.05;
-            text-decoration: none;
-            white-space: nowrap;
-            display: inline-block;
-            transition: color 0.2s ease;
-            &:hover {
-              color: #2e5288;
-            }
-          }
-          h1 {
-            color: #4570b6;
-            text-align: center;
-            font-family: "Noto Sans TC", sans-serif;
-            font-size: clamp(22px, 2.4vw, 44px);
-            font-style: normal;
-            font-weight: 400;
-            line-height: 1.25;
-            margin-top: clamp(3px, 0.5vh, 8px);
-            margin-bottom: clamp(4px, 0.7vh, 10px);
-          }
-          p {
-            color: #6d6e71;
-            text-align: center;
-            font-family: "Noto Sans HK", sans-serif;
-            font-size: clamp(12px, 0.8vw, 16px);
-            font-style: normal;
-            font-weight: 300;
-            line-height: 1.55;
-            letter-spacing: clamp(1px, 0.15vw, 3px);
-            margin-bottom: clamp(2px, 0.35vh, 4px);
-            a {
-              color: #6d6e71;
-              font-family: "Poppins", sans-serif;
-              font-size: inherit;
-              font-style: normal;
-              font-weight: 700;
-              line-height: inherit;
-              letter-spacing: clamp(0.5px, 0.08vw, 1.5px);
-              text-decoration: none;
-              transition: color 0.2s ease;
-              &:hover {
-                color: #4570b6;
-              }
-            }
-          }
-        }
-
-        .ClearVisionBanner-Stage {
-          position: relative;
-          width: fit-content;
-          max-width: 100%;
-          margin: auto auto 0 auto;
-          display: flex;
-          justify-content: center;
-          align-items: flex-end;
-
-          .ClearVisionBanner-Box-content-img {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            height: 100%;
-            max-width: 100%;
-            margin-top: 0;
-            overflow: visible;
-
-            img {
-              max-height: clamp(200px, 42vh, 480px);
-              width: auto;
-              max-width: 100%;
-              object-fit: contain;
-              display: block;
-            }
-
-            p.ClearVisionBanner-Badge {
-              position: absolute;
-              bottom: clamp(6px, 1.2vh, 18px);
-              left: 50%;
-              transform: translateX(-50%);
-              width: max-content;
-              text-shadow: 0px 0px 10.8px #fff, 0px 0px 10.8px #fff,
-                0px 0px 10.8px #fff, 0px 0px 10.8px #fff;
-              pointer-events: none;
-              span {
-                color: #4570b6;
-                font-family: "Noto Sans TC", sans-serif;
-                font-size: clamp(16px, 1.6vw, 32px);
-                font-style: normal;
-                font-weight: 900;
-                line-height: 1;
-                letter-spacing: clamp(1.5px, 0.15vw, 3px);
-              }
-            }
-          }
-
-          .ClearVisionBanner-Box-text {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            width: 100%;
-            height: 100%;
-
-            span {
-              position: absolute;
-              pointer-events: auto;
-              width: fit-content;
-              display: inline-block;
-              white-space: nowrap;
-              border-radius: 9999px;
-              border: 1px solid #4570b6;
-              background: #f2f7ff;
-              padding: clamp(3px, 0.3vw, 6px) clamp(10px, 0.9vw, 18px);
-              color: #6d6e71;
-              font-family: "Noto Sans HK", sans-serif;
-              font-size: clamp(11px, 0.8vw, 14.5px);
-              font-style: normal;
-              font-weight: 350;
-              line-height: 1.6;
-              letter-spacing: clamp(0.8px, 0.1vw, 1.8px);
-              box-shadow: 0 2px 8px rgba(69, 112, 182, 0.08);
-              transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.2s ease;
-              cursor: default;
-
-              &:hover {
-                transform: translateY(-2px);
-                background: #e6f0ff;
-                box-shadow: 0 4px 14px rgba(69, 112, 182, 0.16);
-              }
-            }
-
-            // Tag 1 (Child 1): 頻繁眨眼/搓眼睛以嘗試改善焦點 (Bottom-Right)
-            & > span:nth-child(1),
-            .banner-tag-1 {
-              right: clamp(-90px, -6%, -10px);
-              top: 71%;
-            }
-
-            // Tag 2 (Child 2): 難以看清電子屏幕細小文字 (Mid/Lower-Left)
-            & > span:nth-child(2),
-            .banner-tag-2 {
-              left: clamp(-80px, -5%, -15px);
-              top: 55%;
-            }
-
-            // Tag 3 (Child 3): 需將物件拉遠才能看清 (Top-Left)
-            & > span:nth-child(3),
-            .banner-tag-3 {
-              left: clamp(-10px, 1.5%, 20px);
-              top: 16%;
-            }
-
-            // Tag 4 (Child 4): 老花眼鏡難以配合穿搭 (Top-Right)
-            & > span:nth-child(4),
-            .banner-tag-4 {
-              right: clamp(10px, 7%, 80px);
-              top: 8%;
-            }
-
-            // Tag 5 (Child 5): 工作時不便戴老花眼鏡 (Mid-Right)
-            & > span:nth-child(5),
-            .banner-tag-5 {
-              right: clamp(-80px, -5%, -15px);
-              top: 41%;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  @media screen and (min-width: 992px) and (max-height: 820px) {
-    .ClearVisionBanner {
-      .ClearVisionBanner-Box-content-title {
-        margin-top: 6px;
-        & > a {
-          font-size: clamp(28px, 3.2vw, 46px);
-        }
-        h1 {
-          font-size: clamp(18px, 1.8vw, 28px);
-          margin-top: 2px;
-          margin-bottom: 4px;
-        }
-        p {
-          font-size: clamp(11px, 0.72vw, 13px);
-          line-height: 1.4;
-          margin-bottom: 2px;
-        }
-      }
-      .ClearVisionBanner-Stage .ClearVisionBanner-Box-content-img {
-        img {
-          max-height: clamp(170px, 34vh, 260px);
-        }
-        p.ClearVisionBanner-Badge span {
-          font-size: clamp(13px, 1.3vw, 22px);
-        }
-      }
-      .ClearVisionBanner-Stage .ClearVisionBanner-Box-text {
+        .hero-symptom-tag,
         span {
-          font-size: clamp(10px, 0.72vw, 12.5px);
-          padding: 2px 8px;
+          position: absolute;
+          pointer-events: auto;
+          width: fit-content;
+          display: inline-block;
+          white-space: nowrap;
+          border-radius: 9999px;
+          border: 1px solid #4570b6;
+          background: #f2f7ff;
+          padding: clamp(7px, 0.6vw, 12px) clamp(18px, 1.3vw, 28px);
+          color: #4570b6;
+          font-family: "Noto Sans HK", sans-serif;
+          font-size: clamp(16px, 1.25vw, 24px);
+          font-style: normal;
+          font-weight: 500;
+          line-height: 1.5;
+          letter-spacing: clamp(0.5px, 0.08vw, 1.2px);
+          box-shadow: 0 2px 8px rgba(69, 112, 182, 0.08);
+          transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.2s ease;
+          cursor: default;
+
+          &:hover {
+            transform: translateY(-2px);
+            background: #e6f0ff;
+            box-shadow: 0 4px 14px rgba(69, 112, 182, 0.16);
+          }
+        }
+
+        .hero-symptom-tag-1,
+        & > span:nth-child(1),
+        .banner-tag-1 {
+          right: clamp(10px, 3%, 50px);
+          top: 68%;
+        }
+
+        .hero-symptom-tag-2,
+        & > span:nth-child(2),
+        .banner-tag-2 {
+          left: clamp(10px, 4%, 60px);
+          top: 54%;
+        }
+
+        .hero-symptom-tag-3,
+        & > span:nth-child(3),
+        .banner-tag-3 {
+          left: clamp(20px, 8%, 100px);
+          top: 14%;
+        }
+
+        .hero-symptom-tag-4,
+        & > span:nth-child(4),
+        .banner-tag-4 {
+          right: clamp(20px, 10%, 110px);
+          top: 10%;
+        }
+
+        .hero-symptom-tag-5,
+        & > span:nth-child(5),
+        .banner-tag-5 {
+          right: clamp(10px, 4%, 70px);
+          top: 38%;
         }
       }
     }
@@ -1277,7 +1243,8 @@ i {
 
   /* 什么事老花 */
   .WhatLaoHua {
-    margin-top: clamp(38px, 3.96vw, 76px);
+    margin: 0 auto;
+    padding-block: clamp(48px, 5vw, 80px);
     .WhatLaoHuaBox {
       display: flex;
       justify-content: center;
@@ -1297,7 +1264,6 @@ i {
           font-family: "Noto Sans HK";
           font-size: clamp(10px, 1.04vw, 20px);
           font-style: normal;
-          font-weight: 300;
           line-height: 1.75;
           letter-spacing: clamp(3px, 0.31vw, 6px);
           span {
@@ -1309,79 +1275,69 @@ i {
     }
   }
   /* 矫视方案 */
-  .CorrectionProgram {
-    scroll-margin-top: 200px;
-    margin-top: clamp(60px, 6.25vw, 120px);
-    margin-bottom: clamp(40px, 4.17vw, 80px);
+  /* 矫视方案 (PC 端重构精简) */
+  .scheme-section {
+    scroll-margin-top: 100px;
+    margin: 0 auto;
+    padding-block: clamp(48px, 5vw, 80px);
     position: relative;
     overflow: hidden;
-    /* height: clamp(419.5px, 43.7vw, 839px); */
-    .CorrectionProgram-Box {
+
+    .scheme-wrapper {
       position: relative;
       bottom: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      .CorrectionProgram-Box-show {
-        opacity: 1;
-        z-index: 2;
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-      }
-      .CorrectionProgram-Box-show {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        transition: transform 0.3s ease-out;
-      }
-      .CorrectionProgram-Box-hide {
+
+      .scheme-main {
         position: relative;
         bottom: 0;
         left: 0;
         width: 100%;
         height: auto;
-        transition: transform 0.3s ease-out;
-      }
-      .CorrectionProgram-Box-hide {
         background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/CorrectionProgram/CorrectionProgram-Box-hide-pc.avif")
           no-repeat;
         background-repeat: no-repeat;
         background-size: 100% 100%;
-        width: 100%;
-        padding: 0% 2%;
-        .CorrectionProgram-Box-hide-title {
+
+        .scheme-heading {
           color: #4570b6;
-          font-family: "Noto Sans TC";
-          font-size: 30px;
+          font-family: var(--font-hk), sans-serif;
+          font-size: clamp(24px, 2.5vw, 32px);
           font-style: normal;
           font-weight: 900;
-          line-height: 30px;
-          padding-top: 80px;
-          margin-bottom: 120px;
+          line-height: 1.3;
+          padding-top: clamp(28px, 3.5vw, 48px);
+          margin-bottom: clamp(24px, 2.5vw, 36px);
           display: flex;
           justify-content: center;
           align-items: center;
-          /* 100% */
+          text-align: center;
         }
-        .CorrectionProgram-Box-hide-item-container {
+
+        .scheme-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
           justify-content: center;
           align-items: stretch;
           gap: clamp(24px, 2.5vw, 40px);
           max-width: 1240px;
-          margin: 0 auto;
+          margin: 0 auto 30px;
           padding-bottom: 24px;
         }
-        .CorrectionProgram-Box-hide-item {
+
+        .scheme-column {
           display: flex;
           flex-direction: column;
           height: 100%;
+        }
+
+        .scheme-card {
+          display: flex;
+          flex-direction: column;
+          flex-grow: 1;
+          margin-bottom: 24px;
           position: relative;
           background: #fff;
           border-radius: 24px;
@@ -1409,8 +1365,10 @@ i {
             border-left: 20px solid transparent;
             border-right: 20px solid transparent;
             border-top: 20px solid #fff;
+            z-index: 2;
           }
-          .CorrectionProgram-Box-hide-item-top {
+
+          .scheme-card-top {
             position: relative;
             border-radius: 24px 24px 0 0;
             overflow: hidden;
@@ -1444,39 +1402,40 @@ i {
               z-index: 5;
             }
 
-            .CorrectionProgram-Box-hide-item-top-text {
+            .scheme-card-badge {
               position: absolute;
               top: auto;
               bottom: 14px;
               left: 14px;
               background: rgba(69, 112, 182, 0.95);
-              padding: 8px 14px;
+              padding: clamp(6px, 0.6vw, 10px) clamp(12px, 1vw, 16px);
               border-radius: 8px;
               color: #fff;
-              font-family: "Noto Sans TC", var(--font-hk), sans-serif;
-              font-size: 13px;
+              font-family: var(--font-hk), sans-serif;
+              font-size: clamp(14px, 1.05vw, 16px);
               font-style: normal;
               font-weight: 400;
               line-height: 1.5;
               letter-spacing: 0.5px;
               z-index: 5;
-              max-width: calc(100% - 70px);
+              max-width: calc(100% - 64px);
+              backdrop-filter: blur(4px);
 
               p {
                 margin-bottom: 0;
-                font-size: 13px;
+                font-size: inherit;
                 line-height: 1.5;
               }
 
-              .CorrectionProgram-Box-hide-item-sub {
+              .scheme-card-tag {
                 position: static;
                 display: block;
                 width: fit-content;
                 background: transparent;
                 padding: 0;
                 color: #fff;
-                font-family: "Noto Sans TC", var(--font-hk), sans-serif;
-                font-size: 13px;
+                font-family: var(--font-hk), sans-serif;
+                font-size: clamp(14px, 1.05vw, 16px);
                 font-weight: 700;
                 line-height: 1.5;
                 letter-spacing: 0.5px;
@@ -1485,13 +1444,13 @@ i {
             }
           }
 
-          .CorrectionProgram-Box-hide-item-bottom {
-            padding: 32px 28px 28px;
+          .scheme-card-body {
+            padding: 0 28px 28px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
 
-            h3 {
+            .scheme-card-title {
               text-align: center;
               color: #4570b6;
               font-family: "Poppins", var(--font-hk), sans-serif;
@@ -1500,14 +1459,14 @@ i {
               font-weight: 800;
               line-height: 1.4;
               letter-spacing: 0.5px;
-              margin: 0 0 18px;
+              margin: 20px 0 16px;
             }
 
-            .CorrectionProgram-Box-hide-item-bottom-text {
+            .scheme-card-desc {
               margin-top: 0;
               color: var(--color-desc);
               text-align: left;
-              font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+              font-family: var(--font-hk), sans-serif;
               font-size: clamp(16px, 1.25vw, 18px);
               font-style: normal;
               font-weight: 400;
@@ -1523,14 +1482,6 @@ i {
           }
         }
 
-        .simple-schemes-row {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: clamp(24px, 2.5vw, 40px);
-          max-width: 1240px;
-          margin: 24px auto 80px;
-          width: 100%;
-        }
         .simple-scheme-chip {
           background: #fff;
           border: 1.5px solid #4570b6;
@@ -1543,13 +1494,6 @@ i {
           min-height: 80px;
           box-shadow: 0 4px 14px rgba(69, 112, 182, 0.06);
           transition: transform 0.25s ease, box-shadow 0.25s ease;
-
-          h3 {
-            font-size: clamp(18px, 1.35vw, 22px);
-            font-weight: 700;
-            color: #4570b6;
-            margin: 0;
-          }
 
           &:hover {
             transform: translateY(-3px);
@@ -1564,7 +1508,7 @@ i {
           h3 {
             color: #4570b6;
             font-family: "Poppins", var(--font-hk), sans-serif;
-            font-size: 18px;
+            font-size: clamp(16px, 1.2vw, 18px);
             font-weight: 700;
             line-height: 1.4;
             margin: 0;
@@ -1577,8 +1521,10 @@ i {
   /* 不同老花矯視技術好處對比 */
   .visionBattle {
     position: relative;
-    padding-top: clamp(66px, 6.88vw, 132px);
-    margin-bottom: clamp(60px, 9.792vw, 188px);
+    overflow: hidden;
+    isolation: isolate;
+    margin: 0 auto;
+    padding-block: clamp(48px, 5vw, 80px);
     .visionBattle-Bg {
       position: absolute;
       width: clamp(953.5px, 99.32vw, 1907px);
@@ -1587,16 +1533,17 @@ i {
       left: 50%;
       transform: translate(-50%, -50%);
       z-index: -1;
+      pointer-events: none !important;
+      user-select: none;
     }
     .visionBattle-Box {
-      max-width: 1240px;
+      width: 100%;
       margin: 0 auto;
-      padding-inline: 20px;
       scroll-margin-top: 120px;
       h2 {
         text-align: center;
         color: #4570b6;
-        font-family: "Noto Sans TC";
+        font-family: "Noto Sans TC", var(--font-hk), sans-serif;
         font-size: clamp(22px, 2.2vw, 34px);
         font-style: normal;
         font-weight: 900;
@@ -1796,14 +1743,43 @@ i {
   /* 合適對象 */
   .SuitableObject {
     position: relative;
-    width: 100vw;
-    margin-top: clamp(69px, 7.19vw, 138px);
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding-block: clamp(48px, 5vw, 80px);
+
+    @keyframes floatSvgRight {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-10px) rotate(2deg);
+      }
+    }
+    @keyframes floatSvgLeft1 {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+      }
+      50% {
+        transform: translateY(8px) scale(1.04);
+      }
+    }
+    @keyframes floatSvgLeft2 {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-8px) rotate(-2deg);
+      }
+    }
+
     .SuitableObject-bg-right {
       position: absolute;
       right: clamp(11.5px, 1.2vw, 23px);
       top: clamp(-223px, -11.61vw, -111.5px);
       width: clamp(214px, 22.29vw, 428px);
       height: auto;
+      animation: floatSvgRight 6.5s ease-in-out infinite;
     }
     .SuitableObject-bgLeft1 {
       position: absolute;
@@ -1811,6 +1787,7 @@ i {
       height: clamp(104.5px, 10.89vw, 209px);
       left: clamp(-40px, -2.08vw, -20px);
       top: clamp(-30px, -1.56vw, -15px);
+      animation: floatSvgLeft1 7.5s ease-in-out infinite;
     }
     .SuitableObject-bgLeft2 {
       position: absolute;
@@ -1818,6 +1795,14 @@ i {
       height: clamp(112px, 11.67vw, 224px);
       left: clamp(82px, 8.54vw, 164px);
       top: clamp(207.5px, 21.61vw, 415px);
+      animation: floatSvgLeft2 8.5s ease-in-out infinite;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .SuitableObject-bg-right,
+      .SuitableObject-bgLeft1,
+      .SuitableObject-bgLeft2 {
+        animation: none !important;
+      }
     }
     .SuitableObject-Box {
       position: relative;
@@ -1888,7 +1873,6 @@ i {
           font-family: "Noto Sans HK";
           font-size: clamp(10px, 1.04vw, 20px);
           font-style: normal;
-          font-weight: 300;
           line-height: 1.75;
           letter-spacing: clamp(2.5px, 0.26vw, 5px);
         }
@@ -1925,7 +1909,6 @@ i {
             font-family: "Noto Sans HK";
             font-size: clamp(10px, 1.04vw, 20px);
             font-style: normal;
-            font-weight: 300;
             line-height: 1.75;
             letter-spacing: clamp(2.5px, 0.26vw, 5px);
 
@@ -2053,10 +2036,12 @@ i {
         }
         &:hover {
           .clearAppointment-Box-item-icon {
-            background: white;
+            background: #ffffff;
+            color: #4570b6;
             box-shadow: 0 clamp(1px, 0.1vw, 2px) clamp(2.5px, 0.26vw, 5px)
               rgba(0, 0, 0, 0.25);
             svg {
+              transform: translateX(3px);
               path {
                 stroke: #4570b6;
               }
@@ -2071,14 +2056,23 @@ i {
           height: clamp(35.5px, 3.7vw, 71px);
           border-radius: 50%;
           background: #4570b6;
+          color: #ffffff;
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 10px;
+          padding: 0;
           box-sizing: border-box;
           transition: all 0.3s ease-in-out;
           svg {
-            width: clamp(38.5px, 4.01vw, 77px);
+            width: clamp(20px, 2.1vw, 40px);
+            height: clamp(17px, 1.8vw, 34px);
+            display: block;
+            margin: auto;
+            transition: all 0.3s ease-in-out;
+            path {
+              stroke: currentColor;
+              transition: stroke 0.3s ease-in-out;
+            }
           }
         }
       }
@@ -2124,56 +2118,14 @@ i {
   
 }
 
-
-
-@media screen and (max-width: 1140px) {
-
-  /* 案例分享 */
-
-  .CaseSharingV2 {
-    width: fit-content;
-
-    margin: 0 auto;
-    & > div:nth-child(1) {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7.58px;
-      span {
-        color: #000;
-        text-align: center;
-        font-family: "Noto Sans TC";
-        font-size: 20px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 0.82px; /* 82.478% */
-      }
-    }
-    & > div:nth-child(2) {
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      a {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 54px;
-        height: 54px;
-        border-radius: 50%;
-        border: 1px solid #4570b6;
-      }
-    }
-  }
-}
-
 /* 移动端 */
 @media screen and (max-width: 992px) {
   /* 四大特点 */
 
   /* 表格 */
   .smilepro-difference {
-    margin-top: 93px;
+    margin: 0 auto;
+    padding-block: clamp(32px, 5vw, 48px);
     max-width: 1260px;
     margin-left: auto;
     margin-right: auto;
@@ -2184,7 +2136,7 @@ i {
         display: inline-block;
         color: #4570b6;
         text-align: center;
-        font-family: "Noto Sans TC";
+        font-family: var(--font-en), var(--font-hk), sans-serif;
         font-size: 20px;
         font-style: normal;
         font-weight: 900;
@@ -2208,7 +2160,7 @@ i {
           top: calc(-100% + 1px);
           right: -32px;
           color: #fff;
-          font-family: "Noto Sans HK";
+          font-family: var(--font-hk), sans-serif;
           font-size: 21.031px;
           font-style: normal;
           font-weight: 900;
@@ -2219,9 +2171,18 @@ i {
       }
     }
 
-    .custom-comparison-table {
-      margin-top: 30px;
+    .table-scroll-wrapper {
       width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-top: 24px;
+      scrollbar-width: thin;
+      scrollbar-color: #8cb3f3 #f2f7ff;
+    }
+
+    .custom-comparison-table {
+      width: 100%;
+      min-width: 480px;
       border-collapse: collapse;
       border-spacing: 0;
     }
@@ -2229,67 +2190,66 @@ i {
     .custom-comparison-table tr {
       position: relative;
       z-index: 2;
-      height: 82px;
+      min-height: 70px;
+      height: auto;
     }
     .custom-comparison-table th,
     .custom-comparison-table td {
       border-bottom: 1px solid #d0d0d0;
       text-align: center;
       vertical-align: middle;
+      padding: 8px 6px;
     }
 
     .custom-comparison-table thead th {
-      height: 85px;
+      min-height: 75px;
+      height: auto;
       color: #4570b6;
       text-align: center;
-      font-family: "Noto Sans TC";
-      font-size: 14px;
+      font-family: var(--font-en), var(--font-hk), sans-serif;
+      font-size: 13.5px;
       font-style: normal;
-      font-weight: 900;
-      line-height: 1.357;
-      width: 27.18vw;
+      font-weight: 700;
+      line-height: 1.35;
+      width: 28%;
+      padding: 10px 6px;
     }
 
     .custom-comparison-table thead th:nth-child(1) {
-      width: 17.95vw;
+      width: 16%;
     }
 
     .custom-comparison-table thead tr > th:nth-child(1) {
       background: none;
     }
-    /* .custom-comparison-table thead tr > th:nth-child(3) { */
-    /*   background: #f8eeff; */
-    /* } */
-    /* .custom-comparison-table thead tr > th:nth-child(4) { */
-    /*   background: #e8fdf4; */
-    /* } */
 
     .custom-comparison-table tbody tr td {
-      color: #60605f;
+      color: #4a4a4a;
       text-align: center;
-      font-family: "Noto Sans TC";
-      font-size: 12px;
+      font-family: var(--font-en), var(--font-hk), sans-serif;
+      font-size: 13.5px;
       font-style: normal;
-      font-weight: 300;
-      line-height: 1.314;
+      line-height: 1.35;
+      padding: 8px 4px;
     }
 
     .custom-comparison-table tbody tr > td:nth-child(1) {
       background: #f8f8f8;
       color: #4570b6;
       text-align: center;
-      font-family: "Noto Sans TC";
-      font-size: 14px;
+      font-family: var(--font-hk), sans-serif;
+      font-size: 13.5px;
       font-style: normal;
       font-weight: 700;
-      line-height: 21.031px;
+      line-height: 1.35;
+      padding: 8px 4px;
       p {
         color: #4570b6;
-        font-family: "Noto Sans TC";
-        font-size: 12px;
+        font-family: var(--font-hk), sans-serif;
+        font-size: 13.5px;
         font-style: normal;
         font-weight: 700;
-        line-height: 21.031px;
+        line-height: 1.35;
       }
     }
 
@@ -2381,7 +2341,7 @@ i {
       height: 21.79vw;
       color: #4570b6;
       text-align: center;
-      font-family: "Noto Sans TC";
+      font-family: var(--font-en), var(--font-hk), sans-serif;
       font-size: 3.59vw;
       font-style: normal;
       font-weight: 900;
@@ -2405,10 +2365,9 @@ i {
     .custom-comparison-table tbody tr td {
       color: #60605f;
       text-align: center;
-      font-family: "Noto Sans TC";
+      font-family: var(--font-en), var(--font-hk), sans-serif;
       font-size: 3.08vw;
       font-style: normal;
-      font-weight: 300;
       line-height: 1.314;
     }
 
@@ -2416,14 +2375,14 @@ i {
       background: #f8f8f8;
       color: #4570b6;
       text-align: center;
-      font-family: "Noto Sans TC";
+      font-family: var(--font-en), var(--font-hk), sans-serif;
       font-size: 3.59vw;
       font-style: normal;
       font-weight: 700;
       line-height: 1.44;
       p {
         color: #4570b6;
-        font-family: "Noto Sans TC";
+        font-family: var(--font-en), var(--font-hk), sans-serif;
         font-size: 3.08vw;
         font-style: normal;
         font-weight: 700;
@@ -2436,50 +2395,11 @@ i {
 
       color: #60605f;
       text-align: center;
-      font-family: "Noto Sans TC";
+      font-family: var(--font-en), var(--font-hk), sans-serif;
       font-size: 3.08vw;
       font-style: normal;
-      font-weight: 300;
       line-height: 1.314;
       letter-spacing: 0.6px;
-    }
-  }
-
-  /* 案例分享 */
-
-  .CaseSharingV2 {
-    width: fit-content;
-
-    margin: 0 auto;
-    & > div:nth-child(1) {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1.94vw;
-      span {
-        color: #000;
-        text-align: center;
-        font-family: "Noto Sans TC";
-        font-size: 5.13vw;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 0.82;
-      }
-    }
-    & > div:nth-child(2) {
-      margin-top: 5.13vw;
-      display: flex;
-      justify-content: center;
-      gap: 5.13vw;
-      a {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 13.85vw;
-        height: 13.85vw;
-        border-radius: 50%;
-        border: 1px solid #4570b6;
-      }
     }
   }
 }
@@ -2498,7 +2418,8 @@ i {
 
   /* 表格 */
   .smilepro-difference {
-    margin-top: 230px;
+    margin: 0 auto;
+    padding-block: clamp(48px, 5vw, 80px);
     max-width: 1260px;
     margin-left: auto;
     margin-right: auto;
@@ -2508,7 +2429,7 @@ i {
       & > div {
         display: inline-block;
         color: #4570b6;
-        font-family: "Noto Sans TC";
+        font-family: var(--font-en), var(--font-hk), sans-serif;
         font-size: 30px;
         font-style: normal;
         font-weight: 900;
@@ -2516,7 +2437,7 @@ i {
         position: relative;
         span {
           color: #4570b6;
-          font-family: "Poppins";
+          font-family: var(--font-en), var(--font-hk), sans-serif;
           font-size: 30px;
           font-style: normal;
           font-weight: 700;
@@ -2537,6 +2458,7 @@ i {
       margin-top: 67px;
       border-collapse: collapse;
       border-spacing: 0;
+      font-family: var(--font-en), var(--font-hk), sans-serif;
     }
     .custom-comparison-table tr th {
       height: 148px;
@@ -2549,11 +2471,12 @@ i {
       border-bottom: 1.5px solid #d0d0d0;
       text-align: center;
       vertical-align: middle;
+      font-family: var(--font-en), var(--font-hk), sans-serif;
     }
 
     .custom-comparison-table thead th {
       color: #4570b6;
-      font-family: "Noto Sans TC";
+      font-family: var(--font-en), var(--font-hk), sans-serif;
       font-size: 20px;
       font-style: normal;
       font-weight: 700;
@@ -2562,7 +2485,7 @@ i {
 
       span {
         text-align: center;
-        font-family: "Poppins";
+        font-family: var(--font-en), var(--font-hk), sans-serif;
         font-size: 20px;
         font-style: normal;
         font-weight: 700;
@@ -2587,10 +2510,9 @@ i {
     .custom-comparison-table tbody tr td {
       color: #60605f;
       text-align: center;
-      font-family: "Noto Sans TC";
+      font-family: var(--font-en), var(--font-hk), sans-serif;
       font-size: 20px;
       font-style: normal;
-      font-weight: 300;
       line-height: 1.125;
       letter-spacing: 1px;
     }
@@ -2599,7 +2521,7 @@ i {
       background: #f8f8f8;
       color: #4570b6;
       text-align: center;
-      font-family: "Noto Sans TC";
+      font-family: var(--font-en), var(--font-hk), sans-serif;
       font-size: 20px;
       font-style: normal;
       font-weight: 700;
@@ -2609,7 +2531,6 @@ i {
 
     .custom-comparison-table tbody tr > td:nth-child(3) {
       /* background: #5a8ad6; */
-      font-weight: 300;
       color: #60605f;
     }
     /* 按钮 */
@@ -2630,49 +2551,6 @@ i {
   .d-xl-block {
     display: block;
   }
-
-  /* 案例分享 */
-
-  .CaseSharingV2 {
-    display: none;
-    width: fit-content;
-
-    margin: 0 auto;
-    & > div:nth-child(1) {
-      display: flex;
-      align-items: baseline;
-      justify-content: center;
-      gap: 13px;
-      span {
-        color: #000;
-        text-align: center;
-        font-family: "Noto Sans TC";
-        font-size: 30px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 25px; /* 83.333% */
-      }
-    }
-    & > div:nth-child(2) {
-      margin-top: 49px;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      a {
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 82px;
-        height: 82px;
-        border-radius: 50%;
-        border: 1px solid #4570b6;
-        svg {
-          width: 30px;
-        }
-      }
-    }
-  }
 }
 
 
@@ -2680,8 +2558,8 @@ i {
 .main_banner {
   display: flex;
   justify-content: center;
-  margin-top: clamp(60px, 7vw, 110px);
-  padding: 20px 0;
+  margin: 0 auto;
+  padding-block: clamp(32px, 4vw, 64px);
 }
 
 
@@ -2798,13 +2676,16 @@ i {
   transform: translateY(-50%);
   width: 62px;
   height: 62px;
-/*   background: #4570B6; */
-/*   border-radius: 50%; */
   display: flex;
   justify-content: center;
   align-items: center;
-
+  z-index: 10;
   cursor: pointer;
+
+  &::after {
+    display: none !important;
+    content: none !important;
+  }
 }
 
 .lbv-swiper-button-prev {
@@ -2850,11 +2731,11 @@ i {
     width: 30px;
     height: 30px;
     display: none;
-  }
-  
-  .lbv-swiper-button-prev::after,
-  .lbv-swiper-button-next::after {
-    font-size: 16px;
+
+    &::after {
+      display: none !important;
+      content: none !important;
+    }
   }
   .lbv-slide {
     padding: 20px 15px;
@@ -2879,11 +2760,11 @@ i {
    EVO ICL 產品系列介紹 — V6 表格 (.icl-model)
    ========================================================================== */
 .icl-model {
-  margin-top: clamp(30px, 4vw, 80px);
-  margin-bottom: clamp(30px, 4vw, 80px);
+  margin: 0 auto;
+  padding-block: clamp(48px, 5vw, 80px);
 
   .model-title {
-    font-size: clamp(20px, 2.08vw, 30px);
+    font-size: clamp(22px, 2.2vw, 32px);
     font-weight: 900;
     line-height: 1.3;
     color: #4570b6;
@@ -2900,18 +2781,19 @@ i {
 
   .model-table {
     border-collapse: collapse;
-    min-width: 420px;
     width: 100%;
+    table-layout: fixed;
 
     td {
-      height: clamp(80px, 8vw, 116px);
+      height: auto;
+      min-height: clamp(60px, 8vw, 116px);
       text-align: center;
       vertical-align: middle;
       color: #60605f;
-      font-size: clamp(14px, 1.25vw, 18px);
-      font-weight: 300;
-      line-height: 1.4;
-      padding: 10px;
+      font-size: clamp(14.5px, 1.35vw, 20px);
+      line-height: 1.45;
+      padding: clamp(8px, 1.2vw, 14px) clamp(6px, 1vw, 12px);
+      overflow-wrap: break-word;
     }
   }
 
@@ -2922,9 +2804,9 @@ i {
   .project-name {
     background-color: #d4e4ff;
     color: #4570b6;
-    font-size: clamp(20px, 2.08vw, 30px);
+    font-size: clamp(20px, 2.2vw, 32px);
     font-weight: 900;
-    height: clamp(80px, 10vw, 148px);
+    height: clamp(60px, 10vw, 148px);
     text-align: center;
     vertical-align: middle;
     font-family: "Noto Sans TC", sans-serif;
@@ -2933,16 +2815,17 @@ i {
   .table-item {
     background-color: #efeeee;
     color: #4570b6;
-    font-size: clamp(14px, 1.39vw, 20px);
+    font-size: clamp(15px, 1.5vw, 22px);
     font-weight: 700;
-    line-height: 1.5;
-    width: clamp(92px, 16vw, 232px);
+    line-height: 1.4;
+    width: clamp(92px, 20vw, 220px);
     position: sticky;
     left: 0;
     z-index: 10;
     text-align: center;
     vertical-align: middle;
     font-family: "Noto Sans TC", sans-serif;
+    padding: clamp(8px, 1.2vw, 14px) 6px;
   }
 
   .model-star {
