@@ -58,10 +58,10 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
     }))}
   />
 
-  <div class="page-presbyopia font-hk text-desc relative overflow-x-clip">
+  <div class="page-presbyopia font-hk text-desc relative overflow-x-clip" style="scroll-snap-type: y proximity;">
     <!-- 1. 頂部主橫幅 Hero Banner -->
     <section class="ClearVisionBanner">
-      <div class="site-container">
+      <div class="ClearVisionBanner-Container site-container">
         <div class="ClearVisionBanner-Box">
           <div class="ClearVisionBanner-Box-content">
             <div class="ClearVisionBanner-Box-content-title">
@@ -80,37 +80,40 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
                 {content.banner.p3}
               </p>
             </div>
-            <div class="ClearVisionBanner-Box-content-img">
-              <img
-                draggable="false"
-                decoding="async"
-                src={content.banner.imgPc}
-                alt={content.banner.imgAlt}
-                title={content.banner.imgAlt}
-                loading="lazy"
-                width="100%"
-                height="100%"
-                srcset={`${content.banner.imgMb} 400w, ${content.banner.imgMb} 640w, ${content.banner.imgPc}`}
-                sizes="(max-width: 992px) 100vw, 1216px"
-              />
-              <p>
-                <span set:html={content.banner.badgeSpan1} />
-                &nbsp;
-                <span>{content.banner.badgeSpan2}</span>
-              </p>
+            <div class="ClearVisionBanner-Stage">
+              <div class="ClearVisionBanner-Box-content-img">
+                <img
+                  draggable="false"
+                  decoding="async"
+                  src={content.banner.imgPc}
+                  alt={content.banner.imgAlt}
+                  title={content.banner.imgAlt}
+                  loading="eager"
+                  fetchpriority="high"
+                  width="1209"
+                  height="678"
+                  srcset={`${content.banner.imgMb} 400w, ${content.banner.imgMb} 640w, ${content.banner.imgPc}`}
+                  sizes="(max-width: 992px) 100vw, 1209px"
+                />
+                <p class="ClearVisionBanner-Badge">
+                  <span set:html={content.banner.badgeSpan1} />
+                  &nbsp;
+                  <span>{content.banner.badgeSpan2}</span>
+                </p>
+              </div>
+              <div class="ClearVisionBanner-Box-text">
+                {content.banner.tags.map((tag, idx) => (
+                  <span class={`banner-tag banner-tag-${idx + 1}`}>{tag}</span>
+                ))}
+              </div>
             </div>
-          </div>
-          <div class="ClearVisionBanner-Box-text">
-            {content.banner.tags.map((tag) => (
-              <span>{tag}</span>
-            ))}
           </div>
         </div>
       </div>
     </section>
 
     <!-- 2. 什麼是老花？ -->
-    <section class="WhatLaoHua">
+    <section class="WhatLaoHua" id="WhatLaoHua" style="scroll-snap-align: start; scroll-margin-top: 112px;">
       <div class="WhatLaoHuaBox site-container">
         <h2>{content.whatIs.title}</h2>
         <div class="WhatLaoHuaBox-text">
@@ -122,7 +125,7 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
     </section>
 
     <!-- 3. 老花矯視方案 -->
-    <div id="CorrectionProgram" class="CorrectionProgram">
+    <div id="CorrectionProgram" class="CorrectionProgram site-container">
       <div class="CorrectionProgram-Box">
         <div class="CorrectionProgram-Box-show hidden lg:block" id="presbyopiaBoxShow">
           <img
@@ -198,7 +201,7 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
         target="_blank"
         rel="noopener noreferrer"
         href={content.schemes.whatsappUrl}
-        class="publicBtn-booking"
+        class="publicBtn-booking cta-pulse"
         data-cta="whatsapp-w06"
         title={content.schemes.ctaBtnText}
       >
@@ -276,7 +279,8 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
         <div class="mt-8 md:mt-12 flex flex-col items-center">
           <a
             href={isCn ? "/cn/fee#table1" : "/fee#table1"}
-            class="md:w-auto bg-[#4570B6] hover:bg-[#345c99] transition-colors text-white px-10 py-4 md:py-5 md:px-[100px] rounded-full text-2xl md:text-4xl font-bold flex items-center justify-center gap-3"
+            class="md:w-auto bg-[#4570B6] hover:bg-[#345c99] transition-colors text-white px-10 py-4 md:py-5 md:px-[100px] rounded-full text-2xl md:text-4xl font-bold flex items-center justify-center gap-3 cta-pulse"
+            data-cta="fee"
             title={content.fee.btnText}
           >
             {content.fee.btnText}
@@ -424,84 +428,84 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
-        <!-- EVO ICL 產品系列介紹 — V6 表格 -->
-        <div class="model-box mt-16 lg:mt-24">
-          <h2
-            class="publicTitle mb-6 lg:mb-10 text-center font-bold text-xl lg:text-3xl text-[#4570B6]"
-          >
-            {content.modelTable.title}
-          </h2>
-          <div
-            class="model-main w-full text-desc text-center font-light text-base lg:text-xl"
-          >
-            <table class="model-table w-full">
-              <thead>
-                <tr class="line-bottom">
-                  <th class="table-item">{content.modelTable.projectHeader}</th>
-                  <th class="project-name">{content.modelTable.modelHeader}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="line-bottom">
-                  <th class="table-item">{content.modelTable.rangeLabel}</th>
-                  <td set:html={content.modelTable.rangeContent} />
-                </tr>
-                <tr class="line-bottom">
-                  <th class="table-item">{content.modelTable.techLabel}</th>
-                  <td class="model-star text-[#F89B03] font-bold">
-                    {content.modelTable.techContent}
-                  </td>
-                </tr>
-                <tr class="line-bottom">
-                  <th class="table-item">{content.modelTable.materialLabel}</th>
-                  <td>{content.modelTable.materialContent}</td>
-                </tr>
-                <tr class="line-bottom">
-                  <th class="table-item">{content.modelTable.audienceLabel}</th>
-                  <td>{content.modelTable.audienceContent}</td>
-                </tr>
-                <tr class="line-bottom">
-                  <th class="table-item">{content.modelTable.nightLabel}</th>
-                  <td class="model-star text-[#F89B03] font-bold">
-                    {content.modelTable.nightContent}
-                  </td>
-                </tr>
-                <tr class="line-bottom">
-                  <th class="table-item">
-                    {content.modelTable.reversibilityLabel}
-                  </th>
-                  <td>
-                    <div class="flex items-center justify-center gap-1">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="27"
-                        height="28"
-                        viewBox="0 0 27 28"
-                        fill="none"
-                      >
-                        <path
-                          d="M.009 15.08c-.128-4.545 1.115-7.944 3.749-10.787S9.638.01 13.416 0c3.706-.009 6.907 1.369 9.545 4.111 2.632 2.736 3.933 6.05 3.961 9.89.026 3.486-1.12 6.562-3.318 9.18-2.24 2.664-5.074 4.314-8.457 4.718-4.638.554-8.577-1.028-11.751-4.595C1.433 21.099.01 17.83.009 15.08m11.206.075c-.089-.085-.167-.154-.24-.23-.828-.859-1.655-1.723-2.486-2.579-.339-.35-.559-.345-.892 0q-.9.931-1.8 1.869c-.302.316-.302.545 0 .861q2.468 2.582 4.937 5.16c.366.382.574.38.948-.007q.919-.95 1.838-1.904 3.768-3.908 7.534-7.818c.347-.36.347-.589.003-.947L19.35 7.787c-.409-.423-.603-.425-1.006-.007l-6.888 7.14c-.073.076-.151.147-.243.235z"
-                          fill="#f89b03"
-                        />
-                        <path
-                          d="M11.215 15.155c.091-.089.17-.16.243-.235l6.888-7.14c.402-.42.597-.418 1.006.007q.854.885 1.706 1.772c.343.359.343.587-.004.947q-3.766 3.91-7.533 7.818-.917.953-1.838 1.905c-.374.387-.583.389-.949.006l-4.936-5.159c-.302-.317-.302-.545 0-.862q.898-.936 1.8-1.868c.333-.346.553-.35.891 0 .832.857 1.658 1.72 2.487 2.58.073.075.152.143.24.229z"
-                          fill="#fff"
-                        />
-                      </svg>
-                      <span>{content.modelTable.reversibilityContent}</span>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+    <!-- EVO ICL 產品系列介紹 — V6 表格 -->
+    <section class="icl-model mb-9 lg:mb-20 site-container">
+      <h2
+        class="model-title mb-6 lg:mb-10 text-center font-bold text-xl lg:text-3xl text-[#4570B6]"
+      >
+        {content.modelTable.title}
+      </h2>
+      <div
+        class="model-main w-full text-desc text-center font-light text-base lg:text-xl"
+      >
+        <table class="model-table w-full">
+          <thead>
+            <tr class="line-bottom">
+              <th class="table-item">{content.modelTable.projectHeader}</th>
+              <th class="project-name">{content.modelTable.modelHeader}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="line-bottom">
+              <th class="table-item">{content.modelTable.rangeLabel}</th>
+              <td set:html={content.modelTable.rangeContent} />
+            </tr>
+            <tr class="line-bottom">
+              <th class="table-item">{content.modelTable.techLabel}</th>
+              <td class="model-star text-[#F89B03] font-bold">
+                {content.modelTable.techContent}
+              </td>
+            </tr>
+            <tr class="line-bottom">
+              <th class="table-item">{content.modelTable.materialLabel}</th>
+              <td>{content.modelTable.materialContent}</td>
+            </tr>
+            <tr class="line-bottom">
+              <th class="table-item">{content.modelTable.audienceLabel}</th>
+              <td>{content.modelTable.audienceContent}</td>
+            </tr>
+            <tr class="line-bottom">
+              <th class="table-item">{content.modelTable.nightLabel}</th>
+              <td class="model-star text-[#F89B03] font-bold">
+                {content.modelTable.nightContent}
+              </td>
+            </tr>
+            <tr class="line-bottom">
+              <th class="table-item">
+                {content.modelTable.reversibilityLabel}
+              </th>
+              <td>
+                <div class="flex items-center justify-center gap-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="27"
+                    height="28"
+                    viewBox="0 0 27 28"
+                    fill="none"
+                  >
+                    <path
+                      d="M.009 15.08c-.128-4.545 1.115-7.944 3.749-10.787S9.638.01 13.416 0c3.706-.009 6.907 1.369 9.545 4.111 2.632 2.736 3.933 6.05 3.961 9.89.026 3.486-1.12 6.562-3.318 9.18-2.24 2.664-5.074 4.314-8.457 4.718-4.638.554-8.577-1.028-11.751-4.595C1.433 21.099.01 17.83.009 15.08m11.206.075c-.089-.085-.167-.154-.24-.23-.828-.859-1.655-1.723-2.486-2.579-.339-.35-.559-.345-.892 0q-.9.931-1.8 1.869c-.302.316-.302.545 0 .861q2.468 2.582 4.937 5.16c.366.382.574.38.948-.007q.919-.95 1.838-1.904 3.768-3.908 7.534-7.818c.347-.36.347-.589.003-.947L19.35 7.787c-.409-.423-.603-.425-1.006-.007l-6.888 7.14c-.073.076-.151.147-.243.235z"
+                      fill="#f89b03"
+                    />
+                    <path
+                      d="M11.215 15.155c.091-.089.17-.16.243-.235l6.888-7.14c.402-.42.597-.418 1.006.007q.854.885 1.706 1.772c.343.359.343.587-.004.947q-3.766 3.91-7.533 7.818-.917.953-1.838 1.905c-.374.387-.583.389-.949.006l-4.936-5.159c-.302-.317-.302-.545 0-.862q.898-.936 1.8-1.868c.333-.346.553-.35.891 0 .832.857 1.658 1.72 2.487 2.58.073.075.152.143.24.229z"
+                      fill="#fff"
+                    />
+                  </svg>
+                  <span>{content.modelTable.reversibilityContent}</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
     <!-- 5. LBV/CLEAR-Vision/ICL Viva V6 大不同 -->
-    <section class="smilepro-difference">
+    <section class="smilepro-difference site-container">
       <div class="smilepro-difference-title">
         <div set:html={content.comparison.title} />
       </div>
@@ -523,88 +527,43 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
                   <td>
                     {row.col1Badge?.text ? (
                       <span class="flex items-center justify-center gap-2">
-                        <img decoding="async" loading="lazy"
-                          draggable="false"
-                          src={
-                            row.col1Badge.success
+                        <img decoding="async" loading="lazy" draggable="false" width="22" height="22" src={row.col1Badge.success
                               ? "https://statichk.cmermedical.com/smile/feeV2/success.svg"
-                              : "https://statichk.cmermedical.com/smile/feeV2/error.svg"
-                          }
-                          alt={row.col1Badge.text}
-                          title={row.col1Badge.text}
-                        />
+                              : "https://statichk.cmermedical.com/smile/feeV2/error.svg"} alt={row.col1Badge.text} title={row.col1Badge.text} class="w-[22px] h-[22px] inline-block align-middle flex-shrink-0" />
                         {row.col1Badge.text}
                       </span>
                     ) : (
-                      <img decoding="async" loading="lazy"
-                        draggable="false"
-                        src={
-                          row.col1Badge?.success
+                      <img decoding="async" loading="lazy" draggable="false" width="22" height="22" src={row.col1Badge?.success
                             ? "https://statichk.cmermedical.com/smile/feeV2/success.svg"
-                            : "https://statichk.cmermedical.com/smile/feeV2/error.svg"
-                        }
-                        alt={row.col1Badge?.success ? "包括" : "不包括"}
-                        title={row.col1Badge?.success ? "包括" : "不包括"}
-                        class="mx-auto"
-                      />
+                            : "https://statichk.cmermedical.com/smile/feeV2/error.svg"} alt={row.col1Badge?.success ? "包括" : "不包括"} title={row.col1Badge?.success ? "包括" : "不包括"} class="mx-auto w-[22px] h-[22px] block" />
                     )}
                   </td>
                   <td>
                     {row.col2Badge?.text ? (
                       <span class="flex items-center justify-center gap-2">
-                        <img decoding="async" loading="lazy"
-                          draggable="false"
-                          src={
-                            row.col2Badge.success
+                        <img decoding="async" loading="lazy" draggable="false" width="22" height="22" src={row.col2Badge.success
                               ? "https://statichk.cmermedical.com/smile/feeV2/success.svg"
-                              : "https://statichk.cmermedical.com/smile/feeV2/error.svg"
-                          }
-                          alt={row.col2Badge.text}
-                          title={row.col2Badge.text}
-                        />
+                              : "https://statichk.cmermedical.com/smile/feeV2/error.svg"} alt={row.col2Badge.text} title={row.col2Badge.text} class="w-[22px] h-[22px] inline-block align-middle flex-shrink-0" />
                         {row.col2Badge.text}
                       </span>
                     ) : (
-                      <img decoding="async" loading="lazy"
-                        draggable="false"
-                        src={
-                          row.col2Badge?.success
+                      <img decoding="async" loading="lazy" draggable="false" width="22" height="22" src={row.col2Badge?.success
                             ? "https://statichk.cmermedical.com/smile/feeV2/success.svg"
-                            : "https://statichk.cmermedical.com/smile/feeV2/error.svg"
-                        }
-                        alt={row.col2Badge?.success ? "包括" : "不包括"}
-                        title={row.col2Badge?.success ? "包括" : "不包括"}
-                        class="mx-auto"
-                      />
+                            : "https://statichk.cmermedical.com/smile/feeV2/error.svg"} alt={row.col2Badge?.success ? "包括" : "不包括"} title={row.col2Badge?.success ? "包括" : "不包括"} class="mx-auto w-[22px] h-[22px] block" />
                     )}
                   </td>
                   <td>
                     {row.col3Badge?.text ? (
                       <div class="flex items-center justify-center gap-2">
-                        <img decoding="async" loading="lazy"
-                          draggable="false"
-                          src={
-                            row.col3Badge.success
+                        <img decoding="async" loading="lazy" draggable="false" width="22" height="22" src={row.col3Badge.success
                               ? "https://statichk.cmermedical.com/smile/feeV2/success.svg"
-                              : "https://statichk.cmermedical.com/smile/feeV2/error.svg"
-                          }
-                          alt={row.col3Badge.text}
-                          title={row.col3Badge.text}
-                        />
+                              : "https://statichk.cmermedical.com/smile/feeV2/error.svg"} alt={row.col3Badge.text} title={row.col3Badge.text} class="w-[22px] h-[22px] inline-block align-middle flex-shrink-0" />
                         {row.col3Badge.text}
                       </div>
                     ) : (
-                      <img decoding="async" loading="lazy"
-                        draggable="false"
-                        src={
-                          row.col3Badge?.success
+                      <img decoding="async" loading="lazy" draggable="false" width="22" height="22" src={row.col3Badge?.success
                             ? "https://statichk.cmermedical.com/smile/feeV2/success.svg"
-                            : "https://statichk.cmermedical.com/smile/feeV2/error.svg"
-                        }
-                        alt={row.col3Badge?.success ? "包括" : "不包括"}
-                        title={row.col3Badge?.success ? "包括" : "不包括"}
-                        class="mx-auto"
-                      />
+                            : "https://statichk.cmermedical.com/smile/feeV2/error.svg"} alt={row.col3Badge?.success ? "包括" : "不包括"} title={row.col3Badge?.success ? "包括" : "不包括"} class="mx-auto w-[22px] h-[22px] block" />
                     )}
                   </td>
                 </>
@@ -638,18 +597,12 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
               {content.preview.slides.map((s, idx) => (
                 <div
                   class={`swiper-slide lbv-slide ${idx === 0 ? "active" : ""}`}
-                  style={{ display: idx === 0 ? "block" : "none" }}
+                  style={{ display: idx === 0 ? "flex" : "none" }}
                   data-scene={s.title}
                 >
                   <div class="lbv-slide-content">
                     <div class="lbv-slide-image">
-                      <img decoding="async" loading="lazy"
-                        draggable="false"
-                        src={s.img}
-                        alt={s.alt}
-                        title={s.alt || s.title}
-                        class="lbv-background-image"
-                      />
+                      <img decoding="async" loading="lazy" draggable="false" width="952" height="707" src={s.img} alt={s.alt} title={s.alt || s.title} class="lbv-background-image" />
                     </div>
                   </div>
                 </div>
@@ -766,14 +719,12 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
         draggable="false"
         decoding="async"
         src={content.suitable.bgRightPc}
-        alt={content.suitable.title}
+        alt=""
         title={content.suitable.title}
         aria-hidden="true"
         loading="lazy"
-        width="100%"
-        height="100%"
-        srcset={`${content.suitable.bgRightMb} 400w, ${content.suitable.bgRightMb} 640w, ${content.suitable.bgRightPc}`}
-        sizes="(max-width: 992px) 100vw, 1216px"
+        width="501"
+        height="431"
         class="SuitableObject-bg-right"
       />
       <img decoding="async" loading="lazy"
@@ -802,7 +753,7 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
             const itemText = it.html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
             return (
               <div class="SuitableObject-Box-List-item">
-                <img decoding="async" loading="lazy" draggable="false" src={it.icon} alt={itemText} title={itemText} />
+                <img decoding="async" loading="lazy" draggable="false" width="70" height="70" src={it.icon} alt={itemText} title={itemText} class="suitable-item-icon" />
                 <p set:html={it.html} />
               </div>
             );
@@ -812,7 +763,7 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
     </section>
 
     <!-- 了解老花矯視價格 按鈕 -->
-    <a href={feeUrl} class="publicBtn-booking" title={content.suitable.feeBtnText}>
+    <a href={feeUrl} class="publicBtn-booking cta-pulse" data-cta="fee" title={content.suitable.feeBtnText}>
       <span>{content.suitable.feeBtnText}</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -835,30 +786,30 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
         />
       </svg>
     </a>
-
-    <!-- 9. 常見問題 FAQ -->
+    <!-- 9. 常見問題 FAQ (全站統一規範：.faq-section + .section-title + .faq-accordion-list + .faq-item) -->
     <section
-      class="faq-section py-10 lg:py-16"
+      id="faq"
+      class="faq-section site-container py-12 md:py-16"
       aria-labelledby="presbyopia-faq-title"
     >
-      <div class="site-container">
-        <h2 id="presbyopia-faq-title" class="section-title mb-6 lg:mb-10">
-          {content.faq.title}
-        </h2>
-        <div class="faq-accordion-list">
-          {content.faq.items.map((faq, idx) => (
+      <h2 id="presbyopia-faq-title" class="section-title">
+        {content.faq.title}
+      </h2>
+
+      <div class="faq-accordion-list max-w-[1187px] mx-auto">
+        {content.faq.items.map((faq, index) => {
+          const isOpen = index === 0;
+          return (
             <details
               id={faq.id}
               name="presbyopia-faq"
               class="faq-item"
-              open={idx === 0}
+              open={isOpen}
               itemscope
               itemtype="https://schema.org/Question"
             >
               <summary class="faq-header">
-                <div class="faq-header-text" itemprop="name">
-                  {faq.question}
-                </div>
+                <div class="faq-header-text" itemprop="name">{faq.question}</div>
                 <span class="faq-toggle-indicator" aria-hidden="true" />
               </summary>
               <div
@@ -867,13 +818,11 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
                 itemprop="acceptedAnswer"
                 itemtype="https://schema.org/Answer"
               >
-                <div class="faq-answer" itemprop="text">
-                  {faq.answer}
-                </div>
+                <div class="faq-answer" itemprop="text" set:html={faq.answer} />
               </div>
             </details>
-          ))}
-        </div>
+          );
+        })}
       </div>
     </section>
 

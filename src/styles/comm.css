@@ -364,6 +364,10 @@ img {
 }
 
 /* -------------------------------------------------------------------------- */
+:root {
+  interpolate-size: allow-keywords;
+}
+
 /* 全站 FAQ 原生手風琴與區塊標題樣式 (FreQuestions / Presbyopia 共享)            */
 /* -------------------------------------------------------------------------- */
 .faq-section .section-title {
@@ -1136,13 +1140,15 @@ html[lang="zh-cn"] .media-card .media-card-excerpt {
   }
 }
 
-.cta-pulse {
+.cta-pulse,
+.publicBtn-booking {
   position: relative;
   overflow: hidden;
   animation: cta-pulse-ring 2.4s ease-in-out infinite;
 }
 
-.cta-pulse::after {
+.cta-pulse::after,
+.publicBtn-booking::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -1160,7 +1166,9 @@ html[lang="zh-cn"] .media-card .media-card-excerpt {
 
 @media (prefers-reduced-motion: reduce) {
   .cta-pulse,
-  .cta-pulse::after {
+  .cta-pulse::after,
+  .publicBtn-booking,
+  .publicBtn-booking::after {
     animation: none;
   }
 }
