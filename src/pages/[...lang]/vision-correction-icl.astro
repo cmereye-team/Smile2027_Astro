@@ -420,54 +420,56 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
           {/* 右側內容區域 */}
           <div class="content-area">
             <div class="content-panel">
-              <div class="content-area-title">
-                <h2 id="icl-intro-title" class="m-0 p-0 text-inherit font-inherit">
-                  {content.steps.titlePrefix}<br />
-                  {content.steps.titleSuffix}
-                </h2>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="19"
-                  height="20"
-                  viewBox="0 0 19 20"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M0.726577 1.2312L17.593 18.0976"
-                    stroke="#4570B6"
-                    stroke-width="1.34165"
-                    stroke-linecap="round"
-                  />
-                  <path
-                    d="M18.1296 3.68896L18.1296 18.6727L3.63983 18.6727"
-                    stroke="#4570B6"
-                    stroke-width="1.34165"
-                    stroke-linecap="round"
-                  />
-                </svg>
-              </div>
               <div class="content-area-img">
-                <img decoding="async" draggable="false"
-                  id="iclStepImgMb"
-                  class="d-xl-none"
-                  src={content.steps.list[0].image}
-                  alt="ICL 手術過程"
-                  title="ICL 手術過程"
-                  loading="lazy"
-                  width="300"
-                  height="200"
-                />
-                <img decoding="async" draggable="false"
-                  id="iclStepImgPc"
-                  class="d-none d-xl-block"
-                  src={content.steps.list[0].imagePc}
-                  alt="ICL 手術過程"
-                  title="ICL 手術過程"
-                  loading="lazy"
-                  width="540"
-                  height="360"
-                />
+                <div class="step-visual-box">
+                  <div class="content-area-title">
+                    <h2 id="icl-intro-title" class="m-0 p-0 text-inherit font-inherit">
+                      {content.steps.titlePrefix}<br />
+                      {content.steps.titleSuffix}
+                    </h2>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="19"
+                      height="20"
+                      viewBox="0 0 19 20"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M0.726577 1.2312L17.593 18.0976"
+                        stroke="#4570B6"
+                        stroke-width="1.34165"
+                        stroke-linecap="round"
+                      />
+                      <path
+                        d="M18.1296 3.68896L18.1296 18.6727L3.63983 18.6727"
+                        stroke="#4570B6"
+                        stroke-width="1.34165"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </div>
+                  <img decoding="async" draggable="false"
+                    id="iclStepImgMb"
+                    class="d-xl-none"
+                    src={content.steps.list[0].image}
+                    alt="ICL 手術過程"
+                    title="ICL 手術過程"
+                    loading="lazy"
+                    width="300"
+                    height="200"
+                  />
+                  <img decoding="async" draggable="false"
+                    id="iclStepImgPc"
+                    class="d-none d-xl-block"
+                    src={content.steps.list[0].imagePc}
+                    alt="ICL 手術過程"
+                    title="ICL 手術過程"
+                    loading="lazy"
+                    width="540"
+                    height="540"
+                  />
+                </div>
                 <p id="iclStepText" class="content-area-text">
                   {content.steps.list[0].text}
                 </p>

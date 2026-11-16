@@ -9,6 +9,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import SchemaProcedure from "@/components/seo/SchemaProcedure.astro";
 import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
 import SchemaFAQ from "@/components/seo/SchemaFAQ.astro";
+import SchemaClinic from "@/components/seo/SchemaClinic.astro";
 import { i18nPaths, getLangFromUrl, getLocalizedHref } from "@/i18n/utils";
 import {
   PRESBYOPIA_ZH_HK,
@@ -34,6 +35,7 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
 ---
 
 <BaseLayout tdkKey="presbyopia">
+  <SchemaClinic lang={lang} />
   <SchemaProcedure
     name={content.banner.h1}
     description={content.banner.p1}
@@ -59,63 +61,61 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
   />
 
   <div class="page-presbyopia font-hk text-desc relative overflow-x-clip" style="scroll-snap-type: y proximity;">
-    <!-- 1. 頂部主橫幅 Hero Banner -->
-    <section class="ClearVisionBanner">
-      <div class="ClearVisionBanner-Container site-container">
-        <div class="ClearVisionBanner-Box">
-          <div class="ClearVisionBanner-Box-content">
-            <div class="ClearVisionBanner-Box-content-title">
-              <a href={content.banner.smallTagLink} class="cursor-pointer" title="Presbyopia Treatments">
-                Presbyopia <br class="d-lg-none" />
-                Treatments
-              </a>
-              <h1>{content.banner.h1}</h1>
-              <p>
-                希瑪微笑矯視中心主要提供三種<br class="d-lg-none" />可矯正老花的矯視服務
-              </p>
-              <p>
-                <a href={content.banner.p2Link1Href} title={content.banner.p2Link1Text}>{content.banner.p2Link1Text}</a>{content.banner.p2And}<a href={content.banner.p2Link2Href} title={content.banner.p2Link2Text}>{content.banner.p2Link2Text}</a>
-              </p>
-              <p>
-                {content.banner.p3}
-              </p>
-            </div>
-            <div class="ClearVisionBanner-Stage">
-              <div class="ClearVisionBanner-Box-content-img">
-                <img
-                  draggable="false"
-                  decoding="async"
-                  src={content.banner.imgPc}
-                  alt={content.banner.imgAlt}
-                  title={content.banner.imgAlt}
-                  loading="eager"
-                  fetchpriority="high"
-                  width="1209"
-                  height="678"
-                  srcset={`${content.banner.imgMb} 400w, ${content.banner.imgMb} 640w, ${content.banner.imgPc}`}
-                  sizes="(max-width: 992px) 100vw, 1209px"
-                />
-                <p class="ClearVisionBanner-Badge">
-                  <span set:html={content.banner.badgeSpan1} />
-                  &nbsp;
-                  <span>{content.banner.badgeSpan2}</span>
-                </p>
-              </div>
-              <div class="ClearVisionBanner-Box-text">
-                {content.banner.tags.map((tag, idx) => (
-                  <span class={`banner-tag banner-tag-${idx + 1}`}>{tag}</span>
-                ))}
-              </div>
-            </div>
+    <!-- 1. 頂部主橫幅 Hero Banner (全寬底線 + 嵌套 site-container + 自然舒適佈局) -->
+    <section class="presbyopia-hero" aria-labelledby="presbyopia-hero-title">
+      <div class="site-container presbyopia-hero-container">
+        <header class="hero-header">
+          <a href={content.banner.smallTagLink} class="hero-category-link" title="Presbyopia Treatments">
+            Presbyopia <br class="d-lg-none" />
+            Treatments
+          </a>
+          <h1 id="presbyopia-hero-title" class="hero-title">{content.banner.h1}</h1>
+          <p class="hero-desc-lead">
+            希瑪微笑矯視中心主要提供三種<br class="d-lg-none" />可矯正老花的矯視服務
+          </p>
+          <p class="hero-desc-schemes">
+            <a href={content.banner.p2Link1Href} title={content.banner.p2Link1Text}>{content.banner.p2Link1Text}</a>{content.banner.p2And}<a href={content.banner.p2Link2Href} title={content.banner.p2Link2Text}>{content.banner.p2Link2Text}</a>
+          </p>
+          <p class="hero-desc-sub">
+            {content.banner.p3}
+          </p>
+        </header>
+
+        <div class="hero-stage">
+          <div class="hero-figure-wrapper">
+            <img
+              draggable="false"
+              decoding="async"
+              src={content.banner.imgPc}
+              alt={content.banner.imgAlt}
+              title={content.banner.imgAlt}
+              loading="eager"
+              fetchpriority="high"
+              width="1209"
+              height="678"
+              srcset={`${content.banner.imgMb} 400w, ${content.banner.imgMb} 640w, ${content.banner.imgPc}`}
+              sizes="(max-width: 992px) 100vw, 1209px"
+              class="hero-figure-img"
+            />
+            <p class="hero-badge">
+              <span set:html={content.banner.badgeSpan1} />
+              &nbsp;
+              <span>{content.banner.badgeSpan2}</span>
+            </p>
+          </div>
+          <div class="hero-symptoms" aria-label="常見老花症狀困擾">
+            {content.banner.tags.map((tag, idx) => (
+              <span class={`hero-symptom-tag hero-symptom-tag-${idx + 1}`}>{tag}</span>
+            ))}
           </div>
         </div>
       </div>
     </section>
 
     <!-- 2. 什麼是老花？ -->
-    <section class="WhatLaoHua" id="WhatLaoHua" style="scroll-snap-align: start; scroll-margin-top: 112px;">
-      <div class="WhatLaoHuaBox site-container">
-        <h2>{content.whatIs.title}</h2>
+    <section class="WhatLaoHua site-container" id="WhatLaoHua" aria-labelledby="what-is-laohua-heading" style="scroll-snap-align: start; scroll-margin-top: 112px;">
+      <div class="WhatLaoHuaBox">
+        <h2 id="what-is-laohua-heading">{content.whatIs.title}</h2>
         <div class="WhatLaoHuaBox-text">
           <p set:html={content.whatIs.p1Html} />
           <br />
@@ -124,75 +124,61 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
       </div>
     </section>
 
-    <!-- 3. 老花矯視方案 -->
-    <div id="CorrectionProgram" class="CorrectionProgram site-container">
-      <div class="CorrectionProgram-Box">
-        <div class="CorrectionProgram-Box-show hidden lg:block" id="presbyopiaBoxShow">
-          <img
-            draggable="false"
-            decoding="async"
-            src={content.schemes.showImgPc}
-            alt={content.schemes.title}
-            title={content.schemes.title}
-            loading="lazy"
-            width="100%"
-            height="100%"
-            srcset={`${content.schemes.showImgMb} 400w, ${content.schemes.showImgMb} 640w, ${content.schemes.showImgPc}`}
-            sizes="(max-width: 992px) 100vw, 1216px"
-          />
-        </div>
-        <div class="CorrectionProgram-Box-hide">
-          <div class="CorrectionProgram-Box-hide-title">
+    <!-- 3. 老花矯視方案 (語意化架構 + 2026 SEO 標籤) -->
+    <section id="CorrectionProgram" class="scheme-section site-container" aria-labelledby="scheme-section-heading">
+      <div class="scheme-wrapper">
+        <div class="scheme-main">
+          <h2 id="scheme-section-heading" class="scheme-heading">
             {content.schemes.title}
-          </div>
-          <div class="CorrectionProgram-Box-hide-item-container">
+          </h2>
+          <div class="scheme-grid">
             {mainSchemes.map((item, idx) => {
+              const simpleItem = simpleSchemes[idx];
               const numStr = String(idx + 1).padStart(2, "0");
               const schemeAlt = item.imgAlt || item.title.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
               return (
-                <div class="CorrectionProgram-Box-hide-item" id={item.id}>
-                  <div class="CorrectionProgram-Box-hide-item-top">
-                    <span class="scheme-num-badge" aria-hidden="true">{numStr}</span>
-                    <picture>
-                      {item.imgWp && (
-                        <source srcset={item.imgWp} type="image/webp" />
-                      )}
-                      <img decoding="async" loading="lazy"
-                        draggable="false"
-                        src={item.imgJpg || item.imgWp}
-                        alt={schemeAlt}
-                        title={schemeAlt}
-                      />
-                    </picture>
-                    <div class="CorrectionProgram-Box-hide-item-top-text">
-                      <span class="CorrectionProgram-Box-hide-item-sub">
-                        {item.suitTag}
-                      </span>
-                      {item.suitList?.map((s) => (
-                        <p>{s}</p>
-                      ))}
+                <div class="scheme-column">
+                  <article class="scheme-card" id={item.id}>
+                    <div class="scheme-card-top">
+                      <span class="scheme-num-badge" aria-hidden="true">{numStr}</span>
+                      <picture>
+                        {item.imgWp && (
+                          <source srcset={item.imgWp} type="image/webp" />
+                        )}
+                        <img decoding="async" loading="lazy"
+                          draggable="false"
+                          src={item.imgJpg || item.imgWp}
+                          alt={schemeAlt}
+                          title={schemeAlt}
+                        />
+                      </picture>
+                      <div class="scheme-card-badge">
+                        <span class="scheme-card-tag">
+                          {item.suitTag}
+                        </span>
+                        {item.suitList?.map((s) => (
+                          <p>{s}</p>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                  <div class="CorrectionProgram-Box-hide-item-bottom">
-                    <h3 set:html={item.title} />
-                    <p
-                      id={item.targetId}
-                      class="CorrectionProgram-Box-hide-item-bottom-text"
-                      set:html={item.descHtml}
-                    />
-                  </div>
+                    <div class="scheme-card-body">
+                      <h3 class="scheme-card-title" set:html={item.title} />
+                      <p
+                        id={item.targetId}
+                        class="scheme-card-desc"
+                        set:html={item.descHtml}
+                      />
+                    </div>
+                  </article>
+
+                  {simpleItem && (
+                    <div class="simple-scheme-chip">
+                      <h3 set:html={simpleItem.title} />
+                    </div>
+                  )}
                 </div>
               );
             })}
-          </div>
-
-          <!-- 3 個簡易方案選項 (Monovision / Cataract Surgery / 藥物方案) 晶片列 -->
-          <div class="simple-schemes-row">
-            {simpleSchemes.map((item) => (
-              <div class="simple-scheme-chip">
-                <h3 set:html={item.title} />
-              </div>
-            ))}
           </div>
         </div>
       </div>
@@ -206,31 +192,17 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
         title={content.schemes.ctaBtnText}
       >
         <span>{content.schemes.ctaBtnText}</span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="30"
-          height="29"
-          viewBox="0 0 30 29"
-          fill="none"
-        >
-          <path
-            d="M3.19922 26.0597L25.8278 3.43115"
-            stroke="white"
-            stroke-width="5.4"
-            stroke-linecap="round"
-          />
-          <path
-            d="M6.49707 2.71118H26.5997V22.1512"
-            stroke="white"
-            stroke-width="4.86"
-            stroke-linecap="round"
-          />
-        </svg>
+        <img
+          src="/images/svg/arrow-up-right-white.svg"
+          alt=""
+          aria-hidden="true"
+          class="h-[18px] w-[18px] md:h-[24px] md:w-[24px] inline-block"
+        />
       </a>
-    </div>
+    </section>
 
     <!-- 3.5 老花矯視費用 (100% 官方真值對齊) -->
-    <div class="bg-[#F6FAFD] py-8 px-2 md:px-0 md:pb-32 md:pt-8 mb-8 mt-[50px] md:mb-22 md:mt-[90px]">
+    <div class="bg-[#F6FAFD] py-12 md:py-20 relative z-10">
       <div class="w-full flex flex-col items-center mx-auto site-container">
         <h2 class="text-[#4A74B8] text-xl md:text-3xl font-black mb-6 md:mb-10 tracking-wider text-center">
           {content.fee.title}
@@ -244,7 +216,7 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
             ]}>
               {group.pillTitle}
             </div>
-            <div class="space-y-2 md:space-y-4 max-w-[1187px] mx-auto w-full">
+            <div class="space-y-2 md:space-y-4 max-w-[1100px] mx-auto w-full">
               {group.items.map((item) => (
                 <div class="bg-white border border-[#4570B6] rounded-2xl lbv-item flex flex-row justify-between items-center transition-all group p-[10px] md:px-[50px] md:py-[40px]">
                   <div class="text-text text-base md:text-3xl font-bold">
@@ -276,20 +248,22 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
           </div>
         ))}
 
-        <div class="mt-8 md:mt-12 flex flex-col items-center">
+        <div class="mt-8 md:mt-12 flex flex-col items-center relative z-20">
           <a
             href={isCn ? "/cn/fee#table1" : "/fee#table1"}
-            class="md:w-auto bg-[#4570B6] hover:bg-[#345c99] transition-colors text-white px-10 py-4 md:py-5 md:px-[100px] rounded-full text-2xl md:text-4xl font-bold flex items-center justify-center gap-3 cta-pulse"
+            class="md:w-auto bg-[#4570B6] hover:bg-[#345c99] transition-colors text-white px-10 py-4 md:py-5 md:px-[100px] rounded-full text-2xl md:text-4xl font-bold flex items-center justify-center gap-3 cta-pulse relative z-20 cursor-pointer"
             data-cta="fee"
             title={content.fee.btnText}
           >
             {content.fee.btnText}
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34 34" fill="none" class="h-[13px] w-[13px] md:h-[26px] md:w-[26px]" aria-hidden="true">
-              <path d="M3.18018 30.3632L29.8334 3.70996" stroke="white" stroke-width="6.36042" stroke-linecap="round" />
-              <path d="M7.06396 2.8623H30.742V25.7598" stroke="white" stroke-width="5.72438" stroke-linecap="round" />
-            </svg>
+            <img
+              src="/images/svg/arrow-up-right-white.svg"
+              alt=""
+              aria-hidden="true"
+              class="h-[13px] w-[13px] md:h-[26px] md:w-[26px] inline-block"
+            />
           </a>
-          <div class="text-text mt-2 md:mt-4 text-center font-light text-base md:text-2xl leading-relaxed min-[360px]:tracking-wider min-[390px]:tracking-normal">
+          <div class="text-text mt-2 md:mt-4 text-center font-normal text-base md:text-2xl leading-relaxed min-[360px]:tracking-wider min-[390px]:tracking-normal">
             <p>此為香港價錢</p>
             <p>
               <sup>*</sup>矯視費用已包括術前檢查費用港幣$100<br class="block md:hidden" />（若沒有預約進行矯視，需另外繳付術前檢查費用）
@@ -303,7 +277,7 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
     </div>
 
     <!-- 4. 老花矯視技術好處對比 & EVO ICL 產品系列介紹 — V6 -->
-    <section class="visionBattle">
+    <section class="visionBattle" aria-labelledby="vision-battle-heading">
       <img
         draggable="false"
         decoding="async"
@@ -318,8 +292,8 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
         sizes="(max-width: 992px) 100vw, 1216px"
         class="visionBattle-Bg"
       />
-      <div id="visionBattle-Box-list" class="visionBattle-Box">
-        <h2>{content.battle.title}</h2>
+      <div id="visionBattle-Box-list" class="visionBattle-Box site-container">
+        <h2 id="vision-battle-heading">{content.battle.title}</h2>
         <div class="visionBattle-Box-list">
           <div class="visionBattle-Box-list-item">
             <div class="visionBattle-Box-list-item-content">
@@ -329,21 +303,24 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
                   <img decoding="async" loading="lazy"
                     draggable="false"
                     src="https://statichk.cmermedical.com/smile/clear-visionV2/clearAppointment/success.svg"
-                    alt="對勾"
-                    title="對勾"
+                    alt={isCn ? "包含技术特点" : "包含技術特點"}
+                    title={isCn ? "包含技术特点" : "包含技術特點"}
                   />
                   <span set:html={pt} />
                 </p>
               ))}
               <div class="mt-[31px]">
                 <div class="flex items-center justify-center">
-                  <div class="flex items-center bg-[#4570B6] text-white px-4 py-2 md:px-8 md:py-10 rounded-sm shadow-md max-w-md">
-                    <div class="flex-shrink-0 mr-2 relative">
-                      <svg viewBox="0 0 132 82" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-[64px] md:h-20" aria-hidden="true">
-                        <path d="M14.47 21.847h14.44l-1.275 6.557h-2.96l.893-4.594h-8.68l-.893 4.594h-2.8zm2.84 2.473h7.66l-.318 1.63h-7.66zm-.417 2.14h7.58l-.332 1.709h-7.58zm-5.631 2.219h18.1l-.435 2.238h-18.1zm8.837 2.69h6.22l-.416 2.14h-6.22zm-6.004.02h4.34l-.374 1.923h-4.34zm-.477 2.453h4.34l-.374 1.924h-4.34zm8.767-.55q.507 1.61 1.938 2.788 1.43 1.179 3.652 1.689-.33.255-.746.648-.396.392-.776.805-.364.432-.61.765-2.415-.745-3.857-2.277-1.418-1.55-2.043-3.79zm3.294-1.923h.52l.495-.079 1.655.648q-.986 2.08-2.346 3.632a14.3 14.3 0 0 1-3.052 2.63 16.8 16.8 0 0 1-3.663 1.768 7 7 0 0 0-.471-1.178 5.2 5.2 0 0 0-.638-1.04 13 13 0 0 0 3.076-1.316 11.8 11.8 0 0 0 2.556-2.042 10.4 10.4 0 0 0 1.792-2.63zM9.513 36.748l2.347-.137q1.335-.08 2.795-.177 1.482-.118 2.941-.216l-.38 2.16q-2.081.215-4.176.392l-3.728.353zm7.828-7.343h2.78L18.06 40.007h-2.78zm-4.712.06h2.64l-1.564 8.049h-2.64zm29.849-1.69h7.48l-.512 2.632h-7.48zm-10.119-4.534h9.1l-.447 2.297h-9.1zm-1.703 7.833h9.2l-.461 2.376h-9.2zm.544-3.514h9.74l-.45 2.317h-9.74zm14.028 1.394h2.82L45.92 39.909H43.1zM32.76 25.91l2.407-.55q.096.432.157.942.064.492.072.864l-2.506.648a9 9 0 0 0-.02-.923 9 9 0 0 0-.11-.981m4.95-.57 2.53.472-.864 1.354a15 15 0 0 1-.75 1.08l-2.248-.471q.228-.354.468-.766.245-.432.468-.864.248-.45.397-.805m10.92-3.907 1.792 2.101q-1.185.432-2.513.785-1.306.334-2.638.61a55 55 0 0 1-2.564.431 4.8 4.8 0 0 0-.13-1.08 9 9 0 0 0-.294-1.06 50 50 0 0 0 2.295-.49 30 30 0 0 0 2.198-.61 19 19 0 0 0 1.854-.686m-13.292.373 3.053-.687q.154.648.282 1.434.13.765.16 1.335l-3.233.785q.03-.57-.072-1.374a23 23 0 0 0-.19-1.492m6.945 1.414h2.7l-1.393 7.166a41 41 0 0 1-.542 2.376q-.308 1.275-.764 2.591a20 20 0 0 1-1.064 2.493q-.614 1.198-1.412 2.12a3.6 3.6 0 0 0-.526-.588 16 16 0 0 0-.734-.648 4.3 4.3 0 0 0-.656-.432 9.6 9.6 0 0 0 1.453-2.435 18.6 18.6 0 0 0 .942-2.787q.36-1.434.603-2.69zm-5.77 11.367 2.063-1.04q.338.628.632 1.374.296.746.452 1.276l-2.172 1.198q-.13-.57-.417-1.355a26 26 0 0 0-.558-1.453m-5.195-.746 2.074.648q-.577 1.02-1.38 2.16a27 27 0 0 1-1.433 1.924 8 8 0 0 0-.77-.668 9 9 0 0 0-.862-.608q.614-.688 1.256-1.63.644-.942 1.115-1.826m3.346-4.967h2.82l-2.13 10.955h-2.82zm-22.14 47.118q-2.358 0-4.172-.55-1.822-.51-3.165-1.413a13.3 13.3 0 0 1-2.276-2.08l4.095-4.399q.688.786 1.525 1.414.838.629 1.842 1.02 1.05.354 2.211.354 1.44 0 2.58-.51 1.138-.51 1.897-1.532.798-1.02 1.088-2.513.427-2.199-.59-3.337-.972-1.178-2.892-1.178-1.24 0-2.141.314-.854.275-2.334 1.1l-2.73-2.003 3.576-14.489h16.72l-1.137 5.85h-10.6L14.62 56.99a8.7 8.7 0 0 1 1.604-.432q.75-.157 1.59-.157 2.52 0 4.45.982 1.929.981 2.772 3.023.883 2.042.265 5.222-.633 3.26-2.611 5.615a12.9 12.9 0 0 1-4.607 3.534 13.3 13.3 0 0 1-5.557 1.217m25.176 0q-3.12 0-5.184-1.727-2.024-1.728-2.72-5.144-.656-3.415.32-8.442.978-5.026 2.946-8.364 2.01-3.337 4.69-4.986 2.72-1.65 5.84-1.65 3.16 0 5.192 1.69 2.04 1.648 2.71 4.986.68 3.298-.297 8.324t-2.961 8.442-4.68 5.144-5.856 1.727m1.053-5.418q1.08 0 2.073-.785 1.04-.825 1.932-2.945.94-2.16 1.719-6.165t.663-6.086q-.075-2.082-.81-2.827-.696-.746-1.776-.746-1.04 0-2.065.746t-1.95 2.827q-.924 2.08-1.702 6.086-.779 4.005-.679 6.165.108 2.12.828 2.945.727.785 1.767.785m23.322 5.418q-3.12 0-5.184-1.727-2.024-1.728-2.72-5.144-.656-3.415.32-8.442.978-5.026 2.946-8.364 2.01-3.337 4.69-4.986 2.72-1.65 5.84-1.65 3.16 0 5.192 1.69 2.04 1.648 2.71 4.986.68 3.298-.297 8.324t-2.961 8.442-4.68 5.144-5.856 1.727m1.053-5.418q1.08 0 2.073-.785 1.04-.825 1.932-2.945.94-2.16 1.719-6.165.778-4.005.663-6.086-.075-2.082-.81-2.827-.696-.746-1.776-.746-1.04 0-2.065.746t-1.95 2.827q-.924 2.08-1.702 6.086-.779 4.005-.679 6.165.108 2.12.828 2.945.727.785 1.767.785m13.12 4.869 3.128-16.09h3.938l-1.192 6.134h5.39l1.192-6.133h3.916l-3.127 16.089h-3.916l1.284-6.609h-5.39l-1.284 6.609zm16.114 0 .399-2.052 6.488-7.235h-4.51l.584-3.001h9.393l-.398 2.051-6.489 7.235h5.258l-.583 3.002zm-8.805-33.603c5.247 8.499 15.48 10.693 24.601 7.684a31.58 31.58 0 0 0 18.036-15.32c2.343-4.466 3.432-9.322 2.982-14.266-.757-8.348-6.568-15.022-14.767-16.73-9.255-1.928-18.782 2.05-25.232 8.728-.595.616-1.598.65-2.108.008-.509-.642-.368-1.405.251-2.032 3.986-4.026 8.716-7.053 14.181-8.68 4.557-1.356 9.236-1.651 13.815-.6 8.819 2.02 15.218 9.022 16.435 17.97.624 4.577.056 9.108-1.612 13.5-3.421 9-10.638 16.15-19.657 19.55-5.269 1.987-10.844 2.473-16.272 1.098s-10.118-4.694-13-9.513c-.428-.715-.2-1.541.373-1.899.73-.457 1.53-.214 1.97.502z" fill="currentColor" />
-                        <path d="m112.615 34.86-9.295-4.831c-.48-.247-.617-.944-.521-1.468l3.336-18.067c.118-.642.959-.992 1.447-.925.512.07 1.357.6 1.217 1.371l-3.144 17.23 8.048 4.204c.594.31.849 1.077.683 1.57-.188.557-1.015 1.31-1.768.919zm-24.137-6.741H65.072c-.9 0-1.428-.517-1.483-1.276-.059-.83.528-1.43 1.483-1.43h23.406c.83 0 1.391.585 1.41 1.279.018.748-.513 1.427-1.41 1.427m-10.244 9.783H54.74c-.856 0-1.406-.546-1.461-1.302-.04-.545.457-1.427 1.273-1.427l23.59-.007a1.4 1.4 0 0 1 1.424 1.294c.04.623-.384 1.442-1.336 1.442zm3.498-22.279c.945 0 1.358.627 1.424 1.29.063.609-.465 1.442-1.332 1.442H58.253c-.83 0-1.336-.704-1.355-1.272-.025-.76.432-1.456 1.351-1.456h23.48z" fill="currentColor" />
-                      </svg>
-                    </div>
+                  <div class="flex items-center bg-[#4570B6] text-white p-4 rounded-sm shadow-md max-w-md">
+                    <img
+                      src="/images/svg/icon-500hz.svg"
+                      alt={isCn ? "蔡司 500Hz 尖端切削频率图标" : "蔡司 500Hz 尖端切削頻率圖標"}
+                      title={isCn ? "蔡司 500Hz 尖端切削频率图标" : "蔡司 500Hz 尖端切削頻率圖標"}
+                      aria-hidden="true"
+                      class="h-[52px] md:h-[60px] w-auto flex-shrink-0 mr-2"
+                      width="96"
+                      height="60"
+                    />
                     <ul class="space-y-2 text-lg font-medium whitespace-nowrap">
                       <li class="flex items-center">
                         <span class="mr-2 text-base md:text-lg opacity-80">·</span>
@@ -372,27 +349,24 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
                   <img decoding="async" loading="lazy"
                     draggable="false"
                     src="https://statichk.cmermedical.com/smile/clear-visionV2/clearAppointment/success.svg"
-                    alt="對勾"
-                    title="對勾"
+                    alt={isCn ? "包含技术特点" : "包含技術特點"}
+                    title={isCn ? "包含技术特点" : "包含技術特點"}
                   />
                   <span set:html={pt} />
                 </p>
               ))}
             </div>
             <div class="visionBattle-Box-list-item-VS">
-              <svg xmlns="http://www.w3.org/2000/svg" width="70" height="118" viewBox="0 0 70 118" fill="none" aria-label="VS">
-                <g clip-path="url(#clip0_12727_vs_1)">
-                  <path d="M0 32.7129H13.2108L19.0441 62.3103L37.402 32.7129H50.098L22.4755 77.7147H9.77941L0 32.7129Z" fill="#4570B6"/>
-                  <path d="M70.0005 0L45.123 33.2321H49.7554L70.0005 0Z" fill="#4570B6"/>
-                  <path d="M2.89453 118L27.772 84.7678H23.1396L2.89453 118Z" fill="#4570B6"/>
-                  <path d="M65.7109 47.5981C65.7109 47.5981 51.1275 41.0209 41.005 46.0404C31.0218 50.9913 23.7945 65.451 36.8373 70.4957C37.2054 70.6363 37.5807 70.7481 37.9596 70.8491C39.2607 71.1916 42.6063 72.0895 45.6338 73.0379C49.494 74.2495 51.8495 74.217 50.9524 78.49C49.9444 83.2931 38.4279 81.3459 34.9965 80.2209C31.5651 79.0958 28.1338 76.0668 28.1338 76.0668L22.6436 85.6297C22.6436 85.6297 34.6534 93.2887 49.2367 89.9136C63.82 86.5384 64.1632 75.288 62.4475 70.5282C62.4475 70.5282 61.9113 68.4511 58.7695 66.3525C56.6999 64.9714 54.3123 64.1529 51.846 63.8788C48.4432 63.4966 41.895 62.2346 41.2623 58.1527C40.4045 52.614 50.863 53.0611 54.3015 54.0852C58.4406 55.3184 62.0436 56.7463 62.0436 56.7463L66.2256 47.9407L65.7109 47.5945V47.5981Z" fill="#4570B6"/>
-                </g>
-                <defs>
-                  <clipPath id="clip0_12727_vs_1">
-                    <rect width="70" height="118" fill="white"/>
-                  </clipPath>
-                </defs>
-              </svg>
+              <img
+                src="/images/svg/icon-battle-vs.svg"
+                alt="VS"
+                aria-label="VS"
+                width="70"
+                height="118"
+                loading="lazy"
+                decoding="async"
+                class="w-[70px] h-auto"
+              />
             </div>
           </div>
 
@@ -404,27 +378,24 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
                   <img decoding="async" loading="lazy"
                     draggable="false"
                     src="https://statichk.cmermedical.com/smile/clear-visionV2/clearAppointment/success.svg"
-                    alt="對勾"
-                    title="對勾"
+                    alt={isCn ? "包含技术特点" : "包含技術特點"}
+                    title={isCn ? "包含技术特点" : "包含技術特點"}
                   />
                   <span set:html={pt} />
                 </p>
               ))}
             </div>
             <div class="visionBattle-Box-list-item-VS">
-              <svg xmlns="http://www.w3.org/2000/svg" width="70" height="118" viewBox="0 0 70 118" fill="none" aria-label="VS">
-                <g clip-path="url(#clip0_12727_vs_2)">
-                  <path d="M0 32.7129H13.2108L19.0441 62.3103L37.402 32.7129H50.098L22.4755 77.7147H9.77941L0 32.7129Z" fill="#4570B6"/>
-                  <path d="M70.0005 0L45.123 33.2321H49.7554L70.0005 0Z" fill="#4570B6"/>
-                  <path d="M2.89453 118L27.772 84.7678H23.1396L2.89453 118Z" fill="#4570B6"/>
-                  <path d="M65.7109 47.5981C65.7109 47.5981 51.1275 41.0209 41.005 46.0404C31.0218 50.9913 23.7945 65.451 36.8373 70.4957C37.2054 70.6363 37.5807 70.7481 37.9596 70.8491C39.2607 71.1916 42.6063 72.0895 45.6338 73.0379C49.494 74.2495 51.8495 74.217 50.9524 78.49C49.9444 83.2931 38.4279 81.3459 34.9965 80.2209C31.5651 79.0958 28.1338 76.0668 28.1338 76.0668L22.6436 85.6297C22.6436 85.6297 34.6534 93.2887 49.2367 89.9136C63.82 86.5384 64.1632 75.288 62.4475 70.5282C62.4475 70.5282 61.9113 68.4511 58.7695 66.3525C56.6999 64.9714 54.3123 64.1529 51.846 63.8788C48.4432 63.4966 41.895 62.2346 41.2623 58.1527C40.4045 52.614 50.863 53.0611 54.3015 54.0852C58.4406 55.3184 62.0436 56.7463 62.0436 56.7463L66.2256 47.9407L65.7109 47.5945V47.5981Z" fill="#4570B6"/>
-                </g>
-                <defs>
-                  <clipPath id="clip0_12727_vs_2">
-                    <rect width="70" height="118" fill="white"/>
-                  </clipPath>
-                </defs>
-              </svg>
+              <img
+                src="/images/svg/icon-battle-vs.svg"
+                alt="VS"
+                aria-label="VS"
+                width="70"
+                height="118"
+                loading="lazy"
+                decoding="async"
+                class="w-[70px] h-auto"
+              />
             </div>
           </div>
         </div>
@@ -432,14 +403,14 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
     </section>
 
     <!-- EVO ICL 產品系列介紹 — V6 表格 -->
-    <section class="icl-model mb-9 lg:mb-20 site-container">
+    <section class="icl-model site-container">
       <h2
         class="model-title mb-6 lg:mb-10 text-center font-bold text-xl lg:text-3xl text-[#4570B6]"
       >
         {content.modelTable.title}
       </h2>
       <div
-        class="model-main w-full text-desc text-center font-light text-base lg:text-xl"
+        class="model-main w-full max-w-[1000px] mx-auto text-desc text-center font-normal text-lg lg:text-2xl"
       >
         <table class="model-table w-full">
           <thead>
@@ -479,22 +450,14 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
               </th>
               <td>
                 <div class="flex items-center justify-center gap-1">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
+                  <img
+                    src="/images/svg/icon-check-orange.svg"
+                    alt="可逆轉"
+                    aria-hidden="true"
                     width="27"
                     height="28"
-                    viewBox="0 0 27 28"
-                    fill="none"
-                  >
-                    <path
-                      d="M.009 15.08c-.128-4.545 1.115-7.944 3.749-10.787S9.638.01 13.416 0c3.706-.009 6.907 1.369 9.545 4.111 2.632 2.736 3.933 6.05 3.961 9.89.026 3.486-1.12 6.562-3.318 9.18-2.24 2.664-5.074 4.314-8.457 4.718-4.638.554-8.577-1.028-11.751-4.595C1.433 21.099.01 17.83.009 15.08m11.206.075c-.089-.085-.167-.154-.24-.23-.828-.859-1.655-1.723-2.486-2.579-.339-.35-.559-.345-.892 0q-.9.931-1.8 1.869c-.302.316-.302.545 0 .861q2.468 2.582 4.937 5.16c.366.382.574.38.948-.007q.919-.95 1.838-1.904 3.768-3.908 7.534-7.818c.347-.36.347-.589.003-.947L19.35 7.787c-.409-.423-.603-.425-1.006-.007l-6.888 7.14c-.073.076-.151.147-.243.235z"
-                      fill="#f89b03"
-                    />
-                    <path
-                      d="M11.215 15.155c.091-.089.17-.16.243-.235l6.888-7.14c.402-.42.597-.418 1.006.007q.854.885 1.706 1.772c.343.359.343.587-.004.947q-3.766 3.91-7.533 7.818-.917.953-1.838 1.905c-.374.387-.583.389-.949.006l-4.936-5.159c-.302-.317-.302-.545 0-.862q.898-.936 1.8-1.868c.333-.346.553-.35.891 0 .832.857 1.658 1.72 2.487 2.58.073.075.152.143.24.229z"
-                      fill="#fff"
-                    />
-                  </svg>
+                    class="inline-block"
+                  />
                   <span>{content.modelTable.reversibilityContent}</span>
                 </div>
               </td>
@@ -509,7 +472,8 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
       <div class="smilepro-difference-title">
         <div set:html={content.comparison.title} />
       </div>
-      <table class="table custom-comparison-table">
+      <div class="table-scroll-wrapper">
+        <table class="table custom-comparison-table">
         <thead>
           <tr>
             <th></th>
@@ -577,7 +541,8 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
             </tr>
           ))}
         </tbody>
-      </table>
+        </table>
+      </div>
     </section>
 
     <!-- 6. 第一視角預覽 -->
@@ -597,7 +562,6 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
               {content.preview.slides.map((s, idx) => (
                 <div
                   class={`swiper-slide lbv-slide ${idx === 0 ? "active" : ""}`}
-                  style={{ display: idx === 0 ? "flex" : "none" }}
                   data-scene={s.title}
                 >
                   <div class="lbv-slide-content">
@@ -608,30 +572,26 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
                 </div>
               ))}
             </div>
-            <svg
+            <img
               id="lbvPrevBtn"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 62 62"
-              fill="none"
-              class="swiper-button-prev lbv-swiper-button-prev cursor-pointer"
-            >
-              <path
-                d="M62 31C62 48.1792 48.1792 62 31 62C13.8208 62 -7.02527e-06 48.1792 -6.27434e-06 31C-5.52342e-06 13.8208 13.8208 1.70872e-06 31 2.45964e-06C48.1792 3.21057e-06 62 13.8208 62 31ZM34.9783 12.5292L18.3158 29.1917C17.7992 29.7083 17.5408 30.3542 17.67 31C17.67 31.6458 17.9283 32.2917 18.3158 32.8083L34.9783 49.4708C36.0117 50.375 37.5617 50.375 38.4658 49.4708L38.7242 49.2125C39.6283 48.3083 39.6283 46.7583 38.7242 45.8542L23.87 31L38.7242 16.1458C39.6283 15.2417 39.6283 13.6917 38.7242 12.7875L38.4658 12.5292C37.5617 11.625 36.0117 11.625 34.9783 12.5292Z"
-                fill="#4570B6"
-              />
-            </svg>
-            <svg
+              src="/images/svg/lbv-arrow-prev.svg"
+              alt={isCn ? "切换至上一张场景预览" : "切換至上一張場景預覽"}
+              title={isCn ? "切换至上一张场景预览" : "切換至上一張場景預覽"}
+              aria-label={isCn ? "切换至上一张场景预览" : "切換至上一張場景預覽"}
+              class="lbv-swiper-button-prev cursor-pointer select-none"
+              width="62"
+              height="62"
+            />
+            <img
               id="lbvNextBtn"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 62 62"
-              fill="none"
-              class="swiper-button-next lbv-swiper-button-next cursor-pointer"
-            >
-              <path
-                d="M-1.35505e-06 31C-6.04128e-07 48.1792 13.8208 62 31 62C48.1792 62 62 48.1792 62 31C62 13.8208 48.1792 1.70872e-06 31 2.45964e-06C13.8208 3.21057e-06 -2.10598e-06 13.8208 -1.35505e-06 31ZM27.0217 12.5292L43.6842 29.1917C44.2008 29.7083 44.4592 30.3542 44.33 31C44.33 31.6458 44.0717 32.2917 43.6842 32.8083L27.0217 49.4708C25.9883 50.375 24.4383 50.375 23.5342 49.4708L23.2758 49.2125C22.3717 48.3083 22.3717 46.7583 23.2758 45.8542L38.13 31L23.2758 16.1458C22.3717 15.2417 22.3717 13.6917 23.2758 12.7875L23.5342 12.5292C24.4383 11.625 25.9883 11.625 27.0217 12.5292Z"
-                fill="#4570B6"
-              />
-            </svg>
+              src="/images/svg/lbv-arrow-next.svg"
+              alt={isCn ? "切换至下一张场景预览" : "切換至下一張場景預覽"}
+              title={isCn ? "切换至下一张场景预览" : "切換至下一張場景預覽"}
+              aria-label={isCn ? "切换至下一张场景预览" : "切換至下一張場景預覽"}
+              class="lbv-swiper-button-next cursor-pointer select-none"
+              width="62"
+              height="62"
+            />
           </div>
       </div>
     </div>
@@ -648,23 +608,22 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
             aria-hidden="true"
           />
           <p>{content.appointment.lectureText}</p>
-          <div class="clearAppointment-Box-item-icon">
+          <div class="clearAppointment-Box-item-icon" aria-hidden="true">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="49"
-              height="42"
               viewBox="0 0 49 42"
               fill="none"
+              class="clearAppointment-arrow-svg"
             >
               <path
                 d="M3.57595 20.4719L40.719 20.472"
-                stroke="white"
+                stroke="currentColor"
                 stroke-width="6.26756"
                 stroke-linecap="round"
               />
               <path
                 d="M27.7695 37.561L44.268 21.0626L28.3134 5.10799"
-                stroke="white"
+                stroke="currentColor"
                 stroke-width="5.64081"
                 stroke-linecap="round"
               />
@@ -687,23 +646,22 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
             aria-hidden="true"
           />
           <p>{content.appointment.consultText}</p>
-          <div class="clearAppointment-Box-item-icon">
+          <div class="clearAppointment-Box-item-icon" aria-hidden="true">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="49"
-              height="42"
               viewBox="0 0 49 42"
               fill="none"
+              class="clearAppointment-arrow-svg"
             >
               <path
                 d="M3.57595 20.4719L40.719 20.472"
-                stroke="white"
+                stroke="currentColor"
                 stroke-width="6.26756"
                 stroke-linecap="round"
               />
               <path
                 d="M27.7695 37.561L44.268 21.0626L28.3134 5.10799"
-                stroke="white"
+                stroke="currentColor"
                 stroke-width="5.64081"
                 stroke-linecap="round"
               />
@@ -730,16 +688,16 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
       <img decoding="async" loading="lazy"
         draggable="false"
         src={content.suitable.bgLeft1}
-        alt={content.suitable.title}
-        title={content.suitable.title}
+        alt={isCn ? "老花矫视合适对象装饰图" : "老花矯視合適對象裝飾圖"}
+        title={isCn ? "老花矫视合适对象装饰图" : "老花矯視合適對象裝飾圖"}
         aria-hidden="true"
         class="SuitableObject-bgLeft1"
       />
       <img decoding="async" loading="lazy"
         draggable="false"
         src={content.suitable.bgLeft2}
-        alt={content.suitable.title}
-        title={content.suitable.title}
+        alt={isCn ? "老花矫视合适对象装饰图" : "老花矯視合適對象裝飾圖"}
+        title={isCn ? "老花矫视合适对象装饰图" : "老花矯視合適對象裝飾圖"}
         aria-hidden="true"
         class="SuitableObject-bgLeft2"
       />
@@ -765,26 +723,12 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
     <!-- 了解老花矯視價格 按鈕 -->
     <a href={feeUrl} class="publicBtn-booking cta-pulse" data-cta="fee" title={content.suitable.feeBtnText}>
       <span>{content.suitable.feeBtnText}</span>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="30"
-        height="29"
-        viewBox="0 0 30 29"
-        fill="none"
-      >
-        <path
-          d="M3.19922 26.0597L25.8278 3.43115"
-          stroke="white"
-          stroke-width="5.4"
-          stroke-linecap="round"
-        />
-        <path
-          d="M6.49707 2.71118H26.5997V22.1512"
-          stroke="white"
-          stroke-width="4.86"
-          stroke-linecap="round"
-        />
-      </svg>
+      <img
+        src="/images/svg/arrow-up-right-white.svg"
+        alt=""
+        aria-hidden="true"
+        class="h-[18px] w-[18px] md:h-[24px] md:w-[24px] inline-block"
+      />
     </a>
     <!-- 9. 常見問題 FAQ (全站統一規範：.faq-section + .section-title + .faq-accordion-list + .faq-item) -->
     <section
@@ -825,99 +769,6 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
         })}
       </div>
     </section>
-
-    <!-- 10. 分享組件 -->
-    <section class="CaseSharingV2">
-      <div>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="21"
-          height="19"
-          viewBox="0 0 21 19"
-          fill="none"
-        >
-          <path
-            d="M1 0.77832L19.4751 17.9337"
-            stroke="#4570B6"
-            stroke-width="1.97947"
-          />
-        </svg>
-        <span>{content.share.title}</span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="21"
-          height="19"
-          viewBox="0 0 21 19"
-          fill="none"
-        >
-          <path
-            d="M20 0.77832L1.52493 17.9337"
-            stroke="#4570B6"
-            stroke-width="1.97947"
-          />
-        </svg>
-      </div>
-      <div>
-        <a
-          id="shareCurrentPagePresbyopia"
-          class="cursor-pointer"
-          aria-label="分享本頁"
-          title="分享本頁"
-          role="button"
-          tabindex="0"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="21"
-            height="22"
-            viewBox="0 0 21 22"
-            fill="none"
-          >
-            <path
-              d="M0.28309 11.3923C0.282266 9.41405 1.74115 7.78777 3.63606 7.6221C4.78751 7.52154 5.78565 7.88504 6.60988 8.69859C6.74258 8.82964 6.83243 8.84118 6.99233 8.74475C8.88558 7.59654 10.7838 6.45411 12.6836 5.31745C12.832 5.22843 12.8518 5.15177 12.799 4.99022C12.0968 2.83806 13.5441 0.523527 15.7852 0.202064C17.9084 -0.10209 19.8083 1.36263 20.0539 3.49335C20.2781 5.44027 18.853 7.28415 16.9053 7.55945C15.6327 7.73914 14.553 7.34679 13.6604 6.43186C13.5647 6.33377 13.4996 6.32058 13.3826 6.39147C11.463 7.55039 9.54167 8.70601 7.61957 9.85915C7.50665 9.92674 7.47203 9.99351 7.51819 10.1237C7.75227 10.7864 7.79595 11.4632 7.61627 12.1457C7.57423 12.3064 7.63028 12.3814 7.7671 12.4515C9.44029 13.3046 11.1118 14.1618 12.7842 15.019C12.9185 15.0875 13.0554 15.1534 13.1831 15.2317C13.3101 15.3092 13.3966 15.2977 13.4963 15.1765C14.0972 14.4487 14.8662 14.0134 15.7992 13.8626C17.2161 13.6335 18.7129 14.311 19.4811 15.5359C20.888 17.7779 19.6467 20.6776 17.0545 21.2035C15.0006 21.6206 12.9688 20.1831 12.6663 18.1018C12.5996 17.6419 12.5971 17.1844 12.7347 16.7376C12.7982 16.5324 12.7413 16.4401 12.5518 16.3436C10.7607 15.4345 8.9746 14.5154 7.18932 13.5939C7.05991 13.5271 6.98491 13.5436 6.89424 13.6541C6.06342 14.663 4.98945 15.1147 3.68799 15.0454C2.07332 14.9589 0.560032 13.565 0.328423 11.9495C0.298751 11.7451 0.275672 11.5415 0.283915 11.3915L0.28309 11.3923Z"
-              fill="#4570B6"
-            />
-          </svg>
-        </a>
-        <a
-          id="copyCurrentUrlPresbyopia"
-          class="cursor-pointer"
-          aria-label="複製本頁鏈接"
-          title="複製本頁鏈接"
-          role="button"
-          tabindex="0"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="22"
-            height="22"
-            viewBox="0 0 22 22"
-            fill="none"
-          >
-            <g clip-path="url(#clip0_presbyopia_share)">
-              <path
-                d="M9.10331 5.96582C10.8881 5.96788 12.1819 6.48567 13.3123 7.46166C13.4906 7.61577 13.6719 7.76576 13.8462 7.92295C14.1998 8.2404 14.2685 8.71402 13.9826 9.09722C13.644 9.55132 13.2864 9.99206 12.9169 10.4205C12.6102 10.7759 12.1381 10.7985 11.7725 10.5016C11.5445 10.3167 11.3283 10.1153 11.1003 9.92939C10.0614 9.08489 8.5107 9.12599 7.55356 10.0701C6.53466 11.0759 5.5337 12.1043 4.56062 13.1574C3.81463 13.9649 3.6493 14.9511 3.98793 15.998C4.32657 17.0449 5.06658 17.6788 6.11037 17.8699C6.97788 18.0281 7.77666 17.8031 8.43998 17.1744C8.65412 16.972 8.85232 16.7521 9.06148 16.5446C9.44493 16.1655 9.89611 16.1501 10.2826 16.5251C10.663 16.8949 11.0325 17.2771 11.3921 17.6685C11.7078 18.0127 11.7218 18.4883 11.423 18.8356C10.3951 20.0335 9.17403 20.8883 7.61033 21.1821C4.42019 21.781 1.21312 19.4828 0.680264 16.184C0.335653 14.0481 0.911332 12.204 2.37244 10.6598C3.2997 9.67974 4.24091 8.71299 5.19008 7.75549C6.35838 6.57607 7.76769 5.98123 9.10231 5.96685L9.10331 5.96582Z"
-                fill="#4570B6"
-              />
-              <path
-                d="M12.3093 15.4664C10.7307 15.4592 9.43492 14.9445 8.30647 13.9664C8.13516 13.8175 7.96186 13.6716 7.79055 13.5216C7.42104 13.1969 7.34734 12.7213 7.63916 12.3309C7.97879 11.8768 8.33635 11.4371 8.70487 11.0087C9.00964 10.6542 9.48373 10.6337 9.84925 10.9306C10.0644 11.1052 10.2666 11.2963 10.4837 11.4679C11.651 12.3915 13.1539 12.3021 14.1977 11.2388C15.131 10.2885 16.0602 9.33406 16.9785 8.36834C17.7345 7.57316 17.9635 6.61155 17.6667 5.55131C17.364 4.47258 16.6429 3.79863 15.5782 3.57672C14.6818 3.38974 13.8641 3.61165 13.1768 4.25889C12.9627 4.46025 12.7655 4.68216 12.5553 4.88866C12.1729 5.26467 11.7177 5.27906 11.3333 4.9051C10.9528 4.53525 10.5833 4.15307 10.2247 3.76061C9.91698 3.42467 9.89407 2.95105 10.1819 2.61408C11.147 1.48398 12.2824 0.636403 13.7426 0.306619C17.2036 -0.474177 20.5641 1.973 20.9874 5.60473C21.2095 7.51152 20.6826 9.19331 19.4117 10.5844C18.348 11.7484 17.2644 12.898 16.109 13.9664C15.0085 14.9846 13.6858 15.451 12.3083 15.4654L12.3093 15.4664Z"
-                fill="#4570B6"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_presbyopia_share">
-                <rect
-                  width="20.4545"
-                  height="21.1144"
-                  fill="white"
-                  transform="translate(0.583496 0.162109)"
-                />
-              </clipPath>
-            </defs>
-          </svg>
-        </a>
-      </div>
-    </section>
   </div>
 </BaseLayout>
 
@@ -935,6 +786,7 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
     font-weight: 700;
   }
 
+  .scheme-card-desc :global(span),
   .CorrectionProgram-Box-hide-item-bottom-text :global(span) {
     color: #4570b6;
     font-weight: 700;
@@ -957,132 +809,51 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
   }
 </style>
 
-<script is:inline>
+<script>
+  import Swiper from "swiper";
+  import { Autoplay, Navigation } from "swiper/modules";
+
   function initPresbyopiaPage() {
-    // 1. 第一視角預覽 Swiper 切換
-    const prevBtn = document.getElementById("lbvPrevBtn");
-    const nextBtn = document.getElementById("lbvNextBtn");
+    // 1. 第一視角預覽 Swiper 切換 (支援拖拽切換 + 2.5s 自動輪播 + 箭頭導航)
+    const swiperEl = document.querySelector(".lbv-swiper") as HTMLElement | null;
     const sceneTitle = document.getElementById("lbvSceneTitle");
-    const slides = document.querySelectorAll(".lbv-slide");
-    let currentSlideIdx = 0;
 
-    function showSlide(idx) {
-      if (idx < 0) idx = slides.length - 1;
-      if (idx >= slides.length) idx = 0;
-      currentSlideIdx = idx;
-      slides.forEach((slide, i) => {
-        const isActive = i === currentSlideIdx;
-        slide.style.display = isActive ? "block" : "none";
-        slide.classList.toggle("active", isActive);
-        if (isActive && sceneTitle) {
-          const scene = slide.getAttribute("data-scene");
-          if (scene) sceneTitle.textContent = scene;
-        }
-      });
-    }
-
-    if (prevBtn) {
-      prevBtn.addEventListener("click", () => showSlide(currentSlideIdx - 1));
-    }
-    if (nextBtn) {
-      nextBtn.addEventListener("click", () => showSlide(currentSlideIdx + 1));
-    }
-
-    // 3. 平滑錨點滾動 (支援 #CorrectionProgram 等)
-    function handleAnchorScroll() {
-      const hash = window.location.hash;
-      if (hash) {
-        const target = document.querySelector(hash);
-        if (target) {
-          setTimeout(() => {
-            target.scrollIntoView({ behavior: "smooth" });
-          }, 150);
-        }
+    if (swiperEl) {
+      if ((swiperEl as any).swiper) {
+        (swiperEl as any).swiper.destroy(true, true);
       }
-    }
-    handleAnchorScroll();
 
-    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-      anchor.addEventListener("click", (e) => {
-        const hash = anchor.getAttribute("href");
-        if (hash && hash !== "#") {
-          const target = document.querySelector(hash);
-          if (target) {
-            e.preventDefault();
-            target.scrollIntoView({ behavior: "smooth" });
-            history.pushState(null, "", hash);
-          }
-        }
-      });
-    });
-
-    // 4. 社交分享及複製鏈接
-    const copyBtn = document.getElementById("copyCurrentUrlPresbyopia");
-    if (copyBtn) {
-      copyBtn.addEventListener("click", async () => {
-        try {
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            await navigator.clipboard.writeText(window.location.href);
-          } else {
-            const textArea = document.createElement("textarea");
-            textArea.value = window.location.href;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand("copy");
-            document.body.removeChild(textArea);
-          }
-          alert("鏈接已複製到剪貼簿！");
-        } catch (e) {
-          console.error("複製失敗:", e);
-        }
-      });
-    }
-
-    const shareBtn = document.getElementById("shareCurrentPagePresbyopia");
-    if (shareBtn) {
-      shareBtn.addEventListener("click", () => {
-        if (navigator.share) {
-          navigator.share({
-            title: document.title,
-            url: window.location.href,
-          }).catch(() => {});
-        } else {
-          const url = encodeURIComponent(window.location.href);
-          window.open(`https://api.whatsapp.com/send?text=${url}`, "_blank");
-        }
-      });
-    }
-
-    // 5. #CorrectionProgram 封面滑開動畫
-    const correctionProgram = document.getElementById("CorrectionProgram");
-    const presbyopiaBoxShow = document.getElementById("presbyopiaBoxShow");
-    if (correctionProgram && presbyopiaBoxShow && !presbyopiaBoxShow.dataset.observed) {
-      presbyopiaBoxShow.dataset.observed = "true";
-      const prefersReducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
-      const correctionObserver = new IntersectionObserver(
-        (entries, obs) => {
-          for (const entry of entries) {
-            if (entry.isIntersecting) {
-              const box = document.getElementById("presbyopiaBoxShow");
-              if (box) {
-                if (prefersReducedMotion) {
-                  box.style.transition = "none";
-                }
-                box.style.transform = "translateY(-100%)";
-              }
-              obs.unobserve(entry.target);
-              break;
-            }
-          }
+      new Swiper(swiperEl, {
+        modules: [Autoplay, Navigation],
+        loop: true,
+        grabCursor: true,
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
         },
-        {
-          rootMargin: "0px 0px 600px 0px",
-          threshold: 0,
-        }
-      );
-      correctionObserver.observe(correctionProgram);
+        navigation: {
+          prevEl: "#lbvPrevBtn",
+          nextEl: "#lbvNextBtn",
+        },
+        speed: 500,
+        on: {
+          init: function (swiper: any) {
+            const activeSlide = swiper.slides[swiper.activeIndex];
+            if (activeSlide && sceneTitle) {
+              const scene = activeSlide.getAttribute("data-scene");
+              if (scene) sceneTitle.textContent = scene;
+            }
+          },
+          slideChange: function (swiper: any) {
+            const activeSlide = swiper.slides[swiper.activeIndex];
+            if (activeSlide && sceneTitle) {
+              const scene = activeSlide.getAttribute("data-scene");
+              if (scene) sceneTitle.textContent = scene;
+            }
+          },
+        },
+      });
     }
   }
 

@@ -9,48 +9,19 @@
 (() => {
   let isLoaded = false;
 
-  // 1. 動態補齊商務通圖片 alt 與無障礙屬性
-  const fixAltObserver = new MutationObserver(() => {
-    const imgs = document.querySelectorAll('div[id^="LR"] img:not([alt]), div[id^="LR"] img[alt=""]');
-    imgs.forEach((img) => {
-      const src = img.getAttribute("src") || "";
-      if (src.includes("close.png")) {
-        img.setAttribute("alt", "關閉諮詢視窗");
-      } else if (src.includes("jiantou.png")) {
-        img.setAttribute("alt", "展開在線客服");
-      } else {
-        img.setAttribute("alt", "希瑪客服");
-      }
-      img.setAttribute("aria-hidden", "true");
-    });
-  });
-
-  // 2. 真正的延遲加載邏輯
+  // 延遲加載商務通在線客服腳本（用戶互動或 5s 兜底觸發）
   function loadZoosnet() {
     if (isLoaded) return;
     isLoaded = true;
 
-    // A. 啟動 DOM 屬性修復監聽（10 秒後自動銷毀，覆蓋彈窗生命週期且防內存洩漏）
-    try {
-      fixAltObserver.observe(document.body || document.documentElement, {
-        childList: true,
-        subtree: true,
-      });
-      setTimeout(() => {
-        fixAltObserver.disconnect();
-      }, 10000);
-    } catch (_e) {
-      // 容錯降級，不影響主線程
-    }
-
-    // B. 先插入核心 CSS，徹底解決動態加載時 document.write 被攔截導致的樣式丟失問題
+    // 先插入核心 CSS，防止樣式丟失
     const link = document.createElement("link");
     link.rel = "stylesheet";
     link.type = "text/css";
     link.href = "https://mqj.zoosnet.net/js/JS5_2.css";
     document.head.appendChild(link);
 
-    // C. 動態插入希瑪微笑矯視專屬商務通腳本
+    // 動態插入商務通客服腳本
     const script = document.createElement("script");
     script.type = "text/javascript";
     script.src = "https://mqj.zoosnet.net/JS/LsJS.aspx?siteid=MQJ40126824&float=1&lng=big5";
