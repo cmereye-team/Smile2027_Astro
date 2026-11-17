@@ -17,8 +17,8 @@
     "lint:fix": "eslint . --fix",
     "lint:style": "stylelint \"src/**/*.{css,scss,astro,vue}\" --fix",
     "push": "node ./scripts/push.mjs",
-    "push:cf": "astro build && wrangler pages deploy dist --project-name 2026smile --branch main --commit-dirty=true",
-    "deploy:cf": "astro build && wrangler pages deploy dist --project-name 2026smile --branch main --commit-dirty=true"
+    "push:cf": "node ./scripts/push.mjs cf",
+    "deploy:cf": "node ./scripts/push.mjs cf"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
