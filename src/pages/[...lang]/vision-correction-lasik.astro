@@ -188,12 +188,9 @@ const currentUrl = isCn
                   <h3 class="mb-2 md:mb-[0.625vw] tracking-widest md:tracking-[0.35em] text-lg md:text-[clamp(1.25rem,0.833rem_+_0.87vw,1.875rem)] text-primary font-bold text-center">
                     {item.title}
                   </h3>
-                  <p class="text-base md:text-[clamp(1rem,0.667rem_+_0.69vw,1.5rem)] font-light text-[#6d6e71] text-center tracking-[0.15em] md:tracking-[0.2em] leading-[18px] md:leading-normal">
-                    {item.lines.map((line, i) => (
-                      <>
-                        {i > 0 && <br />}
-                        {line}
-                      </>
+                  <p class="text-[14px] sm:text-[15px] md:text-[clamp(1rem,0.667rem_+_0.69vw,1.5rem)] font-light text-[#6d6e71] text-center tracking-normal sm:tracking-[0.08em] md:tracking-[0.2em] leading-snug md:leading-normal">
+                    {item.lines.map((line) => (
+                      <span class="block whitespace-nowrap">{line}</span>
                     ))}
                   </p>
                 </figcaption>
