@@ -49,5 +49,6 @@ scratch_*.mjs
 *.avif
 *.ico
 *.svg
+!public/images/service/icl/**
 
 .vscode/
