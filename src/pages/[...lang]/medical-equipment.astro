@@ -66,24 +66,7 @@ const toggleMoreLabel = isCn ? "了解更多" : "了解更多";
         <span>{content.sectionTitle}</span>
       </h2>
 
-      {/* E1: 分類篩選導航 Chips */}
-      <div class="equipment-filter-bar mb-8 md:mb-12" role="toolbar" aria-label="設備分類篩選">
-        <div class="filter-chips-container" id="equipment-filters">
-          {content.categories.map((cat, idx) => (
-            <button
-              type="button"
-              class:list={["filter-chip", { active: idx === 0 }]}
-              data-category={cat.id}
-              aria-pressed={idx === 0 ? "true" : "false"}
-            >
-              <span class="chip-name">{cat.name}</span>
-              <span class="chip-count">({cat.count})</span>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* E2, E3, E4: 設備網格 */}
+      {/* 2. 中心設備展示網格 */}
       <div class="equipment-items" id="equipment-grid">
         {
           content.items.map((item, index) => (
@@ -166,12 +149,8 @@ const toggleMoreLabel = isCn ? "了解更多" : "了解更多";
     const cards = Array.from(
       document.querySelectorAll<HTMLElement>(".equipment-card")
     );
-    const filterChips = Array.from(
-      document.querySelectorAll<HTMLButtonElement>(".filter-chip")
-    );
     const moreBtn = document.getElementById("equipment-more-btn") as HTMLButtonElement | null;
 
-    let currentCategory = "all";
     let visibleCount = 8;
 
     function isMobile() {
@@ -180,52 +159,23 @@ const toggleMoreLabel = isCn ? "了解更多" : "了解更多";
 
     function updateCardVisibility() {
       const isMob = isMobile();
-      let matchingCount = 0;
 
-      cards.forEach((card) => {
-        const cat = card.dataset.category;
-        const matchesCategory = currentCategory === "all" || cat === currentCategory;
-
-        if (!matchesCategory) {
-          card.setAttribute("data-category-hidden", "true");
+      cards.forEach((card, index) => {
+        if (isMob && index >= visibleCount) {
           card.setAttribute("data-mobile-hidden", "true");
         } else {
-          card.removeAttribute("data-category-hidden");
-          matchingCount++;
-          if (isMob && matchingCount > visibleCount) {
-            card.setAttribute("data-mobile-hidden", "true");
-          } else {
-            card.setAttribute("data-mobile-hidden", "false");
-          }
+          card.setAttribute("data-mobile-hidden", "false");
         }
       });
 
       if (moreBtn) {
-        if (!isMob || matchingCount <= visibleCount) {
+        if (!isMob || cards.length <= visibleCount) {
           moreBtn.style.display = "none";
         } else {
           moreBtn.style.display = "block";
         }
       }
     }
-
-    // Category filter click
-    filterChips.forEach((chip) => {
-      chip.addEventListener("click", () => {
-        const cat = chip.dataset.category || "all";
-        if (cat === currentCategory) return;
-        currentCategory = cat;
-        visibleCount = 8;
-
-        filterChips.forEach((c) => {
-          const isActive = c === chip;
-          c.classList.toggle("active", isActive);
-          c.setAttribute("aria-pressed", String(isActive));
-        });
-
-        updateCardVisibility();
-      });
-    });
 
     // Mobile "觀看更多" button
     if (moreBtn) {
@@ -304,54 +254,7 @@ const toggleMoreLabel = isCn ? "了解更多" : "了解更多";
     }
   }
 
-  /* E1: Category Filter Chips */
-  .equipment-filter-bar {
-    width: 100%;
-  }
-
-  .filter-chips-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-    margin: 0 auto;
-    max-width: 1000px;
-  }
-
-  .filter-chip {
-    padding: 8px 16px;
-    border-radius: 9999px;
-    font-size: 14px;
-    font-weight: 500;
-    font-family: var(--font-hk);
-    border: 1px solid #d4e4ff;
-    background: #fff;
-    color: #4570b6;
-    cursor: pointer;
-    transition: all var(--dur-fast) var(--ease-out);
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-
-    .chip-count {
-      opacity: 0.8;
-      font-size: 13px;
-    }
-
-    &:hover {
-      background: #f0f6ff;
-      border-color: #a8cdff;
-    }
-
-    &.active {
-      background: #4570b6;
-      border-color: #4570b6;
-      color: #fff;
-      box-shadow: 0 4px 12px rgba(69, 112, 182, 0.25);
-    }
-  }
-
-  /* E2, E3, E4: Equipment Grid & Cards */
+  /* Equipment Grid & Cards */
   .equipment-items {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -394,10 +297,6 @@ const toggleMoreLabel = isCn ? "了解更多" : "了解更多";
 
     &:focus-visible {
       box-shadow: 0 0 0 2px #4570b6, 0 10px 24px rgba(69, 112, 182, 0.12);
-    }
-
-    &[data-category-hidden="true"] {
-      display: none !important;
     }
   }
 
@@ -555,7 +454,7 @@ const toggleMoreLabel = isCn ? "了解更多" : "了解更多";
   @media screen and (min-width: 768px) {
     .equipment-heading {
       padding-bottom: 32px;
-      margin-bottom: 10px;
+      margin-bottom: 50px;
 
       :global(span) {
         font-size: 30px;
