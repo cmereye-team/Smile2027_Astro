@@ -27,270 +27,219 @@ h2 {
 
 /* ==========================================================================
    1. 頂部主橫幅 Hero Banner (.smile-NewBanner)
-   Modern Flexbox/Grid responsive layout (Zero brittle absolute positioning, Zero CLS)
+   對齊官網真值絕對定位佈局，杜絕截斷與變形
    ========================================================================== */
 .smile-NewBanner {
-  background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/banner-pc-bg-v1.webp")
-    no-repeat center bottom / cover;
   position: relative;
   width: 100%;
-  overflow: hidden;
   box-sizing: border-box;
+  padding: 0 15px;
+  height: 52.5vw;
+  min-height: 196px;
 
-  @media (max-width: 991px) {
-    background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/banner-mobile-bg-v1.webp")
-      no-repeat center top / cover;
-    padding-top: 24px;
-    padding-bottom: 24px;
-  }
-
-  @media (min-width: 992px) {
-    min-height: 480px;
-    max-height: 500px;
-    display: flex;
-    align-items: center;
-    padding-top: 10px;
-    padding-bottom: 20px;
-  }
-
-  .banner-breadcrumb {
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 4px;
-    font-family: var(--font-hk);
-    font-size: 14px;
-    font-weight: 300;
-    line-height: 1.5;
-    letter-spacing: 0.36px;
-    color: #6d6e71;
-
-    a {
-      color: #6d6e71;
-      text-decoration: none;
-      transition: color 0.2s ease;
-
-      &:hover {
-        color: #456db6;
-      }
-
-      &:last-child {
-        color: #456db6;
-        font-weight: 700;
-      }
-    }
-
-    span {
-      color: #9ca3af;
-      margin: 0 2px;
-    }
-
-    @media (min-width: 992px) {
-      margin-bottom: 12px;
-      font-size: 16px;
-    }
-  }
-
-  .banner-layout {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    position: relative;
-    z-index: 2;
-
-    @media (min-width: 992px) {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      gap: 32px;
-      width: 100%;
-    }
+  .banner-lens-img,
+  img {
+    width: 45vw;
+    max-width: 684px;
+    height: auto;
+    position: absolute;
+    top: -8px;
+    right: 14vw;
+    pointer-events: none;
+    z-index: 1;
   }
 
   .smile-NewBanner-Title {
-    display: flex;
-    flex-direction: column;
+    position: absolute;
+    bottom: 14.87vw;
+    left: 7.179vw;
     z-index: 2;
 
-    h1,
-    .banner-main-title {
-      font-family: var(--font-en);
-      font-size: clamp(48px, 6.2vw, 84px);
-      font-weight: 900;
-      line-height: 1;
-      letter-spacing: -0.02em;
+    span,
+    .banner-tag {
       color: #4570b6;
-      margin: 0 0 10px;
-      text-transform: uppercase;
-    }
-
-    .banner-sub-title {
-      font-family: var(--font-hk);
-      font-size: clamp(26px, 3.2vw, 44px);
+      font-family: var(--font-en);
+      font-size: 11.53vw;
+      font-style: normal;
       font-weight: 700;
-      line-height: 1.2;
-      letter-spacing: 0.05em;
-      color: #4570b6;
-      margin: 0 0 6px;
+      line-height: 1.1;
+      display: block;
     }
 
-    .banner-en-title {
-      font-family: var(--font-en);
-      font-size: clamp(15px, 1.6vw, 22px);
-      font-weight: 400;
-      line-height: 1.3;
-      letter-spacing: 0.02em;
+    h1,
+    .icl-h1 {
       color: #4570b6;
-      margin: 0 0 16px;
-    }
-
-    .banner-breadcrumb-bottom {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      border: 1px solid #4570b6;
-      border-radius: 4px;
-      padding: 4px 12px;
-      width: fit-content;
       font-family: var(--font-hk);
-      font-size: 13px;
+      font-size: 6.29vw;
+      font-style: normal;
       font-weight: 400;
-      color: #6d6e71;
-      background: rgba(255, 255, 255, 0.7);
+      line-height: 1.09;
+      margin: 0;
+    }
 
-      a {
-        color: #6d6e71;
-        text-decoration: none;
+    p,
+    .banner-sub {
+      color: #4570b6;
+      font-family: var(--font-hk);
+      font-size: 2.517vw;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 2.175;
+      letter-spacing: 0.295px;
+      margin: 0;
+    }
+  }
 
-        &:last-child {
-          color: #4570b6;
-          font-weight: 700;
-        }
+  .smile-NewBanner-Tip {
+    position: absolute;
+    right: 15px;
+    bottom: 0;
+    z-index: 3;
+
+    div {
+      background: #4570b6;
+    }
+
+    & > div:nth-child(1),
+    .smile-NewBanner-Tip-Title {
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      padding: 5px 10px 0px 10px;
+      color: #fff;
+      font-family: var(--font-hk);
+      font-size: 3.07vw;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 2;
+      display: inline-block;
+
+      p {
+        margin: 0;
       }
+    }
 
-      span {
-        color: #9ca3af;
+    & > div:nth-child(2),
+    .smile-NewBanner-Tip-Content {
+      border-radius: 5px;
+      border-top-left-radius: 0px;
+      padding: 5px 10px 11px 10px;
+      width: fit-content;
+      color: #fff;
+      font-family: var(--font-hk);
+      font-size: 3.07vw;
+      font-style: normal;
+      font-weight: 300;
+      line-height: 2;
+
+      p {
+        margin: 0;
       }
     }
   }
 
-  .smile-NewBanner-Visual {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 2;
+  @media (min-width: 992px) {
+    padding: 0;
+    height: 529px;
 
-    @media (min-width: 992px) {
-      flex: 1 1 auto;
-      max-width: 600px;
-      flex-direction: row;
-      justify-content: flex-end;
+    .banner-lens-img,
+    img {
+      width: 684px;
+      height: 562px;
+      top: -64px;
+      right: 160px;
     }
 
-    .lens-graphic-container {
-      position: relative;
-      width: clamp(220px, 30vw, 360px);
-      aspect-ratio: 1 / 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .smile-NewBanner-Title {
+      bottom: 90px;
+      left: 77px;
 
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        filter: drop-shadow(0 10px 24px rgba(69, 112, 182, 0.16));
-        animation: lensFloat 4s ease-in-out infinite alternate;
+      span,
+      .banner-tag {
+        font-size: 137.67px;
+        line-height: 150.611px;
+      }
+
+      h1,
+      .icl-h1 {
+        font-size: 74.332px;
+        line-height: 1.09;
+      }
+
+      p,
+      .banner-sub {
+        font-size: 29.733px;
+        line-height: 64.668px;
+        letter-spacing: 0.892px;
       }
     }
 
     .smile-NewBanner-Tip {
-      background: #4570b6;
-      color: #fff;
-      border-radius: 16px;
-      padding: 16px 20px;
-      box-shadow: 0 10px 28px rgba(69, 112, 182, 0.28);
-      position: relative;
-      z-index: 3;
-      margin-top: -30px;
-      width: clamp(240px, 28vw, 320px);
-      box-sizing: border-box;
+      right: 15px;
+      bottom: 0;
 
-      @media (min-width: 992px) {
-        margin-top: 0;
-        margin-left: -50px;
-        align-self: flex-end;
-        margin-bottom: 20px;
-      }
-
-      .smile-NewBanner-Tip-Top {
-        font-family: var(--font-hk);
-        font-size: 15px;
+      & > div:nth-child(1),
+      .smile-NewBanner-Tip-Title {
+        border-bottom: 1px solid #4570b6;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        padding: 8px 22px 0px 22px;
+        display: inline-block;
+        font-size: 20px;
         font-weight: 700;
-        letter-spacing: 0.1em;
-        margin-bottom: 8px;
-        padding-bottom: 6px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.35);
-        display: flex;
-        align-items: center;
-        gap: 6px;
-
-        &::before {
-          content: "";
-          display: inline-block;
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
-          background: #fff;
-        }
+        line-height: 30px;
+        letter-spacing: 4px;
       }
 
+      & > div:nth-child(2),
       .smile-NewBanner-Tip-Content {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-
-        li {
-          font-family: var(--font-hk);
-          font-size: clamp(16px, 1.4vw, 20px);
-          font-weight: 700;
-          line-height: 1.4;
-          letter-spacing: 0.05em;
-          display: flex;
-          align-items: baseline;
-          gap: 6px;
-
-          &::before {
-            content: "•";
-            color: #fff;
-            font-size: 16px;
-          }
-
-          span {
-            font-family: var(--font-en);
-            font-size: clamp(19px, 1.7vw, 24px);
-            font-weight: 900;
-            color: #ffde59;
-            margin-right: 2px;
-          }
-        }
+        border-radius: 5px;
+        border-top-left-radius: 0px;
+        padding: 8px 35px 23px 22px;
+        width: fit-content;
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 44px;
+        letter-spacing: 4px;
       }
     }
   }
 }
 
-@keyframes lensFloat {
-  0% {
-    transform: translateY(0) scale(1);
+/* 麵包屑導航 (.smile-newCenter-menu) */
+.smile-newCenter-menu {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0 15px;
+  margin: 12px 0 24px;
+  font-family: var(--font-hk);
+  font-size: 14px;
+  color: #6d6e71;
+
+  a {
+    color: #6d6e71;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #4570b6;
+    }
+
+    &.breadcrumb-curr {
+      color: #4570b6;
+      font-weight: 700;
+    }
   }
-  100% {
-    transform: translateY(-8px) scale(1.02);
+
+  .breadcrumb-sep {
+    margin: 0 4px;
+    color: #9ca3af;
+  }
+
+  @media (min-width: 992px) {
+    padding: 0 0 0 77px;
+    margin: 0 0 58px;
+    font-size: 16px;
   }
 }
 
@@ -652,62 +601,131 @@ h2 {
 
 /* ==========================================================================
    5. EVO ICL 產品系列介紹 — V4C｜V5｜V6 型號比較 (.icl-model)
+   100% 官方真值對齊：淡藍表頭、灰底項目欄、星標徽章與精細網格線
    ========================================================================== */
 .icl-model {
   .model-title {
     color: #4570b6;
     font-family: var(--font-hk);
-    font-size: clamp(20px, 1.5625vw, 30px);
-    font-style: normal;
-    font-weight: 900;
+    font-size: 20px;
+    font-weight: 700;
     line-height: 1.3;
-  }
-  .model-main {
-    border-radius: 10px;
-    overflow: hidden;
-    border: 1px solid #4570b6;
-  }
-  .model-table {
-    border-collapse: collapse;
-    th,
-    td {
-      padding: 12px 8px;
-      font-size: 14px;
-      font-family: var(--font-hk);
-      color: #6d6e71;
-      &.line-bottom {
-        border-bottom: 1px solid #4570b6;
-      }
-      &.line-right {
-        border-right: 1px solid #4570b6;
-      }
-      &.line-project {
-        border-right: 1px solid #4570b6;
-        background: #f4fafc;
-        color: #4570b6;
-        font-weight: 700;
-      }
-    }
-    thead th {
-      background: #4570b6;
-      color: #fff;
-      font-weight: 700;
-      font-size: 16px;
-      padding: 14px 8px;
+    text-align: center;
+
+    @media (min-width: 1024px) {
+      font-size: 30px;
+      font-weight: 900;
     }
   }
 
-  @media (min-width: 1024px) {
-    .model-table {
-      th,
-      td {
-        padding: 20px 16px;
-        font-size: 18px;
-        line-height: 1.5;
+  .model-main {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: none;
+    border-radius: 0;
+  }
+
+  .model-table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 500px;
+    text-align: center;
+
+    td {
+      height: 100px;
+      font-size: 16px;
+      color: #000;
+      font-family: var(--font-hk);
+      line-height: 1.5;
+      padding: 8px;
+      box-sizing: border-box;
+
+      @media (min-width: 1024px) {
+        height: 116px;
+        font-size: 20px;
+        line-height: 30px;
+        padding: 12px 16px;
       }
-      thead th {
-        font-size: 22px;
-        padding: 18px 16px;
+    }
+
+    .project-name {
+      background-color: #d4e4ff;
+      color: #4570b6;
+      font-size: 20px;
+      font-weight: 700;
+      height: 100px;
+      box-sizing: border-box;
+
+      @media (min-width: 1024px) {
+        font-size: 24px;
+        height: 148px;
+      }
+    }
+
+    .table-item {
+      background-color: #efeeee;
+      color: #4570b6;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.5;
+      width: 92px;
+      position: sticky;
+      left: 0;
+      z-index: 10;
+      box-sizing: border-box;
+
+      @media (min-width: 1024px) {
+        font-size: 20px;
+        width: 232px;
+      }
+    }
+
+    .line-bottom {
+      border-bottom: 1px solid #d0d0d0;
+
+      @media (min-width: 1024px) {
+        border-bottom-width: 1.5px;
+      }
+    }
+
+    .line-project {
+      border-right: 1px solid #fff;
+
+      @media (min-width: 1024px) {
+        border-right-width: 1.5px;
+      }
+    }
+
+    .line-right {
+      border-right: 1px solid #d0d0d0;
+
+      @media (min-width: 1024px) {
+        border-right-width: 1.5px;
+      }
+    }
+
+    .model-star {
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNSIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI1IDI0IiBmaWxsPSJub25lIj48cGF0aCBkPSJNMTkuMDgzIDE1LjA0cS40MjMgMS45NjcuNzQ3IDMuNTYuMTUuNjczLjI3NCAxLjM0NXQuMjM3IDEuMjIuMTg2LjkzNC4xLjQ4NnEuMDc1LjQ5OC0uMjI0LjY2LS4zLjE2LS42NzIuMTYxLS4xMjUgMC0uMzYyLS4wODdhMTUgMTUgMCAwIDEtLjM2LS4xMzdsLTYuNS0zLjc4NXEtMS43NjcgMS4wNDctMy4yMTIgMS44NjgtLjYyMy4zNDktMS4yMzIuNjk3LS42MS4zNDktMS4xMDguNjQ4dC0uODYuNDk4cS0uMzYuMTk4LS40ODUuMjQ5YS44NS44NSAwIDAgMS0uNTEuMDg3IDEuMSAxLjEgMCAwIDEtLjQ3My0uMTg3LjkuOSAwIDAgMS0uMzEyLS4zNjEuNjYuNjYgMCAwIDEtLjA1LS40MzZsLjEyNS0uNDg1cS4xLS4zODcuMjI0LS45MjIuMTI1LS41MzUuMjg2LTEuMTgzLjE2Mi0uNjQ2LjMzNy0xLjMyLjM3My0xLjU0Mi44NDYtMy40ODVhNDU3IDQ1NyAwIDAgMC0zLjYyMy0zLjEgODEgODEgMCAwIDEtLjg3MS0uNzQ3IDcyIDcyIDAgMCAwLS42MzUtLjU0OHEtLjI1LS4yMTEtLjI3NC0uMjM3LS4zLS4yNzQtLjUxLS42MWExIDEgMCAwIDEtLjE2My0uNjg1Ljg3Ljg3IDAgMCAxIC4yNzQtLjU0N3EuMjI1LS4yLjQ5OC0uMjVsNy42OTUtLjY5N0wxMS4zMzkuOTcxcS4xNS0uMzk4LjQyMy0uNjg1LjI3NS0uMjg1Ljc0Ny0uMjg2YS44My44MyAwIDAgMSAuNDM2LjExMnEuMTg4LjExMi4zMTIuMjYyLjEyMy4xNS4yMTEuMjk4LjA4Ny4xNS4xMzcuMjVsMi43ODkgNi42NzMgNy42OTQuNzIycS40OTkuMTI0LjY5Ny4yOTkuMi4xNzQuMi41NDdhLjk0Ljk0IDAgMCAxLS4yMTIuNjFxLS4yMTIuMjYyLS41MzUuNjM1eiIgZmlsbD0iIzc1YmVlOSIvPjwvc3ZnPg==");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 16px;
+        height: 16px;
+        top: 8px;
+        right: 8px;
+        pointer-events: none;
+
+        @media (min-width: 1024px) {
+          width: 24px;
+          height: 24px;
+          top: 12px;
+          right: 12px;
+        }
       }
     }
   }
@@ -717,6 +735,14 @@ h2 {
    6. ICL 矯視的好處 (.icl-Good)
    ========================================================================== */
 .icl-Good {
+  margin-bottom: 50px;
+  padding-bottom: 30px;
+
+  @media (min-width: 1024px) {
+    margin-bottom: 80px;
+    padding-bottom: 40px;
+  }
+
   .icl-Good-List {
     margin: 49px auto 0;
     max-width: 992px;
@@ -845,34 +871,221 @@ h2 {
 
 /* ==========================================================================
    7. EVO Visian ICL 鏡片 7 大特色 (.icl-peculiarity)
-   純 CSS 14秒循環動畫 + Hover 手風琴展開 (0 JS 依賴)
+   100% 官方真值對齊：桌面端醫生背景 + 傾斜折角書本手風琴；移動端橫向滑動卡片 (0 JS 依賴)
    ========================================================================== */
 .icl-peculiarity {
   width: 100%;
-  padding-top: 40px;
-  padding-bottom: 50px;
   background: #f4fafc;
   position: relative;
   z-index: 2;
+  box-sizing: border-box;
 
-  @media (min-width: 768px) {
-    padding-top: 50px;
-    padding-bottom: 60px;
+  /* 移動端 (Mobile-First): max-width: 1140px */
+  padding: 40px 0;
+
+  .icl-peculiarity-container {
+    display: block;
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
   }
 
-  @media (min-width: 1200px) {
-    padding-top: 70px;
-    padding-bottom: 90px;
-    min-height: 640px;
+  .icl-peculiarity-text {
+    color: #6d6e71;
+    font-family: var(--font-hk);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    letter-spacing: 3.2px;
+    line-height: 1.875;
+    padding: 0 15px;
+    text-align: justify;
+    margin: 0;
+    width: 100%;
     box-sizing: border-box;
+  }
+
+  .icl-peculiarity-list {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 30px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding: 10px 0 20px;
+
+    &::-webkit-scrollbar {
+      height: 4px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 2px;
+    }
+
+    & > .icl-peculiarity-list-item:first-child {
+      margin-left: 55px;
+      margin-right: 55px;
+      transform: rotate(20deg);
+      scroll-snap-align: center;
+
+      &:hover,
+      &.active {
+        margin-left: 10px;
+        margin-right: 10px;
+        transform: rotate(0deg);
+      }
+    }
+
+    .icl-peculiarity-list-item {
+      scroll-snap-align: center;
+      flex-shrink: 0;
+      background: #fff;
+      border: 1.159px solid #4570b6;
+      border-radius: 11.591px;
+      padding: 12px 11px 10px;
+      transition: all 0.3s ease;
+      width: fit-content;
+      box-sizing: border-box;
+      cursor: pointer;
+
+      h4,
+      .icl-peculiarity-list-item-footer {
+        color: #4570b6;
+        font-family: var(--font-en);
+        font-size: 13.3px;
+        font-weight: 700;
+        line-height: 1.26;
+        text-align: center;
+        margin: 0;
+      }
+
+      .icl-peculiarity-list-item-footer p {
+        margin: 0;
+        line-height: 1.2;
+      }
+
+      .icl-peculiarity-list-item-text {
+        align-items: flex-start;
+        border-top: 1px solid #4570b6;
+        border-bottom: 1px solid #4570b6;
+        display: flex;
+        height: 260px;
+        justify-content: center;
+        margin-top: 6px;
+        margin-bottom: 13px;
+        padding-top: 58px;
+        width: 100%;
+        box-sizing: border-box;
+
+        .icl-peculiarity-list-item-text-title {
+          color: #4570b6;
+          font-family: var(--font-hk);
+          font-size: 14.5px;
+          font-weight: 700;
+          letter-spacing: 5px;
+          line-height: 1.2;
+          text-orientation: upright;
+          writing-mode: vertical-rl;
+          margin: 0;
+          text-align: center;
+          white-space: nowrap;
+        }
+
+        .icl-peculiarity-list-item-text-show {
+          display: none;
+          flex-direction: column;
+          align-items: center;
+
+          .icl-peculiarity-list-item-text-show-box {
+            align-items: center;
+            background: #fff;
+            border-radius: 11px;
+            display: flex;
+            flex-direction: column;
+            height: 133px;
+            width: 133px;
+            justify-content: space-between;
+            padding-top: 27px;
+            padding-bottom: 16px;
+            box-sizing: border-box;
+            text-align: center;
+
+            img,
+            svg {
+              width: 75px;
+              height: auto;
+            }
+
+            .icl-peculiarity-list-item-box-title p {
+              color: #4570b6;
+              font-family: var(--font-hk);
+              font-size: 14.5px;
+              font-weight: 700;
+              letter-spacing: 5px;
+              line-height: 1.2;
+              margin: 0;
+              text-align: center;
+            }
+          }
+
+          .icl-peculiarity-list-item-text-des {
+            margin-top: 7px;
+            text-align: center;
+
+            p {
+              color: #fff;
+              font-family: var(--font-hk);
+              font-size: 13.3px;
+              font-weight: 300;
+              letter-spacing: 4px;
+              line-height: 1.52;
+              margin: 0;
+              white-space: nowrap;
+            }
+          }
+        }
+      }
+
+      &:hover,
+      &.active {
+        background: #4570b6;
+
+        h4,
+        .icl-peculiarity-list-item-footer {
+          color: #fff;
+        }
+
+        .icl-peculiarity-list-item-text {
+          border-top: 1px solid #fff;
+          border-bottom: 1px solid #fff;
+          padding-top: 23px;
+
+          .icl-peculiarity-list-item-text-title {
+            display: none;
+          }
+
+          .icl-peculiarity-list-item-text-show {
+            display: flex !important;
+          }
+        }
+      }
+    }
+  }
+
+  /* 桌面端 (Desktop): min-width: 1141px */
+  @media screen and (min-width: 1141px) {
+    padding-top: 105px;
+    padding-bottom: 160px;
 
     &::after {
       content: "";
       background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-peculiarity-bg1.png")
         no-repeat left bottom / contain;
       pointer-events: none;
-      width: clamp(420px, 32vw, 560px);
-      height: clamp(340px, 26vw, 440px);
+      width: 660px;
+      height: 502px;
       position: absolute;
       left: 0;
       bottom: 0;
@@ -883,418 +1096,132 @@ h2 {
       content: "";
       background: url("https://statichk.cmermedical.com/smile/icl/banner-lens-pc-v1.webp")
         no-repeat center / contain;
-      opacity: 0.1;
+      opacity: 0.12;
       width: 580px;
       height: 480px;
       position: absolute;
-      right: 60px;
-      top: 50px;
+      right: 40px;
+      top: 30px;
       pointer-events: none;
       z-index: 1;
     }
-  }
 
-  .icl-peculiarity-container {
-    margin-top: 24px;
-    position: relative;
-    z-index: 2;
-
-    @media (max-width: 1199px) {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 24px;
-    }
-
-    @media (min-width: 1200px) {
+    .icl-peculiarity-container {
       display: flex;
       flex-direction: row;
       align-items: flex-start;
-      justify-content: space-between;
-      gap: 32px;
-      margin-top: 48px;
-    }
-  }
-
-  .icl-peculiarity-text {
-    color: #6d6e71;
-    text-align: justify;
-    font-family: var(--font-hk);
-    font-size: 15px;
-    font-weight: 300;
-    line-height: 1.8;
-    letter-spacing: 1.2px;
-    margin: 0 auto;
-    max-width: 720px;
-    padding: 0 15px;
-    box-sizing: border-box;
-    overflow-wrap: break-word;
-
-    @media (min-width: 768px) and (max-width: 1199px) {
-      font-size: 16px;
-      line-height: 1.85;
-      text-align: center;
-      padding: 0;
-    }
-
-    @media (min-width: 1200px) {
-      flex: 0 0 310px;
-      width: 310px;
-      max-width: 310px;
-      min-width: 310px;
-      flex-shrink: 0;
-      font-size: 17px;
-      line-height: 1.85;
-      letter-spacing: 1.5px;
-      margin: 0;
-      padding: 0;
+      justify-content: center;
+      gap: 0;
+      margin-top: 64px;
       position: relative;
       z-index: 2;
     }
-  }
 
-  .icl-peculiarity-list {
-    display: flex;
-    flex-direction: row;
-    gap: 12px;
-    margin: 0;
-    padding: 10px 15px 20px;
-    width: 100%;
-    box-sizing: border-box;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-
-    &::-webkit-scrollbar {
-      height: 6px;
-    }
-    &::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 3px;
+    .icl-peculiarity-text {
+      width: 330px;
+      max-width: 330px;
+      color: #6d6e71;
+      font-family: var(--font-hk);
+      font-size: 20px;
+      font-weight: 300;
+      letter-spacing: 4px;
+      line-height: 35px;
+      text-align: justify;
+      margin: 0;
+      padding: 0;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 2;
     }
 
-    @media (min-width: 1200px) {
-      flex: 1 1 auto;
+    .icl-peculiarity-list {
       display: flex;
       flex-direction: row;
-      align-items: stretch;
-      justify-content: flex-end;
-      gap: 12px;
-      padding: 0;
+      justify-content: center;
+      align-items: flex-start;
+      position: relative;
+      z-index: 2;
       overflow: visible;
-      width: auto;
-    }
+      padding: 0;
+      margin: 0;
 
-    .icl-peculiarity-list-item {
-      scroll-snap-align: start;
-      flex-shrink: 0;
-      box-sizing: border-box;
-      cursor: pointer;
-      outline: none;
-      border-radius: 16px;
-      border: 2px solid #4570b6;
-      background: #fff;
-      padding: 16px 10px 14px;
-      width: 88px;
-      min-height: 380px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-                  background-color 0.25s ease,
-                  box-shadow 0.25s ease;
+      & > .icl-peculiarity-list-item:first-child {
+        margin-left: 45px;
+        margin-right: 95px;
+        transform: rotate(20deg);
 
-      @media (min-width: 1200px) {
-        width: 90px;
-        min-height: 440px;
-        padding: 18px 10px 16px;
-        border-radius: 18px;
-
-        &:first-child:not(.active):not(:hover) {
-          transform: rotate(-12deg);
-          margin-right: 20px;
-        }
-
-        /* 桌面端純 CSS 14秒循環動畫 (7 個卡片，每個 2 秒) */
-        @for $i from 1 through 7 {
-          &:nth-child(#{$i}) {
-            animation: peculiarityCardCycle 14s infinite;
-            animation-delay: #{($i - 1) * 2}s;
-
-            h4,
-            .icl-peculiarity-list-item-footer {
-              animation: peculiarityColorCycle 14s infinite;
-              animation-delay: #{($i - 1) * 2}s;
-            }
-
-            .icl-peculiarity-list-item-text {
-              animation: peculiarityBorderCycle 14s infinite;
-              animation-delay: #{($i - 1) * 2}s;
-            }
-
-            .icl-peculiarity-list-item-text-title {
-              animation: peculiarityTitleCycle 14s infinite;
-              animation-delay: #{($i - 1) * 2}s;
-            }
-
-            .icl-peculiarity-list-item-text-show {
-              animation: peculiarityShowCycle 14s infinite;
-              animation-delay: #{($i - 1) * 2}s;
-            }
-          }
+        &:hover,
+        &.active {
+          margin-left: 0;
+          margin-right: 0;
+          transform: rotate(0deg);
         }
       }
 
-      h4,
-      .icl-peculiarity-list-item-footer {
-        color: #4570b6;
-        text-align: center;
-        font-family: var(--font-en);
-        font-size: 15px;
-        font-weight: 700;
-        line-height: 1.25;
-        margin: 0;
-        transition: color 0.25s ease;
-        white-space: nowrap;
-
-        @media (min-width: 1200px) {
-          font-size: 18px;
-        }
-      }
-
-      .icl-peculiarity-list-item-footer {
-        p {
-          margin: 0;
-          line-height: 1.2;
-        }
-      }
-
-      .icl-peculiarity-list-item-text {
-        margin: 10px 0;
-        width: 100%;
-        min-height: 220px;
-        border-top: 1px solid #4570b6;
-        border-bottom: 1px solid #4570b6;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 12px 0;
-        box-sizing: border-box;
-        transition: border-color 0.25s ease;
-
-        @media (min-width: 1200px) {
-          margin: 12px 0;
-          height: 320px;
-          padding: 16px 0;
-        }
-
-        .icl-peculiarity-list-item-text-title {
-          writing-mode: vertical-rl;
-          text-orientation: upright;
-          color: #4570b6;
-          font-family: var(--font-hk);
-          font-size: 16px;
-          font-weight: 700;
-          line-height: 1.2;
-          letter-spacing: 4px;
-          margin: 0;
-          text-align: center;
-          white-space: nowrap;
-
-          @media (min-width: 1200px) {
-            font-size: 18px;
-            letter-spacing: 6px;
-          }
-        }
-
-        .icl-peculiarity-list-item-text-show {
-          display: none;
-          flex-direction: column;
-          align-items: center;
-          width: 100%;
-
-          .icl-peculiarity-list-item-text-show-box {
-            border-radius: 14px;
-            text-align: center;
-            padding: 14px 10px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            align-items: center;
-            width: 140px;
-            height: 140px;
-            background: #fff;
-            box-sizing: border-box;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-
-            @media (min-width: 1200px) {
-              border-radius: 16px;
-              padding: 16px 10px 14px;
-              width: 170px;
-              height: 170px;
-            }
-
-            img {
-              width: 66px;
-              height: auto;
-              object-fit: contain;
-
-              @media (min-width: 1200px) {
-                width: 78px;
-              }
-            }
-
-            .icl-peculiarity-list-item-box-title p {
-              color: #4570b6;
-              font-family: var(--font-hk);
-              font-size: 15px;
-              font-weight: 700;
-              line-height: 1.25;
-              margin: 0;
-              white-space: nowrap;
-
-              @media (min-width: 1200px) {
-                font-size: 18px;
-                letter-spacing: 2px;
-              }
-            }
-          }
-
-          .icl-peculiarity-list-item-text-des {
-            margin-top: 10px;
-            text-align: center;
-
-            @media (min-width: 1200px) {
-              margin-top: 14px;
-            }
-
-            p {
-              color: #fff;
-              font-family: var(--font-hk);
-              font-size: 13px;
-              font-weight: 400;
-              line-height: 1.5;
-              letter-spacing: 0.5px;
-              margin: 1px 0;
-              white-space: nowrap;
-
-              @media (min-width: 1200px) {
-                font-size: 14px;
-                line-height: 1.55;
-                letter-spacing: 1px;
-              }
-            }
-          }
-        }
-      }
-
-      /* Active / Hover 激活狀態 */
-      &.active,
-      &:hover {
-        width: 220px;
-        background: #4570b6;
-        border-color: #4570b6;
-        box-shadow: 0 8px 24px rgba(69, 112, 182, 0.28);
-
-        @media (min-width: 1200px) {
-          width: 260px;
-          box-shadow: 0 10px 28px rgba(69, 112, 182, 0.28);
-          transform: none !important;
-          margin-right: 0 !important;
-        }
+      .icl-peculiarity-list-item {
+        background: #fff;
+        border: 2px solid #4570b6;
+        border-radius: 20px;
+        padding: 21px 20px 19px;
+        transition: all 0.3s ease;
+        width: fit-content;
 
         h4,
         .icl-peculiarity-list-item-footer {
-          color: #fff !important;
+          font-size: 23px;
+          line-height: 29px;
         }
 
         .icl-peculiarity-list-item-text {
-          border-top: 1px solid #fff !important;
-          border-bottom: 1px solid #fff !important;
-          padding: 10px 4px;
-
-          @media (min-width: 1200px) {
-            padding: 12px 6px;
-          }
+          height: 448px;
+          margin-top: 11px;
+          margin-bottom: 24px;
+          padding-top: 101px;
 
           .icl-peculiarity-list-item-text-title {
-            display: none !important;
+            font-size: 25px;
+            letter-spacing: 8.75px;
           }
 
           .icl-peculiarity-list-item-text-show {
-            display: flex !important;
+            .icl-peculiarity-list-item-text-show-box {
+              border-radius: 20px;
+              width: 231px;
+              height: 231px;
+              padding-top: 36px;
+              padding-bottom: 28px;
+
+              img,
+              svg {
+                width: 123px;
+              }
+
+              .icl-peculiarity-list-item-box-title p {
+                font-size: 25px;
+                letter-spacing: 8.75px;
+              }
+            }
+
+            .icl-peculiarity-list-item-text-des {
+              margin-top: 13px;
+
+              p {
+                font-size: 23px;
+                letter-spacing: 6.9px;
+                line-height: 1.52;
+              }
+            }
+          }
+        }
+
+        &:hover,
+        &.active {
+          .icl-peculiarity-list-item-text {
+            padding-top: 41px;
           }
         }
       }
     }
-
-    /* 懸停容器時暫停循環動畫 */
-    @media (min-width: 1200px) {
-      &:hover {
-        .icl-peculiarity-list-item,
-        .icl-peculiarity-list-item * {
-          animation-play-state: paused;
-        }
-      }
-    }
-  }
-}
-
-/* 7大特色純 CSS 循環 Keyframes */
-@keyframes peculiarityCardCycle {
-  0%, 12% {
-    width: 260px;
-    background: #4570b6;
-    border-color: #4570b6;
-    box-shadow: 0 10px 28px rgba(69, 112, 182, 0.28);
-    transform: none;
-    margin-right: 0;
-  }
-  14.28%, 100% {
-    width: 90px;
-    background: #fff;
-    border-color: #4570b6;
-    box-shadow: none;
-  }
-}
-
-@keyframes peculiarityTitleCycle {
-  0%, 12% {
-    display: none;
-  }
-  14.28%, 100% {
-    display: flex;
-  }
-}
-
-@keyframes peculiarityShowCycle {
-  0%, 12% {
-    display: flex;
-  }
-  14.28%, 100% {
-    display: none;
-  }
-}
-
-@keyframes peculiarityBorderCycle {
-  0%, 12% {
-    border-top-color: #fff;
-    border-bottom-color: #fff;
-  }
-  14.28%, 100% {
-    border-top-color: #4570b6;
-    border-bottom-color: #4570b6;
-  }
-}
-
-@keyframes peculiarityColorCycle {
-  0%, 12% {
-    color: #fff;
-  }
-  14.28%, 100% {
-    color: #4570b6;
   }
 }
 

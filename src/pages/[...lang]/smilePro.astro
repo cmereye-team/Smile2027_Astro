@@ -220,7 +220,7 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
       </nav>
 
       <div
-        class="summary overflow-hidden flex flex-col lg:flex-row gap-10 xl:gap-[68px] mb-23 lg:mb-[180px]"
+        class="summary overflow-hidden flex flex-col lg:flex-row gap-10 xl:gap-[68px] mb-23"
       >
         <div class="lg:w-1/2">
           <div class="flex items-end gap-2 lg:gap-3 mb-4 lg:mb-6">
@@ -293,7 +293,7 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
       </div>
 
       {/* SMILE Pro 2.0 旗艦亮點專區 */}
-      <div class="pro2-intro bg-blue-50/50 rounded-2xl p-6 lg:p-12 mb-16 lg:mb-28 border border-blue-100">
+      <div class="pro2-intro bg-blue-50/50 rounded-2xl p-6 lg:p-12 border border-blue-100">
         <div
           class="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-12"
         >
@@ -1121,6 +1121,7 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
     @media screen and (min-width: 1140px) {
       right: 15px;
       bottom: 0;
+      transform: translateY(66%);
 
       & > div:nth-child(1) {
         border-bottom: 1px solid $primary;
@@ -1682,7 +1683,6 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
 
       @media screen and (min-width: 1024px) {
         border-radius: 100px;
-        padding: 20px 36px;
         font-size: 24px;
         box-shadow: 5px 5px 12px #00000040;
       }
@@ -2060,9 +2060,9 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
     }
   }
 
-  /* Section 10: 用家見證 (full-bleed #f4fafc) */
+  /* Section 10: 用家見證 (full-bleed #ffffff，與頁尾 #f4fafc 清晰區隔) */
   .smile-pro-evaluateV2 {
-    background: #f4fafc;
+    background: #ffffff;
     width: 100%;
 
     @media screen and (max-width: 991px) {

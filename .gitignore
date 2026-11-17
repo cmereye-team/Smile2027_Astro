@@ -49,3 +49,5 @@ scratch_*.mjs
 *.avif
 *.ico
 *.svg
+
+.vscode/

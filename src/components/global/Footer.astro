@@ -3,7 +3,7 @@
  * @Author: Antigravity AI
  * @Date: 2026-09-03
  * @FilePath: /src/components/global/Footer.astro
- * @Description: 1:1 像素級還原線上官方標準 new-Footer-v2 (浮動白卡、門市地址、營業時間、吉祥物、雙欄導航與社群連結)
+ * @Description: 官方標準全站頁尾 (語意化架構、雙向相容類名、浮動門市白卡、營業時間、吉祥物、雙欄導航與社群連結)
  */
 import { useI18n, getLocalizedHref } from "@/i18n/utils";
 
@@ -36,12 +36,12 @@ const newsList = [
 ];
 ---
 
-<footer class="new-Footer-v2" id="site-footer" aria-label={isCn ? "网站页脚与门市资讯" : "網站頁尾與門市資訊"}>
+<footer class="site-footer new-Footer-v2" id="site-footer" aria-label={isCn ? "网站页脚与门市资讯" : "網站頁尾與門市資訊"}>
   <div class="site-container">
-    <section>
+    <div class="footer-main new-Footer-v2-main">
       <!-- 左側白色浮動卡片 (含 Logo、營業時間、中環/旺角門市、吉祥物形象) -->
-      <div class="new-Footer-v2-address">
-        <a class="new-Footer-v2-logo" href={getLocalizedHref("/", lang)} title="香港希瑪微笑矯視中心官方首頁" aria-label="香港希瑪微笑矯視中心官方首頁">
+      <aside class="footer-card new-Footer-v2-address" aria-label={isCn ? "诊所门市资讯与营业时间" : "診所門市資訊與營業時間"}>
+        <a class="footer-logo new-Footer-v2-logo" href={getLocalizedHref("/", lang)} title="香港希瑪微笑矯視中心官方首頁" aria-label="香港希瑪微笑矯視中心官方首頁">
           <img draggable="false"
             src="https://statichk.cmermedical.com/smile/smileproV2/Smile-footer-mobile-LogoV2.svg"
             alt="香港希瑪微笑矯視中心 (CMER SMILE Refractive Center)"
@@ -54,28 +54,30 @@ const newsList = [
         </a>
 
         <!-- 營業時間 -->
-        <div class="new-Footer-v2-addressTime">
-          <h2 class="new-Footer-v2-addressTime-title">
+        <div class="footer-hours new-Footer-v2-addressTime">
+          <h2 class="footer-hours-title new-Footer-v2-addressTime-title">
             {isCn ? "营业时间" : "營業時間"}
           </h2>
-          <div class="new-Footer-v2-addressTime-item">
-            <div>{isCn ? "星期一至五" : "星期一至五"}</div>
-            <div>9:00-19:00</div>
-          </div>
-          <div class="new-Footer-v2-addressTime-item">
-            <div>{isCn ? "星期六" : "星期六"}</div>
-            <div>9:00-18:00</div>
-          </div>
-          <div class="new-Footer-v2-addressTime-item">
-            <div>{isCn ? "星期日及公众假期" : "星期日及公眾假期"}</div>
-            <div>{isCn ? "休息" : "休息"}</div>
-          </div>
+          <ul class="footer-hours-list new-Footer-v2-addressTime-list">
+            <li class="footer-hours-item new-Footer-v2-addressTime-item">
+              <span class="hours-label">{isCn ? "星期一至五" : "星期一至五"}</span>
+              <time class="hours-time">9:00-19:00</time>
+            </li>
+            <li class="footer-hours-item new-Footer-v2-addressTime-item">
+              <span class="hours-label">{isCn ? "星期六" : "星期六"}</span>
+              <time class="hours-time">9:00-18:00</time>
+            </li>
+            <li class="footer-hours-item new-Footer-v2-addressTime-item">
+              <span class="hours-label">{isCn ? "星期日及公众假期" : "星期日及公眾假期"}</span>
+              <span class="hours-time">{isCn ? "休息" : "休息"}</span>
+            </li>
+          </ul>
         </div>
 
         <!-- 門市地址列表 (增強 Local SEO 語意標記) -->
-        <address class="new-Footer-v2-loction not-italic">
-          <div class="new-Footer-v2-loction-item">
-            <div>
+        <address class="footer-locations new-Footer-v2-loction not-italic">
+          <div class="footer-location-item new-Footer-v2-loction-item">
+            <div class="footer-location-header">
               <strong>{isCn ? "中环" : "中環"}</strong>
               <a
                 href="https://maps.google.com/?q=Central+Building+Pedder+Street"
@@ -100,8 +102,8 @@ const newsList = [
             </p>
           </div>
 
-          <div class="new-Footer-v2-loction-item">
-            <div>
+          <div class="footer-location-item new-Footer-v2-loction-item">
+            <div class="footer-location-header">
               <strong>{isCn ? "旺角" : "旺角"}</strong>
               <a
                 href="https://maps.google.com/?q=Grand+Century+Place+Mong+Kok"
@@ -126,20 +128,20 @@ const newsList = [
             </p>
           </div>
         </address>
-      </div>
+      </aside>
 
       <!-- 右側全域導航選單 (雙欄藍點佈局) -->
-      <nav class="new-Footer-v2-menu" aria-label={isCn ? "全站导航链接" : "全站導航鏈接"}>
+      <nav class="footer-nav new-Footer-v2-menu" aria-label={isCn ? "全站导航链接" : "全站導航鏈接"}>
         <!-- 選單欄 1 -->
-        <div class="new-Footer-v2-menu-left">
+        <div class="footer-nav-col new-Footer-v2-menu-left">
           <!-- 關於希瑪 -->
-          <div class="new-Footer-v2-menu-left-item">
-            <span class="new-Footer-v2-menu-item-title">{isCn ? "关于希玛" : "關於希瑪"}</span>
+          <div class="footer-nav-group new-Footer-v2-menu-left-item">
+            <span class="footer-nav-title new-Footer-v2-menu-item-title">{isCn ? "关于希玛" : "關於希瑪"}</span>
             <ul>
               {
                 aboutList.map((item) => (
                   <li>
-                    <a class="new-Footer-v2-menu-item-link" href={getLocalizedHref(item.href, lang)} title={item.title}>
+                    <a class="footer-nav-link new-Footer-v2-menu-item-link" href={getLocalizedHref(item.href, lang)} title={item.title}>
                       {item.title}
                     </a>
                   </li>
@@ -149,13 +151,13 @@ const newsList = [
           </div>
 
           <!-- 矯視服務 -->
-          <div class="new-Footer-v2-menu-left-item services">
-            <span class="new-Footer-v2-menu-item-title">{isCn ? "矫视服务" : "矯視服務"}</span>
+          <div class="footer-nav-group new-Footer-v2-menu-left-item services">
+            <span class="footer-nav-title new-Footer-v2-menu-item-title">{isCn ? "矫视服务" : "矯視服務"}</span>
             <ul>
               {
                 serviceList.map((item) => (
                   <li>
-                    <a class="new-Footer-v2-menu-item-link" href={getLocalizedHref(item.href, lang)} title={item.title}>
+                    <a class="footer-nav-link new-Footer-v2-menu-item-link" href={getLocalizedHref(item.href, lang)} title={item.title}>
                       {item.title}
                     </a>
                   </li>
@@ -165,15 +167,15 @@ const newsList = [
           </div>
 
           <!-- 診症須知 -->
-          <div class="new-Footer-v2-menu-left-item">
-            <a class="new-Footer-v2-menu-item-title" href={getLocalizedHref("/patient-info", lang)} title={isCn ? "诊症须知" : "診症須知"}>
+          <div class="footer-nav-group new-Footer-v2-menu-left-item">
+            <a class="footer-nav-title new-Footer-v2-menu-item-title" href={getLocalizedHref("/patient-info", lang)} title={isCn ? "诊症须知" : "診症須知"}>
               {isCn ? "诊症须知" : "診症須知"}
             </a>
             <ul>
               {
                 diagnosisList.map((item) => (
                   <li>
-                    <a class="new-Footer-v2-menu-item-link" href={getLocalizedHref(item.href, lang)} title={item.title}>
+                    <a class="footer-nav-link new-Footer-v2-menu-item-link" href={getLocalizedHref(item.href, lang)} title={item.title}>
                       {item.title}
                     </a>
                   </li>
@@ -184,36 +186,36 @@ const newsList = [
         </div>
 
         <!-- 選單欄 2 -->
-        <div class="new-Footer-v2-menu-right">
+        <div class="footer-nav-col new-Footer-v2-menu-right">
           <!-- 收費詳情 -->
-          <div class="new-Footer-v2-menu-left-item">
-            <a class="new-Footer-v2-menu-item-title" href={getLocalizedHref("/fee", lang)} title={isCn ? "收费详情" : "收費詳情"}>
+          <div class="footer-nav-group new-Footer-v2-menu-left-item">
+            <a class="footer-nav-title new-Footer-v2-menu-item-title" href={getLocalizedHref("/fee", lang)} title={isCn ? "收费详情" : "收費詳情"}>
               {isCn ? "收费详情" : "收費詳情"}
             </a>
           </div>
 
           <!-- 醫生介紹 -->
-          <div class="new-Footer-v2-menu-left-item">
-            <a class="new-Footer-v2-menu-item-title" href={getLocalizedHref("/our-medical-team", lang)} title={isCn ? "医生介绍" : "醫生介紹"}>
+          <div class="footer-nav-group new-Footer-v2-menu-left-item">
+            <a class="footer-nav-title new-Footer-v2-menu-item-title" href={getLocalizedHref("/our-medical-team", lang)} title={isCn ? "医生介绍" : "醫生介紹"}>
               {isCn ? "医生介绍" : "醫生介紹"}
             </a>
           </div>
 
           <!-- 常見問題 -->
-          <div class="new-Footer-v2-menu-left-item">
-            <a class="new-Footer-v2-menu-item-title" href={getLocalizedHref("/FreQuestions", lang)} title={isCn ? "常见问题" : "常見問題"}>
+          <div class="footer-nav-group new-Footer-v2-menu-left-item">
+            <a class="footer-nav-title new-Footer-v2-menu-item-title" href={getLocalizedHref("/FreQuestions", lang)} title={isCn ? "常见问题" : "常見問題"}>
               {isCn ? "常见问题" : "常見問題"}
             </a>
           </div>
 
           <!-- 矯視資訊 -->
-          <div class="new-Footer-v2-menu-left-item">
-            <span class="new-Footer-v2-menu-item-title">{isCn ? "矫视资讯" : "矯視資訊"}</span>
+          <div class="footer-nav-group new-Footer-v2-menu-left-item">
+            <span class="footer-nav-title new-Footer-v2-menu-item-title">{isCn ? "矫视资讯" : "矯視資訊"}</span>
             <ul>
               {
                 newsList.map((item) => (
                   <li>
-                    <a class="new-Footer-v2-menu-item-link" href={getLocalizedHref(item.href, lang)} title={item.title}>
+                    <a class="footer-nav-link new-Footer-v2-menu-item-link" href={getLocalizedHref(item.href, lang)} title={item.title}>
                       {item.title}
                     </a>
                   </li>
@@ -223,14 +225,14 @@ const newsList = [
           </div>
 
           <!-- 聯絡我們 -->
-          <div class="new-Footer-v2-menu-left-item">
-            <a class="new-Footer-v2-menu-item-title" href={getLocalizedHref("/contact-us", lang)} title={isCn ? "联络我们" : "聯絡我們"}>
+          <div class="footer-nav-group new-Footer-v2-menu-left-item">
+            <a class="footer-nav-title new-Footer-v2-menu-item-title" href={getLocalizedHref("/contact-us", lang)} title={isCn ? "联络我们" : "聯絡我們"}>
               {isCn ? "联络我们" : "聯絡我們"}
             </a>
           </div>
 
           <!-- 社交媒體官方入口 -->
-          <div class="new-Footer-v2-menu-right-url">
+          <div class="footer-social-links new-Footer-v2-menu-right-url">
             <a
               target="_blank"
               rel="noopener noreferrer"
@@ -282,9 +284,9 @@ const newsList = [
           </div>
         </div>
       </nav>
-    </section>
+    </div>
 
-    <!-- 單一自適應底部版權與免責聲明 (拒絕桌面/移動端兩套重複代碼) -->
+    <!-- 單一自適應底部版權與免責聲明 -->
     <div class="footer-bottom m-auto">
       <p class="footer-copyright-links">
         <span>©2026 {isCn ? "香港希玛微笑矫视中心版权所有" : "香港希瑪微笑矯視中心版權所有"}</span>
@@ -304,496 +306,15 @@ const newsList = [
 </footer>
 
 <style lang="scss">
-  /* 移動端樣式 (< 992px) */
-  @media screen and (max-width: 991px) {
-    .new-Footer-v2 {
-      width: 100%;
-      background: #f4fafc;
-      padding-top: 50px;
-      padding-bottom: 90px;
-
-      /* 移除 section 0 10px padding */
-      section {
-        padding: 0;
-      }
-
-      .new-Footer-v2-address {
-        max-width: 360px;
-        margin: 0 auto;
-        border-radius: 14.5px;
-        border: 1px solid #4570b6;
-        background-color: #fff;
-        padding: 30px 20px 24px;
-        position: relative;
-
-        &::after {
-          background-repeat: no-repeat;
-          content: url("https://statichk.cmermedical.com/smile/smileproV2/newFooterV2-bgicon.png");
-          position: absolute;
-          right: 16px;
-          bottom: -10px;
-          z-index: 1;
-        }
-
-        /* 刪除 max-width */
-        .new-Footer-v2-logo {
-          display: block;
-          margin: 0 auto;
-          img {
-            width: 100%;
-            height: auto;
-          }
-        }
-
-        .new-Footer-v2-addressTime {
-          margin-top: 28px;
-          .new-Footer-v2-addressTime-title {
-            margin-bottom: 10px;
-            color: #4570b6;
-            text-align: left;
-            font-family: var(--font-hk);
-            font-size: 18px;
-            font-weight: 600;
-            line-height: 1;
-            letter-spacing: 3px;
-          }
-          .new-Footer-v2-addressTime-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            & > div:nth-child(1) {
-              color: #4570b6;
-              font-family: var(--font-hk);
-              font-size: 16px;
-              font-weight: 500;
-              line-height: 1.8;
-            }
-            & > div:nth-child(2) {
-              width: 96px;
-              text-align: left;
-              color: #6d6e71;
-              font-family: var(--font-number);
-              font-size: 16px;
-              font-weight: 500;
-              line-height: 1.8;
-            }
-          }
-        }
-
-        .new-Footer-v2-loction {
-          position: relative;
-          z-index: 2;
-          margin-top: 24px;
-          .new-Footer-v2-loction-item {
-            margin-bottom: 18px;
-            & > div {
-              display: flex;
-              align-items: center;
-              gap: 8px;
-              strong {
-                color: #4570b6;
-                font-family: var(--font-hk);
-                font-size: 18px;
-                font-weight: 700;
-              }
-              a img {
-                width: 24px;
-                height: 24px;
-              }
-            }
-            p {
-              margin-top: 4px;
-              color: #6d6e71;
-              font-family: var(--font-hk);
-              font-size: 16px;
-              font-weight: 400;
-              line-height: 1.5;
-            }
-          }
-        }
-      }
-
-      .new-Footer-v2-menu {
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: center;
-        gap: 24px;
-        margin-top: 36px;
-
-        .new-Footer-v2-menu-left,
-        .new-Footer-v2-menu-right {
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
-
-          .new-Footer-v2-menu-left-item {
-            position: relative;
-            padding-left: 14px;
-
-            &::before {
-              content: "";
-              position: absolute;
-              left: 0;
-              top: 7px;
-              width: 7px;
-              height: 7px;
-              background: #4570b6;
-              border-radius: 50%;
-              flex-shrink: 0;
-            }
-
-            .new-Footer-v2-menu-item-title {
-              color: #4570b6;
-              font-family: var(--font-hk);
-              font-size: 16px;
-              font-weight: 600;
-              text-decoration: none;
-              line-height: 1.3;
-              display: inline-block;
-            }
-
-            ul {
-              padding-left: 4px;
-              margin-top: 4px;
-              list-style: none;
-              li {
-                margin-top: 4px;
-                .new-Footer-v2-menu-item-link {
-                  color: #6d6e71;
-                  font-family: var(--font-hk);
-                  font-size: 16px;
-                  font-weight: 400;
-                  text-decoration: none;
-                  transition: color 0.2s ease;
-                  &:hover {
-                    color: #4570b6;
-                  }
-                }
-              }
-            }
-          }
-        }
-
-        .new-Footer-v2-menu-right-url {
-          display: flex;
-          gap: 16px;
-          align-items: center;
-          margin-top: 8px;
-          svg {
-            width: 22px;
-            height: 22px;
-          }
-        }
-      }
-
-      .footer-bottom {
-        text-align: center;
-        margin-top: 32px;
-        font-family: var(--font-hk);
-        font-size: 12px;
-        color: #6d6e71;
-        line-height: 1.6;
-
-        .footer-disclaimer {
-          font-size: 11px;
-          color: #595959;
-          margin-top: 8px;
-          padding: 0 10px;
-          line-height: 1.5;
-        }
-
-        .footer-copyright-links {
-          display: flex;
-          flex-direction: column;
-          gap: 4px;
-
-          .footer-policy-links {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            align-items: center;
-          }
-
-          a {
-            color: #6d6e71;
-            text-decoration: none;
-            &:hover {
-              color: #4570b6;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  /* 桌面端樣式 (>= 992px) */
-  @media screen and (min-width: 992px) {
-    .new-Footer-v2 {
-      width: 100%;
-      background: #f4fafc;
-      padding-bottom: 24px;
-      margin-top: 90px;
-      position: relative;
-
-      section {
-        display: flex;
-        align-items: center;
-        gap: clamp(30px, 3.5vw, 65px);
-        position: relative;
-      }
-
-      /* 左側浮動白卡 */
-      .new-Footer-v2-address {
-        flex-shrink: 0;
-        width: clamp(450px, 38vw, 600px);
-        border-radius: 30px;
-        border: 1px solid #4570b6;
-        background-color: #fff;
-        padding: clamp(40px, 3.8vw, 60px) clamp(28px, 3vw, 52px) clamp(50px, 4.5vw, 75px);
-        position: relative;
-        top: -65px;
-        box-shadow: 0 10px 30px rgba(69, 112, 182, 0.08);
-
-        &::after {
-          background-repeat: no-repeat;
-          content: url("https://statichk.cmermedical.com/smile/newFooterV2-bgicon-pc.avif");
-          position: absolute;
-          right: clamp(16px, 2.5vw, 50px);
-          bottom: -20px;
-          z-index: 1;
-          pointer-events: none;
-        }
-
-        .new-Footer-v2-logo {
-          display: block;
-          width: 100%;
-          max-width: clamp(340px, 30vw, 440px);
-          img {
-            width: 100%;
-            height: auto;
-          }
-        }
-
-        .new-Footer-v2-addressTime {
-          margin-top: clamp(30px, 2.8vw, 45px);
-          .new-Footer-v2-addressTime-title {
-            margin-bottom: 12px;
-            color: #4570b6;
-            text-align: left;
-            font-family: var(--font-hk);
-            font-size: 30px;
-            font-weight: 600;
-            line-height: 1;
-            letter-spacing: 7.5px;
-          }
-          .new-Footer-v2-addressTime-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 380px;
-            & > div:nth-child(1) {
-              color: #4570b6;
-              font-family: var(--font-hk);
-              font-size: 19px;
-              font-weight: 500;
-              line-height: 1.8;
-              letter-spacing: 2.28px;
-            }
-            & > div:nth-child(2) {
-              text-align: left;
-              color: #6d6e71;
-              font-family: var(--font-number);
-              font-size: 19px;
-              font-weight: 500;
-              line-height: 1.8;
-              letter-spacing: 2.28px;
-            }
-          }
-        }
-
-        .new-Footer-v2-loction {
-          position: relative;
-          z-index: 2;
-          margin-top: clamp(26px, 2.5vw, 38px);
-          .new-Footer-v2-loction-item {
-            margin-bottom: clamp(22px, 2vw, 32px);
-            & > div {
-              display: flex;
-              align-items: center;
-              gap: 12px;
-              strong {
-                color: #4570b6;
-                font-family: var(--font-hk);
-                font-size: 24px;
-                font-weight: 800;
-                line-height: 1.25;
-              }
-              a {
-                display: inline-block;
-                width: 48px;
-                height: 44px;
-                img {
-                  width: 100%;
-                  height: auto;
-                }
-              }
-            }
-            p {
-              margin-top: 10px;
-              color: #6d6e71;
-              font-family: var(--font-hk);
-              font-size: 18px;
-              font-weight: 300;
-              line-height: 1.66;
-            }
-          }
-        }
-      }
-
-      /* 右側導航選單 */
-      .new-Footer-v2-menu {
-        position: relative;
-        padding-top: 25px;
-        padding-bottom: 60px;
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: space-between;
-        gap: clamp(30px, 5vw, 40px);
-        flex: 1;
-
-        .new-Footer-v2-menu-left {
-          flex: 1.15;
-        }
-
-        .new-Footer-v2-menu-left,
-        .new-Footer-v2-menu-right {
-          min-width: 0;
-          display: flex;
-          flex-direction: column;
-          gap: clamp(20px, 2vw, 32px);
-
-          .new-Footer-v2-menu-left-item {
-            white-space: nowrap;
-
-            &::before {
-              content: "";
-              display: inline-block;
-              width: 12px;
-              height: 12px;
-              flex-shrink: 0;
-              background: #4570b6;
-              border-radius: 50%;
-              margin-right: 16px;
-              margin-bottom: 3px;
-            }
-
-            .new-Footer-v2-menu-item-title {
-              white-space: nowrap;
-              color: #4570b6;
-              font-family: var(--font-hk);
-              font-size: clamp(20px, 1.4vw, 24px);
-              font-weight: 500;
-              line-height: normal;
-              letter-spacing: 3.6px;
-              text-decoration: none;
-            }
-
-            ul {
-              padding-left: 28px;
-              list-style: none;
-              margin-top: 6px;
-              li {
-                margin-top: 6px;
-                .new-Footer-v2-menu-item-link {
-                  white-space: normal;
-                  color: #6d6e71;
-                  font-family: var(--font-hk);
-                  font-size: 22px;
-                  font-weight: 400;
-                  line-height: 1.4;
-                  text-decoration: none;
-                  transition: color 0.2s ease;
-                  &:hover {
-                    color: #4570b6;
-                  }
-                }
-              }
-            }
-          }
-        }
-
-        .new-Footer-v2-menu-right-url {
-          display: flex;
-          gap: 20px;
-          align-items: center;
-          margin-top: 8px;
-          a {
-            display: inline-block;
-            transition: transform 0.2s ease;
-            &:hover {
-              transform: translateY(-2px);
-            }
-            img,
-            svg {
-              width: 26px;
-              height: 26px;
-              object-fit: contain;
-            }
-          }
-        }
-      }
-
-      /* 桌面端版權行與免責聲明 (容器底層自適應流式，不再依賴兩套代碼切換) */
-      .footer-bottom {
-        width: 100%;
-        color: #6d6e71;
-        text-align: left;
-        font-family: var(--font-hk);
-        font-size: 15px;
-        font-weight: 400;
-        line-height: 1.5;
-        margin-top: 36px;
-        padding-top: 24px;
-        border-top: 1px solid rgba(69, 112, 182, 0.12);
-
-        .footer-disclaimer {
-          font-size: 13px;
-          color: #595959;
-          margin-top: 6px;
-          letter-spacing: 0.5px;
-          white-space: normal;
-          padding: 0;
-        }
-
-        .footer-copyright-links {
-          display: flex;
-          flex-direction: row;
-          gap: 16px;
-          align-items: center;
-          letter-spacing: 1.6px;
-          white-space: nowrap;
-
-          .footer-policy-links {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-          }
-
-          a {
-            color: #6d6e71;
-            text-decoration: none;
-            &:hover {
-              color: #4570b6;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  /* 頁尾 #f4fafc 柔和微光呼吸過渡 (保持原本底色絕對靜態，微光暈柔和浮現後淡出融入) */
+  /* ==================== 頁尾標準樣式 (雙向支援 .site-footer 與 .new-Footer-v2) ==================== */
+  .site-footer,
   .new-Footer-v2 {
+    width: 100%;
+    background: #f4fafc;
+    padding-top: 50px;
+    padding-bottom: 90px;
     position: relative;
+
     &::before {
       content: "";
       position: absolute;
@@ -811,6 +332,473 @@ const newsList = [
 
     &.is-inview::before {
       animation: footer-soft-breath 4.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    @media screen and (min-width: 992px) {
+      padding-top: 0;
+      padding-bottom: 24px;
+      /* 依要求移除 margin-top: 90px; */
+    }
+  }
+
+  .footer-main,
+  .new-Footer-v2-main {
+    padding: 0;
+
+    @media screen and (min-width: 992px) {
+      display: flex;
+      align-items: center;
+      gap: clamp(30px, 3.5vw, 65px);
+      position: relative;
+    }
+  }
+
+  /* 門市白色浮動卡片 */
+  .footer-card,
+  .new-Footer-v2-address {
+    max-width: 360px;
+    margin: 0 auto;
+    border-radius: 14.5px;
+    border: 1px solid #4570b6;
+    background-color: #fff;
+    padding: 30px 20px 24px;
+    position: relative;
+
+    &::after {
+      background-repeat: no-repeat;
+      content: url("https://statichk.cmermedical.com/smile/smileproV2/newFooterV2-bgicon.png");
+      position: absolute;
+      right: 16px;
+      bottom: -10px;
+      z-index: 1;
+    }
+
+    @media screen and (min-width: 992px) {
+      flex-shrink: 0;
+      width: clamp(450px, 38vw, 600px);
+      max-width: none;
+      margin: 0;
+      border-radius: 30px;
+      padding: clamp(40px, 3.8vw, 60px) clamp(28px, 3vw, 52px) clamp(50px, 4.5vw, 75px);
+      top: -65px;
+      box-shadow: 0 10px 30px rgba(69, 112, 182, 0.08);
+
+      &::after {
+        content: url("https://statichk.cmermedical.com/smile/newFooterV2-bgicon-pc.avif");
+        right: clamp(16px, 2.5vw, 50px);
+        bottom: -20px;
+        pointer-events: none;
+      }
+    }
+  }
+
+  /* 門市 Logo */
+  .footer-logo,
+  .new-Footer-v2-logo {
+    display: block;
+    margin: 0 auto;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+    @media screen and (min-width: 992px) {
+      max-width: clamp(340px, 30vw, 440px);
+      margin: 0;
+    }
+  }
+
+  /* 營業時間 */
+  .footer-hours,
+  .new-Footer-v2-addressTime {
+    margin-top: 28px;
+
+    .footer-hours-title,
+    .new-Footer-v2-addressTime-title {
+      margin-bottom: 10px;
+      color: #4570b6;
+      text-align: left;
+      font-family: var(--font-hk);
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: 3px;
+    }
+
+    .footer-hours-list,
+    .new-Footer-v2-addressTime-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-hours-item,
+    .new-Footer-v2-addressTime-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .hours-label,
+      & > div:nth-child(1) {
+        color: #4570b6;
+        font-family: var(--font-hk);
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1.8;
+      }
+
+      .hours-time,
+      & > div:nth-child(2) {
+        width: 96px;
+        text-align: left;
+        color: #6d6e71;
+        font-family: var(--font-number);
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1.8;
+      }
+    }
+
+    @media screen and (min-width: 992px) {
+      margin-top: clamp(30px, 2.8vw, 45px);
+
+      .footer-hours-title,
+      .new-Footer-v2-addressTime-title {
+        margin-bottom: 12px;
+        font-size: 30px;
+        letter-spacing: 7.5px;
+      }
+
+      .footer-hours-list,
+      .new-Footer-v2-addressTime-list {
+        max-width: 380px;
+      }
+
+      .footer-hours-item,
+      .new-Footer-v2-addressTime-item {
+        .hours-label,
+        & > div:nth-child(1),
+        .hours-time,
+        & > div:nth-child(2) {
+          font-size: 19px;
+          letter-spacing: 2.28px;
+        }
+
+        .hours-time,
+        & > div:nth-child(2) {
+          width: auto;
+        }
+      }
+    }
+  }
+
+  /* 門市地址 */
+  .footer-locations,
+  .new-Footer-v2-loction {
+    position: relative;
+    z-index: 2;
+    margin-top: 24px;
+
+    .footer-location-item,
+    .new-Footer-v2-loction-item {
+      margin-bottom: 18px;
+
+      .footer-location-header,
+      & > div:first-child {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        strong {
+          color: #4570b6;
+          font-family: var(--font-hk);
+          font-size: 18px;
+          font-weight: 700;
+        }
+
+        a img {
+          width: 24px;
+          height: 24px;
+        }
+      }
+
+      p {
+        margin-top: 4px;
+        color: #6d6e71;
+        font-family: var(--font-hk);
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.5;
+      }
+    }
+
+    @media screen and (min-width: 992px) {
+      margin-top: clamp(26px, 2.5vw, 38px);
+
+      .footer-location-item,
+      .new-Footer-v2-loction-item {
+        margin-bottom: clamp(22px, 2vw, 32px);
+
+        .footer-location-header,
+        & > div:first-child {
+          gap: 12px;
+
+          strong {
+            font-size: 24px;
+            line-height: 1.25;
+          }
+
+          a {
+            display: inline-block;
+            width: 48px;
+            height: 44px;
+
+            img {
+              width: 100%;
+              height: auto;
+            }
+          }
+        }
+
+        p {
+          margin-top: 10px;
+          font-size: 18px;
+          font-weight: 300;
+          line-height: 1.66;
+        }
+      }
+    }
+  }
+
+  /* 導航列表 */
+  .footer-nav,
+  .new-Footer-v2-menu {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 36px;
+
+    .footer-nav-col,
+    .new-Footer-v2-menu-left,
+    .new-Footer-v2-menu-right {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      .footer-nav-group,
+      .new-Footer-v2-menu-left-item {
+        position: relative;
+        padding-left: 14px;
+
+        &::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 7px;
+          width: 7px;
+          height: 7px;
+          background: #4570b6;
+          border-radius: 50%;
+          flex-shrink: 0;
+        }
+
+        .footer-nav-title,
+        .new-Footer-v2-menu-item-title {
+          color: #4570b6;
+          font-family: var(--font-hk);
+          font-size: 16px;
+          font-weight: 600;
+          text-decoration: none;
+          line-height: 1.3;
+          display: inline-block;
+        }
+
+        ul {
+          padding-left: 4px;
+          margin-top: 4px;
+          list-style: none;
+
+          li {
+            margin-top: 4px;
+
+            .footer-nav-link,
+            .new-Footer-v2-menu-item-link {
+              color: #6d6e71;
+              font-family: var(--font-hk);
+              font-size: 16px;
+              font-weight: 400;
+              text-decoration: none;
+              transition: color 0.2s ease;
+
+              &:hover {
+                color: #4570b6;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .footer-social-links,
+    .new-Footer-v2-menu-right-url {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-top: 8px;
+
+      img,
+      svg {
+        width: 22px;
+        height: 22px;
+      }
+    }
+
+    @media screen and (min-width: 992px) {
+      margin-top: 0;
+      padding-top: 25px;
+      padding-bottom: 60px;
+      justify-content: space-between;
+      gap: clamp(30px, 5vw, 40px);
+      flex: 1;
+
+      .footer-nav-col,
+      .new-Footer-v2-menu-left,
+      .new-Footer-v2-menu-right {
+        min-width: 0;
+        gap: clamp(20px, 2vw, 32px);
+
+        &.new-Footer-v2-menu-left,
+        &:first-child {
+          flex: 1.15;
+        }
+
+        .footer-nav-group,
+        .new-Footer-v2-menu-left-item {
+          padding-left: 0;
+          white-space: nowrap;
+
+          &::before {
+            display: inline-block;
+            position: static;
+            width: 12px;
+            height: 12px;
+            margin-right: 16px;
+            margin-bottom: 3px;
+          }
+
+          .footer-nav-title,
+          .new-Footer-v2-menu-item-title {
+            font-size: clamp(20px, 1.4vw, 24px);
+            font-weight: 500;
+            letter-spacing: 3.6px;
+          }
+
+          ul {
+            padding-left: 28px;
+            margin-top: 6px;
+
+            li {
+              margin-top: 6px;
+
+              .footer-nav-link,
+              .new-Footer-v2-menu-item-link {
+                white-space: normal;
+                font-size: 22px;
+                line-height: 1.4;
+              }
+            }
+          }
+        }
+      }
+
+      .footer-social-links,
+      .new-Footer-v2-menu-right-url {
+        gap: 20px;
+
+        a {
+          display: inline-block;
+          transition: transform 0.2s ease;
+
+          &:hover {
+            transform: translateY(-2px);
+          }
+
+          img,
+          svg {
+            width: 26px;
+            height: 26px;
+            object-fit: contain;
+          }
+        }
+      }
+    }
+  }
+
+  /* 頁尾版權與免責 */
+  .footer-bottom {
+    text-align: center;
+    margin-top: 32px;
+    font-family: var(--font-hk);
+    font-size: 12px;
+    color: #6d6e71;
+    line-height: 1.6;
+
+    .footer-disclaimer {
+      font-size: 11px;
+      color: #595959;
+      margin-top: 8px;
+      padding: 0 10px;
+      line-height: 1.5;
+    }
+
+    .footer-copyright-links {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      .footer-policy-links {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        align-items: center;
+      }
+
+      a {
+        color: #6d6e71;
+        text-decoration: none;
+
+        &:hover {
+          color: #4570b6;
+        }
+      }
+    }
+
+    @media screen and (min-width: 992px) {
+      text-align: left;
+      font-size: 15px;
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(69, 112, 182, 0.12);
+
+      .footer-disclaimer {
+        font-size: 13px;
+        margin-top: 6px;
+        letter-spacing: 0.5px;
+        padding: 0;
+      }
+
+      .footer-copyright-links {
+        flex-direction: row;
+        gap: 16px;
+        letter-spacing: 1.6px;
+        white-space: nowrap;
+
+        .footer-policy-links {
+          gap: 12px;
+        }
+      }
     }
   }
 

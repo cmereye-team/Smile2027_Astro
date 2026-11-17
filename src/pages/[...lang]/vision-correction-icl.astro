@@ -54,49 +54,47 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
 
   <div class="page-icl font-hk text-desc relative overflow-x-clip">
     {/* 1. 頂部主橫幅 Hero Banner */}
-    <section class="site-container smile-NewBanner" aria-labelledby="banner-h1">
-      <div class="smile-NewBanner-content">
-        <div class="smile-NewBanner-Title">
-          <span class="banner-tag">{content.banner.tag}</span>
-          <h1 id="banner-h1" class="icl-h1">{content.banner.title}</h1>
-          <p class="banner-sub">{content.banner.subtitle}</p>
-          <nav class="banner-breadcrumb" aria-label="麵包屑導航">
-            <a href={isCn ? "/cn/" : "/"} title={content.breadcrumb.home}>{content.breadcrumb.home}</a>
-            <span class="breadcrumb-sep" aria-hidden="true">&gt;</span>
-            <span class="breadcrumb-mid">{content.breadcrumb.service}</span>
-            <span class="breadcrumb-sep" aria-hidden="true">&gt;</span>
-            <a href={isCn ? "/cn/vision-correction-icl" : "/vision-correction-icl"} class="breadcrumb-curr" title={content.breadcrumb.current}>{content.breadcrumb.current}</a>
-          </nav>
+    <div class="site-container smile-NewBanner position-relative">
+      <img
+        draggable="false"
+        class="banner-lens-img"
+        decoding="async"
+        src={content.banner.imgPc}
+        alt="ICL 植入式隱形眼鏡 - 香港希瑪微笑矯視中心"
+        title="ICL 植入式隱形眼鏡 - 香港希瑪微笑矯視中心"
+        loading="eager"
+        fetchpriority="high"
+        width="685"
+        height="563"
+        srcset={`${content.banner.imgMb} 400w, ${content.banner.imgMb} 640w, ${content.banner.imgPc}`}
+        sizes="(max-width: 992px) 100vw, 1216px"
+      />
+      <div class="smile-NewBanner-Title">
+        <span class="banner-tag">{content.banner.tag}</span>
+        <h1 class="icl-h1">{content.banner.title}</h1>
+        <p class="banner-sub">{content.banner.subtitle}</p>
+      </div>
+      <div class="smile-NewBanner-Tip">
+        <div class="smile-NewBanner-Tip-Title">
+          <p>{content.banner.tipTitle}</p>
         </div>
-        <div class="smile-NewBanner-visual">
-          <img
-            draggable="false"
-            class="banner-lens-img"
-            decoding="async"
-            src={content.banner.imgPc}
-            alt="ICL 植入式隱形眼鏡 - 香港希瑪微笑矯視中心"
-            title="ICL 植入式隱形眼鏡 - 香港希瑪微笑矯視中心"
-            loading="eager"
-            fetchpriority="high"
-            width="685"
-            height="563"
-            srcset={`${content.banner.imgMb} 400w, ${content.banner.imgMb} 640w, ${content.banner.imgPc}`}
-            sizes="(max-width: 768px) 60vw, (max-width: 1024px) 40vw, 440px"
-          />
-        </div>
-        <div class="smile-NewBanner-Tip">
-          <div class="smile-NewBanner-Tip-Title">
-            <p>{content.banner.tipTitle}</p>
-          </div>
-          <div class="smile-NewBanner-Tip-Content">
-            {content.banner.tipItems.map((tip) => <p>{tip}</p>)}
-          </div>
+        <div class="smile-NewBanner-Tip-Content">
+          {content.banner.tipItems.map((tip) => <p>{tip}</p>)}
         </div>
       </div>
-    </section>
+    </div>
 
-    {/* 2. 中心介紹 */}
+    {/* 2. 中心介紹與麵包屑導航 */}
     <section class="smile-newCenter" aria-labelledby="center-intro-title">
+      <div class="site-container">
+        <nav class="smile-newCenter-menu" aria-label="麵包屑導航">
+          <a href={isCn ? "/cn/" : "/"} title={content.breadcrumb.home}>{content.breadcrumb.home}</a>
+          <span class="breadcrumb-sep" aria-hidden="true">&gt;</span>
+          <span class="breadcrumb-mid">{content.breadcrumb.service}</span>
+          <span class="breadcrumb-sep" aria-hidden="true">&gt;</span>
+          <a href={isCn ? "/cn/vision-correction-icl" : "/vision-correction-icl"} class="breadcrumb-curr" title={content.breadcrumb.current}>{content.breadcrumb.current}</a>
+        </nav>
+      </div>
       <div class="w-full smile-newCenter-content">
         <div class="site-container smile-newCenter-content-text">
           <h2 id="center-intro-title" class="text-center d-xl-none">
@@ -255,7 +253,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
     </div>
 
     {/* 5. EVO ICL 產品系列介紹 — V4C｜V5｜V6 型號比較 */}
-    <div class="icl-model mb-9 lg:mb-20 site-container max-w-[1100px] mx-auto">
+    <div class="icl-model mb-9 lg:mb-20 site-container">
       <h2 class="model-title mb-6 lg:mb-10 text-center">
         {content.modelComparison.titlePrefix} <span class="hidden md:inline"> — </span><br class="block md:hidden" />{content.modelComparison.titleSuffix}
       </h2>
@@ -310,11 +308,19 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
             <tr>
               <th class="table-item line-bottom line-project">{content.modelComparison.night.title}</th>
               <td class="line-bottom line-right">{content.modelComparison.night.v4c}</td>
-              <td colspan="2" class="line-bottom">{content.modelComparison.night.intro}</td>
+              <td colspan="2" class="line-bottom text-[#F89B03] font-bold">{content.modelComparison.night.intro}</td>
             </tr>
             <tr>
               <th class="table-item line-project">{content.modelComparison.reversibility.title}</th>
-              <td colspan="3">{content.modelComparison.reversibility.intro}</td>
+              <td colspan="3">
+                <div class="flex items-center justify-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 27 28" fill="none" class="inline-block flex-shrink-0" aria-hidden="true">
+                    <path d="M.009 15.08c-.128-4.545 1.115-7.944 3.749-10.787S9.638.01 13.416 0c3.706-.009 6.907 1.369 9.545 4.111 2.632 2.736 3.933 6.05 3.961 9.89.026 3.486-1.12 6.562-3.318 9.18-2.24 2.664-5.074 4.314-8.457 4.718-4.638.554-8.577-1.028-11.751-4.595C1.433 21.099.01 17.83.009 15.08m11.206.075c-.089-.085-.167-.154-.24-.23-.828-.859-1.655-1.723-2.486-2.579-.339-.35-.559-.345-.892 0q-.9.931-1.8 1.869c-.302.316-.302.545 0 .861q2.468 2.582 4.937 5.16c.366.382.574.38.948-.007q.919-.95 1.838-1.904 3.768-3.908 7.534-7.818c.347-.36.347-.589.003-.947L19.35 7.787c-.409-.423-.603-.425-1.006-.007l-6.888 7.14c-.073.076-.151.147-.243.235z" fill="#f89b03"></path>
+                    <path d="M11.215 15.155c.091-.089.17-.16.243-.235l6.888-7.14c.402-.42.597-.418 1.006.007q.854.885 1.706 1.772c.343.359.343.587-.004.947q-3.766 3.91-7.533 7.818-.917.953-1.838 1.905c-.374.387-.583.389-.949.006l-4.936-5.159c-.302-.317-.302-.545 0-.862q.898-.936 1.8-1.868c.333-.346.553-.35.891 0 .832.857 1.658 1.72 2.487 2.58.073.075.152.143.24.229z" fill="#fff"></path>
+                  </svg>
+                  <span>{content.modelComparison.reversibility.intro}</span>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -354,7 +360,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
         <div class="icl-peculiarity-list" id="iclPeculiarityList" role="region" aria-label="EVO Visian ICL 7大特色">
           {content.peculiarity.items.map((item, idx) => (
             <div
-              class:list={["icl-peculiarity-list-item", { active: idx === 0 }]}
+              class="icl-peculiarity-list-item"
               data-feature-index={idx}
               tabindex="0"
               role="button"
@@ -404,14 +410,13 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
     <section class="icl-introVedio overflow-hidden" aria-labelledby="icl-intro-title">
       <div class="icl-introVedio-intro site-container">
         <div class="icl-introVedio-intro-number">
-          {/* 純 CSS 隱藏 Radio 控制項 */}
+          {/* 純 CSS 隱藏 Radio 控制項 (點選鎖定，預設無 checked 以啟用純 CSS 自動循環輪播) */}
           {content.steps.list.map((_, idx) => (
             <input
               type="radio"
               name="icl-step-radio"
               id={`icl-step-radio-${idx}`}
               class="sr-only"
-              checked={idx === 0}
             />
           ))}
 
