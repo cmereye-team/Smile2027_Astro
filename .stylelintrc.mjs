@@ -15,7 +15,7 @@ export default {
     },
   ],
   rules: {
-    // 允許 Tailwind CSS 特性
+    // 允許 Tailwind CSS 與 SCSS 特性
     "at-rule-no-unknown": [
       true,
       {
@@ -29,6 +29,16 @@ export default {
           "layer",
           "config",
           "reference",
+          "for",
+          "each",
+          "if",
+          "else",
+          "mixin",
+          "include",
+          "function",
+          "return",
+          "use",
+          "forward",
         ],
       },
     ],

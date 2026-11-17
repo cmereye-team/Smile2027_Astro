@@ -404,19 +404,32 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
     <section class="icl-introVedio overflow-hidden" aria-labelledby="icl-intro-title">
       <div class="icl-introVedio-intro site-container">
         <div class="icl-introVedio-intro-number">
-          {/* 左側數字列表 */}
-          <div class="steps" id="iclStepButtons">
+          {/* 純 CSS 隱藏 Radio 控制項 */}
+          {content.steps.list.map((_, idx) => (
+            <input
+              type="radio"
+              name="icl-step-radio"
+              id={`icl-step-radio-${idx}`}
+              class="sr-only"
+              checked={idx === 0}
+            />
+          ))}
+
+          {/* 左側數字按鈕列表 */}
+          <div class="steps" id="iclStepButtons" role="tablist" aria-label="ICL 手術步驟">
             {content.steps.list.map((step, idx) => (
-              <button
-                type="button"
-                class:list={["step-btn", { active: idx === 0 }]}
-                data-step-index={idx}
+              <label
+                for={`icl-step-radio-${idx}`}
+                class:list={["step-btn", `step-btn-${idx + 1}`]}
+                role="tab"
+                tabindex="0"
                 aria-label={`步驟 ${step.number}`}
               >
                 {step.number}
-              </button>
+              </label>
             ))}
           </div>
+
           {/* 右側內容區域 */}
           <div class="content-area">
             <div class="content-panel">
@@ -451,30 +464,44 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
                       </span>
                     </h2>
                   </div>
-                  <img decoding="async" draggable="false"
-                    id="iclStepImgMb"
-                    class="d-xl-none"
-                    src={content.steps.list[0].image}
-                    alt="ICL 手術過程"
-                    title="ICL 手術過程"
-                    loading="lazy"
-                    width="300"
-                    height="200"
-                  />
-                  <img decoding="async" draggable="false"
-                    id="iclStepImgPc"
-                    class="d-none d-xl-block"
-                    src={content.steps.list[0].imagePc}
-                    alt="ICL 手術過程"
-                    title="ICL 手術過程"
-                    loading="lazy"
-                    width="540"
-                    height="540"
-                  />
+                  {/* 全部 5 個步驟圖片堆疊 */}
+                  <div class="step-images-stack">
+                    {content.steps.list.map((step, idx) => (
+                      <div class:list={["step-image-slide", `step-image-slide-${idx + 1}`]}>
+                        <img
+                          decoding="async"
+                          draggable="false"
+                          class="d-xl-none"
+                          src={step.image}
+                          alt={`ICL 手術過程 步驟 ${step.number}`}
+                          title={`ICL 手術過程 步驟 ${step.number}`}
+                          loading="lazy"
+                          width="300"
+                          height="200"
+                        />
+                        <img
+                          decoding="async"
+                          draggable="false"
+                          class="d-none d-xl-block"
+                          src={step.imagePc}
+                          alt={`ICL 手術過程 步驟 ${step.number}`}
+                          title={`ICL 手術過程 步驟 ${step.number}`}
+                          loading="lazy"
+                          width="540"
+                          height="540"
+                        />
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <p id="iclStepText" class="content-area-text">
-                  {content.steps.list[0].text}
-                </p>
+                {/* 全部 5 個步驟文本堆疊 */}
+                <div class="step-texts-stack">
+                  {content.steps.list.map((step, idx) => (
+                    <p class:list={["content-area-text", "step-text-slide", `step-text-slide-${idx + 1}`]}>
+                      {step.text}
+                    </p>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -659,173 +686,4 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
   }
 </style>
 
-<script is:inline define:vars={{ stepsData: content.steps.list }}>
-  function initIclPage() {
-    let activeStep = 0;
-    let timer = null;
-    const stepBtns = document.querySelectorAll("#iclStepButtons .step-btn");
-    const stepImgMb = document.getElementById("iclStepImgMb");
-    const stepImgPc = document.getElementById("iclStepImgPc");
-    const stepText = document.getElementById("iclStepText");
-    const stepsContainer = document.querySelector(".icl-introVedio-intro");
 
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    function setStep(idx) {
-      if (idx < 0 || idx >= stepsData.length) return;
-      activeStep = idx;
-      stepBtns.forEach((btn, i) => {
-        btn.classList.toggle("active", i === activeStep);
-      });
-      const data = stepsData[activeStep];
-      if (!data) return;
-
-      if (prefersReducedMotion) {
-        if (stepImgMb) {
-          stepImgMb.src = data.image;
-          stepImgMb.title = data.text;
-        }
-        if (stepImgPc) {
-          stepImgPc.src = data.imagePc;
-          stepImgPc.title = data.text;
-        }
-        if (stepText) stepText.textContent = data.text;
-        return;
-      }
-
-      // Fade on content change (opacity transition 250ms)
-      [stepImgMb, stepImgPc, stepText].forEach((el) => {
-        if (el) el.style.opacity = "0";
-      });
-
-      setTimeout(() => {
-        if (stepImgMb) {
-          stepImgMb.src = data.image;
-          stepImgMb.title = data.text;
-        }
-        if (stepImgPc) {
-          stepImgPc.src = data.imagePc;
-          stepImgPc.title = data.text;
-        }
-        if (stepText) stepText.textContent = data.text;
-
-        [stepImgMb, stepImgPc, stepText].forEach((el) => {
-          if (el) el.style.opacity = "1";
-        });
-      }, 120);
-    }
-
-    function startTimer() {
-      if (prefersReducedMotion) return;
-      stopTimer();
-      timer = setInterval(() => {
-        activeStep = (activeStep + 1) % stepsData.length;
-        setStep(activeStep);
-      }, 3000);
-    }
-
-    function stopTimer() {
-      if (timer) {
-        clearInterval(timer);
-        timer = null;
-      }
-    }
-
-    stepBtns.forEach((btn, idx) => {
-      btn.addEventListener("click", () => {
-        setStep(idx);
-      });
-      btn.addEventListener("mouseenter", () => {
-        setStep(idx);
-      });
-    });
-
-    if (stepsContainer) {
-      stepsContainer.addEventListener("mouseenter", stopTimer);
-      stepsContainer.addEventListener("mouseleave", startTimer);
-      stepsContainer.addEventListener("focusin", stopTimer);
-      stepsContainer.addEventListener("focusout", startTimer);
-    }
-
-    if (!prefersReducedMotion) {
-      startTimer();
-    }
-
-    // 7大特色 Accordion Strip Controller
-    const featureItems = document.querySelectorAll(".icl-peculiarity-list-item");
-    const featureContainer = document.getElementById("iclFeatureSection");
-    let activeFeature = 0;
-    let featureTimer = null;
-
-    function setFeatureActive(idx) {
-      if (idx < 0 || idx >= featureItems.length) return;
-      activeFeature = idx;
-      featureItems.forEach((card, i) => {
-        const isActive = i === activeFeature;
-        card.classList.toggle("active", isActive);
-        card.setAttribute("aria-expanded", String(isActive));
-      });
-    }
-
-    function startFeatureTimer() {
-      if (prefersReducedMotion) return;
-      stopFeatureTimer();
-      featureTimer = setInterval(() => {
-        setFeatureActive((activeFeature + 1) % featureItems.length);
-      }, 5000);
-    }
-
-    function stopFeatureTimer() {
-      if (featureTimer) {
-        clearInterval(featureTimer);
-        featureTimer = null;
-      }
-    }
-
-    featureItems.forEach((card, idx) => {
-      card.addEventListener("mouseenter", () => {
-        setFeatureActive(idx);
-      });
-      card.addEventListener("click", () => {
-        setFeatureActive(idx);
-      });
-      card.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          setFeatureActive(idx);
-        } else if (e.key === "ArrowRight" || e.key === "ArrowDown") {
-          e.preventDefault();
-          const next = (idx + 1) % featureItems.length;
-          if (featureItems[next] && typeof featureItems[next].focus === "function") {
-            featureItems[next].focus();
-          }
-          setFeatureActive(next);
-        } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
-          e.preventDefault();
-          const prev = (idx - 1 + featureItems.length) % featureItems.length;
-          if (featureItems[prev] && typeof featureItems[prev].focus === "function") {
-            featureItems[prev].focus();
-          }
-          setFeatureActive(prev);
-        }
-      });
-    });
-
-    if (featureContainer) {
-      featureContainer.addEventListener("mouseenter", stopFeatureTimer);
-      featureContainer.addEventListener("mouseleave", startFeatureTimer);
-      featureContainer.addEventListener("focusin", stopFeatureTimer);
-      featureContainer.addEventListener("focusout", startFeatureTimer);
-    }
-
-    if (!prefersReducedMotion) {
-      startFeatureTimer();
-    }
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initIclPage);
-  } else {
-    initIclPage();
-  }
-</script>

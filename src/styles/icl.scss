@@ -1,24 +1,28 @@
-/* Page-level reset: live has i { font-style: normal; } (iclV2.vue:102) */
+/*
+ * @Author: Antigravity AI
+ * @Date: 2026-11-17
+ * @FilePath: /src/styles/icl.scss
+ * @Description: ICL 專頁樣式表 (現代化模組化架構 + 零 JS 純 CSS 輪播循環 + 雙端 1:1 像素級吻合)
+ */
+
+/* ==========================================================================
+   0. 全域基礎重置與公用樣式 (Resets & Utilities)
+   ========================================================================== */
 i {
   font-style: normal;
 }
 
 h2 {
-  letter-spacing: 0.05em;
+  font-size: 20px;
 }
 
 .step-btn {
-  background: transparent;
-  border: 0;
+  background: none;
+  border: none;
   padding: 0;
+  margin: 0;
   font: inherit;
   cursor: pointer;
-}
-
-[id="iclStepImgMb"],
-[id="iclStepImgPc"],
-[id="iclStepText"] {
-  transition: opacity var(--dur, 250ms) ease;
 }
 
 /* ==========================================================================
@@ -26,547 +30,814 @@ h2 {
    Modern Flexbox/Grid responsive layout (Zero brittle absolute positioning, Zero CLS)
    ========================================================================== */
 .smile-NewBanner {
-  padding-top: 0;
-  padding-bottom: 0;
+  background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/banner-pc-bg-v1.webp")
+    no-repeat center bottom / cover;
   position: relative;
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
 
-  @media (min-width: 768px) {
-    padding-top: 0;
-    padding-bottom: 0;
+  @media (max-width: 991px) {
+    background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/banner-mobile-bg-v1.webp")
+      no-repeat center top / cover;
+    padding-top: 24px;
+    padding-bottom: 24px;
   }
 
-  @media (min-width: 1024px) {
-    padding-top: 0;
-    padding-bottom: 0;
+  @media (min-width: 992px) {
+    min-height: 480px;
     max-height: 500px;
-    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 20px;
   }
 
-  .smile-NewBanner-content {
+  .banner-breadcrumb {
+    margin-bottom: 6px;
     display: flex;
-    flex-direction: column;
-    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    font-family: var(--font-hk);
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.5;
+    letter-spacing: 0.36px;
+    color: #6d6e71;
 
-    @media (min-width: 768px) {
-      flex-direction: row;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
+    a {
+      color: #6d6e71;
+      text-decoration: none;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: #456db6;
+      }
+
+      &:last-child {
+        color: #456db6;
+        font-weight: 700;
+      }
     }
 
-    @media (min-width: 1024px) {
+    span {
+      color: #9ca3af;
+      margin: 0 2px;
+    }
+
+    @media (min-width: 992px) {
+      margin-bottom: 12px;
+      font-size: 16px;
+    }
+  }
+
+  .banner-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: relative;
+    z-index: 2;
+
+    @media (min-width: 992px) {
       flex-direction: row;
-      flex-wrap: nowrap;
       align-items: center;
       justify-content: space-between;
-      gap: 24px;
-      height: 100%;
-      max-height: 460px;
+      gap: 32px;
+      width: 100%;
     }
   }
 
   .smile-NewBanner-Title {
-    flex: 1 1 auto;
-    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
 
-    @media (min-width: 1024px) {
-      flex: 0 0 auto;
-      min-width: 380px;
-      max-width: 440px;
-    }
-
-    .banner-tag {
-      color: #4570b6;
+    h1,
+    .banner-main-title {
       font-family: var(--font-en);
-      font-size: clamp(44px, 6.5vw, 92px);
-      font-style: normal;
+      font-size: clamp(48px, 6.2vw, 84px);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: #4570b6;
+      margin: 0 0 10px;
+      text-transform: uppercase;
+    }
+
+    .banner-sub-title {
+      font-family: var(--font-hk);
+      font-size: clamp(26px, 3.2vw, 44px);
       font-weight: 700;
-      line-height: 1.02;
-      display: block;
-      letter-spacing: -0.01em;
-    }
-
-    .icl-h1 {
+      line-height: 1.2;
+      letter-spacing: 0.05em;
       color: #4570b6;
-      font-family: var(--font-hk);
-      font-size: clamp(26px, 3.8vw, 54px);
-      font-style: normal;
-      font-weight: 400;
-      line-height: 1.15;
-      margin: 6px 0 0;
-
-      @media (min-width: 768px) {
-        margin-top: 8px;
-      }
+      margin: 0 0 6px;
     }
 
-    .banner-sub {
+    .banner-en-title {
+      font-family: var(--font-en);
+      font-size: clamp(15px, 1.6vw, 22px);
+      font-weight: 400;
+      line-height: 1.3;
+      letter-spacing: 0.02em;
       color: #4570b6;
-      font-family: var(--font-hk);
-      font-size: clamp(13px, 1.7vw, 24px);
-      font-style: normal;
-      font-weight: 400;
-      line-height: 1.45;
-      letter-spacing: 0.5px;
-      margin: 6px 0 0;
-
-      @media (min-width: 768px) {
-        letter-spacing: 0.9px;
-        margin-top: 8px;
-      }
+      margin: 0 0 16px;
     }
 
-    .banner-breadcrumb {
-      display: flex;
+    .banner-breadcrumb-bottom {
+      display: inline-flex;
       align-items: center;
-      gap: 6px;
-      margin-top: 10px;
+      gap: 4px;
+      border: 1px solid #4570b6;
+      border-radius: 4px;
+      padding: 4px 12px;
+      width: fit-content;
       font-family: var(--font-hk);
       font-size: 13px;
+      font-weight: 400;
       color: #6d6e71;
-      white-space: nowrap;
-
-      @media (min-width: 768px) {
-        font-size: 14px;
-        margin-top: 10px;
-        gap: 8px;
-      }
-
-      @media (min-width: 1024px) {
-        font-size: 15px;
-        margin-top: 10px;
-      }
+      background: rgba(255, 255, 255, 0.7);
 
       a {
         color: #6d6e71;
         text-decoration: none;
-        transition: color var(--dur, 250ms) ease;
 
-        &:hover {
-          color: #4570b6;
-        }
-
-        &.breadcrumb-curr {
+        &:last-child {
           color: #4570b6;
           font-weight: 700;
         }
       }
 
-      .breadcrumb-sep {
+      span {
         color: #9ca3af;
-        font-size: 12px;
-      }
-
-      .breadcrumb-mid {
-        color: #6d6e71;
       }
     }
   }
 
-  .smile-NewBanner-visual {
-    flex-shrink: 0;
+  .smile-NewBanner-Visual {
+    position: relative;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    z-index: 2;
 
-    @media (max-width: 767px) {
-      width: 100%;
-      max-width: 320px;
-      margin: 0 auto;
-    }
-
-    @media (min-width: 768px) and (max-width: 1023px) {
-      width: 48%;
-      max-width: 380px;
-    }
-
-    @media (min-width: 1024px) {
+    @media (min-width: 992px) {
       flex: 1 1 auto;
-      max-width: 420px;
-      margin: 0 auto;
+      max-width: 600px;
+      flex-direction: row;
+      justify-content: flex-end;
     }
 
-    .banner-lens-img {
-      width: 100%;
-      height: auto;
-      max-height: 340px;
-      aspect-ratio: 685 / 563;
-      object-fit: contain;
-      display: block;
-    }
-  }
+    .lens-graphic-container {
+      position: relative;
+      width: clamp(220px, 30vw, 360px);
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-  .smile-NewBanner-Tip {
-    flex-shrink: 0;
-    width: fit-content;
-
-    @media (max-width: 767px) {
-      margin-left: auto;
-      margin-top: 8px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        filter: drop-shadow(0 10px 24px rgba(69, 112, 182, 0.16));
+        animation: lensFloat 4s ease-in-out infinite alternate;
+      }
     }
 
-    @media (min-width: 768px) and (max-width: 1023px) {
-      margin-left: auto;
-      margin-top: 10px;
-    }
-
-    @media (min-width: 1024px) {
-      margin: 0;
-      align-self: center;
-    }
-
-    .smile-NewBanner-Tip-Title {
-      border-top-left-radius: 6px;
-      border-top-right-radius: 6px;
+    .smile-NewBanner-Tip {
       background: #4570b6;
-      padding: 4px 14px 2px;
-      display: inline-block;
+      color: #fff;
+      border-radius: 16px;
+      padding: 16px 20px;
+      box-shadow: 0 10px 28px rgba(69, 112, 182, 0.28);
+      position: relative;
+      z-index: 3;
+      margin-top: -30px;
+      width: clamp(240px, 28vw, 320px);
+      box-sizing: border-box;
 
-      @media (min-width: 768px) {
-        padding: 6px 18px 2px;
+      @media (min-width: 992px) {
+        margin-top: 0;
+        margin-left: -50px;
+        align-self: flex-end;
+        margin-bottom: 20px;
       }
 
-      @media (min-width: 1024px) {
-        padding: 8px 24px 3px;
-      }
-
-      p {
-        color: #fff;
+      .smile-NewBanner-Tip-Top {
         font-family: var(--font-hk);
-        font-size: 13px;
-        font-style: normal;
+        font-size: 15px;
         font-weight: 700;
-        line-height: 1.5;
-        letter-spacing: 1px;
+        letter-spacing: 0.1em;
+        margin-bottom: 8px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+        &::before {
+          content: "";
+          display: inline-block;
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: #fff;
+        }
+      }
+
+      .smile-NewBanner-Tip-Content {
+        list-style: none;
+        padding: 0;
         margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
 
-        @media (min-width: 768px) {
-          font-size: 15px;
-          letter-spacing: 2px;
-        }
+        li {
+          font-family: var(--font-hk);
+          font-size: clamp(16px, 1.4vw, 20px);
+          font-weight: 700;
+          line-height: 1.4;
+          letter-spacing: 0.05em;
+          display: flex;
+          align-items: baseline;
+          gap: 6px;
 
-        @media (min-width: 1024px) {
-          font-size: 18px;
-          line-height: 28px;
-          letter-spacing: 3px;
-        }
-      }
-    }
+          &::before {
+            content: "•";
+            color: #fff;
+            font-size: 16px;
+          }
 
-    .smile-NewBanner-Tip-Content {
-      border-radius: 6px;
-      border-top-left-radius: 0;
-      background: #4570b6;
-      padding: 8px 16px 10px;
-      width: fit-content;
-
-      @media (min-width: 768px) {
-        padding: 10px 20px 14px;
-      }
-
-      @media (min-width: 1024px) {
-        padding: 14px 28px 18px 22px;
-      }
-
-      p {
-        color: #fff;
-        font-family: var(--font-hk);
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 300;
-        line-height: 1.6;
-        margin: 0;
-        white-space: nowrap;
-
-        @media (min-width: 768px) {
-          font-size: 15px;
-          line-height: 1.8;
-          letter-spacing: 1.5px;
-        }
-
-        @media (min-width: 1024px) {
-          font-size: 20px;
-          font-weight: 400;
-          line-height: 40px;
-          letter-spacing: 3px;
+          span {
+            font-family: var(--font-en);
+            font-size: clamp(19px, 1.7vw, 24px);
+            font-weight: 900;
+            color: #ffde59;
+            margin-right: 2px;
+          }
         }
       }
     }
   }
 }
 
-@keyframes suitableBgCycle {
+@keyframes lensFloat {
   0% {
-    opacity: 0;
-  }
-  2% {
-    opacity: 0.85;
-  }
-  18% {
-    opacity: 0.85;
-  }
-  22% {
-    opacity: 0;
+    transform: translateY(0) scale(1);
   }
   100% {
-    opacity: 0;
+    transform: translateY(-8px) scale(1.02);
   }
 }
 
 /* ==========================================================================
-   9. 合適對象 SuitableObject
-   Authentic 5-panel full-bleed interactive banner (desktop) + 3x2 grid (mobile)
+   2. 希瑪微笑矯視中心介紹 (.smile-newCenter)
    ========================================================================== */
-.SuitableObject {
-  width: 100%;
-  margin: 0 auto;
-  position: relative;
-  background: #4570b6;
-
-  // Hover over container pauses all CSS animations
-  .SuitableObject-container:hover .SuitableObject-item .SuitableObject-image,
-  .SuitableObject-item:hover .SuitableObject-image {
-    animation-play-state: paused;
-  }
-
-  // When hovering inside container, hide unhovered items' background images
-  .SuitableObject-container:hover .SuitableObject-item:not(:hover) .SuitableObject-image {
-    opacity: 0 !important;
-  }
-
-  .SuitableObject-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 260px);
-    width: 100%;
-    margin: 0 auto;
-
-    @media (min-width: 1024px) {
-      grid-template-columns: repeat(5, 1fr);
-      grid-template-rows: 580px;
-      height: 580px;
-    }
-  }
-
-  // Mobile 3x2 special cell ("合適對象")
-  .SuitableObject-speical {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    background: #395fa0;
-    order: 3; // Cell 3 (top right on mobile)
-
-    span {
-      color: #fff;
-      text-align: center;
-      font-family: var(--font-hk) !important;
-      font-size: 20px;
-      font-style: normal;
-      font-weight: 900;
-      line-height: 1.25;
-      display: block;
-      margin: 0 auto;
-      letter-spacing: 2px;
-    }
-
-    @media (min-width: 1024px) {
-      display: none !important;
-    }
-  }
-
-  .SuitableObject-item {
-    overflow: hidden;
-    cursor: pointer;
-    border: 0.5px solid rgba(255, 255, 255, 0.35);
-    background: #4570b6;
+.smile-newCenter {
+  .smile-newCenter-content {
+    height: 832px;
+    background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-pc-center.avif")
+      no-repeat center / cover;
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    padding-bottom: 30px;
-    transition: background-color var(--dur, 250ms) ease;
-    outline: none;
 
-    // Mobile order to form 3x2 layout:
-    // Row 1: item 1 (order: 1), item 2 (order: 2), speical (order: 3)
-    // Row 2: item 3 (order: 4), item 4 (order: 5), item 5 (order: 6)
-    &:nth-child(1) { order: 1; }
-    &:nth-child(2) { order: 2; }
-    &:nth-child(3) { order: 4; }
-    &:nth-child(4) { order: 5; }
-    &:nth-child(5) { order: 6; }
+    .smile-newCenter-content-text {
+      background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-pc-center-centerTwo2.avif")
+        no-repeat center / 100%;
+      position: relative;
+      z-index: 2;
+      padding: 94px 0;
 
-    // Mobile watermark number
-    &::before {
-      content: attr(data-number);
-      font-family: var(--font-en);
-      font-size: 110px;
-      font-weight: 900;
-      color: rgba(255, 255, 255, 0.2);
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      line-height: 1;
-      pointer-events: none;
-      transition: opacity var(--dur, 250ms) ease;
-    }
-
-    // Star icon (item 1)
-    .suitable-star {
-      display: none;
-
-      @media (min-width: 1024px) {
-        display: block;
-        position: absolute;
-        top: 32px;
-        left: 32px;
-        color: #fff;
-        font-size: 24px;
-        z-index: 5;
-        pointer-events: none;
+      :is(h1, h2, h3) {
+        color: #4570b6;
+        font-family: var(--font-hk);
+        font-size: clamp(20px, 1.5625vw, 30px);
+        font-style: normal;
+        font-weight: 900;
+        line-height: clamp(20px, 1.5625vw, 30px);
+        text-align: center;
+        margin-bottom: 16px;
       }
-    }
 
-    // Badge in item 3
-    .suitable-badge {
-      display: none;
+      .smile-newCenter-content-text-p {
+        width: 640px;
+        height: 640px;
+        background: white;
+        border: 3px solid #4570b6;
+        margin: 0 auto;
+        padding: 137px 88px 0 88px;
+        border-radius: 50%;
 
-      @media (min-width: 1024px) {
-        display: block;
-        position: absolute;
-        top: 36px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: #fff;
-        border-radius: 24px;
-        padding: 6px 24px;
-        z-index: 5;
-        white-space: nowrap;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-
-        span {
-          color: #4570b6;
+        p {
+          color: #6d6e71;
+          text-align: justify;
           font-family: var(--font-hk);
-          font-size: 18px;
-          font-weight: 900;
+          font-size: 20px;
+          font-style: normal;
+          font-weight: 300;
+          line-height: 35px;
+          letter-spacing: 4px;
+
+          span {
+            color: #4570b6;
+            font-family: var(--font-hk);
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 35px;
+            letter-spacing: 4px;
+          }
+
+          i {
+            font-style: normal;
+          }
+        }
+
+        & > p:nth-child(3) > span:nth-of-type(1),
+        & > p:nth-child(3) > i:nth-child(1) {
+          letter-spacing: 5px !important;
+          text-align: initial;
+        }
+
+        & > p:nth-child(3) > span:nth-of-type(2),
+        & > p:nth-child(3) > i:nth-of-type(2) {
           letter-spacing: 2px;
         }
       }
     }
 
-    // Top text in item 5
-    .suitable-top-text {
-      display: none;
+    @media screen and (max-width: 1140px) {
+      overflow: hidden;
+      padding-top: 62px;
+      padding-bottom: 72px;
+      height: auto;
+      background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-mobile-center.avif")
+        no-repeat center / cover;
 
-      @media (min-width: 1024px) {
-        display: block;
+      &::after {
         position: absolute;
-        top: 40px;
         left: 50%;
+        top: 0;
         transform: translateX(-50%);
-        color: rgba(255, 255, 255, 0.9);
-        font-family: var(--font-hk);
-        font-size: 16px;
-        font-weight: 500;
-        z-index: 5;
-        letter-spacing: 1px;
+        content: "";
+        width: 860px;
+        height: 130%;
+        background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-mobile-centerTwo2.avif")
+          no-repeat bottom / cover;
+      }
+
+      .smile-newCenter-content-text {
+        background: none;
+        padding: 0;
+
+        :is(h1, h2, h3) {
+          font-size: 20px;
+          line-height: 18.34px;
+          margin-bottom: 13px;
+        }
+
+        .smile-newCenter-content-text-p {
+          width: auto;
+          height: auto;
+          background: transparent;
+          border: none;
+          border-radius: 0;
+          padding: 0;
+          max-width: 251px;
+
+          p {
+            font-size: clamp(14px, 4vw, 16px);
+            line-height: 20px;
+            letter-spacing: 4.8px;
+
+            span {
+              font-size: 16px;
+              line-height: 20px;
+              letter-spacing: 4.8px;
+            }
+          }
+        }
       }
     }
+  }
+}
 
-    .SuitableObject-description {
-      color: #fff;
-      text-align: center;
-      font-family: var(--font-hk);
-      font-size: 14px;
-      font-weight: 700;
-      line-height: 1.5;
-      letter-spacing: 1.5px;
-      position: relative;
-      z-index: 4;
-      padding: 0 10px;
+/* ==========================================================================
+   3. 為何選擇希瑪 (.icl-WhatChoose)
+   ========================================================================== */
+.icl-WhatChoose {
+  padding: 67px 0px;
+
+  .icl-WhatChoose-title {
+    max-width: 957px;
+    color: #4570b6;
+    font-family: var(--font-hk);
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 30px;
+    margin: 0 auto;
+  }
+
+  .icl-WhatChoose-content-one {
+    margin: 26px auto 0;
+    display: flex;
+    justify-content: center;
+    gap: 31px;
+
+    & > div {
+      max-width: 468px;
+    }
+
+    .icl-WhatChoose-content-one-text {
+      p {
+        text-align: justify;
+        color: #6d6e71;
+        font-family: var(--font-hk);
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 35px;
+        letter-spacing: 6px;
+
+        span {
+          color: #4570b6;
+          font-family: var(--font-hk);
+          font-size: 20px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 35px;
+          letter-spacing: 6px;
+        }
+      }
+    }
+  }
+
+  .span-new {
+    font-size: 16px;
+    background: #4570b6;
+    color: #fff;
+    font-weight: 700;
+    margin-left: 8px;
+    padding: 4px;
+    display: inline-block;
+    line-height: 1;
+
+    @media (min-width: 1024px) {
+      font-size: 24px;
+      margin-left: 16px;
+      padding: 8px;
+    }
+  }
+
+  .icl-WhatChoose-content-two {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 31px;
+
+    & > div {
+      max-width: 467px;
+      margin-top: 30px;
+      border-radius: 10px;
+      background: #f4fafc;
+      padding: 63px 53px 58px 46px;
+
+      .icl-WhatChoose-content-two-title {
+        color: #4570b6;
+        font-family: var(--font-hk);
+        font-size: 30px;
+        font-style: normal;
+        font-weight: 900;
+        line-height: 1;
+        margin-bottom: 20px;
+      }
 
       p {
-        margin: 2px 0;
+        text-align: justify;
+        color: #6d6e71;
+        font-family: var(--font-hk);
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 1.75;
+        letter-spacing: 6px;
       }
     }
+  }
 
-    .SuitableObject-image {
-      position: absolute;
-      inset: 0;
+  @media screen and (max-width: 1140px) {
+    padding: 40px 15px;
+
+    .icl-WhatChoose-title {
+      font-size: 20px;
+      line-height: 24.567px;
+    }
+
+    .icl-WhatChoose-content-one {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0;
-      transition: opacity 0.35s ease;
-      z-index: 1;
-      pointer-events: none;
-      animation: suitableBgCycle 10s infinite;
-    }
+      margin-top: 30px;
+      display: block;
 
-    &:nth-child(1) .SuitableObject-image {
-      animation-delay: 0s;
-    }
-    &:nth-child(2) .SuitableObject-image {
-      animation-delay: 2s;
-    }
-    &:nth-child(3) .SuitableObject-image {
-      animation-delay: 4s;
-    }
-    &:nth-child(4) .SuitableObject-image {
-      animation-delay: 6s;
-    }
-    &:nth-child(5) .SuitableObject-image {
-      animation-delay: 8s;
-    }
+      .icl-WhatChoose-content-one-text {
+        width: 100%;
+        margin-top: 30px;
 
-    &:hover,
-    &:focus-visible,
-    &.active {
-      .SuitableObject-image {
-        opacity: 0.85 !important;
-      }
-      &::before {
-        opacity: 0.08 !important;
+        p {
+          font-size: 16px;
+          line-height: 30px;
+          letter-spacing: 4.8px;
+
+          span {
+            font-size: 16px;
+            line-height: 30px;
+            letter-spacing: 4.8px;
+          }
+        }
       }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .SuitableObject-image {
-        animation: none !important;
-      }
-      &.SuitableObject-item-3 .SuitableObject-image {
-        opacity: 0.85;
+    .icl-WhatChoose-content-two {
+      width: 100%;
+      display: block;
+
+      & > div {
+        max-width: 100%;
+        margin-top: 30px;
+        border-radius: 7.168px;
+        padding: 27px 32px 27px 34px;
+
+        .icl-WhatChoose-content-two-title {
+          font-size: 24px;
+          line-height: 21.505px;
+          margin-bottom: 15px;
+        }
+
+        p {
+          font-size: 16px;
+          line-height: 25.089px;
+          letter-spacing: 4.8px;
+        }
       }
     }
+  }
+}
 
-    // Desktop styles
-    @media (min-width: 1024px) {
-      border-right: 1px solid rgba(255, 255, 255, 0.4);
-      border-left: none;
-      border-top: none;
+/* ==========================================================================
+   4. 費用表相關按鈕與公共標題 (.icl-btn & .new-pubile-title)
+   ========================================================================== */
+.icl-btn {
+  margin-top: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  padding: 10px 57px;
+  border-radius: 100px;
+  border: 2px solid #4570b6;
+  background: #4570b6;
+  color: #fff;
+  text-align: justify;
+  font-family: var(--font-hk);
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.75;
+  letter-spacing: 1.8px;
+
+  svg {
+    width: 29px;
+    height: 29px;
+    margin-left: 15px;
+  }
+
+  @media screen and (max-width: 1140px) {
+    margin-top: 30px;
+    padding: 6px 32px;
+    font-size: 20px;
+    line-height: 35px;
+    letter-spacing: 1px;
+
+    svg {
+      width: 17px;
+      height: 17px;
+      margin-left: 9px;
+    }
+  }
+}
+
+.new-pubile-title {
+  color: #4570b6;
+  font-family: var(--font-hk);
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 39px;
+  text-align: center;
+  margin: 0px auto 0px;
+
+  span {
+    font-family: var(--font-en);
+  }
+
+  @media screen and (max-width: 1140px) {
+    font-size: 20px;
+    line-height: 26px;
+    margin: 0px auto 30px;
+  }
+}
+
+/* ==========================================================================
+   5. EVO ICL 產品系列介紹 — V4C｜V5｜V6 型號比較 (.icl-model)
+   ========================================================================== */
+.icl-model {
+  .model-title {
+    color: #4570b6;
+    font-family: var(--font-hk);
+    font-size: clamp(20px, 1.5625vw, 30px);
+    font-style: normal;
+    font-weight: 900;
+    line-height: 1.3;
+  }
+  .model-main {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #4570b6;
+  }
+  .model-table {
+    border-collapse: collapse;
+    th,
+    td {
+      padding: 12px 8px;
+      font-size: 14px;
+      font-family: var(--font-hk);
+      color: #6d6e71;
+      &.line-bottom {
+        border-bottom: 1px solid #4570b6;
+      }
+      &.line-right {
+        border-right: 1px solid #4570b6;
+      }
+      &.line-project {
+        border-right: 1px solid #4570b6;
+        background: #f4fafc;
+        color: #4570b6;
+        font-weight: 700;
+      }
+    }
+    thead th {
+      background: #4570b6;
+      color: #fff;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 14px 8px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .model-table {
+      th,
+      td {
+        padding: 20px 16px;
+        font-size: 18px;
+        line-height: 1.5;
+      }
+      thead th {
+        font-size: 22px;
+        padding: 18px 16px;
+      }
+    }
+  }
+}
+
+/* ==========================================================================
+   6. ICL 矯視的好處 (.icl-Good)
+   ========================================================================== */
+.icl-Good {
+  .icl-Good-List {
+    margin: 49px auto 0;
+    max-width: 992px;
+    width: fit-content;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+
+    & > .icl-Good-List-item:nth-child(1),
+    & > .icl-Good-List-item:nth-child(2),
+    & > .icl-Good-List-item:nth-child(3) {
       border-bottom: none;
-      height: 100%;
-      align-items: flex-end;
-      padding-bottom: 60px;
+    }
 
-      &:first-child {
-        border-left: 1px solid rgba(255, 255, 255, 0.4);
+    & > .icl-Good-List-item:last-child,
+    & > .icl-Good-List-item:nth-child(3) {
+      border-right: 2px solid #4570b6;
+    }
+
+    .icl-Good-List-item {
+      &:first-child img {
+        height: 80px;
       }
 
-      &::before {
-        font-size: 190px;
-        top: 80px;
-        color: rgba(255, 255, 255, 0.2);
+      z-index: 99;
+      opacity: 1;
+      aspect-ratio: 1 / 1;
+      padding-top: 82px;
+      padding-bottom: 55px;
+      box-sizing: border-box;
+      border: 2px solid #4570b6;
+      border-right: none;
+      background: #fff;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        height: 68px;
       }
 
-      .SuitableObject-description {
-        font-size: clamp(18px, 1.35vw, 24px);
-        line-height: 1.45;
-        letter-spacing: 2.5px;
-        padding: 0 14px;
+      h3 {
+        margin-top: 18px;
+        margin-bottom: 11px;
+        text-align: center;
+        color: #4570b6;
+        font-family: var(--font-hk);
+        font-size: clamp(15px, 1.3vw, 25px);
+        font-style: normal;
+        font-weight: 700;
+        line-height: 0.8;
+        letter-spacing: 6.25px;
+      }
+
+      p {
+        color: #6d6e71;
+        text-align: center;
+        font-family: var(--font-hk);
+        font-size: clamp(12px, 1.19vw, 23px);
+        font-style: normal;
+        font-weight: 300;
+        line-height: 35px;
+        letter-spacing: 0.2rem;
+      }
+    }
+
+    @media screen and (max-width: 1140px) {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 0;
+
+      .icl-Good-List-item {
+        width: 194px;
+        height: 194px;
+        border: 1.04px solid #4570b6 !important;
+        border-right: 1.04px solid #4570b6 !important;
+        border-bottom: 1.04px solid #4570b6 !important;
+        padding: 0;
+        aspect-ratio: auto;
+
+        &:first-child img {
+          width: 59px;
+          height: 44px;
+        }
+
+        img {
+          width: 59px;
+          height: 44px;
+        }
+
+        h3 {
+          margin-top: 25px;
+          margin-bottom: 11px;
+          font-size: 18px;
+          line-height: 0.57;
+          letter-spacing: 1.8px;
+        }
+
+        p {
+          font-size: 16px;
+          line-height: 1.125;
+          letter-spacing: normal;
+        }
+      }
+    }
+
+    @media screen and (max-width: 450px) {
+      .icl-Good-List-item {
+        width: 43.58vw;
+        height: 43.58vw;
+
+        h3 {
+          font-size: 4.1vw;
+        }
+
+        p {
+          font-size: 3.5vw;
+        }
       }
     }
   }
@@ -574,7 +845,7 @@ h2 {
 
 /* ==========================================================================
    7. EVO Visian ICL 鏡片 7 大特色 (.icl-peculiarity)
-   Clean responsive 2-column layout (Desktop) + Horizontal snap scroll (Mobile)
+   純 CSS 14秒循環動畫 + Hover 手風琴展開 (0 JS 依賴)
    ========================================================================== */
 .icl-peculiarity {
   width: 100%;
@@ -595,7 +866,6 @@ h2 {
     min-height: 640px;
     box-sizing: border-box;
 
-    // Doctor illustration bottom left
     &::after {
       content: "";
       background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-peculiarity-bg1.png")
@@ -609,7 +879,6 @@ h2 {
       z-index: 1;
     }
 
-    // Subtle lens graphic outline watermark
     &::before {
       content: "";
       background: url("https://statichk.cmermedical.com/smile/icl/banner-lens-pc-v1.webp")
@@ -746,6 +1015,35 @@ h2 {
         &:first-child:not(.active):not(:hover) {
           transform: rotate(-12deg);
           margin-right: 20px;
+        }
+
+        /* 桌面端純 CSS 14秒循環動畫 (7 個卡片，每個 2 秒) */
+        @for $i from 1 through 7 {
+          &:nth-child(#{$i}) {
+            animation: peculiarityCardCycle 14s infinite;
+            animation-delay: #{($i - 1) * 2}s;
+
+            h4,
+            .icl-peculiarity-list-item-footer {
+              animation: peculiarityColorCycle 14s infinite;
+              animation-delay: #{($i - 1) * 2}s;
+            }
+
+            .icl-peculiarity-list-item-text {
+              animation: peculiarityBorderCycle 14s infinite;
+              animation-delay: #{($i - 1) * 2}s;
+            }
+
+            .icl-peculiarity-list-item-text-title {
+              animation: peculiarityTitleCycle 14s infinite;
+              animation-delay: #{($i - 1) * 2}s;
+            }
+
+            .icl-peculiarity-list-item-text-show {
+              animation: peculiarityShowCycle 14s infinite;
+              animation-delay: #{($i - 1) * 2}s;
+            }
+          }
         }
       }
 
@@ -892,6 +1190,7 @@ h2 {
         }
       }
 
+      /* Active / Hover 激活狀態 */
       &.active,
       &:hover {
         width: 220px;
@@ -902,16 +1201,18 @@ h2 {
         @media (min-width: 1200px) {
           width: 260px;
           box-shadow: 0 10px 28px rgba(69, 112, 182, 0.28);
+          transform: none !important;
+          margin-right: 0 !important;
         }
 
         h4,
         .icl-peculiarity-list-item-footer {
-          color: #fff;
+          color: #fff !important;
         }
 
         .icl-peculiarity-list-item-text {
-          border-top: 1px solid #fff;
-          border-bottom: 1px solid #fff;
+          border-top: 1px solid #fff !important;
+          border-bottom: 1px solid #fff !important;
           padding: 10px 4px;
 
           @media (min-width: 1200px) {
@@ -919,1967 +1220,1146 @@ h2 {
           }
 
           .icl-peculiarity-list-item-text-title {
-            display: none;
+            display: none !important;
           }
 
           .icl-peculiarity-list-item-text-show {
-            display: flex;
+            display: flex !important;
           }
+        }
+      }
+    }
+
+    /* 懸停容器時暫停循環動畫 */
+    @media (min-width: 1200px) {
+      &:hover {
+        .icl-peculiarity-list-item,
+        .icl-peculiarity-list-item * {
+          animation-play-state: paused;
         }
       }
     }
   }
 }
 
-@media screen and (max-width: 1140px) {
-  .smile-newCenter {
-    .smile-newCenter-menu {
-      padding: 0 15px;
-      display: flex;
-      justify-content: start;
-      align-items: center;
-      letter-spacing: 0.36px;
-      padding-left: 28px;
-      color: #6d6e71;
-      a {
-        color: #6d6e71;
-        font-family: var(--font-hk);
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 300;
-        line-height: 3.6;
-        letter-spacing: 0.36px;
-      }
-      & > a:last-child {
-        color: #456db6;
-        font-weight: 500;
-      }
-    }
-    /* 内容 */
-    .smile-newCenter-content {
-      overflow: hidden;
-      padding-top: 62px;
-      padding-bottom: 72px;
-      background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-mobile-center.avif");
-      background-repeat: no-repeat;
-      background-size: cover;
-      position: relative;
-      &::after {
-        position: absolute;
-        left: 50%;
-        top: 0;
-        transform: translateX(-50%);
-        content: "";
-        width: 860px;
-        height: 130%;
-        background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-mobile-centerTwo2.avif");
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: bottom;
-      }
-      .smile-newCenter-content-text {
-        position: relative;
-        z-index: 2;
-        :is(h1, h2, h3) {
-          color: #4570b6;
-          font-family: var(--font-hk);
-          font-size: 20px;
-          font-style: normal;
-          font-weight: 900;
-          line-height: 18.34px; /* 91.702% */
-          text-align: center;
-          margin-bottom: 13px;
-        }
-        .smile-newCenter-content-text-p {
-          max-width: 251px;
-          margin: 0 auto;
-          p {
-            color: #6d6e71;
-            text-align: justify;
-            font-family: var(--font-hk);
-            font-size: clamp(14px, 4vw, 16px);
-            font-style: normal;
-            font-weight: 300;
-            line-height: 20px; /* 125% */
-            letter-spacing: 4.8px;
-            span {
-              color: #4570b6;
-              font-family: var(--font-hk);
-              font-size: 16px;
-              font-style: normal;
-              font-weight: 700;
-              line-height: 20px;
-              letter-spacing: 4.8px;
-            }
-          }
-        }
-      }
-    }
-  }
-  .icl-WhatChoose {
-    padding: 40px 15px;
-    .icl-WhatChoose-title {
-      color: #4570b6;
-      font-family: var(--font-hk);
-      font-size: 20px;
-      font-style: normal;
-      font-weight: 900;
-      line-height: 24.567px;
-    }
-    .icl-WhatChoose-content-one {
-      margin: 0 auto;
-      width: 100%;
-      margin-top: 30px;
-      
-      .icl-WhatChoose-content-one-text {
-        margin: 0 auto;
-        width: 100%;
-        margin-top: 30px;
-        p {
-          color: #6d6e71;
-          font-family: var(--font-hk);
-          font-size: 16px;
-          font-style: normal;
-          font-weight: 300;
-          line-height: 30px;
-          letter-spacing: 4.8px;
-          span {
-            color: #4570b6;
-            font-family: var(--font-hk);
-            font-size: 16px;
-            font-style: normal;
-            font-weight: 700;
-            line-height: 30px;
-            letter-spacing: 4.8px;
-          }
-        }
-      }
-    }
-    .span-new {
-    font-size: 16px;
+/* 7大特色純 CSS 循環 Keyframes */
+@keyframes peculiarityCardCycle {
+  0%, 12% {
+    width: 260px;
     background: #4570b6;
-    color: #fff;
-    font-weight: 700;
-    margin-left: 8px;
-    padding: 4px;
-    display: inline-block;
-    line-height: 1;
-
-    @media (min-width: 1024px) {
-      font-size: 24px;
-      margin-left: 16px;
-      padding: 8px;
-    }
+    border-color: #4570b6;
+    box-shadow: 0 10px 28px rgba(69, 112, 182, 0.28);
+    transform: none;
+    margin-right: 0;
   }
-
-  .icl-WhatChoose-content-two {
-      margin: 0 auto;
-      width: 100%;
-      & > div {
-        margin-top: 30px;
-        border-radius: 7.168px;
-        background: #f4fafc;
-        padding: 27px 32px 27px 34px;
-        .icl-WhatChoose-content-two-title {
-          color: #4570b6;
-          font-family: var(--font-hk);
-          font-size: 24px;
-          font-style: normal;
-          font-weight: 900;
-          line-height: 21.505px; /* 89.603% */
-          margin-bottom: 15px;
-        }
-        p {
-          color: #6d6e71;
-          font-family: var(--font-hk);
-          font-size: 16px;
-          font-style: normal;
-          font-weight: 300;
-          line-height: 25.089px; /* 156.805% */
-          letter-spacing: 4.8px;
-        }
-      }
-    }
+  14.28%, 100% {
+    width: 90px;
+    background: #fff;
+    border-color: #4570b6;
+    box-shadow: none;
   }
-  .icl-btn {
-    margin-top: 30px;
+}
+
+@keyframes peculiarityTitleCycle {
+  0%, 12% {
+    display: none;
+  }
+  14.28%, 100% {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    width: fit-content;
-    padding: 6px 32px;
-    border-radius: 100px;
-    border: 2px solid #4570b6;
-    background: #4570b6;
+  }
+}
+
+@keyframes peculiarityShowCycle {
+  0%, 12% {
+    display: flex;
+  }
+  14.28%, 100% {
+    display: none;
+  }
+}
+
+@keyframes peculiarityBorderCycle {
+  0%, 12% {
+    border-top-color: #fff;
+    border-bottom-color: #fff;
+  }
+  14.28%, 100% {
+    border-top-color: #4570b6;
+    border-bottom-color: #4570b6;
+  }
+}
+
+@keyframes peculiarityColorCycle {
+  0%, 12% {
     color: #fff;
-    text-align: justify;
-    font-family: var(--font-hk);
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 35px; /* 175% */
-    letter-spacing: 1px;
-    svg {
-      width: 17px;
-      height: 17px;
-      margin-left: 9px;
-    }
   }
-  .new-pubile-title {
-    span {
-      font-family: var(--font-en);
-    }
+  14.28%, 100% {
     color: #4570b6;
-    font-family: var(--font-hk);
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 900;
-    line-height: 26px;
-    text-align: center;
-    margin: 0px auto 30px;
   }
-  /* icl好处 */
-  .icl-Good {
-    .icl-Good-List {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      .icl-Good-List-item {
-        z-index: 99;
-        opacity: 1;
-        width: 194px;
-        height: 194px;
-        border: 1.04px solid #4570b6;
-        background: #fff;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        img {
-          width: 59px;
-          height: 44px;
-        }
-        h3 {
-          margin-top: 25px;
-          margin-bottom: 11px;
-          color: #4570b6;
-          text-align: center;
-          font-family: var(--font-hk);
-          font-size: 18px;
-          font-style: normal;
-          font-weight: 700;
-          line-height: 0.57; /* 57.766% */
-          letter-spacing: 1.8px;
-        }
-        p {
-          color: #6d6e71;
-          text-align: center;
-          font-family: var(--font-hk);
-          font-size: 16px;
-          font-style: normal;
-          font-weight: 300;
-          line-height: 1.125; /* 112.5% */
-        }
-      }
-    }
-  }
-  .icl-introVedio {
+}
+
+/* ==========================================================================
+   8. 植入式隱形眼鏡 植入過程與視頻介紹 (.icl-introVedio)
+   純 CSS 15秒循環動畫 + Radio 點選交互 (0 JS 依賴)
+   ========================================================================== */
+.icl-introVedio {
+  scroll-margin-top: 100px;
+  width: 100%;
+  background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-intro-pc-bg.webp")
+    no-repeat 100% 0px;
+  padding: 80px 0 0;
+
+  @media screen and (max-width: 1140px) {
     scroll-margin-top: 80px;
     padding: 40px 15px 0px;
-    .icl-introVedio-intro {
+    background: none;
+  }
+
+  .icl-introVedio-intro {
+    padding-bottom: 60px;
+
+    @media screen and (max-width: 1140px) {
       padding-bottom: 50px;
-      .icl-introVedio-intro-number {
-        display: flex;
-        justify-content: center;
+    }
+
+    .icl-introVedio-intro-number {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      gap: 50px;
+
+      &::after {
+        background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-intro-bg2.png")
+          no-repeat center;
+        content: "";
+        position: absolute;
+        bottom: -200px;
+        left: -270px;
+        width: 550px;
+        height: 550px;
+        pointer-events: none;
+      }
+
+      @media screen and (max-width: 1140px) {
         gap: 16px;
-        position: relative;
+
         &::after {
-          background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-intro-bg2.png")
-            no-repeat;
           background-size: 100%;
-          background-position: center;
-          content: "";
-          position: absolute;
           top: -134px;
+          bottom: auto;
           left: -50px;
           width: 241px;
           height: 238px;
-          pointer-events: none;
         }
-        .steps {
+      }
+
+      /* 左側步驟按鈕列表 */
+      .steps {
+        width: 70px;
+        flex-shrink: 0;
+        color: #6d6e71;
+        font-family: var(--font-en);
+        font-size: 38px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        @media screen and (max-width: 1140px) {
           width: 32px;
-          color: #6d6e71;
-          font-family: var(--font-en);
           font-size: 17px;
-          font-style: normal;
-          font-weight: 400;
-          line-height: normal;
-          div,
-          .step-btn {
-            font-family: var(--font-en);
-            font-weight: 200;
+        }
+
+        .step-btn {
+          font-family: var(--font-en);
+          border-right: 2px solid #d0d0d0;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          height: 80px;
+          padding-right: 18px;
+          text-align: right;
+          cursor: pointer;
+          transition: all 0.25s ease;
+          font-weight: 300;
+
+          @media screen and (max-width: 1140px) {
             border-right: 1px solid #6d6e71;
-            display: flex;
             align-items: flex-start;
-            justify-content: flex-end;
             margin-bottom: 12px;
             height: 48px;
             padding-right: 6px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            &:hover,
-            &.active {
-              font-family: var(--font-en);
+            font-weight: 200;
+          }
+
+          &:hover,
+          &.active {
+            color: #4570b6;
+            font-family: var(--font-en);
+            font-size: 38px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 30px;
+            border-right: 5px solid #4570b6;
+
+            @media screen and (max-width: 1140px) {
               font-size: 17px;
-              font-style: normal;
-              font-weight: 700;
               line-height: 14px;
-              color: #4570b6;
               border-right: 2px solid #4570b6;
             }
           }
         }
-        .content-area {
-          position: relative;
-          flex: 1;
-          min-width: 0;
-          .content-panel {
-            display: flex;
-            flex-direction: column;
-          }
-          .content-area-img {
-            max-width: 100%;
-            position: relative;
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
+      }
 
-            .step-visual-box {
-              position: relative;
+      /* 右側內容展示面板 */
+      .content-area {
+        position: relative;
+        flex: 1;
+        min-width: 0;
+
+        .content-panel {
+          display: flex;
+          align-items: center;
+          width: 100%;
+          min-height: 520px;
+
+          @media screen and (max-width: 1140px) {
+            display: flex;
+            flex-direction: column;
+            min-height: auto;
+          }
+        }
+
+        .content-area-img {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 56px;
+          z-index: 2;
+          width: 100%;
+
+          @media screen and (max-width: 1140px) {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+          }
+
+          .step-visual-box {
+            position: relative;
+            width: 520px;
+            max-width: 520px;
+            flex-shrink: 0;
+
+            @media screen and (max-width: 1140px) {
               width: 100%;
+              max-width: 100%;
               display: flex;
               flex-direction: column;
+            }
 
-              .content-area-title {
+            .content-area-title {
+              position: absolute;
+              top: 0;
+              left: 0;
+              z-index: 10;
+              margin: 0;
+              padding: 0;
+
+              @media screen and (max-width: 1140px) {
                 position: relative;
                 margin-bottom: 12px;
+              }
 
-                h2 {
-                  color: #4570b6;
-                  font-family: var(--font-hk);
+              h2 {
+                color: #4570b6;
+                font-family: var(--font-hk);
+                font-size: 30px;
+                font-style: normal;
+                font-weight: 900;
+                line-height: 38px;
+                margin: 0;
+                white-space: nowrap;
+
+                @media screen and (max-width: 1140px) {
                   font-size: 17px;
-                  font-weight: 900;
                   line-height: 1.25;
-                  margin: 0;
+                }
 
-                  .step-title-row {
-                    display: inline-flex;
-                    align-items: center;
+                .step-title-row {
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 10px;
+
+                  @media screen and (max-width: 1140px) {
                     gap: 6px;
+                  }
 
-                    svg {
-                      display: inline-block;
-                      vertical-align: middle;
+                  svg {
+                    width: 28px;
+                    height: 28px;
+                    flex-shrink: 0;
+
+                    @media screen and (max-width: 1140px) {
                       width: 16px;
                       height: 16px;
-                      flex-shrink: 0;
                     }
                   }
                 }
               }
-
-              img {
-                max-width: 100%;
-                height: auto;
-                margin-bottom: 10px;
-                border-radius: 10px;
-              }
             }
 
-            .content-area-text {
-              color: var(--color-desc);
-              font-family: var(--font-hk);
-              font-size: 14px;
-              font-style: normal;
-              font-weight: 400;
-              line-height: 22px;
-              letter-spacing: 1px;
-              margin: 0;
-            }
-          }
-        }
-      }
-    }
-      /* vedio */
-    .icl-introVedio-vedio {
-      padding-top: 40px;
-      padding-bottom: 40px;
-      background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-vedio-mobile-bg2.webp")
-        no-repeat;
-      background-size: 100%;
-      .icl-introVedio-vedio-list {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        position: relative;
-        z-index: 2;
-        gap: 20px;
-        padding: 0 15px;
-
-        & > div {
-          width: 100%;
-          max-width: 480px;
-          aspect-ratio: 16 / 9;
-          border-radius: 12px;
-          overflow: hidden;
-          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-          background: #000;
-        }
-      }
-    }
-  }
-  /* 检查项目 */
-  .icl-CheckObject {
-    margin-top: 40px;
-    padding: 0 15px;
-    .CheckObject {
-      margin: 0 auto;
-      border-radius: 13.273px;
-      border: 1px solid #4570b6;
-      background: #fff;
-      padding: 0 27px;
-      h2 {
-        color: #4570b6;
-        font-family: var(--font-hk);
-        font-size: 20px;
-        font-style: normal;
-        font-weight: 900;
-        line-height: 1.29;
-        text-align: center;
-        padding-top: 26px;
-        padding-bottom: 20px;
-      }
-      ul {
-        list-style: none;
-        padding-top: 13px;
-        padding-bottom: 13px;
-        display: flex;
-        flex-direction: column;
-        border-top: 1.327px solid #4570b6;
-        li {
-          display: flex;
-          align-items: flex-start;
-          .CheckObject-number {
-            color: #4570b6;
-            font-family: var(--font-hk);
-            font-size: 16px;
-            font-style: normal;
-            font-weight: 700;
-            line-height: 2.23;
-            margin-right: 5px;
-          }
-          .CheckObject-description {
-            white-space: nowrap;
-            color: #6d6e71;
-            font-family: var(--font-hk);
-            font-size: 16px;
-            font-style: normal;
-            font-weight: 300;
-            line-height: 35.838px;
-          }
-          .CheckObject-new {
-            padding: 0 6px;
-            margin-left: 10px;
-            background: #456db6;
-            display: inline-block;
-            color: #fff;
-            font-family: var(--font-hk);
-            font-size: 15.264px;
-            font-style: normal;
-            font-weight: 700;
-            line-height: 1.6;
-          }
-        }
-      }
-    }
-  }
-  /* 案例分享 */
-  .latestNews {
-    margin-top: 40px;
-    margin-bottom: 40px;
-    background: url("https://statichk.cmermedical.com/smile/smileproV2/icl-newdongtai-mobile.jpg")
-      no-repeat;
-    background-size: cover;
-    position: relative;
-    height: 209vw;
-    /* padding-top: 130px; */
-    padding-top: 33.33vw;
-    .latestNews-tip {
-      position: absolute;
-      /* top: 55px; */
-      top: 14.1vw;
-      left: 0;
-      background: #c13550;
-      color: #fff;
-      font-family: var(--font-hk);
-      /* font-size: 20px; */
-      font-size: 5.12vw;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 1.95;
-      padding: 5px 24px;
-    }
-    .latestNews-in {
-      /* width: 252px; */
-      width: 64.61vw;
-      margin: 0 auto;
-      .latestNews-title {
-        color: #c13550;
-        font-family: var(--font-en);
-        /* font-size: 20.81px; */
-        font-size: 5.12vw;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 1.58;
-        i {
-          font-style: normal;
-          display: block;
-        }
-        span {
-          margin-left: 26px;
-          margin-right: 4px;
-          display: inline-block;
-          color: #fff;
-          font-family: var(--font-en);
-          /* font-size: 20.81px; */
-          font-size: 5.1vw;
-          font-style: normal;
-          font-weight: 700;
-          /* line-height: 33px; */
-          line-height: 1.65;
-          background: #c13550;
-          padding: 0 5px;
-        }
-      }
-      p {
-        margin-top: 9px;
-        color: #6d6e71;
-        text-align: justify;
-        font-family: var(--font-hk);
-        /* font-size: 16px; */
-        font-size: 4.1vw;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 1.48;
-        letter-spacing: 3.2px;
-      }
-    }
-    .latestNews-btn {
-      border: 1px solid #c13550;
-      border-radius: 50%;
-      /* width: 172px; */
-      /* height: 172px; */
-      width: 44.1vw;
-      height: 44.1vw;
-      margin-top: 24px;
-      margin-left: auto;
-      margin-right: 15px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 17px;
-      svg {
-        /* width: 19px; */
-        /* height: 19px; */
-        width: 4.84vw;
-        height: 4.87vw;
-      }
-      span {
-        color: #c13550;
-        text-align: center;
-        font-family: var(--font-hk);
-        /* font-size: 18.133px; */
-        font-size: 4.6vw;
-        font-style: normal;
-        font-weight: 900;
-        line-height: 0.71;
-      }
-    }
-  }
-}
-@media screen and (max-width: 450px) {
-  .smile-newCenter {
-    .smile-newCenter-menu {
-      padding: 0 15px;
-      display: flex;
-      justify-content: start;
-      align-items: center;
-      letter-spacing: 0.36px;
-      padding-left: 28px;
-      color: #6d6e71;
-      a {
-        color: #6d6e71;
-        font-family: var(--font-hk);
-        font-size: 3.07vw;
-        font-style: normal;
-        font-weight: 300;
-        line-height: 3.6;
-        letter-spacing: 0.36px;
-      }
-      & > a:last-child {
-        color: #456db6;
-        font-weight: 500;
-      }
-    }
-    /* 内容 */
-    .smile-newCenter-content {
-      overflow: hidden;
-      padding-top: 15.89vw;
-      padding-bottom: 18.46vw;
-      background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-mobile-center.avif");
-      background-repeat: no-repeat;
-      background-size: cover;
-      position: relative;
-      &::after {
-        position: absolute;
-        left: 50%;
-        top: 0;
-        transform: translateX(-50%);
-        content: "";
-        width: 220.5vw;
-        height: 130%;
-        background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-mobile-centerTwo2.avif");
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: bottom;
-      }
-      .smile-newCenter-content-text {
-        position: relative;
-        z-index: 2;
-        :is(h1, h2, h3) {
-          color: #4570b6;
-          font-family: var(--font-hk);
-          font-size: 5.12vw;
-          font-style: normal;
-          font-weight: 900;
-          line-height: 0.91;
-          text-align: center;
-          margin-bottom: 3.33vw;
-        }
-        .smile-newCenter-content-text-p {
-          max-width: 64.35vw;
-          margin: 0 auto;
-          p {
-            color: #6d6e71;
-            text-align: justify;
-            font-family: var(--font-hk);
-            font-size: 4vw;
-            font-style: normal;
-            font-weight: 300;
-            line-height: 1.25;
-            letter-spacing: 4.8px;
-            span {
-              color: #4570b6;
-              font-family: var(--font-hk);
-              font-size: 4vw;
-              font-style: normal;
-              font-weight: 700;
-              line-height: 1.25;
-              letter-spacing: 4.8px;
-            }
-          }
-        }
-      }
-    }
-  }
-  .icl-WhatChoose {
-    padding: 40px 15px;
-    .icl-WhatChoose-title {
-      color: #4570b6;
-      font-family: var(--font-hk);
-      font-size: 5.12vw;
-      font-style: normal;
-      font-weight: 900;
-      line-height: 1.2;
-    }
-    .icl-WhatChoose-content-one {
-      margin: 0 auto;
-      max-width: 92.3vw;
-      margin-top: 7.69vw;
-      .icl-WhatChoose-content-one-text {
-        margin: 0 auto;
-        max-width: 92.3vw;
-        margin-top: 7.69vw;
-        p {
-          color: #6d6e71;
-          font-family: var(--font-hk);
-          font-size: 4.1vw;
-          font-style: normal;
-          font-weight: 300;
-          line-height: 1.875;
-          letter-spacing: 4.8px;
-          span {
-            color: #4570b6;
-            font-family: var(--font-hk);
-            font-size: 4.1vw;
-            font-style: normal;
-            font-weight: 700;
-            line-height: 1.875;
-            letter-spacing: 4.8px;
-          }
-        }
-      }
-    }
-    .span-new {
-    font-size: 16px;
-    background: #4570b6;
-    color: #fff;
-    font-weight: 700;
-    margin-left: 8px;
-    padding: 4px;
-    display: inline-block;
-    line-height: 1;
-
-    @media (min-width: 1024px) {
-      font-size: 24px;
-      margin-left: 16px;
-      padding: 8px;
-    }
-  }
-
-  .icl-WhatChoose-content-two {
-      margin: 0 auto;
-      max-width: 92.3vw;
-      & > div {
-        margin-top: 7.69vw;
-        border-radius: 1.837vw;
-        background: #f4fafc;
-        padding: 6.92vw 8.25vw 6.92vw 8.717vw;
-        .icl-WhatChoose-content-two-title {
-          color: #4570b6;
-          font-family: var(--font-hk);
-          font-size: 6.15vw;
-          font-style: normal;
-          font-weight: 900;
-          line-height: 0.89;
-          margin-bottom: 3.846vw;
-        }
-        p {
-          color: #6d6e71;
-          font-family: var(--font-hk);
-          font-size: 4.1vw;
-          font-style: normal;
-          font-weight: 300;
-          line-height: 1.56;
-          letter-spacing: 4.8px;
-        }
-      }
-    }
-  }
-  /* icl好处 */
-  .icl-Good {
-    .icl-Good-List {
-      .icl-Good-List-item {
-        width: 49.7vw;
-        /* height: 194px; */
-        border: 1px solid #4570b6;
-        background: #fff;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        img {
-          width: 52.932px;
-        }
-        h3 {
-          margin-top: 25px;
-          margin-bottom: 11px;
-          color: #4570b6;
-          text-align: center;
-          font-family: var(--font-hk);
-          font-size: clamp(12px, 4.615vw, 18px);
-          font-style: normal;
-          font-weight: 700;
-          line-height: 0.57;
-          letter-spacing: 1.8px;
-        }
-        p {
-          color: #6d6e71;
-          text-align: center;
-          font-family: var(--font-hk);
-          font-size: clamp(10px, 4.1vw, 16px);
-          font-style: normal;
-          font-weight: 300;
-          line-height: 1.125;
-        }
-      }
-      & > .icl-Good-List-item {
-        border-bottom: none;
-      }
-      & > .icl-Good-List-item:nth-child(5) {
-        border-bottom: 1px solid #4570b6;
-      }
-      & > .icl-Good-List-item:nth-child(6) {
-        border-bottom: 1px solid #4570b6;
-      }
-      & > .icl-Good-List-item:nth-child(1) {
-        border-right: none;
-      }
-      & > .icl-Good-List-item:nth-child(3) {
-        border-right: none;
-      }
-      & > .icl-Good-List-item:nth-child(5) {
-        border-right: none;
-      }
-    }
-  }
-  .icl-introVedio {
-    /*     background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-intro-bg.webp") */
-    /*       no-repeat; */
-    /*     background-size: cover; */
-    /* background-position: -7.69vw -22.05vw; */
-    padding: 10.25vw 3.84vw 0px;
-    .icl-introVedio-intro {
-      padding-bottom: 66px;
-      .icl-introVedio-intro-number {
-        display: flex;
-        justify-content: center;
-        gap: 3.07vw;
-        position: relative;
-        &::before {
-          content: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-intro-bg.webp");
-          position: absolute;
-          right: -68.72vw;
-          top: -109.49vw;
-          scale: 0.5;
-          pointer-events: none;
-        }
-        &::after {
-          background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-intro-bg2.png")
-            no-repeat;
-          background-size: 100%;
-          background-position: center;
-          content: "";
-          position: absolute;
-          top: -134px;
-          left: -50px;
-          width: 241.084px;
-          height: 238.646px;
-          flex-shrink: 0;
-          pointer-events: none;
-        }
-        .steps {
-          width: 6.41vw;
-          color: #6d6e71;
-          font-family: var(--font-en);
-          font-size: 4.35vw;
-          font-style: normal;
-          font-weight: 400;
-          line-height: normal;
-          div,
-          .step-btn {
-            font-family: var(--font-en);
-            font-weight: 200;
-            border-right: 1px solid #6d6e71;
-            display: flex;
-            align-items: flex-start;
-            justify-content: end;
-            margin-bottom: 3.07vw;
-            height: 13.3vw;
-            padding-right: 6px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            &:hover,
-            &.active {
-              font-family: var(--font-en);
-              font-size: 4.35vw;
-              font-style: normal;
-              font-weight: 700;
-              color: #4570b6;
-              border-right: 2px solid #4570b6;
-            }
-          }
-        }
-        .content-area {
-          position: relative;
-          flex: 1;
-          min-width: 0;
-          .content-panel {
-            display: flex;
-            flex-direction: column;
-          }
-          .content-area-title {
-            position: relative;
-            margin-bottom: 12px;
-            h2,
-            p {
-              color: #4570b6;
-              font-family: var(--font-hk);
-              font-size: clamp(14px, 4.1vw, 20px);
-              font-style: normal;
-              font-weight: 900;
-              line-height: 1.25;
-              margin: 0;
-              display: inline-block;
-            }
-            svg {
-              display: inline-block;
-              vertical-align: middle;
-              margin-left: 6px;
-              width: 16px;
-              height: 16px;
-            }
-          }
-          .content-area-img {
-            max-width: 100%;
-            position: relative;
-            z-index: 2;
-            img {
-              max-width: 100%;
-              height: auto;
-              margin-bottom: 10px;
-              border-radius: 10px;
-            }
-            .content-area-text {
-              position: static;
-              transform: none;
-              width: 100%;
-              color: #6d6e71;
-              font-family: var(--font-hk);
-              font-size: clamp(13px, 3.8vw, 16px);
-              font-style: normal;
-              font-weight: 400;
-              line-height: 1.5;
-              letter-spacing: 1px;
-              margin: 0;
-            }
-          }
-        }
-      }
-    }
-    /* vedio */
-    .icl-introVedio-vedio {
-      padding-top: 40px;
-      padding-bottom: 40px;
-      background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-vedio-mobile-bg2.webp")
-        no-repeat;
-      background-size: 100%;
-      .icl-introVedio-vedio-list {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 30px;
-        & > div {
-          max-width: 360px;
-          height: 203px;
-        }
-      }
-    }
-  }
-  /* 检查项目 */
-  .icl-CheckObject {
-    margin-top: 40px;
-    padding: 0 15px;
-    .CheckObject {
-      margin: 0 auto;
-      border-radius: 3.33vw;
-      border: 1px solid #4570b6;
-      background: #fff;
-      padding: 0 6.92vw;
-      h2 {
-        color: #4570b6;
-        font-family: var(--font-hk);
-        font-size: 5.12vw;
-        font-style: normal;
-        font-weight: 900;
-        line-height: 1.29;
-        text-align: center;
-        padding-top: 6.66vw;
-        padding-bottom: 5.12vw;
-      }
-      ul {
-        list-style: none;
-        padding-top: 3.33vw;
-        padding-bottom: 3.33vw;
-        display: flex;
-        flex-direction: column;
-        border-top: 1.327px solid #4570b6;
-        li {
-          display: flex;
-          align-items: flex-start;
-          .CheckObject-number {
-            color: #4570b6;
-            font-family: var(--font-hk);
-            font-size: 4.1vw;
-            font-style: normal;
-            font-weight: 700;
-            line-height: 2.23;
-            margin-right: 1.28vw;
-          }
-          .CheckObject-description {
-            color: #6d6e71;
-            font-family: var(--font-hk);
-            font-size: 4.1vw;
-            font-style: normal;
-            font-weight: 300;
-            line-height: 2;
-            white-space: nowrap;
-          }
-          .CheckObject-new {
-            padding: 0 6px;
-            margin-left: 2.56vw;
-            background: #456db6;
-            display: inline-block;
-            color: #fff;
-            font-family: var(--font-hk);
-            font-size: 3.91vw;
-            font-style: normal;
-            font-weight: 700;
-            line-height: 1.6;
-            margin-top: 3px;
-          }
-        }
-      }
-    }
-  }
-  /* 案例分享 */
-  .latestNews {
-    margin-bottom: 40px;
-    background: url("https://statichk.cmermedical.com/smile/smileproV2/icl-newdongtai-mobile.jpg")
-      no-repeat;
-    background-size: cover;
-    position: relative;
-    height: 209vw;
-    /* padding-top: 130px; */
-    padding-top: 33.33vw;
-    .latestNews-tip {
-      position: absolute;
-      /* top: 55px; */
-      top: 14.1vw;
-      left: 0;
-      background: #c13550;
-      color: #fff;
-      font-family: var(--font-hk);
-      /* font-size: 20px; */
-      font-size: 5.12vw;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 1.95;
-      padding: 1.28vw 6.15vw;
-    }
-    .latestNews-in {
-      /* width: 252px; */
-      width: 64.61vw;
-      margin: 0 auto;
-      .latestNews-title {
-        color: #c13550;
-        font-family: var(--font-en);
-        /* font-size: 20.81px; */
-        font-size: 5.12vw;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 1.58;
-        i {
-          font-style: normal;
-          display: block;
-        }
-        span {
-          margin-left: 6.67vw;
-          margin-right: 1.03vw;
-          display: inline-block;
-          color: #fff;
-          font-family: var(--font-en);
-          /* font-size: 20.81px; */
-          font-size: 5.1vw;
-          font-style: normal;
-          font-weight: 700;
-          /* line-height: 33px; */
-          line-height: 1.65;
-          background: #c13550;
-          padding: 0 1.28vw;
-        }
-      }
-      p {
-        margin-top: 2.31vw;
-        color: #6d6e71;
-        text-align: justify;
-        font-family: var(--font-hk);
-        /* font-size: 16px; */
-        font-size: 4.1vw;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 1.48;
-        letter-spacing: 3.2px;
-      }
-    }
-    .latestNews-btn {
-      border: 1px solid #c13550;
-      border-radius: 50%;
-      /* width: 172px; */
-      /* height: 172px; */
-      width: 44.1vw;
-      height: 44.1vw;
-      margin-top: 6.15vw;
-      margin-left: auto;
-      margin-right: 3.85vw;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 4.36vw;
-      svg {
-        /* width: 19px; */
-        /* height: 19px; */
-        width: 4.84vw;
-        height: 4.87vw;
-      }
-      span {
-        color: #c13550;
-        text-align: center;
-        font-family: var(--font-hk);
-        /* font-size: 18.133px; */
-        font-size: 4.6vw;
-        font-style: normal;
-        font-weight: 900;
-        line-height: 0.71;
-      }
-    }
-  }
-}
-@media screen and (min-width: 1140px) {
-  .d-xl-none {
-    display: none;
-  }
-  .d-xl-block {
-    display: block;
-  }
-  .smile-newCenter {
-    .smile-newCenter-menu {
-      padding: 0px;
-      margin-bottom: 58px;
-      display: flex;
-      justify-content: start;
-      align-items: center;
-      letter-spacing: 0.36px;
-      padding-left: 77px;
-      color: #6d6e71;
-      a {
-        color: #6d6e71;
-        font-family: var(--font-hk);
-        font-size: 20px;
-        font-style: normal;
-        font-weight: 300;
-        line-height: 43.5px; /* 217.5% */
-        letter-spacing: 0.6px;
-      }
-      & > a:last-child {
-        color: #456db6;
-        font-weight: 500;
-      }
-    }
-    /* 内容 */
-    .smile-newCenter-content {
-      /* padding-top: 232px; */
-      /* padding-bottom: 72px;npm */
-      /* max-height: 832px; */
-      height: 832px;
-      background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-pc-center.avif");
-      background-repeat: no-repeat;
-      background-size: cover;
-      position: relative;
-      .smile-newCenter-content-text {
-        background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-pc-center-centerTwo2.avif");
-        background-repeat: no-repeat;
-        background-size: 100%;
-        position: relative;
-        z-index: 2;
-        :is(h1, h2, h3) {
-          color: #4570b6;
-          font-family: var(--font-hk);
-          font-size: clamp(20px, 1.5625vw, 30px);
-          font-style: normal;
-          font-weight: 900;
-          line-height: clamp(20px, 1.5625vw, 30px); /* 100% */
-          text-align: center;
-          margin-bottom: 16px;
-        }
-        padding: 94px 0;
-        .smile-newCenter-content-text-p {
-          width: 640px;
-          height: 640px;
-          background: white;
-          border: 3px solid #4570b6;
-          margin: 0 auto;
-          padding: 137px 88px 0 88px;
-          border-radius: 50%;
-          p {
-            color: #6d6e71;
-            text-align: justify;
-            font-family: var(--font-hk);
-            font-size: 20px;
-            font-style: normal;
-            font-weight: 300;
-            line-height: 35px; /* 175% */
-            letter-spacing: 4px;
-            span {
-              color: #4570b6;
-              font-family: var(--font-hk);
-              font-size: 20px;
-              font-style: normal;
-              font-weight: 700;
-              line-height: 35px;
-              letter-spacing: 4px;
-            }
-          }
-          /* & > p:nth-child(3) { */
-          /*   text-align: initial; */
-          /* } */
-          & > p:nth-child(3) > span:nth-of-type(1),
-          & > p:nth-child(3) > i:nth-child(1) {
-            letter-spacing: 5px !important;
-            text-align: initial;
-          }
-          & > p:nth-child(3) > span:nth-of-type(2),
-          & > p:nth-child(3) > i:nth-of-type(2) {
-            letter-spacing: 2px;
-          }
-        }
-      }
-    }
-  }
-  .icl-WhatChoose {
-    padding: 67px 0px;
-    .icl-WhatChoose-title {
-      max-width: 957px;
-      color: #4570b6;
-      font-family: var(--font-hk);
-      font-size: 30px;
-      font-style: normal;
-      font-weight: 900;
-      line-height: 30px; /* 100% */
-      margin: 0 auto;
-    }
-    .icl-WhatChoose-content-one {
-      margin: 0 auto;
-      margin-top: 26px;
-      display: flex;
-      justify-content: center;
-      gap: 31px;
-      & > div {
-        max-width: 468px;
-      }
-      /* .icl-WhatChoose-content-one-img{ */
-      /* } */
-      .icl-WhatChoose-content-one-text {
-        p {
-          text-align: justify;
-          color: #6d6e71;
-          font-family: var(--font-hk);
-          font-size: 20px;
-          font-style: normal;
-          font-weight: 300;
-          line-height: 35px; /* 175% */
-          letter-spacing: 6px;
-          span {
-            color: #4570b6;
-            font-family: var(--font-hk);
-            font-size: 20px;
-            font-style: normal;
-            font-weight: 700;
-            line-height: 35px;
-            letter-spacing: 6px;
-          }
-        }
-      }
-    }
-    .span-new {
-    font-size: 16px;
-    background: #4570b6;
-    color: #fff;
-    font-weight: 700;
-    margin-left: 8px;
-    padding: 4px;
-    display: inline-block;
-    line-height: 1;
-
-    @media (min-width: 1024px) {
-      font-size: 24px;
-      margin-left: 16px;
-      padding: 8px;
-    }
-  }
-
-  .icl-WhatChoose-content-two {
-      margin: 0 auto;
-      display: flex;
-      justify-content: center;
-      gap: 31px;
-      & > div {
-        max-width: 467px;
-        margin-top: 30px;
-        border-radius: 10px;
-        background: #f4fafc;
-        padding: 63px 53px 58px 46px;
-        .icl-WhatChoose-content-two-title {
-          color: #4570b6;
-          font-family: var(--font-hk);
-          font-size: 30px;
-          font-style: normal;
-          font-weight: 900;
-          line-height: 1;
-          margin-bottom: 20px;
-        }
-        p {
-          text-align: justify;
-          color: #6d6e71;
-          font-family: var(--font-hk);
-          font-size: 20px;
-          font-style: normal;
-          font-weight: 300;
-          line-height: 1.75;
-          letter-spacing: 6px;
-        }
-      }
-    }
-  }
-  .icl-btn {
-    margin-top: 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: fit-content;
-    padding: 10px 57px;
-    border-radius: 100px;
-    border: 2px solid #4570b6;
-    background: #4570b6;
-    color: #fff;
-    text-align: justify;
-    font-family: var(--font-hk);
-    font-size: 36px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 1.75;
-    letter-spacing: 1.8px;
-    svg {
-      width: 29px;
-      height: 29px;
-      margin-left: 15px;
-    }
-  }
-  .new-pubile-title {
-    color: #4570b6;
-    font-family: var(--font-hk);
-    font-size: 30px;
-    font-style: normal;
-    font-weight: 900;
-    line-height: 39px;
-    text-align: center;
-    margin: 0px auto 0px;
-    span {
-      font-family: var(--font-en);
-    }
-  }
-  /* icl好处 */
-  .icl-Good {
-    .icl-Good-List {
-      margin: 0 auto;
-      max-width: 992px;
-      /* display: flex; */
-      /* flex-wrap: wrap; */
-      width: fit-content;
-      display: grid;
-      height: auto;
-      grid-template-columns: repeat(3, 1fr);
-      justify-content: center;
-      margin-top: 49px;
-      & > .icl-Good-List-item:nth-child(1),
-      & > .icl-Good-List-item:nth-child(2),
-      & > .icl-Good-List-item:nth-child(3) {
-        border-bottom: none;
-      }
-      & > .icl-Good-List-item:last-child,
-      & > .icl-Good-List-item:nth-child(3) {
-        border-right: 2px solid #4570b6;
-      }
-      .icl-Good-List-item {
-        &:first-child {
-          img {
-            height: 80px;
-          }
-        }
-        z-index: 99;
-        opacity: 1;
-        aspect-ratio: 1/1;
-        /* width: 16.5vw; */
-        /* height: 16.4vw; */
-        padding-top: 82px;
-        padding-bottom: 55px;
-        box-sizing: border-box;
-        border: 2px solid #4570b6;
-        border-right: none;
-        background: #fff;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        img {
-          height: 68px;
-        }
-        h3 {
-          margin-top: 18px;
-          margin-bottom: 11px;
-          text-align: center;
-          color: #4570b6;
-          font-family: var(--font-hk);
-          font-size: clamp(15px, 1.3vw, 25px);
-          /* font-size: 1.354vw; */
-          font-style: normal;
-          font-weight: 700;
-          line-height: 0.8;
-          letter-spacing: 6.25px;
-        }
-        p {
-          color: #6d6e71;
-          text-align: center;
-          font-family: var(--font-hk);
-          font-size: clamp(12px, 1.19vw, 23px);
-          /* font-size: 1.25vw; */
-          font-style: normal;
-          font-weight: 300;
-          line-height: 35px;
-          letter-spacing: 0.2rem;
-        }
-      }
-    }
-  }
-
-  .icl-introVedio {
-    scroll-margin-top: 100px;
-    width: 100%;
-    background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-intro-pc-bg.webp")
-      no-repeat;
-    background-position: 100% 0px;
-    padding: 80px 0 0;
-    .icl-introVedio-intro {
-      padding-bottom: 60px;
-      .icl-introVedio-intro-number {
-        position: relative;
-        z-index: 2;
-        &::after {
-          background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-intro-bg2.png")
-            no-repeat;
-          background-position: center;
-          content: "";
-          position: absolute;
-          bottom: -200px;
-          left: -270px;
-          width: 550px;
-          height: 550px;
-          pointer-events: none;
-        }
-        width: 100%;
-        max-width: 1180px;
-        margin: 0 auto;
-        display: flex;
-        justify-content: center;
-        align-items: stretch;
-        gap: 50px;
-        .steps {
-          width: 70px;
-          flex-shrink: 0;
-          color: #6d6e71;
-          font-family: var(--font-en);
-          font-size: 38px;
-          font-style: normal;
-          font-weight: 400;
-          line-height: normal;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          div,
-          .step-btn {
-            font-family: var(--font-en);
-            border-right: 2px solid #d0d0d0;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            height: 80px;
-            padding-right: 18px;
-            text-align: right;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            font-weight: 300;
-            &:hover,
-            &.active {
-              color: #4570b6;
-              font-family: var(--font-en);
-              font-size: 38px;
-              font-style: normal;
-              font-weight: 700;
-              line-height: 30px;
-              border-right: 5px solid #4570b6;
-            }
-          }
-        }
-        .content-area {
-          position: relative;
-          flex: 1;
-          min-width: 0;
-
-          .content-panel {
-            display: flex;
-            align-items: center;
-            width: 100%;
-            min-height: 520px;
-          }
-
-          .content-area-img {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 56px;
-            z-index: 2;
-            width: 100%;
-
-            .step-visual-box {
+            /* 5 個步驟圖片堆疊容器 */
+            .step-images-stack {
+              display: grid;
+              grid-template-columns: 1fr;
+              grid-template-rows: 1fr;
               position: relative;
-              width: 520px;
-              max-width: 520px;
-              flex-shrink: 0;
+              width: 100%;
 
-              .content-area-title {
-                position: absolute;
-                top: 0;
-                left: 0;
-                z-index: 10;
-                margin: 0;
-                padding: 0;
+              .step-image-slide {
+                grid-area: 1 / 1;
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.35s ease, visibility 0.35s ease;
 
-                h2 {
-                  color: #4570b6;
-                  font-family: var(--font-hk);
-                  font-size: 30px;
-                  font-style: normal;
-                  font-weight: 900;
-                  line-height: 38px;
-                  margin: 0;
-                  white-space: nowrap;
+                img {
+                  width: 100%;
+                  height: auto;
+                  display: block;
+                  object-fit: contain;
+                  border-radius: 16px;
+                  filter: drop-shadow(0 8px 24px rgba(69, 112, 182, 0.12));
 
-                  .step-title-row {
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 10px;
-
-                    svg {
-                      width: 28px;
-                      height: 28px;
-                      flex-shrink: 0;
-                    }
+                  @media screen and (max-width: 1140px) {
+                    margin-bottom: 10px;
+                    border-radius: 10px;
                   }
                 }
               }
-
-              img {
-                width: 100%;
-                height: auto;
-                display: block;
-                object-fit: contain;
-                border-radius: 16px;
-                filter: drop-shadow(0 8px 24px rgba(69, 112, 182, 0.12));
-              }
             }
+          }
 
-            .content-area-text {
-              flex: 1;
+          /* 5 個步驟文字堆疊容器 */
+          .step-texts-stack {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr;
+            flex: 1;
+            min-width: 0;
+
+            .step-text-slide {
+              grid-area: 1 / 1;
+              opacity: 0;
+              visibility: hidden;
+              transition: opacity 0.35s ease, visibility 0.35s ease;
               color: var(--color-desc);
               font-family: var(--font-hk);
-              font-size: 26px; // PC 字放大!
+              font-size: 26px;
               font-style: normal;
               font-weight: 400;
               line-height: 44px;
               letter-spacing: 2px;
               margin: 0;
               max-width: 420px;
+
+              @media screen and (max-width: 1140px) {
+                font-size: 14px;
+                line-height: 22px;
+                letter-spacing: 1px;
+                max-width: 100%;
+              }
             }
           }
         }
       }
-    }
-      /* vedio */
-    .icl-introVedio-vedio {
-      position: relative;
-      z-index: 2;
-      opacity: 1;
-      padding-top: 125px;
-      padding-bottom: 150px;
-      background-image: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-vedio-pc-bg.webp");
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-color: #f4fafc;
-      .icl-introVedio-vedio-list {
-        margin-top: 40px;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 28px;
-        max-width: 1200px;
-        margin-left: auto;
-        margin-right: auto;
 
-        & > div {
-          width: 100%;
-          max-width: 580px;
-          aspect-ratio: 16 / 9;
-          border-radius: 16px;
-          overflow: hidden;
-          box-shadow: 0 8px 24px rgba(69, 112, 182, 0.12);
-          background: #000;
+      /* 默認啟動純 CSS 15秒自動循環動畫 (5 個步驟，每步驟 3 秒) */
+      @for $i from 1 through 5 {
+        .step-image-slide-#{$i},
+        .step-text-slide-#{$i} {
+          animation: stepSlideCycle 15s infinite;
+          animation-delay: #{($i - 1) * 3}s;
+        }
+        .step-btn-#{$i} {
+          animation: stepBtnCycle 15s infinite;
+          animation-delay: #{($i - 1) * 3}s;
+        }
+      }
+
+      /* 當用戶透過 Radio 點擊特定步驟時，精確固定展示該步驟 (CSS :has) */
+      @for $i from 1 through 5 {
+        &:has(#icl-step-radio-#{$i - 1}:checked) {
+          .step-image-slide-#{$i},
+          .step-text-slide-#{$i} {
+            opacity: 1 !important;
+            visibility: visible !important;
+            animation: none !important;
+          }
+          .step-btn-#{$i} {
+            color: #4570b6 !important;
+            font-weight: 700 !important;
+            border-right-color: #4570b6 !important;
+            border-right-width: 5px !important;
+            animation: none !important;
+
+            @media screen and (max-width: 1140px) {
+              border-right-width: 2px !important;
+            }
+          }
+          .step-image-slide:not(.step-image-slide-#{$i}),
+          .step-text-slide:not(.step-text-slide-#{$i}) {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            animation: none !important;
+          }
+          .step-btn:not(.step-btn-#{$i}) {
+            color: #6d6e71 !important;
+            font-weight: 300 !important;
+            border-right-color: #d0d0d0 !important;
+            border-right-width: 2px !important;
+            animation: none !important;
+
+            @media screen and (max-width: 1140px) {
+              border-right-color: #6d6e71 !important;
+              border-right-width: 1px !important;
+            }
+          }
+        }
+      }
+
+      /* 鼠標懸浮於板塊時暫停循環動畫 */
+      &:hover {
+        .step-image-slide,
+        .step-text-slide,
+        .step-btn {
+          animation-play-state: paused;
         }
       }
     }
   }
-  /* 检查项目 */
-  .icl-CheckObject {
-    margin-top: 80px;
-    .CheckObject {
-      padding: 68px 0;
-      border-radius: 20px;
-      border: 1px solid #4570b6;
-      background: #fff;
-      display: flex;
-      h2 {
-        width: 544px;
-        color: #4570b6;
-        font-family: var(--font-hk);
-        font-size: 30px;
-        font-style: normal;
-        font-weight: 900;
-        line-height: 0.8;
-        text-align: left;
-        padding-top: 186px;
-        padding-left: 131px;
-        /* display: flex; */
-        /* justify-content: center; */
-        /* align-items: center; */
-      }
-      ul {
-        flex: 1;
-        flex-shrink: 0;
-        list-style: none;
-        padding-left: 80px;
+
+  /* 視頻展示區塊 (Video Facade) */
+  .icl-introVedio-vedio {
+    position: relative;
+    z-index: 2;
+    opacity: 1;
+    padding-top: 125px;
+    padding-bottom: 150px;
+    background-image: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-vedio-pc-bg.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #f4fafc;
+
+    @media screen and (max-width: 1140px) {
+      padding-top: 40px;
+      padding-bottom: 40px;
+      background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-vedio-mobile-bg2.webp")
+        no-repeat center / 100%;
+    }
+
+    .icl-introVedio-vedio-list {
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+
+      @media screen and (max-width: 1140px) {
         display: flex;
         flex-direction: column;
-        border-left: 2px solid #4570b6;
+        align-items: center;
+        gap: 20px;
+        padding: 0 15px;
+      }
+
+      & > div {
+        width: 100%;
+        max-width: 580px;
+        aspect-ratio: 16 / 9;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 8px 24px rgba(69, 112, 182, 0.12);
+        background: #000;
+
+        @media screen and (max-width: 1140px) {
+          max-width: 480px;
+          border-radius: 12px;
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+      }
+    }
+  }
+}
+
+/* 植入過程純 CSS 15秒循環 Keyframes */
+@keyframes stepSlideCycle {
+  0%, 18% {
+    opacity: 1;
+    visibility: visible;
+  }
+  20%, 100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes stepBtnCycle {
+  0%, 18% {
+    color: #4570b6;
+    font-weight: 700;
+    border-right-color: #4570b6;
+    border-right-width: 5px;
+  }
+  20%, 100% {
+    color: #6d6e71;
+    font-weight: 300;
+    border-right-color: #d0d0d0;
+    border-right-width: 2px;
+  }
+}
+
+/* ==========================================================================
+   9. 合適對象 SuitableObject
+   Authentic 5-panel full-bleed interactive banner (desktop) + 3x2 grid (mobile)
+   ========================================================================== */
+@keyframes suitableBgCycle {
+  0%, 15% {
+    background-image: var(--bg-1);
+  }
+  20%, 35% {
+    background-image: var(--bg-2);
+  }
+  40%, 55% {
+    background-image: var(--bg-3);
+  }
+  60%, 75% {
+    background-image: var(--bg-4);
+  }
+  80%, 95% {
+    background-image: var(--bg-5);
+  }
+  100% {
+    background-image: var(--bg-1);
+  }
+}
+
+.SuitableObject {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+
+  --bg-1: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/suitable-bg1.webp");
+  --bg-2: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/suitable-bg2.webp");
+  --bg-3: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/suitable-bg3.webp");
+  --bg-4: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/suitable-bg4.webp");
+  --bg-5: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/suitable-bg5.webp");
+
+  /* Desktop View: Full-bleed 5-panel interactive banner */
+  @media (min-width: 1141px) {
+    height: 640px;
+    background-image: var(--bg-1);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 0.5s ease-in-out;
+    animation: suitableBgCycle 10s infinite;
+
+    &:hover {
+      animation-play-state: paused;
+    }
+
+    .SuitableObject-container {
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      justify-content: space-between;
+      height: 100%;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0;
+      box-sizing: border-box;
+      position: relative;
+      z-index: 2;
+    }
+
+    .SuitableObject-item {
+      position: relative;
+      flex: 1 1 0;
+      height: 100%;
+      cursor: pointer;
+      box-sizing: border-box;
+      border-right: 1px solid rgba(255, 255, 255, 0.45);
+      padding: 40px 16px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      transition: background-color 0.35s ease, border-color 0.35s ease;
+      background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.05) 0%,
+        rgba(0, 0, 0, 0.25) 50%,
+        rgba(0, 0, 0, 0.65) 100%
+      );
+
+      &:last-child {
+        border-right: none;
+      }
+
+      .SuitableObject-image {
+        display: none;
+      }
+
+      .suitable-star {
+        position: absolute;
+        top: 36px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 26px;
+        color: #fff;
+        line-height: 1;
+        opacity: 0.95;
+      }
+
+      .suitable-badge {
+        position: absolute;
+        top: 28px;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+        background: #4570b6;
+        color: #fff;
+        font-family: var(--font-hk);
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        padding: 6px 16px;
+        border-radius: 4px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .suitable-top-text {
+        position: absolute;
+        top: 34px;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+        color: #fff;
+        font-family: var(--font-hk);
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+      }
+
+      .SuitableObject-description {
+        width: 100%;
+        text-align: center;
+        color: #fff;
+        font-family: var(--font-hk);
+        font-size: clamp(15px, 1.25vw, 19px);
+        font-weight: 500;
+        line-height: 1.5;
+        letter-spacing: 1px;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.65);
+        transition: transform 0.3s ease, color 0.3s ease;
+
+        p {
+          margin: 0;
+          white-space: normal;
+          overflow-wrap: break-word;
+        }
+      }
+
+      &:hover,
+      &:focus-visible {
+        outline: none;
+        background: linear-gradient(
+          180deg,
+          rgba(69, 112, 182, 0.2) 0%,
+          rgba(69, 112, 182, 0.5) 45%,
+          rgba(30, 58, 102, 0.85) 100%
+        );
+        border-right-color: rgba(255, 255, 255, 0.7);
+
+        .SuitableObject-description {
+          transform: translateY(-6px);
+          color: #ffde59;
+          text-shadow: 0 3px 12px rgba(0, 0, 0, 0.85);
+        }
+      }
+    }
+
+    &:has(.SuitableObject-item-1:hover),
+    &:has(.SuitableObject-item-1:focus-visible) {
+      background-image: var(--bg-1) !important;
+    }
+    &:has(.SuitableObject-item-2:hover),
+    &:has(.SuitableObject-item-2:focus-visible) {
+      background-image: var(--bg-2) !important;
+    }
+    &:has(.SuitableObject-item-3:hover),
+    &:has(.SuitableObject-item-3:focus-visible) {
+      background-image: var(--bg-3) !important;
+    }
+    &:has(.SuitableObject-item-4:hover),
+    &:has(.SuitableObject-item-4:focus-visible) {
+      background-image: var(--bg-4) !important;
+    }
+    &:has(.SuitableObject-item-5:hover),
+    &:has(.SuitableObject-item-5:focus-visible) {
+      background-image: var(--bg-5) !important;
+    }
+
+    .SuitableObject-speical {
+      display: none;
+    }
+  }
+
+  /* Mobile View: 3x2 Grid */
+  @media (max-width: 1140px) {
+    padding: 30px 10px 40px;
+    background: #f8fafc;
+
+    .SuitableObject-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .suitable-star,
+    .suitable-badge,
+    .suitable-top-text {
+      display: none;
+    }
+
+    .SuitableObject-item {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      aspect-ratio: 3 / 4;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 10px 6px;
+      box-sizing: border-box;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+      .SuitableObject-image {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 1;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0) 30%,
+          rgba(0, 0, 0, 0.75) 100%
+        );
+        z-index: 2;
+      }
+
+      .SuitableObject-description {
+        position: relative;
+        z-index: 3;
+        color: #fff;
+        font-family: var(--font-hk);
+        font-size: clamp(11px, 3vw, 13px);
+        font-weight: 500;
+        line-height: 1.35;
+        text-align: center;
+        letter-spacing: 0.5px;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+
+        p {
+          margin: 0;
+        }
+      }
+    }
+
+    .SuitableObject-speical {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #4570b6;
+      border-radius: 10px;
+      aspect-ratio: 3 / 4;
+      box-shadow: 0 2px 8px rgba(69, 112, 182, 0.25);
+
+      span {
+        color: #fff;
+        font-family: var(--font-hk);
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.35;
+        text-align: center;
+        letter-spacing: 2px;
+      }
+    }
+  }
+}
+
+/* ==========================================================================
+   10. 全面術前眼睛檢查項目 (.icl-CheckObject)
+   ========================================================================== */
+.icl-CheckObject {
+  margin-top: 80px;
+
+  @media screen and (max-width: 1140px) {
+    margin-top: 40px;
+    padding: 0 15px;
+  }
+
+  .CheckObject {
+    padding: 68px 0;
+    border-radius: 20px;
+    border: 1px solid #4570b6;
+    background: #fff;
+    display: flex;
+
+    h2 {
+      width: 544px;
+      color: #4570b6;
+      font-family: var(--font-hk);
+      font-size: 30px;
+      font-style: normal;
+      font-weight: 900;
+      line-height: 0.8;
+      text-align: left;
+      padding-top: 186px;
+      padding-left: 131px;
+    }
+
+    ul {
+      flex: 1;
+      flex-shrink: 0;
+      list-style: none;
+      padding-left: 80px;
+      display: flex;
+      flex-direction: column;
+      border-left: 2px solid #4570b6;
+
+      li {
+        display: flex;
+        align-items: flex-start;
+
+        .CheckObject-number {
+          color: #4570b6;
+          font-family: var(--font-hk);
+          font-size: 23px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 54px;
+          margin-right: 10px;
+        }
+
+        .CheckObject-description {
+          color: #6d6e71;
+          font-family: var(--font-hk);
+          font-size: 23px;
+          font-style: normal;
+          font-weight: 300;
+          line-height: 54px;
+        }
+
+        .CheckObject-new {
+          padding: 0 10px;
+          margin-left: 15px;
+          display: inline-block;
+          background: #4570b6;
+          color: #fff;
+          font-family: var(--font-hk);
+          font-size: 23px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 1.6;
+          letter-spacing: normal;
+          margin-top: 9px;
+        }
+      }
+    }
+
+    @media screen and (max-width: 1140px) {
+      margin: 0 auto;
+      border-radius: 13.273px;
+      padding: 0 27px;
+      display: block;
+
+      h2 {
+        width: 100%;
+        font-size: 20px;
+        line-height: 1.29;
+        text-align: center;
+        padding-top: 26px;
+        padding-bottom: 20px;
+        padding-left: 0;
+      }
+
+      ul {
+        padding-left: 0;
+        padding-top: 13px;
+        padding-bottom: 13px;
+        border-left: none;
+        border-top: 1.327px solid #4570b6;
+
         li {
-          display: flex;
-          align-items: flex-start;
           .CheckObject-number {
-            color: #4570b6;
-            font-family: var(--font-hk);
-            font-size: 23px;
-            font-style: normal;
-            font-weight: 700;
-            line-height: 54px; /* 234.783% */
-            margin-right: 10px;
+            font-size: 16px;
+            line-height: 2.23;
+            margin-right: 5px;
           }
+
           .CheckObject-description {
-            color: #6d6e71;
-            font-family: var(--font-hk);
-            font-size: 23px;
-            font-style: normal;
-            font-weight: 300;
-            line-height: 54px;
+            white-space: nowrap;
+            font-size: 16px;
+            line-height: 35.838px;
           }
+
           .CheckObject-new {
-            padding: 0 10px;
-            margin-left: 15px;
-            display: inline-block;
-            background: #4570b6;
-            color: #fff;
-            font-family: var(--font-hk);
-            font-size: 23px;
-            font-style: normal;
-            font-weight: 700;
-            line-height: 1.6;
-            letter-spacing: normal;
-            margin-top: 9px;
+            padding: 0 6px;
+            margin-left: 10px;
+            font-size: 15.264px;
+            margin-top: 0;
           }
         }
       }
     }
-    .icl-btn {
-      margin-top: 65px;
+  }
+
+  .icl-btn {
+    margin-top: 65px;
+
+    @media screen and (max-width: 1140px) {
+      margin-top: 30px;
     }
   }
-  /* 案例分享 */
-  /* 最新资讯 */
-  .latestNews {
-    
-    margin-bottom: 60px;
-    background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-newdongtai-pc.png")
-      no-repeat;
-    background-size: cover;
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    height: 36.66vw;
-    max-height: 800px;
-    /* padding-top: 260px; */
+}
+
+/* ==========================================================================
+   11. 最新動態 (.latestNews)
+   ========================================================================== */
+.latestNews {
+  margin-bottom: 60px;
+  background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-newdongtai-pc.png")
+    no-repeat center / cover;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  height: 36.66vw;
+  max-height: 800px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (max-width: 1140px) {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    background: url("https://statichk.cmermedical.com/smile/smileproV2/icl-newdongtai-mobile.jpg")
+      no-repeat center / cover;
+    height: 209vw;
+    padding-top: 33.33vw;
+    display: block;
+  }
+
+  .latestNews-tip {
+    position: absolute;
+    top: 55px;
+    left: 0;
+    background: #c13550;
+    color: #fff;
+    font-family: var(--font-hk);
+    font-size: clamp(20px, 1.5625vw, 30px);
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.3;
+    padding: 13px 30px;
+
+    @media screen and (max-width: 1140px) {
+      top: 14.1vw;
+      font-size: 5.12vw;
+      line-height: 1.95;
+      padding: 5px 24px;
+    }
+  }
+
+  .latestNews-in {
+    width: 28.125vw;
+    max-width: 540px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    .latestNews-tip {
-      position: absolute;
-      top: 55px;
-      left: 0;
-      background: #c13550;
-      color: #fff;
-      font-family: var(--font-hk);
+    margin: 0 auto;
+
+    @media screen and (max-width: 1140px) {
+      width: 64.61vw;
+      display: block;
+    }
+
+    .latestNews-title {
+      color: #c13550;
+      font-family: var(--font-en);
       font-size: clamp(20px, 1.5625vw, 30px);
       font-style: normal;
       font-weight: 700;
       line-height: 1.3;
-      padding: 13px 30px;
-    }
-    .latestNews-in {
-      width: 28.125vw;
-      max-width: 540px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      margin: 0 auto;
-      .latestNews-title {
-        color: #c13550;
+
+      @media screen and (max-width: 1140px) {
+        font-size: 5.12vw;
+        line-height: 1.58;
+      }
+
+      i {
+        font-style: normal;
+        font-family: var(--font-en);
+
+        @media screen and (max-width: 1140px) {
+          display: block;
+        }
+      }
+
+      span {
+        margin-left: 4px;
+        margin-right: 4px;
+        display: inline-block;
+        color: #fff;
         font-family: var(--font-en);
         font-size: clamp(20px, 1.5625vw, 30px);
         font-style: normal;
         font-weight: 700;
-        line-height: 1.3;
-        i {
-          font-style: normal;
-          font-family: var(--font-en);
-        }
-        span {
-          margin-left: 4px;
-          margin-right: 4px;
-          display: inline-block;
-          color: #fff;
-          font-family: var(--font-en);
-          font-size: clamp(20px, 1.5625vw, 30px);
-          font-style: normal;
-          font-weight: 700;
-          line-height: 39px;
-          background: #c13550;
-          padding: 0 10px;
-        }
-      }
-      p {
-        margin-top: 4px;
-        margin-left: 83px;
-        color: #6d6e71;
-        text-align: justify;
-        font-family: var(--font-hk);
-        font-size: 23px;
-        font-style: normal;
-        font-weight: 300;
-        line-height: 1.52;
-        letter-spacing: 4.6px;
-      }
-    }
-    .latestNews-btn {
-      border: 1px solid #c13550;
-      border-radius: 50%;
-      width: 322px;
-      height: 322px;
-      margin-top: 24px;
-      position: absolute;
-      top: 9.89vw;
-      right: 9.89vw;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 32px;
-      svg {
-        width: 38px;
-        height: 38px;
-      }
-      span {
-        color: #c13550;
-        text-align: center;
-        font-family: var(--font-hk);
-        font-size: 35px;
-        font-style: normal;
-        font-weight: 900;
-        line-height: 0.71;
-      }
-      &:hover {
-        border: 1px solid #c13550;
+        line-height: 39px;
         background: #c13550;
-        svg {
-          path {
-            stroke: #fff;
-          }
-        }
-        span {
-          color: #fff;
-        }
-      }
-    }
-  }
-}
-@media screen and (min-width: 1280px) {
-  .icl-Good {
-    .icl-Good-List {
-      max-width: 1280px;
-      width: 100%;
-      grid-template-columns: repeat(6, 1fr);
-      & > .icl-Good-List-item:nth-child(3) {
-        border-right: none;
-      }
-      & > .icl-Good-List-item:nth-child(1),
-      & > .icl-Good-List-item:nth-child(2),
-      & > .icl-Good-List-item:nth-child(3) {
-        border-bottom: 2px solid #4570b6;
-      }
-      .icl-Good-List-item {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 1 / 1;
-        border-collapse: collapse;
-        box-sizing: border-box;
-        border: 2px solid #4570b6;
-        border-right: none;
-        background: #fff;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
-    }
-  }
-}
-@media screen and (min-width: 1660px) {
-  .icl-introVedio {
-    background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-intro-pc-bg.webp")
-      no-repeat;
-    background-position: 100% 0;
-  }
-}
-.icl-model {
-  max-width: 1100px !important;
-  margin-inline: auto;
+        padding: 0 10px;
 
-  td {
-    height: 100px;
-    font-size: 16px;
-  }
-  .model-title {
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 1.3;
-    color: #4570b6;
-    text-align: center;
-  }
-  .line-bottom {
-    border-bottom: 1px solid #d0d0d0;
-  }
-  .line-project {
-    border-right: 1px solid #fff;
-  }
-  .line-right {
-    border-right: 1px solid #d0d0d0;
-  }
-  .model-main {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  .model-table {
-    border-collapse: collapse;
-    min-width: 500px;
-  }
-  .project-name {
-    background-color: #d4e4ff;
-    color: #4570b6;
-    font-size: 20px;
-    font-weight: 700;
-    height: 100px;
-  }
-  .table-item {
-    background-color: #efeeee;
-    color: #4570b6;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 1.5;
-    width: 92px;
-    position: sticky;
-    left: 0;
-    z-index: 10;
-  }
-  .model-star {
-    position: relative;
-    &::after {
-      content: "";
-      position: absolute;
-      background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNSIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI1IDI0IiBmaWxsPSJub25lIj48cGF0aCBkPSJNMTkuMDgzIDE1LjA0cS40MjMgMS45NjcuNzQ3IDMuNTYuMTUuNjczLjI3NCAxLjM0NXQuMjM3IDEuMjIuMTg2LjkzNC4xLjQ4NnEuMDc1LjQ5OC0uMjI0LjY2LS4zLjE2LS42NzIuMTYxLS4xMjUgMC0uMzYyLS4wODdhMTUgMTUgMCAwIDEtLjM2LS4xMzdsLTYuNS0zLjc4NXEtMS43NjcgMS4wNDctMy4yMTIgMS44NjgtLjYyMy4zNDktMS4yMzIuNjk3LS42MS4zNDktMS4xMDguNjQ4dC0uODYuNDk4cS0uMzYuMTk4LS40ODUuMjQ5YS44NS44NSAwIDAgMS0uNTEuMDg3IDEuMSAxLjEgMCAwIDEtLjQ3My0uMTg3LjkuOSAwIDAgMS0uMzEyLS4zNjEuNjYuNjYgMCAwIDEtLjA1LS40MzZsLjEyNS0uNDg1cS4xLS4zODcuMjI0LS45MjIuMTI1LS41MzUuMjg2LTEuMTgzLjE2Mi0uNjQ2LjMzNy0xLjMyLjM3My0xLjU0Mi44NDYtMy40ODVhNDU3IDQ1NyAwIDAgMC0zLjYyMy0zLjEgODEgODEgMCAwIDEtLjg3MS0uNzQ3IDcyIDcyIDAgMCAwLS42MzUtLjU0OHEtLjI1LS4yMTEtLjI3NC0uMjM3LS4zLS4yNzQtLjUxLS42MWExIDEgMCAwIDEtLjE2My0uNjg1Ljg3Ljg3IDAgMCAxIC4yNzQtLjU0N3EuMjI1LS4yLjQ5OC0uMjVsNy42OTUtLjY5N0wxMS4zMzkuOTcxcS4xNS0uMzk4LjQyMy0uNjg1LjI3NS0uMjg1Ljc0Ny0uMjg2YS44My44MyAwIDAgMSAuNDM2LjExMnEuMTg4LjExMi4zMTIuMjYyLjEyMy4xNS4yMTEuMjk4LjA4Ny4xNS4xMzcuMjVsMi43ODkgNi42NzMgNy42OTQuNzIycS40OTkuMTI0LjY5Ny4yOTkuMi4xNzQuMi41NDdhLjk0Ljk0IDAgMCAxLS4yMTIuNjFxLS4yMTIuMjYyLS41MzUuNjM1eiIgZmlsbD0iIzc1YmVlOSIvPjwvc3ZnPg==");
-      background-size: contain;
-      background-position: center;
-      width: 16px;
-      height: 16px;
-      top: 8px;
-      right: 8px;
+        @media screen and (max-width: 1140px) {
+          margin-left: 26px;
+          font-size: 5.1vw;
+          line-height: 1.65;
+          padding: 0 5px;
+        }
+      }
+    }
+
+    p {
+      margin-top: 4px;
+      margin-left: 83px;
+      color: #6d6e71;
+      text-align: justify;
+      font-family: var(--font-hk);
+      font-size: 23px;
+      font-style: normal;
+      font-weight: 300;
+      line-height: 1.52;
+      letter-spacing: 4.6px;
+
+      @media screen and (max-width: 1140px) {
+        margin-left: 0;
+        margin-top: 9px;
+        font-size: 4.1vw;
+        font-weight: 500;
+        line-height: 1.48;
+        letter-spacing: 3.2px;
+      }
     }
   }
-}
-@media screen and (min-width: 1024px) {
-  .icl-model {
-    td {
-      height: 116px;
-      font-size: 20px;
-      line-height: 30px;
+
+  .latestNews-btn {
+    border: 1px solid #c13550;
+    border-radius: 50%;
+    width: 322px;
+    height: 322px;
+    margin-top: 24px;
+    position: absolute;
+    top: 9.89vw;
+    right: 9.89vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    transition: all 0.3s ease;
+
+    @media screen and (max-width: 1140px) {
+      position: static;
+      width: 44.1vw;
+      height: 44.1vw;
+      margin-left: auto;
+      margin-right: 15px;
+      gap: 17px;
     }
-    .model-title {
-      font-size: 30px;
+
+    svg {
+      width: 38px;
+      height: 38px;
+
+      @media screen and (max-width: 1140px) {
+        width: 4.84vw;
+        height: 4.87vw;
+      }
+    }
+
+    span {
+      color: #c13550;
+      text-align: center;
+      font-family: var(--font-hk);
+      font-size: 35px;
+      font-style: normal;
       font-weight: 900;
+      line-height: 0.71;
+
+      @media screen and (max-width: 1140px) {
+        font-size: 4.6vw;
+      }
     }
-    .line-bottom {
-      border-bottom-width: 1.5px;
-    }
-    .line-project,
-    .line-right {
-      border-right-width: 1.5px;
-    }
-    .project-name {
-      font-size: 24px;
-      height: 148px;
-    }
-    .table-item {
-      font-size: 20px;
-      width: 232px;
-    }
-    .model-star {
-      &::after {
-        width: 24px;
-        height: 24px;
-        top: 12px;
-        right: 12px;
+
+    &:hover {
+      background: #c13550;
+
+      svg path {
+        stroke: #fff;
+      }
+
+      span {
+        color: #fff;
       }
     }
   }
 }
 
-
-// C3: 恢復 ICL 簡介行斜體 computed font-style 為 italic
-.smile-newCenter-content-text-p i,
-.smile-newCenter-content-text-p p i {
-  font-style: italic !important;
+/* ==========================================================================
+   12. 輔助類別 (Helper utilities for breakpoint display)
+   ========================================================================== */
+@media (min-width: 1140px) {
+  .d-xl-none {
+    display: none !important;
+  }
+  .d-xl-block {
+    display: block !important;
+  }
+}
+@media (max-width: 1139px) {
+  .d-xl-block {
+    display: none !important;
+  }
 }
