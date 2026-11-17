@@ -34,14 +34,6 @@ i {
   }
 }
 
-@keyframes fx-spotlight {
-  0% {
-    background-position: 125% 0;
-  }
-  100% {
-    background-position: -25% 0;
-  }
-}
 
 /* 公共預約按鈕 (Mobile-First) */
 .publicBtn-booking {
@@ -118,9 +110,7 @@ i {
     margin-bottom: 16px;
 
     .hero-category-link {
-      --ink: #162c4e;
-      color: transparent;
-      -webkit-text-fill-color: transparent;
+      color: #4570b6;
       text-align: center;
       font-family: "Poppins", sans-serif !important;
       font-size: clamp(34px, 11vw, 46px);
@@ -128,25 +118,11 @@ i {
       line-height: 1.15;
       text-decoration: none;
       display: inline-block;
-      background: radial-gradient(
-        5ch 100% at 50% 50%,
-        #162c4e 25%,
-        #8cb3f3 85%
-      ) 0 0 / 260% 100%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      animation: fx-spotlight 4.5s ease-in-out infinite alternate;
-      transition: filter 0.25s ease;
+      transition: color 0.25s ease, transform 0.25s ease;
 
       &:active,
       &:hover {
-        filter: brightness(1.25);
-        animation-duration: 2.2s;
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        animation: none;
-        background-position: 50% 0;
+        color: #345996;
       }
     }
 
@@ -299,16 +275,11 @@ i {
         font-size: clamp(48px, 6.25vw, 98px);
         white-space: nowrap;
         letter-spacing: 0.04em;
-        padding-top: 2px;
-        background: radial-gradient(
-          7ch 100% at 50% 50%,
-          #162c4e 25%,
-          #8cb3f3 85%
-        ) 0 0 / 260% 100%;
+        line-height: 1.1;
+        color: #4570b6;
 
         &:hover {
-          filter: brightness(1.15) drop-shadow(0 2px 10px rgba(22, 44, 78, 0.2));
-          animation-duration: 2.2s;
+          color: #345996;
         }
       }
 
