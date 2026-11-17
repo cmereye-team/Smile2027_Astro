@@ -82,7 +82,7 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
         </header>
 
         <div class="hero-stage">
-          <div class="hero-figure-wrapper">
+          <figure class="hero-figure hero-figure-wrapper">
             <img
               draggable="false"
               decoding="async"
@@ -97,12 +97,12 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
               sizes="(max-width: 992px) 100vw, 1209px"
               class="hero-figure-img"
             />
-            <p class="hero-badge">
+            <figcaption class="hero-badge">
               <span set:html={content.banner.badgeSpan1} />
               &nbsp;
               <span>{content.banner.badgeSpan2}</span>
-            </p>
-          </div>
+            </figcaption>
+          </figure>
           <div class="hero-symptoms" aria-label="常見老花症狀困擾">
             {content.banner.tags.map((tag, idx) => (
               <span class={`hero-symptom-tag hero-symptom-tag-${idx + 1}`}>{tag}</span>
@@ -114,13 +114,11 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
 
     <!-- 2. 什麼是老花？ -->
     <section class="WhatLaoHua site-container" id="WhatLaoHua" aria-labelledby="what-is-laohua-heading" style="scroll-snap-align: start; scroll-margin-top: 112px;">
-      <div class="WhatLaoHuaBox">
-        <h2 id="what-is-laohua-heading">{content.whatIs.title}</h2>
-        <div class="WhatLaoHuaBox-text">
-          <p set:html={content.whatIs.p1Html} />
-          <br />
-          <p set:html={content.whatIs.p2Html} />
-        </div>
+      <h2 id="what-is-laohua-heading">{content.whatIs.title}</h2>
+      <div class="WhatLaoHuaBox-text">
+        <p set:html={content.whatIs.p1Html} />
+        <br />
+        <p set:html={content.whatIs.p2Html} />
       </div>
     </section>
 
@@ -295,7 +293,7 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
       <div id="visionBattle-Box-list" class="visionBattle-Box site-container">
         <h2 id="vision-battle-heading">{content.battle.title}</h2>
         <div class="visionBattle-Box-list">
-          <div class="visionBattle-Box-list-item">
+          <article class="visionBattle-Box-list-item">
             <div class="visionBattle-Box-list-item-content">
               <h3 set:html={content.battle.items[0].title} />
               {content.battle.items[0].points.map((pt) => (
@@ -309,39 +307,37 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
                   <span set:html={pt} />
                 </p>
               ))}
-              <div class="mt-[31px]">
-                <div class="flex items-center justify-center">
-                  <div class="flex items-center bg-[#4570B6] text-white p-4 rounded-sm shadow-md max-w-md">
-                    <img
-                      src="/images/svg/icon-500hz.svg"
-                      alt={isCn ? "蔡司 500Hz 尖端切削频率图标" : "蔡司 500Hz 尖端切削頻率圖標"}
-                      title={isCn ? "蔡司 500Hz 尖端切削频率图标" : "蔡司 500Hz 尖端切削頻率圖標"}
-                      aria-hidden="true"
-                      class="h-[52px] md:h-[60px] w-auto flex-shrink-0 mr-2"
-                      width="96"
-                      height="60"
-                    />
-                    <ul class="space-y-2 text-lg font-medium whitespace-nowrap">
-                      <li class="flex items-center">
-                        <span class="mr-2 text-base md:text-lg opacity-80">·</span>
-                        比上一代快一倍
-                      </li>
-                      <li class="flex items-center">
-                        <span class="mr-2 text-base md:text-lg opacity-80">·</span>
-                        激光時間更短
-                      </li>
-                      <li class="flex items-center">
-                        <span class="mr-2 text-base md:text-lg opacity-80">·</span>
-                        精準度更高
-                      </li>
-                    </ul>
-                  </div>
+              <div class="mt-[31px] flex items-center justify-center">
+                <div class="flex items-center bg-[#4570B6] text-white p-4 rounded-sm shadow-md max-w-md">
+                  <img
+                    src="/images/svg/icon-500hz.svg"
+                    alt={isCn ? "蔡司 500Hz 尖端切削频率图标" : "蔡司 500Hz 尖端切削頻率圖標"}
+                    title={isCn ? "蔡司 500Hz 尖端切削频率图标" : "蔡司 500Hz 尖端切削頻率圖標"}
+                    aria-hidden="true"
+                    class="h-[52px] md:h-[60px] w-auto flex-shrink-0 mr-2"
+                    width="96"
+                    height="60"
+                  />
+                  <ul class="space-y-2 text-lg font-medium whitespace-nowrap">
+                    <li class="flex items-center">
+                      <span class="mr-2 text-base md:text-lg opacity-80">·</span>
+                      比上一代快一倍
+                    </li>
+                    <li class="flex items-center">
+                      <span class="mr-2 text-base md:text-lg opacity-80">·</span>
+                      激光時間更短
+                    </li>
+                    <li class="flex items-center">
+                      <span class="mr-2 text-base md:text-lg opacity-80">·</span>
+                      精準度更高
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
-          </div>
+          </article>
 
-          <div class="visionBattle-Box-list-item">
+          <article class="visionBattle-Box-list-item">
             <div class="visionBattle-Box-list-item-content">
               <h3 set:html={content.battle.items[1].title} />
               {content.battle.items[1].points.map((pt) => (
@@ -368,9 +364,9 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
                 class="w-[70px] h-auto"
               />
             </div>
-          </div>
+          </article>
 
-          <div class="visionBattle-Box-list-item">
+          <article class="visionBattle-Box-list-item">
             <div class="visionBattle-Box-list-item-content">
               <h3 set:html={content.battle.items[2].title} />
               {content.battle.items[2].points.map((pt) => (
@@ -397,7 +393,7 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
                 class="w-[70px] h-auto"
               />
             </div>
-          </div>
+          </article>
         </div>
       </div>
     </section>
@@ -468,9 +464,9 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
     </section>
 
     <!-- 5. LBV/CLEAR-Vision/ICL Viva V6 大不同 -->
-    <section class="smilepro-difference site-container">
+    <section class="smilepro-difference site-container" aria-labelledby="smilepro-difference-heading">
       <div class="smilepro-difference-title">
-        <div set:html={content.comparison.title} />
+        <h2 id="smilepro-difference-heading" set:html={content.comparison.title} />
       </div>
       <div class="table-scroll-wrapper">
         <table class="table custom-comparison-table">
@@ -518,12 +514,12 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
                   </td>
                   <td>
                     {row.col3Badge?.text ? (
-                      <div class="flex items-center justify-center gap-2">
+                      <span class="flex items-center justify-center gap-2">
                         <img decoding="async" loading="lazy" draggable="false" width="22" height="22" src={row.col3Badge.success
                               ? "https://statichk.cmermedical.com/smile/feeV2/success.svg"
                               : "https://statichk.cmermedical.com/smile/feeV2/error.svg"} alt={row.col3Badge.text} title={row.col3Badge.text} class="w-[22px] h-[22px] inline-block align-middle flex-shrink-0" />
                         {row.col3Badge.text}
-                      </div>
+                      </span>
                     ) : (
                       <img decoding="async" loading="lazy" draggable="false" width="22" height="22" src={row.col3Badge?.success
                             ? "https://statichk.cmermedical.com/smile/feeV2/success.svg"
@@ -597,7 +593,7 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
     </div>
 
     <!-- 7. 預約講座與諮詢 -->
-    <section class="clearAppointment">
+    <section class="clearAppointment" aria-label="預約講座與諮詢">
       <div class="clearAppointment-Box">
         <a href={appointFormUrl} class="clearAppointment-Box-item" title={content.appointment.lectureText}>
           <img decoding="async" loading="lazy"
@@ -710,10 +706,10 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
           {content.suitable.items.map((it) => {
             const itemText = it.html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
             return (
-              <div class="SuitableObject-Box-List-item">
+              <article class="SuitableObject-Box-List-item">
                 <img decoding="async" loading="lazy" draggable="false" width="70" height="70" src={it.icon} alt={itemText} title={itemText} class="suitable-item-icon" />
                 <p set:html={it.html} />
-              </div>
+              </article>
             );
           })}
         </div>
