@@ -209,7 +209,7 @@ const currentUrl = isCn
     >
       <div class="suitable-bg site-container text-base md:text-xl font-light mb-8 md:mb-[clamp(15rem,-2.391rem_+_36.23vw,27.5rem)] relative after:absolute after:bg-[url(https://statichk.cmermedical.com/smile/lasik/tumbling-e.svg)] after:bg-contain after:bg-no-repeat after:size-[22.564vw] md:after:size-[9.375vw] after:-rotate-[42deg] md:after:-rotate-[15deg] after:-top-20 after:right-1 md:after:-top-24 after:max-w-[180px] after:max-h-[180px]">
         <div class="suitable-intro border-primary border md:border-[2px] bg-[linear-gradient(210deg,#FFF_13.8%,#F2F7FF_70.44%)] rounded-full aspect-square h-auto w-[80vw] md:w-[55vw] lg:w-[45vw] xl:w-1/2 pt-[15%] md:pt-[8%] xl:pt-[15%] -mb-[30%] md:-mb-[40%] mx-auto">
-          <h2 id="lasik-suitable-heading" class="title-normal mb-0">
+          <h2 id="lasik-suitable-heading" class="title-normal mb-0 text-center">
             {content.suitable.title}
           </h2>
           <p class="suitable-desc whitespace-pre-line text-primary text-center tracking-[0.25em]">
@@ -421,6 +421,10 @@ const currentUrl = isCn
           top: -68px;
           width: 20vw;
           z-index: -1;
+        }
+
+        #lasik-suitable-heading {
+          text-align: center;
         }
       }
 
