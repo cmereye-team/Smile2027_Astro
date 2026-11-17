@@ -1264,13 +1264,14 @@ i {
         }
       }
 
-      .scheme-grid {
+      .scheme-cards-row {
         display: flex;
         justify-content: center;
         align-items: stretch;
         flex-direction: column;
         gap: 32px;
         padding-bottom: 24px;
+        width: 100%;
 
         @media (min-width: 992px) {
           display: grid;
@@ -1282,24 +1283,10 @@ i {
         }
       }
 
-      .scheme-column {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
+      .scheme-card {
         width: 86.92vw;
         max-width: 400px;
         margin: 0 auto;
-
-        @media (min-width: 992px) {
-          width: 100%;
-          max-width: none;
-          margin: 0;
-          height: 100%;
-        }
-      }
-
-      .scheme-card {
-        width: 100%;
         background-color: #fff;
         position: relative;
         border-radius: 16px;
@@ -1308,6 +1295,10 @@ i {
         box-shadow: 0 4px 16px rgba(69, 112, 182, 0.08);
 
         @media (min-width: 992px) {
+          width: 100%;
+          max-width: none;
+          margin: 0;
+          height: 100%;
           flex-grow: 1;
           margin-bottom: 24px;
           border-radius: 24px;
@@ -1489,7 +1480,26 @@ i {
         }
       }
 
+      .simple-schemes-row {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 86.92vw;
+        max-width: 400px;
+        margin: 0 auto 30px;
+
+        @media (min-width: 992px) {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: clamp(24px, 2.5vw, 40px);
+          max-width: 1240px;
+          width: 100%;
+          margin: 0 auto 40px;
+        }
+      }
+
       .simple-scheme-chip {
+        position: relative;
         background: #fff;
         border: 1.5px solid #4570b6;
         border-radius: 12px;
@@ -1500,6 +1510,22 @@ i {
         text-align: center;
         min-height: 64px;
         box-shadow: 0 2px 8px rgba(69, 112, 182, 0.06);
+
+        @media (max-width: 991px) {
+          &:last-child::after {
+            content: "";
+            position: absolute;
+            bottom: -13px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 14px solid transparent;
+            border-right: 14px solid transparent;
+            border-top: 14px solid #fff;
+            z-index: 2;
+          }
+        }
 
         @media (min-width: 992px) {
           border-radius: 16px;

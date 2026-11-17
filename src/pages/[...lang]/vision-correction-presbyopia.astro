@@ -129,54 +129,55 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
           <h2 id="scheme-section-heading" class="scheme-heading">
             {content.schemes.title}
           </h2>
-          <div class="scheme-grid">
+          <!-- 3 個主要矯視方案卡片 (PRESBYOND LBV / CMER CLEAR-Vision / ICL Viva V6) -->
+          <div class="scheme-cards-row">
             {mainSchemes.map((item, idx) => {
-              const simpleItem = simpleSchemes[idx];
               const numStr = String(idx + 1).padStart(2, "0");
               const schemeAlt = item.imgAlt || item.title.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
               return (
-                <div class="scheme-column">
-                  <article class="scheme-card" id={item.id}>
-                    <div class="scheme-card-top">
-                      <span class="scheme-num-badge" aria-hidden="true">{numStr}</span>
-                      <picture>
-                        {item.imgWp && (
-                          <source srcset={item.imgWp} type="image/webp" />
-                        )}
-                        <img decoding="async" loading="lazy"
-                          draggable="false"
-                          src={item.imgJpg || item.imgWp}
-                          alt={schemeAlt}
-                          title={schemeAlt}
-                        />
-                      </picture>
-                      <div class="scheme-card-badge">
-                        <span class="scheme-card-tag">
-                          {item.suitTag}
-                        </span>
-                        {item.suitList?.map((s) => (
-                          <p>{s}</p>
-                        ))}
-                      </div>
-                    </div>
-                    <div class="scheme-card-body">
-                      <h3 class="scheme-card-title" set:html={item.title} />
-                      <p
-                        id={item.targetId}
-                        class="scheme-card-desc"
-                        set:html={item.descHtml}
+                <article class="scheme-card" id={item.id}>
+                  <div class="scheme-card-top">
+                    <span class="scheme-num-badge" aria-hidden="true">{numStr}</span>
+                    <picture>
+                      {item.imgWp && (
+                        <source srcset={item.imgWp} type="image/webp" />
+                      )}
+                      <img decoding="async" loading="lazy"
+                        draggable="false"
+                        src={item.imgJpg || item.imgWp}
+                        alt={schemeAlt}
+                        title={schemeAlt}
                       />
+                    </picture>
+                    <div class="scheme-card-badge">
+                      <span class="scheme-card-tag">
+                        {item.suitTag}
+                      </span>
+                      {item.suitList?.map((s) => (
+                        <p>{s}</p>
+                      ))}
                     </div>
-                  </article>
-
-                  {simpleItem && (
-                    <div class="simple-scheme-chip">
-                      <h3 set:html={simpleItem.title} />
-                    </div>
-                  )}
-                </div>
+                  </div>
+                  <div class="scheme-card-body">
+                    <h3 class="scheme-card-title" set:html={item.title} />
+                    <p
+                      id={item.targetId}
+                      class="scheme-card-desc"
+                      set:html={item.descHtml}
+                    />
+                  </div>
+                </article>
               );
             })}
+          </div>
+
+          <!-- 3 個簡易方案選項 (Monovision / Cataract Surgery / 藥物方案) 晶片列 -->
+          <div class="simple-schemes-row">
+            {simpleSchemes.map((item) => (
+              <div class="simple-scheme-chip">
+                <h3 set:html={item.title} />
+              </div>
+            ))}
           </div>
         </div>
       </div>
