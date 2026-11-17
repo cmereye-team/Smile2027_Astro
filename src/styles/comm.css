@@ -583,8 +583,8 @@ summary.faq-header::before {
   }
 
   .faq-item {
-    font-size: 14px;
-    line-height: 24px;
+    font-size: 16px;
+    line-height: 26px;
   }
 
   summary.faq-header {
@@ -592,6 +592,7 @@ summary.faq-header::before {
   }
 
   summary.faq-header .faq-header-text {
+    font-size: 16px;
     font-weight: 700;
   }
 
@@ -621,6 +622,8 @@ summary.faq-header::before {
   }
 
   .faq-answer {
+    font-size: 16px;
+    line-height: 1.6;
     letter-spacing: 0.05em;
     padding: 15px 15px 15px 40px;
   }

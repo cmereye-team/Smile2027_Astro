@@ -213,7 +213,7 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
         {content.fee.groups.map((group, gIdx) => (
           <div class="w-full">
             <div class:list={[
-              "text-base font-bold tracking-[4.8px] text-center text-[#4570B6] rounded-[5.005px] bg-[rgba(140,179,243,0.20)] px-[60px] py-[6px] md:px-[139px] md:py-[11px] md:text-3xl w-fit mx-auto mb-[20px]",
+              "text-base font-bold tracking-[4.8px] text-center text-[#4570B6] rounded-[5.005px] bg-[rgba(140,179,243,0.20)] px-6 py-[6px] md:px-[139px] md:py-[11px] md:text-3xl w-fit mx-auto mb-[20px]",
               gIdx === 0 ? "mb-[20px]" : "mt-[25px] md:mt-[58px] md:mb-5"
             ]}>
               {group.pillTitle}
@@ -221,7 +221,7 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
             <div class="space-y-2 md:space-y-4 max-w-[1100px] mx-auto w-full">
               {group.items.map((item) => (
                 <div class="bg-white border border-[#4570B6] rounded-2xl lbv-item flex flex-row justify-between items-center transition-all group p-[10px] md:px-[50px] md:py-[40px]">
-                  <div class="text-text text-base md:text-3xl font-bold">
+                  <div class="text-text text-base md:text-3xl font-bold self-start md:self-center">
                     <span set:html={item.title} />
                   </div>
                   <div class:list={[
@@ -230,18 +230,18 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
                   ]}>
                     {item.prices.length > 1 ? (
                       item.prices.map((p) => (
-                        <span class="text-2xl md:text-5xl">{p}</span>
+                        <span class="text-[20px] md:text-5xl">{p}</span>
                       ))
                     ) : item.note1 ? (
                       <>
-                        <p class="text-2xl md:text-5xl pb-1 md:pb-3">{item.prices[0]}</p>
+                        <p class="text-[20px] md:text-5xl pb-1 md:pb-3">{item.prices[0]}</p>
                         <p class="text-xs min-[360px]:text-sm md:text-xl font-normal text-desc" set:html={item.note1} />
                         {item.note2 && (
                           <p class="text-text text-xs min-[360px]:text-sm md:text-xl font-normal text-desc" set:html={item.note2} />
                         )}
                       </>
                     ) : (
-                      <span class="text-2xl md:text-5xl">{item.prices[0]}</span>
+                      <span class="text-[20px] md:text-5xl">{item.prices[0]}</span>
                     )}
                   </div>
                 </div>
@@ -253,7 +253,7 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
         <div class="mt-8 md:mt-12 flex flex-col items-center relative z-20">
           <a
             href={isCn ? "/cn/fee#table1" : "/fee#table1"}
-            class="md:w-auto bg-[#4570B6] hover:bg-[#345c99] transition-colors text-white px-10 py-4 md:py-5 md:px-[100px] rounded-full text-2xl md:text-4xl font-bold flex items-center justify-center gap-3 cta-pulse relative z-20 cursor-pointer"
+            class="md:w-auto bg-[#4570B6] hover:bg-[#345c99] transition-colors text-white px-8 py-3.5 md:py-5 md:px-[100px] rounded-full text-[20px] md:text-4xl font-bold flex items-center justify-center gap-2.5 md:gap-3 cta-pulse relative z-20 cursor-pointer"
             data-cta="fee"
             title={content.fee.btnText}
           >
@@ -262,7 +262,7 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
               src="/images/svg/arrow-up-right-white.svg"
               alt=""
               aria-hidden="true"
-              class="h-[13px] w-[13px] md:h-[26px] md:w-[26px] inline-block"
+              class="h-5 w-5 md:h-[26px] md:w-[26px] inline-block"
             />
           </a>
           <div class="text-text mt-2 md:mt-4 text-center font-normal text-base md:text-2xl leading-relaxed min-[360px]:tracking-wider min-[390px]:tracking-normal">
@@ -270,7 +270,7 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
             <p>
               <sup>*</sup>矯視費用已包括術前檢查費用港幣$100<br class="block md:hidden" />（若沒有預約進行矯視，需另外繳付術前檢查費用）
             </p>
-            <p>
+            <p class="text-[14px] md:text-2xl">
               <sup>#</sup>免責聲明：受條款及細則約束。優惠僅適用於以 EPS 全數支付之客戶。<br class="block md:hidden" />如有任何爭議，希瑪眼科將保留最終決定權。
             </p>
           </div>
@@ -359,8 +359,9 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
             <div class="visionBattle-Box-list-item-VS">
               <img
                 src="/images/svg/icon-battle-vs.svg"
-                alt="VS"
-                aria-label="VS"
+                alt={isCn ? "老花矫视技术对比 VS" : "老花矯視技術對比 VS"}
+                title={isCn ? "老花矫视技术对比 VS" : "老花矯視技術對比 VS"}
+                aria-label={isCn ? "老花矫视技术对比 VS" : "老花矯視技術對比 VS"}
                 width="70"
                 height="118"
                 loading="lazy"
@@ -388,8 +389,9 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
             <div class="visionBattle-Box-list-item-VS">
               <img
                 src="/images/svg/icon-battle-vs.svg"
-                alt="VS"
-                aria-label="VS"
+                alt={isCn ? "老花矫视技术对比 VS" : "老花矯視技術對比 VS"}
+                title={isCn ? "老花矫视技术对比 VS" : "老花矯視技術對比 VS"}
+                aria-label={isCn ? "老花矫视技术对比 VS" : "老花矯視技術對比 VS"}
                 width="70"
                 height="118"
                 loading="lazy"
@@ -403,7 +405,7 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
     </section>
 
     <!-- EVO ICL 產品系列介紹 — V6 表格 -->
-    <section class="icl-model site-container">
+    <section class="icl-model site-container lg:pt-0">
       <h2
         class="model-title mb-6 lg:mb-10 text-center font-bold text-xl lg:text-3xl text-[#4570B6]"
       >
@@ -452,7 +454,8 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
                 <div class="flex items-center justify-center gap-1">
                   <img
                     src="/images/svg/icon-check-orange.svg"
-                    alt="可逆轉"
+                    alt={content.modelTable.reversibilityContent}
+                    title={content.modelTable.reversibilityContent}
                     aria-hidden="true"
                     width="27"
                     height="28"
