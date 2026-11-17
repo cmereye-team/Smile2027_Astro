@@ -3,7 +3,7 @@ import { useI18n } from "@/i18n/utils";
 const { dict } = useI18n(Astro.url);
 ---
 
-<section class="lg:hidden wrapper mb-7">
+<section class="lg:hidden site-container py-8 relative z-20">
   <div class="mb-5 flex items-center justify-center gap-2">
     <img decoding="async" loading="lazy" draggable="false" src="/images/icons/icon-slash-l.svg" alt={dict.common.share.title} title={dict.common.share.title} width="20" height="19" aria-hidden="true" />
     <p class="text-[24px] font-bold text-center text-primary leading-tight">{dict.common.share.title}</p>
