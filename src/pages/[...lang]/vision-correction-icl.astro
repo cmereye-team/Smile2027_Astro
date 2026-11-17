@@ -429,6 +429,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
                 role="tab"
                 tabindex="0"
                 aria-label={`步驟 ${step.number}`}
+                onmouseenter={`const r = document.getElementById('icl-step-radio-${idx}'); if (r) r.checked = true;`}
               >
                 {step.number}
               </label>

@@ -1521,9 +1521,10 @@ h2 {
         }
       }
 
-      /* 當用戶透過 Radio 點擊特定步驟時，精確固定展示該步驟 (CSS :has) */
+      /* 當用戶透過 Radio 點擊或 Hover 懸浮特定步驟時，精確固定展示該步驟 (CSS :has) */
       @for $i from 1 through 5 {
-        &:has(#icl-step-radio-#{$i - 1}:checked) {
+        &:has(#icl-step-radio-#{$i - 1}:checked),
+        &:has(.step-btn-#{$i}:hover) {
           .step-image-slide-#{$i},
           .step-text-slide-#{$i} {
             opacity: 1 !important;
