@@ -269,7 +269,7 @@ const bookingTitle = dict.home.book.title;
       width: 100%;
       overflow: visible;
       position: relative;
-      z-index: 2;
+      z-index: 10;
 
       .UserRatingContainer {
         width: 100%;
@@ -590,6 +590,10 @@ const bookingTitle = dict.home.book.title;
   /* 移動端 (< 992px) */
   @media (max-width: 991px) {
     .UserRating {
+      width: 100%;
+      overflow: visible;
+      position: relative;
+      z-index: 10;
       .UserRatingContainer {
         .UserRatingBox {
           .UserRatingBox-top {
@@ -815,6 +819,7 @@ const bookingTitle = dict.home.book.title;
                   left: clamp(75px, 38.46vw, 150px);
                   background: #fff !important;
                   background-color: #fff !important;
+                  z-index: 20;
                   box-shadow: clamp(2.5px, 1.28vw, 5px) clamp(2.5px, 1.28vw, 5px) 0 0 #4570b6,
                     clamp(2.5px, 1.28vw, 5px) clamp(2.5px, 1.28vw, 5px) 0 0.5px #ffffff;
                   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -907,7 +912,10 @@ const bookingTitle = dict.home.book.title;
     }
   }
 
-  /* 講座按鈕（.UserShareBox-Link-btntwo）專屬防護：hover / active / focus 保持白底不變，杜絕深藍底色 */
+  /* 講座按鈕（.UserShareBox-Link-btntwo）專屬防護：z-index 高於下方環境輪播圖；hover / active / focus 保持白底不變，杜絕深藍底色 */
+  .UserShareBox-Link-btntwo {
+    z-index: 20 !important;
+  }
   .UserShareBox-Link-btntwo,
   .UserShareBox-Link-btntwo:hover,
   .UserShareBox-Link-btntwo:focus,

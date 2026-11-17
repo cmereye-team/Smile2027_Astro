@@ -117,10 +117,11 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
 
     {/* 3. 為何選擇希瑪 */}
     <section class="icl-WhatChoose" aria-labelledby="why-choose-title">
-      <h2 id="why-choose-title" class="icl-WhatChoose-title">
-        {content.whyChoose.title}
-      </h2>
-      <div class="icl-WhatChoose-content-one site-container">
+      <div class="site-container">
+        <h2 id="why-choose-title" class="icl-WhatChoose-title">
+          {content.whyChoose.title}
+        </h2>
+        <div class="icl-WhatChoose-content-one">
         <div class="icl-WhatChoose-content-one-img">
           <img draggable="false"
             decoding="async"
@@ -143,7 +144,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
           </p>
         </div>
       </div>
-      <div class="icl-WhatChoose-content-two site-container">
+      <div class="icl-WhatChoose-content-two">
         {content.whyChoose.features.map((feat) => (
           <div>
             <div class="flex items-center icl-WhatChoose-content-two-title">
@@ -188,6 +189,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
           />
         </svg>
       </a>
+      </div>
     </section>
 
     {/* 4. ICL植入式隱形眼鏡費用 */}

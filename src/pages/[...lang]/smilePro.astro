@@ -1,4 +1,4 @@
----
+﻿---
 /*
  * @Author: Antigravity AI
  * @Date: 2026-11-09
@@ -457,12 +457,12 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
           </div>
           <div class="flex-1 p-6 lg:p-8 flex flex-col justify-between">
             <div>
-              <div class="font-bold tracking-wide mb-6 text-center">
+              <div class="font-bold tracking-wide mb-6 text-left">
                 <p class="flex flex-col mb-2">
                   <span class="text-[26px] lg:text-4xl font-en">{content.price.card2.title1}</span>
                   <span class="text-xl lg:text-2xl text-blue-200">{content.price.card2.title2}</span>
                 </p>
-                <p class="text-[#F89B03] font-bold text-4xl lg:text-[54px]">
+                <p class="text-[#F89B03] font-extrabold text-[40px] sm:text-5xl lg:text-[56px] leading-tight mt-1">
                   {content.price.card2.price}
                 </p>
               </div>
@@ -531,12 +531,12 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
           </div>
           <div class="flex-1 p-6 lg:p-8 flex flex-col justify-between">
             <div>
-              <div class="font-bold tracking-wide mb-6 text-center">
+              <div class="font-bold tracking-wide mb-6 text-left">
                 <p class="flex flex-col mb-2">
                   <span class="text-primary text-[26px] lg:text-4xl font-en">{content.price.card1.title1}</span>
                   <span class="text-xl lg:text-2xl text-gray-600">{content.price.card1.title2}</span>
                 </p>
-                <p class="text-[#F89B03] font-bold text-4xl lg:text-[54px]">
+                <p class="text-[#F89B03] font-extrabold text-[40px] sm:text-5xl lg:text-[56px] leading-tight mt-1">
                   {content.price.card1.price}
                 </p>
               </div>
@@ -580,7 +580,7 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
       <div class="price-notes text-gray-500 text-center font-light leading-relaxed max-w-4xl mx-auto space-y-1">
         {
           content.price.notes.map((note) => (
-            <p class={note.startsWith("#") ? "price-disclaimer" : undefined}>
+            <p class={note.startsWith("#") ? "price-disclaimer text-xs lg:text-xs text-gray-400 mt-2" : "text-sm lg:text-base"}>
               {note}
             </p>
           ))
@@ -602,20 +602,24 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
           <tr>
             <th></th>
             <th>
-              <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto size-9 md:size-[52px]" viewBox="0 0 54 54" fill="none" aria-hidden="true"><path d="M26.732 40.188c-3.451 0-6.713-1.3-9.23-3.68a13.36 13.36 0 0 1-4.193-9.391 13.34 13.34 0 0 1 3.677-9.602 13.36 13.36 0 0 1 9.388-4.193 13.33 13.33 0 0 1 9.602 3.676 13.36 13.36 0 0 1 4.193 9.391 13.34 13.34 0 0 1-3.677 9.602 13.36 13.36 0 0 1-9.391 4.193c-.123 0-.25.004-.372.004zm.021-26.519a13 13 0 0 0-9.51 4.084 13 13 0 0 0-3.579 9.353 13 13 0 0 0 4.08 9.145 12.97 12.97 0 0 0 9.354 3.578 13 13 0 0 0 9.145-4.08 13 13 0 0 0 3.578-9.353 13 13 0 0 0-4.08-9.145 13 13 0 0 0-8.988-3.585z" stroke="currentColor"/><path d="M51.148.707 2.083 52.555l.255.242L51.403.948z" stroke="currentColor"/><path d="m.948 1.707-.241.255 51.83 49.083.243-.255z" stroke="currentColor"/></svg>
-              <span>SMILE</span><br />{isCn ? "微笑" : "微笑"}<br class="lg:hidden" />{isCn ? "矫视" : "矯視"}
+              <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto size-7 md:size-[52px] mb-1" viewBox="0 0 54 54" fill="none" aria-hidden="true"><path d="M26.732 40.188c-3.451 0-6.713-1.3-9.23-3.68a13.36 13.36 0 0 1-4.193-9.391 13.34 13.34 0 0 1 3.677-9.602 13.36 13.36 0 0 1 9.388-4.193 13.33 13.33 0 0 1 9.602 3.676 13.36 13.36 0 0 1 4.193 9.391 13.34 13.34 0 0 1-3.677 9.602 13.36 13.36 0 0 1-9.391 4.193c-.123 0-.25.004-.372.004zm.021-26.519a13 13 0 0 0-9.51 4.084 13 13 0 0 0-3.579 9.353 13 13 0 0 0 4.08 9.145 12.97 12.97 0 0 0 9.354 3.578 13 13 0 0 0 9.145-4.08 13 13 0 0 0 3.578-9.353 13 13 0 0 0-4.08-9.145 13 13 0 0 0-8.988-3.585z" stroke="currentColor"/><path d="M51.148.707 2.083 52.555l.255.242L51.403.948z" stroke="currentColor"/><path d="m.948 1.707-.241.255 51.83 49.083.243-.255z" stroke="currentColor"/></svg>
+              <span class="diff-th-title font-en">SMILE</span>
+              <span class="diff-th-sub">{isCn ? "微笑矫视" : "微笑矯視"}</span>
             </th>
             <th>
-              <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto size-9 md:size-[52px]" viewBox="0 0 55 55" fill="none" aria-hidden="true"><path d="M27.092 40.776c7.557 0 13.684-6.127 13.684-13.684 0-7.558-6.127-13.684-13.684-13.684-7.558 0-13.684 6.126-13.684 13.684s6.126 13.684 13.684 13.684ZM1.759 53.836 52.425.344M.344 1.758l53.492 50.666" stroke="currentColor" stroke-miterlimit="10"/><path d="M27.092 37.275c5.624 0 10.183-4.56 10.183-10.184s-4.56-10.183-10.183-10.183-10.184 4.56-10.184 10.183 4.56 10.184 10.184 10.184Z" stroke="currentColor" stroke-miterlimit="10"/></svg>
-              <span>SMILE <br class="lg:hidden" />PRO 1.0</span><br />{isCn ? "微笑矫视" : "微笑矯視"}
+              <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto size-7 md:size-[52px] mb-1" viewBox="0 0 55 55" fill="none" aria-hidden="true"><path d="M27.092 40.776c7.557 0 13.684-6.127 13.684-13.684 0-7.558-6.127-13.684-13.684-13.684-7.558 0-13.684 6.126-13.684 13.684s6.126 13.684 13.684 13.684ZM1.759 53.836 52.425.344M.344 1.758l53.492 50.666" stroke="currentColor" stroke-miterlimit="10"/><path d="M27.092 37.275c5.624 0 10.183-4.56 10.183-10.184s-4.56-10.183-10.183-10.183-10.184 4.56-10.184 10.183 4.56 10.184 10.184 10.184Z" stroke="currentColor" stroke-miterlimit="10"/></svg>
+              <span class="diff-th-title font-en">SMILE PRO</span>
+              <span class="diff-th-sub">{isCn ? "1.0微笑矫视" : "1.0微笑矯視"}</span>
             </th>
             <th>
-              <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto size-9 md:size-[52px]" viewBox="0 0 55 55" fill="none" aria-hidden="true"><path d="M27.092 40.776c7.557 0 13.684-6.127 13.684-13.684 0-7.558-6.127-13.684-13.684-13.684-7.558 0-13.684 6.126-13.684 13.684s6.126 13.684 13.684 13.684ZM1.759 53.836 52.425.344M.344 1.758l53.492 50.666" stroke="currentColor" stroke-miterlimit="10"/><path d="M27.092 37.275c5.624 0 10.183-4.56 10.183-10.184s-4.56-10.183-10.183-10.183-10.184 4.56-10.184 10.183 4.56 10.184 10.184 10.184Z" stroke="currentColor" stroke-miterlimit="10"/></svg>
-              <span>SMILE <br class="lg:hidden" />PRO 2.0</span><br />{isCn ? "微笑矫视" : "微笑矯視"}
+              <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto size-7 md:size-[52px] mb-1" viewBox="0 0 55 55" fill="none" aria-hidden="true"><path d="M27.092 40.776c7.557 0 13.684-6.127 13.684-13.684 0-7.558-6.127-13.684-13.684-13.684-7.558 0-13.684 6.126-13.684 13.684s6.126 13.684 13.684 13.684ZM1.759 53.836 52.425.344M.344 1.758l53.492 50.666" stroke="currentColor" stroke-miterlimit="10"/><path d="M27.092 37.275c5.624 0 10.183-4.56 10.183-10.184s-4.56-10.183-10.183-10.183-10.184 4.56-10.184 10.183 4.56 10.184 10.184 10.184Z" stroke="currentColor" stroke-miterlimit="10"/></svg>
+              <span class="diff-th-title font-en">SMILE PRO</span>
+              <span class="diff-th-sub">{isCn ? "2.0微笑矫视" : "2.0微笑矯視"}</span>
             </th>
             <th>
-              <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto size-10 md:size-[52px]" viewBox="0 0 56 36" fill="none" aria-hidden="true"><path d="M54.53 28.344s-.025-.024-.049-.06a.3.3 0 0 0-.048-.06c-.318-.435-1.341-1.998-1.341-4.463 0-2.935-.073-6.202-.073-6.202s.073-3.278.073-6.202c0-2.468 1.023-4.027 1.34-4.462.013-.024.037-.036.05-.06a.3.3 0 0 0 .047-.06v-.013c.355-.47.564-1.059.564-1.691a2.86 2.86 0 0 0-2.855-2.855c-11.51.282-17.02-.919-17.02-.919C33.295.802 30.673.5 27.798.5c-2.88 0-5.498.306-7.423.797 0 0-5.509 1.2-17.019.919A2.86 2.86 0 0 0 .5 5.07c0 .636.213 1.22.564 1.691v.012s.024.025.048.06c.012.025.036.05.048.061.319.435 1.342 1.998 1.342 4.462 0 2.936.072 6.202.072 6.202s-.072 3.279-.072 6.202c0 2.469-1.023 4.028-1.342 4.463-.012.024-.036.036-.048.06a.3.3 0 0 0-.048.06v.012A2.8 2.8 0 0 0 .5 30.048a2.86 2.86 0 0 0 2.855 2.855c11.51-.282 17.02.918 17.02.918 1.924.496 4.546.798 7.422.798 2.88 0 5.497-.306 7.422-.798 0 0 5.51-1.2 17.019-.918a2.86 2.86 0 0 0 2.855-2.855 2.9 2.9 0 0 0-.564-1.704Z" stroke="currentColor" stroke-miterlimit="10"/><path d="M3.444 5.353a.503.503 0 1 0 0-1.007.503.503 0 0 0 0 1.007ZM52.31 30.785a.503.503 0 1 0 0-1.007.503.503 0 0 0 0 1.007Zm-24.525-.093c7.26 0 13.144-5.885 13.144-13.145S35.045 4.402 27.786 4.402 14.64 10.287 14.64 17.547s5.885 13.145 13.145 13.145ZM46.262 2.22a23.92 23.92 0 0 1 5.533 15.34 23.87 23.87 0 0 1-5.485 15.27m-37.002.057a23.92 23.92 0 0 1-5.534-15.34A23.87 23.87 0 0 1 9.26 2.276m3.45 15.774a.503.503 0 1 0 0-1.006.503.503 0 0 0 0 1.007Zm30.145 0a.503.503 0 1 0 0-1.006.503.503 0 0 0 0 1.007Z" stroke="currentColor" stroke-miterlimit="10"/><path d="M27.793 18.05a.503.503 0 1 0 0-1.006.503.503 0 0 0 0 1.007ZM42.947 2.256s-.906 1.164-5.062 1.164-5.288-1.2-9.609-1.2-5.449 1.2-9.609 1.2-5.062-1.164-5.062-1.164m29.342 30.667s-.906-1.164-5.062-1.164c-4.16 0-5.288 1.2-9.609 1.2s-5.449-1.2-9.609-1.2-5.062 1.164-5.062 1.164" stroke="currentColor" stroke-miterlimit="10"/></svg>
-              <span>ICL</span><br />{isCn ? "植入式" : "植入式"}<br class="lg:hidden" />{isCn ? "隐形眼镜" : "隱形眼鏡"}
+              <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto size-8 md:size-[52px] mb-1" viewBox="0 0 56 36" fill="none" aria-hidden="true"><path d="M54.53 28.344s-.025-.024-.049-.06a.3.3 0 0 0-.048-.06c-.318-.435-1.341-1.998-1.341-4.463 0-2.935-.073-6.202-.073-6.202s.073-3.278.073-6.202c0-2.468 1.023-4.027 1.34-4.462.013-.024.037-.036.05-.06a.3.3 0 0 0 .047-.06v-.013c.355-.47.564-1.059.564-1.691a2.86 2.86 0 0 0-2.855-2.855c-11.51.282-17.02-.919-17.02-.919C33.295.802 30.673.5 27.798.5c-2.88 0-5.498.306-7.423.797 0 0-5.509 1.2-17.019.919A2.86 2.86 0 0 0 .5 5.07c0 .636.213 1.22.564 1.691v.012s.024.025.048.06c.012.025.036.05.048.061.319.435 1.342 1.998 1.342 4.462 0 2.936.072 6.202.072 6.202s-.072 3.279-.072 6.202c0 2.469-1.023 4.028-1.342 4.463-.012.024-.036.036-.048.06a.3.3 0 0 0-.048.06v.012A2.8 2.8 0 0 0 .5 30.048a2.86 2.86 0 0 0 2.855 2.855c11.51-.282 17.02.918 17.02.918 1.924.496 4.546.798 7.422.798 2.88 0 5.497-.306 7.422-.798 0 0 5.51-1.2 17.019-.918a2.86 2.86 0 0 0 2.855-2.855 2.9 2.9 0 0 0-.564-1.704Z" stroke="currentColor" stroke-miterlimit="10"/><path d="M3.444 5.353a.503.503 0 1 0 0-1.007.503.503 0 0 0 0 1.007ZM52.31 30.785a.503.503 0 1 0 0-1.007.503.503 0 0 0 0 1.007Zm-24.525-.093c7.26 0 13.144-5.885 13.144-13.145S35.045 4.402 27.786 4.402 14.64 10.287 14.64 17.547s5.885 13.145 13.145 13.145ZM46.262 2.22a23.92 23.92 0 0 1 5.533 15.34 23.87 23.87 0 0 1-5.485 15.27m-37.002.057a23.92 23.92 0 0 1-5.534-15.34A23.87 23.87 0 0 1 9.26 2.276m3.45 15.774a.503.503 0 1 0 0-1.006.503.503 0 0 0 0 1.007Zm30.145 0a.503.503 0 1 0 0-1.006.503.503 0 0 0 0 1.007Z" stroke="currentColor" stroke-miterlimit="10"/><path d="M27.793 18.05a.503.503 0 1 0 0-1.006.503.503 0 0 0 0 1.007ZM42.947 2.256s-.906 1.164-5.062 1.164-5.288-1.2-9.609-1.2-5.449 1.2-9.609 1.2-5.062-1.164-5.062-1.164m29.342 30.667s-.906-1.164-5.062-1.164c-4.16 0-5.288 1.2-9.609 1.2s-5.449-1.2-9.609-1.2-5.062 1.164-5.062 1.164" stroke="currentColor" stroke-miterlimit="10"/></svg>
+              <span class="diff-th-title font-en">{isCn ? "ICL植入式" : "ICL植入式"}</span>
+              <span class="diff-th-sub">{isCn ? "隐形眼镜" : "隱形眼鏡"}</span>
             </th>
           </tr>
         </thead>
@@ -720,7 +724,7 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6">
           {
             content.steps2.list.map((step, index) => (
-              <div class="steps-item bg-white p-4 rounded-2xl border border-gray-100 shadow-xs flex flex-col justify-between">
+              <div class="steps-item bg-transparent md:bg-white p-0 md:p-4 rounded-none md:rounded-2xl border-0 md:border md:border-gray-100 shadow-none md:shadow-xs flex flex-col justify-between">
                 <img draggable="false"
                   src={step.image}
                   alt={"SMILE Pro 2.0 步驟" + (index + 1)}
@@ -912,12 +916,12 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
         },
         breakpoints: {
           0: {
-            slidesPerView: 1.2,
-            spaceBetween: 24,
+            slidesPerView: "auto",
+            spaceBetween: 16,
           },
           768: {
-            slidesPerView: 2.5,
-            spaceBetween: 24,
+            slidesPerView: "auto",
+            spaceBetween: 20,
           },
           1024: {
             slidesPerView: "auto",
@@ -1709,34 +1713,56 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
   /* Section 6: SMILE/SMILE PRO/ICL 大不同 */
   .smilepro-difference {
     .custom-comparison-table {
+      .diff-th-title {
+        font-size: 13px;
+        font-weight: 800;
+        display: block;
+        line-height: 1.2;
+      }
+
+      .diff-th-sub {
+        font-size: 11px;
+        font-weight: 700;
+        display: block;
+        line-height: 1.2;
+        margin-top: 2px;
+      }
+
       thead tr > th:nth-child(2) {
-        background-color: #e0f0ff;
+        background-color: #e3f0f9;
         color: $primary;
       }
 
       thead tr > th:nth-child(3) {
-        background-color: #afcdff;
+        background-color: #9bcefb;
         color: #fff;
       }
 
       thead tr > th:nth-child(4) {
-        background-color: $primary;
+        background-color: #3e69b9;
         color: #fff;
       }
 
       thead tr > th:nth-child(5) {
-        background-color: #dbf0f2;
-        color: #4596b6;
+        background-color: #d3efef;
+        color: #328c9d;
       }
 
       tbody tr > td:nth-child(1) {
-        background-color: #f8f8f8;
+        background-color: #fafafa;
         color: $primary;
       }
 
       tbody tr > td:nth-child(4) {
-        background-color: #5a8ad6;
+        background-color: #4a7bc8;
         color: #fff;
+      }
+
+      tbody tr > td[colspan="4"] {
+        background-color: #fff !important;
+        color: #60605f !important;
+        font-weight: 600;
+        text-align: center;
       }
     }
 
@@ -1787,63 +1813,65 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
       .custom-comparison-table {
         margin-top: 30px;
         width: 100%;
+        table-layout: fixed;
         border-collapse: collapse;
         border-spacing: 0;
 
         tr {
           position: relative;
           z-index: 2;
-          height: 82px;
         }
 
         th,
         td {
-          border-bottom: 1px solid #d0d0d0;
-          padding: 12px 6px;
+          border: 0.5px solid #e2e8f0;
+          padding: 8px 2px;
           text-align: center;
           vertical-align: middle;
+          overflow-wrap: break-word;
         }
 
         thead th {
-          height: 85px;
+          height: auto;
+          min-height: 72px;
           text-align: center;
-          font-size: 14px;
-          font-weight: 900;
-          width: 27.18vw;
+          padding: 8px 2px;
+          width: 19.5%;
         }
 
         thead th:nth-child(1) {
-          width: 17.95vw;
-          line-height: 1.357;
+          width: 22%;
         }
 
         tbody tr td {
           color: #60605f;
           text-align: center;
-          font-size: 12px;
-          font-weight: 300;
+          font-size: 11px;
+          font-weight: 400;
           line-height: 1.35;
         }
 
         tbody tr > td:nth-child(1) {
           text-align: center;
-          font-size: 14px;
+          font-size: 11px;
           font-weight: 700;
-          line-height: 21.031px;
+          line-height: 1.25;
 
           p {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
-            line-height: 21.031px;
+            line-height: 1.25;
+            margin: 0;
           }
         }
 
         tbody tr > td:nth-child(4) {
           text-align: center;
-          font-size: 12px;
-          font-weight: 500;
+          font-size: 11px;
+          font-weight: 600;
           line-height: 1.35;
-          letter-spacing: 0.6px;
+          background-color: #4a7bc8;
+          color: #fff;
         }
       }
     }
@@ -1860,38 +1888,6 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
 
         &::before {
           top: calc(-92% - 2px);
-        }
-      }
-
-      .custom-comparison-table {
-        margin-top: 7.69vw;
-
-        tr {
-          height: 21.03vw;
-        }
-
-        th,
-        td {
-          padding: 2.5vw 1.5vw;
-        }
-
-        thead th {
-          height: 21.79vw;
-          font-size: 3.59vw;
-          line-height: 1.357;
-        }
-
-        tbody tr td {
-          font-size: 3.08vw;
-        }
-
-        tbody tr > td:nth-child(1) {
-          font-size: 3.59vw;
-          line-height: 1.44;
-
-          p {
-            font-size: 3.08vw;
-          }
         }
       }
     }
@@ -2129,6 +2125,7 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
               align-items: center;
 
               .swiperWrap-item {
+                width: auto !important;
                 transition: all 0.3s ease;
 
                 & > div {
