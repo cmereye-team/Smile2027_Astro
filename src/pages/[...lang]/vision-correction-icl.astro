@@ -424,30 +424,32 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
                 <div class="step-visual-box">
                   <div class="content-area-title">
                     <h2 id="icl-intro-title" class="m-0 p-0 text-inherit font-inherit">
-                      {content.steps.titlePrefix}<br />
-                      {content.steps.titleSuffix}
+                      <span>{content.steps.titlePrefix}</span><br />
+                      <span class="step-title-row">
+                        <span>{content.steps.titleSuffix}</span>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="19"
+                          height="20"
+                          viewBox="0 0 19 20"
+                          fill="none"
+                          aria-hidden="true"
+                        >
+                          <path
+                            d="M0.726577 1.2312L17.593 18.0976"
+                            stroke="#4570B6"
+                            stroke-width="1.34165"
+                            stroke-linecap="round"
+                          />
+                          <path
+                            d="M18.1296 3.68896L18.1296 18.6727L3.63983 18.6727"
+                            stroke="#4570B6"
+                            stroke-width="1.34165"
+                            stroke-linecap="round"
+                          />
+                        </svg>
+                      </span>
                     </h2>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="19"
-                      height="20"
-                      viewBox="0 0 19 20"
-                      fill="none"
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="M0.726577 1.2312L17.593 18.0976"
-                        stroke="#4570B6"
-                        stroke-width="1.34165"
-                        stroke-linecap="round"
-                      />
-                      <path
-                        d="M18.1296 3.68896L18.1296 18.6727L3.63983 18.6727"
-                        stroke="#4570B6"
-                        stroke-width="1.34165"
-                        stroke-linecap="round"
-                      />
-                    </svg>
                   </div>
                   <img decoding="async" draggable="false"
                     id="iclStepImgMb"
@@ -502,7 +504,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
       <h2 id="suitable-heading" class="sr-only">
         {content.suitable.title}
       </h2>
-      <div class="SuitableObject-container">
+      <div class="SuitableObject-container container">
         {content.suitable.items.map((item, idx) => (
           <div
             class:list={["SuitableObject-item", `SuitableObject-item-${idx + 1}`]}
@@ -637,48 +639,6 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
         </svg>
         <span>{content.latestNews.btn}</span>
       </a>
-    </section>
-
-    {/* 13. 社交分享按鈕 */}
-    <section class="CaseSharingV2" aria-label="社群分享">
-      <div>
-        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="19" viewBox="0 0 21 19" fill="none" aria-hidden="true">
-          <path d="M1 0.77832L19.4751 17.9337" stroke="#4570B6" stroke-width="1.97947" />
-        </svg>
-        <span>{content.socialShareTitle}</span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="19" viewBox="0 0 21 19" fill="none" aria-hidden="true">
-          <path d="M20 0.77832L1.52493 17.9337" stroke="#4570B6" stroke-width="1.97947" />
-        </svg>
-      </div>
-      <div>
-        <button type="button" id="shareCurrentPageIcl" aria-label="分享本頁面" class="cursor-pointer bg-transparent border-0 p-0">
-          <svg xmlns="http://www.w3.org/2000/svg" width="21" height="22" viewBox="0 0 21 22" fill="none" aria-hidden="true">
-            <path
-              d="M0.28309 11.3923C0.282266 9.41405 1.74115 7.78777 3.63606 7.6221C4.78751 7.52154 5.78565 7.88504 6.60988 8.69859C6.74258 8.82964 6.83243 8.84118 6.99233 8.74475C8.88558 7.59654 10.7838 6.45411 12.6836 5.31745C12.832 5.22843 12.8518 5.15177 12.799 4.99022C12.0968 2.83806 13.5441 0.523527 15.7852 0.202064C17.9084 -0.10209 19.8083 1.36263 20.0539 3.49335C20.2781 5.44027 18.853 7.28415 16.9053 7.55945C15.6327 7.73914 14.553 7.34679 13.6604 6.43186C13.5647 6.33377 13.4996 6.32058 13.3826 6.39147C11.463 7.55039 9.54167 8.70601 7.61957 9.85915C7.50665 9.92674 7.47203 9.99351 7.51819 10.1237C7.75227 10.7864 7.79595 11.4632 7.61627 12.1457C7.57423 12.3064 7.63028 12.3814 7.7671 12.4515C9.44029 13.3046 11.1118 14.1618 12.7842 15.019C12.9185 15.0875 13.0554 15.1534 13.1831 15.2317C13.3101 15.3092 13.3966 15.2977 13.4963 15.1765C14.0972 14.4487 14.8662 14.0134 15.7992 13.8626C17.2161 13.6335 18.7129 14.311 19.4811 15.5359C20.888 17.7779 19.6467 20.6776 17.0545 21.2035C15.0006 21.6206 12.9688 20.1831 12.6663 18.1018C12.5996 17.6419 12.5971 17.1844 12.7347 16.7376C12.7982 16.5324 12.7413 16.4401 12.5518 16.3436C10.7607 15.4345 8.9746 14.5154 7.18932 13.5939C7.05991 13.5271 6.98491 13.5436 6.89424 13.6541C6.06342 14.663 4.98945 15.1147 3.68799 15.0454C2.07332 14.9589 0.560032 13.565 0.328423 11.9495C0.298751 11.7451 0.275672 11.5415 0.283915 11.3915L0.28309 11.3923Z"
-              fill="#4570B6"
-            />
-          </svg>
-        </button>
-        <button type="button" id="copyCurrentUrlIcl" aria-label="複製本頁鏈接" class="cursor-pointer bg-transparent border-0 p-0">
-          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-            <g clip-path="url(#clip0_icl_copy)">
-              <path
-                d="M9.10331 5.96582C10.8881 5.96788 12.1819 6.48567 13.3123 7.46166C13.4906 7.61577 13.6719 7.76576 13.8462 7.92295C14.1998 8.2404 14.2685 8.71402 13.9826 9.09722C13.644 9.55132 13.2864 9.99206 12.9169 10.4205C12.6102 10.7759 12.1381 10.7985 11.7725 10.5016C11.5445 10.3167 11.3283 10.1153 11.1003 9.92939C10.0614 9.08489 8.5107 9.12599 7.55356 10.0701C6.53466 11.0759 5.5337 12.1043 4.56062 13.1574C3.81463 13.9649 3.6493 14.9511 3.98793 15.998C4.32657 17.0449 5.06658 17.6788 6.11037 17.8699C6.97788 18.0281 7.77666 17.8031 8.43998 17.1744C8.65412 16.972 8.85232 16.7521 9.06148 16.5446C9.44493 16.1655 9.89611 16.1501 10.2826 16.5251C10.663 16.8949 11.0325 17.2771 11.3921 17.6685C11.7078 18.0127 11.7218 18.4883 11.423 18.8356C10.3951 20.0335 9.17403 20.8883 7.61033 21.1821C4.42019 21.781 1.21312 19.4828 0.680264 16.184C0.335653 14.0481 0.911332 12.204 2.37244 10.6598C3.2997 9.67974 4.24091 8.71299 5.19008 7.75549C6.35838 6.57607 7.76769 5.98123 9.10231 5.96685L9.10331 5.96582Z"
-                fill="#4570B6"
-              />
-              <path
-                d="M12.3093 15.4664C10.7307 15.4592 9.43492 14.9445 8.30647 13.9664C8.13516 13.8175 7.96186 13.6716 7.79055 13.5216C7.42104 13.1969 7.34734 12.7213 7.63916 12.3309C7.97879 11.8768 8.33635 11.4371 8.70487 11.0087C9.00964 10.6542 9.48373 10.6337 9.84925 10.9306C10.0644 11.1052 10.2666 11.2963 10.4837 11.4679C11.651 12.3915 13.1539 12.3021 14.1977 11.2388C15.131 10.2885 16.0602 9.33406 16.9785 8.36834C17.7345 7.57316 17.9635 6.61155 17.6667 5.55131C17.364 4.47258 16.6429 3.79863 15.5782 3.57672C14.6818 3.38974 13.8641 3.61165 13.1768 4.25889C12.9627 4.46025 12.7655 4.68216 12.5553 4.88866C12.1729 5.26467 11.7177 5.27906 11.3333 4.9051C10.9528 4.53525 10.5833 4.15307 10.2247 3.76061C9.91698 3.42467 9.89407 2.95105 10.1819 2.61408C11.147 1.48398 12.2824 0.636403 13.7426 0.306619C17.2036 -0.474177 20.5641 1.973 20.9874 5.60473C21.2095 7.51152 20.6826 9.19331 19.4117 10.5844C18.348 11.7484 17.2644 12.898 16.109 13.9664C15.0085 14.9846 13.6858 15.451 12.3083 15.4654L12.3093 15.4664Z"
-                fill="#4570B6"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_icl_copy">
-                <rect width="20.4545" height="21.1144" fill="white" transform="translate(0.583496 0.162109)" />
-              </clipPath>
-            </defs>
-          </svg>
-        </button>
-      </div>
     </section>
   </div>
 </BaseLayout>
@@ -860,43 +820,6 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
 
     if (!prefersReducedMotion) {
       startFeatureTimer();
-    }
-
-    // 社交分享及複製鏈接
-    const copyBtn = document.getElementById("copyCurrentUrlIcl");
-    if (copyBtn) {
-      copyBtn.addEventListener("click", async () => {
-        try {
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            await navigator.clipboard.writeText(window.location.href);
-          } else {
-            const textArea = document.createElement("textarea");
-            textArea.value = window.location.href;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand("copy");
-            document.body.removeChild(textArea);
-          }
-          alert("鏈接已複製到剪貼簿！");
-        } catch (e) {
-          console.error("複製失敗:", e);
-        }
-      });
-    }
-
-    const shareBtn = document.getElementById("shareCurrentPageIcl");
-    if (shareBtn) {
-      shareBtn.addEventListener("click", () => {
-        if (navigator.share) {
-          navigator.share({
-            title: document.title,
-            url: window.location.href,
-          }).catch(() => {});
-        } else {
-          const url = encodeURIComponent(window.location.href);
-          window.open(`https://api.whatsapp.com/send?text=${url}`, "_blank");
-        }
-      });
     }
   }
 

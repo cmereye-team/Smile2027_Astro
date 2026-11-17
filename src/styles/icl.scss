@@ -296,6 +296,24 @@ h2 {
   }
 }
 
+@keyframes suitableBgCycle {
+  0% {
+    opacity: 0;
+  }
+  2% {
+    opacity: 0.85;
+  }
+  18% {
+    opacity: 0.85;
+  }
+  22% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 /* ==========================================================================
    9. 合適對象 SuitableObject
    Authentic 5-panel full-bleed interactive banner (desktop) + 3x2 grid (mobile)
@@ -305,6 +323,17 @@ h2 {
   margin: 0 auto;
   position: relative;
   background: #4570b6;
+
+  // Hover over container pauses all CSS animations
+  .SuitableObject-container:hover .SuitableObject-item .SuitableObject-image,
+  .SuitableObject-item:hover .SuitableObject-image {
+    animation-play-state: paused;
+  }
+
+  // When hovering inside container, hide unhovered items' background images
+  .SuitableObject-container:hover .SuitableObject-item:not(:hover) .SuitableObject-image {
+    opacity: 0 !important;
+  }
 
   .SuitableObject-container {
     display: grid;
@@ -474,25 +503,42 @@ h2 {
       transition: opacity 0.35s ease;
       z-index: 1;
       pointer-events: none;
+      animation: suitableBgCycle 10s infinite;
     }
 
-    // Item 3 has photo visible by default on desktop
-    &.SuitableObject-item-3 {
-      @media (min-width: 1024px) {
-        .SuitableObject-image {
-          opacity: 0.85;
-        }
-      }
+    &:nth-child(1) .SuitableObject-image {
+      animation-delay: 0s;
+    }
+    &:nth-child(2) .SuitableObject-image {
+      animation-delay: 2s;
+    }
+    &:nth-child(3) .SuitableObject-image {
+      animation-delay: 4s;
+    }
+    &:nth-child(4) .SuitableObject-image {
+      animation-delay: 6s;
+    }
+    &:nth-child(5) .SuitableObject-image {
+      animation-delay: 8s;
     }
 
     &:hover,
     &:focus-visible,
     &.active {
       .SuitableObject-image {
-        opacity: 0.65;
+        opacity: 0.85 !important;
       }
       &::before {
-        opacity: 0.08;
+        opacity: 0.08 !important;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .SuitableObject-image {
+        animation: none !important;
+      }
+      &.SuitableObject-item-3 .SuitableObject-image {
+        opacity: 0.85;
       }
     }
 
@@ -777,7 +823,7 @@ h2 {
             padding: 14px 10px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: space-around;
             align-items: center;
             width: 140px;
             height: 140px;
@@ -1219,8 +1265,6 @@ h2 {
               .content-area-title {
                 position: relative;
                 margin-bottom: 12px;
-                display: flex;
-                align-items: center;
 
                 h2 {
                   color: #4570b6;
@@ -1229,15 +1273,20 @@ h2 {
                   font-weight: 900;
                   line-height: 1.25;
                   margin: 0;
-                  display: inline-block;
-                }
-                svg {
-                  display: inline-block;
-                  vertical-align: middle;
-                  margin-left: 6px;
-                  width: 16px;
-                  height: 16px;
-                  flex-shrink: 0;
+
+                  .step-title-row {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 6px;
+
+                    svg {
+                      display: inline-block;
+                      vertical-align: middle;
+                      width: 16px;
+                      height: 16px;
+                      flex-shrink: 0;
+                    }
+                  }
                 }
               }
 
@@ -1457,40 +1506,6 @@ h2 {
         font-style: normal;
         font-weight: 900;
         line-height: 0.71;
-      }
-    }
-  }
-  .CaseSharingV2 {
-    width: fit-content;
-    margin: 0 auto;
-    & > div:nth-child(1) {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7.58px;
-      span {
-        color: #000;
-        text-align: center;
-        font-family: var(--font-hk);
-        font-size: 20px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 0.82px; /* 82.478% */
-      }
-    }
-    & > div:nth-child(2) {
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      a {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 54px;
-        height: 54px;
-        border-radius: 50%;
-        border: 1px solid #4570b6;
       }
     }
   }
@@ -2035,40 +2050,6 @@ h2 {
       }
     }
   }
-  .CaseSharingV2 {
-    width: fit-content;
-    margin: 0 auto;
-    & > div:nth-child(1) {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1.94vw;
-      span {
-        color: #000;
-        text-align: center;
-        font-family: var(--font-hk);
-        font-size: 5.13vw;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 0.82;
-      }
-    }
-    & > div:nth-child(2) {
-      margin-top: 5.13vw;
-      display: flex;
-      justify-content: center;
-      gap: 5.13vw;
-      a {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 13.85vw;
-        height: 13.85vw;
-        border-radius: 50%;
-        border: 1px solid #4570b6;
-      }
-    }
-  }
 }
 @media screen and (min-width: 1140px) {
   .d-xl-none {
@@ -2478,9 +2459,6 @@ h2 {
                 top: 0;
                 left: 0;
                 z-index: 10;
-                display: flex;
-                align-items: flex-end;
-                gap: 14px;
                 margin: 0;
                 padding: 0;
 
@@ -2493,13 +2471,18 @@ h2 {
                   line-height: 38px;
                   margin: 0;
                   white-space: nowrap;
-                }
 
-                svg {
-                  width: 32px;
-                  height: 32px;
-                  flex-shrink: 0;
-                  margin-bottom: 2px;
+                  .step-title-row {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 10px;
+
+                    svg {
+                      width: 28px;
+                      height: 28px;
+                      flex-shrink: 0;
+                    }
+                  }
                 }
               }
 
@@ -2748,45 +2731,6 @@ h2 {
         }
         span {
           color: #fff;
-        }
-      }
-    }
-  }
-  .CaseSharingV2 {
-    display: none;
-    width: fit-content;
-    margin: 0 auto;
-    & > div:nth-child(1) {
-      display: flex;
-      align-items: baseline;
-      justify-content: center;
-      gap: 13px;
-      span {
-        color: #000;
-        text-align: center;
-        font-family: var(--font-hk);
-        font-size: 30px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 25px; /* 83.333% */
-      }
-    }
-    & > div:nth-child(2) {
-      margin-top: 49px;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      a {
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 82px;
-        height: 82px;
-        border-radius: 50%;
-        border: 1px solid #4570b6;
-        svg {
-          width: 30px;
         }
       }
     }
