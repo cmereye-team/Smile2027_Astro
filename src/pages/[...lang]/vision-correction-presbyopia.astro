@@ -80,34 +80,34 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
             {content.banner.p3}
           </p>
         </header>
+      </div>
 
-        <div class="hero-stage">
-          <figure class="hero-figure hero-figure-wrapper">
-            <img
-              draggable="false"
-              decoding="async"
-              src={content.banner.imgPc}
-              alt={content.banner.imgAlt}
-              title={content.banner.imgAlt}
-              loading="eager"
-              fetchpriority="high"
-              width="1209"
-              height="678"
-              srcset={`${content.banner.imgMb} 400w, ${content.banner.imgMb} 640w, ${content.banner.imgPc}`}
-              sizes="(max-width: 992px) 100vw, 1209px"
-              class="hero-figure-img"
-            />
-            <figcaption class="hero-badge">
-              <span set:html={content.banner.badgeSpan1} />
-              &nbsp;
-              <span>{content.banner.badgeSpan2}</span>
-            </figcaption>
-          </figure>
-          <div class="hero-symptoms" aria-label="常見老花症狀困擾">
-            {content.banner.tags.map((tag, idx) => (
-              <span class={`hero-symptom-tag hero-symptom-tag-${idx + 1}`}>{tag}</span>
-            ))}
-          </div>
+      <div class="hero-stage">
+        <figure class="hero-figure hero-figure-wrapper">
+          <img
+            draggable="false"
+            decoding="async"
+            src={content.banner.imgPc}
+            alt={content.banner.imgAlt}
+            title={content.banner.imgAlt}
+            loading="eager"
+            fetchpriority="high"
+            width="1209"
+            height="678"
+            srcset={`${content.banner.imgMb} 400w, ${content.banner.imgMb} 640w, ${content.banner.imgPc}`}
+            sizes="(max-width: 992px) 100vw, 1209px"
+            class="hero-figure-img"
+          />
+          <figcaption class="hero-badge">
+            <span set:html={content.banner.badgeSpan1} />
+            &nbsp;
+            <span>{content.banner.badgeSpan2}</span>
+          </figcaption>
+        </figure>
+        <div class="hero-symptoms" aria-label="常見老花症狀困擾">
+          {content.banner.tags.map((tag, idx) => (
+            <span class={`hero-symptom-tag hero-symptom-tag-${idx + 1}`}>{tag}</span>
+          ))}
         </div>
       </div>
     </section>
