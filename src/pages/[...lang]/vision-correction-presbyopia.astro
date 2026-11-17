@@ -123,81 +123,84 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
     </section>
 
     <!-- 3. 老花矯視方案 (語意化架構 + 2026 SEO 標籤) -->
-    <section id="CorrectionProgram" class="scheme-section site-container" aria-labelledby="scheme-section-heading">
+    <section id="CorrectionProgram" class="scheme-section w-full" aria-labelledby="scheme-section-heading">
       <div class="scheme-wrapper">
         <div class="scheme-main">
-          <h2 id="scheme-section-heading" class="scheme-heading">
-            {content.schemes.title}
-          </h2>
-          <!-- 3 個主要矯視方案卡片 (PRESBYOND LBV / CMER CLEAR-Vision / ICL Viva V6) -->
-          <div class="scheme-cards-row">
-            {mainSchemes.map((item, idx) => {
-              const numStr = String(idx + 1).padStart(2, "0");
-              const schemeAlt = item.imgAlt || item.title.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
-              return (
-                <article class="scheme-card" id={item.id}>
-                  <div class="scheme-card-top">
-                    <span class="scheme-num-badge" aria-hidden="true">{numStr}</span>
-                    <picture>
-                      {item.imgWp && (
-                        <source srcset={item.imgWp} type="image/webp" />
-                      )}
-                      <img decoding="async" loading="lazy"
-                        draggable="false"
-                        src={item.imgJpg || item.imgWp}
-                        alt={schemeAlt}
-                        title={schemeAlt}
-                      />
-                    </picture>
-                    <div class="scheme-card-badge">
-                      <span class="scheme-card-tag">
-                        {item.suitTag}
-                      </span>
-                      {item.suitList?.map((s) => (
-                        <p>{s}</p>
-                      ))}
+          <div class="site-container">
+            <h2 id="scheme-section-heading" class="scheme-heading">
+              {content.schemes.title}
+            </h2>
+            <!-- 3 個主要矯視方案卡片 (PRESBYOND LBV / CMER CLEAR-Vision / ICL Viva V6) -->
+            <div class="scheme-cards-row">
+              {mainSchemes.map((item, idx) => {
+                const numStr = String(idx + 1).padStart(2, "0");
+                const schemeAlt = item.imgAlt || item.title.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+                return (
+                  <article class="scheme-card" id={item.id}>
+                    <div class="scheme-card-top">
+                      <span class="scheme-num-badge" aria-hidden="true">{numStr}</span>
+                      <picture>
+                        {item.imgWp && (
+                          <source srcset={item.imgWp} type="image/webp" />
+                        )}
+                        <img decoding="async" loading="lazy"
+                          draggable="false"
+                          src={item.imgJpg || item.imgWp}
+                          alt={schemeAlt}
+                          title={schemeAlt}
+                        />
+                      </picture>
+                      <div class="scheme-card-badge">
+                        <span class="scheme-card-tag">
+                          {item.suitTag}
+                        </span>
+                        {item.suitList?.map((s) => (
+                          <p>{s}</p>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                  <div class="scheme-card-body">
-                    <h3 class="scheme-card-title" set:html={item.title} />
-                    <p
-                      id={item.targetId}
-                      class="scheme-card-desc"
-                      set:html={item.descHtml}
-                    />
-                  </div>
-                </article>
-              );
-            })}
-          </div>
+                    <div class="scheme-card-body">
+                      <h3 class="scheme-card-title" set:html={item.title} />
+                      <p
+                        id={item.targetId}
+                        class="scheme-card-desc"
+                        set:html={item.descHtml}
+                      />
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
 
-          <!-- 3 個簡易方案選項 (Monovision / Cataract Surgery / 藥物方案) 晶片列 -->
-          <div class="simple-schemes-row">
-            {simpleSchemes.map((item) => (
-              <div class="simple-scheme-chip">
-                <h3 set:html={item.title} />
-              </div>
-            ))}
+            <!-- 3 個簡易方案選項 (Monovision / Cataract Surgery / 藥物方案) 晶片列 -->
+            <div class="simple-schemes-row">
+              {simpleSchemes.map((item) => (
+                <div class="simple-scheme-chip">
+                  <h3 set:html={item.title} />
+                </div>
+              ))}
+            </div>
+
+            <!-- 預約諮詢合適矯視方案 按鈕 -->
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={content.schemes.whatsappUrl}
+              class="publicBtn-booking cta-pulse"
+              data-cta="whatsapp-w06"
+              title={content.schemes.ctaBtnText}
+            >
+              <span>{content.schemes.ctaBtnText}</span>
+              <img
+                src="/images/svg/arrow-up-right-white.svg"
+                alt=""
+                aria-hidden="true"
+                class="h-[18px] w-[18px] md:h-[24px] md:w-[24px] inline-block"
+              />
+            </a>
           </div>
         </div>
       </div>
-      <!-- 預約諮詢合適矯視方案 按鈕 -->
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href={content.schemes.whatsappUrl}
-        class="publicBtn-booking cta-pulse"
-        data-cta="whatsapp-w06"
-        title={content.schemes.ctaBtnText}
-      >
-        <span>{content.schemes.ctaBtnText}</span>
-        <img
-          src="/images/svg/arrow-up-right-white.svg"
-          alt=""
-          aria-hidden="true"
-          class="h-[18px] w-[18px] md:h-[24px] md:w-[24px] inline-block"
-        />
-      </a>
     </section>
 
     <!-- 3.5 老花矯視費用 (100% 官方真值對齊) -->
