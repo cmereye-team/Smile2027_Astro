@@ -1087,7 +1087,7 @@ h2 {
       width: 660px;
       height: 502px;
       position: absolute;
-      left: 0;
+      left: max(0px, calc(50% - var(--container-max-w, 1320px) / 2 - 40px));
       bottom: 0;
       z-index: 1;
     }
@@ -1100,8 +1100,8 @@ h2 {
       width: 580px;
       height: 480px;
       position: absolute;
-      right: 40px;
-      top: 30px;
+      right: max(10px, calc(50% - var(--container-max-w, 1320px) / 2 - 40px));
+      top: 40px;
       pointer-events: none;
       z-index: 1;
     }
