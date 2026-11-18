@@ -641,16 +641,20 @@ i {
         rotate: 5deg;
       }
 
-      & > .visionBattle-Box-list-item:nth-child(3)::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 103.08vw;
-        height: 90.26vw;
-        background: url("/images/svg/bg-battle-item3.svg") no-repeat;
-        background-size: 90% auto;
-        z-index: -1;
+      & > .visionBattle-Box-list-item:nth-child(3) {
+        padding-bottom: 0;
+
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 103.08vw;
+          height: 90.26vw;
+          background: url("/images/svg/bg-battle-item3.svg") no-repeat;
+          background-size: 90% auto;
+          z-index: -1;
+        }
       }
     }
   }
@@ -2129,8 +2133,24 @@ i {
   .model-main {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    width: 100%;
+    width: calc(100% + 30px);
+    max-width: none;
+    margin-left: -15px;
+    margin-right: -15px;
     margin-top: clamp(20px, 2.5vw, 40px);
+
+    @media (max-width: 359px) {
+      width: calc(100% + 20px);
+      margin-left: -10px;
+      margin-right: -10px;
+    }
+
+    @media (min-width: 1024px) {
+      width: 100%;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 
   .model-table {

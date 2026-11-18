@@ -198,14 +198,15 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
         <h2 class="text-[#4A74B8] text-xl md:text-3xl font-black mb-[32px] md:mb-10 tracking-wider text-center">
           {content.fee.title}
         </h2>
-        <div class="w-full max-w-[1100px] mx-auto px-4">
+        <div class="w-full max-w-[1100px] mx-auto">
           <div class="space-y-3 md:space-y-4">
             {content.fee.cards.map((card) => (
-              <div class="bg-white border border-[#4570B6] rounded-2xl p-5 md:p-8 flex flex-row justify-between items-center transition-all group shadow-sm hover:shadow-md">
-                <div class="text-[#6D6E71] text-base md:text-3xl font-bold">
-                  {card.title}
-                </div>
-                <div class="text-[#F59E0B] -ml-[60px] sm:ml-0 flex-1 font-bold tracking-tight text-right group-hover:scale-105 transition-transform">
+              <div class="bg-white border border-[#4570B6] rounded-2xl p-5 md:p-8 flex flex-row justify-between items-center gap-2 transition-all group shadow-sm hover:shadow-md">
+                <div
+                  class="text-[#6D6E71] text-base md:text-3xl font-bold flex-shrink-0"
+                  set:html={card.title.replace("ICL植入式", 'ICL植入式<br class="md:hidden" />')}
+                />
+                <div class="text-[#F59E0B] flex-1 font-bold tracking-tight text-right group-hover:scale-105 transition-transform">
                   <span class="text-2xl md:text-5xl">{card.currency}</span>
                   <span class="text-lg min-[360px]:text-2xl md:text-6xl md:pb-2">
                     {card.price}
@@ -360,12 +361,20 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
         </p>
 
         <div class="icl-peculiarity-list" id="iclPeculiarityList" role="region" aria-label="EVO Visian ICL 7大特色">
+          {content.peculiarity.items.map((_, idx) => (
+            <input
+              type="radio"
+              name="icl-feature-radio"
+              id={`icl-feature-radio-${idx}`}
+              class="sr-only"
+            />
+          ))}
           {content.peculiarity.items.map((item, idx) => (
-            <div
-              class="icl-peculiarity-list-item"
+            <label
+              for={`icl-feature-radio-${idx}`}
+              class:list={["icl-peculiarity-list-item", `icl-peculiarity-item-${idx + 1}`]}
               data-feature-index={idx}
               tabindex="0"
-              role="button"
               aria-label={`${item.title} (feature ${item.footerNum})`}
             >
               <h4>{item.tag}</h4>
@@ -402,7 +411,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
                 <p>feature</p>
                 <p>{item.footerNum}</p>
               </div>
-            </div>
+            </label>
           ))}
         </div>
       </div>
@@ -539,9 +548,18 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
       <h2 id="suitable-heading" class="sr-only">
         {content.suitable.title}
       </h2>
-      <div class="SuitableObject-container">
+      <div class="SuitableObject-container site-container">
+        {content.suitable.items.map((_, idx) => (
+          <input
+            type="radio"
+            name="icl-suitable-radio"
+            id={`icl-suitable-radio-${idx}`}
+            class="sr-only"
+          />
+        ))}
         {content.suitable.items.map((item, idx) => (
-          <div
+          <label
+            for={`icl-suitable-radio-${idx}`}
             class:list={["SuitableObject-item", `SuitableObject-item-${idx + 1}`]}
             data-number={idx + 1}
             tabindex="0"
@@ -568,10 +586,10 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
               alt={item.desc.join('')}
               title={item.desc.join('')}
               loading="lazy"
-              width="384"
-              height="640"
+              width="386"
+              height="731"
             />
-          </div>
+          </label>
         ))}
         {/* Mobile 6th cell in 3x2 grid */}
         <div class="SuitableObject-speical" aria-hidden="true">

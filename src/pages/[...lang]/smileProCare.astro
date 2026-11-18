@@ -359,9 +359,19 @@ const currentUrl = isCn ? "/cn/smileProCare" : "/smileProCare";
       padding-bottom: 24px;
 
       .care-table {
+        width: calc(100% + 30px);
+        margin-left: -15px;
+        margin-right: -15px;
         font-size: clamp(12px, 3.58vw, 20px);
 
+        @media (max-width: 359px) {
+          width: calc(100% + 20px);
+          margin-left: -10px;
+          margin-right: -10px;
+        }
+
         table {
+          width: 100%;
           min-width: 436px;
           white-space: nowrap;
         }
@@ -610,7 +620,14 @@ const currentUrl = isCn ? "/cn/smileProCare" : "/smileProCare";
         padding-bottom: 60px;
 
         .care-table {
+          width: 100%;
+          margin-left: 0;
+          margin-right: 0;
           font-size: 20px;
+
+          table {
+            width: auto;
+          }
 
           thead th {
             font-size: 20px;

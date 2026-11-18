@@ -319,40 +319,31 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
                   </td>
                 ))}
               </tr>
-              <tr class="custom-comparison-table-extra">
-                <td></td>
-                <td colspan="8">
-                  <div>
-                    <span set:html={fee.table1.rows.smileXtraTitle} />
-                  </div>
-                </td>
-              </tr>
-              <tr class="custom-comparison-table-extraTwo">
-                <td></td>
-                <td colspan="8">
-                  <div>
-                    <div>{fee.table1.rows.singleEye}</div>
-                    <div>{fee.table1.rows.bothEyes}</div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="custom-comparison-table-extraThree">
-                <td></td>
-                <td colspan="8">
-                  <div>
-                    <div>{fee.table1.rows.xtraSinglePrice}</div>
-                    <div>{fee.table1.rows.xtraBothPrice}</div>
-                  </div>
-                </td>
-              </tr>
             </tbody>
           </table>
         </section>
 
+        {/* 獨立板塊：SMILE XTRA 角膜膠原交聯術（佈局與上方橫滾表格解耦，移動端不橫向滾動） */}
+        <div class="smile-xtra-section site-container">
+          <div class="smile-xtra-box">
+            <div class="smile-xtra-header">
+              <span class="smile-xtra-title" data-badge={isCn ? "额外项目" : "額外項目"} set:html={fee.table1.rows.smileXtraTitle} />
+            </div>
+            <div class="smile-xtra-sub">
+              <div>{fee.table1.rows.singleEye}</div>
+              <div>{fee.table1.rows.bothEyes}</div>
+            </div>
+            <div class="smile-xtra-prices">
+              <div>{fee.table1.rows.xtraSinglePrice}</div>
+              <div>{fee.table1.rows.xtraBothPrice}</div>
+            </div>
+          </div>
+        </div>
+
         {/* 表格二：老花矯視 */}
         <section id="table2" class="smilepro-difference smilepro-difference-two">
           <div class="site-container">
-            <h2 class="clear-title font-black tracking-wider text-primary">
+            <h2 class="clear-title text-center font-black tracking-wider text-primary">
               {fee.table2.title}
             </h2>
           </div>
@@ -587,6 +578,7 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
 .clear-title {
   font-size: 20px;
   margin-bottom: 40px;
+  text-align: center;
 }
 .clear-head {
   color: #4570b6 !important;
@@ -897,113 +889,6 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
       img {
         margin: 0 auto;
         width: 21px;
-      }
-    }
-    .custom-comparison-table tbody .custom-comparison-table-extra td,
-    .custom-comparison-table tbody .custom-comparison-table-extraTwo td,
-    .custom-comparison-table tbody .custom-comparison-table-extraThree td {
-      border-bottom: none;
-    }
-    .custom-comparison-table
-      tbody
-      .custom-comparison-table-extra
-      td:nth-child(1),
-    .custom-comparison-table
-      tbody
-      .custom-comparison-table-extraTwo
-      td:nth-child(1),
-    .custom-comparison-table
-      tbody
-      .custom-comparison-table-extraThree
-      td:nth-child(1) {
-      background: none;
-    }
-    .custom-comparison-table tbody .custom-comparison-table-extraTwo {
-      height: 31px;
-    }
-    .custom-comparison-table
-      tbody
-      .custom-comparison-table-extra
-      td:nth-child(2) {
-      background: #8fd3ea;
-      color: #fff;
-      text-align: center;
-      font-family: "Poppins", sans-serif;
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 116.164%;
-      div {
-        position: relative;
-        span {
-          position: relative;
-          padding-left: 55px;
-        }
-        span::after {
-          position: absolute;
-          left: 0px;
-          top: -20px;
-          content: "額外項目";
-          background: white;
-          padding: 5px;
-          border-radius: 5px;
-          color: #8fd3ea;
-          text-align: center;
-          font-family: "Noto Sans HK";
-          font-size: 12px;
-          font-style: normal;
-          font-weight: 700;
-          line-height: 120.359%;
-          transform: rotate(-15deg);
-        }
-        span::before {
-          content: "";
-          position: absolute;
-          left: 46px;
-          top: -1px;
-          width: 0;
-          height: 0;
-          transform: rotate(-15deg);
-          border-left: 8px solid transparent;
-          border-top: 8px solid white;
-        }
-      }
-    }
-    .custom-comparison-table
-      tbody
-      .custom-comparison-table-extraTwo
-      td:nth-child(2) {
-      background: #e9f9ff;
-      div {
-        display: flex;
-        justify-content: space-around;
-        color: #4570b6;
-        text-align: center;
-        font-family: "Noto Sans HK";
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 110.333%;
-        letter-spacing: 2.8px;
-      }
-    }
-    .custom-comparison-table
-      tbody
-      .custom-comparison-table-extraThree
-      td:nth-child(2) {
-      background: #fff;
-      border-bottom: 1px solid #d0d0d0;
-      div {
-        display: flex;
-        justify-content: space-around;
-        color: #60605f;
-        text-align: center;
-        font-family: "Noto Sans HK";
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 82.75%;
-        letter-spacing: 0.7px;
       }
     }
     .custom-comparison-table tbody tr > td:nth-child(1) {
@@ -1490,113 +1375,6 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
         margin: 0 auto;
       }
     }
-    .custom-comparison-table tbody .custom-comparison-table-extra td,
-    .custom-comparison-table tbody .custom-comparison-table-extraTwo td,
-    .custom-comparison-table tbody .custom-comparison-table-extraThree td {
-      border-bottom: none;
-    }
-    .custom-comparison-table
-      tbody
-      .custom-comparison-table-extra
-      td:nth-child(1),
-    .custom-comparison-table
-      tbody
-      .custom-comparison-table-extraTwo
-      td:nth-child(1),
-    .custom-comparison-table
-      tbody
-      .custom-comparison-table-extraThree
-      td:nth-child(1) {
-      background: none;
-    }
-    .custom-comparison-table tbody .custom-comparison-table-extraTwo td {
-      height: 60px;
-    }
-    .custom-comparison-table
-      tbody
-      .custom-comparison-table-extra
-      td:nth-child(2) {
-      background: #8fd3ea;
-      color: #fff;
-      text-align: center;
-      font-family: "Poppins", sans-serif;
-      font-size: 20px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 130%;
-      height: 148px;
-      div {
-        position: relative;
-        span {
-          position: relative;
-        }
-        span::after {
-          position: absolute;
-          left: -83px;
-          top: -26px;
-          content: "額外項目";
-          background: white;
-          padding: 8px;
-          border-radius: 5px;
-          color: #8fd3ea;
-          text-align: center;
-          font-family: "Noto Sans HK";
-          font-size: 15.542px;
-          font-style: normal;
-          font-weight: 700;
-          line-height: 130%;
-          transform: rotate(-15deg);
-        }
-        span::before {
-          content: "";
-          position: absolute;
-          left: -25px;
-          top: 2px;
-          width: 0;
-          height: 0;
-          transform: rotate(-15deg);
-          border-left: 15px solid transparent;
-          border-top: 15px solid white;
-        }
-      }
-    }
-    .custom-comparison-table
-      tbody
-      .custom-comparison-table-extraTwo
-      td:nth-child(2) {
-      background: #e9f9ff;
-      div {
-        display: flex;
-        justify-content: space-around;
-        color: #4570b6;
-        text-align: center;
-        font-family: "Noto Sans HK";
-        font-size: 20px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 150%;
-        letter-spacing: 4px;
-      }
-    }
-    .custom-comparison-table
-      tbody
-      .custom-comparison-table-extraThree
-      td:nth-child(2) {
-      background: #fff;
-      border-bottom: 1px solid #d0d0d0;
-      div {
-        display: flex;
-        justify-content: space-around;
-        color: #60605f;
-        text-align: center;
-        font-family: "Noto Sans HK";
-        font-size: 20px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 112.5%;
-        letter-spacing: 1px;
-      }
-    }
     .custom-comparison-table tbody tr > td:nth-child(1) {
       color: #4570b6;
       text-align: center;
@@ -1747,6 +1525,148 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
         width: 30px;
         height: 30px;
       }
+    }
+  }
+}
+
+// 獨立板塊：SMILE XTRA 角膜膠原交聯術（與上方橫滾表格佈局解耦，移動端全寬不橫滾，PC 端對齊表格第 2~9 欄）
+.smile-xtra-section {
+  position: relative;
+  z-index: 2;
+
+  .smile-xtra-box {
+    width: 100%;
+  }
+
+  .smile-xtra-header {
+    background: #8fd3ea;
+    color: #fff;
+    text-align: center;
+    font-family: "Poppins", var(--font-hk), sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.3;
+    padding: 22px 12px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .smile-xtra-title {
+    position: relative;
+    display: inline-block;
+    padding-left: 56px;
+
+    &::after {
+      content: attr(data-badge);
+      position: absolute;
+      left: 0;
+      top: -14px;
+      background: #fff;
+      padding: 4px 6px;
+      border-radius: 5px;
+      color: #8fd3ea;
+      font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.2;
+      transform: rotate(-15deg);
+      white-space: nowrap;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 44px;
+      top: 4px;
+      width: 0;
+      height: 0;
+      transform: rotate(-15deg);
+      border-left: 8px solid transparent;
+      border-top: 8px solid #fff;
+    }
+  }
+
+  .smile-xtra-sub {
+    background: #e9f9ff;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    text-align: center;
+    min-height: 36px;
+    padding: 6px 0;
+    color: #4570b6;
+    font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: 2.8px;
+  }
+
+  .smile-xtra-prices {
+    background: #fff;
+    border-bottom: 1px solid #d0d0d0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    text-align: center;
+    min-height: 54px;
+    padding: 12px 0;
+    color: #60605f;
+    font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.7px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+
+    .smile-xtra-box {
+      grid-column: 2 / -1;
+    }
+
+    .smile-xtra-header {
+      height: 148px;
+      padding: 0 16px;
+      font-size: 20px;
+    }
+
+    .smile-xtra-title {
+      padding-left: 0;
+
+      &::after {
+        left: -83px;
+        top: -26px;
+        padding: 8px;
+        font-size: 15.542px;
+        line-height: 1.3;
+      }
+
+      &::before {
+        left: -25px;
+        top: 2px;
+        border-left-width: 15px;
+        border-top-width: 15px;
+      }
+    }
+
+    .smile-xtra-sub {
+      height: 60px;
+      padding: 0;
+      font-size: 20px;
+      line-height: 1.5;
+      letter-spacing: 4px;
+    }
+
+    .smile-xtra-prices {
+      height: 82px;
+      padding: 0;
+      font-size: 20px;
+      line-height: 1.2;
+      letter-spacing: 1px;
     }
   }
 }

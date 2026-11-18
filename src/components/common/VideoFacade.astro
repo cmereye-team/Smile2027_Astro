@@ -42,10 +42,11 @@ const paramsSuffix = existingParams ? `&${existingParams}` : "";
 const finalIframeSrc = `https://www.youtube-nocookie.com/embed/${cleanId}?autoplay=1&rel=0${paramsSuffix}`;
 
 const posterUrl = `https://i.ytimg.com/vi/${cleanId}/maxresdefault.jpg`;
+const sdPosterUrl = `https://i.ytimg.com/vi/${cleanId}/sddefault.jpg`;
 const fallbackPosterUrl = `https://i.ytimg.com/vi/${cleanId}/hqdefault.jpg`;
 ---
 
-<div class:list={["video-facade-container relative w-full h-full aspect-video bg-black overflow-hidden", className]}>
+<div class:list={["video-facade-container relative w-full h-full aspect-video bg-black overflow-hidden select-none", className]}>
   <button
     type="button"
     class="video-facade-btn group relative block w-full h-full p-0 m-0 border-0 bg-transparent cursor-pointer text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4570b6]"
@@ -55,41 +56,81 @@ const fallbackPosterUrl = `https://i.ytimg.com/vi/${cleanId}/hqdefault.jpg`;
   >
     <img
       src={posterUrl}
-      onerror={`this.onerror=null;this.src='${fallbackPosterUrl}';`}
+      data-sd-src={sdPosterUrl}
+      data-hq-src={fallbackPosterUrl}
+      onerror="if(!this.dataset.fb){this.dataset.fb='sd';this.src=this.dataset.sdSrc;}else if(this.dataset.fb==='sd'){this.dataset.fb='hq';this.src=this.dataset.hqSrc;}"
+      onload="if(this.naturalWidth<=120){if(!this.dataset.fb){this.dataset.fb='sd';this.src=this.dataset.sdSrc;}else if(this.dataset.fb==='sd'){this.dataset.fb='hq';this.src=this.dataset.hqSrc;}}"
       alt={title}
       title={title}
       loading={loading}
       decoding="async"
       width="1280"
       height="720"
-      class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+      class="video-facade-poster w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
     />
-    <span class="absolute inset-0 bg-black/20 group-hover:bg-black/35 transition-colors flex items-center justify-center">
-      <span class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#c13550] text-white flex items-center justify-center shadow-lg transition-transform duration-200 group-hover:scale-110">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          class="w-6 h-6 md:w-7 md:h-7 ml-1"
-          aria-hidden="true"
-        >
-          <path d="M8 5v14l11-7z" />
-        </svg>
-      </span>
-    </span>
-    {title && (
-      <span class="video-facade-title-overlay absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/45 to-transparent pt-8 pb-3 px-3 md:pb-4 md:px-5 pointer-events-none flex items-end">
-        <span class="text-white text-xs sm:text-sm md:text-base font-medium line-clamp-2 drop-shadow-md text-left">
+
+    {/* 頂部模擬 YouTube 原生標題列 (漸層遮罩 + 頻道圓標 + 標題 + 分享圖標) */}
+    <span class="video-facade-top-bar absolute inset-x-0 top-0 bg-gradient-to-b from-black/80 via-black/40 to-transparent pt-3 pb-8 px-3 md:pt-4 md:pb-10 md:px-4 pointer-events-none flex items-center justify-between gap-3">
+      <span class="flex items-center gap-2.5 min-w-0">
+        <span class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#4570b6] border border-white/80 flex items-center justify-center flex-shrink-0 shadow-sm text-white font-bold text-[10px] md:text-xs tracking-tighter" aria-hidden="true">
+          CMER
+        </span>
+        <span class="text-white text-xs sm:text-sm md:text-[17px] font-medium leading-snug line-clamp-1 drop-shadow-[0_1px_3px_rgba(0,0,0,0.85)]">
           {title}
         </span>
       </span>
-    )}
+      <span class="hidden sm:flex items-center justify-center w-8 h-8 text-white/90 flex-shrink-0 drop-shadow" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+          <path d="M15 5.63 20.66 12 15 18.37V14h-1c-3.96 0-7.14 1-9.75 3.09 1.84-4.07 5.11-6.4 9.89-7.1l.86-.13V5.63M14 3v6C6.22 10.13 3.11 15.33 2 21c2.78-3.97 6.44-6 12-6v6l8-9-8-9z" />
+        </svg>
+      </span>
+    </span>
+
+    {/* 正中央標準 YouTube 圓角矩形播放按鈕 (68×48 官方比例) */}
+    <span class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 68 48"
+        class="w-[56px] h-[40px] md:w-[68px] md:h-[48px] drop-shadow-[0_4px_14px_rgba(0,0,0,0.45)] transition-transform duration-200 ease-out group-hover:scale-110"
+        aria-hidden="true"
+      >
+        <path
+          d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"
+          fill="#FF0000"
+          class="transition-colors duration-200 group-hover:fill-[#e60000]"
+        />
+        <path d="M45 24 27 14v20" fill="#ffffff" />
+      </svg>
+    </span>
+
+    {/* 左下角模擬「Watch on YouTube」高質感銘牌 */}
+    <span class="absolute left-0 bottom-3 md:bottom-4 bg-black/80 text-white px-3 py-1.5 md:px-3.5 md:py-2 rounded-r-[2px] flex items-center gap-1.5 pointer-events-none shadow-md" aria-hidden="true">
+      <span class="text-[11px] md:text-xs font-normal tracking-wide text-white/95 leading-none">觀看影片於</span>
+      <svg viewBox="0 0 90 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-3.5 md:h-4 w-auto">
+        <path d="M27.97 3.12A3.57 3.57 0 0 0 25.45.6C23.22 0 14.29 0 14.29 0S5.35 0 3.12.6A3.57 3.57 0 0 0 .6 3.12C0 5.35 0 10 0 10s0 4.65.6 6.88a3.57 3.57 0 0 0 2.52 2.52C5.35 20 14.29 20 14.29 20s8.93 0 11.16-.6a3.57 3.57 0 0 0 2.52-2.52C28.57 14.65 28.57 10 28.57 10s0-4.65-.6-6.88Z" fill="#FF0000"/>
+        <path d="M11.43 14.29 18.85 10l-7.42-4.29v8.58Z" fill="#FFFFFF"/>
+        <text x="33" y="14.5" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="12.5" font-weight="700" letter-spacing="-0.4">YouTube</text>
+      </svg>
+    </span>
+
     <span class="sr-only">{title}</span>
   </button>
 </div>
 
 <script>
   function setupVideoFacades() {
+    document.querySelectorAll<HTMLImageElement>(".video-facade-poster").forEach((img) => {
+      if (img.complete && img.naturalWidth <= 120) {
+        if (!img.dataset.fb && img.dataset.sdSrc) {
+          img.dataset.fb = "sd";
+          img.src = img.dataset.sdSrc;
+        } else if (img.dataset.fb === "sd" && img.dataset.hqSrc) {
+          img.dataset.fb = "hq";
+          img.src = img.dataset.hqSrc;
+        }
+      }
+    });
+
     document.querySelectorAll<HTMLButtonElement>(".video-facade-btn").forEach((btn) => {
       if (btn.dataset.bound) return;
       btn.dataset.bound = "true";

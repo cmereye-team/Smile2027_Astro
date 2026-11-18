@@ -694,7 +694,7 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 20px;
       margin-top: 28px;
-      padding: 0;
+      padding: 0 0 24px;
       list-style: none;
 
       li {
@@ -706,6 +706,10 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
         aspect-ratio: 1 / 1;
         border-radius: 50%;
         border: 1px solid #4570b6;
+
+        &:nth-child(even) {
+          transform: translateY(24px);
+        }
 
         img {
           width: 86%;
@@ -818,19 +822,20 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
           content: "";
           width: 16px;
           height: 1px;
-          background: #4570b6;
+          background: rgba(69, 112, 182, 0.55);
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
           left: 100%;
-          z-index: -1;
+          z-index: 2;
+          pointer-events: none;
         }
       }
 
       & > .CorrectedVisionBefore-Process-item:nth-child(1) {
         background: url("https://statichk.cmermedical.com/smile/patient-info/CorrectedVisionBefore-Process-bg1.avif")
           no-repeat center;
-        background-size: 100% 100%;
+        background-size: contain;
 
         .CorrectedVisionBefore-Process-item-content {
           width: 52px;
@@ -841,7 +846,7 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
       & > .CorrectedVisionBefore-Process-item:nth-child(2) {
         background: url("https://statichk.cmermedical.com/smile/patient-info/CorrectedVisionBefore-Process-bg2.avif")
           no-repeat center;
-        background-size: 100% 100%;
+        background-size: contain;
 
         .CorrectedVisionBefore-Process-item-content {
           width: 48px;
@@ -852,19 +857,20 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
           content: "";
           width: 1px;
           height: 36px;
-          background: #4570b6;
+          background: rgba(69, 112, 182, 0.55);
           position: absolute;
           left: 50%;
           transform: translateX(-50%);
           top: 100%;
-          z-index: -1;
+          z-index: 2;
+          pointer-events: none;
         }
       }
 
       & > .CorrectedVisionBefore-Process-item:nth-child(3) {
         background: url("https://statichk.cmermedical.com/smile/patient-info/CorrectedVisionBefore-Process-bg3.avif")
           no-repeat center;
-        background-size: 100% 100%;
+        background-size: contain;
 
         .CorrectedVisionBefore-Process-item-content {
           width: 64px;
@@ -875,7 +881,7 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
       & > .CorrectedVisionBefore-Process-item:nth-child(4) {
         background: url("https://statichk.cmermedical.com/smile/patient-info/CorrectedVisionBefore-Process-bg4.avif")
           no-repeat center;
-        background-size: 100% 100%;
+        background-size: contain;
 
         .CorrectedVisionBefore-Process-item-content {
           width: 30px;
@@ -919,6 +925,10 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
         p {
           margin: 0;
         }
+      }
+
+      & > div:first-child {
+        padding: 16px 5px;
       }
     }
 
@@ -1073,7 +1083,7 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
 
       .visionProcess-Notice-Card {
         width: 100%;
-        padding: 24px 16px;
+        padding: 24px 10px;
         border-radius: 20px;
         border: 1px solid #4570b6;
         background: #fff;
@@ -1173,16 +1183,16 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
       }
 
       ul {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 28px 24px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 24px 20px;
         padding: 0;
         margin: 0;
         list-style: none;
+        container-type: inline-size;
 
         li {
-          width: 96px;
+          width: 100%;
           position: relative;
           display: flex;
           flex-direction: column;
@@ -1191,12 +1201,11 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
           &::after {
             content: "";
             position: absolute;
-            top: 48px;
-            right: -16px;
-            transform: translateY(-50%);
+            top: min(calc((100cqi - 40px) / 6), 48px);
+            right: -10px;
+            transform: translate(50%, -50%);
             background: url("https://statichk.cmermedical.com/smile/patient-info/section-last-toright.svg")
-              no-repeat;
-            background-size: 100% auto;
+              no-repeat center / contain;
             width: 8px;
             height: 14px;
           }
@@ -1205,14 +1214,17 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 96px;
-            height: 96px;
+            width: 100%;
+            max-width: 96px;
+            aspect-ratio: 1 / 1;
+            height: auto;
             border-radius: 50%;
             border: 1px solid #4570b6;
             background: #fff;
 
             img {
-              width: 48px;
+              width: 52%;
+              height: auto;
             }
           }
 
@@ -1228,14 +1240,14 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
             margin-top: 4px;
             color: #4570b6;
             font-family: var(--font-hk), "Noto Sans HK", sans-serif;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 400;
             line-height: 1.4;
             text-align: center;
           }
         }
 
-        & > li:nth-child(3)::after,
+        & > li:nth-child(3n)::after,
         & > li:last-child::after {
           content: none;
         }
@@ -1520,7 +1532,26 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
       .check-eye-list {
         grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: clamp(20px, 2.5vw, 40px);
-        margin-top: 32px;
+        margin-top: 56px;
+        padding-bottom: 32px;
+
+        li {
+          &:nth-child(1) {
+            transform: translateY(-28px);
+          }
+
+          &:nth-child(2) {
+            transform: translateY(20px);
+          }
+
+          &:nth-child(3) {
+            transform: translateY(-16px);
+          }
+
+          &:nth-child(4) {
+            transform: translateY(28px);
+          }
+        }
       }
     }
 
@@ -1567,13 +1598,14 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
         gap: 48px 80px;
 
         .CorrectedVisionBefore-Process-item {
-          padding: 36px 32px;
+          min-height: 300px;
+          padding: 40px 32px;
           gap: 16px;
 
           .CorrectedVisionBefore-Process-item-icon {
             width: 88px;
             left: 16px;
-            top: -32px;
+            top: -16px;
           }
         }
 
@@ -1617,7 +1649,8 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
       .CorrectedVisionBefore-suitable {
         margin: 0 0 36px;
 
-        div {
+        div,
+        & > div:first-child {
           padding: 24px 32px;
 
           h3 {
@@ -1801,6 +1834,7 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
         }
 
         ul {
+          display: flex;
           flex-wrap: nowrap;
           justify-content: space-between;
           gap: 0;
@@ -1821,6 +1855,7 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
 
             & > div {
               width: 100%;
+              max-width: none;
               height: auto;
               aspect-ratio: 1 / 1;
 

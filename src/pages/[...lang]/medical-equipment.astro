@@ -28,8 +28,6 @@ const breadcrumbItems = [
     url: isCn ? "/cn/medical-equipment" : "/medical-equipment",
   },
 ];
-
-const toggleMoreLabel = isCn ? "了解更多" : "了解更多";
 ---
 
 <BaseLayout tdkKey="equipment">
@@ -66,7 +64,6 @@ const toggleMoreLabel = isCn ? "了解更多" : "了解更多";
         <span>{content.sectionTitle}</span>
       </h2>
 
-      {/* 2. 中心設備展示網格 */}
       <div class="equipment-items" id="equipment-grid">
         {
           content.items.map((item, index) => (
@@ -75,14 +72,9 @@ const toggleMoreLabel = isCn ? "了解更多" : "了解更多";
               data-equipment-id={item.id}
               data-category={item.category}
               data-mobile-hidden={index >= 8 ? "true" : "false"}
-              tabindex="0"
-              role="button"
-              aria-expanded="false"
-              aria-label={`${item.alt} - ${content.toggleAriaLabel}`}
             >
-              <div class="equipment-card-inner">
-                {/* E3: Fixed 4:3 Image Container on White Background */}
-                <div class="equipment-img-container">
+              <div class="equipment-card-face">
+                <div class="equipment-img-wrap">
                   <img
                     src={item.img}
                     alt={item.alt}
@@ -92,45 +84,47 @@ const toggleMoreLabel = isCn ? "了解更多" : "了解更多";
                     decoding="async"
                   />
                 </div>
-
-                {/* E4: Unified Name Plate inside card */}
-                <div class="equipment-name-plate">
+                <div class="equipment-name">
+                  <button
+                    type="button"
+                    class="equipment-name-up"
+                    aria-expanded="false"
+                    aria-label={`${content.toggleAriaLabel}：${item.alt}`}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="50"
+                      height="49"
+                      viewBox="0 0 50 49"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <rect width="50" height="49" rx="11" fill="#4570B6" />
+                      <path
+                        d="M16 19.6515L24.4784 9.84839C24.8693 9.3964 25.5667 9.3859 25.9711 9.82592L35 19.6515"
+                        stroke="white"
+                        stroke-width="5"
+                        stroke-linecap="round"
+                      />
+                      <path
+                        d="M25.2124 9.28516V31.7397"
+                        stroke="white"
+                        stroke-width="5"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </button>
                   <div class={`equipment-name-text equipment-${item.id}`}>
                     {item.nameLines.map((line) => (
                       <span set:html={line} />
                     ))}
                   </div>
                 </div>
+              </div>
 
-                {/* E2: Excerpt + Expanded details */}
-                <div class="equipment-content-body">
-                  <div class="equipment-remark-wrap">
-                    <p class="equipment-remark-text line-clamp-2">
-                      {item.remark}
-                    </p>
-                    <p class="equipment-source-text hidden">
-                      {item.source}
-                    </p>
-                  </div>
-                  <div class="equipment-toggle-indicator">
-                    <span class="toggle-text">{toggleMoreLabel}</span>
-                    <svg
-                      class="toggle-chevron"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      aria-hidden="true"
-                    >
-                      <polyline points="6 9 12 15 18 9" />
-                    </svg>
-                  </div>
-                </div>
+              <div class="equipment-remark">
+                <div>{item.remark}</div>
+                <div>{item.source}</div>
               </div>
             </article>
           ))
@@ -149,70 +143,53 @@ const toggleMoreLabel = isCn ? "了解更多" : "了解更多";
     const cards = Array.from(
       document.querySelectorAll<HTMLElement>(".equipment-card")
     );
-    const moreBtn = document.getElementById("equipment-more-btn") as HTMLButtonElement | null;
+    cards.forEach((card) => {
+      const btn = card.querySelector<HTMLButtonElement>(".equipment-name-up");
+      const namePlate = card.querySelector<HTMLElement>(".equipment-name");
+      const remark = card.querySelector<HTMLElement>(".equipment-remark");
 
-    let visibleCount = 8;
-
-    function isMobile() {
-      return window.innerWidth < 768;
-    }
-
-    function updateCardVisibility() {
-      const isMob = isMobile();
-
-      cards.forEach((card, index) => {
-        if (isMob && index >= visibleCount) {
-          card.setAttribute("data-mobile-hidden", "true");
-        } else {
-          card.setAttribute("data-mobile-hidden", "false");
-        }
-      });
-
-      if (moreBtn) {
-        if (!isMob || cards.length <= visibleCount) {
-          moreBtn.style.display = "none";
-        } else {
-          moreBtn.style.display = "block";
+      function toggle() {
+        const isOpen = card.classList.toggle("is-open");
+        if (btn) {
+          btn.setAttribute("aria-expanded", String(isOpen));
         }
       }
-    }
 
-    // Mobile "觀看更多" button
+      if (btn) {
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          toggle();
+        });
+      }
+
+      if (namePlate) {
+        namePlate.addEventListener("click", () => {
+          toggle();
+        });
+      }
+
+      if (remark) {
+        remark.addEventListener("click", () => {
+          toggle();
+        });
+      }
+    });
+
+    const moreBtn = document.getElementById("equipment-more-btn") as HTMLButtonElement | null;
     if (moreBtn) {
+      let visibleCount = 8;
       moreBtn.addEventListener("click", () => {
         visibleCount += 8;
-        updateCardVisibility();
+        cards.forEach((card, idx) => {
+          if (idx < visibleCount) {
+            card.setAttribute("data-mobile-hidden", "false");
+          }
+        });
+        if (visibleCount >= cards.length) {
+          moreBtn.style.display = "none";
+        }
       });
     }
-
-    // Card click & keyboard expand/collapse
-    cards.forEach((card) => {
-      function toggleCard() {
-        const isOpen = card.classList.toggle("is-open");
-        card.setAttribute("aria-expanded", String(isOpen));
-        const toggleText = card.querySelector<HTMLElement>(".toggle-text");
-        if (toggleText) {
-          toggleText.textContent = isOpen ? "收起" : "了解更多";
-        }
-      }
-
-      card.addEventListener("click", () => {
-        toggleCard();
-      });
-
-      card.addEventListener("keydown", (e: KeyboardEvent) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          toggleCard();
-        }
-      });
-    });
-
-    window.addEventListener("resize", () => {
-      updateCardVisibility();
-    });
-
-    updateCardVisibility();
   }
 
   initEquipmentPage();
@@ -254,204 +231,46 @@ const toggleMoreLabel = isCn ? "了解更多" : "了解更多";
     }
   }
 
-  /* Equipment Grid & Cards */
-  .equipment-items {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px 14px;
-  }
-
-  @media screen and (min-width: 768px) {
-    .equipment-items {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 32px 24px;
-    }
-  }
-
-  @media screen and (min-width: 1024px) {
-    .equipment-items {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 40px 32px;
-    }
-  }
-
-  .equipment-card {
-    width: 100%;
-    border-radius: 20px;
-    background: #fff;
-    border: 1px solid #e2edfb;
-    box-shadow: 0 4px 16px rgba(69, 112, 182, 0.06);
-    overflow: hidden;
+  .equipment-name-up {
+    background: transparent;
+    border: 0;
+    padding: 0;
     cursor: pointer;
-    transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
-    display: flex;
-    flex-direction: column;
-    outline: none;
+    display: block;
 
-    &:hover,
-    &:focus-visible {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 24px rgba(69, 112, 182, 0.12);
-      border-color: #a8cdff;
-    }
-
-    &:focus-visible {
-      box-shadow: 0 0 0 2px #4570b6, 0 10px 24px rgba(69, 112, 182, 0.12);
+    svg {
+      transition: transform var(--dur-slow) var(--ease-out);
     }
   }
 
-  .equipment-card-inner {
+  .equipment-remark {
+    display: none;
+    opacity: 0;
+    transition: opacity var(--dur-slow) var(--ease-out);
+  }
+
+  .equipment-card.is-open .equipment-remark {
     display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-
-  /* E3: Fixed 4:3 Image Container */
-  .equipment-img-container {
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-    box-sizing: border-box;
-    border-bottom: 1px solid #f0f4fa;
-
-    img {
-      max-width: 100%;
-      max-height: 100%;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      transition: transform var(--dur) var(--ease-out);
-    }
-  }
-
-  .equipment-card:hover .equipment-img-container img {
-    transform: scale(1.03);
-  }
-
-  /* E4: Unified Name Plate inside card */
-  .equipment-name-plate {
-    background: #4570b6;
-    color: #fff;
-    padding: 12px 14px;
-    min-height: 72px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
-
-  @media screen and (min-width: 768px) {
-    .equipment-name-plate {
-      min-height: 84px;
-      padding: 14px 16px;
-    }
+    opacity: 1;
   }
 
   .equipment-name-text {
-    font-family: var(--font-hk);
-    font-size: 15px;
-    font-weight: 700;
-    line-height: 1.35;
-    letter-spacing: 0.5px;
-    width: 100%;
-
     :global(span) {
-      display: block;
+      font-size: inherit;
+      line-height: inherit;
+      color: inherit;
     }
   }
 
   @media screen and (min-width: 768px) {
-    .equipment-name-text {
-      font-size: 18px;
-    }
-  }
-
-  /* E2: Excerpt + Expanded details */
-  .equipment-content-body {
-    padding: 16px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background: #fafcff;
-  }
-
-  .equipment-remark-wrap {
-    margin-bottom: 12px;
-  }
-
-  .equipment-remark-text {
-    color: var(--color-desc, #515151);
-    font-family: var(--font-hk);
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 1.6;
-    margin: 0;
-    transition: all var(--dur) var(--ease-out);
-
-    &.line-clamp-2 {
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-  }
-
-  @media screen and (min-width: 768px) {
-    .equipment-remark-text {
-      font-size: 14px;
-      line-height: 1.7;
-    }
-  }
-
-  .equipment-source-text {
-    color: #8c9cb5;
-    font-size: 12px;
-    margin-top: 8px;
-    margin-bottom: 0;
-    padding-top: 8px;
-    border-top: 1px dashed #dce8f8;
-  }
-
-  .equipment-toggle-indicator {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 8px;
-    border-top: 1px solid #eef3fb;
-    color: #4570b6;
-    font-size: 12px;
-    font-weight: 600;
-
-    .toggle-chevron {
-      transition: transform var(--dur) var(--ease-out);
-    }
-  }
-
-  /* Expanded State */
-  .equipment-card.is-open {
-    border-color: #4570b6;
-    box-shadow: 0 8px 24px rgba(69, 112, 182, 0.15);
-
-    .equipment-remark-text.line-clamp-2 {
-      -webkit-line-clamp: unset;
-      display: block;
+    .equipment-name-text :global(br.mbShow) {
+      display: none;
     }
 
-    .equipment-source-text.hidden {
-      display: block;
+    .more-btn {
+      display: none;
     }
 
-    .toggle-chevron {
-      transform: rotate(180deg);
-    }
-  }
-
-  @media screen and (min-width: 768px) {
     .equipment-heading {
       padding-bottom: 32px;
       margin-bottom: 50px;
@@ -472,12 +291,164 @@ const toggleMoreLabel = isCn ? "了解更多" : "了解更多";
       margin-bottom: 160px;
     }
 
-    .more-btn {
-      display: none !important;
+    .equipment-items {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      justify-items: center;
+      gap: 64px 32px;
+    }
+
+    @media screen and (min-width: 1139px) {
+      .equipment-items {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        justify-content: space-between;
+        gap: 85px 36px;
+      }
+    }
+
+    @media screen and (min-width: 1310px) {
+      .equipment-items {
+        grid-template-columns: repeat(3, 387px);
+        justify-content: space-between;
+        gap: 85px 40px;
+      }
+    }
+
+    .equipment-card {
+      position: relative;
+      width: 100%;
+      max-width: 387px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .equipment-card-face {
+      width: 100%;
+      max-width: 387px;
+      height: 430px;
+      border-radius: 40px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 36px;
+      box-sizing: border-box;
+    }
+
+    .equipment-img-wrap {
+      width: 100%;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 0 12px;
+
+      img {
+        max-width: 100%;
+        max-height: 280px;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+      }
+    }
+
+    .equipment-name {
+      position: relative;
+      width: calc(100% + 15px);
+      max-width: 402px;
+
+      &::after {
+        content: "";
+        position: absolute;
+        display: block;
+        z-index: 2;
+        width: 100%;
+        height: 30px;
+        border-radius: 20px;
+        background: #a6e1d6;
+        bottom: -10px;
+        left: 0;
+      }
+    }
+
+    .equipment-name-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      width: 100%;
+      min-height: 103px;
+      border-radius: 20px;
+      background: #4570b6;
+      color: #fff;
+      text-align: center;
+      font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+      font-size: 25px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 40px;
+      letter-spacing: 2.5px;
+      z-index: 10;
+      padding: 8px 10px;
+      box-sizing: border-box;
+    }
+
+    .equipment-name-up {
+      position: absolute;
+      top: -40px;
+      right: 10px;
+      z-index: 10;
+
+      svg:hover {
+        box-shadow: 0 0 3px 3px #99b7df80;
+        border-radius: 10px;
+      }
+    }
+
+    .equipment-card.is-open .equipment-name-up svg {
+      box-shadow: 0 0 3px 3px #99b7df80;
+      border-radius: 10px;
+      transform: rotate(180deg);
+    }
+
+    .equipment-remark {
+      flex-direction: column;
+      align-items: center;
+      border-radius: 40px;
+      width: 100%;
+      padding-top: 10px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 5;
+      max-width: 387px;
+      height: 100%;
+      max-height: 340px;
+      overflow-y: auto;
+      background: #fff;
+
+      & > div {
+        color: #4570b6;
+        text-align: center;
+        font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 30px;
+        width: 90%;
+      }
     }
   }
 
   @media screen and (max-width: 767px) {
+    .equipment-name-text :global(br.mbShow) {
+      display: inline;
+    }
+
     .equipment-heading {
       display: flex;
       flex-direction: column;
@@ -497,32 +468,185 @@ const toggleMoreLabel = isCn ? "了解更多" : "了解更多";
     }
 
     .equipment-items {
-      margin-bottom: 35px;
+      margin-bottom: 55px;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 44px 12px;
     }
 
-    .equipment-card[data-mobile-hidden="true"] {
-      display: none !important;
+    .equipment-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      &[data-mobile-hidden="true"] {
+        display: none;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        z-index: 2;
+        bottom: -6px;
+        width: 96%;
+        height: 20px;
+        border-radius: 20px;
+        background: #a6e1d6;
+        display: inline-block;
+      }
     }
 
-    .more-btn {
+    .equipment-card-face {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .equipment-img-wrap {
+      padding-top: 12px;
+      margin-bottom: 62px;
+      width: 100%;
+      height: 40vw;
+      max-height: 180px;
+      background: #fff;
+      border-radius: 16px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      box-sizing: border-box;
+
+      img {
+        width: 82%;
+        max-height: 100%;
+        object-fit: contain;
+        margin: 0 auto;
+      }
+    }
+
+    .equipment-name {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 5;
+    }
+
+    .equipment-name-text {
+      border-radius: 10px;
+      background: #4570b6;
+      width: 100%;
+      min-height: 76px;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       color: #fff;
       text-align: center;
       font-family: var(--font-hk), "Noto Sans HK", sans-serif;
-      font-size: 20px;
+      font-size: clamp(12px, 3.58vw, 14px);
       font-style: normal;
       font-weight: 500;
-      line-height: 20px;
-      letter-spacing: 5px;
-      border-radius: 34.5px;
-      background: #4570b6;
-      border: 0;
-      width: 100%;
-      max-width: 353px;
-      height: 40px;
-      margin: 0 auto;
-      display: block;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(69, 112, 182, 0.2);
+      line-height: 1.38;
+      letter-spacing: 0.2px;
+      padding: 8px 6px;
+      box-sizing: border-box;
+      overflow-wrap: break-word;
+
+      &.equipment-27 {
+        font-size: clamp(11.5px, 3.2vw, 13px);
+      }
     }
+
+    .equipment-name-up {
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      right: 10px;
+      top: -17px;
+      z-index: 15;
+
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .equipment-card.is-open .equipment-name-up svg {
+      box-shadow: 0 0 3px 3px #99b7df80;
+      border-radius: 5px;
+      transform: rotate(180deg);
+    }
+
+    .equipment-remark {
+      flex-direction: column;
+      border-radius: 20px 20px 0 0;
+      padding-top: 10px;
+      position: absolute;
+      top: 0;
+      z-index: 3;
+      width: 90%;
+      height: 100%;
+      max-height: 35.89vw;
+      overflow-y: auto;
+      margin: 0 auto;
+      background: #fff;
+      justify-content: flex-start;
+
+      &::-webkit-scrollbar {
+        width: 3px;
+        height: 5px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: #cbd5e1;
+        border-radius: 10px;
+      }
+
+      & > div {
+        color: #4570b6;
+        text-align: center;
+        font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+        font-size: 2.3vw;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.4;
+        width: 100%;
+        padding-top: 10px;
+        height: max-content;
+        box-sizing: border-box;
+      }
+    }
+
+    .more-btn {
+      margin: 55px auto;
+      display: flex;
+      color: #fff;
+      text-align: center;
+      font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+      font-size: 25px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 20px;
+      letter-spacing: 7.5px;
+      background: #4570b6;
+      border-radius: 25px;
+      padding: 15px 30px 15px 35px;
+      width: fit-content;
+      border: 0;
+      cursor: pointer;
+    }
+  }
+
+  :global(html[lang="zh-cn"]) .equipment-heading :global(span),
+  :global(html[lang="zh-cn"]) .equipment-name-text,
+  :global(html[lang="zh-cn"]) .equipment-remark > div,
+  :global(html[lang="zh-cn"]) .more-btn {
+    font-family: var(--font-sc), "Noto Sans SC", sans-serif;
   }
 </style>

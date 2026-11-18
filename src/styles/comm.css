@@ -117,27 +117,16 @@
   body {
     min-height: 100vh;
     font-family: inherit;
+    font-size: 16px;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: var(--color-desc);
     background-color: #ffffff;
     line-height: 1.6;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
-}
 
-/* 移動端漢字無特殊用意最低字號 16px */
-@media (max-width: 991px) {
-  body {
-    font-size: 16px;
-  }
-  p:not(.sr-only), span:not(.sr-only):not(.nav-dot):not(.nav-dot-placeholder) {
-    font-size: max(16px, 1em);
-  }
-}
-
-@layer base {
   /* 圖片與媒體默認防 CLS 抖動 */
   img, picture, video, canvas, svg {
     display: block;

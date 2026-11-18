@@ -220,8 +220,8 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
             </div>
             <div class="space-y-2 md:space-y-4 max-w-[1100px] mx-auto w-full">
               {group.items.map((item) => (
-                <div class="bg-white border border-[#4570B6] rounded-2xl lbv-item flex flex-row justify-between items-center transition-all group p-[10px] md:px-[50px] md:py-[40px]">
-                  <div class="text-text text-base md:text-3xl font-bold self-start md:self-center flex-shrink-0">
+                <div class="bg-white border border-[#4570B6] rounded-2xl lbv-item flex flex-row justify-between items-center gap-2 transition-all group p-[10px] md:px-[50px] md:py-[40px]">
+                  <div class="text-text text-base md:text-3xl font-bold flex-shrink-0">
                     <span set:html={item.title} />
                   </div>
                   <div class:list={[
@@ -235,9 +235,9 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
                     ) : item.note1 ? (
                       <>
                         <p class="text-[20px] md:text-5xl pb-1 md:pb-3">{item.prices[0]}</p>
-                        <p class="text-xs min-[360px]:text-sm md:text-xl font-normal text-desc" set:html={item.note1} />
+                        <p class="text-[11px] min-[375px]:text-xs md:text-xl leading-snug font-bold" set:html={item.note1} />
                         {item.note2 && (
-                          <p class="text-text text-xs min-[360px]:text-sm md:text-xl font-normal text-desc" set:html={item.note2} />
+                          <p class="text-[#6D6E71] text-[11px] min-[375px]:text-xs md:text-xl leading-snug font-bold mt-0.5" set:html={item.note2} />
                         )}
                       </>
                     ) : (

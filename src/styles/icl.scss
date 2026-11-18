@@ -8,6 +8,18 @@
 /* ==========================================================================
    0. 全域基礎重置與公用樣式 (Resets & Utilities)
    ========================================================================== */
+
+/* 共用純 CSS 自動輪播引擎 (Zero-JS Auto-Cycle Mixin)
+   統一驅動本頁：7 大特色 (7項×3s)、植入過程 (5步×3s)、合適對象 (5項×3s) */
+@mixin icl-cycle-item($anim-name, $count, $step-sec, $index) {
+  animation: #{$anim-name} #{$count * $step-sec}s infinite;
+  animation-delay: #{($index - 1) * $step-sec}s;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
 i {
   font-style: normal;
 }
@@ -619,10 +631,25 @@ h2 {
   }
 
   .model-main {
+    width: calc(100% + 30px);
+    margin-left: -15px;
+    margin-right: -15px;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     border: none;
     border-radius: 0;
+
+    @media (max-width: 359px) {
+      width: calc(100% + 20px);
+      margin-left: -10px;
+      margin-right: -10px;
+    }
+
+    @media (min-width: 1024px) {
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+    }
   }
 
   .model-table {
@@ -735,45 +762,34 @@ h2 {
    6. ICL 矯視的好處 (.icl-Good)
    ========================================================================== */
 .icl-Good {
-  margin-bottom: 60px;
-  padding-bottom: 50px;
-
   @media (min-width: 1024px) {
-    margin-bottom: 120px;
-    padding-bottom: 80px;
+    padding: 0 15px 80px;
   }
 
   .icl-Good-List {
-    margin: 49px auto 0;
+    margin: 24px auto 0;
+    width: 100%;
     max-width: 992px;
-    width: fit-content;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    justify-content: center;
+    grid-template-columns: repeat(2, 1fr);
+    border-top: 1px solid #4570b6;
+    border-left: 1px solid #4570b6;
+    box-sizing: border-box;
 
-    & > .icl-Good-List-item:nth-child(1),
-    & > .icl-Good-List-item:nth-child(2),
-    & > .icl-Good-List-item:nth-child(3) {
-      border-bottom: none;
-    }
-
-    & > .icl-Good-List-item:last-child,
-    & > .icl-Good-List-item:nth-child(3) {
-      border-right: 2px solid #4570b6;
+    @media (min-width: 1024px) {
+      margin-top: 49px;
+      grid-template-columns: repeat(3, 1fr);
+      border-top-width: 2px;
+      border-left-width: 2px;
     }
 
     .icl-Good-List-item {
-      &:first-child img {
-        height: 80px;
-      }
-
       opacity: 1;
-      aspect-ratio: 1 / 1;
-      padding-top: 82px;
-      padding-bottom: 55px;
+      min-height: 185px;
+      padding: 22px 10px;
       box-sizing: border-box;
-      border: 2px solid #4570b6;
-      border-right: none;
+      border-right: 1px solid #4570b6;
+      border-bottom: 1px solid #4570b6;
       background: #fff;
       text-align: center;
       display: flex;
@@ -782,86 +798,68 @@ h2 {
       align-items: center;
 
       img {
-        height: 68px;
+        width: 48px;
+        height: 48px;
+        object-fit: contain;
       }
 
       h3 {
-        margin-top: 18px;
-        margin-bottom: 11px;
+        margin: 14px 0 8px;
         text-align: center;
         color: #4570b6;
         font-family: var(--font-hk);
-        font-size: clamp(15px, 1.3vw, 25px);
+        font-size: 18px;
         font-style: normal;
         font-weight: 700;
-        line-height: 0.8;
-        letter-spacing: 6.25px;
+        line-height: 1.35;
+        letter-spacing: 0.5px;
       }
 
       p {
+        margin: 0;
         color: #6d6e71;
         text-align: center;
         font-family: var(--font-hk);
-        font-size: clamp(12px, 1.19vw, 23px);
+        font-size: 16px;
         font-style: normal;
         font-weight: 300;
-        line-height: 35px;
-        letter-spacing: 0.2rem;
+        line-height: 1.45;
+        letter-spacing: normal;
       }
-    }
 
-    @media screen and (max-width: 1140px) {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 0;
+      &:nth-child(6) p {
+        font-size: 14px;
+      }
 
-      .icl-Good-List-item {
-        width: 194px;
-        height: 194px;
-        border: 1.04px solid #4570b6 !important;
-        border-right: 1.04px solid #4570b6 !important;
-        border-bottom: 1.04px solid #4570b6 !important;
-        padding: 0;
-        aspect-ratio: auto;
+      @media (min-width: 1024px) {
+        aspect-ratio: 1 / 1;
+        min-height: 0;
+        padding: 48px 20px;
+        border-right-width: 2px;
+        border-bottom-width: 2px;
 
         &:first-child img {
-          width: 59px;
-          height: 44px;
+          width: auto;
+          height: 80px;
         }
 
         img {
-          width: 59px;
-          height: 44px;
+          width: auto;
+          height: 68px;
         }
 
         h3 {
-          margin-top: 25px;
-          margin-bottom: 11px;
-          font-size: 18px;
-          line-height: 0.57;
-          letter-spacing: 1.8px;
+          margin: 18px 0 11px;
+          font-size: 25px;
+          line-height: 1.3;
+          letter-spacing: 4px;
         }
 
-        p {
-          font-size: 16px;
-          line-height: 1.125;
-          letter-spacing: normal;
-        }
-      }
-    }
-
-    @media screen and (max-width: 450px) {
-      .icl-Good-List-item {
-        width: 43.58vw;
-        height: 43.58vw;
-
-        h3 {
-          font-size: 4.1vw;
-        }
-
-        p {
-          font-size: 3.5vw;
+        p,
+        &:nth-child(6) p {
+          font-size: 22px;
+          line-height: 1.6;
+          letter-spacing: 2px;
         }
       }
     }
@@ -923,7 +921,7 @@ h2 {
       border-radius: 2px;
     }
 
-    & > .icl-peculiarity-list-item:first-child {
+    & > .icl-peculiarity-item-1 {
       margin-left: 55px;
       margin-right: 55px;
       transform: rotate(20deg);
@@ -940,11 +938,12 @@ h2 {
     .icl-peculiarity-list-item {
       scroll-snap-align: center;
       flex-shrink: 0;
+      display: block;
       background: #fff;
       border: 1.159px solid #4570b6;
       border-radius: 11.591px;
       padding: 12px 11px 10px;
-      transition: all 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.3s ease, margin 0.3s ease;
       width: fit-content;
       box-sizing: border-box;
       cursor: pointer;
@@ -974,7 +973,7 @@ h2 {
         justify-content: center;
         margin-top: 6px;
         margin-bottom: 13px;
-        padding-top: 58px;
+        padding-top: 0;
         width: 100%;
         box-sizing: border-box;
 
@@ -988,14 +987,23 @@ h2 {
           text-orientation: upright;
           writing-mode: vertical-rl;
           margin: 0;
+          padding-top: 58px;
           text-align: center;
           white-space: nowrap;
+          max-width: 40px;
+          opacity: 1;
+          overflow: hidden;
         }
 
         .icl-peculiarity-list-item-text-show {
-          display: none;
+          display: flex;
           flex-direction: column;
           align-items: center;
+          padding-top: 23px;
+          max-width: 0;
+          opacity: 0;
+          visibility: hidden;
+          overflow: hidden;
 
           .icl-peculiarity-list-item-text-show-box {
             align-items: center;
@@ -1059,14 +1067,123 @@ h2 {
         .icl-peculiarity-list-item-text {
           border-top: 1px solid #fff;
           border-bottom: 1px solid #fff;
-          padding-top: 23px;
 
           .icl-peculiarity-list-item-text-title {
-            display: none;
+            max-width: 0;
+            opacity: 0;
           }
 
           .icl-peculiarity-list-item-text-show {
-            display: flex !important;
+            max-width: 280px;
+            opacity: 1;
+            visibility: visible;
+          }
+        }
+      }
+    }
+
+    /* 純 CSS 21秒自動輪播（7張特色卡，每張停留 3 秒；文字切入/收合直接定格，無緩慢漂移） */
+    @for $i from 1 through 7 {
+      .icl-peculiarity-item-#{$i} {
+        @include icl-cycle-item(iclFeatureCardCycle, 7, 3, $i);
+
+        h4,
+        .icl-peculiarity-list-item-footer {
+          @include icl-cycle-item(iclFeatureColorCycle, 7, 3, $i);
+        }
+
+        .icl-peculiarity-list-item-text {
+          @include icl-cycle-item(iclFeatureTextBoxCycle, 7, 3, $i);
+
+          .icl-peculiarity-list-item-text-title {
+            @include icl-cycle-item(iclFeatureTitleCycle, 7, 3, $i);
+            animation-timing-function: steps(1, end);
+          }
+
+          .icl-peculiarity-list-item-text-show {
+            @include icl-cycle-item(iclFeatureShowCycle, 7, 3, $i);
+            animation-timing-function: steps(1, end);
+          }
+        }
+      }
+    }
+
+    .icl-peculiarity-item-1 {
+      @include icl-cycle-item(iclFeatureFirstCardCycle, 7, 3, 1);
+    }
+
+    /* 點選 Radio 或滑鼠懸浮任一卡片時，統一停止自動輪播並鎖定展開該項 */
+    &:has(input[name="icl-feature-radio"]:checked),
+    &:has(.icl-peculiarity-list-item:hover) {
+      .icl-peculiarity-list-item,
+      .icl-peculiarity-list-item h4,
+      .icl-peculiarity-list-item .icl-peculiarity-list-item-footer,
+      .icl-peculiarity-list-item .icl-peculiarity-list-item-text,
+      .icl-peculiarity-list-item .icl-peculiarity-list-item-text-title,
+      .icl-peculiarity-list-item .icl-peculiarity-list-item-text-show {
+        animation: none !important;
+      }
+    }
+
+    @for $i from 1 through 7 {
+      &:has(#icl-feature-radio-#{$i - 1}:checked),
+      &:has(.icl-peculiarity-item-#{$i}:hover) {
+        .icl-peculiarity-item-#{$i} {
+          background: #4570b6 !important;
+          transform: rotate(0deg);
+          margin-left: 10px;
+          margin-right: 10px;
+
+          h4,
+          .icl-peculiarity-list-item-footer {
+            color: #fff !important;
+          }
+
+          .icl-peculiarity-list-item-text {
+            border-top-color: #fff !important;
+            border-bottom-color: #fff !important;
+
+            .icl-peculiarity-list-item-text-title {
+              max-width: 0 !important;
+              opacity: 0 !important;
+            }
+
+            .icl-peculiarity-list-item-text-show {
+              max-width: 280px !important;
+              opacity: 1 !important;
+              visibility: visible !important;
+            }
+          }
+        }
+      }
+    }
+
+    /* 減少動態偏好：預設靜態展開第 1 項 */
+    @media (prefers-reduced-motion: reduce) {
+      .icl-peculiarity-item-1 {
+        background: #4570b6;
+        transform: rotate(0deg);
+        margin-left: 10px;
+        margin-right: 10px;
+
+        h4,
+        .icl-peculiarity-list-item-footer {
+          color: #fff;
+        }
+
+        .icl-peculiarity-list-item-text {
+          border-top-color: #fff;
+          border-bottom-color: #fff;
+
+          .icl-peculiarity-list-item-text-title {
+            max-width: 0;
+            opacity: 0;
+          }
+
+          .icl-peculiarity-list-item-text-show {
+            max-width: 280px;
+            opacity: 1;
+            visibility: visible;
           }
         }
       }
@@ -1144,7 +1261,7 @@ h2 {
       padding: 0;
       margin: 0;
 
-      & > .icl-peculiarity-list-item:first-child {
+      & > .icl-peculiarity-item-1 {
         margin-left: 45px;
         margin-right: 95px;
         transform: rotate(20deg);
@@ -1175,14 +1292,17 @@ h2 {
           height: 448px;
           margin-top: 11px;
           margin-bottom: 24px;
-          padding-top: 101px;
+          padding-top: 0;
 
           .icl-peculiarity-list-item-text-title {
             font-size: 25px;
             letter-spacing: 8.75px;
+            padding-top: 101px;
           }
 
           .icl-peculiarity-list-item-text-show {
+            padding-top: 41px;
+
             .icl-peculiarity-list-item-text-show-box {
               border-radius: 20px;
               width: 231px;
@@ -1212,15 +1332,106 @@ h2 {
             }
           }
         }
+      }
 
-        &:hover,
-        &.active {
-          .icl-peculiarity-list-item-text {
-            padding-top: 41px;
+      @for $i from 1 through 7 {
+        &:has(#icl-feature-radio-#{$i - 1}:checked),
+        &:has(.icl-peculiarity-item-#{$i}:hover) {
+          .icl-peculiarity-item-#{$i} {
+            margin-left: 0;
+            margin-right: 0;
           }
         }
       }
+
+      .icl-peculiarity-item-1 {
+        @include icl-cycle-item(iclFeatureFirstCardCyclePc, 7, 3, 1);
+      }
     }
+  }
+}
+
+/* 7 大特色純 CSS 21秒循環 Keyframes（7 項 × 3s = 21s，每項佔 14.28%） */
+@keyframes iclFeatureCardCycle {
+  0%, 13.5% {
+    background: #4570b6;
+  }
+  14.28%, 100% {
+    background: #fff;
+  }
+}
+
+@keyframes iclFeatureFirstCardCycle {
+  0%, 13.5% {
+    background: #4570b6;
+    transform: rotate(0deg);
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  14.28%, 100% {
+    background: #fff;
+    transform: rotate(20deg);
+    margin-left: 55px;
+    margin-right: 55px;
+  }
+}
+
+@keyframes iclFeatureFirstCardCyclePc {
+  0%, 13.5% {
+    background: #4570b6;
+    transform: rotate(0deg);
+    margin-left: 0;
+    margin-right: 0;
+  }
+  14.28%, 100% {
+    background: #fff;
+    transform: rotate(20deg);
+    margin-left: 45px;
+    margin-right: 95px;
+  }
+}
+
+@keyframes iclFeatureColorCycle {
+  0%, 13.5% {
+    color: #fff;
+  }
+  14.28%, 100% {
+    color: #4570b6;
+  }
+}
+
+@keyframes iclFeatureTextBoxCycle {
+  0%, 13.5% {
+    border-top-color: #fff;
+    border-bottom-color: #fff;
+  }
+  14.28%, 100% {
+    border-top-color: #4570b6;
+    border-bottom-color: #4570b6;
+  }
+}
+
+@keyframes iclFeatureTitleCycle {
+  0%, 14.27% {
+    max-width: 0;
+    opacity: 0;
+  }
+  14.28%, 100% {
+    max-width: 40px;
+    opacity: 1;
+  }
+}
+
+@keyframes iclFeatureShowCycle {
+  0%, 14.27% {
+    max-width: 280px;
+    opacity: 1;
+    visibility: visible;
+  }
+  14.28%, 100% {
+    max-width: 0;
+    opacity: 0;
+    visibility: hidden;
   }
 }
 
@@ -1254,10 +1465,11 @@ h2 {
       width: 100%;
       max-width: 1180px;
       margin: 0 auto;
-      display: flex;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: 70px 520px 1fr;
+      grid-template-rows: auto;
+      column-gap: 50px;
       align-items: stretch;
-      gap: 50px;
 
       &::after {
         background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-intro-bg2.png")
@@ -1272,7 +1484,10 @@ h2 {
       }
 
       @media screen and (max-width: 1140px) {
-        gap: 16px;
+        grid-template-columns: 36px 1fr;
+        grid-template-rows: auto auto;
+        column-gap: 14px;
+        row-gap: 16px;
 
         &::after {
           background-size: 100%;
@@ -1284,44 +1499,49 @@ h2 {
         }
       }
 
-      /* 左側步驟按鈕列表 */
+      /* 左側步驟按鈕列表：與圖片上下兩端嚴格對齊 */
       .steps {
+        grid-column: 1;
+        grid-row: 1;
         width: 70px;
-        flex-shrink: 0;
         color: #6d6e71;
         font-family: var(--font-en);
         font-size: 38px;
         font-style: normal;
         font-weight: 400;
-        line-height: normal;
+        line-height: 1;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        gap: 16px;
 
         @media screen and (max-width: 1140px) {
-          width: 32px;
+          width: 36px;
           font-size: 17px;
+          gap: 10px;
         }
 
         .step-btn {
           font-family: var(--font-en);
           border-right: 2px solid #d0d0d0;
           display: flex;
-          align-items: center;
+          flex: 1 1 0;
+          align-items: flex-start;
           justify-content: flex-end;
-          height: 80px;
+          height: auto;
           padding-right: 18px;
           text-align: right;
+          line-height: 1;
           cursor: pointer;
-          transition: all 0.25s ease;
+          transition: color 0.25s ease, border-color 0.25s ease;
           font-weight: 300;
 
           @media screen and (max-width: 1140px) {
             border-right: 1px solid #6d6e71;
             align-items: flex-start;
-            margin-bottom: 12px;
-            height: 48px;
-            padding-right: 6px;
+            margin-bottom: 0;
+            height: auto;
+            padding-right: 8px;
             font-weight: 200;
           }
 
@@ -1332,57 +1552,34 @@ h2 {
             font-size: 38px;
             font-style: normal;
             font-weight: 700;
-            line-height: 30px;
+            line-height: 1;
             border-right: 5px solid #4570b6;
 
             @media screen and (max-width: 1140px) {
               font-size: 17px;
-              line-height: 14px;
+              line-height: 1;
               border-right: 2px solid #4570b6;
             }
           }
         }
       }
 
-      /* 右側內容展示面板 */
+      /* 右側內容展示面板：透傳至 Grid，使圖片與文字獨立分區對齊 */
+      .content-area,
+      .content-area .content-panel,
+      .content-area .content-area-img {
+        display: contents;
+      }
+
       .content-area {
-        position: relative;
-        flex: 1;
-        min-width: 0;
-
-        .content-panel {
-          display: flex;
-          align-items: center;
-          width: 100%;
-          min-height: 520px;
-
-          @media screen and (max-width: 1140px) {
-            display: flex;
-            flex-direction: column;
-            min-height: auto;
-          }
-        }
-
         .content-area-img {
-          position: relative;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 56px;
-          z-index: 2;
-          width: 100%;
-
-          @media screen and (max-width: 1140px) {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-          }
-
           .step-visual-box {
+            grid-column: 2;
+            grid-row: 1;
             position: relative;
+            z-index: 2;
             width: 520px;
             max-width: 520px;
-            flex-shrink: 0;
 
             @media screen and (max-width: 1140px) {
               width: 100%;
@@ -1399,14 +1596,6 @@ h2 {
               margin: 0;
               padding: 0;
 
-              @media screen and (max-width: 1140px) {
-                position: absolute;
-                top: 0;
-                left: 0;
-                z-index: 10;
-                margin-bottom: 0;
-              }
-
               h2 {
                 color: #4570b6;
                 font-family: var(--font-hk);
@@ -1418,7 +1607,7 @@ h2 {
                 white-space: nowrap;
 
                 @media screen and (max-width: 1140px) {
-                  font-size: 17px;
+                  font-size: 16px;
                   line-height: 1.25;
                 }
 
@@ -1468,7 +1657,7 @@ h2 {
                   filter: drop-shadow(0 8px 24px rgba(69, 112, 182, 0.12));
 
                   @media screen and (max-width: 1140px) {
-                    margin-bottom: 10px;
+                    margin-bottom: 0;
                     border-radius: 10px;
                   }
                 }
@@ -1476,13 +1665,23 @@ h2 {
             }
           }
 
-          /* 5 個步驟文字堆疊容器 */
+          /* 5 個步驟文字堆疊容器：PC 居中於右側，移動端置於圖片正下方 */
           .step-texts-stack {
+            grid-column: 3;
+            grid-row: 1;
+            align-self: center;
+            position: relative;
+            z-index: 2;
             display: grid;
             grid-template-columns: 1fr;
             grid-template-rows: 1fr;
-            flex: 1;
             min-width: 0;
+
+            @media screen and (max-width: 1140px) {
+              grid-column: 2;
+              grid-row: 2;
+              align-self: start;
+            }
 
             .step-text-slide {
               grid-area: 1 / 1;
@@ -1510,16 +1709,27 @@ h2 {
         }
       }
 
-      /* 默認啟動純 CSS 15秒自動循環動畫 (5 個步驟，每步驟 3 秒) */
+      /* 默認啟動純 CSS 15秒自動循環動畫 (復用共用輪播引擎：5 步驟 × 3s) */
       @for $i from 1 through 5 {
         .step-image-slide-#{$i},
         .step-text-slide-#{$i} {
-          animation: stepSlideCycle 15s infinite;
-          animation-delay: #{($i - 1) * 3}s;
+          @include icl-cycle-item(stepSlideCycle, 5, 3, $i);
         }
         .step-btn-#{$i} {
-          animation: stepBtnCycle 15s infinite;
-          animation-delay: #{($i - 1) * 3}s;
+          @include icl-cycle-item(stepBtnCycle, 5, 3, $i);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .step-image-slide-1,
+        .step-text-slide-1 {
+          opacity: 1;
+          visibility: visible;
+        }
+        .step-btn-1 {
+          color: #4570b6;
+          font-weight: 700;
+          border-right-color: #4570b6;
         }
       }
 
@@ -1660,8 +1870,7 @@ h2 {
 
 /* ==========================================================================
    9. 合適對象 SuitableObject
-   100% 官方真值對齊：PC 端 5 聯藍底大數字水印滿版展翼 + 圖片 Hover 浮現；
-   Mobile 端 3x2 格子藍底卡片 (0 JS 依賴)
+   全寬同色背景 (#4570b6) + .site-container 罐頭對齊 + 共用純 CSS 15秒自動輪播 (0 JS)
    ========================================================================== */
 .SuitableObject {
   width: 100%;
@@ -1669,190 +1878,134 @@ h2 {
   overflow: hidden;
   box-sizing: border-box;
   background: #4570b6;
+  padding: 0;
 
-  /* Desktop View: Full-bleed 5-panel interactive banner */
-  @media (min-width: 1141px) {
-    &::after {
-      content: "合適對象";
-      position: absolute;
-      top: 58px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: #fff;
-      font-family: var(--font-hk);
-      font-size: 30px;
-      font-style: normal;
-      font-weight: 900;
-      line-height: 1.3;
-      z-index: 5;
-      pointer-events: none;
-    }
+  .SuitableObject-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    box-sizing: border-box;
 
-    .SuitableObject-container {
-      display: flex;
-      flex-direction: row;
-      align-items: stretch;
-      width: 100%;
+    @media (max-width: 1140px) {
       max-width: 100%;
-      margin: 0 auto;
-      padding: 0;
-      box-sizing: border-box;
+      padding-inline: 0;
     }
 
-    .SuitableObject-item {
-      position: relative;
-      flex: 1 1 0;
-      width: 20%;
-      height: 38.02vw;
-      max-height: 730px;
-      min-height: 520px;
-      background: #4570b6;
-      cursor: pointer;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding-top: clamp(200px, 26.04vw, 500px);
-      box-sizing: border-box;
-      transition: background-color 0.3s ease;
-
-      /* 卡片右邊框 */
-      &::after {
-        content: "";
-        position: absolute;
-        right: 0;
-        top: 0;
-        width: 1px;
-        height: 100%;
-        background-color: rgba(255, 255, 255, 0.5);
-        z-index: 4;
-      }
-      &:last-child::after {
-        display: none;
-      }
-
-      /* 200px 巨大數字水印 */
-      &::before {
-        content: attr(data-number);
-        font-size: 200px;
-        color: rgba(255, 255, 255, 0.2);
-        position: absolute;
-        top: 100px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-family: var(--font-en);
-        font-weight: 900;
-        line-height: 1;
-        opacity: 1;
-        z-index: 1;
-        pointer-events: none;
-        transition: opacity 0.3s ease;
-      }
-
-      /* 圖片：預設透明度 0，Hover 時 0.55 */
-      .SuitableObject-image {
-        display: block !important;
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        opacity: 0;
-        z-index: 2;
-        transition: opacity 0.35s ease;
-        pointer-events: none;
-      }
-
-      /* 描述文字 */
-      .SuitableObject-description {
-        color: #fff;
-        text-align: center;
-        font-family: var(--font-hk);
-        font-size: clamp(18px, 1.4vw, 24px);
-        font-weight: 700;
-        line-height: 1.35;
-        letter-spacing: 2px;
-        opacity: 1;
-        position: relative;
-        z-index: 3;
-        padding: 0 10px;
-
-        p {
-          margin: 0;
-          white-space: normal;
-        }
-      }
-
-      /* item 1 星星裝飾 */
-      .suitable-star {
-        display: block;
-        position: absolute;
-        top: 68px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 28px;
-        height: 28px;
-        background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/hsdx/hsdx-bgxing1.png") center/contain no-repeat;
-        text-indent: -9999px;
-        z-index: 5;
-        pointer-events: none;
-      }
-
-      /* item 3 標籤：PC 上已由外層 ::after 居中展示，隱藏內部 badge */
-      .suitable-badge {
-        display: none;
-      }
-
-      /* item 5 頂部文字「ICL矯視」 */
-      .suitable-top-text {
-        display: block;
-        position: absolute;
-        top: 58px;
-        left: 50%;
-        transform: translateX(-50%);
-        color: #fff;
-        font-family: var(--font-hk);
-        font-size: 20px;
-        font-weight: 400;
-        line-height: 1.95;
-        white-space: nowrap;
-        z-index: 5;
-        pointer-events: none;
-      }
-
-      /* 懸浮效果：圖片浮現 */
-      &:hover,
-      &:focus-visible {
-        outline: none;
+    /* 共用純 CSS 15秒自動輪播（5 個對象 × 3s = 15s） */
+    @for $i from 1 through 5 {
+      .SuitableObject-item-#{$i} {
         .SuitableObject-image {
-          opacity: 0.55;
+          @include icl-cycle-item(suitableImageCycle, 5, 3, $i);
+        }
+
+        &::before {
+          @include icl-cycle-item(suitableNumberCycle, 5, 3, $i);
         }
       }
     }
 
-    .SuitableObject-speical {
-      display: none;
+    /* 統一停止自動輪播並歸零，僅點亮當前選中/懸浮項（單條規則避免 5 份冗餘） */
+    &:has(input[name="icl-suitable-radio"]:checked),
+    &:has(.SuitableObject-item:hover) {
+      .SuitableObject-item .SuitableObject-image {
+        animation: none !important;
+        opacity: 0 !important;
+      }
+
+      .SuitableObject-item::before {
+        animation: none !important;
+        opacity: 1 !important;
+      }
+    }
+
+    @for $i from 1 through 5 {
+      &:has(#icl-suitable-radio-#{$i - 1}:checked),
+      &:has(.SuitableObject-item-#{$i}:hover) {
+        .SuitableObject-item-#{$i} {
+          .SuitableObject-image {
+            opacity: 0.6 !important;
+          }
+
+          &::before {
+            opacity: 0.15 !important;
+          }
+        }
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .SuitableObject-item-1 {
+        .SuitableObject-image {
+          opacity: 0.6;
+        }
+        &::before {
+          opacity: 0.15;
+        }
+      }
     }
   }
 
-  /* Mobile View: 3x2 Grid */
-  @media (max-width: 1140px) {
-    padding: 30px 10px 40px;
-    background: #fff;
+  .SuitableObject-item {
+    position: relative;
+    height: auto;
+    aspect-ratio: 386 / 731;
+    border: 0.5px solid rgba(255, 255, 255, 0.4);
+    background: #4570b6;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 10px 24px;
+    box-sizing: border-box;
+    overflow: hidden;
+    cursor: pointer;
 
-    &::after {
-      display: none;
+    &::before {
+      content: attr(data-number);
+      font-size: clamp(72px, 22vw, 120px);
+      color: rgba(255, 255, 255, 0.28);
+      position: absolute;
+      top: 34%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-en);
+      font-weight: 200;
+      line-height: 1;
+      opacity: 1;
+      z-index: 1;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
     }
 
-    .SuitableObject-container {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0;
-      max-width: 520px;
-      margin: 0 auto;
-      padding: 0;
+    .SuitableObject-image {
+      display: block !important;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      z-index: 2;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
+    }
+
+    .SuitableObject-description {
+      position: relative;
+      z-index: 3;
+      color: #fff;
+      font-family: var(--font-hk);
+      font-size: clamp(12px, 3.2vw, 14px);
+      font-weight: 700;
+      line-height: 1.5;
+      text-align: left;
+      letter-spacing: 0.5px;
+      width: 100%;
+
+      p {
+        margin: 0;
+        white-space: normal;
+      }
     }
 
     .suitable-star {
@@ -1878,112 +2031,138 @@ h2 {
       top: 6px;
       right: 8px;
       color: #fff;
+      font-family: var(--font-hk);
       font-size: 11px;
       font-weight: 500;
       z-index: 4;
       pointer-events: none;
     }
 
-    .SuitableObject-item {
-      position: relative;
-      border-radius: 0;
-      height: clamp(200px, 32vw, 260px);
-      border: 0.5px solid rgba(255, 255, 255, 0.4);
-      background: #4570b6;
+    &:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: -2px;
+    }
+  }
+
+  .SuitableObject-speical {
+    height: auto;
+    aspect-ratio: 386 / 731;
+    border: 0.5px solid rgba(255, 255, 255, 0.4);
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+
+    span {
+      color: #4570b6;
+      text-align: center;
+      font-family: var(--font-hk);
+      font-size: clamp(16px, 4vw, 20px);
+      font-weight: 900;
+      line-height: 1.2;
+      display: block;
+    }
+  }
+
+  /* Desktop (≥ 1141px)：僅覆寫與移動端有差異的尺寸與 5 欄排列 */
+  @media (min-width: 1141px) {
+    padding: 0;
+
+    &::after {
+      content: "合適對象";
+      position: absolute;
+      top: 58px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #fff;
+      font-family: var(--font-hk);
+      font-size: 30px;
+      font-weight: 900;
+      line-height: 1.3;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .SuitableObject-container {
       display: flex;
+      flex-direction: row;
+      align-items: stretch;
+    }
+
+    .SuitableObject-item {
+      flex: 1 1 0;
+      width: 20%;
+      height: auto;
+      aspect-ratio: 386 / 731;
+      border: none;
+      border-right: 1px solid rgba(255, 255, 255, 0.35);
       flex-direction: column;
       justify-content: flex-end;
       align-items: center;
-      padding: 0 6px 20px;
-      box-sizing: border-box;
-      overflow: hidden;
+      padding: 0 10px 64px;
 
-      &::after {
-        display: none;
+      &.SuitableObject-item-1 {
+        border-left: 1px solid rgba(255, 255, 255, 0.35);
       }
 
       &::before {
-        content: attr(data-number);
-        font-size: clamp(60px, 12vw, 100px);
-        color: rgba(255, 255, 255, 0.2);
-        position: absolute;
-        top: -6px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-family: var(--font-en);
-        font-weight: 900;
-        line-height: 1;
-        z-index: 1;
-        pointer-events: none;
-      }
-
-      &.SuitableObject-item-1 {
-        &::before {
-          display: none !important;
-        }
-        .SuitableObject-image {
-          opacity: 0.65 !important;
-        }
-      }
-
-      .SuitableObject-image {
-        display: block !important;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        opacity: 0;
-        z-index: 2;
-        transition: opacity 0.3s ease;
-        pointer-events: none;
+        font-size: 200px;
+        top: 42%;
       }
 
       .SuitableObject-description {
-        position: relative;
-        z-index: 3;
-        color: #fff;
-        font-family: var(--font-hk);
-        font-size: clamp(11px, 2.6vw, 14px);
-        font-weight: 700;
-        line-height: 1.4;
+        font-size: clamp(18px, 1.4vw, 24px);
+        line-height: 1.35;
         text-align: center;
-        letter-spacing: 0.5px;
-
-        p {
-          margin: 0;
-        }
+        letter-spacing: 2px;
+        padding: 0 10px;
       }
 
-      &:active,
-      &:hover {
-        .SuitableObject-image {
-          opacity: 0.5;
-        }
+      .suitable-star {
+        top: 68px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 28px;
+        height: 28px;
+        z-index: 5;
+      }
+
+      .suitable-top-text {
+        top: 58px;
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 1.95;
+        white-space: nowrap;
+        z-index: 5;
       }
     }
 
     .SuitableObject-speical {
-      border-radius: 0;
-      height: clamp(200px, 32vw, 260px);
-      border: 0.5px solid rgba(69, 112, 182, 0.4);
-      background: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-sizing: border-box;
-
-      span {
-        color: #4570b6;
-        text-align: center;
-        font-family: var(--font-hk);
-        font-size: clamp(16px, 4vw, 20px);
-        font-weight: 900;
-        line-height: 1.2;
-        display: block;
-      }
+      display: none;
     }
+  }
+}
+
+/* 合適對象純 CSS 15秒循環 Keyframes（5 項 × 3s = 15s） */
+@keyframes suitableImageCycle {
+  0%, 18% {
+    opacity: 0.6;
+  }
+  20%, 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes suitableNumberCycle {
+  0%, 18% {
+    opacity: 0.15;
+  }
+  20%, 100% {
+    opacity: 1;
   }
 }
 

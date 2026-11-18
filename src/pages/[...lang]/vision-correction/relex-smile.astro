@@ -696,7 +696,7 @@ const banners = await getBanners(lang);
 
     @media screen and (max-width: 767px) {
       width: 100%;
-      overflow-x: hidden;
+      overflow-x: clip;
     }
 
     @media screen and (min-width: 768px) {
@@ -1317,18 +1317,23 @@ const banners = await getBanners(lang);
     }
   }
 
-  /* 背景層 (固定背景畫布 - 零滾動抖動) */
+  /* 背景層 (僅 >=768px 露出兩側背景時啟用，移動端隱藏避免 fixed 100vh 全屏重繪卡頓) */
   .smile-parallax-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: url("https://statichk.cmermedical.com/smile/smileV2/smile-bg.avif")
-      no-repeat center center;
-    background-size: cover;
-    z-index: 0;
-    pointer-events: none;
+    display: none;
+
+    @media screen and (min-width: 768px) {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: url("https://statichk.cmermedical.com/smile/smileV2/smile-bg.avif")
+        no-repeat center center;
+      background-size: cover;
+      z-index: 0;
+      pointer-events: none;
+    }
   }
 
   /* 現代化三欄自適應佈局容器 (In-flow Flex Layout) */
