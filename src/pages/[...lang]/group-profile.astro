@@ -629,13 +629,12 @@ const awardBadges = [
             if (entry.isIntersecting) {
               (entry.target as HTMLElement).animate(
                 [
-                  { transform: "translate3d(0, 30px, 0) scale(0.8)", opacity: 0.6 },
-                  { transform: "translate3d(0, 0, 0) scale(1)", opacity: 1 },
+                  { transform: "translate3d(-50%, 30px, 0) scale(0.8)", opacity: 0.6 },
+                  { transform: "translate3d(-50%, 0, 0) scale(1)", opacity: 1 },
                 ],
                 {
                   duration: 800,
                   easing: "cubic-bezier(0.34, 1.56, 0.64, 1)",
-                  fill: "forwards",
                 }
               );
               badgeObserver.unobserve(entry.target);
