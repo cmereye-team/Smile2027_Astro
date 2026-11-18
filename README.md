@@ -20,7 +20,6 @@ pnpm dev            # 本地開發伺服器 (http://localhost:4001)
 pnpm check:all      # 依序執行 astro check、eslint、stylelint
 pnpm build          # 建置靜態站點至 dist/
 pnpm preview        # 本地預覽 dist/
-pnpm deploy:cf      # 本地構建並透過 wrangler 部署至 Cloudflare Pages
 ```
 
 ## 目錄結構
@@ -84,6 +83,7 @@ public/
 - **分支策略**：
   - `main`：線上正式環境分支（對應 Cloudflare Pages 生產部署 `https://smile.hkcmereye.com`）
   - `dev`：日常開發分支
+- **部署方式**：由 GitHub 推送觸發 Cloudflare Pages 自動構建（構建指令 `pnpm build`，輸出目錄 `dist`；不依賴本機 Wrangler 部署或 `wrangler.toml`）。
 - Cloudflare Pages **Build watch paths（包括路徑）** 建議白名單（排除路徑留空）：
 
 ```text
@@ -94,9 +94,8 @@ package.json
 pnpm-lock.yaml
 pnpm-workspace.yaml
 tsconfig.json
-wrangler.toml
 ```
 
 ## 本地環境變數
 
-本地 `.env`（受 `.gitignore` 忽略，不入庫）用於本機部署與 R2 靜態資源同步工具，包含 `CLOUDFLARE_ACCOUNT_ID`、`CLOUDFLARE_API_TOKEN` 及 `R2_*` 欄位。線上 Cloudflare Pages 靜態構建無需額外環境變數。
+本地 `.env`（受 `.gitignore` 忽略，不入庫）僅保留 `R2_*` 欄位供本機 R2 靜態資源同步使用。線上 Cloudflare Pages 靜態構建無需額外環境變數。

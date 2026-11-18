@@ -15,10 +15,7 @@
     "check:all": "astro check && eslint . && stylelint \"src/**/*.{css,scss,astro,vue}\"",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "lint:style": "stylelint \"src/**/*.{css,scss,astro,vue}\" --fix",
-    "push": "node ./scripts/push.mjs",
-    "push:cf": "node ./scripts/push.mjs cf",
-    "deploy:cf": "node ./scripts/push.mjs cf"
+    "lint:style": "stylelint \"src/**/*.{css,scss,astro,vue}\" --fix"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
