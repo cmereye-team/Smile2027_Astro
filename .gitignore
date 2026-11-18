@@ -40,7 +40,7 @@ fetch_*.mjs
 scratch_*.mjs
 *.scratch.*
 
-# images and binary files
+# images and binary files (media hosted on R2 CDN; keep astro-icon SVGs & root favicons in Git)
 *.jpg
 *.jpeg
 *.png
@@ -49,6 +49,13 @@ scratch_*.mjs
 *.avif
 *.ico
 *.svg
-!public/images/service/icl/**
+!src/icons/
+!src/icons/**
+!public/favicon.ico
+!public/favicon.svg
+!public/favicon-48x48.png
+!public/apple-touch-icon.png
+!public/icon-192.png
+!public/icon-512.png
 
 .vscode/
