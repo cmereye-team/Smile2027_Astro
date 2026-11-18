@@ -6,6 +6,7 @@
  * @Description: 香港希瑪微笑矯視中心 - 醫生團隊 (100% 官網視覺與排版還原 + HTML5 語意 + Schema.org + GSAP 動效)
  */
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
 import SchemaDoctor from "@/components/seo/SchemaDoctor.astro";
 import { i18nPaths, useI18n, getLangFromUrl } from "@/i18n/utils";
 import "@/styles/pages/our-medical-team.scss";
@@ -40,10 +41,19 @@ const doctorsList = (dict.about.doctor.list || []).map((doc: any, index: number)
   ...doc,
   img: doctorImages[index] || "https://statichk.cmermedical.com/imgs/2024/04/4fa9ad28827023df.png",
 }));
+
+const breadcrumbItems = [
+  { name: isCn ? "首页" : "首頁", url: isCn ? "/cn/" : "/" },
+  {
+    name: dict.about.doctor.title,
+    url: isCn ? "/cn/our-medical-team/" : "/our-medical-team/",
+  },
+];
 ---
 
-<BaseLayout tdkKey="doctor" showClinicSchema={false}>
-  {/* Schema.org 醫療專家與團隊知識圖譜 (統一單一 JSON-LD @graph 輸出) */}
+<BaseLayout tdkKey="doctor">
+  <SchemaBreadcrumb items={breadcrumbItems} />
+  {/* Schema.org 醫療專家與團隊知識圖譜 (與 SchemaClinic 透過 @id 互連) */}
   <SchemaDoctor lang={lang} doctors={doctorsList} />
 
   <div class="our-medical-team-page">
@@ -191,60 +201,71 @@ const doctorsList = (dict.about.doctor.list || []).map((doc: any, index: number)
     </section>
 
   </div>
-</BaseLayout>
 
-{/* GSAP 微動效 - 卡片插入展開效果 */}
-<script>
-  import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
-  gsap.registerPlugin(ScrollTrigger);
+  {/* 零依賴滾動視差與醫生卡片進場動效 (IntersectionObserver + CSS Transitions) */}
+  <script>
+    function initMedicalTeamAnimations() {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-  document.addEventListener("DOMContentLoaded", () => {
-    // 1. 頂部 Banner 視差滾動
-    const heroBg = document.querySelector(".doctor-hero-card-bg");
-    if (heroBg) {
-      gsap.to(heroBg, {
-        yPercent: 15,
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".doctor-hero-banner",
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-    }
-
-    // 2. 醫生卡片插入效果 (Card Insert Animation: 左右交錯插進來)
-    const doctorItems = document.querySelectorAll(".doctor-item");
-    if (doctorItems.length > 0) {
-      doctorItems.forEach((item, index) => {
-        const isEvenCol = index % 2 === 1;
-        gsap.fromTo(
-          item,
-          {
-            opacity: 0,
-            x: isEvenCol ? 45 : -45,
-            y: 35,
-            scale: 0.94,
-          },
-          {
-            opacity: 1,
-            x: 0,
-            y: 0,
-            scale: 1,
-            duration: 0.8,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: item,
-              start: "top 88%",
-              toggleActions: "play none none none",
-            },
+      // 1. 頂部 Banner 視差滾動
+      const heroBanner = document.querySelector<HTMLElement>(".doctor-hero-banner");
+      const heroBg = document.querySelector<HTMLElement>(".doctor-hero-card-bg");
+      if (heroBanner && heroBg) {
+        let ticking = false;
+        const updateParallax = () => {
+          const rect = heroBanner.getBoundingClientRect();
+          if (rect.bottom > 0 && rect.top < window.innerHeight) {
+            const progress = Math.min(1, Math.max(0, -rect.top / (rect.height || 1)));
+            heroBg.style.transform = `translate3d(0, ${(progress * 15).toFixed(2)}%, 0)`;
           }
+          ticking = false;
+        };
+        window.addEventListener(
+          "scroll",
+          () => {
+            if (!ticking) {
+              requestAnimationFrame(updateParallax);
+              ticking = true;
+            }
+          },
+          { passive: true }
         );
+      }
+
+      // 2. 醫生卡片交錯進場動效 (IntersectionObserver + CSS transform/opacity)
+      const doctorItems = document.querySelectorAll<HTMLElement>(".doctor-item");
+      if (!doctorItems.length || !("IntersectionObserver" in window)) return;
+
+      const viewportH = window.innerHeight || document.documentElement.clientHeight;
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const target = entry.target as HTMLElement;
+              target.style.opacity = "1";
+              target.style.transform = "translate3d(0, 0, 0) scale(1)";
+              observer.unobserve(target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+      );
+
+      doctorItems.forEach((item, index) => {
+        const rect = item.getBoundingClientRect();
+        if (rect.top < viewportH * 0.92) return;
+        const isEvenCol = index % 2 === 1;
+        item.style.opacity = "0";
+        item.style.transform = `translate3d(${isEvenCol ? 45 : -45}px, 35px, 0) scale(0.94)`;
+        item.style.transition =
+          "opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)";
+        observer.observe(item);
       });
     }
-  });
-</script>
+
+    document.addEventListener("DOMContentLoaded", initMedicalTeamAnimations);
+    document.addEventListener("astro:page-load", initMedicalTeamAnimations);
+  </script>
+</BaseLayout>
 
 

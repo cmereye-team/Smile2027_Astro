@@ -6,7 +6,6 @@
  * @Description: 預約服務入口專頁 (100% 官方真值對齊 + 講座與術前檢查導向 + MW-01 轉換追蹤 + 完整 Schema)
  */
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import SchemaProcedure from "@/components/seo/SchemaProcedure.astro";
 import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
 import BookingBanner from "@/components/booking/BookingBanner.astro";
 import { i18nPaths, getLangFromUrl } from "@/i18n/utils";
@@ -22,10 +21,6 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
 ---
 
 <BaseLayout tdkKey="booking">
-  <SchemaProcedure
-    name={content.banner.title}
-    description={content.appointForm.p3.replace(/<[^>]+>/g, "")}
-  />
   <SchemaBreadcrumb
     items={[
       { name: content.breadcrumb.home, url: isCn ? "/cn/" : "/" },

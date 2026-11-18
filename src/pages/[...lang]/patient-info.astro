@@ -39,19 +39,20 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
     <section class="patient-hero" aria-label={content.banner.title}>
       <div class="site-container">
         <div class="smile-NewBanner">
-          <img
-            draggable="false"
-            decoding="async"
-            src={content.banner.imgPc}
-            alt={content.banner.title}
-            title={content.banner.title}
-            loading="eager"
-            fetchpriority="high"
-            width="388"
-            height="377"
-            srcset={`${content.banner.imgMb} 400w, ${content.banner.imgMb} 640w, ${content.banner.imgPc}`}
-            sizes="(max-width: 991px) 45vw, 250px"
-          />
+          <picture class="contents">
+            <source media="(max-width: 991px)" srcset={content.banner.imgMb} />
+            <img
+              draggable="false"
+              decoding="async"
+              src={content.banner.imgPc}
+              alt={content.banner.title}
+              title={content.banner.title}
+              loading="eager"
+              fetchpriority="high"
+              width="388"
+              height="377"
+            />
+          </picture>
           <div class="smile-NewBanner-Title">
             <span set:html={content.banner.tagHtml} />
             <h1>{content.banner.title}</h1>
@@ -112,6 +113,8 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
                   src={src}
                   alt={`${content.tabs[0].label} (${idx + 1})`}
                   title={`${content.tabs[0].label} (${idx + 1})`}
+                  width="240"
+                  height="240"
                   draggable="false"
                   loading="eager"
                   decoding="async"
@@ -133,6 +136,8 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
           src={content.correctedVisionBefore.icon}
           alt={content.correctedVisionBefore.iframeTitle}
           title={content.correctedVisionBefore.iframeTitle}
+          width="48"
+          height="48"
           draggable="false"
           loading="lazy"
           decoding="async"
@@ -163,6 +168,8 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
                     src={step.img}
                     alt={stepLabel}
                     title={stepLabel}
+                    width="120"
+                    height="120"
                     draggable="false"
                     loading="lazy"
                     decoding="async"
@@ -173,6 +180,8 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
                     src={step.icon}
                     alt={stepLabel}
                     title={stepLabel}
+                    width="44"
+                    height="44"
                     aria-hidden="true"
                     draggable="false"
                     loading="lazy"
@@ -190,6 +199,8 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
         src={content.correctedVisionBefore.lineImg}
         alt={content.correctedVisionBefore.processTitle}
         title={content.correctedVisionBefore.processTitle}
+        width="900"
+        height="40"
         aria-hidden="true"
         draggable="false"
         loading="lazy"
@@ -285,6 +296,8 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
             src={content.visionProcess.noticeIcon}
             alt={content.visionProcess.noticeTitle}
             title={content.visionProcess.noticeTitle}
+            width="48"
+            height="48"
             draggable="false"
             loading="lazy"
             decoding="async"
@@ -303,6 +316,8 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
                           src={item.img}
                           alt={noticeItemText}
                           title={noticeItemText}
+                          width="180"
+                          height="180"
                           draggable="false"
                           loading="lazy"
                           decoding="async"
@@ -337,6 +352,8 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
                       src={item.img}
                       alt={item.alt}
                       title={item.alt || item.label}
+                      width="140"
+                      height="140"
                       draggable="false"
                       loading="lazy"
                       decoding="async"
@@ -370,6 +387,8 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
             src={content.afterJiaoShi.careIcon}
             alt={content.afterJiaoShi.careTitle}
             title={content.afterJiaoShi.careTitle}
+            width="64"
+            height="64"
             draggable="false"
             loading="lazy"
             decoding="async"
@@ -406,9 +425,8 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
       </div>
     </section>
   </div>
-</BaseLayout>
 
-<script>
+  <script>
   const tabs = Array.from(
     document.querySelectorAll<HTMLLIElement>(".navgation-link li[data-tab-id]")
   );
@@ -502,18 +520,9 @@ const content = isCn ? PATIENT_INFO_ZH_CN : PATIENT_INFO_ZH_HK;
     idMap.forEach((_, el) => io.observe(el));
   }
 </script>
+</BaseLayout>
 
 <style lang="scss">
-  :global(html) {
-    scroll-behavior: smooth;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    :global(html) {
-      scroll-behavior: auto;
-    }
-  }
-
   .patient-info {
     background: #fff;
 

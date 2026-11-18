@@ -8,20 +8,35 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 
-import vue from "@astrojs/vue";
 import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
 // 导入 path 模块
+import fs from "node:fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import icon from "astro-icon";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+/** @type {import("astro").AstroIntegration} */
+const renameSitemapIndex = {
+  name: "rename-sitemap-index",
+  hooks: {
+    "astro:build:done": ({ dir }) => {
+      const outDir = fileURLToPath(dir);
+      const src = path.join(outDir, "sitemap-index.xml");
+      const dest = path.join(outDir, "sitemap.xml");
+      if (fs.existsSync(src)) {
+        fs.renameSync(src, dest);
+      }
+    },
+  },
+};
+
 // https://astro.build/config
 export default defineConfig({
   output: "static",
-  trailingSlash: "ignore",
+  trailingSlash: "always",
   site: "https://smile.hkcmereye.com",
   i18n: {
     defaultLocale: "zh-hk",
@@ -32,10 +47,20 @@ export default defineConfig({
     },
   },
   integrations: [
-    vue(),
     sitemap({
-      filter: (page) => !page.includes("/blog-article"),
+      filter: (page) =>
+        !page.includes("/blog-article") &&
+        !page.endsWith("/404") &&
+        !page.endsWith("/404/"),
+      i18n: {
+        defaultLocale: "zh-HK",
+        locales: {
+          "zh-HK": "zh-HK",
+          cn: "zh-CN",
+        },
+      },
     }),
+    renameSitemapIndex,
     icon(),
   ],
   vite: {
@@ -55,7 +80,7 @@ export default defineConfig({
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "admin.hkcmereye.com",
+        hostname: "static.cmermedical.com.hk",
       },
       {
         protocol: "https",

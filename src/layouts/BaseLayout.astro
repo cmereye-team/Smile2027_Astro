@@ -42,12 +42,11 @@ if (tdkKey && dict.tdk[tdkKey]) {
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Google Fonts API (預設註釋停用，優先使用本機原生系統字體棧，杜絕阻塞 PageSpeed 評分；未來若需開啟直接解除註釋) -->
-    <!--
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@300;400;500;700;900&family=Noto+Sans+TC:wght@300;400;500;700;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    -->
+    <!-- 核心圖片資源 CDN 預連接 (加速首屏 LCP 與核心圖片載入) -->
+    <link rel="preconnect" href="https://statichk.cmermedical.com" crossorigin />
+    <link rel="dns-prefetch" href="https://statichk.cmermedical.com" />
+    <link rel="preconnect" href="https://static.cmermedical.com.hk" crossorigin />
+    <link rel="dns-prefetch" href="https://static.cmermedical.com.hk" />
 
     <!-- 現代化 SEO 規範 Header -->
     <SEOHead

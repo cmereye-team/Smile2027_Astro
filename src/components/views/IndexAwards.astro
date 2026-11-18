@@ -7,6 +7,7 @@
  */
 import { Image } from "astro:assets";
 import { useI18n } from "@/i18n/utils";
+import "@/styles/swiper-base.css";
 
 // 靜態導入本地 10 大權威獎牌圖片資產
 import awards001 from "@/assets/images/award/awards-001.png";
@@ -116,9 +117,10 @@ const awards = [
 
           return (
             <div class="swiper-slide award-item">
-              {isRemote ? (
-                <img draggable="false"
-                  src={award.img as string}
+              {isRemote || isSvg ? (
+                <img
+                  draggable="false"
+                  src={isRemote ? (award.img as string) : (award.img as { src: string }).src}
                   alt={award.alt}
                   title={award.title}
                   width="132"
@@ -134,7 +136,7 @@ const awards = [
                   title={award.title}
                   width={132}
                   height={132}
-                  format={isSvg ? "svg" : "webp"}
+                  format="webp"
                   loading="lazy"
                   class="award-img"
                 />

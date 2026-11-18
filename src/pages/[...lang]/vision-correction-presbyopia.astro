@@ -9,12 +9,12 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import SchemaProcedure from "@/components/seo/SchemaProcedure.astro";
 import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
 import SchemaFAQ from "@/components/seo/SchemaFAQ.astro";
-import SchemaClinic from "@/components/seo/SchemaClinic.astro";
 import { i18nPaths, getLangFromUrl, getLocalizedHref } from "@/i18n/utils";
 import {
   PRESBYOPIA_ZH_HK,
   PRESBYOPIA_ZH_CN,
 } from "@/data/presbyopiaData";
+import "@/styles/swiper-base.css";
 import "@/styles/presbyopia.scss";
 
 export function getStaticPaths() {
@@ -35,7 +35,22 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
 ---
 
 <BaseLayout tdkKey="presbyopia">
-  <SchemaClinic lang={lang} />
+  <Fragment slot="head">
+    <link
+      rel="preload"
+      as="image"
+      href={content.banner.imgMb}
+      media="(max-width: 991px)"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href={content.banner.imgPc}
+      media="(min-width: 992px)"
+      fetchpriority="high"
+    />
+  </Fragment>
   <SchemaProcedure
     name={content.banner.h1}
     description={content.banner.p1}
@@ -71,7 +86,7 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
           </a>
           <h1 id="presbyopia-hero-title" class="hero-title">{content.banner.h1}</h1>
           <p class="hero-desc-lead">
-            希瑪微笑矯視中心主要提供三種<br class="d-lg-none" />可矯正老花的矯視服務
+            {isCn ? "希玛微笑矫视中心主要提供三种" : "希瑪微笑矯視中心主要提供三種"}<br class="d-lg-none" />{isCn ? "可矫正老花的矫视服务" : "可矯正老花的矯視服務"}
           </p>
           <p class="hero-desc-schemes">
             <a href={content.banner.p2Link1Href} title={content.banner.p2Link1Text}>{content.banner.p2Link1Text}</a>{content.banner.p2And}<a href={content.banner.p2Link2Href} title={content.banner.p2Link2Text}>{content.banner.p2Link2Text}</a>
@@ -84,20 +99,21 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
 
       <div class="hero-stage">
         <figure class="hero-figure hero-figure-wrapper">
-          <img
-            draggable="false"
-            decoding="async"
-            src={content.banner.imgPc}
-            alt={content.banner.imgAlt}
-            title={content.banner.imgAlt}
-            loading="eager"
-            fetchpriority="high"
-            width="1209"
-            height="678"
-            srcset={`${content.banner.imgMb} 400w, ${content.banner.imgMb} 640w, ${content.banner.imgPc}`}
-            sizes="(max-width: 992px) 100vw, 1209px"
-            class="hero-figure-img"
-          />
+          <picture class="contents">
+            <source media="(max-width: 991px)" srcset={content.banner.imgMb} />
+            <img
+              draggable="false"
+              decoding="async"
+              src={content.banner.imgPc}
+              alt={content.banner.imgAlt}
+              title={content.banner.imgAlt}
+              loading="eager"
+              fetchpriority="high"
+              width="1209"
+              height="678"
+              class="hero-figure-img"
+            />
+          </picture>
           <figcaption class="hero-badge">
             <span set:html={content.banner.badgeSpan1} />
             &nbsp;
@@ -148,6 +164,8 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
                           src={item.imgJpg || item.imgWp}
                           alt={schemeAlt}
                           title={schemeAlt}
+                          width="380"
+                          height="250"
                         />
                       </picture>
                       <div class="scheme-card-badge">
@@ -195,6 +213,8 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
                 src="/images/svg/arrow-up-right-white.svg"
                 alt=""
                 aria-hidden="true"
+                width="24"
+                height="24"
                 class="h-[18px] w-[18px] md:h-[24px] md:w-[24px] inline-block"
               />
             </a>
@@ -262,16 +282,20 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
               src="/images/svg/arrow-up-right-white.svg"
               alt=""
               aria-hidden="true"
+              width="26"
+              height="26"
               class="h-5 w-5 md:h-[26px] md:w-[26px] inline-block"
             />
           </a>
           <div class="mt-3 md:mt-6 text-center font-normal leading-relaxed space-y-1">
-            <p class="text-[14px] md:text-[16px] font-medium text-[#6D6E71]">此為香港價錢</p>
+            <p class="text-[14px] md:text-[16px] font-medium text-[#6D6E71]">
+              {isCn ? "此为香港价钱" : "此為香港價錢"}
+            </p>
             <p class="text-[13px] md:text-[15px] text-[#888]">
-              <sup>*</sup>矯視費用已包括術前檢查費用港幣$100<br class="block md:hidden" />（若沒有預約進行矯視，需另外繳付術前檢查費用）
+              <sup>*</sup>{isCn ? "矫视费用已包括术前检查费用港币$100" : "矯視費用已包括術前檢查費用港幣$100"}<br class="block md:hidden" />{isCn ? "（若没有预约进行矫视，需另外缴付术前检查费用）" : "（若沒有預約進行矯視，需另外繳付術前檢查費用）"}
             </p>
             <p class="text-[12px] md:text-[14px] text-[#999] pt-1">
-              <sup>#</sup>免責聲明：受條款及細則約束。優惠僅適用於以 EPS 全數支付之客戶。<br class="block md:hidden" />如有任何爭議，希瑪眼科將保留最終決定權。
+              <sup>#</sup>{isCn ? "免责声明：受条款及细则约束。优惠仅适用于以 EPS 全数支付之客户。" : "免責聲明：受條款及細則約束。優惠僅適用於以 EPS 全數支付之客戶。"}<br class="block md:hidden" />{isCn ? "如有任何争议，希玛眼科将保留最终决定权。" : "如有任何爭議，希瑪眼科將保留最終決定權。"}
             </p>
           </div>
         </div>
@@ -280,20 +304,21 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
 
     <!-- 4. 老花矯視技術好處對比 & EVO ICL 產品系列介紹 — V6 -->
     <section class="visionBattle" aria-labelledby="vision-battle-heading">
-      <img
-        draggable="false"
-        decoding="async"
-        src={content.battle.bgPc}
-        alt={content.battle.title}
-        title={content.battle.title}
-        aria-hidden="true"
-        loading="lazy"
-        width="100%"
-        height="100%"
-        srcset={`${content.battle.bgMb} 400w, ${content.battle.bgMb} 640w, ${content.battle.bgPc}`}
-        sizes="(max-width: 992px) 100vw, 1216px"
-        class="visionBattle-Bg"
-      />
+      <picture class="contents">
+        <source media="(max-width: 991px)" srcset={content.battle.bgMb} />
+        <img
+          draggable="false"
+          decoding="async"
+          src={content.battle.bgPc}
+          alt={content.battle.title}
+          title={content.battle.title}
+          aria-hidden="true"
+          loading="lazy"
+          width="1907"
+          height="1907"
+          class="visionBattle-Bg"
+        />
+      </picture>
       <div id="visionBattle-Box-list" class="visionBattle-Box site-container">
         <h2 id="vision-battle-heading">{content.battle.title}</h2>
         <div class="visionBattle-Box-list">
@@ -307,6 +332,8 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
                     src="https://statichk.cmermedical.com/smile/clear-visionV2/clearAppointment/success.svg"
                     alt={isCn ? "包含技术特点" : "包含技術特點"}
                     title={isCn ? "包含技术特点" : "包含技術特點"}
+                    width="20"
+                    height="20"
                   />
                   <span set:html={pt} />
                 </p>
@@ -325,15 +352,15 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
                   <ul class="space-y-2 text-lg font-medium whitespace-nowrap">
                     <li class="flex items-center">
                       <span class="mr-2 text-base md:text-lg opacity-80">·</span>
-                      比上一代快一倍
+                      {isCn ? "比上一代快一倍" : "比上一代快一倍"}
                     </li>
                     <li class="flex items-center">
                       <span class="mr-2 text-base md:text-lg opacity-80">·</span>
-                      激光時間更短
+                      {isCn ? "激光时间更短" : "激光時間更短"}
                     </li>
                     <li class="flex items-center">
                       <span class="mr-2 text-base md:text-lg opacity-80">·</span>
-                      精準度更高
+                      {isCn ? "精准度更高" : "精準度更高"}
                     </li>
                   </ul>
                 </div>
@@ -351,6 +378,8 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
                     src="https://statichk.cmermedical.com/smile/clear-visionV2/clearAppointment/success.svg"
                     alt={isCn ? "包含技术特点" : "包含技術特點"}
                     title={isCn ? "包含技术特点" : "包含技術特點"}
+                    width="20"
+                    height="20"
                   />
                   <span set:html={pt} />
                 </p>
@@ -381,6 +410,8 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
                     src="https://statichk.cmermedical.com/smile/clear-visionV2/clearAppointment/success.svg"
                     alt={isCn ? "包含技术特点" : "包含技術特點"}
                     title={isCn ? "包含技术特点" : "包含技術特點"}
+                    width="20"
+                    height="20"
                   />
                   <span set:html={pt} />
                 </p>
@@ -608,6 +639,8 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
             src={content.appointment.lectureIcon}
             alt={content.appointment.lectureText}
             title={content.appointment.lectureText}
+            width="64"
+            height="64"
             aria-hidden="true"
           />
           <p>{content.appointment.lectureText}</p>
@@ -646,6 +679,8 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
             src={content.appointment.consultIcon}
             alt={content.appointment.consultText}
             title={content.appointment.consultText}
+            width="64"
+            height="64"
             aria-hidden="true"
           />
           <p>{content.appointment.consultText}</p>
@@ -693,6 +728,8 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
         src={content.suitable.bgLeft1}
         alt={isCn ? "老花矫视合适对象装饰图" : "老花矯視合適對象裝飾圖"}
         title={isCn ? "老花矫视合适对象装饰图" : "老花矯視合適對象裝飾圖"}
+        width="360"
+        height="360"
         aria-hidden="true"
         class="SuitableObject-bgLeft1"
       />
@@ -701,6 +738,8 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
         src={content.suitable.bgLeft2}
         alt={isCn ? "老花矫视合适对象装饰图" : "老花矯視合適對象裝飾圖"}
         title={isCn ? "老花矫视合适对象装饰图" : "老花矯視合適對象裝飾圖"}
+        width="360"
+        height="360"
         aria-hidden="true"
         class="SuitableObject-bgLeft2"
       />
@@ -730,6 +769,8 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
         src="/images/svg/arrow-up-right-white.svg"
         alt=""
         aria-hidden="true"
+        width="24"
+        height="24"
         class="h-[18px] w-[18px] md:h-[24px] md:w-[24px] inline-block"
       />
     </a>
@@ -773,6 +814,62 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
       </div>
     </section>
   </div>
+
+  <script>
+    import Swiper from "swiper";
+    import { Autoplay, Navigation } from "swiper/modules";
+
+    function initPresbyopiaPage() {
+      // 1. 第一視角預覽 Swiper 切換 (支援拖拽切換 + 2.5s 自動輪播 + 箭頭導航)
+      const swiperEl = document.querySelector(".lbv-swiper") as HTMLElement | null;
+      const sceneTitle = document.getElementById("lbvSceneTitle");
+
+      if (swiperEl) {
+        if ((swiperEl as any).swiper) {
+          (swiperEl as any).swiper.destroy(true, true);
+        }
+
+        new Swiper(swiperEl, {
+          modules: [Autoplay, Navigation],
+          loop: true,
+          grabCursor: true,
+          autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          },
+          navigation: {
+            prevEl: "#lbvPrevBtn",
+            nextEl: "#lbvNextBtn",
+          },
+          speed: 500,
+          on: {
+            init: function (swiper: any) {
+              const activeSlide = swiper.slides[swiper.activeIndex];
+              if (activeSlide && sceneTitle) {
+                const scene = activeSlide.getAttribute("data-scene");
+                if (scene) sceneTitle.textContent = scene;
+              }
+            },
+            slideChange: function (swiper: any) {
+              const activeSlide = swiper.slides[swiper.activeIndex];
+              if (activeSlide && sceneTitle) {
+                const scene = activeSlide.getAttribute("data-scene");
+                if (scene) sceneTitle.textContent = scene;
+              }
+            },
+          },
+        });
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initPresbyopiaPage);
+    } else {
+      initPresbyopiaPage();
+    }
+    document.addEventListener("astro:page-load", initPresbyopiaPage);
+  </script>
 </BaseLayout>
 
 <style lang="scss">
@@ -811,59 +908,3 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
     -webkit-user-drag: none;
   }
 </style>
-
-<script>
-  import Swiper from "swiper";
-  import { Autoplay, Navigation } from "swiper/modules";
-
-  function initPresbyopiaPage() {
-    // 1. 第一視角預覽 Swiper 切換 (支援拖拽切換 + 2.5s 自動輪播 + 箭頭導航)
-    const swiperEl = document.querySelector(".lbv-swiper") as HTMLElement | null;
-    const sceneTitle = document.getElementById("lbvSceneTitle");
-
-    if (swiperEl) {
-      if ((swiperEl as any).swiper) {
-        (swiperEl as any).swiper.destroy(true, true);
-      }
-
-      new Swiper(swiperEl, {
-        modules: [Autoplay, Navigation],
-        loop: true,
-        grabCursor: true,
-        autoplay: {
-          delay: 2500,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: true,
-        },
-        navigation: {
-          prevEl: "#lbvPrevBtn",
-          nextEl: "#lbvNextBtn",
-        },
-        speed: 500,
-        on: {
-          init: function (swiper: any) {
-            const activeSlide = swiper.slides[swiper.activeIndex];
-            if (activeSlide && sceneTitle) {
-              const scene = activeSlide.getAttribute("data-scene");
-              if (scene) sceneTitle.textContent = scene;
-            }
-          },
-          slideChange: function (swiper: any) {
-            const activeSlide = swiper.slides[swiper.activeIndex];
-            if (activeSlide && sceneTitle) {
-              const scene = activeSlide.getAttribute("data-scene");
-              if (scene) sceneTitle.textContent = scene;
-            }
-          },
-        },
-      });
-    }
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initPresbyopiaPage);
-  } else {
-    initPresbyopiaPage();
-  }
-  document.addEventListener("astro:page-load", initPresbyopiaPage);
-</script>

@@ -58,8 +58,6 @@ const fallbackPosterUrl = `https://i.ytimg.com/vi/${cleanId}/hqdefault.jpg`;
       src={posterUrl}
       data-sd-src={sdPosterUrl}
       data-hq-src={fallbackPosterUrl}
-      onerror="if(!this.dataset.fb){this.dataset.fb='sd';this.src=this.dataset.sdSrc;}else if(this.dataset.fb==='sd'){this.dataset.fb='hq';this.src=this.dataset.hqSrc;}"
-      onload="if(this.naturalWidth<=120){if(!this.dataset.fb){this.dataset.fb='sd';this.src=this.dataset.sdSrc;}else if(this.dataset.fb==='sd'){this.dataset.fb='hq';this.src=this.dataset.hqSrc;}}"
       alt={title}
       title={title}
       loading={loading}
@@ -119,15 +117,28 @@ const fallbackPosterUrl = `https://i.ytimg.com/vi/${cleanId}/hqdefault.jpg`;
 
 <script>
   function setupVideoFacades() {
+    const advancePosterFallback = (img: HTMLImageElement) => {
+      if (!img.dataset.fb && img.dataset.sdSrc) {
+        img.dataset.fb = "sd";
+        img.src = img.dataset.sdSrc;
+      } else if (img.dataset.fb === "sd" && img.dataset.hqSrc) {
+        img.dataset.fb = "hq";
+        img.src = img.dataset.hqSrc;
+      }
+    };
+
     document.querySelectorAll<HTMLImageElement>(".video-facade-poster").forEach((img) => {
+      if (!img.dataset.posterBound) {
+        img.dataset.posterBound = "true";
+        img.addEventListener("error", () => advancePosterFallback(img));
+        img.addEventListener("load", () => {
+          if (img.naturalWidth <= 120) {
+            advancePosterFallback(img);
+          }
+        });
+      }
       if (img.complete && img.naturalWidth <= 120) {
-        if (!img.dataset.fb && img.dataset.sdSrc) {
-          img.dataset.fb = "sd";
-          img.src = img.dataset.sdSrc;
-        } else if (img.dataset.fb === "sd" && img.dataset.hqSrc) {
-          img.dataset.fb = "hq";
-          img.src = img.dataset.hqSrc;
-        }
+        advancePosterFallback(img);
       }
     });
 

@@ -1,19 +1,37 @@
-<img draggable="false"
+---
+import { getLangFromUrl } from "@/i18n/utils";
+
+const isCn = getLangFromUrl(Astro.url) === "zh-cn";
+const backtopLabel = isCn ? "返回页面顶部" : "返回頁面頂部";
+---
+
+<button
   id="backtop"
-  src="/images/icons/icon-backtop.svg"
-  alt="返回頂部"
-  title="返回頁面頂部"
-  width="36"
-  height="36"
-  class="z-50 fixed right-4 bottom-50 lg:right-[8.75vw] lg:bottom-35 size-9 cursor-pointer transition-opacity duration-300 opacity-0 pointer-events-none"
-  loading="lazy"
-  decoding="async"
-/>
+  type="button"
+  aria-label={backtopLabel}
+  title={backtopLabel}
+  aria-hidden="true"
+  tabindex="-1"
+  class="z-50 fixed right-4 bottom-50 lg:right-[8.75vw] lg:bottom-35 size-9 p-0 m-0 border-0 bg-transparent cursor-pointer transition-opacity duration-300 opacity-0 pointer-events-none"
+>
+  <img
+    draggable="false"
+    src="/images/icons/icon-backtop.svg"
+    alt=""
+    aria-hidden="true"
+    width="36"
+    height="36"
+    class="w-full h-full block"
+    loading="lazy"
+    decoding="async"
+  />
+</button>
 <script>
   // 封装初始化函数，防止在多页切换（如开启 View Transitions）时失效
   function initBackToTop() {
-    const backTopBtn = document.getElementById("backtop");
-    if (!backTopBtn) return;
+    const backTopBtn = document.getElementById("backtop") as HTMLButtonElement | null;
+    if (!backTopBtn || backTopBtn.dataset.bound) return;
+    backTopBtn.dataset.bound = "true";
 
     // 监听滚动事件：当向下滚动超过 300px 时显示按钮，否则隐藏
     window.addEventListener(
@@ -22,9 +40,13 @@
         if (window.scrollY > 300) {
           backTopBtn.classList.remove("opacity-0", "pointer-events-none");
           backTopBtn.classList.add("opacity-100");
+          backTopBtn.setAttribute("aria-hidden", "false");
+          backTopBtn.tabIndex = 0;
         } else {
           backTopBtn.classList.remove("opacity-100");
           backTopBtn.classList.add("opacity-0", "pointer-events-none");
+          backTopBtn.setAttribute("aria-hidden", "true");
+          backTopBtn.tabIndex = -1;
         }
       },
       { passive: true }
@@ -40,4 +62,5 @@
   }
   // 页面初次加载时运行
   initBackToTop();
+  document.addEventListener("astro:page-load", initBackToTop);
 </script>

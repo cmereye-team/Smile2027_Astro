@@ -5,7 +5,6 @@
  */
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
-import SchemaProcedure from "@/components/seo/SchemaProcedure.astro";
 import { i18nPaths, getLangFromUrl } from "@/i18n/utils";
 import {
   FLOW_ZH_HK,
@@ -32,10 +31,6 @@ const breadcrumbItems = [
 ---
 
 <BaseLayout tdkKey="flowOfVisionCorrection">
-  <SchemaProcedure
-    name={content.banner.title}
-    description={content.process.intro}
-  />
   <SchemaBreadcrumb items={breadcrumbItems} />
 
   <div class="flow-page font-hk text-desc relative overflow-x-clip">
@@ -79,6 +74,8 @@ const breadcrumbItems = [
                       src={item.img}
                       alt={stepText}
                       title={stepText}
+                      width="120"
+                      height="120"
                       draggable="false"
                       loading="lazy"
                       decoding="async"
@@ -118,6 +115,8 @@ const breadcrumbItems = [
                         src={item.img}
                         alt={itemText}
                         title={itemText}
+                        width="110"
+                        height="110"
                         draggable="false"
                         loading="lazy"
                         decoding="async"
@@ -145,6 +144,8 @@ const breadcrumbItems = [
                     src={item.img}
                     alt={itemText}
                     title={itemText}
+                    width="110"
+                    height="110"
                     draggable="false"
                     loading="lazy"
                     decoding="async"
@@ -172,6 +173,8 @@ const breadcrumbItems = [
               src={content.cta.icon}
               alt={content.cta.label}
               title={content.cta.label}
+              width="54"
+              height="54"
               draggable="false"
               loading="lazy"
               decoding="async"

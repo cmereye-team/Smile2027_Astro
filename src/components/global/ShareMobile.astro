@@ -12,6 +12,7 @@ const { dict } = useI18n(Astro.url);
   <div class="center gap-3">
     <button
       id="btn-share"
+      type="button"
       class="size-14 rounded-full border border-primary center"
       aria-label={dict.common.share.btnShare}
     >
@@ -19,6 +20,7 @@ const { dict } = useI18n(Astro.url);
     </button>
     <button
       id="btn-copy"
+      type="button"
       class="size-14 rounded-full border border-primary center relative"
       aria-label={dict.common.share.btnCopy}
     >
@@ -27,10 +29,10 @@ const { dict } = useI18n(Astro.url);
   </div>
   <div
     id="toast"
-    class="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-4 py-2.5 rounded border border-[#e1f3d8] bg-[#f0f9eb] text-[#67c23a] shadow-sm transition-all duration-300 transform -translate-y-10 opacity-0 pointer-events-none"
+    class="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-4 py-2.5 rounded border border-[#b7dfaa] bg-[#f0f9eb] text-[#246610] shadow-sm transition-all duration-300 transform -translate-y-10 opacity-0 pointer-events-none"
     role="alert"
   >
-    <img decoding="async" loading="lazy" draggable="false" src="/images/icons/icon-toast-success.svg" alt={dict.common.share.success} title={dict.common.share.success} class="size-4" aria-hidden="true" />
+    <img decoding="async" loading="lazy" draggable="false" src="/images/icons/icon-toast-success.svg" alt={dict.common.share.success} title={dict.common.share.success} width="16" height="16" class="size-4" aria-hidden="true" />
     <span class="text-sm font-medium leading-none">{dict.common.share.success}</span>
   </div>
 </section>
@@ -74,37 +76,22 @@ const { dict } = useI18n(Astro.url);
     }
 
     // 核心复制与提示函数
-    function triggerCopy() {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard
-          .writeText(pageUrl)
-          .then(() => showToast())
-          .catch((err) => {
-            console.error("复制失败，使用降级方案", err);
-            fallbackCopy(pageUrl);
-          });
-      } else {
-        fallbackCopy(pageUrl);
+    async function triggerCopy() {
+      if (navigator.clipboard?.writeText) {
+        try {
+          await navigator.clipboard.writeText(pageUrl);
+          showToast();
+          return;
+        } catch (err) {
+          console.error("Clipboard API 复制失败:", err);
+        }
       }
-    }
-
-    // 老旧浏览器降级复制方案
-    function fallbackCopy(text: string) {
-      const textArea = document.createElement("textarea");
-      textArea.value = text;
-      // 隐蔽隐藏
-      textArea.style.position = "fixed";
-      textArea.style.left = "-999999px";
-      document.body.appendChild(textArea);
-      textArea.focus();
-      textArea.select();
-      try {
-        document.execCommand("copy");
-        showToast();
-      } catch (_err) {
-        alert("复制失败，请手动复制浏览器地址栏链接");
-      }
-      document.body.removeChild(textArea);
+      window.prompt(
+        document.documentElement.lang === "zh-cn"
+          ? "请复制以下页面链接："
+          : "請複製以下頁面連結：",
+        pageUrl
+      );
     }
 
     // 显示“复制成功”小气泡

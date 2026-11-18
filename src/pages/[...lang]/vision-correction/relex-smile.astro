@@ -28,6 +28,19 @@ const lang = getLangFromUrl(Astro.url);
 const isCn = lang === "zh-cn";
 const content = isCn ? RELEX_SMILE_ZH_CN : RELEX_SMILE_ZH_HK;
 const banners = await getBanners(lang);
+
+// 僅將頁面 DOM 可見渲染的 2 則 SMILE XTRA 問答輸出至 FAQPage JSON-LD（與 HTML Microdata 100% 雙軌一致）
+const stripTags = (html: string) => html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+const visibleFaqs = [
+  {
+    question: stripTags(content.xtra.card1TitleHtml),
+    answer: content.xtra.card1Text,
+  },
+  {
+    question: stripTags(content.xtra.card2TitleHtml),
+    answer: content.xtra.card2Text,
+  },
+];
 ---
 
 <BaseLayout tdkKey="smile">
@@ -52,7 +65,7 @@ const banners = await getBanners(lang);
       },
     ]}
   />
-  <SchemaFAQ faqs={content.faqs} />
+  <SchemaFAQ faqs={visibleFaqs} />
 
   <div class="page-smile font-hk">
     {/* 視差裝飾背景層 (Parallax Background Canvas) */}
@@ -466,36 +479,58 @@ const banners = await getBanners(lang);
           <p class="font-en">{content.xtra.subtitle}</p>
           <span>{content.xtra.tag}</span>
         </div>
-        <div class="xtra-paper">
-          <div class="xtra-paper-item">
-            <h3 class="xtra-paper-title" set:html={content.xtra.card1TitleHtml} />
-            <div class="xtra-paper-intro">
-              <p>{content.xtra.card1Text}</p>
+        <div class="xtra-paper" itemscope itemtype="https://schema.org/FAQPage">
+          <div
+            class="xtra-paper-item"
+            itemscope
+            itemprop="mainEntity"
+            itemtype="https://schema.org/Question"
+          >
+            <h3 class="xtra-paper-title" itemprop="name" set:html={content.xtra.card1TitleHtml} />
+            <div
+              class="xtra-paper-intro"
+              itemscope
+              itemprop="acceptedAnswer"
+              itemtype="https://schema.org/Answer"
+            >
+              <p itemprop="text">{content.xtra.card1Text}</p>
               <img draggable="false"
                 class="xtra-paper-icon"
                 src="https://statichk.cmermedical.com/smile/smileV2/smile-xtra-2.svg"
-                alt={content.xtra.card1TitleHtml.replace(/<[^ loading="lazy" decoding="async">]+>/g, " ").replace(/\s+/g, " ").trim()}
+                alt={content.xtra.card1TitleHtml.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()}
                 title={content.xtra.card1TitleHtml.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()}
                 aria-hidden="true"
                 width="80"
                 height="80"
                 loading="lazy"
+                decoding="async"
               />
             </div>
           </div>
-          <div class="xtra-paper-item">
-            <h3 class="xtra-paper-title" set:html={content.xtra.card2TitleHtml} />
-            <div class="xtra-paper-intro">
-              <p>{content.xtra.card2Text}</p>
+          <div
+            class="xtra-paper-item"
+            itemscope
+            itemprop="mainEntity"
+            itemtype="https://schema.org/Question"
+          >
+            <h3 class="xtra-paper-title" itemprop="name" set:html={content.xtra.card2TitleHtml} />
+            <div
+              class="xtra-paper-intro"
+              itemscope
+              itemprop="acceptedAnswer"
+              itemtype="https://schema.org/Answer"
+            >
+              <p itemprop="text">{content.xtra.card2Text}</p>
               <img draggable="false"
                 class="xtra-paper-icon"
                 src="https://statichk.cmermedical.com/smile/smileV2/smile-xtra-1.svg"
-                alt={content.xtra.card2TitleHtml.replace(/<[^ loading="lazy" decoding="async">]+>/g, " ").replace(/\s+/g, " ").trim()}
+                alt={content.xtra.card2TitleHtml.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()}
                 title={content.xtra.card2TitleHtml.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()}
                 aria-hidden="true"
                 width="80"
                 height="80"
                 loading="lazy"
+                decoding="async"
               />
             </div>
           </div>
@@ -572,78 +607,78 @@ const banners = await getBanners(lang);
       </aside>
     </div>
   </div>
-</BaseLayout>
 
-<script is:inline define:vars={{ stepsData: content.steps.list }}>
-  function initRelexSmileInteractive() {
-    // 1. 步驟切換交互
-    const stepButtons = document.querySelectorAll(".steps-number .step");
-    const stepImg = document.getElementById("relex-step-img");
-    const stepText = document.getElementById("relex-step-text");
+  <script is:inline define:vars={{ stepsData: content.steps.list }}>
+    function initRelexSmileInteractive() {
+      // 1. 步驟切換交互
+      const stepButtons = document.querySelectorAll(".steps-number .step");
+      const stepImg = document.getElementById("relex-step-img");
+      const stepText = document.getElementById("relex-step-text");
 
-    if (stepButtons.length && stepImg && stepText) {
-      stepButtons.forEach((btn, index) => {
-        function activateStep() {
-          stepButtons.forEach((b) => {
-            b.classList.remove("active");
-            b.setAttribute("aria-selected", "false");
-          });
-          btn.classList.add("active");
-          btn.setAttribute("aria-selected", "true");
-
-          const current = stepsData[index];
-          if (current) {
-            stepImg.src = current.image;
-            stepImg.srcset = `${current.image} 768w, ${current.imagePc} 1200w`;
-            stepText.textContent = current.text;
-            stepText.className = `steps-content-text steps-content-${current.number}`;
-          }
-        }
-
-        btn.addEventListener("click", activateStep);
-        btn.addEventListener("mouseenter", activateStep);
-      });
-    }
-
-    // 2. SMILE XTRA 滾動進入視口展開動畫
-    const xtraSection = document.getElementById("relexXtraSection");
-    if (xtraSection) {
-      const xtraPaper = xtraSection.querySelector(".xtra-paper");
-      const xtraItems = xtraSection.querySelectorAll(".xtra-paper-item");
-
-      if (xtraPaper && xtraItems.length) {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
-                xtraPaper.classList.add("unfolded");
-                xtraItems.forEach((item) => item.classList.add("unfolded"));
-              } else if (!entry.isIntersecting && entry.intersectionRatio < 0.1) {
-                xtraPaper.classList.remove("unfolded");
-                xtraItems.forEach((item) => item.classList.remove("unfolded"));
-              }
+      if (stepButtons.length && stepImg && stepText) {
+        stepButtons.forEach((btn, index) => {
+          function activateStep() {
+            stepButtons.forEach((b) => {
+              b.classList.remove("active");
+              b.setAttribute("aria-selected", "false");
             });
-          },
-          { threshold: [0.1, 0.25, 0.5], rootMargin: "40px 0px" }
-        );
+            btn.classList.add("active");
+            btn.setAttribute("aria-selected", "true");
 
-        observer.observe(xtraSection);
+            const current = stepsData[index];
+            if (current) {
+              stepImg.src = current.image;
+              stepImg.srcset = `${current.image} 768w, ${current.imagePc} 1200w`;
+              stepText.textContent = current.text;
+              stepText.className = `steps-content-text steps-content-${current.number}`;
+            }
+          }
+
+          btn.addEventListener("click", activateStep);
+          btn.addEventListener("mouseenter", activateStep);
+        });
       }
+
+      // 2. SMILE XTRA 滾動進入視口展開動畫
+      const xtraSection = document.getElementById("relexXtraSection");
+      if (xtraSection) {
+        const xtraPaper = xtraSection.querySelector(".xtra-paper");
+        const xtraItems = xtraSection.querySelectorAll(".xtra-paper-item");
+
+        if (xtraPaper && xtraItems.length) {
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting && entry.intersectionRatio >= 0.15) {
+                  xtraPaper.classList.add("unfolded");
+                  xtraItems.forEach((item) => item.classList.add("unfolded"));
+                } else if (!entry.isIntersecting && entry.intersectionRatio < 0.05) {
+                  xtraPaper.classList.remove("unfolded");
+                  xtraItems.forEach((item) => item.classList.remove("unfolded"));
+                }
+              });
+            },
+            { threshold: [0.05, 0.15, 0.35], rootMargin: "40px 0px" }
+          );
+
+          observer.observe(xtraPaper);
+        }
+      }
+
+      // 3. 好處卡片點擊激活切換
+      const benefitItems = document.querySelectorAll(".benefit-item");
+      benefitItems.forEach((item) => {
+        item.addEventListener("click", () => {
+          benefitItems.forEach((i) => i.classList.remove("active"));
+          item.classList.add("active");
+        });
+      });
     }
 
-    // 3. 好處卡片點擊激活切換
-    const benefitItems = document.querySelectorAll(".benefit-item");
-    benefitItems.forEach((item) => {
-      item.addEventListener("click", () => {
-        benefitItems.forEach((i) => i.classList.remove("active"));
-        item.classList.add("active");
-      });
-    });
-  }
-
-  document.addEventListener("DOMContentLoaded", initRelexSmileInteractive);
-  document.addEventListener("astro:page-load", initRelexSmileInteractive);
-</script>
+    document.addEventListener("DOMContentLoaded", initRelexSmileInteractive);
+    document.addEventListener("astro:page-load", initRelexSmileInteractive);
+  </script>
+</BaseLayout>
 
 <style lang="scss">
   $primary-color: #4570b6;
@@ -660,29 +695,9 @@ const banners = await getBanners(lang);
     }
   }
 
+  /* Keep footer stacked above fixed .smile-parallax-bg (z-index: 0); Footer.astro already sets bg #f4fafc, margin-top: 0, and mobile padding-bottom */
   :global(#site-footer) {
-    position: relative;
     z-index: 10;
-    background-color: #f4fafc !important;
-    margin-top: 0 !important;
-  }
-
-  @media screen and (max-width: 991px) {
-    :global(#site-footer) {
-      margin-top: 0 !important;
-      background-color: #f4fafc !important;
-    }
-    :global(#site-footer .footer-bottom) {
-      margin-bottom: 0 !important;
-      background-color: #f4fafc !important;
-    }
-  }
-
-  @media screen and (min-width: 992px) {
-    :global(#site-footer) {
-      margin-top: 0 !important;
-      background-color: #f4fafc !important;
-    }
   }
 
   .smile-main-column {
@@ -796,7 +811,7 @@ const banners = await getBanners(lang);
 
     p {
       font-weight: 300;
-      font-size: clamp(0.875rem, 0.739rem + 0.68vw, 1.25rem);
+      font-size: clamp(1rem, 0.909rem + 0.45vw, 1.25rem);
       line-height: 35px;
       letter-spacing: clamp(0.044rem, 0.037rem + 0.03vw, 0.063rem);
 
@@ -900,8 +915,8 @@ const banners = await getBanners(lang);
       &-text {
         position: absolute;
         font-weight: 400;
-        font-size: clamp(0.875rem, 0.739rem + 0.68vw, 1.25rem);
-        line-height: clamp(1.125rem, 0.739rem + 1.93vw, 2.188rem);
+        font-size: clamp(1rem, 0.909rem + 0.45vw, 1.25rem);
+        line-height: clamp(1.375rem, 1.079rem + 1.48vw, 2.188rem);
         margin-top: clamp(0.563rem, 0.358rem + 1.02vw, 1.125rem);
         left: 0;
         bottom: -2.5rem;
@@ -914,7 +929,7 @@ const banners = await getBanners(lang);
       p {
         color: $text-color;
         font-weight: 300;
-        font-size: 14px;
+        font-size: 16px;
         line-height: 30px;
         letter-spacing: 2.52px;
         margin-bottom: 30px;
@@ -1128,8 +1143,8 @@ const banners = await getBanners(lang);
     &-desc {
       color: $text-color;
       text-align: center;
-      font-size: clamp(0.938rem, 0.824rem + 0.57vw, 1.25rem);
-      line-height: clamp(1.375rem, 1.011rem + 1.82vw, 2.375rem);
+      font-size: clamp(1rem, 0.909rem + 0.45vw, 1.25rem);
+      line-height: clamp(1.5rem, 1.182rem + 1.59vw, 2.375rem);
       letter-spacing: clamp(0rem, -0.036rem + 0.18vw, 0.1rem);
       font-weight: 400;
       margin-top: clamp(0.75rem, -0.205rem + 4.77vw, 3.375rem);
@@ -1170,14 +1185,14 @@ const banners = await getBanners(lang);
       height: 488px;
 
       @media screen and (max-width: 767px) {
-        height: clamp(18rem, 15.327rem + 5.57vw, 19.5rem);
+        height: auto;
+        margin-bottom: 28px;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
       }
 
       &.unfolded {
-        @media screen and (max-width: 767px) {
-          animation: xtraHeightMob 1s ease forwards;
-        }
-
         @media screen and (min-width: 768px) {
           animation: xtraHeightPc 1s ease forwards;
         }
@@ -1194,30 +1209,40 @@ const banners = await getBanners(lang);
           clamp(2.138rem, 1.758rem + 1.56vw, 3.625rem);
 
         @media screen and (max-width: 767px) {
-          left: 36px;
+          position: relative;
+          left: auto;
+          width: calc(100% - 24px);
+          padding: 22px 16px 24px;
         }
 
         &:nth-child(1) {
           z-index: 1;
 
-          &.unfolded {
-            @media screen and (max-width: 767px) {
-              animation: xtraBottomMob 1s ease forwards;
+          @media screen and (max-width: 767px) {
+            margin-right: auto;
+            padding-bottom: 42px;
 
-              &::after {
-                content: "";
-                z-index: 2;
-                width: 0;
-                height: 0;
-                background-color: #dbdbdb;
-                clip-path: polygon(0 100%, 100% 100%, 100% 0);
-                animation: xtraTriangleMob 1s ease forwards;
-                position: absolute;
-                left: 0;
-                bottom: -1px;
-              }
+            &::after {
+              content: "";
+              z-index: 2;
+              width: 24px;
+              height: 24px;
+              background-color: #dbdbdb;
+              clip-path: polygon(0 100%, 100% 100%, 100% 0);
+              position: absolute;
+              left: 0;
+              bottom: 0;
+              transform: scale(0);
+              transform-origin: left bottom;
+              transition: transform 0.8s var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1));
             }
 
+            &.unfolded::after {
+              transform: scale(1);
+            }
+          }
+
+          &.unfolded {
             @media screen and (min-width: 768px) {
               animation: xtraBottomPc 1s ease forwards;
 
@@ -1240,15 +1265,27 @@ const banners = await getBanners(lang);
         &:nth-child(2) {
           z-index: 3;
 
-          &.unfolded {
-            @media screen and (max-width: 767px) {
-              animation: xtraTopMob 1s ease forwards;
-            }
+          @media screen and (max-width: 767px) {
+            margin-left: auto;
+            margin-top: -24px;
+            transform: translate(-24px, -55%);
+            transition: transform 0.8s var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1));
 
+            &.unfolded {
+              transform: translate(0, 0);
+            }
+          }
+
+          &.unfolded {
             @media screen and (min-width: 768px) {
               animation: xtraTopPc 1s ease forwards;
             }
           }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          transform: none !important;
+          transition: none !important;
         }
       }
 
@@ -1256,8 +1293,12 @@ const banners = await getBanners(lang);
         color: $primary-color;
         font-weight: 700;
         font-size: clamp(1rem, 0.857rem + 0.59vw, 1.563rem);
-        line-height: clamp(0.636rem, 0.48rem + 0.64vw, 1.25rem);
+        line-height: 1.4;
         margin-bottom: clamp(1.018rem, 0.752rem + 1.09vw, 2.063rem);
+
+        @media screen and (min-width: 768px) {
+          line-height: clamp(0.636rem, 0.48rem + 0.64vw, 1.25rem);
+        }
 
         :global(span) {
           font-family: Poppins, sans-serif;
@@ -1268,20 +1309,30 @@ const banners = await getBanners(lang);
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: clamp(0.5rem, 0.022rem + 1.96vw, 2.375rem);
+        gap: clamp(0.75rem, 0.022rem + 1.96vw, 2.375rem);
 
         p {
           color: $text-color;
           text-align: justify;
           font-weight: 400;
-          font-size: clamp(0.875rem, 0.779rem + 0.39vw, 1.25rem);
-          line-height: clamp(1.113rem, 0.839rem + 1.12vw, 2.188rem);
-          letter-spacing: clamp(0.219rem, 0.211rem + 0.03vw, 0.25rem);
+          font-size: clamp(1rem, 0.909rem + 0.45vw, 1.25rem);
+          line-height: clamp(1.5rem, 1.25rem + 1.12vw, 2.188rem);
+          letter-spacing: 0.06em;
+
+          @media screen and (min-width: 768px) {
+            letter-spacing: clamp(0.219rem, 0.211rem + 0.03vw, 0.25rem);
+          }
         }
       }
 
       &-icon {
         height: clamp(5.125rem, 3.898rem + 6.14vw, 8.5rem);
+
+        @media screen and (max-width: 767px) {
+          width: 64px;
+          height: 64px;
+          flex-shrink: 0;
+        }
       }
     }
   }
@@ -1298,8 +1349,8 @@ const banners = await getBanners(lang);
 
       p {
         font-weight: 400;
-        font-size: clamp(0.875rem, 0.648rem + 1.14vw, 1.5rem);
-        line-height: clamp(1.375rem, 1.193rem + 0.91vw, 1.875rem);
+        font-size: clamp(1rem, 0.818rem + 0.91vw, 1.5rem);
+        line-height: clamp(1.5rem, 1.364rem + 0.68vw, 1.875rem);
         margin-top: clamp(0.25rem, -0.068rem + 1.59vw, 1.125rem);
         margin-bottom: clamp(1.875rem, 1.739rem + 0.68vw, 2.25rem);
       }
@@ -1314,6 +1365,11 @@ const banners = await getBanners(lang);
     &-intro {
       padding: clamp(1.5rem, 1.182rem + 1.59vw, 2.375rem)
         clamp(2.375rem, 2.011rem + 1.82vw, 3.375rem) 0;
+
+      p {
+        font-size: 16px;
+        line-height: 1.75;
+      }
     }
   }
 

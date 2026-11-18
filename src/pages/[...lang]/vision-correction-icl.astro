@@ -29,6 +29,22 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
 ---
 
 <BaseLayout tdkKey="icl">
+  <Fragment slot="head">
+    <link
+      rel="preload"
+      as="image"
+      href={content.banner.imgMb}
+      media="(max-width: 991px)"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href={content.banner.imgPc}
+      media="(min-width: 992px)"
+      fetchpriority="high"
+    />
+  </Fragment>
   <SchemaProcedure
     name={content.banner.title}
     description={content.center.p1.text1 +
@@ -55,20 +71,21 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
   <div class="page-icl font-hk text-desc relative overflow-x-clip">
     {/* 1. 頂部主橫幅 Hero Banner */}
     <div class="site-container smile-NewBanner position-relative">
-      <img
-        draggable="false"
-        class="banner-lens-img"
-        decoding="async"
-        src={content.banner.imgPc}
-        alt="ICL 植入式隱形眼鏡 - 香港希瑪微笑矯視中心"
-        title="ICL 植入式隱形眼鏡 - 香港希瑪微笑矯視中心"
-        loading="eager"
-        fetchpriority="high"
-        width="685"
-        height="563"
-        srcset={`${content.banner.imgMb} 400w, ${content.banner.imgMb} 640w, ${content.banner.imgPc}`}
-        sizes="(max-width: 992px) 100vw, 1216px"
-      />
+      <picture class="contents">
+        <source media="(max-width: 991px)" srcset={content.banner.imgMb} />
+        <img
+          draggable="false"
+          class="banner-lens-img"
+          decoding="async"
+          src={content.banner.imgPc}
+          alt="ICL 植入式隱形眼鏡 - 香港希瑪微笑矯視中心"
+          title="ICL 植入式隱形眼鏡 - 香港希瑪微笑矯視中心"
+          loading="eager"
+          fetchpriority="high"
+          width="685"
+          height="563"
+        />
+      </picture>
       <div class="smile-NewBanner-Title">
         <span class="banner-tag">{content.banner.tag}</span>
         <h1 class="icl-h1">{content.banner.title}</h1>
@@ -123,17 +140,18 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
         </h2>
         <div class="icl-WhatChoose-content-one">
         <div class="icl-WhatChoose-content-one-img">
-          <img draggable="false"
-            decoding="async"
-            src={content.whyChoose.imgPc}
-            alt="為何選擇希瑪 - 官方認證EVO ICL國際培訓中心"
-            title="為何選擇希瑪 - 官方認證EVO ICL國際培訓中心"
-            loading="lazy"
-            width="595"
-            height="384"
-            srcset={`${content.whyChoose.imgMb} 400w, ${content.whyChoose.imgMb} 640w, ${content.whyChoose.imgPc}`}
-            sizes="(max-width: 992px) 100vw, 1216px"
-          />
+          <picture class="contents">
+            <source media="(max-width: 991px)" srcset={content.whyChoose.imgMb} />
+            <img draggable="false"
+              decoding="async"
+              src={content.whyChoose.imgPc}
+              alt="為何選擇希瑪 - 官方認證EVO ICL國際培訓中心"
+              title="為何選擇希瑪 - 官方認證EVO ICL國際培訓中心"
+              loading="lazy"
+              width="595"
+              height="384"
+            />
+          </picture>
         </div>
         <div class="icl-WhatChoose-content-one-text">
           <p>
@@ -377,7 +395,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
               tabindex="0"
               aria-label={`${item.title} (feature ${item.footerNum})`}
             >
-              <h4>{item.tag}</h4>
+              <h3 class="icl-peculiarity-list-item-footer">{item.tag}</h3>
               <div class="icl-peculiarity-list-item-text">
                 <p class="icl-peculiarity-list-item-text-title">
                   {item.title}

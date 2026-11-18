@@ -338,243 +338,256 @@ const serverList = [
 
     <!-- 8. 榮譽與權威認證輪播區塊 (Awards) -->
     <IndexAwards />
-</BaseLayout>
 
-<!-- GSAP 評價平滑滾動控制腳本 -->
-<script>
-  import { gsap } from "gsap";
+    <!-- 原生零依賴互動與動效腳本 (IntersectionObserver + rAF + CSS/WAAPI) -->
+    <script>
+      const prefersReducedMotion = () =>
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  function initReviewsMarquee() {
-    const track = document.getElementById("reviews-track");
-    const marquee = document.getElementById("reviews-marquee");
-    if (!track || !marquee) return;
+      function initReviewsMarquee() {
+        const track = document.getElementById("reviews-track");
+        const marquee = document.getElementById("reviews-marquee");
+        if (!track || !marquee || prefersReducedMotion()) return;
 
-    const cardHeight = 110;
-    const totalItems = track.children.length;
-    const halfItems = totalItems / 2;
-    const scrollDistance = halfItems * cardHeight;
+        const cardHeight = 110;
+        const totalItems = track.children.length;
+        const scrollDistance = (totalItems / 2) * cardHeight;
+        if (scrollDistance <= 0) return;
 
-    let tween: gsap.core.Tween | null = null;
-
-    const runMarquee = () => {
-      if (tween) return;
-      tween = gsap.to(track, {
-        y: -scrollDistance,
-        duration: 30,
-        ease: "none",
-        repeat: -1,
-        modifiers: {
-          y: gsap.utils.unitize((y) => parseFloat(y) % scrollDistance),
-        },
-      });
-    };
-
-    // 採用 GSAP timeScale 絲滑阻尼減速與加速，徹底告別生硬瞬停
-    const pauseMarquee = () => {
-      if (tween) gsap.to(tween, { timeScale: 0, duration: 0.4, ease: "power1.out" });
-    };
-    const playMarquee = () => {
-      if (tween) gsap.to(tween, { timeScale: 1, duration: 0.5, ease: "power1.in" });
-    };
-
-    marquee.addEventListener("mouseenter", pauseMarquee);
-    marquee.addEventListener("mouseleave", playMarquee);
-    marquee.addEventListener("touchstart", pauseMarquee, { passive: true });
-    marquee.addEventListener("touchend", playMarquee, { passive: true });
-
-    if ("IntersectionObserver" in window) {
-      const io = new IntersectionObserver(
-        (entries) => {
-          if (entries[0]?.isIntersecting) {
-            if (!tween) runMarquee();
-            else tween.play();
-          } else if (tween) {
-            tween.pause();
+        const anim = track.animate(
+          [
+            { transform: "translate3d(0, 0, 0)" },
+            { transform: `translate3d(0, -${scrollDistance}px, 0)` },
+          ],
+          {
+            duration: 30000,
+            iterations: Infinity,
+            easing: "linear",
           }
-        },
-        { rootMargin: "200px" }
-      );
-      io.observe(marquee);
-    } else {
-      runMarquee();
-    }
-  }
+        );
 
-  function initFourFeatureObserver() {
-    const el = document.getElementById("fourFeature");
-    if (!el) return;
+        const pauseMarquee = () => anim.pause();
+        const playMarquee = () => anim.play();
 
-    function runCounters(container: HTMLElement) {
-      const counters = container.querySelectorAll<HTMLElement>(".counter-num");
-      counters.forEach((counter) => {
-        const target = parseFloat(counter.getAttribute("data-target") || "0");
-        const obj = { val: 0 };
-        gsap.to(obj, {
-          val: target,
-          duration: 1.8,
-          ease: "power2.out",
-          delay: 0.25, // 與快速生長的十字架與卡片依序同步跑數
-          onUpdate: () => {
-            counter.textContent = Math.floor(obj.val).toLocaleString();
+        marquee.addEventListener("mouseenter", pauseMarquee);
+        marquee.addEventListener("mouseleave", playMarquee);
+        marquee.addEventListener("touchstart", pauseMarquee, { passive: true });
+        marquee.addEventListener("touchend", playMarquee, { passive: true });
+
+        if ("IntersectionObserver" in window) {
+          const io = new IntersectionObserver(
+            (entries) => {
+              if (entries[0]?.isIntersecting) {
+                anim.play();
+              } else {
+                anim.pause();
+              }
+            },
+            { rootMargin: "200px" }
+          );
+          io.observe(marquee);
+        }
+      }
+
+      function initFourFeatureObserver() {
+        const el = document.getElementById("fourFeature");
+        if (!el) return;
+
+        function runCounters(container: HTMLElement) {
+          const counters = container.querySelectorAll<HTMLElement>(".counter-num");
+          const reduced = prefersReducedMotion();
+
+          counters.forEach((counter) => {
+            const target = parseFloat(counter.getAttribute("data-target") || "0");
+            if (reduced || target <= 0) {
+              counter.textContent = target.toLocaleString();
+              return;
+            }
+
+            const duration = 1800;
+            const delay = 250;
+            const startAt = performance.now() + delay;
+
+            const step = (now: number) => {
+              if (now < startAt) {
+                requestAnimationFrame(step);
+                return;
+              }
+              const elapsed = now - startAt;
+              const progress = Math.min(elapsed / duration, 1);
+              // ease-out cubic
+              const eased = 1 - Math.pow(1 - progress, 3);
+              counter.textContent = Math.floor(eased * target).toLocaleString();
+              if (progress < 1) {
+                requestAnimationFrame(step);
+              } else {
+                counter.textContent = target.toLocaleString();
+              }
+            };
+            requestAnimationFrame(step);
+          });
+        }
+
+        if (!("IntersectionObserver" in window)) {
+          el.classList.add("is-inview");
+          runCounters(el);
+          return;
+        }
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                el.classList.add("is-inview");
+                runCounters(el);
+                observer.unobserve(el);
+              }
+            });
           },
-          onComplete: () => {
-            counter.textContent = target.toLocaleString();
-          },
-        });
-      });
-    }
+          { threshold: 0.25, rootMargin: "0px 0px -50px 0px" }
+        );
+        observer.observe(el);
+      }
 
-    if (!("IntersectionObserver" in window)) {
-      el.classList.add("is-inview");
-      runCounters(el);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            el.classList.add("is-inview");
-            runCounters(el);
-            observer.unobserve(el);
-          }
-        });
-      },
-      { threshold: 0.25, rootMargin: "0px 0px -50px 0px" }
-    );
-    observer.observe(el);
-  }
-
-  // 1. GSAP 裝飾圖層滾動微視差與光學自轉 (Multi-plane Optical Parallax)
-  function initParallaxDeco() {
-    const aiming = document.querySelector<HTMLElement>(".centerSevice-svg-top");
-    const lens = document.querySelector<HTMLElement>(".centerSevice-svg-bottom");
-    const section = document.querySelector<HTMLElement>(".centerIntro");
-    if (!aiming && !lens || !section) return;
-
-    let ticking = false;
-    const updateParallax = () => {
-      const rect = section.getBoundingClientRect();
-      const viewH = window.innerHeight;
-      // 只有當區塊進入視窗可見區域時計算相對偏移量
-      if (rect.top < viewH && rect.bottom > 0) {
-        const progress = (viewH - rect.top) / (viewH + rect.height); // 0 到 1
-        const offset = (progress - 0.5) * 80; // -40px 到 +40px 的明顯物理行程
+      // 1. 裝飾圖層滾動微視差 (GPU-composited transform)
+      function initParallaxDeco() {
+        if (prefersReducedMotion()) return;
+        const aiming = document.querySelector<HTMLElement>(".centerSevice-svg-top");
+        const lens = document.querySelector<HTMLElement>(".centerSevice-svg-bottom");
+        const section = document.querySelector<HTMLElement>(".centerIntro");
+        if ((!aiming && !lens) || !section) return;
 
         if (aiming) {
-          gsap.to(aiming, {
-            y: offset * 0.9,
-            duration: 0.6,
-            ease: "power1.out",
-            overwrite: "auto",
-          });
+          aiming.style.transition = "transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)";
         }
         if (lens) {
-          gsap.to(lens, {
-            y: -offset * 0.7,
-            duration: 0.6,
-            ease: "power1.out",
-            overwrite: "auto",
-          });
+          lens.style.transition = "transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)";
         }
-      }
-      ticking = false;
-    };
 
-    window.addEventListener("scroll", () => {
-      if (!ticking) {
-        window.requestAnimationFrame(updateParallax);
-        ticking = true;
-      }
-    }, { passive: true });
-    updateParallax();
-  }
+        let ticking = false;
+        const updateParallax = () => {
+          const rect = section.getBoundingClientRect();
+          const viewH = window.innerHeight;
+          if (rect.top < viewH && rect.bottom > 0) {
+            const progress = (viewH - rect.top) / (viewH + rect.height);
+            const offset = (progress - 0.5) * 80;
 
-  // 2. 矯視服務卡片「激光聚焦點光微跟隨」與 GSAP 箭頭彈性動效
-  function initServiceSpotlight() {
-    const cards = document.querySelectorAll<HTMLElement>(".centerSeviceNewItem");
-    cards.forEach((card) => {
-      const arrow = card.querySelector<HTMLElement>(".centerSeviceNewItem-arrow");
-
-      // PC 端鼠標點光跟隨
-      card.addEventListener("mousemove", (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        card.style.setProperty("--mouse-x", `${x}px`);
-        card.style.setProperty("--mouse-y", `${y}px`);
-      });
-
-      // 鼠標移入：箭頭自左下方 (-4px, 4px) 帶 45° 角度彈性掠入
-      card.addEventListener("mouseenter", () => {
-        if (window.innerWidth >= 992 && arrow) {
-          gsap.fromTo(
-            arrow,
-            { x: -5, y: 5, opacity: 0, scale: 0.8 },
-            {
-              x: 0,
-              y: 0,
-              opacity: 1,
-              scale: 1,
-              duration: 0.35,
-              ease: "back.out(2)",
-              overwrite: "auto",
+            if (aiming) {
+              aiming.style.transform = `translate3d(0, ${(offset * 0.9).toFixed(2)}px, 0)`;
             }
-          );
-        }
-      });
-
-      // 鼠標移出：箭頭優雅向右上 (3px, -3px) 隱沒歸位
-      card.addEventListener("mouseleave", () => {
-        if (window.innerWidth >= 992 && arrow) {
-          gsap.to(arrow, {
-            x: 3,
-            y: -3,
-            opacity: 0,
-            duration: 0.25,
-            ease: "power2.in",
-            overwrite: "auto",
-          });
-        }
-      });
-    });
-  }
-
-  // 3. 純色背景美學微動態：當用戶視線聚焦滾入該 div 時觸發漸變至純色
-  function initAmbientMorphObserver() {
-    const targets = document.querySelectorAll<HTMLElement>(
-      ".centerIntro, .UserShare .bg, .UserRatingBox-bottom, .new-Footer-v2"
-    );
-    if (!targets.length) return;
-
-    if (!("IntersectionObserver" in window)) {
-      targets.forEach((t) => t.classList.add("is-inview"));
-      return;
-    }
-
-    const morphObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-inview");
-            morphObserver.unobserve(entry.target);
+            if (lens) {
+              lens.style.transform = `translate3d(0, ${(-offset * 0.7).toFixed(2)}px, 0)`;
+            }
           }
+          ticking = false;
+        };
+
+        window.addEventListener(
+          "scroll",
+          () => {
+            if (!ticking) {
+              window.requestAnimationFrame(updateParallax);
+              ticking = true;
+            }
+          },
+          { passive: true }
+        );
+        updateParallax();
+      }
+
+      // 2. 矯視服務卡片「激光聚焦點光微跟隨」與純 CSS 箭頭彈性動效
+      function initServiceSpotlight() {
+        const cards = document.querySelectorAll<HTMLElement>(".centerSeviceNewItem");
+        const reduced = prefersReducedMotion();
+
+        cards.forEach((card) => {
+          const arrow = card.querySelector<HTMLElement>(".centerSeviceNewItem-arrow");
+
+          card.addEventListener("mousemove", (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            card.style.setProperty("--mouse-x", `${x}px`);
+            card.style.setProperty("--mouse-y", `${y}px`);
+          });
+
+          card.addEventListener("mouseenter", () => {
+            if (window.innerWidth >= 992 && arrow) {
+              if (reduced) {
+                arrow.style.opacity = "1";
+                arrow.style.transform = "translate3d(0, 0, 0) scale(1)";
+                return;
+              }
+              arrow.animate(
+                [
+                  { transform: "translate3d(-5px, 5px, 0) scale(0.8)", opacity: 0 },
+                  { transform: "translate3d(0, 0, 0) scale(1)", opacity: 1 },
+                ],
+                {
+                  duration: 350,
+                  easing: "cubic-bezier(0.34, 1.56, 0.64, 1)",
+                  fill: "forwards",
+                }
+              );
+            }
+          });
+
+          card.addEventListener("mouseleave", () => {
+            if (window.innerWidth >= 992 && arrow) {
+              if (reduced) {
+                arrow.style.opacity = "0";
+                arrow.style.transform = "translate3d(3px, -3px, 0)";
+                return;
+              }
+              arrow.animate(
+                [{ transform: "translate3d(3px, -3px, 0)", opacity: 0 }],
+                {
+                  duration: 250,
+                  easing: "cubic-bezier(0.4, 0, 1, 1)",
+                  fill: "forwards",
+                }
+              );
+            }
+          });
         });
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
-    );
+      }
 
-    targets.forEach((t) => morphObserver.observe(t));
-  }
+      // 3. 純色背景美學微動態：當用戶視線聚焦滾入該 div 時觸發漸變至純色
+      function initAmbientMorphObserver() {
+        const targets = document.querySelectorAll<HTMLElement>(
+          ".centerIntro, .UserShare .bg, .UserRatingBox-bottom, .new-Footer-v2"
+        );
+        if (!targets.length) return;
 
-  function initPageInteractions() {
-    initReviewsMarquee();
-    initFourFeatureObserver();
-    initParallaxDeco();
-    initServiceSpotlight();
-    initAmbientMorphObserver();
-  }
+        if (!("IntersectionObserver" in window)) {
+          targets.forEach((t) => t.classList.add("is-inview"));
+          return;
+        }
 
-  document.addEventListener("DOMContentLoaded", initPageInteractions);
-  document.addEventListener("astro:page-load", initPageInteractions);
-</script>
+        const morphObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-inview");
+                morphObserver.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
+        );
+
+        targets.forEach((t) => morphObserver.observe(t));
+      }
+
+      function initPageInteractions() {
+        initReviewsMarquee();
+        initFourFeatureObserver();
+        initParallaxDeco();
+        initServiceSpotlight();
+        initAmbientMorphObserver();
+      }
+
+      document.addEventListener("DOMContentLoaded", initPageInteractions);
+      document.addEventListener("astro:page-load", initPageInteractions);
+    </script>
+</BaseLayout>

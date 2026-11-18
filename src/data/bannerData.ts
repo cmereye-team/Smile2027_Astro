@@ -54,8 +54,8 @@ export const DEFAULT_FALLBACK_BANNERS: Record<string, BannerItem[]> = {
   "zh-hk": [
     {
       id: "banner-1",
-      pcImg: "https://static.cmermedical.com.hk/smile/uploads/2026/08/31/9s12gfge_lQDPIuFj--eZ3_vNAtDNB4CwyGa7sxxGxiMKY2i9X8PoAA_192.webp",
-      mbImg: "https://static.cmermedical.com.hk/smile/uploads/2026/09/04/htz2tnr2_lQDPIvIWm-BlvsfNBV_NBV-wyXVYMLkfUrIKa08qQ1ivAA_137.webp",
+      pcImg: "https://static.cmermedical.com.hk/smile/uploads/2026/11/11/gnjyyi02_iwEZAqNqcGcDAQTRBQAF0QHgBrDC7hFoTYc2XwrCvXZrxcoBB9.webp",
+      mbImg: "https://static.cmermedical.com.hk/smile/uploads/2026/11/11/trqms04n_iwEZAqNqcGcDAQTRAUsF0QFLBrBoxJln_el2TgrCvXZrxcoAB9.webp",
       link: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-G01)%20%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5/%E7%9F%AF%E8%A6%96%E8%AC%9B%E5%BA%A7",
       title: "微笑激光矯視冬日最新價格",
       subtitle: "SMILE/SMILE PRO微笑激光矯視冬日最新價格",
@@ -63,28 +63,19 @@ export const DEFAULT_FALLBACK_BANNERS: Record<string, BannerItem[]> = {
     },
     {
       id: "banner-2",
-      pcImg: "https://admin.hkcmereye.com/static/upload/other/20260713/1783936990582077.webp",
-      mbImg: "https://admin.hkcmereye.com/static/upload/other/20260713/1783936995639528.webp",
-      link: "/smilePro",
-      title: "SMILE PRO 2.0",
-      subtitle: "SMILE PRO 2.0",
+      pcImg: "https://static.cmermedical.com.hk/smile/uploads/2026/11/18/08jmcjkr_lR3PIur7npSXHinNAtDNB4Cw0UEdpCVHoGAKzMe1tesvAA_192.webp",
+      mbImg: "https://static.cmermedical.com.hk/smile/uploads/2026/11/18/6tocmu7m_lR3PItzFpAF9HinNA-jNA-iwcuVXGShR_lMKzMe1tesvAQ_100.webp",
+      link: "/ophthalmicInfo/AppointForm",
+      title: "希瑪老花LBV專場矯視講座",
+      subtitle: "LBV專場：12月7日-12月19日",
       isExternal: false,
-    },
-    {
-      id: "banner-3",
-      pcImg: "https://admin.hkcmereye.com/static/upload/other/20260520/1779262943233589.webp",
-      mbImg: "https://admin.hkcmereye.com/static/upload/other/20260520/1779262954715708.webp",
-      link: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-G01)%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5/%E7%9F%AF%E8%A6%96%E8%AC%9B%E5%BA%A7",
-      title: "ICL植入式隱形眼鏡",
-      subtitle: "立即預約ICL術前評估",
-      isExternal: true,
     },
   ],
   "zh-cn": [
     {
       id: "banner-1",
-      pcImg: "https://static.cmermedical.com.hk/smile/uploads/2026/08/31/9s12gfge_lQDPIuFj--eZ3_vNAtDNB4CwyGa7sxxGxiMKY2i9X8PoAA_192.webp",
-      mbImg: "https://static.cmermedical.com.hk/smile/uploads/2026/09/04/htz2tnr2_lQDPIvIWm-BlvsfNBV_NBV-wyXVYMLkfUrIKa08qQ1ivAA_137.webp",
+      pcImg: "https://static.cmermedical.com.hk/smile/uploads/2026/11/11/gnjyyi02_iwEZAqNqcGcDAQTRBQAF0QHgBrDC7hFoTYc2XwrCvXZrxcoBB9.webp",
+      mbImg: "https://static.cmermedical.com.hk/smile/uploads/2026/11/11/trqms04n_iwEZAqNqcGcDAQTRAUsF0QFLBrBoxJln_el2TgrCvXZrxcoAB9.webp",
       link: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-G01)%20%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5/%E7%9F%AF%E8%A6%96%E8%AC%9B%E5%BA%A7",
       title: "微笑激光矫视冬日最新价格",
       subtitle: "SMILE/SMILE PRO微笑激光矫视冬日最新价格",
@@ -92,21 +83,12 @@ export const DEFAULT_FALLBACK_BANNERS: Record<string, BannerItem[]> = {
     },
     {
       id: "banner-2",
-      pcImg: "https://admin.hkcmereye.com/static/upload/other/20260713/1783936990582077.webp",
-      mbImg: "https://admin.hkcmereye.com/static/upload/other/20260713/1783936995639528.webp",
-      link: "/cn/smilePro",
-      title: "SMILE PRO 2.0",
-      subtitle: "SMILE PRO 2.0",
+      pcImg: "https://static.cmermedical.com.hk/smile/uploads/2026/11/18/08jmcjkr_lR3PIur7npSXHinNAtDNB4Cw0UEdpCVHoGAKzMe1tesvAA_192.webp",
+      mbImg: "https://static.cmermedical.com.hk/smile/uploads/2026/11/18/6tocmu7m_lR3PItzFpAF9HinNA-jNA-iwcuVXGShR_lMKzMe1tesvAQ_100.webp",
+      link: "/cn/ophthalmicInfo/AppointForm",
+      title: "希玛老花LBV专场矫视讲座",
+      subtitle: "LBV专场：12月7日-12月19日",
       isExternal: false,
-    },
-    {
-      id: "banner-3",
-      pcImg: "https://admin.hkcmereye.com/static/upload/other/20260520/1779262943233589.webp",
-      mbImg: "https://admin.hkcmereye.com/static/upload/other/20260520/1779262954715708.webp",
-      link: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-G01)%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5/%E7%9F%AF%E8%A6%96%E8%AC%9B%E5%BA%A7",
-      title: "ICL植入式隐形眼镜",
-      subtitle: "立即预约ICL术前评估",
-      isExternal: true,
     },
   ],
 };
@@ -152,25 +134,34 @@ export async function getBanners(lang: string = "zh-hk"): Promise<BannerItem[]> 
     if (response.ok) {
       const resData = await response.json();
       if (resData && resData.code === 0 && Array.isArray(resData.data) && resData.data.length > 0) {
-        return resData.data.map((item: RawSlideItem, idx: number) => {
-          const cleanLink = sanitizeUrl(item.link);
-          const isExt = checkIsExternal(cleanLink);
-          const pc = item.pic || "";
-          const mb = item.pic_mobile || item.mobilepic || pc;
-          const pcUrl = pc.startsWith("http") ? pc : `${NEW_CMS_URL}${pc}`;
-          const mbUrl = mb.startsWith("http") ? mb : `${NEW_CMS_URL}${mb}`;
-          const defaultTitle = `香港希瑪微笑矯視中心 - 矯視優惠服務 ${idx + 1}`;
+        const mapped: BannerItem[] = resData.data
+          .map((item: RawSlideItem, idx: number) => {
+            const cleanLink = sanitizeUrl(item.link);
+            const isExt = checkIsExternal(cleanLink);
+            const pc = item.pic || "";
+            const mb = item.pic_mobile || item.mobilepic || pc;
+            const pcUrl = pc.startsWith("http") ? pc : `${NEW_CMS_URL}${pc}`;
+            const mbUrl = mb.startsWith("http") ? mb : `${NEW_CMS_URL}${mb}`;
+            const defaultTitle = `香港希瑪微笑矯視中心 - 矯視優惠服務 ${idx + 1}`;
 
-          return {
-            id: String(item.id || `banner-${idx}`),
-            pcImg: pcUrl,
-            mbImg: mbUrl,
-            link: isExt ? cleanLink : getLocalizedHref(cleanLink || "#", lang),
-            title: item.title || item.subtitle || defaultTitle,
-            subtitle: item.subtitle || defaultTitle,
-            isExternal: isExt,
-          };
-        });
+            return {
+              id: String(item.id || `banner-${idx}`),
+              pcImg: pcUrl,
+              mbImg: mbUrl,
+              link: isExt ? cleanLink : getLocalizedHref(cleanLink || "#", lang),
+              title: item.title || item.subtitle || defaultTitle,
+              subtitle: item.subtitle || defaultTitle,
+              isExternal: isExt,
+            };
+          })
+          .filter(
+            (b: BannerItem) =>
+              !b.pcImg.includes("admin.hkcmereye.com") &&
+              !b.mbImg.includes("admin.hkcmereye.com")
+          );
+        if (mapped.length > 0) {
+          return mapped;
+        }
       }
     }
   } catch (_e) {

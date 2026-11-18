@@ -7,6 +7,7 @@
  */
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
+import SchemaEquipment from "@/components/seo/SchemaEquipment.astro";
 import { i18nPaths, getLangFromUrl } from "@/i18n/utils";
 import {
   EQUIPMENT_ZH_HK,
@@ -25,13 +26,14 @@ const breadcrumbItems = [
   { name: content.breadcrumb.home, url: isCn ? "/cn/" : "/" },
   {
     name: content.breadcrumb.current,
-    url: isCn ? "/cn/medical-equipment" : "/medical-equipment",
+    url: isCn ? "/cn/medical-equipment/" : "/medical-equipment/",
   },
 ];
 ---
 
 <BaseLayout tdkKey="equipment">
   <SchemaBreadcrumb items={breadcrumbItems} />
+  <SchemaEquipment content={content} lang={lang} />
 
   <div class="equipment">
     {/* 1. 頂部統一橫幅 Banner */}
@@ -64,6 +66,7 @@ const breadcrumbItems = [
         <span>{content.sectionTitle}</span>
       </h2>
 
+      <input type="checkbox" id="equipment-show-all" class="sr-only" />
       <div class="equipment-items" id="equipment-grid">
         {
           content.items.map((item, index) => (
@@ -73,127 +76,72 @@ const breadcrumbItems = [
               data-category={item.category}
               data-mobile-hidden={index >= 8 ? "true" : "false"}
             >
-              <div class="equipment-card-face">
-                <div class="equipment-img-wrap">
-                  <img
-                    src={item.img}
-                    alt={item.alt}
-                    title={item.alt}
-                    draggable="false"
-                    loading={index < 3 ? "eager" : "lazy"}
-                    decoding="async"
-                  />
-                </div>
-                <div class="equipment-name">
-                  <button
-                    type="button"
-                    class="equipment-name-up"
-                    aria-expanded="false"
-                    aria-label={`${content.toggleAriaLabel}：${item.alt}`}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="50"
-                      height="49"
-                      viewBox="0 0 50 49"
-                      fill="none"
-                      aria-hidden="true"
-                    >
-                      <rect width="50" height="49" rx="11" fill="#4570B6" />
-                      <path
-                        d="M16 19.6515L24.4784 9.84839C24.8693 9.3964 25.5667 9.3859 25.9711 9.82592L35 19.6515"
-                        stroke="white"
-                        stroke-width="5"
-                        stroke-linecap="round"
-                      />
-                      <path
-                        d="M25.2124 9.28516V31.7397"
-                        stroke="white"
-                        stroke-width="5"
-                        stroke-linecap="round"
-                      />
-                    </svg>
-                  </button>
-                  <div class={`equipment-name-text equipment-${item.id}`}>
-                    {item.nameLines.map((line) => (
-                      <span set:html={line} />
-                    ))}
+              <details class="equipment-details">
+                <summary
+                  class="equipment-card-face"
+                  aria-label={`${content.toggleAriaLabel}：${item.alt}`}
+                >
+                  <div class="equipment-img-wrap">
+                    <img
+                      src={item.img}
+                      alt={item.alt}
+                      title={item.alt}
+                      width="320"
+                      height="280"
+                      draggable="false"
+                      loading={index < 3 ? "eager" : "lazy"}
+                      decoding="async"
+                    />
                   </div>
-                </div>
-              </div>
+                  <div class="equipment-name">
+                    <span class="equipment-name-up" aria-hidden="true">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="50"
+                        height="49"
+                        viewBox="0 0 50 49"
+                        fill="none"
+                        aria-hidden="true"
+                      >
+                        <rect width="50" height="49" rx="11" fill="#4570B6" />
+                        <path
+                          d="M16 19.6515L24.4784 9.84839C24.8693 9.3964 25.5667 9.3859 25.9711 9.82592L35 19.6515"
+                          stroke="white"
+                          stroke-width="5"
+                          stroke-linecap="round"
+                        />
+                        <path
+                          d="M25.2124 9.28516V31.7397"
+                          stroke="white"
+                          stroke-width="5"
+                          stroke-linecap="round"
+                        />
+                      </svg>
+                    </span>
+                    <h3 class={`equipment-name-text equipment-${item.id}`}>
+                      {item.nameLines.map((line) => (
+                        <span set:html={line} />
+                      ))}
+                    </h3>
+                  </div>
+                </summary>
 
-              <div class="equipment-remark">
-                <div>{item.remark}</div>
-                <div>{item.source}</div>
-              </div>
+                <div class="equipment-remark">
+                  <div>{item.remark}</div>
+                  <div>{item.source}</div>
+                </div>
+              </details>
             </article>
           ))
         }
       </div>
 
-      <button type="button" class="more-btn" id="equipment-more-btn">
+      <label for="equipment-show-all" class="more-btn" id="equipment-more-btn">
         {content.seeAllLabel}
-      </button>
+      </label>
     </section>
   </div>
 </BaseLayout>
-
-<script>
-  function initEquipmentPage() {
-    const cards = Array.from(
-      document.querySelectorAll<HTMLElement>(".equipment-card")
-    );
-    cards.forEach((card) => {
-      const btn = card.querySelector<HTMLButtonElement>(".equipment-name-up");
-      const namePlate = card.querySelector<HTMLElement>(".equipment-name");
-      const remark = card.querySelector<HTMLElement>(".equipment-remark");
-
-      function toggle() {
-        const isOpen = card.classList.toggle("is-open");
-        if (btn) {
-          btn.setAttribute("aria-expanded", String(isOpen));
-        }
-      }
-
-      if (btn) {
-        btn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          toggle();
-        });
-      }
-
-      if (namePlate) {
-        namePlate.addEventListener("click", () => {
-          toggle();
-        });
-      }
-
-      if (remark) {
-        remark.addEventListener("click", () => {
-          toggle();
-        });
-      }
-    });
-
-    const moreBtn = document.getElementById("equipment-more-btn") as HTMLButtonElement | null;
-    if (moreBtn) {
-      let visibleCount = 8;
-      moreBtn.addEventListener("click", () => {
-        visibleCount += 8;
-        cards.forEach((card, idx) => {
-          if (idx < visibleCount) {
-            card.setAttribute("data-mobile-hidden", "false");
-          }
-        });
-        if (visibleCount >= cards.length) {
-          moreBtn.style.display = "none";
-        }
-      });
-    }
-  }
-
-  initEquipmentPage();
-</script>
 
 <style lang="scss">
   .equipment {
@@ -231,6 +179,22 @@ const breadcrumbItems = [
     }
   }
 
+  .equipment-details {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .equipment-card-face {
+    list-style: none;
+    cursor: pointer;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+  }
+
   .equipment-name-up {
     background: transparent;
     border: 0;
@@ -249,7 +213,7 @@ const breadcrumbItems = [
     transition: opacity var(--dur-slow) var(--ease-out);
   }
 
-  .equipment-card.is-open .equipment-remark {
+  .equipment-details[open] .equipment-remark {
     display: flex;
     opacity: 1;
   }
@@ -375,6 +339,7 @@ const breadcrumbItems = [
     }
 
     .equipment-name-text {
+      margin: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -409,7 +374,7 @@ const breadcrumbItems = [
       }
     }
 
-    .equipment-card.is-open .equipment-name-up svg {
+    .equipment-details[open] .equipment-name-up svg {
       box-shadow: 0 0 3px 3px #99b7df80;
       border-radius: 10px;
       transform: rotate(180deg);
@@ -473,6 +438,14 @@ const breadcrumbItems = [
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 44px 12px;
+    }
+
+    #equipment-show-all:checked ~ .equipment-items .equipment-card[data-mobile-hidden="true"] {
+      display: flex;
+    }
+
+    #equipment-show-all:checked ~ .more-btn {
+      display: none;
     }
 
     .equipment-card {
@@ -577,7 +550,7 @@ const breadcrumbItems = [
       }
     }
 
-    .equipment-card.is-open .equipment-name-up svg {
+    .equipment-details[open] .equipment-name-up svg {
       box-shadow: 0 0 3px 3px #99b7df80;
       border-radius: 5px;
       transform: rotate(180deg);

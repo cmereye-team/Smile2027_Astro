@@ -6,8 +6,10 @@
  * @Description: 香港希瑪眼科醫療集團及希瑪微笑矯視中心簡介 (100% 原版文案精確對齊 + 現代化高語義化結構與跑馬燈結合)
  */
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
 import GroupProfileEnvironment from "@/components/views/GroupProfileEnvironment.astro";
 import { i18nPaths, useI18n, getLangFromUrl } from "@/i18n/utils";
+import "@/styles/swiper-base.css";
 import "@/styles/pages/group-profile.scss";
 
 // 支援多語言靜態路徑導出 (zh-HK / zh-CN)
@@ -35,6 +37,12 @@ const awardBadges = [
 ---
 
 <BaseLayout tdkKey="about">
+  <SchemaBreadcrumb
+    items={[
+      { name: isCn ? "首页" : "首頁", url: isCn ? "/cn/" : "/" },
+      { name: dict.about.group.intro.title, url: isCn ? "/cn/group-profile/" : "/group-profile/" },
+    ]}
+  />
   <div class="group-profile-page w-full overflow-hidden">
     
     {/* 1. 頂部 Hero Banner (Container 寬度約束 + 最大高度 300px + 統一 --banner-space 垂直間距) */}
@@ -170,7 +178,7 @@ const awardBadges = [
                 src="/assets/images/group-profile/gallery-01.webp"
                 alt={isCn ? "香港希玛眼科医疗集团中环眼科中心现代化门市环境" : "香港希瑪眼科醫療集團中環眼科中心現代化門市環境"}
                 title={isCn ? "香港希玛眼科医疗集团中环眼科中心现代化门市环境" : "香港希瑪眼科醫療集團中環眼科中心現代化門市環境"}
-                loading="lazy"
+                loading="eager"
                 decoding="async"
                 width="344"
                 height="194"
@@ -183,7 +191,7 @@ const awardBadges = [
                 src="/assets/images/group-profile/gallery-02.webp"
                 alt={isCn ? "香港希玛国际眼科医疗团队与眼科专科医生阵容" : "香港希瑪國際眼科醫療團隊與眼科專科醫生陣容"}
                 title={isCn ? "香港希玛国际眼科医疗团队与眼科专科医生阵容" : "香港希瑪國際眼科醫療團隊與眼科專科醫生陣容"}
-                loading="lazy"
+                loading="eager"
                 decoding="async"
                 width="344"
                 height="194"
@@ -196,7 +204,7 @@ const awardBadges = [
                 src="/assets/images/group-profile/gallery-03.webp"
                 alt={isCn ? "香港希玛微笑矫视中心无菌手术室与舒适候诊大堂" : "香港希瑪微笑矯視中心無菌手術室與舒適候診大堂"}
                 title={isCn ? "香港希玛微笑矫视中心无菌手术室与舒适候诊大堂" : "香港希瑪微笑矯視中心無菌手術室與舒適候診大堂"}
-                loading="lazy"
+                loading="eager"
                 decoding="async"
                 width="344"
                 height="194"
@@ -434,199 +442,203 @@ const awardBadges = [
     </section>
 
   </div>
-</BaseLayout>
 
-<script>
-  import gsap from "gsap";
-  import Swiper from "swiper";
-  import { Autoplay, FreeMode } from "swiper/modules";
-  import "swiper/css";
+  <script>
+    import Swiper from "swiper";
+    import { Autoplay, FreeMode } from "swiper/modules";
 
-  // 1. 榮譽獎項平滑跑馬燈 (平滑無縫滾動)
-  function initAwardsMarqueeSwiper() {
-    const el = document.getElementById("awardsMarqueeSwiper");
-    if (!el) return;
+    const prefersReducedMotion = () =>
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    const runInit = () => {
-      if ((el as any).swiper) {
-        (el as any).swiper.destroy(true, true);
+    // 1. 榮譽獎項平滑跑馬燈 (平滑無縫滾動)
+    function initAwardsMarqueeSwiper() {
+      const el = document.getElementById("awardsMarqueeSwiper");
+      if (!el) return;
+
+      const runInit = () => {
+        if ((el as any).swiper) {
+          (el as any).swiper.destroy(true, true);
+        }
+
+        new Swiper(el, {
+          modules: [Autoplay, FreeMode],
+          loop: true,
+          slidesPerView: "auto",
+          spaceBetween: 20,
+          speed: 4000,
+          autoplay: {
+            delay: 0,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          },
+          freeMode: {
+            enabled: true,
+            momentum: true,
+            momentumRatio: 1.2,
+          },
+          allowTouchMove: true,
+          grabCursor: true,
+        });
+      };
+
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(
+          (entries, obs) => {
+            if (entries[0]?.isIntersecting) {
+              obs.disconnect();
+              runInit();
+            }
+          },
+          { rootMargin: "200px" }
+        );
+        observer.observe(el);
+      } else {
+        runInit();
+      }
+    }
+
+    // 2. C-M-E-R 經營理念支柱滾動交錯浮現 + 字母懸停微彈性反饋 (零 GSAP)
+    function initPillarsAnimation() {
+      const timeline = document.querySelector(".cmer-timeline");
+      const items = document.querySelectorAll<HTMLElement>(".cmer-timeline-item");
+      if (!timeline || !items.length) return;
+
+      const reduced = prefersReducedMotion();
+
+      if (reduced || !("IntersectionObserver" in window)) {
+        items.forEach((item) => {
+          item.style.opacity = "1";
+          item.style.transform = "translate3d(0, 0, 0)";
+        });
+      } else {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                items.forEach((item, index) => {
+                  item.animate(
+                    [
+                      { opacity: 0, transform: "translate3d(0, 30px, 0)" },
+                      { opacity: 1, transform: "translate3d(0, 0, 0)" },
+                    ],
+                    {
+                      duration: 650,
+                      delay: index * 120,
+                      easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+                      fill: "both",
+                    }
+                  );
+                });
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
+        );
+        observer.observe(timeline);
       }
 
-      new Swiper(el, {
-        modules: [Autoplay, FreeMode],
-        loop: true,
-        slidesPerView: "auto",
-        spaceBetween: 20,
-        speed: 4000,
-        autoplay: {
-          delay: 0,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: true,
-        },
-        freeMode: {
-          enabled: true,
-          momentum: true,
-          momentumRatio: 1.2,
-        },
-        allowTouchMove: true,
-        grabCursor: true,
-      });
-    };
+      // 字母標籤懸停微物理回彈
+      items.forEach((item) => {
+        const letter = item.querySelector<HTMLElement>(".cmer-timeline-letter, .cmer-vertical-badge");
+        if (!letter) return;
 
-    if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver(
-        (entries, obs) => {
-          if (entries[0]?.isIntersecting) {
-            obs.disconnect();
-            runInit();
+        letter.style.transition =
+          "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.25s ease";
+
+        item.addEventListener("mouseenter", () => {
+          letter.style.transform = "scale(1.15)";
+          letter.style.color = "#2e5699";
+        });
+
+        item.addEventListener("mouseleave", () => {
+          letter.style.transform = "scale(1)";
+          letter.style.color = "#4570b6";
+        });
+      });
+    }
+
+    // 3. 希瑪關懷大使吉祥物呼吸微浮動 + WhatsApp 諮詢按鈕週期性微脈衝 (Web Animations API)
+    function initCareAmbassadorAnimations() {
+      if (prefersReducedMotion()) return;
+
+      const mascot = document.querySelector<HTMLElement>(".care-ambassador-mascot-img");
+      if (mascot) {
+        mascot.animate(
+          [
+            { transform: "translate3d(0, 0, 0)" },
+            { transform: "translate3d(0, -10px, 0)" },
+            { transform: "translate3d(0, 0, 0)" },
+          ],
+          {
+            duration: 4800,
+            iterations: Infinity,
+            easing: "ease-in-out",
           }
-        },
-        { rootMargin: "200px" }
+        );
+      }
+
+      const whatsappBtn = document.querySelector(".care-ambassador-whatsapp-btn");
+      const whatsappIcon = document.querySelector<HTMLElement>(".care-ambassador-whatsapp-icon");
+      if (whatsappBtn && whatsappIcon) {
+        whatsappIcon.animate(
+          [
+            { transform: "rotate(0deg) scale(1)", offset: 0 },
+            { transform: "rotate(-10deg) scale(1.08)", offset: 0.04 },
+            { transform: "rotate(10deg) scale(1.08)", offset: 0.08 },
+            { transform: "rotate(-6deg) scale(1)", offset: 0.11 },
+            { transform: "rotate(0deg) scale(1)", offset: 0.15 },
+            { transform: "rotate(0deg) scale(1)", offset: 1 },
+          ],
+          {
+            duration: 4050,
+            iterations: Infinity,
+            easing: "ease-in-out",
+          }
+        );
+      }
+    }
+
+    // 4. 畫廊 3 圖 (Gallery 3 Cards) 懸停光學微浮動
+    function initGalleryInteractive() {
+      const figures = document.querySelectorAll<HTMLElement>(".group-gallery-figure");
+      figures.forEach((figure) => {
+        figure.style.transition = "transform 0.35s cubic-bezier(0.22, 1, 0.36, 1)";
+
+        figure.addEventListener("mouseenter", () => {
+          figure.style.transform = "translate3d(0, -6px, 0) scale(1.02)";
+        });
+
+        figure.addEventListener("mouseleave", () => {
+          figure.style.transform = "translate3d(0, 0, 0) scale(1)";
+        });
+      });
+    }
+
+    // 5. 兩大核心圓形徽章滾動進場彈性顯現
+    function initFloatingBadgesAnimation() {
+      if (prefersReducedMotion()) return;
+      const badges = document.querySelectorAll<HTMLElement>(
+        ".center-intro-badge, .awards-recognition-badge"
       );
-      observer.observe(el);
-    } else {
-      runInit();
-    }
-  }
+      if (!badges.length || !("IntersectionObserver" in window)) return;
 
-  // 2. GSAP C-M-E-R 經營理念支柱滾動逐項交錯浮現 (Stagger Reveal) + 字母懸停微彈性反饋
-  function initPillarsAnimation() {
-    const timeline = document.querySelector(".cmer-timeline");
-    const items = document.querySelectorAll(".cmer-timeline-item");
-    if (!timeline || !items.length) return;
-
-    if (!("IntersectionObserver" in window)) {
-      gsap.set(items, { opacity: 1, y: 0 });
-    } else {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              gsap.fromTo(
-                items,
-                { opacity: 0, y: 30 },
-                {
-                  opacity: 1,
-                  y: 0,
-                  duration: 0.65,
-                  stagger: 0.12,
-                  ease: "power2.out",
-                  overwrite: "auto",
-                }
-              );
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
-      );
-      observer.observe(timeline);
-    }
-
-    // 字母標籤懸停微物理回彈
-    items.forEach((item) => {
-      const letter = item.querySelector(".cmer-timeline-letter, .cmer-vertical-badge");
-      if (!letter) return;
-
-      item.addEventListener("mouseenter", () => {
-        gsap.to(letter, {
-          scale: 1.15,
-          color: "#2e5699",
-          duration: 0.3,
-          ease: "back.out(2)",
-          overwrite: "auto",
-        });
-      });
-
-      item.addEventListener("mouseleave", () => {
-        gsap.to(letter, {
-          scale: 1,
-          color: "#4570b6",
-          duration: 0.25,
-          ease: "power2.out",
-          overwrite: "auto",
-        });
-      });
-    });
-  }
-
-  // 3. GSAP 希瑪關懷大使吉祥物呼吸微浮動 + WhatsApp 諮詢按鈕週期性微脈衝
-  function initCareAmbassadorAnimations() {
-    const mascot = document.querySelector(".care-ambassador-mascot-img");
-    if (mascot) {
-      gsap.to(mascot, {
-        y: -10,
-        duration: 2.4,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-      });
-    }
-
-    const whatsappBtn = document.querySelector(".care-ambassador-whatsapp-btn");
-    const whatsappIcon = document.querySelector(".care-ambassador-whatsapp-icon");
-    if (whatsappBtn && whatsappIcon) {
-      // 週期性微搖擺動態，吸引視覺轉化焦點
-      const pulseTimeline = gsap.timeline({ repeat: -1, repeatDelay: 3.5 });
-      pulseTimeline
-        .to(whatsappIcon, { rotation: -10, scale: 1.08, duration: 0.15, ease: "power1.inOut" })
-        .to(whatsappIcon, { rotation: 10, scale: 1.08, duration: 0.15, ease: "power1.inOut" })
-        .to(whatsappIcon, { rotation: -6, duration: 0.1, ease: "power1.inOut" })
-        .to(whatsappIcon, { rotation: 0, scale: 1, duration: 0.15, ease: "power1.out" });
-    }
-  }
-
-  // 4. GSAP 畫廊 3 圖 (Gallery 3 Cards) 懸停光學微浮動
-  function initGalleryInteractive() {
-    const figures = document.querySelectorAll<HTMLElement>(".group-gallery-figure");
-    figures.forEach((figure) => {
-      figure.addEventListener("mouseenter", () => {
-        gsap.to(figure, {
-          y: -6,
-          scale: 1.02,
-          duration: 0.35,
-          ease: "power2.out",
-          overwrite: "auto",
-        });
-      });
-
-      figure.addEventListener("mouseleave", () => {
-        gsap.to(figure, {
-          y: 0,
-          scale: 1,
-          duration: 0.3,
-          ease: "power2.inOut",
-          overwrite: "auto",
-        });
-      });
-    });
-  }
-
-  // 5. GSAP 兩大核心圓形徽章 (Logo 徽章 & 獎盃徽章) 滾動進場彈性顯現與懸浮呼吸
-  function initFloatingBadgesAnimation() {
-    const badges = document.querySelectorAll(".center-intro-badge, .awards-recognition-badge");
-    if (!badges.length) return;
-
-    if ("IntersectionObserver" in window) {
       const badgeObserver = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              const el = entry.target;
-
-              gsap.fromTo(
-                el,
-                { scale: 0.8, opacity: 0.6, y: 30 },
+              (entry.target as HTMLElement).animate(
+                [
+                  { transform: "translate3d(0, 30px, 0) scale(0.8)", opacity: 0.6 },
+                  { transform: "translate3d(0, 0, 0) scale(1)", opacity: 1 },
+                ],
                 {
-                  scale: 1,
-                  opacity: 1,
-                  y: 0,
-                  duration: 0.8,
-                  ease: "back.out(1.5)",
-                  overwrite: "auto",
+                  duration: 800,
+                  easing: "cubic-bezier(0.34, 1.56, 0.64, 1)",
+                  fill: "forwards",
                 }
               );
-              badgeObserver.unobserve(el);
+              badgeObserver.unobserve(entry.target);
             }
           });
         },
@@ -635,40 +647,40 @@ const awardBadges = [
 
       badges.forEach((b) => badgeObserver.observe(b));
     }
-  }
 
-  // 6. GSAP 頂部 Hero Banner 視差滾動 (Parallax Scroll)
-  function initHeroBannerParallax() {
-    const bannerBg = document.querySelector<HTMLElement>(".group-hero-card-bg");
-    if (!bannerBg) return;
+    // 6. 頂部 Hero Banner 視差滾動 (rAF + GPU transform)
+    function initHeroBannerParallax() {
+      if (prefersReducedMotion()) return;
+      const bannerBg = document.querySelector<HTMLElement>(".group-hero-card-bg");
+      if (!bannerBg) return;
 
-    let ticking = false;
-    const handleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          const scrollY = window.scrollY || window.pageYOffset;
-          if (scrollY < 400) {
-            // Y 軸視差移動率 0.25，產生優雅深邃的背景後退效果
-            gsap.set(bannerBg, { y: scrollY * 0.25 });
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
+      let ticking = false;
+      const handleScroll = () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            const scrollY = window.scrollY || window.pageYOffset;
+            if (scrollY < 400) {
+              bannerBg.style.transform = `translate3d(0, ${(scrollY * 0.25).toFixed(2)}px, 0)`;
+            }
+            ticking = false;
+          });
+          ticking = true;
+        }
+      };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-  }
+      window.addEventListener("scroll", handleScroll, { passive: true });
+    }
 
-  function initGroupProfileInteractions() {
-    initAwardsMarqueeSwiper();
-    initPillarsAnimation();
-    initCareAmbassadorAnimations();
-    initGalleryInteractive();
-    initFloatingBadgesAnimation();
-    initHeroBannerParallax();
-  }
+    function initGroupProfileInteractions() {
+      initAwardsMarqueeSwiper();
+      initPillarsAnimation();
+      initCareAmbassadorAnimations();
+      initGalleryInteractive();
+      initFloatingBadgesAnimation();
+      initHeroBannerParallax();
+    }
 
-  document.addEventListener("DOMContentLoaded", initGroupProfileInteractions);
-  document.addEventListener("astro:page-load", initGroupProfileInteractions);
-</script>
+    document.addEventListener("DOMContentLoaded", initGroupProfileInteractions);
+    document.addEventListener("astro:page-load", initGroupProfileInteractions);
+  </script>
+</BaseLayout>

@@ -3,26 +3,241 @@
  * @Author: Antigravity AI
  * @Date: 2026-11-10
  * @FilePath: /src/components/booking/BookingBanner.astro
- * @Description: 預約系列動態 Hero Banner 組件 (CMS API 驅動 + 支援單張靜態 / 多張 5s 自動輪播 + 雙端自適應 + 智慧鏈接轉換)
+ * @Description: 預約系列動態 Hero Banner 組件 (SSG 預渲染防 CLS + 固定比例骨架 + 支援單張靜態 / 多張 5s 自動輪播 + 雙端自適應 + 智慧鏈接轉換)
  */
+import "@/styles/swiper-base.css";
+import { getLangFromUrl } from "@/i18n/utils";
+
 interface Props {
   title?: string;
   gid?: number;
   pageSize?: number;
 }
 
+interface SlideItem {
+  id: number | string;
+  acode?: string;
+  gid?: string;
+  pic?: string;
+  pic_mobile?: string;
+  link?: string;
+  title?: string;
+  subtitle?: string;
+  button_text?: string;
+}
+
+interface ResolvedSlide {
+  id: string;
+  desktopImg: string;
+  mobileImg: string;
+  linkUrl: string;
+  isExternal: boolean;
+  altText: string;
+  titleText: string;
+}
+
 const { title = "希瑪微笑矯視中心", gid = 2, pageSize = 5 } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const isCn = lang === "zh-cn";
+
+const FALLBACK_BOOKING_SLIDES: SlideItem[] = [
+  {
+    id: "booking-fallback-1",
+    pic: "https://static.cmermedical.com.hk/smile/uploads/2026/11/18/08jmcjkr_lR3PIur7npSXHinNAtDNB4Cw0UEdpCVHoGAKzMe1tesvAA_192.webp",
+    pic_mobile: "https://static.cmermedical.com.hk/smile/uploads/2026/11/18/6tocmu7m_lR3PItzFpAF9HinNA-jNA-iwcuVXGShR_lMKzMe1tesvAQ_100.webp",
+    link: "/ophthalmicInfo/AppointForm",
+    title: "希瑪老花LBV專場矯視講座",
+    subtitle: "立即免費報名LBV專場矯視講座",
+  },
+];
+
+function isExternalUrl(url: string): boolean {
+  if (!url || url.startsWith("#")) return false;
+  return (
+    /^[a-z][a-z0-9+.-]*:\/\//i.test(url) ||
+    url.startsWith("//") ||
+    url.startsWith("tel:") ||
+    url.startsWith("mailto:") ||
+    url.startsWith("whatsapp:")
+  );
+}
+
+function resolveSlideLink(rawLink: string | undefined, cn: boolean): string {
+  if (!rawLink || rawLink === "#") return "";
+  const trimmed = rawLink.replace(/&amp;/g, "&").trim();
+  if (isExternalUrl(trimmed)) return trimmed;
+  if (cn && trimmed.startsWith("/") && !trimmed.startsWith("/cn")) {
+    return `/cn${trimmed}`;
+  }
+  return trimmed;
+}
+
+function normalizeSlides(raw: SlideItem[], cn: boolean): ResolvedSlide[] {
+  return raw
+    .filter((slide) => {
+      const pic = slide.pic || "";
+      const mb = slide.pic_mobile || pic;
+      return Boolean(pic || mb) && !pic.includes("admin.hkcmereye.com") && !mb.includes("admin.hkcmereye.com");
+    })
+    .map((slide, idx) => {
+      const linkUrl = resolveSlideLink(slide.link, cn);
+      const desktopImg = slide.pic || slide.pic_mobile || "";
+      const mobileImg = slide.pic_mobile || desktopImg;
+      const altText = slide.title || slide.subtitle || title;
+      const titleText = slide.subtitle || slide.title || title;
+      return {
+        id: String(slide.id ?? `slide-${idx}`),
+        desktopImg,
+        mobileImg,
+        linkUrl,
+        isExternal: isExternalUrl(linkUrl),
+        altText,
+        titleText,
+      };
+    });
+}
+
+let rawSlides: SlideItem[] = [];
+try {
+  const res = await fetch(
+    `https://cms.cmermedical.com.hk/api/v1/slides?gid=${gid}&pageSize=${pageSize}`,
+    {
+      headers: { "X-Site-Id": "smile" },
+      signal: AbortSignal.timeout(4000),
+    }
+  );
+  if (res.ok) {
+    const json = await res.json();
+    if (Array.isArray(json?.data) && json.data.length > 0) {
+      rawSlides = json.data;
+    }
+  }
+} catch (_err) {
+  // 構建期超時或離線時回退至靜態驗證圖源
+}
+
+const slides = normalizeSlides(
+  rawSlides.length > 0 ? rawSlides : FALLBACK_BOOKING_SLIDES,
+  isCn
+);
+const ssgSignature = slides.map((s) => `${s.id}:${s.desktopImg}`).join("|");
 ---
 
 <section
   id="top-banner-section"
-  class="main_banner hidden"
+  class="main_banner"
   aria-label={title}
   data-gid={gid}
   data-page-size={pageSize}
+  data-ssg-signature={ssgSignature}
 >
   <div class="site-container">
-    <div id="top-banner-content" class="top-banner-content"></div>
+    <div id="top-banner-content" class="top-banner-content">
+      {
+        slides.length === 1 ? (
+          slides[0].linkUrl ? (
+            <a
+              href={slides[0].linkUrl}
+              class="banner-link"
+              title={slides[0].titleText}
+              aria-label={slides[0].titleText}
+              target={slides[0].isExternal ? "_blank" : "_self"}
+              rel={slides[0].isExternal ? "noopener noreferrer" : undefined}
+              data-cta={slides[0].linkUrl.includes("whatsapp") ? "whatsapp" : "top_banner"}
+            >
+              <picture class="banner-picture">
+                <source media="(min-width: 768px)" srcset={slides[0].desktopImg} width="1920" height="720" />
+                <img
+                  src={slides[0].mobileImg}
+                  alt={slides[0].altText}
+                  title={slides[0].titleText}
+                  class="banner-img"
+                  width="1000"
+                  height="1000"
+                  loading="eager"
+                  fetchpriority="high"
+                  decoding="sync"
+                  draggable="false"
+                />
+              </picture>
+            </a>
+          ) : (
+            <div class="banner-item">
+              <picture class="banner-picture">
+                <source media="(min-width: 768px)" srcset={slides[0].desktopImg} width="1920" height="720" />
+                <img
+                  src={slides[0].mobileImg}
+                  alt={slides[0].altText}
+                  title={slides[0].titleText}
+                  class="banner-img"
+                  width="1000"
+                  height="1000"
+                  loading="eager"
+                  fetchpriority="high"
+                  decoding="sync"
+                  draggable="false"
+                />
+              </picture>
+            </div>
+          )
+        ) : (
+          <div class="swiper banner-swiper">
+            <div class="swiper-wrapper">
+              {slides.map((slide, index) => (
+                <div class="swiper-slide banner-slide">
+                  {slide.linkUrl ? (
+                    <a
+                      href={slide.linkUrl}
+                      class="banner-link"
+                      title={slide.titleText}
+                      aria-label={slide.titleText}
+                      target={slide.isExternal ? "_blank" : "_self"}
+                      rel={slide.isExternal ? "noopener noreferrer" : undefined}
+                      data-cta={slide.linkUrl.includes("whatsapp") ? "whatsapp" : "top_banner"}
+                    >
+                      <picture class="banner-picture">
+                        <source media="(min-width: 768px)" srcset={slide.desktopImg} width="1920" height="720" />
+                        <img
+                          src={slide.mobileImg}
+                          alt={slide.altText}
+                          title={slide.titleText}
+                          class="banner-img"
+                          width="1000"
+                          height="1000"
+                          loading={index === 0 ? "eager" : "lazy"}
+                          fetchpriority={index === 0 ? "high" : "low"}
+                          decoding={index === 0 ? "sync" : "async"}
+                          draggable="false"
+                        />
+                      </picture>
+                    </a>
+                  ) : (
+                    <div class="banner-item">
+                      <picture class="banner-picture">
+                        <source media="(min-width: 768px)" srcset={slide.desktopImg} width="1920" height="720" />
+                        <img
+                          src={slide.mobileImg}
+                          alt={slide.altText}
+                          title={slide.titleText}
+                          class="banner-img"
+                          width="1000"
+                          height="1000"
+                          loading={index === 0 ? "eager" : "lazy"}
+                          fetchpriority={index === 0 ? "high" : "low"}
+                          decoding={index === 0 ? "sync" : "async"}
+                          draggable="false"
+                        />
+                      </picture>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+            <div class="swiper-pagination banner-pagination" aria-hidden="true"></div>
+          </div>
+        )
+      }
+    </div>
   </div>
 </section>
 
@@ -35,44 +250,70 @@ const { title = "希瑪微笑矯視中心", gid = 2, pageSize = 5 } = Astro.prop
 
   .top-banner-content {
     width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #f6fafd;
   }
 
-  :global(.banner-link),
-  :global(.banner-item) {
+  @media screen and (min-width: 768px) {
+    .top-banner-content {
+      aspect-ratio: 8 / 3;
+    }
+  }
+
+  .main_banner :global(.banner-link),
+  .main_banner :global(.banner-item) {
     display: block;
     width: 100%;
+    height: 100%;
     text-decoration: none;
     border-radius: 12px;
     overflow: hidden;
   }
 
-  :global(.banner-img) {
+  .main_banner :global(.banner-picture) {
     display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
+  }
+
+  .main_banner :global(.banner-img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
     border-radius: 12px;
     object-fit: cover;
   }
 
-  :global(.banner-swiper) {
+  @media screen and (min-width: 768px) {
+    .main_banner :global(.banner-img) {
+      aspect-ratio: 8 / 3;
+    }
+  }
+
+  .main_banner :global(.banner-swiper) {
     width: 100%;
+    height: 100%;
     border-radius: 12px;
     overflow: hidden;
     position: relative;
   }
 
-  :global(.banner-swiper .swiper-wrapper) {
+  .main_banner :global(.banner-swiper .swiper-wrapper) {
     display: flex;
     width: 100%;
     height: 100%;
   }
 
-  :global(.banner-slide) {
+  .main_banner :global(.banner-slide) {
     width: 100%;
+    height: 100%;
     flex-shrink: 0;
   }
 
-  :global(.banner-pagination) {
+  .main_banner :global(.banner-pagination) {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -82,22 +323,22 @@ const { title = "希瑪微笑矯視中心", gid = 2, pageSize = 5 } = Astro.prop
     z-index: 10;
   }
 
-  :global(.banner-pagination .swiper-pagination-bullet) {
+  .main_banner :global(.banner-pagination .swiper-pagination-bullet) {
     background: #ffffff;
     opacity: 0.6;
     width: 8px;
     height: 8px;
     border-radius: 9999px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: width var(--dur, 250ms) var(--ease-out, ease), opacity var(--dur, 250ms) var(--ease-out, ease);
     margin: 0 3px !important;
   }
 
-  :global(.banner-pagination .swiper-pagination-bullet:hover) {
+  .main_banner :global(.banner-pagination .swiper-pagination-bullet:hover) {
     opacity: 0.9;
   }
 
-  :global(.banner-pagination .swiper-pagination-bullet-active) {
+  .main_banner :global(.banner-pagination .swiper-pagination-bullet-active) {
     background: #4570b6;
     opacity: 1;
     width: 22px;
@@ -109,8 +350,6 @@ const { title = "希瑪微笑矯視中心", gid = 2, pageSize = 5 } = Astro.prop
       padding-top: 10px;
       padding-bottom: 0;
     }
-
-    
   }
 </style>
 
@@ -152,28 +391,36 @@ const { title = "希瑪微笑矯視中心", gid = 2, pageSize = 5 } = Astro.prop
     return trimmed;
   }
 
-  function renderSlideElement(slide: SlideItem): HTMLElement {
+  function renderSlideElement(slide: SlideItem, index: number): HTMLElement {
     const linkUrl = resolveSlideLink(slide.link);
     const isExt = isExternalUrl(linkUrl);
-    const desktopImg = slide.pic || "";
+    const desktopImg = slide.pic || slide.pic_mobile || "";
     const mobileImg = slide.pic_mobile || desktopImg;
     const altText = slide.title || slide.subtitle || "希瑪微笑矯視中心";
     const titleText = slide.subtitle || slide.title || "希瑪微笑矯視中心";
 
-    const pictureHtml = `
-      <picture class="banner-picture">
-        <source media="(min-width: 768px)" srcset="${desktopImg}">
-        <img
-          src="${mobileImg}"
-          alt="${altText}"
-          title="${titleText}"
-          class="banner-img"
-          loading="eager"
-          fetchpriority="high"
-          draggable="false"
-        >
-      </picture>
-    `;
+    const picture = document.createElement("picture");
+    picture.className = "banner-picture";
+
+    const source = document.createElement("source");
+    source.media = "(min-width: 768px)";
+    source.srcset = desktopImg;
+    source.width = 1920;
+    source.height = 720;
+
+    const img = document.createElement("img");
+    img.src = mobileImg;
+    img.alt = altText;
+    img.title = titleText;
+    img.className = "banner-img";
+    img.width = 1000;
+    img.height = 1000;
+    img.loading = index === 0 ? "eager" : "lazy";
+    img.decoding = index === 0 ? "sync" : "async";
+    img.draggable = false;
+
+    picture.appendChild(source);
+    picture.appendChild(img);
 
     if (linkUrl) {
       const a = document.createElement("a");
@@ -187,31 +434,60 @@ const { title = "希瑪微笑矯視中心", gid = 2, pageSize = 5 } = Astro.prop
       } else {
         a.target = "_self";
       }
-      a.setAttribute("data-cta", "top_banner");
-      a.innerHTML = pictureHtml;
+      a.setAttribute("data-cta", linkUrl.includes("whatsapp") ? "whatsapp" : "top_banner");
+      a.appendChild(picture);
       return a;
-    } else {
-      const div = document.createElement("div");
-      div.className = "banner-item";
-      div.innerHTML = pictureHtml;
-      return div;
     }
+
+    const div = document.createElement("div");
+    div.className = "banner-item";
+    div.appendChild(picture);
+    return div;
   }
 
   let activeSwiperInstance: Swiper | null = null;
+
+  function mountSwiper(swiperEl: HTMLElement, paginationEl: HTMLElement | null) {
+    if (activeSwiperInstance) {
+      activeSwiperInstance.destroy(true, true);
+      activeSwiperInstance = null;
+    }
+
+    activeSwiperInstance = new Swiper(swiperEl, {
+      modules: [Autoplay, Pagination],
+      loop: true,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      },
+      pagination: paginationEl
+        ? {
+            el: paginationEl,
+            clickable: true,
+          }
+        : undefined,
+      slidesPerView: 1,
+      speed: 600,
+    });
+  }
 
   async function initTopBanner() {
     const topBannerSection = document.getElementById("top-banner-section");
     const topBannerContent = document.getElementById("top-banner-content");
     if (!topBannerSection || !topBannerContent) return;
 
-    if (activeSwiperInstance) {
-      activeSwiperInstance.destroy(true, true);
-      activeSwiperInstance = null;
+    // 1. 立即啟用 SSG 預渲染的多張輪播 (0 CLS)
+    const existingSwiper = topBannerContent.querySelector<HTMLElement>(".banner-swiper");
+    if (existingSwiper) {
+      const existingPagination = existingSwiper.querySelector<HTMLElement>(".banner-pagination");
+      mountSwiper(existingSwiper, existingPagination);
     }
 
+    // 2. 背景靜默檢查 CMS 是否有更新；容器已鎖定 aspect-ratio，替換時 0 佈局抖動
     const gid = topBannerSection.dataset.gid || "2";
     const pageSize = topBannerSection.dataset.pageSize || "5";
+    const currentSignature = topBannerSection.dataset.ssgSignature || "";
 
     try {
       const res = await fetch(
@@ -223,14 +499,26 @@ const { title = "希瑪微笑矯視中心", gid = 2, pageSize = 5 } = Astro.prop
       if (!res.ok) return;
 
       const json = await res.json();
-      const slides: SlideItem[] = Array.isArray(json?.data) ? json.data : [];
+      const rawSlides: SlideItem[] = Array.isArray(json?.data) ? json.data : [];
+      const slides = rawSlides.filter((slide) => {
+        const pic = slide.pic || "";
+        const mb = slide.pic_mobile || pic;
+        return Boolean(pic || mb) && !pic.includes("admin.hkcmereye.com") && !mb.includes("admin.hkcmereye.com");
+      });
       if (slides.length === 0) return;
 
+      const nextSignature = slides.map((s) => `${s.id}:${s.pic || s.pic_mobile || ""}`).join("|");
+      if (nextSignature === currentSignature) return;
+
+      topBannerSection.dataset.ssgSignature = nextSignature;
       topBannerContent.innerHTML = "";
 
       if (slides.length === 1) {
-        topBannerContent.appendChild(renderSlideElement(slides[0]));
-        topBannerSection.classList.remove("hidden");
+        if (activeSwiperInstance) {
+          activeSwiperInstance.destroy(true, true);
+          activeSwiperInstance = null;
+        }
+        topBannerContent.appendChild(renderSlideElement(slides[0], 0));
       } else {
         const swiperContainer = document.createElement("div");
         swiperContainer.className = "swiper banner-swiper";
@@ -238,10 +526,10 @@ const { title = "希瑪微笑矯視中心", gid = 2, pageSize = 5 } = Astro.prop
         const swiperWrapper = document.createElement("div");
         swiperWrapper.className = "swiper-wrapper";
 
-        slides.forEach((slide) => {
+        slides.forEach((slide, idx) => {
           const slideItem = document.createElement("div");
           slideItem.className = "swiper-slide banner-slide";
-          slideItem.appendChild(renderSlideElement(slide));
+          slideItem.appendChild(renderSlideElement(slide, idx));
           swiperWrapper.appendChild(slideItem);
         });
 
@@ -253,26 +541,10 @@ const { title = "希瑪微笑矯視中心", gid = 2, pageSize = 5 } = Astro.prop
         swiperContainer.appendChild(pagination);
         topBannerContent.appendChild(swiperContainer);
 
-        topBannerSection.classList.remove("hidden");
-
-        activeSwiperInstance = new Swiper(swiperContainer, {
-          modules: [Autoplay, Pagination],
-          loop: true,
-          autoplay: {
-            delay: 5000,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true,
-          },
-          pagination: {
-            el: pagination,
-            clickable: true,
-          },
-          slidesPerView: 1,
-          speed: 600,
-        });
+        mountSwiper(swiperContainer, pagination);
       }
-    } catch (err) {
-      console.warn("Top banner load skipped:", err);
+    } catch (_err) {
+      // 保留 SSG 預渲染內容
     }
   }
 

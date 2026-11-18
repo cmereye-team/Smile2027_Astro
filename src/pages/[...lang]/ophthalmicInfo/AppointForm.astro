@@ -6,7 +6,6 @@
  * @Description: 講座預約專頁 (100% 官方真值對齊 + 講座預約表單 + 完整 Schema)
  */
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import SchemaProcedure from "@/components/seo/SchemaProcedure.astro";
 import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
 import BookingBanner from "@/components/booking/BookingBanner.astro";
 import { i18nPaths, getLangFromUrl } from "@/i18n/utils";
@@ -27,16 +26,12 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
 ---
 
 <BaseLayout tdkKey="appointForm">
-  <SchemaProcedure
-    name={content.appointForm.calendarTitle}
-    description={content.appointForm.p3.replace(/<[^>]+>/g, "")}
-  />
   <SchemaBreadcrumb
     items={[
       { name: content.breadcrumb.home, url: isCn ? "/cn/" : "/" },
       {
         name: content.appointForm.calendarTitle,
-        url: isCn ? "/cn/ophthalmicInfo/AppointForm" : "/ophthalmicInfo/AppointForm",
+        url: isCn ? "/cn/ophthalmicInfo/AppointForm/" : "/ophthalmicInfo/AppointForm/",
       },
     ]}
   />
@@ -253,6 +248,50 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
                   {/* 隱藏來源網址 */}
                   <input type="hidden" id="site-source-input" name="siteSource" value="" />
 
+                  {/* 提交失敗真實錯誤提示與備用聯絡方式 */}
+                  <div
+                    id="booking-error-alert"
+                    class="booking-error-alert hidden"
+                    role="alert"
+                    aria-live="assertive"
+                    tabindex="-1"
+                  >
+                    <p id="booking-error-text" class="booking-error-alert__title">
+                      {content.appointForm.form.submitFailed}
+                    </p>
+                    <p class="booking-error-alert__hint">
+                      {isCn
+                        ? "请直接通过 WhatsApp 或致电诊所预约，避免错过讲座名额："
+                        : "請直接透過 WhatsApp 或致電診所預約，避免錯過講座名額："}
+                    </p>
+                    <div class="booking-error-alert__actions">
+                      <a
+                        href="https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-G01)%20%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5/%E7%9F%AF%E8%A6%96%E8%AC%9B%E5%BA%A7"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="booking-error-alert__wa"
+                        data-cta="whatsapp"
+                        title={isCn ? "WhatsApp 预约讲座 (+852 6940 8569)" : "WhatsApp 預約講座 (+852 6940 8569)"}
+                      >
+                        {isCn ? "WhatsApp 预约 (+852 6940 8569)" : "WhatsApp 預約 (+852 6940 8569)"}
+                      </a>
+                      <a
+                        href="tel:+85239562026"
+                        class="booking-error-alert__tel"
+                        title={isCn ? "中环诊所电话 +852 3956 2026" : "中環診所電話 +852 3956 2026"}
+                      >
+                        {isCn ? "中环：3956 2026" : "中環：3956 2026"}
+                      </a>
+                      <a
+                        href="tel:+85238925099"
+                        class="booking-error-alert__tel"
+                        title={isCn ? "旺角诊所电话 +852 3892 5099" : "旺角診所電話 +852 3892 5099"}
+                      >
+                        {isCn ? "旺角：3892 5099" : "旺角：3892 5099"}
+                      </a>
+                    </div>
+                  </div>
+
                   {/* 提交按鈕 */}
                   <div class="flex justify-center mt-10">
                     <button
@@ -277,13 +316,13 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
           {content.appointForm.calendarTitle}
         </h2>
         <div id="lecture-calendar-list" class="lecture-image mt-8">
-          {DEFAULT_CALENDARS.map((cal) => (
+          {DEFAULT_CALENDARS.map((cal, idx) => (
             <img
               src={cal.pic}
               alt={cal.title}
               title={cal.title}
               draggable="false"
-              loading="lazy"
+              loading={idx === 0 ? "eager" : "lazy"}
               decoding="async"
               class="calendar-img"
               width="952"
@@ -294,15 +333,13 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
       </div>
     </section>
 
-    {/* 3. 預約成功彈出視窗 (Modal Dialog) */}
-    <div
+    {/* 3. 預約成功彈出視窗 (原生 <dialog>) */}
+    <dialog
       id="apply-dialog"
-      class="applyDialog hidden"
-      role="dialog"
-      aria-modal="true"
+      class="applyDialog"
       aria-labelledby="dialog-title"
     >
-      <div class="applyDialog-wrap rounded-[5px] w-[90%] max-w-[680px]">
+      <div class="applyDialog-wrap rounded-[5px] w-full">
         {/* 左側形象照片 (桌面端展示) */}
         <div class="applyDialog-person hidden sm:block w-48 flex-shrink-0">
           <picture>
@@ -406,11 +443,10 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
           </button>
         </div>
       </div>
-    </div>
+    </dialog>
   </div>
-</BaseLayout>
 
-<script is:inline define:vars={{ defaultSchedules: DEFAULT_SCHEDULES, validationMessages: content.appointForm.form }}>
+  <script is:inline define:vars={{ defaultSchedules: DEFAULT_SCHEDULES, validationMessages: content.appointForm.form }}>
   (function () {
     const serviceSelect = document.getElementById("service-select");
     const locationSelect = document.getElementById("location-select");
@@ -425,6 +461,24 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
     const submitBtn = document.getElementById("submit-booking-btn");
     const applyDialog = document.getElementById("apply-dialog");
     const closeDialogBtn = document.getElementById("close-dialog-btn");
+    const errorAlert = document.getElementById("booking-error-alert");
+    const errorTextEl = document.getElementById("booking-error-text");
+
+    function hideSubmitError() {
+      if (errorAlert) {
+        errorAlert.classList.add("hidden");
+      }
+    }
+
+    function showSubmitError(message) {
+      if (errorTextEl && message) {
+        errorTextEl.textContent = message;
+      }
+      if (errorAlert) {
+        errorAlert.classList.remove("hidden");
+        errorAlert.focus();
+      }
+    }
 
     function openSuccessDialog() {
       if (!applyDialog) return;
@@ -437,7 +491,24 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
         circle.style.animation = "";
         check.style.animation = "";
       }
-      applyDialog.classList.remove("hidden");
+      if (typeof applyDialog.showModal === "function") {
+        if (!applyDialog.open) {
+          applyDialog.showModal();
+        }
+      } else {
+        applyDialog.setAttribute("open", "");
+      }
+    }
+
+    function closeSuccessDialog() {
+      if (!applyDialog) return;
+      if (typeof applyDialog.close === "function") {
+        if (applyDialog.open) {
+          applyDialog.close();
+        }
+      } else {
+        applyDialog.removeAttribute("open");
+      }
     }
 
     const formValidation = validationMessages || {};
@@ -472,12 +543,14 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
           const list = document.getElementById("lecture-calendar-list");
           if (list) {
             list.innerHTML = "";
-            json.data.forEach((item) => {
+            json.data.forEach((item, idx) => {
               const img = document.createElement("img");
               img.src = item.pic;
               img.alt = item.title || "講座日曆";
               img.draggable = false;
-              img.loading = "lazy";
+              img.loading = idx === 0 ? "eager" : "lazy";
+              img.width = 952;
+              img.height = 600;
               img.className = "calendar-img";
               list.appendChild(img);
             });
@@ -578,14 +651,14 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
         const email = emailInput ? emailInput.value.trim() : "";
 
         if (!seats || !name || !phone) {
-          alert(formValidation.validationRequired);
+          showSubmitError(formValidation.validationRequired);
           return;
         }
 
         if (email) {
           const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
           if (!emailRegex.test(email)) {
-            alert(formValidation.validationEmail);
+            showSubmitError(formValidation.validationEmail);
             return;
           }
         }
@@ -617,29 +690,44 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
         formData.append("source", sourceSelect ? sourceSelect.value : "");
         formData.append("siteSource", window.location.href);
 
+        hideSubmitError();
+
         if (submitBtn) {
           submitBtn.disabled = true;
           submitBtn.textContent = formValidation.submitting;
         }
 
+        const controller = new AbortController();
+        const timeoutId = window.setTimeout(() => controller.abort(), 15000);
+
         try {
           const res = await fetch("https://admin.hkcmereye.com/api.php/cms/addmsg", {
             method: "POST",
             body: formData,
+            signal: controller.signal,
           });
+          if (!res.ok) {
+            throw new Error(`HTTP ${res.status}`);
+          }
           const result = await res.json();
           if (result && result.code === 1) {
+            hideSubmitError();
             openSuccessDialog();
             bookingForm.reset();
             if (dateWrap) dateWrap.classList.add("hidden");
             if (selectionSummary) selectionSummary.classList.add("hidden");
             if (userDetailsForm) userDetailsForm.classList.add("hidden");
           } else {
-            openSuccessDialog();
+            const serverMsg =
+              result && typeof result.data === "string" && result.data.trim()
+                ? result.data.trim()
+                : formValidation.submitFailed;
+            showSubmitError(serverMsg);
           }
         } catch (_error) {
-          openSuccessDialog();
+          showSubmitError(formValidation.submitFailed);
         } finally {
+          window.clearTimeout(timeoutId);
           if (submitBtn) {
             submitBtn.disabled = false;
             submitBtn.textContent = formValidation.submitBtn;
@@ -649,20 +737,19 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
     }
 
     if (closeDialogBtn && applyDialog) {
-      closeDialogBtn.addEventListener("click", function () {
-        applyDialog.classList.add("hidden");
-      });
+      closeDialogBtn.addEventListener("click", closeSuccessDialog);
     }
 
     if (applyDialog) {
       applyDialog.addEventListener("click", function (e) {
         if (e.target === applyDialog) {
-          applyDialog.classList.add("hidden");
+          closeSuccessDialog();
         }
       });
     }
   })();
 </script>
+</BaseLayout>
 
 <style>
   .lecture-title {
@@ -794,6 +881,70 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
     transform: translateY(-2px);
   }
 
+  .booking-error-alert {
+    margin-top: 24px;
+    padding: 16px 20px;
+    border: 1.5px solid #dc2626;
+    border-radius: 8px;
+    background-color: #fef2f2;
+    color: #991b1b;
+    text-align: left;
+  }
+
+  .booking-error-alert__title {
+    margin: 0 0 6px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  .booking-error-alert__hint {
+    margin: 0 0 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #7f1d1d;
+  }
+
+  .booking-error-alert__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .booking-error-alert__wa {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 9999px;
+    background-color: #166534;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .booking-error-alert__wa:hover {
+    background-color: #14532d;
+  }
+
+  .booking-error-alert__tel {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 14px;
+    border: 1px solid #991b1b;
+    border-radius: 9999px;
+    background-color: #ffffff;
+    color: #991b1b;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .booking-error-alert__tel:hover {
+    background-color: #fee2e2;
+  }
+
   .lectureCalendar {
     color: #4570b6;
     font-size: 28px;
@@ -818,24 +969,17 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
   }
 
   .applyDialog {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 9999;
-    display: none;
-    align-items: center;
-    justify-content: center;
+    margin: auto;
+    padding: 0;
+    border: none;
+    background: transparent;
+    width: 90%;
+    max-width: 680px;
+    overflow: visible;
+  }
+
+  .applyDialog::backdrop {
     background-color: rgba(0, 0, 0, 0.55);
-  }
-
-  .applyDialog:not(.hidden) {
-    display: flex;
-  }
-
-  .applyDialog.hidden {
-    display: none;
   }
 
   /* 成功對話框 SVG 描邊動畫 (Stroke-dash Animation) */
@@ -849,11 +993,11 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
     stroke-dashoffset: 1;
   }
 
-  .applyDialog:not(.hidden) .success-circle {
+  .applyDialog[open] .success-circle {
     animation: drawCircle 350ms var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)) forwards;
   }
 
-  .applyDialog:not(.hidden) .success-check {
+  .applyDialog[open] .success-check {
     animation: drawCheck 250ms var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)) 300ms forwards;
   }
 
@@ -876,8 +1020,8 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .applyDialog:not(.hidden) .success-circle,
-    .applyDialog:not(.hidden) .success-check {
+    .applyDialog[open] .success-circle,
+    .applyDialog[open] .success-check {
       stroke-dashoffset: 0 !important;
       animation: none !important;
     }
