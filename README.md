@@ -77,10 +77,13 @@ public/
   - 其餘專頁按需輸出 `SchemaProcedure`、`SchemaFeeCatalog`、`SchemaDoctor`、`SchemaEquipment`、`SchemaFAQ`、`SchemaBreadcrumb`。
   - FAQ 頁面採 JSON-LD 與 HTML Microdata 雙軌標記。
 
-## 分支與 Cloudflare Pages 部署規則
+## 倉庫、分支與 Cloudflare Pages 部署規則
 
-- `main`：正式環境上線分支。
-- `dev`：日常開發分支。
+- **唯一有效 GitHub 倉庫**：`https://github.com/cmereye-team/Smile2027_Astro`（遠端名稱 `smile2027`）
+- **已停用倉庫**：`https://github.com/CMER-SZ/smile-astro`（歷史歸檔，不再推送）
+- **分支策略**：
+  - `main`：線上正式環境分支（對應 Cloudflare Pages 生產部署 `https://smile.hkcmereye.com`）
+  - `dev`：日常開發分支
 - Cloudflare Pages **Build watch paths（包括路徑）** 建議白名單（排除路徑留空）：
 
 ```text

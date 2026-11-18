@@ -1,17 +1,50 @@
-# 希瑪微笑矯視中心 (CMER Smile 2026) - Agent 開發與重構核心準則 (Agents.md)
+# 希瑪微笑矯視中心 (CMER Smile 2026) - Agent 開發與商業級重構核心準則 (AGENTS.md)
 
-> **最高原則**：本項目為「香港希瑪微笑矯視中心 (CMER Smile)」2026 年 Astro 現代化重構生產級項目。所有 AI Agent 與工程師在編寫、修改代碼時必須嚴格遵守以下準則，杜絕任何隨意猜測、文案篡改或破壞現有廣告與 SEO 的行為。重構的核心是「**骨架升級、語意化重構與性能極致化**」，視覺與文案必須與線上官網 (`https://smile.hkcmereye.com`) **100% 精確對齊**。
+> **最高原則 (Supreme Mandate)**：
+> 本項目為「香港希瑪微笑矯視中心 (CMER Smile)」2026 年 Astro 現代化商業級重構項目。
+> 網站承載高權重 Google Ads / Meta 廣告投放與嚴格的醫療合規審計。重構的核心使命是**「視覺與文案 100% 精確對齊線上官網、代碼潔淨語意化、零 JS 骨架、極致性能」**。
+> **杜絕任何 AI 幻覺式美化、杜絕文案擅自潤色或改寫、杜絕破壞轉換追蹤埋點**。重構必須以「確定性驗證」為唯一準繩。
+
+---
+
+## 0. 商業重構三大紅線與四大防護閘門 (Commercial Guardrails)
+
+在 Google Ads 醫療廣告投放場景下，一次文案改動、免責聲明缺失或轉換按鈕屬性丟失，會直接導致帳戶被拒審、封號甚至承擔醫療廣告合規責任。所有開發與 AI 操作必須受到以下閘門嚴密約束：
+
+### 🚨 三大商業紅線 (Zero-Tolerance Red Lines)
+1. **文案與法律免責聲明 0 篡改 (Copywriting Parity)**：
+   - 包含醫療免責聲明、費用細則、專科醫生名銜、真實用戶評價、診所電話 (`tel:`)、診症須知等，**必須與線上官網一字不差**。
+   - 嚴禁 AI 進行概括潤色、詞句提煉、擅自翻譯或編造展示數據。
+2. **廣告轉換與追蹤矩陣 0 丟失 (Conversion Tracking Parity)**：
+   - 所有轉化按鈕與鏈接必須精確保留相應 `data-cta`、`data-gtm-*` 與 WhatsApp 追蹤代碼（如 `W-15`, `W-05`, `W-02`, `WSPC-2025` 等，嚴格遵循 `docs/WHATSAPP_TRACKING_MATRIX.md`）。
+   - 嚴禁漏掉任何 GTM 觸發錨點，杜絕廣告部門轉換事件流失。
+3. **視覺佈局 1:1 像素級吻合 (Visual Layout Parity)**：
+   - 拒絕「AI 自以為好看」的隨意調整（如隨意修改特定 padding、字階、卡片圓角、陰影或隱藏元素）。
+   - 響應式斷點與排版層次必須嚴絲合縫對齊原官網。
+
+### 🛡️ 四大工程防護閘門 (4-Gate Verification Pipeline)
+* **閘門 1：數據與文本解耦 (Data-First Architecture)**
+  - 頁面業務文案、醫生名單、費用清單、FAQ 等內容，必須先抽離至獨立數據字典 (`src/i18n/` 或 `src/data/`)。組件層只負責數據渲染，從物理架構上杜絕 AI 在 HTML 模板中隨意改寫文案。
+* **閘門 2：真值文本提取與哈希凍結 (Ground Truth Integrity Check)**
+  - 重構每個頁面前，先從線上官網 (`https://smile.hkcmereye.com`) 或舊項目渲染 DOM 中機械提取純文本、超鏈接與關鍵屬性，作為標準 Truth 基準。
+  - 重構構建後對比抽取文本，若免責聲明少字、電話變更或埋點丟失，立即攔截。
+* **閘門 3：雙端視覺差分回歸比對 (Visual Regression Testing)**
+  - 核心 Section 必須透過本機/Playwright 截圖比對線上官網 Desktop (1440px) 與 Mobile (375px) 渲染效果。
+  - 樣式修改以像素差異為依據，徹底告別容易疲勞漏檢的肉眼審查。
+* **閘門 4：防 CLS 靜態渲染守護 (CLS Protection Gate)**
+  - 全局基礎樣式靜態置於 `src/styles/comm.css`，輪播基礎樣式靜態置於 `src/styles/swiper-base.css`（僅在含輪播的路由引入），**嚴禁在客戶端 `<script>` 中動態 import CSS**。
+  - 首屏 Banner、首屏大圖、Header 必須宣告確定的寬高比例 (`aspect-ratio` / `width` / `height`)，杜絕一切首屏跳動與抖動。
 
 ---
 
 ## 1. 運行環境與工具鏈約束 (Environment & Tooling)
 
 1. **唯一包管理器**：
-   - 項目統一且**唯一使用 `pnpm`**（如 `pnpm install`, `pnpm dev`, `pnpm build`, `pnpm check:all`）。嚴禁使用 `npm` / `yarn`，嚴禁提交 `package-lock.json` 或 `yarn.lock`。
+   - 項目統一且**唯一使用 `pnpm`**（如 `pnpm dev`, `pnpm build`, `pnpm check:all`, `pnpm lint:fix`）。嚴禁使用 `npm` / `yarn`，嚴禁提交 `package-lock.json` 或 `yarn.lock`。
 2. **代碼與規範校驗**：
    - 提交前必須保證 `pnpm check:all` (Astro Check + TypeScript + ESLint + Stylelint) 0 錯誤、0 警告。
 3. **自動化腳本**：
-   - 數據遷移、批量校驗與文本分析腳本，統一使用 Node.js (ESM) 或 Python 3 執行。
+   - 數據遷移、文本分析與比對腳本，統一使用 Node.js (ESM) 執行。
 
 ---
 
@@ -30,16 +63,23 @@
 
 ---
 
-## 3. 官方文案 100% 絕對還原與 1:1 視覺比對紅線 (Copywriting Parity)
+## 3. 模組化重構執行 SOP (Standard Operating Procedure)
 
-1. **嚴禁文案臆造與擅自篡改**：
-   - 全站所有文字內容（服務介紹、經營理念、關懷大使、醫生名銜、收費細則、FAQ 等）必須 **100% 忠實還原線上官網 (`https://smile.hkcmereye.com`)，一字不差**。
-   - 杜絕任何 AI 自行潤色、概括總結、字詞替換或編造展示數據。
-2. **舊代碼甄別與現代化語意重構**：
-   - `smile2024/` 目錄中混雜歷史廢棄組件，嚴禁盲目拷貝舊代碼。
-   - 舊版低質量的 `div` 嵌套與硬編碼必須重構為現代 HTML5 語意地標與清晰語意類名，但**最終視覺佈局、文字高亮與排版層次必須與官網 1:1 精確對應**。
-3. **即時比對驗證**：
-   - 開發每個模組時，必須邊做邊透過瀏覽器截圖比對線上官網對應頁面，杜絕偏差累積。
+重構任何新頁面時，必須嚴格按照以下標準工序推進，杜絕意識流重寫：
+
+1. **第一步：源碼診斷與線上真值鎖定**
+   - 確認線上真實渲染的組件（例如 `/smilePro` 線上實際加載的是 `smile-proV2.vue` 2.0 版，而非歷史棄用的 1.0 版）。
+   - 凍結文案與素材資產，將所有文案抽離為結構化數據。
+2. **第二步：語意骨架建立 (Semantic Scaffolding)**
+   - 使用標準 HTML5 地標標籤（`<header>`, `<main>`, `<section>`, `<article>`, `<aside>`），確立清晰的 `h1` -> `h2` -> `h3` 階層。
+   - 零 inline styles，純結構驗證，為 SEO/GEO 奠定爬取基礎。
+3. **第三步：Tokens 綁定與防抖動佈局 (Layout & CSS Styling)**
+   - 應用 `comm.css` 與 Tailwind 設計規範，絕對禁止未受約束的 `100vw`。
+   - 首屏與媒體區塊全面注入骨架佔位與 `aspect-ratio`，杜絕 CLS 偏移。
+4. **第四步：雙軌驗證交付 (Integrity & Visual Diff)**
+   - 執行靜態代碼校驗：`pnpm check:all`。
+   - 執行構建驗證：`pnpm build`。
+   - 透過截圖比對 Desktop 與 Mobile 兩端視覺差異，確認無誤後方可交付。
 
 ---
 
@@ -87,7 +127,7 @@
 2. **按鈕規範**：
    - 主按鈕 `.btn-primary`、WhatsApp 轉化 `.btn-whatsapp`、線框按鈕 `.btn-outline`。所有轉化按鈕必須綁定 `data-cta="..."`。
 3. **佈局約束與防變形**：
-   - 嚴禁濫用無邊界 `vw` 單位，必須使用 Tailwind 標準斷點 (`sm:`, `md:`, `lg:`, `xl:`, `2xl:`) 或 `clamp()` 限制上下界。
+   - 嚴禁濫用無邊界 `vw` 單位（特別是 `width: 100vw` 容易導致捲軸跳動），必須使用 Tailwind 標準斷點 (`sm:`, `md:`, `lg:`, `xl:`, `2xl:`)、`100%` 或 `clamp()` 限制上下界。
    - 統一使用 `.container` 約束內容寬度，全寬背景區塊在其內部使用 container 實現嚴絲合縫貼邊。
 4. **無障礙色彩對比度 (WCAG 2.1 AA)**：
    - 淺色背景下的文字與背景色彩對比度必須達到 **4.5:1 以上**（嚴禁使用過淡的灰色）。
@@ -95,41 +135,46 @@
 
 ---
 
-## 7. 性能優化與第三方腳本隔離 (PageSpeed & A11y)
+## 7. 性能優化、零 CLS 抖動與第三方腳本隔離 (Performance & CLS)
 
-1. **第三方腳本隔離 (GTM / 在線客服)**：
+1. **零 CLS 抖動鐵律 (Zero CLS Guarantee)**：
+   - **靜態 Swiper CSS**：輪播基礎樣式靜態置於 `src/styles/swiper-base.css` 並於含輪播路由引入，禁止在組件 `<script>` 內動態注入。
+   - **容器骨架與固定高寬比**：Banner 與所有首屏卡片必須預先宣告 `aspect-ratio`，並在 CSS 中給予靜態 flex/block 佈局，防止 JS 加載前卡片縱向散落堆疊。
+   - **Header 零跳動**：導航欄固定尺寸，避免依賴 DOMContentLoaded 計算產生的二次佈局重排。
+2. **第三方腳本隔離 (GTM / 在線客服)**：
    - 正式 GTM 容器 ID：`GTM-5M8VLLM`。
    - 追蹤器與商務通客服代碼嚴禁在 `<head>` 同步阻塞加載。必須採用「用戶首次手勢互動 (touchstart/scroll/mousemove) 觸發加載」或延遲 3.5s~5s 加載，確保首屏 TBT < 100ms，移動端 Performance 穩居 85~98 分。
    - 外部商務通彈窗圖片必須由 `MutationObserver` 自動補齊 `alt=""` 與 `aria-hidden="true"` 防止 Lighthouse 扣分。
-2. **圖片資產傳輸與 LCP 優化**：
+3. **圖片資產傳輸與 LCP 優化**：
    - 首屏 LCP 核心大圖宣告 `loading="eager"` 與 `fetchpriority="high"`，並提供移動端專屬尺寸；非首屏圖片一律 `loading="lazy"`。
    - 圖片優先轉換為現代無損/高壓縮比 WebP / AVIF 格式。
-3. **WhatsApp 業務追蹤**：
+4. **WhatsApp 業務追蹤**：
    - 各頁面 WhatsApp 按鈕必須嚴格按照 `docs/WHATSAPP_TRACKING_MATRIX.md` 注入相應追蹤代碼（如 `W-15`, `W-05`, `WSPC-2025` 等）。
 
 ---
 
-## 8. 數據渲染與 CMS 策略 (SSG + Edge SWR)
+## 8. 數據渲染與 CMS 策略 (SSG + R2 CDN)
 
 1. **靜態預渲染 (SSG First)**：
-   - 核心業務頁（首頁、SMILE Pro、收費、常見問題、集團簡介等 21 個頁面）必須在構建期完成純靜態 HTML 預渲染，TTFB < 50ms。
-2. **邊緣快照 (Edge SWR)**：
-   - 科普專欄詳情頁邊緣請求新 CMS (`cms.cmermedical.com.hk`) 並注入 `Cache-Control: public, s-maxage=604800`，自動沉澱為 CDN 靜態快照。
-   - 舊 CMS `admin.hkcmereye.com` 已淘汰。
+   - 全站核心業務頁與科普專欄頁於構建期完成純靜態 HTML 預渲染至 `dist/`，部署於 Cloudflare Pages。
+2. **靜態資源託管 (Cloudflare R2)**：
+   - 全站圖片與影片封面統一託管於 R2 桶 `cloudflarerustcms`（`https://static.cmermedical.com.hk/smile/assets/`）；`smile/uploads/` 目錄嚴禁改動或刪除。
+3. **外部 CMS / API 分工**：
+   - 預約橫幅與講座排程：`https://cms.cmermedical.com.hk/api/v1/`。
+   - 講座報名提交 (`POST /api.php/cms/addmsg`) 與科普專欄列表／詳情 (`/api.php/list/32`、`/api.php/list/35`、`/api.php/content/:id`)：**保留使用 `https://admin.hkcmereye.com`**（構建期 SSG 預渲染 + `_redirects` 轉交 `/blog-article/` 動態兜底）。
 
 ---
 
-## 9. CSS 規則 (CSS Rules)
+## 9. Git 倉庫、分支與提交規範 (Git Repo, Branches & Commit Guidelines)
 
-1. **Colors and fonts must use the CSS variables defined in `src/styles/comm.css`** — never hard-code brand hex values.
-2. **Build layout with Tailwind utilities first**.
-3. **Scoped styles only for component-specific geometry** — no full-page private stylesheets.
-4. **Shared components carry their own scoped styles.** Page stylesheets must not contain selectors for shared components.
+### 倉庫與分支約定
+- **唯一有效遠端倉庫**：`https://github.com/cmereye-team/Smile2027_Astro`（remote 名稱 `smile2027`）。
+- **分支用途**：
+  - `main`：線上正式環境分支（對應 Cloudflare Pages 生產部署 `https://smile.hkcmereye.com`）。
+  - `dev`：日常開發分支。
+- **已停用倉庫**：`https://github.com/CMER-SZ/smile-astro`（SZ 帳號舊倉）**嚴禁再執行推送**。
 
----
-
-## 10. Git 提交規範與 Webhook 機器人推送約制 (Git Commit & Webhook Guidelines)
-
+### 提交訊息與 Webhook 機器人約制
 倉庫已接入 GitHub Webhook 即時推送到團隊釘釘機器人。為杜絕群消息中只顯示被截斷的超長單行標題（如 `feat(faq): ... (verbatim...`），所有 Git Commit 必須嚴格遵循「標題 + 空行 + 條理化正文」結構：
 
 1. **首行標題 (Subject Line) ≤ 50 字符**：
@@ -147,7 +192,7 @@
 
 ---
 
-## 11. 全站設計系統三大強制約束 (Binding Design-System Constraints)
+## 10. 全站設計系統三大強制約束 (Binding Design-System Constraints)
 
 以下為全站開發最高優先級約束，所有頁面與組件必須無條件遵守：
 
@@ -169,7 +214,7 @@
 
 ---
 
-## 12. 容器與動態標準 (Container and Motion Standards)
+## 11. 容器與動態標準 (Container and Motion Standards)
 
 1. **Page-level horizontal bounds are set ONLY by the shared `.site-container` class**, defined once in `src/styles/comm.css` (width 100%, margin-inline auto, padding-inline 15px / 10px under 360px, max-width 1140px from 1139px viewport, 1320px from 1310px viewport; values via CSS variables).
 2. **Banned as page-level containers**: `new-container`, `banner-container`, `header-container`, `intro-container`, `subnav-container`, `page_container`, `lbv-banner-container`, and page-level Tailwind max-w wrappers (`max-w-[1240px]`, `max-w-4xl/5xl/6xl` and similar).
