@@ -26,7 +26,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Cathy",
     title: "同隱形眼鏡正式分手～",
     link: "https://youtu.be/YAGjW1TSCqg",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro-028-v1.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smilepro/smilepro-028-v1.avif",
   },
   {
     type: ["smilepro", "icl"],
@@ -34,7 +34,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "",
     title: "真實用家共同見證<br/>「真實」自己",
     link: "https://youtu.be/NtULZl7qUEg",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro-027-v1.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smilepro/smilepro-027-v1.avif",
   },
   {
     type: ["smilepro"],
@@ -42,7 +42,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Aerent",
     title: "清楚咗 唱Live都放鬆咗",
     link: "https://youtu.be/LvVdc3l7XpE",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro-026-v1.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smilepro/smilepro-026-v1.avif",
   },
   {
     type: ["smilepro"],
@@ -50,7 +50,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "GM",
     title: "做SMILE Pro梗係搵<br/>希瑪!",
     link: "https://youtu.be/kPM1KMcAwss",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro-025-v1.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smilepro/smilepro-025-v1.avif",
   },
   {
     type: ["smilepro"],
@@ -58,7 +58,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Gi",
     title: "穿搭由眼睛開始自由",
     link: "https://youtu.be/Z-jpOoOpMEg",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro-024-v1.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smilepro/smilepro-024-v1.avif",
   },
   {
     type: ["smilepro"],
@@ -66,7 +66,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Nicholas",
     title: "唔使再忍受除戴Con嘅<br/>痛苦",
     link: "https://youtu.be/iNu-uMliXNA",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro-023-v1.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smilepro/smilepro-023-v1.avif",
   },
   {
     type: ["smilepro"],
@@ -74,7 +74,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Maggie",
     title: "做咗SMILE Pro 2年<br/>都仲睇得咁清楚",
     link: "https://youtu.be/tcvQgB4IXDk",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro-022-v1.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smilepro/smilepro-022-v1.avif",
   },
   {
     type: ["smilepro"],
@@ -82,7 +82,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Sarah",
     title: "唔洗矇查查周圍搵眼鏡",
     link: "https://youtu.be/Z5ut-9tIhmo",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro-021.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smilepro/smilepro-021.avif",
   },
   {
     type: ["smilepro"],
@@ -90,7 +90,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Jay",
     title: "無咗眼鏡都一樣做到唔<br/>同活動",
     link: "https://youtu.be/857FwJQu7OA",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro-020.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smilepro/smilepro-020.avif",
   },
   {
     type: ["smilepro"],
@@ -98,7 +98,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Karen",
     title: "咸淡水活動都咁方便",
     link: "https://youtu.be/AT7ZVZ4lFgM",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro1.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smilepro/smilepro1.avif",
   },
   {
     type: ["smilepro"],
@@ -106,7 +106,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Anson Au",
     title: "無哂Con帶嚟嘅麻煩<br/>促進咗眼神交流",
     link: "https://youtu.be/10KYv_gGgWM",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro2.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smilepro/smilepro2.avif",
   },
   {
     type: ["smilepro"],
@@ -114,7 +114,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Carmen",
     title: "做咗就可以好似我依家<br/>咁方便㗎喇",
     link: "https://youtu.be/TBI6J31JwJQ",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro3.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smilepro/smilepro3.avif",
   },
   {
     type: ["smilepro"],
@@ -122,7 +122,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Mimi Lau",
     title: "無哂Con帶嚟嘅麻煩<br/>促進咗眼神交流",
     link: "https://youtu.be/10KYv_gGgWM",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro4.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smilepro/smilepro4.avif",
   },
   {
     type: ["smilepro"],
@@ -130,7 +130,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Tiffany",
     title: "唔洗花時間戴Con，<br/>可以直接出門練習，<br/>非常方便",
     link: "https://youtu.be/1Ic0z7wiVv8",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro5.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smilepro/smilepro5.avif",
   },
   {
     type: ["smilepro"],
@@ -138,7 +138,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Maggie",
     title: "好舒服之下就完成咗<br/>成個過程",
     link: "https://youtu.be/vxeN1wXeZ5M",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro6.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smilepro/smilepro6.avif",
   },
   {
     type: ["smilepro"],
@@ -146,7 +146,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Fish",
     title: "做完SMILE Pro<br/>慳咗好多Con錢",
     link: "https://youtu.be/C4yu0L5xfy8",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro7.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smilepro/smilepro7.avif",
   },
   {
     type: ["smilepro"],
@@ -154,7 +154,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Belle",
     title: "一瞓醒清楚望到全世界<br/>真係好開心!",
     link: "https://youtu.be/U4rueCW0hIg",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro8.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smilepro/smilepro8.avif",
   },
   {
     type: ["smilepro"],
@@ -162,7 +162,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Belle",
     title: "希瑪矯視旅程",
     link: "https://youtu.be/uHFshgSiP4o",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro-022.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smilepro/smilepro-022.avif",
   },
   {
     type: ["smilepro"],
@@ -170,7 +170,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Pinky",
     title: "SMILE Pro VS <br/>SMILE矯視",
     link: "https://youtu.be/M6mkwCRqXII",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro-023.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smilepro/smilepro-023.avif",
   },
   {
     type: ["smilepro"],
@@ -178,7 +178,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Pinky",
     title: "我都做咗<br/>SMILE Pro啦!",
     link: "https://youtu.be/VoGlE1dJPhc",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro9.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smilepro/smilepro9.avif",
   },
   {
     type: ["smilepro"],
@@ -186,7 +186,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Killer",
     title: "20秒解決人生<br/>一大問題",
     link: "https://youtu.be/RzeaU0Y0zMI",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro10.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smilepro/smilepro10.avif",
   },
   {
     type: ["smilepro"],
@@ -194,7 +194,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Jay",
     title: "行出沙灘都有自信啲",
     link: "https://youtu.be/IWGVOHwyUQc",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro11.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smilepro/smilepro11.avif",
   },
   {
     type: ["smilepro"],
@@ -202,7 +202,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "",
     title: "做完SMILE Pro<br/>上舞台都唔會驚光",
     link: "https://youtu.be/1p5Qm_772jI",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro12.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smilepro/smilepro12.avif",
   },
   {
     type: ["smilepro"],
@@ -210,7 +210,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Mina",
     title: "婚禮To-Do List要有<br/>做SMILE Pro",
     link: "https://youtu.be/4ELnbQjUCsA",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro13.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smilepro/smilepro13.avif",
   },
   {
     type: ["smilepro"],
@@ -218,7 +218,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Maggie",
     title: "唔洗戴Con戴一世",
     link: "https://youtu.be/r4rbUUVtjzM",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro14.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smilepro/smilepro14.avif",
   },
   {
     type: ["smilepro"],
@@ -226,7 +226,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Cindy Wong",
     title: "我問自己點解唔早啲做<br/>SMILE Pro呢!",
     link: "https://youtu.be/kVEJ-PN4AJo",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro15.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smilepro/smilepro15.avif",
   },
   {
     type: ["smilepro"],
@@ -234,7 +234,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Cindy Wong",
     title: "湊住仔仔都咁方便",
     link: "https://youtu.be/I6Yv4PTTSC4",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro16.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smilepro/smilepro16.avif",
   },
   {
     type: ["smilepro"],
@@ -242,7 +242,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "",
     title: "做完一出嚟問題解決哂",
     link: "https://youtu.be/33vCgmDh-UQ",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro17.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smilepro/smilepro17.avif",
   },
   {
     type: ["smilepro"],
@@ -250,7 +250,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Sandy To",
     title: "教瑜伽堂專注咗<br/>效率高咗",
     link: "https://youtu.be/iHBGkRh-CXw",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro18.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smilepro/smilepro18.avif",
   },
   {
     type: ["smilepro"],
@@ -258,7 +258,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "SAPIAH",
     title: "無咗副Con<br/>生活自主返",
     link: "https://youtu.be/jBAIJeUQGz0",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro19.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smilepro/smilepro19.avif",
   },
   {
     type: ["smile"],
@@ -266,7 +266,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "",
     title: "就算落雨都唔會再影響<br/>到我跑步嘅心情",
     link: "https://youtu.be/TGxol6pNXSY",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-001.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-001.avif",
   },
   {
     type: ["smile"],
@@ -274,7 +274,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "",
     title: "唔洗戴Con係一種<br/>解脫!可以瀟灑出門口",
     link: "https://youtu.be/CJEE6UQKPes",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-002.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-002.avif",
   },
   {
     type: ["smile"],
@@ -282,7 +282,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "",
     title: "一行出去已經感受到<br/>原來我望嘢可以咁清楚",
     link: "https://youtu.be/tLsWfdZy4P4",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-003.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-003.avif",
   },
   {
     type: ["smile"],
@@ -290,7 +290,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "",
     title: "做完多咗眼神交流<br/>傳波都準咗",
     link: "https://youtu.be/_wk_gZGzB1s",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-004.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-004.avif",
   },
   {
     type: ["smile"],
@@ -298,7 +298,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "",
     title: "想做就去做啦!",
     link: "https://youtu.be/qBsPhkIaVfo",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-005.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-005.avif",
   },
   {
     type: ["smile"],
@@ -306,7 +306,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Shirley Chan",
     title: "終於可以掉咗<br/>縮細眼嘅眼鏡",
     link: "https://youtu.be/oHDOFYMEUsk",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-006.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-006.avif",
   },
   {
     type: ["smile"],
@@ -314,7 +314,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Kathy Ngai",
     title: "過程好似打機咁<br/>好神奇有趣!",
     link: "https://youtu.be/nrsLktnnW_I",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-007.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-007.avif",
   },
   {
     type: ["smile"],
@@ -322,7 +322,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Donaa cld",
     title: "過程咩感覺都無<br/>好快 好神奇!",
     link: "https://youtu.be/XSOzqZD6N8Q",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-008.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-008.avif",
   },
   {
     type: ["smile"],
@@ -330,7 +330,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "",
     title: "視力仲好過未矯視之前",
     link: "https://youtu.be/sw1fxUXMqes",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-009.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-009.avif",
   },
   {
     type: ["smile"],
@@ -338,7 +338,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Jacky Tong",
     title: "做完好似戴咗Con咁，<br/>連瞓覺都feel到自己睇<br/>得好清楚咁",
     link: "https://youtu.be/HfA2NBsMVWQ",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-010.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-010.avif",
   },
   {
     type: ["smile"],
@@ -346,7 +346,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Charlotte",
     title: "做咗SMILE有<br/>更多精力應付工作",
     link: "https://youtu.be/dyzeGWTk8Dk",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-011.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-011.avif",
   },
   {
     type: ["smile"],
@@ -354,7 +354,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Cath Wong",
     title: "彈結他幾投入睇嘢<br/>都唔矇",
     link: "https://youtu.be/qBsPhkIaVfo",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-012.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-012.avif",
   },
   {
     type: ["smile"],
@@ -362,7 +362,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Aka",
     title: "做SMILE過程<br/>都無感覺",
     link: "https://youtu.be/1WR18ptmCuQ",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-013.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-013.avif",
   },
   {
     type: ["smile"],
@@ -370,7 +370,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "",
     title: "就算以後唔可以戴Con<br/>都唔怕 因為我已經做<br/>咗SMILE",
     link: "https://youtu.be/bwQMHStnXCk",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-014.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-014.avif",
   },
   {
     type: ["smile"],
@@ -378,7 +378,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Anthony",
     title: "同學生對打都唔怕Con<br/>移位",
     link: "https://youtu.be/inD-CATvEl4",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-015.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-015.avif",
   },
   {
     type: ["smile"],
@@ -386,7 +386,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "",
     title: "做SMILE原來<br/>早做早享受",
     link: "https://youtu.be/dYYyN9YZGQg",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-017.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-017.avif",
   },
   {
     type: ["smile"],
@@ -394,7 +394,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "",
     title: "以後跳繩集中<br/>都唔怕眼乾",
     link: "https://youtu.be/T3K97UlXpHg",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-018.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-018.avif",
   },
   {
     type: ["smile"],
@@ -402,7 +402,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "",
     title: "原來世界可以咁清楚",
     link: "https://youtu.be/WlFqNfq5jkI",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-019.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-019.avif",
   },
   {
     type: ["smile"],
@@ -410,7 +410,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Ceci Wu",
     title: "過程比我想像中快",
     link: "https://youtu.be/Z9s3c5Thu7w",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-020.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-020.avif",
   },
   {
     type: ["smile"],
@@ -418,7 +418,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "",
     title: "做完成個世界唔同咗",
     link: "https://youtu.be/o2n03FVGWbk",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-021.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-021.avif",
   },
   {
     type: ["smile"],
@@ -426,7 +426,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Mandy",
     title: "做完好感動<br/>開心到想喊",
     link: "https://youtu.be/05NSqdF7nz0",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-022.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-022.avif",
   },
   {
     type: ["smile"],
@@ -434,7 +434,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Natalie",
     title: "早啲做SMILE慳好多<br/>買Con錢 好抵!",
     link: "https://youtu.be/nagwW6CP1iU",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-023.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-023.avif",
   },
   {
     type: ["smile"],
@@ -442,7 +442,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "",
     title: "長期長時間戴Con人士<br/>要做SMILE!",
     link: "https://youtu.be/tJ3MHvKagMk",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-024.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-024.avif",
   },
   {
     type: ["smile"],
@@ -450,7 +450,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "kelly Ng",
     title: "好似瞓一覺就做完咁",
     link: "https://youtu.be/c6dwJ1Cbgxw",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-025.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-025.avif",
   },
   {
     type: ["smile"],
@@ -458,7 +458,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Dominic Ho",
     title: "拍嘢睇Mon唔洗再俾<br/>眼鏡壓住",
     link: "https://youtu.be/L5GFWM7Fxqs",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-026.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-026.avif",
   },
   {
     type: ["smile"],
@@ -466,7 +466,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Daniel Chau",
     title: "做咗SMILE就唔會再<br/>錯過同囡囡每個<br/>珍貴Moment",
     link: "https://youtu.be/Udnsv_lOr74",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-027.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-027.avif",
   },
   {
     type: ["smile"],
@@ -474,7 +474,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Ada",
     title: "每一次擘大眼都<br/>懷疑自己係咪唔記得除<br/>Con既感覺",
     link: "https://youtu.be/JCzzO4Y0kko",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-028.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-028.avif",
   },
   {
     type: ["smile"],
@@ -482,7 +482,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Hubert",
     title: "做完好似重生<br/>換咗對新嘅眼咁!",
     link: "https://youtu.be/JD5GGTg01to",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-029.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-029.avif",
   },
   {
     type: ["smile"],
@@ -490,7 +490,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Scarlett",
     title: "唔止視力穩定 心理上<br/>都穩定咗",
     link: "https://youtu.be/NF_S1R9DhNk",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-033.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-033.avif",
   },
   {
     type: ["smile"],
@@ -498,7 +498,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Brian Wong",
     title: "揸車唔洗換眼鏡<br/>安全好多",
     link: "https://youtu.be/7T_ATu8-Vn8",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-030.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-030.avif",
   },
   {
     type: ["smile"],
@@ -506,7 +506,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Judy Mok",
     title: "原來做SMILE唔痛<br/>仲好快",
     link: "https://youtu.be/KslMZ0PY2fg",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-031.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-031.avif",
   },
   {
     type: ["smile"],
@@ -514,7 +514,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Jimmy",
     title: "長時間專注整蛋糕都唔<br/>眼乾",
     link: "https://youtu.be/jO_h9YqCJzs",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smile/smile-032.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/smile/smile-032.avif",
   },
   {
     type: ["icl"],
@@ -522,7 +522,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Celina",
     title: "全天候高清視力<br/>我靠ICL!",
     link: "https://youtu.be/M4-FA9U3VPo",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/icl/icl-012-v1.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/icl/icl-012-v1.avif",
   },
   {
     type: ["icl"],
@@ -530,7 +530,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Ting Yan",
     title: "ICL矯視過程講解及<br/>注意事項",
     link: "https://youtu.be/D91jSXnpeNc",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/icl/icl-011.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/icl/icl-011.avif",
   },
   {
     type: ["icl"],
@@ -538,7 +538,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Ting Yan",
     title: "一個「選擇」<br/>睇見自己嘅光芒",
     link: "https://youtu.be/PmZk2TtrNBc",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/icl/icl-010.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/icl/icl-010.avif",
   },
   {
     type: ["icl"],
@@ -546,7 +546,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Kathy仔",
     title: "依家一擘大眼就見到<br/>好清楚嘅世界，好立體",
     link: "https://youtu.be/fNSShYa7nKk",
-    img: "https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShareItem1.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/icl/boxShareItem1.avif",
   },
   {
     type: ["icl"],
@@ -554,7 +554,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Lily",
     title: "夜間高清視力對<br/>夜晚揸車好重要",
     link: "https://youtu.be/T9g2qoFI9nU",
-    img: "https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShareItem-icl1.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/icl/boxShareItem-icl1.avif",
   },
   {
     type: ["icl"],
@@ -562,7 +562,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "",
     title: "眼鏡由「必須品」<br/>變「奢侈品」",
     link: "https://youtu.be/I2sl4GWqg1w",
-    img: "https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShareItem4.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/icl/boxShareItem4.avif",
   },
   {
     type: ["icl"],
@@ -570,7 +570,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "",
     title: "原來眼角膜薄都有機會<br/>可以做矯視!",
     link: "https://youtu.be/r0yDL98l0Zo",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/icl/icl4.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/icl/icl4.avif",
   },
   {
     type: ["icl"],
@@ -578,7 +578,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "",
     title: "麥沛東與結婚這回事",
     link: "https://youtu.be/B12IjJ3tFHE",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/icl/icl5.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/icl/icl5.avif",
   },
   {
     type: ["icl"],
@@ -586,7 +586,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Kwan Gor",
     title: "眼鏡選擇多好多，<br/>世界限制少好多",
     link: "https://youtu.be/CEbbKFeFdnc",
-    img: "https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShareItem-icl4.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/icl/boxShareItem-icl4.avif",
   },
   {
     type: ["icl"],
@@ -594,7 +594,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Phil",
     title: "好Surprise 做完之後<br/>24小時都睇得咁清",
     link: "https://youtu.be/2t7JjTab4xA",
-    img: "https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShareItem-icl2.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/icl/boxShareItem-icl2.avif",
   },
   {
     type: ["icl"],
@@ -602,7 +602,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Serene Lim",
     title: "每日起身唔洗戴Con<br/>慳好多時間 好方便",
     link: "https://youtu.be/5ihrzFvOy38",
-    img: "https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShareItem-icl3.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/icl/boxShareItem-icl3.avif",
   },
   {
     type: ["icl"],
@@ -610,7 +610,7 @@ export const ALL_VIDEOS: VideoItem[] = [
     enName: "Tiffany Poon",
     title: "做咗ICL 夜晚湊小朋友<br/>唔洗開燈都睇得清楚",
     link: "https://youtu.be/e-c_qRuvWTA",
-    img: "https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShareItem-icl5.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/video-covers/icl/boxShareItem-icl5.avif",
   },
 ];
 

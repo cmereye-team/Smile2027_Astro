@@ -1,5 +1,4 @@
 ---
-import { Image } from "astro:assets";
 import { ALL_VIDEOS, VIDEO_TABS, type VideoType } from "@/data/videoData";
 import { useI18n } from "@/i18n/utils";
 const { dict } = useI18n(Astro.url);
@@ -87,13 +86,14 @@ const typeConfig: Record<VideoType, { bg: string; label: string; color: string }
                 class="media-card-link"
               >
                 <div class="media-card-thumb">
-                  <Image
+                  <img
                     src={item.img}
                     alt={cardTitle}
                     title={cardTitle}
-                    width={265}
-                    height={439}
+                    width="265"
+                    height="439"
                     loading={index < 4 ? "eager" : "lazy"}
+                    decoding="async"
                     draggable="false"
                   />
                   {currentConfig && (
