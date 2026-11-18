@@ -1,5 +1,6 @@
 ---
 import { SHARE_DATA, type ShareItem } from "@/data/shareData";
+import "@/styles/swiper-base.css";
 
 interface Props {
   title?: string;
@@ -34,22 +35,22 @@ function getColor(type: string) {
         <div class="UserShareBox-title">
           <h2 id={sectionId} class="title-share">{title}</h2>
           <div class="UserShareBox-title-text">
-            <img draggable="false"
-              class="d-block"
-              decoding="async"
-              src="https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShare-newtitle-pc.png"
-              alt="更舒適生活從希瑪矯視開始 - 聽聽各位真實用家親身感受"
-              title="希瑪微笑矯視用家真實口碑分享"
-              loading="lazy"
-              width="772"
-              height="60"
-              srcset="
-                https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShare-newtitle-mb.svg 400w,
-                https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShare-newtitle-mb.svg 640w,
-                https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShare-newtitle-pc.png
-              "
-              sizes="(max-width: 992px) 100vw, 1216px"
-            />
+            <picture class="contents">
+              <source
+                media="(max-width: 991px)"
+                srcset="https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShare-newtitle-mb.svg"
+              />
+              <img draggable="false"
+                class="d-block"
+                decoding="async"
+                src="https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShare-newtitle-pc.png"
+                alt="更舒適生活從希瑪矯視開始 - 聽聽各位真實用家親身感受"
+                title="希瑪微笑矯視用家真實口碑分享"
+                loading="lazy"
+                width="772"
+                height="60"
+              />
+            </picture>
             <p>聽聽各位真實用家親身感受</p>
           </div>
         </div>

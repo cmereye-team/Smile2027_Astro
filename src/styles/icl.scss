@@ -20,21 +20,23 @@
   }
 }
 
-i {
-  font-style: normal;
-}
+.page-icl {
+  i {
+    font-style: normal;
+  }
 
-h2 {
-  font-size: 20px;
-}
+  h2 {
+    font-size: 20px;
+  }
 
-.step-btn {
-  background: none;
-  border: none;
-  padding: 0;
-  margin: 0;
-  font: inherit;
-  cursor: pointer;
+  .step-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    cursor: pointer;
+  }
 }
 
 /* ==========================================================================
@@ -2497,15 +2499,15 @@ h2 {
    12. 輔助類別 (Helper utilities for breakpoint display)
    ========================================================================== */
 @media (min-width: 1140px) {
-  .d-xl-none {
+  .page-icl .d-xl-none {
     display: none !important;
   }
-  .d-xl-block {
+  .page-icl .d-xl-block {
     display: block !important;
   }
 }
 @media (max-width: 1139px) {
-  .d-xl-block {
+  .page-icl .d-xl-block {
     display: none !important;
   }
 }

@@ -43,6 +43,7 @@ const items: BannerItem[] = banners || (await getBanners(lang));
               href={item.link || "#"}
               target={item.isExternal ? "_blank" : undefined}
               rel={item.isExternal ? "noopener noreferrer" : undefined}
+              data-cta={item.link?.includes("whatsapp") ? "whatsapp" : "banner"}
               title={item.title}
               aria-label={item.title}
               tabindex={index === 0 ? 0 : -1}

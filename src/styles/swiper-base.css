@@ -1,0 +1,6 @@
+/* 核心 Swiper 佈局與分頁樣式 (僅於輪播組件靜態注入，兼顧 Gate 4 零 CLS 與非輪播頁零冗餘) */
+@import "swiper/css";
+@import "swiper/css/pagination";
+@import "swiper/css/navigation";
+@import "swiper/css/thumbs";
+@import "swiper/css/scrollbar";

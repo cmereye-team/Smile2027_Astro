@@ -758,7 +758,7 @@
     cursor: grabbing;
   }
 
-  :global(.swiper-wrapper) {
+  .swiper-wrapper {
     display: flex;
     align-items: center;
     transition-timing-function: linear !important;

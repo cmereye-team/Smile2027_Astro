@@ -1,18 +1,17 @@
 
-body {
-  overflow-x: hidden;
-}
-a {
-  text-decoration: none;
-}
-.d-none {
-  display: none;
-}
-i {
-  font-style: normal;
-}
-
 .page-presbyopia {
+  a {
+    text-decoration: none;
+  }
+
+  .d-none {
+    display: none;
+  }
+
+  i {
+    font-style: normal;
+  }
+
   .hero-category-link,
   .hero-desc-schemes a,
   .hero-symptom-tag,
@@ -1758,10 +1757,10 @@ i {
 }
 
 @media screen and (min-width: 1140px) {
-  .d-xl-none {
+  .page-presbyopia .d-xl-none {
     display: none;
   }
-  .d-xl-block {
+  .page-presbyopia .d-xl-block {
     display: block;
   }
 }
@@ -2107,8 +2106,8 @@ i {
   right: 40px;
 }
 
-.swiper-button-prev,
-.swiper-button-next {
+.page-presbyopia .swiper-button-prev,
+.page-presbyopia .swiper-button-next {
   background-image: none;
 }
 
