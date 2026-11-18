@@ -5,21 +5,10 @@
  * @FilePath: /src/components/views/IndexAwards.astro
  * @Description: 希瑪微笑矯視中心榮譽與權威認證輪播組件 (1280px 罐頭基準容器對齊 + Swiper 支援自由平滑拖拽 + 0 殘留陰影 + 100% 醫療 SEO/GEO)
  */
-import { Image } from "astro:assets";
 import { useI18n } from "@/i18n/utils";
 import "@/styles/swiper-base.css";
 
-// 靜態導入本地 10 大權威獎牌圖片資產
-import awards001 from "@/assets/images/award/awards-001.png";
-import awards002 from "@/assets/images/award/awards-002.png";
-import awards003 from "@/assets/images/award/awards-003.png";
-import awards004 from "@/assets/images/award/awards-004.png";
-import awards005 from "@/assets/images/award/awards-005.png";
-import awards006 from "@/assets/images/award/awards-006.png";
-import awards007 from "@/assets/images/award/awards-007.png";
-import awards008 from "@/assets/images/award/awards-008.svg";
-import awards009 from "@/assets/images/award/awards-009.svg";
-import awards010 from "@/assets/images/award/awards-010.svg";
+const CDN_AWARD = "https://static.cmermedical.com.hk/smile/assets/award";
 
 const { dict } = useI18n(Astro.url);
 const sectionTitle = dict.home.awards.title;
@@ -28,61 +17,61 @@ const sectionTitle = dict.home.awards.title;
 const awards = [
   {
     id: 1,
-    img: awards001,
+    img: `${CDN_AWARD}/awards-001.webp`,
     title: "香港旅遊業十優推介 - 醫療服務卓越機構",
     alt: "香港旅遊業十優推介認證徽章",
   },
   {
     id: 2,
-    img: awards002,
+    img: `${CDN_AWARD}/awards-002.webp`,
     title: "商界展關懷 Caring Company 榮譽標誌",
     alt: "香港社會服務聯會商界展關懷標誌",
   },
   {
     id: 3,
-    img: awards003,
+    img: `${CDN_AWARD}/awards-003.webp`,
     title: "香港星級品牌企業獎 - 卓越眼科醫療品牌",
     alt: "香港星級品牌企業獎榮譽標誌",
   },
   {
     id: 4,
-    img: awards004,
+    img: `${CDN_AWARD}/awards-004.webp`,
     title: "HKET 香港經濟日報企業大獎 - 卓越醫療服務",
     alt: "香港經濟日報企業大獎認證",
   },
   {
     id: 5,
-    img: awards005,
+    img: `${CDN_AWARD}/awards-005.webp`,
     title: "HKCT 企業大獎 - 年度傑出眼科醫療服務",
     alt: "HKCT 企業大獎年度傑出眼科醫療服務徽章",
   },
   {
     id: 6,
-    img: awards006,
+    img: `${CDN_AWARD}/awards-006.webp`,
     title: "香港服務名牌 Top Service Brand 榮譽",
     alt: "香港品牌發展局香港服務名牌標誌",
   },
   {
     id: 7,
-    img: awards007,
+    img: `${CDN_AWARD}/awards-007.webp`,
     title: "香港卓越服務名牌 Premier Service Brand",
     alt: "香港卓越服務名牌認證標誌",
   },
   {
     id: 8,
-    img: awards008,
+    img: `${CDN_AWARD}/awards-008.svg`,
     title: "ESG 約章行動證書 - 綠色可持續發展",
     alt: "中華廠商聯合會 ESG 約章標誌",
   },
   {
     id: 9,
-    img: awards009,
+    img: `${CDN_AWARD}/awards-009.svg`,
     title: "香港公益金 - 公益卓越獎認證",
     alt: "香港公益金公益卓越獎標誌",
   },
   {
     id: 10,
-    img: awards010,
+    img: `${CDN_AWARD}/awards-010.svg`,
     title: "真生活至尊品牌大獎 - 至尊微笑矯視中心品牌大獎",
     alt: "至尊微笑矯視中心品牌大獎榮譽認證",
   },
@@ -111,39 +100,21 @@ const awards = [
   <div class="swiperWrap swiper" id="awardsSwiper">
     <div class="swiper-wrapper">
       {
-        [...awards, ...awards].map((award) => {
-          const isRemote = typeof award.img === "string";
-          const isSvg = !isRemote && ((award.img as any).format === "svg" || (award.img as any).src?.includes(".svg"));
-
-          return (
-            <div class="swiper-slide award-item">
-              {isRemote || isSvg ? (
-                <img
-                  draggable="false"
-                  src={isRemote ? (award.img as string) : (award.img as { src: string }).src}
-                  alt={award.alt}
-                  title={award.title}
-                  width="132"
-                  height="132"
-                  loading="lazy"
-                  decoding="async"
-                  class="award-img object-contain"
-                />
-              ) : (
-                <Image
-                  src={award.img as any}
-                  alt={award.alt}
-                  title={award.title}
-                  width={132}
-                  height={132}
-                  format="webp"
-                  loading="lazy"
-                  class="award-img"
-                />
-              )}
-            </div>
-          );
-        })
+        [...awards, ...awards].map((award) => (
+          <div class="swiper-slide award-item">
+            <img
+              draggable="false"
+              src={award.img}
+              alt={award.alt}
+              title={award.title}
+              width="132"
+              height="132"
+              loading="lazy"
+              decoding="async"
+              class="award-img object-contain"
+            />
+          </div>
+        ))
       }
     </div>
   </div>

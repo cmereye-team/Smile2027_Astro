@@ -1,57 +1,38 @@
 ---
-import { Image, getImage } from "astro:assets";
 import "@/styles/swiper-base.css";
-import mbBanner1 from "@/assets/images/index/environment-mb-01.jpg";
-import pcBanner1 from "@/assets/images/index/environment-pc-01.jpg";
-import mbBanner2 from "@/assets/images/index/environment-mb-02.jpg";
-import pcBanner2 from "@/assets/images/index/environment-pc-02.jpg";
-import mbBanner3 from "@/assets/images/index/environment-mb-03.jpg";
-import pcBanner3 from "@/assets/images/index/environment-pc-03.jpg";
-import mbBanner4 from "@/assets/images/index/environment-mb-04.jpg";
-import pcBanner4 from "@/assets/images/index/environment-pc-04.jpg";
 
-const rawBanners = [
+const CDN_INDEX = "https://static.cmermedical.com.hk/smile/assets/index";
+
+const banners = [
   {
     id: 1,
-    pc: pcBanner1,
-    mb: mbBanner1,
+    pc: `${CDN_INDEX}/environment-pc-01.webp`,
+    mb: `${CDN_INDEX}/environment-mb-01.webp`,
     title: "香港希瑪微笑矯視中心 - 現代化眼科接待大堂與寬敞舒適等候區",
     alt: "香港希瑪微笑矯視中心現代化接待大堂環境",
   },
   {
     id: 2,
-    pc: pcBanner2,
-    mb: mbBanner2,
+    pc: `${CDN_INDEX}/environment-pc-02.webp`,
+    mb: `${CDN_INDEX}/environment-mb-02.webp`,
     title: "香港希瑪微笑矯視中心 - 德國蔡司國際標準百級無菌層流手術室",
     alt: "希瑪微笑矯視中心德國蔡司全飛秒無菌手術室",
   },
   {
     id: 3,
-    pc: pcBanner3,
-    mb: mbBanner3,
+    pc: `${CDN_INDEX}/environment-pc-03.webp`,
+    mb: `${CDN_INDEX}/environment-mb-03.webp`,
     title: "香港希瑪微笑矯視中心 - 精密屈光術前多維度眼睛檢查室與儀器設備",
     alt: "希瑪微笑矯視精密術前檢查室與儀器設備",
   },
   {
     id: 4,
-    pc: pcBanner4,
-    mb: mbBanner4,
+    pc: `${CDN_INDEX}/environment-pc-04.webp`,
+    mb: `${CDN_INDEX}/environment-mb-04.webp`,
     title: "香港希瑪微笑矯視中心 - 一對一專科醫生獨立諮詢與精準診症室",
     alt: "希瑪微笑矯視專科醫生獨立諮詢與診症空間",
   },
 ];
-
-const banners = await Promise.all(
-  rawBanners.map(async (banner) => ({
-    ...banner,
-    pcWebp: await getImage({
-      src: banner.pc,
-      format: "webp",
-      width: 1442,
-      height: 813,
-    }),
-  }))
-);
 ---
 
 <section class="section-environment" aria-label="希瑪微笑矯視中心門市與手術室環境展示">
@@ -61,16 +42,17 @@ const banners = await Promise.all(
         banners.map((banner) => (
           <div class="swiper-slide env-carousel-slide">
             <picture class="block w-full h-full">
-              <source media="(min-width: 1024px)" srcset={banner.pcWebp.src} type="image/webp" width="1442" height="813" />
-              <Image
+              <source media="(min-width: 1024px)" srcset={banner.pc} type="image/webp" width="1442" height="813" />
+              <img
                 src={banner.mb}
                 alt={banner.alt}
                 title={banner.title}
-                width={749}
-                height={520}
-                format="webp"
+                width="749"
+                height="520"
                 loading="lazy"
+                decoding="async"
                 fetchpriority="low"
+                draggable="false"
                 class="w-full h-full object-cover"
               />
             </picture>

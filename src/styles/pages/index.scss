@@ -379,8 +379,8 @@
         width: clamp(11.5px, 1.2vw, 23px);
         height: clamp(11.5px, 1.2vw, 23px);
         background-color: currentColor;
-        -webkit-mask: url("/images/icons/arrow-up-right.svg") no-repeat center / contain;
-        mask: url("/images/icons/arrow-up-right.svg") no-repeat center / contain;
+        -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2229%22%20height%3D%2230%22%20viewBox%3D%220%200%2029%2030%22%20fill%3D%22none%22%3E%20%3Cpath%20d%3D%22M3%2026.3485L25.6286%203.71997%22%20stroke%3D%22white%22%20stroke-width%3D%225.4%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Cpath%20d%3D%22M6.29736%203.00012H26.4V22.4401%22%20stroke%3D%22white%22%20stroke-width%3D%224.86%22%20stroke-linecap%3D%22round%22%2F%3E%20%3C%2Fsvg%3E") no-repeat center / contain;
+        mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2229%22%20height%3D%2230%22%20viewBox%3D%220%200%2029%2030%22%20fill%3D%22none%22%3E%20%3Cpath%20d%3D%22M3%2026.3485L25.6286%203.71997%22%20stroke%3D%22white%22%20stroke-width%3D%225.4%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Cpath%20d%3D%22M6.29736%203.00012H26.4V22.4401%22%20stroke%3D%22white%22%20stroke-width%3D%224.86%22%20stroke-linecap%3D%22round%22%2F%3E%20%3C%2Fsvg%3E") no-repeat center / contain;
         transition: background-color 0.3s ease;
       }
       span {

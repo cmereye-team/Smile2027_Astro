@@ -2308,7 +2308,7 @@
    11. 最新動態 (.latestNews)
    ========================================================================== */
 .latestNews {
-  background: url("/images/service/icl/icl-newdongtai-pc.webp")
+  background: url("https://static.cmermedical.com.hk/smile/assets/service/icl/icl-newdongtai-pc.webp")
     no-repeat center / cover;
   position: relative;
   width: 100%;
@@ -2323,7 +2323,7 @@
   @media screen and (max-width: 1140px) {
     margin-top: 0;
     margin-bottom: 40px;
-    background: url("/images/service/icl/icl-newdongtai-mobile.webp")
+    background: url("https://static.cmermedical.com.hk/smile/assets/service/icl/icl-newdongtai-mobile.webp")
       no-repeat center / cover;
     height: 209vw;
     padding-top: 33.33vw;

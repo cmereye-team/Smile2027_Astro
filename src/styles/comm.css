@@ -387,7 +387,7 @@ summary.faq-header .faq-header-text {
 summary.faq-header::before {
   position: absolute;
   content: "";
-  background-image: url("/images/faq/icon-q-inactive.png");
+  background-image: url("https://static.cmermedical.com.hk/smile/assets/faq/icon-q-inactive.webp");
   background-repeat: no-repeat;
   background-size: contain;
   left: 28px;
@@ -449,7 +449,7 @@ summary.faq-header::before {
 }
 
 .faq-item[open] > summary.faq-header::before {
-  background-image: url("/images/faq/icon-q-active.png");
+  background-image: url("https://static.cmermedical.com.hk/smile/assets/faq/icon-q-active.webp");
 }
 
 .faq-item[open] > summary.faq-header .faq-toggle-indicator::before {
