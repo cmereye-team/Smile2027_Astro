@@ -2045,14 +2045,11 @@
   font-weight: 600;
   color: #4570b6;
   margin-bottom: 5px;
-
-  @media (max-width: 767px) {
-    font-size: 16px;
-  }
 }
 
 .lbv-slide-subtitle {
-  font-size: 14px;
+  font-size: 16px;
+  line-height: 1.6;
   color: #666;
   margin-bottom: 15px;
 }
@@ -2065,7 +2062,8 @@
 }
 
 .lbv-feature-item {
-  font-size: 14px;
+  font-size: 16px;
+  line-height: 1.6;
   color: #666;
   margin: 0;
 }

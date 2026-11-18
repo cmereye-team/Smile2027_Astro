@@ -812,8 +812,12 @@ const visibleFaqs = [
     p {
       font-weight: 300;
       font-size: clamp(1rem, 0.909rem + 0.45vw, 1.25rem);
-      line-height: 35px;
+      line-height: 1.75;
       letter-spacing: clamp(0.044rem, 0.037rem + 0.03vw, 0.063rem);
+
+      @media screen and (min-width: 768px) {
+        line-height: 35px;
+      }
 
       :global(span) {
         font-weight: 700;
@@ -930,14 +934,15 @@ const visibleFaqs = [
         color: $text-color;
         font-weight: 300;
         font-size: 16px;
-        line-height: 30px;
-        letter-spacing: 2.52px;
-        margin-bottom: 30px;
+        line-height: 1.75;
+        letter-spacing: 0.8px;
+        margin-bottom: 24px;
 
         @media screen and (min-width: 768px) {
           font-size: 20px;
           line-height: 30px;
           letter-spacing: 6px;
+          margin-bottom: 30px;
         }
       }
 
@@ -1292,7 +1297,7 @@ const visibleFaqs = [
       &-title {
         color: $primary-color;
         font-weight: 700;
-        font-size: clamp(1rem, 0.857rem + 0.59vw, 1.563rem);
+        font-size: clamp(1.125rem, 0.95rem + 0.6vw, 1.563rem);
         line-height: 1.4;
         margin-bottom: clamp(1.018rem, 0.752rem + 1.09vw, 2.063rem);
 
