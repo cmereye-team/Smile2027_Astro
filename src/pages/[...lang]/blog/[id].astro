@@ -7,23 +7,18 @@ import BlogArticleView from "@/components/views/BlogArticleView.astro";
 import { getLangFromUrl } from "@/i18n/utils";
 
 export async function getStaticPaths() {
-  const fallbackIds = ["161", "162", "169", "178", "179", "166"];
-  const idSet = new Set<string>(fallbackIds);
+  const hkIdSet = new Set<string>(["161", "162", "169"]);
+  const cnIdSet = new Set<string>(["178", "179", "166"]);
 
-  const listEndpoints = [
-    "https://admin.hkcmereye.com/api.php/list/32",
-    "https://admin.hkcmereye.com/api.php/list/35",
-  ];
-
-  for (const endpoint of listEndpoints) {
+  async function collectIds(endpoint: string, target: Set<string>) {
     try {
-      const response = await fetch(endpoint);
+      const response = await fetch(endpoint, { signal: AbortSignal.timeout(8000) });
       if (response.ok) {
         const json = await response.json();
         if (Array.isArray(json?.data)) {
           for (const item of json.data) {
             if (item?.id !== undefined && item?.id !== null) {
-              idSet.add(String(item.id));
+              target.add(String(item.id));
             }
           }
         }
@@ -33,10 +28,45 @@ export async function getStaticPaths() {
     }
   }
 
-  const paths: Array<{ params: { lang: string | undefined; id: string } }> = [];
-  for (const id of idSet) {
-    paths.push({ params: { lang: undefined, id } });
-    paths.push({ params: { lang: "cn", id } });
+  await Promise.all([
+    collectIds("https://admin.hkcmereye.com/api.php/list/32", hkIdSet),
+    collectIds("https://admin.hkcmereye.com/api.php/list/35", cnIdSet),
+  ]);
+
+  async function fetchArticle(id: string) {
+    try {
+      const response = await fetch(
+        `https://admin.hkcmereye.com/api.php/content/${encodeURIComponent(id)}`,
+        { signal: AbortSignal.timeout(8000) }
+      );
+      if (response.ok) {
+        const json = await response.json();
+        if (json && json.code !== 0 && json.data && typeof json.data === "object") {
+          return json.data;
+        }
+      }
+    } catch {
+      // 構建期超時則交由客戶端降級載入
+    }
+    return null;
+  }
+
+  const paths: Array<{
+    params: { lang: string | undefined; id: string };
+    props: { initialArticle: Record<string, unknown> | null };
+  }> = [];
+
+  for (const id of hkIdSet) {
+    paths.push({
+      params: { lang: undefined, id },
+      props: { initialArticle: await fetchArticle(id) },
+    });
+  }
+  for (const id of cnIdSet) {
+    paths.push({
+      params: { lang: "cn", id },
+      props: { initialArticle: await fetchArticle(id) },
+    });
   }
   return paths;
 }
@@ -44,6 +74,7 @@ export async function getStaticPaths() {
 const lang = getLangFromUrl(Astro.url);
 const isCn = lang === "zh-cn";
 const idParam = Astro.params.id || "";
+const { initialArticle = null } = Astro.props;
 ---
 
-<BlogArticleView isCn={isCn} idParam={idParam} />
+<BlogArticleView isCn={isCn} idParam={idParam} initialArticle={initialArticle} />

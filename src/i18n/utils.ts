@@ -61,28 +61,38 @@ export const i18nPaths = [
  * @returns {string} 带有正确语言前缀的格式化路径
  */
 export function getLocalizedHref(href: string, lang: string): string {
-  // 1. 外部链接或协议链接直接返回
-  if (/^(http|https|tel:|mailto:)/.test(href)) {
+  // 1. 外部链接、协议链接、纯锚点或纯查询参数直接返回
+  if (/^(https?:|tel:|mailto:|javascript:|#|\?)/i.test(href)) {
     return href;
   }
 
-  // 2. 剥离路径中可能已存在的语言前缀 (/cn 或 /en)
-  // 这样无论传入的是当前路径 Astro.url.pathname 还是原始路径，都能统一处理
-  const baseHref = href.replace(/^\/(cn|en)/, "");
+  // 2. 分离路径主体与 ?query / #hash 后缀
+  const suffixIndex = href.search(/[?#]/);
+  const pathPart = suffixIndex === -1 ? href : href.slice(0, suffixIndex);
+  const suffix = suffixIndex === -1 ? "" : href.slice(suffixIndex);
 
-  // 3. 规范化路径，确保以单斜杠开头
-  const cleanHref = baseHref.startsWith("/") ? baseHref : `/${baseHref}`;
+  // 3. 剥离路径中可能已存在的语言前缀 (/cn 或 /en)
+  const basePath = pathPart.replace(/^\/(cn|en)(?=\/|$)/, "") || "/";
 
-  // 4. 查找对应的路由前缀 (例如 zh-cn 对应 cn)
+  // 4. 规范化路径，确保以单斜杠开头
+  const cleanPath = basePath.startsWith("/") ? basePath : `/${basePath}`;
+
+  // 5. 查找对应的路由前缀 (例如 zh-cn 对应 cn)
   const prefix = Object.keys(langMap).find((key) => langMap[key] === lang);
 
-  // 5. 如果是默认语言 (zh-hk) 或找不到前缀，直接返回原路径
-  if (!prefix || prefix === "zh-hk") {
-    return cleanHref === "" ? "/" : cleanHref; // 确保空路径返回 /
+  // 6. 组合语言前缀并折叠重复斜杠
+  let fullPath =
+    !prefix || prefix === "zh-hk"
+      ? cleanPath
+      : `/${prefix}${cleanPath}`;
+  fullPath = fullPath.replace(/\/+/g, "/");
+
+  // 7. 对非静态资源后缀的内部页面路由统一补齐尾斜杠 (对齐 trailingSlash: "always")
+  if (!fullPath.endsWith("/") && !/\.[a-z0-9]+$/i.test(fullPath)) {
+    fullPath = `${fullPath}/`;
   }
 
-  // 6. 返回带前缀的路径，并过滤掉双斜杠
-  return `/${prefix}${cleanHref}`.replace(/\/+/g, "/");
+  return `${fullPath}${suffix}`;
 }
 export function useI18n(url: URL) {
   const lang = getLangFromUrl(url);

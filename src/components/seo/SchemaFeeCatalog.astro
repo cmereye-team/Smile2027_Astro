@@ -15,7 +15,7 @@ interface Props {
 const { fee, lang = "zh-hk" } = Astro.props;
 const isCn = lang === "zh-cn";
 const siteUrl = Astro.site?.origin || "https://smile.hkcmereye.com";
-const pageUrl = new URL(isCn ? "/cn/fee" : "/fee", siteUrl).href;
+const pageUrl = new URL(isCn ? "/cn/fee/" : "/fee/", siteUrl).href;
 
 function stripHtml(raw: string): string {
   return raw
@@ -83,13 +83,9 @@ function buildFixedOffer(opts: {
     description: opts.description,
     offeredBy: providerRef,
     itemOffered: {
-      "@type": "MedicalProcedure",
+      "@type": "SurgicalProcedure",
       name: opts.name,
-      procedureType: "SurgicalProcedure",
-      relevantSpecialty: {
-        "@type": "MedicalSpecialty",
-        name: "Ophthalmology",
-      },
+      relevantSpecialty: "https://schema.org/Ophthalmology",
     },
   };
 
@@ -133,13 +129,9 @@ function buildRangeOffer(opts: {
       priceCurrency: currency,
     },
     itemOffered: {
-      "@type": "MedicalProcedure",
+      "@type": "SurgicalProcedure",
       name: opts.name,
-      procedureType: "SurgicalProcedure",
-      relevantSpecialty: {
-        "@type": "MedicalSpecialty",
-        name: "Ophthalmology",
-      },
+      relevantSpecialty: "https://schema.org/Ophthalmology",
     },
   };
 }
@@ -153,7 +145,6 @@ const catalogData = {
     ? "香港希玛微笑矫视中心公开透明收费清单，涵盖 SMILE Pro 1.0/2.0、SMILE、ICL 植入式隐形眼镜、LASIK/TPRK 及老花矫视手术价钱（港元 HKD，非指定医生价钱）。"
     : "香港希瑪微笑矯視中心公開透明收費清單，涵蓋 SMILE Pro 1.0/2.0、SMILE、ICL 植入式隱形眼鏡、LASIK/TPRK 及老花矯視手術價錢（港元 HKD，非指定醫生價錢）。",
   url: pageUrl,
-  provider: providerRef,
   itemListElement: [
     // 一、激光與 ICL 矯視
     {
@@ -165,7 +156,7 @@ const catalogData = {
           price: pro1CarePrices[0],
           epsPrice: pro1CarePrices[1],
           description: isCn
-            ? `双眼价钱 HK$${pro1CarePrices[0].toLocaleString()}（EPS用户 HK$${pro1CarePrices[1].toLocaleString()}），术前检查 ${fee.table1.rows.examPrice100}，含1次眼睛水润护理、1次术后眼部彩光护理、一年内5次医生免费覆诊、增进手术及无限视光检查。`
+            ? `双眼价钱 HK$${pro1CarePrices[0].toLocaleString()}（EPS用户 HK$${pro1CarePrices[1].toLocaleString()}），术前检查 ${fee.table1.rows.examPrice100}，含1次眼睛水润护理、1次术后眼部彩光护理、一年内5次医生免费复诊、增进手术及无限视光检查。`
             : `雙眼價錢 HK$${pro1CarePrices[0].toLocaleString()}（EPS用戶 HK$${pro1CarePrices[1].toLocaleString()}），術前檢查 ${fee.table1.rows.examPrice100}，含1次眼睛水潤護理、1次術後眼部彩光護理、一年內5次醫生免費覆診、增進手術及無限視光檢查。`,
           url: `${pageUrl}#table1`,
         }),
@@ -173,7 +164,7 @@ const catalogData = {
           name: stripHtml(fee.table1.headers.pro1),
           price: parseFirstPrice(fee.table1.rows.pro1Price),
           description: isCn
-            ? `双眼价钱 ${stripHtml(fee.table1.rows.pro1Price)}，术前检查 ${fee.table1.rows.examPrice100}，含1次眼睛水润护理、一年内3次医生免费覆诊、增进手术及无限视光检查。`
+            ? `双眼价钱 ${stripHtml(fee.table1.rows.pro1Price)}，术前检查 ${fee.table1.rows.examPrice100}，含1次眼睛水润护理、一年内3次医生免费复诊、增进手术及无限视光检查。`
             : `雙眼價錢 ${stripHtml(fee.table1.rows.pro1Price)}，術前檢查 ${fee.table1.rows.examPrice100}，含1次眼睛水潤護理、一年內3次醫生免費覆診、增進手術及無限視光檢查。`,
           url: `${pageUrl}#table1`,
         }),
@@ -182,7 +173,7 @@ const catalogData = {
           price: pro2CarePrices[0],
           epsPrice: pro2CarePrices[1],
           description: isCn
-            ? `双眼价钱 HK$${pro2CarePrices[0].toLocaleString()}（EPS用户 HK$${pro2CarePrices[1].toLocaleString()}），术前检查 ${fee.table1.rows.examPrice100}，含1次眼睛水润护理、1次术后眼部彩光护理、一年内5次医生免费覆诊、增进手术及无限视光检查。`
+            ? `双眼价钱 HK$${pro2CarePrices[0].toLocaleString()}（EPS用户 HK$${pro2CarePrices[1].toLocaleString()}），术前检查 ${fee.table1.rows.examPrice100}，含1次眼睛水润护理、1次术后眼部彩光护理、一年内5次医生免费复诊、增进手术及无限视光检查。`
             : `雙眼價錢 HK$${pro2CarePrices[0].toLocaleString()}（EPS用戶 HK$${pro2CarePrices[1].toLocaleString()}），術前檢查 ${fee.table1.rows.examPrice100}，含1次眼睛水潤護理、1次術後眼部彩光護理、一年內5次醫生免費覆診、增進手術及無限視光檢查。`,
           url: `${pageUrl}#table1`,
         }),
@@ -190,7 +181,7 @@ const catalogData = {
           name: stripHtml(fee.table1.headers.pro2),
           price: parseFirstPrice(fee.table1.rows.pro2Price),
           description: isCn
-            ? `双眼价钱 ${stripHtml(fee.table1.rows.pro2Price)}，术前检查 ${fee.table1.rows.examPrice100}，含1次眼睛水润护理、一年内3次医生免费覆诊、增进手术及无限视光检查。`
+            ? `双眼价钱 ${stripHtml(fee.table1.rows.pro2Price)}，术前检查 ${fee.table1.rows.examPrice100}，含1次眼睛水润护理、一年内3次医生免费复诊、增进手术及无限视光检查。`
             : `雙眼價錢 ${stripHtml(fee.table1.rows.pro2Price)}，術前檢查 ${fee.table1.rows.examPrice100}，含1次眼睛水潤護理、一年內3次醫生免費覆診、增進手術及無限視光檢查。`,
           url: `${pageUrl}#table1`,
         }),
@@ -198,7 +189,7 @@ const catalogData = {
           name: stripHtml(fee.table1.headers.iclV4c),
           price: iclV4cPrices[0],
           description: isCn
-            ? `双眼价钱 HK$${iclV4cPrices[0].toLocaleString()}（散光 +$${iclV4cPrices[1].toLocaleString()}），术前检查 ${fee.table1.rows.examPrice500}，含一年半内6次医生免费覆诊及无限视光检查。`
+            ? `双眼价钱 HK$${iclV4cPrices[0].toLocaleString()}（散光 +$${iclV4cPrices[1].toLocaleString()}），术前检查 ${fee.table1.rows.examPrice500}，含一年半内6次医生免费复诊及无限视光检查。`
             : `雙眼價錢 HK$${iclV4cPrices[0].toLocaleString()}（散光 +$${iclV4cPrices[1].toLocaleString()}），術前檢查 ${fee.table1.rows.examPrice500}，含一年半內6次醫生免費覆診及無限視光檢查。`,
           url: `${pageUrl}#table1`,
         }),
@@ -206,7 +197,7 @@ const catalogData = {
           name: stripHtml(fee.table1.headers.iclV5),
           price: iclV5Prices[0],
           description: isCn
-            ? `双眼价钱 HK$${iclV5Prices[0].toLocaleString()}（散光 +$${iclV5Prices[1].toLocaleString()}），术前检查 ${fee.table1.rows.examPrice500}，含一年半内6次医生免费覆诊及无限视光检查。`
+            ? `双眼价钱 HK$${iclV5Prices[0].toLocaleString()}（散光 +$${iclV5Prices[1].toLocaleString()}），术前检查 ${fee.table1.rows.examPrice500}，含一年半内6次医生免费复诊及无限视光检查。`
             : `雙眼價錢 HK$${iclV5Prices[0].toLocaleString()}（散光 +$${iclV5Prices[1].toLocaleString()}），術前檢查 ${fee.table1.rows.examPrice500}，含一年半內6次醫生免費覆診及無限視光檢查。`,
           url: `${pageUrl}#table1`,
         }),
@@ -214,7 +205,7 @@ const catalogData = {
           name: stripHtml(fee.table1.headers.smile),
           price: parseFirstPrice(fee.table1.rows.smilePrice),
           description: isCn
-            ? `双眼价钱 ${stripHtml(fee.table1.rows.smilePrice)}，术前检查 ${fee.table1.rows.examPrice100}，含1次眼睛水润护理、一年内3次医生免费覆诊、增进手术及无限视光检查。`
+            ? `双眼价钱 ${stripHtml(fee.table1.rows.smilePrice)}，术前检查 ${fee.table1.rows.examPrice100}，含1次眼睛水润护理、一年内3次医生免费复诊、增进手术及无限视光检查。`
             : `雙眼價錢 ${stripHtml(fee.table1.rows.smilePrice)}，術前檢查 ${fee.table1.rows.examPrice100}，含1次眼睛水潤護理、一年內3次醫生免費覆診、增進手術及無限視光檢查。`,
           url: `${pageUrl}#table1`,
         }),
@@ -222,7 +213,7 @@ const catalogData = {
           name: stripHtml(fee.table1.headers.lasik),
           price: parseFirstPrice(fee.table1.rows.lasikPrice),
           description: isCn
-            ? `双眼价钱 ${stripHtml(fee.table1.rows.lasikPrice)}，术前检查 ${fee.table1.rows.examPrice100}，含1次眼睛水润护理、一年内3次医生免费覆诊、增进手术及无限视光检查。`
+            ? `双眼价钱 ${stripHtml(fee.table1.rows.lasikPrice)}，术前检查 ${fee.table1.rows.examPrice100}，含1次眼睛水润护理、一年内3次医生免费复诊、增进手术及无限视光检查。`
             : `雙眼價錢 ${stripHtml(fee.table1.rows.lasikPrice)}，術前檢查 ${fee.table1.rows.examPrice100}，含1次眼睛水潤護理、一年內3次醫生免費覆診、增進手術及無限視光檢查。`,
           url: `${pageUrl}#table1`,
         }),
@@ -283,7 +274,7 @@ const catalogData = {
           price: lbvStandard,
           epsPrice: lbvEps,
           description: isCn
-            ? `双眼价钱 HK$${lbvStandard.toLocaleString()}（EPS用户 HK$${lbvEps.toLocaleString()}），术前检查 ${fee.table2.lbv.examPrice}，含1次眼睛水润护理、1次术后眼部彩光护理、半年内5次医生免费覆诊、增进手术及无限视光检查。`
+            ? `双眼价钱 HK$${lbvStandard.toLocaleString()}（EPS用户 HK$${lbvEps.toLocaleString()}），术前检查 ${fee.table2.lbv.examPrice}，含1次眼睛水润护理、1次术后眼部彩光护理、半年内5次医生免费复诊、增进手术及无限视光检查。`
             : `雙眼價錢 HK$${lbvStandard.toLocaleString()}（EPS用戶 HK$${lbvEps.toLocaleString()}），術前檢查 ${fee.table2.lbv.examPrice}，含1次眼睛水潤護理、1次術後眼部彩光護理、半年內5次醫生免費覆診、增進手術及無限視光檢查。`,
           url: `${pageUrl}#table2`,
         }),

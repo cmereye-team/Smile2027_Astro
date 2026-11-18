@@ -1,31 +1,28 @@
 ---
 /**
  * SchemaProcedure.astro
- * 醫療程序結構化數據 MedicalProcedure (SMILE Pro, ICL, LASIK, LBV)
+ * 醫療程序結構化數據 SurgicalProcedure (SMILE Pro, SMILE, ICL, LASIK, LBV)
+ * - 使用 @type: "SurgicalProcedure"（Schema.org MedicalProcedureType 僅允許 NoninvasiveProcedure / PercutaneousProcedure）
  */
 interface Props {
   name: string;
   description: string;
-  procedureType?: string;
+  procedureType?: "NoninvasiveProcedure" | "PercutaneousProcedure";
 }
 
-const {
-  name,
-  description,
-  procedureType = "SurgicalProcedure"
-} = Astro.props;
+const { name, description, procedureType } = Astro.props;
+const isCn = Astro.url.pathname.startsWith("/cn");
 
 const procedureData = {
   "@context": "https://schema.org",
-  "@type": "MedicalProcedure",
+  "@type": "SurgicalProcedure",
   "name": name,
   "description": description,
-  "procedureType": procedureType,
-  "relevantSpecialty": {
-    "@type": "MedicalSpecialty",
-    "name": "Ophthalmology"
-  },
-  "howPerformed": "由眼科專科醫生在無菌手術室使用先進蔡司/STAAR專業設備進行精密矯視手術。"
+  ...(procedureType ? { "procedureType": `https://schema.org/${procedureType}` } : {}),
+  "relevantSpecialty": "https://schema.org/Ophthalmology",
+  "howPerformed": isCn
+    ? "由眼科专科医生在无菌手术室使用先进蔡司/STAAR专业设备进行精密矫视手术。"
+    : "由眼科專科醫生在無菌手術室使用先進蔡司/STAAR專業設備進行精密矯視手術。",
 };
 ---
 

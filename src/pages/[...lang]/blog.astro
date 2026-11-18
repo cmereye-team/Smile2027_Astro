@@ -12,17 +12,57 @@ export function getStaticPaths() {
   return [...i18nPaths];
 }
 
+interface BlogApiItem {
+  id: string | number;
+  ico?: string;
+  pics?: string;
+  title?: string;
+  ext_list_des?: string;
+  ext_type_tags?: string;
+  date?: string;
+  update_time?: string;
+}
+
 const lang = getLangFromUrl(Astro.url);
 const isCn = lang === "zh-cn";
 const pageTitle = isCn ? "科普知识" : "科普知識";
 const homeLabel = isCn ? "首页" : "首頁";
-const blogPath = isCn ? "/cn/blog" : "/blog";
+const blogPath = isCn ? "/cn/blog/" : "/blog/";
 const apiUrl = isCn
   ? "https://admin.hkcmereye.com/api.php/list/35"
   : "https://admin.hkcmereye.com/api.php/list/32";
 
 const siteUrl = Astro.site?.origin || "https://smile.hkcmereye.com";
 const tdkData = isCn ? ui["zh-cn"].tdk.knowledge : ui["zh-hk"].tdk.knowledge;
+
+function resolveMediaUrl(rawPath?: string): string {
+  if (!rawPath) return "";
+  return rawPath.startsWith("http")
+    ? rawPath
+    : `https://admin.hkcmereye.com${rawPath}`;
+}
+
+function toIsoDate(raw?: string): string | undefined {
+  if (!raw) return undefined;
+  const trimmed = raw.trim();
+  if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(trimmed)) {
+    return `${trimmed.replace(" ", "T")}+08:00`;
+  }
+  return undefined;
+}
+
+let initialItems: BlogApiItem[] = [];
+try {
+  const response = await fetch(apiUrl, { signal: AbortSignal.timeout(8000) });
+  if (response.ok) {
+    const res = await response.json();
+    if (res && res.code !== 0 && Array.isArray(res.data)) {
+      initialItems = res.data;
+    }
+  }
+} catch {
+  // 離線構建或超時時回退至客戶端載入
+}
 
 const breadcrumbItems = [
   { name: homeLabel, url: isCn ? "/cn/" : "/" },
@@ -38,9 +78,28 @@ const blogSchema = {
   inLanguage: isCn ? "zh-CN" : "zh-HK",
   publisher: {
     "@type": "MedicalOrganization",
-    name: "香港希瑪微笑矯視中心 CMER Smile",
-    url: siteUrl,
+    name: isCn ? "香港希玛微笑矫视中心 CMER Smile" : "香港希瑪微笑矯視中心 CMER Smile",
+    url: `${siteUrl}/`,
   },
+  ...(initialItems.length > 0
+    ? {
+        blogPost: initialItems.map((item) => {
+          const postUrl = new URL(`${blogPath}${item.id}/`, siteUrl).href;
+          const imgUrl = resolveMediaUrl(item.ico);
+          const datePublished = toIsoDate(item.date);
+          const dateModified = toIsoDate(item.update_time);
+          return {
+            "@type": "BlogPosting",
+            headline: item.title || "",
+            url: postUrl,
+            ...(imgUrl ? { image: imgUrl } : {}),
+            ...(item.ext_list_des ? { description: item.ext_list_des } : {}),
+            ...(datePublished ? { datePublished } : {}),
+            ...(dateModified ? { dateModified } : {}),
+          };
+        }),
+      }
+    : {}),
 };
 ---
 
@@ -86,7 +145,8 @@ const blogSchema = {
           id="blog-list"
           class="blog-list media-fluid-grid"
           aria-live="polite"
-          aria-busy="true"
+          aria-busy={initialItems.length > 0 ? "false" : "true"}
+          data-has-ssr={initialItems.length > 0 ? "true" : "false"}
           data-api-url={apiUrl}
           data-base-href={blogPath}
           data-site-origin={siteUrl}
@@ -96,209 +156,292 @@ const blogSchema = {
             ? "暂时未能加载文章，请稍后再试。"
             : "暫時未能載入文章，請稍後再試。"}
         >
-          {[0, 1, 2, 3].map(() => (
-            <div class="media-skeleton-card" aria-hidden="true">
-              <div class="media-skeleton-thumb" />
-              <div class="media-skeleton-body">
-                <div class="media-skeleton-line media-skeleton-line--title" />
-                <div class="media-skeleton-line media-skeleton-line--desc" />
-              </div>
-            </div>
-          ))}
+          {
+            initialItems.length > 0
+              ? initialItems.map((item, idx) => {
+                  const desktopSrc = resolveMediaUrl(item.ico);
+                  const mobileSrc = resolveMediaUrl(item.pics);
+                  const imgLabel = item.ext_type_tags || item.title || "";
+                  const metaTag = (item.ext_type_tags || "").trim();
+                  const metaDate = (item.date || "").trim().slice(0, 10);
+                  return (
+                    <article class="media-card blog-card">
+                      <a
+                        class="media-card-link"
+                        href={`${blogPath}${item.id}/`}
+                        title={item.title || item.ext_type_tags || ""}
+                        draggable="false"
+                      >
+                        <div class="media-card-thumb">
+                          {mobileSrc && mobileSrc !== desktopSrc ? (
+                            <picture class="contents">
+                              <source media="(max-width: 767px)" srcset={mobileSrc} />
+                              <img
+                                src={desktopSrc}
+                                alt={imgLabel}
+                                title={imgLabel}
+                                width="480"
+                                height="270"
+                                draggable="false"
+                                loading={idx < 2 ? "eager" : "lazy"}
+                                decoding="async"
+                              />
+                            </picture>
+                          ) : (
+                            <img
+                              src={desktopSrc}
+                              alt={imgLabel}
+                              title={imgLabel}
+                              width="480"
+                              height="270"
+                              draggable="false"
+                              loading={idx < 2 ? "eager" : "lazy"}
+                              decoding="async"
+                            />
+                          )}
+                          <span class="media-card-badge bg-[#4570B6]">更多</span>
+                        </div>
+                        <div class="media-card-body">
+                          <h3 class="media-card-title">{item.title || ""}</h3>
+                          {item.ext_list_des && (
+                            <p class="media-card-excerpt">{item.ext_list_des}</p>
+                          )}
+                          {(metaTag || metaDate) && (
+                            <p class="media-card-meta">
+                              {metaTag && <span>{metaTag}</span>}
+                              {metaTag && metaDate && <span aria-hidden="true">·</span>}
+                              {metaDate && <span>{metaDate}</span>}
+                            </p>
+                          )}
+                        </div>
+                      </a>
+                    </article>
+                  );
+                })
+              : [0, 1, 2, 3].map(() => (
+                  <div class="media-skeleton-card" aria-hidden="true">
+                    <div class="media-skeleton-thumb" />
+                    <div class="media-skeleton-body">
+                      <div class="media-skeleton-line media-skeleton-line--title" />
+                      <div class="media-skeleton-line media-skeleton-line--desc" />
+                    </div>
+                  </div>
+                ))
+          }
         </div>
       </div>
     </section>
   </div>
+
+  <script>
+    interface BlogApiItem {
+      id: string | number;
+      ico?: string;
+      pics?: string;
+      title?: string;
+      ext_list_des?: string;
+      ext_type_tags?: string;
+      date?: string;
+      update_time?: string;
+    }
+
+    function resolveMediaUrl(path?: string): string {
+      if (!path) return "";
+      return path.startsWith("http")
+        ? path
+        : `https://admin.hkcmereye.com${path}`;
+    }
+
+    function toIsoDate(raw?: string): string | undefined {
+      if (!raw) return undefined;
+      const trimmed = raw.trim();
+      if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(trimmed)) {
+        return `${trimmed.replace(" ", "T")}+08:00`;
+      }
+      return undefined;
+    }
+
+    function renderStatusMessage(container: HTMLElement, text: string) {
+      container.innerHTML = "";
+      const msg = document.createElement("p");
+      msg.className = "blog-status-message";
+      msg.textContent = text;
+      container.appendChild(msg);
+    }
+
+    function updateBlogSchema(
+      items: BlogApiItem[],
+      baseHref: string,
+      siteOrigin: string
+    ) {
+      const schemaEl = document.getElementById("blog-schema");
+      if (!schemaEl || !schemaEl.textContent) return;
+      try {
+        const schema = JSON.parse(schemaEl.textContent);
+        const normalizedBase = baseHref.endsWith("/") ? baseHref : `${baseHref}/`;
+        schema.blogPost = items.map((item) => {
+          const postUrl = new URL(`${normalizedBase}${item.id}/`, siteOrigin).href;
+          const imgUrl = resolveMediaUrl(item.ico);
+          const datePublished = toIsoDate(item.date);
+          const dateModified = toIsoDate(item.update_time);
+          const entry: Record<string, string> = {
+            "@type": "BlogPosting",
+            headline: item.title || "",
+            url: postUrl,
+          };
+          if (imgUrl) entry.image = imgUrl;
+          if (item.ext_list_des) entry.description = item.ext_list_des;
+          if (datePublished) entry.datePublished = datePublished;
+          if (dateModified) entry.dateModified = dateModified;
+          return entry;
+        });
+        schemaEl.textContent = JSON.stringify(schema);
+      } catch {
+        // Ignore schema update error
+      }
+    }
+
+    async function initBlogList() {
+      const listEl = document.getElementById("blog-list");
+      if (!listEl) return;
+
+      const hasSsr = listEl.dataset.hasSsr === "true";
+      const apiUrl = listEl.dataset.apiUrl || "";
+      const rawBaseHref = listEl.dataset.baseHref || "/blog/";
+      const baseHref = rawBaseHref.endsWith("/") ? rawBaseHref : `${rawBaseHref}/`;
+      const siteOrigin = listEl.dataset.siteOrigin || window.location.origin;
+      const moreLabel = listEl.dataset.moreLabel || "更多";
+      const emptyText = listEl.dataset.emptyText || "暫無科普文章";
+      const errorText = listEl.dataset.errorText || "暫時未能載入文章，請稍後再試。";
+
+      const controller = new AbortController();
+      const timeoutId = window.setTimeout(() => controller.abort(), 8000);
+
+      try {
+        const response = await fetch(apiUrl, { signal: controller.signal });
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+        const res = await response.json();
+        const items: BlogApiItem[] =
+          res && res.code !== 0 && Array.isArray(res.data) ? res.data : [];
+
+        listEl.setAttribute("aria-busy", "false");
+
+        if (!items.length) {
+          if (!hasSsr) renderStatusMessage(listEl, emptyText);
+          return;
+        }
+
+        const fragment = document.createDocumentFragment();
+
+        items.forEach((item, idx) => {
+          const article = document.createElement("article");
+          article.className = "media-card blog-card";
+
+          const link = document.createElement("a");
+          link.className = "media-card-link";
+          link.href = `${baseHref}${item.id}/`;
+          link.title = item.title || item.ext_type_tags || "";
+          link.draggable = false;
+
+          const thumb = document.createElement("div");
+          thumb.className = "media-card-thumb";
+
+          const desktopSrc = resolveMediaUrl(item.ico);
+          const mobileSrc = resolveMediaUrl(item.pics);
+          const imgLabel = item.ext_type_tags || item.title || "";
+          const img = document.createElement("img");
+          img.src = desktopSrc;
+          img.alt = imgLabel;
+          img.title = imgLabel;
+          img.width = 480;
+          img.height = 270;
+          img.draggable = false;
+          img.setAttribute("draggable", "false");
+          img.loading = idx < 2 ? "eager" : "lazy";
+          img.decoding = "async";
+
+          if (mobileSrc && mobileSrc !== desktopSrc) {
+            const picture = document.createElement("picture");
+            picture.className = "contents";
+            const source = document.createElement("source");
+            source.media = "(max-width: 767px)";
+            source.srcset = mobileSrc;
+            picture.appendChild(source);
+            picture.appendChild(img);
+            thumb.appendChild(picture);
+          } else {
+            thumb.appendChild(img);
+          }
+
+          const moreBadge = document.createElement("span");
+          moreBadge.className = "media-card-badge bg-[#4570B6]";
+          moreBadge.textContent = moreLabel;
+          thumb.appendChild(moreBadge);
+
+          const bodyBox = document.createElement("div");
+          bodyBox.className = "media-card-body";
+
+          const titleEl = document.createElement("h3");
+          titleEl.className = "media-card-title";
+          titleEl.textContent = item.title || "";
+
+          const descEl = document.createElement("p");
+          descEl.className = "media-card-excerpt";
+          descEl.textContent = item.ext_list_des || "";
+
+          bodyBox.appendChild(titleEl);
+          if (item.ext_list_des) {
+            bodyBox.appendChild(descEl);
+          }
+
+          const metaTag = (item.ext_type_tags || "").trim();
+          const metaDate = (item.date || "").trim().slice(0, 10);
+          if (metaTag || metaDate) {
+            const metaEl = document.createElement("p");
+            metaEl.className = "media-card-meta";
+            if (metaTag) {
+              const tagSpan = document.createElement("span");
+              tagSpan.textContent = metaTag;
+              metaEl.appendChild(tagSpan);
+            }
+            if (metaTag && metaDate) {
+              const dotSpan = document.createElement("span");
+              dotSpan.setAttribute("aria-hidden", "true");
+              dotSpan.textContent = "·";
+              metaEl.appendChild(dotSpan);
+            }
+            if (metaDate) {
+              const dateSpan = document.createElement("span");
+              dateSpan.textContent = metaDate;
+              metaEl.appendChild(dateSpan);
+            }
+            bodyBox.appendChild(metaEl);
+          }
+
+          link.appendChild(thumb);
+          link.appendChild(bodyBox);
+          article.appendChild(link);
+          fragment.appendChild(article);
+        });
+
+        listEl.innerHTML = "";
+        listEl.appendChild(fragment);
+        updateBlogSchema(items, baseHref, siteOrigin);
+      } catch {
+        listEl.setAttribute("aria-busy", "false");
+        if (!hasSsr) {
+          renderStatusMessage(listEl, errorText);
+        }
+      } finally {
+        window.clearTimeout(timeoutId);
+      }
+    }
+
+    initBlogList();
+  </script>
 </BaseLayout>
-
-<script>
-  interface BlogApiItem {
-    id: string | number;
-    ico?: string;
-    pics?: string;
-    title?: string;
-    ext_list_des?: string;
-    ext_type_tags?: string;
-    date?: string;
-    update_time?: string;
-  }
-
-  function resolveMediaUrl(path?: string): string {
-    if (!path) return "";
-    return path.startsWith("http")
-      ? path
-      : `https://admin.hkcmereye.com${path}`;
-  }
-
-  function toIsoDate(raw?: string): string | undefined {
-    if (!raw) return undefined;
-    const trimmed = raw.trim();
-    if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(trimmed)) {
-      return `${trimmed.replace(" ", "T")}+08:00`;
-    }
-    return undefined;
-  }
-
-  function renderStatusMessage(container: HTMLElement, text: string) {
-    container.innerHTML = "";
-    const msg = document.createElement("p");
-    msg.className = "blog-status-message";
-    msg.textContent = text;
-    container.appendChild(msg);
-  }
-
-  function updateBlogSchema(
-    items: BlogApiItem[],
-    baseHref: string,
-    siteOrigin: string
-  ) {
-    const schemaEl = document.getElementById("blog-schema");
-    if (!schemaEl || !schemaEl.textContent) return;
-    try {
-      const schema = JSON.parse(schemaEl.textContent);
-      schema.blogPost = items.map((item) => {
-        const postUrl = new URL(`${baseHref}/${item.id}`, siteOrigin).href;
-        const imgUrl = resolveMediaUrl(item.ico);
-        const datePublished = toIsoDate(item.date);
-        const dateModified = toIsoDate(item.update_time);
-        const entry: Record<string, any> = {
-          "@type": "BlogPosting",
-          headline: item.title || "",
-          url: postUrl,
-        };
-        if (imgUrl) entry.image = imgUrl;
-        if (item.ext_list_des) entry.description = item.ext_list_des;
-        if (datePublished) entry.datePublished = datePublished;
-        if (dateModified) entry.dateModified = dateModified;
-        return entry;
-      });
-      schemaEl.textContent = JSON.stringify(schema);
-    } catch {
-      // Ignore schema update error
-    }
-  }
-
-  async function initBlogList() {
-    const listEl = document.getElementById("blog-list");
-    if (!listEl) return;
-
-    const apiUrl = listEl.dataset.apiUrl || "";
-    const baseHref = listEl.dataset.baseHref || "/blog";
-    const siteOrigin = listEl.dataset.siteOrigin || window.location.origin;
-    const moreLabel = listEl.dataset.moreLabel || "更多";
-    const emptyText = listEl.dataset.emptyText || "暫無科普文章";
-    const errorText = listEl.dataset.errorText || "暫時未能載入文章，請稍後再試。";
-
-    try {
-      const response = await fetch(apiUrl);
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
-      }
-      const res = await response.json();
-      const items: BlogApiItem[] =
-        res && res.code !== 0 && Array.isArray(res.data) ? res.data : [];
-
-      listEl.setAttribute("aria-busy", "false");
-
-      if (!items.length) {
-        renderStatusMessage(listEl, emptyText);
-        return;
-      }
-
-      const fragment = document.createDocumentFragment();
-
-      items.forEach((item) => {
-        const article = document.createElement("article");
-        article.className = "media-card blog-card";
-
-        const link = document.createElement("a");
-        link.className = "media-card-link";
-        link.href = `${baseHref}/${item.id}`;
-        link.title = item.title || item.ext_type_tags || "";
-        link.draggable = false;
-
-        const thumb = document.createElement("div");
-        thumb.className = "media-card-thumb";
-
-        const img = document.createElement("img");
-        const desktopSrc = resolveMediaUrl(item.ico);
-        const mobileSrc = resolveMediaUrl(item.pics);
-        const imgLabel = item.ext_type_tags || item.title || "";
-        img.src = desktopSrc;
-        if (mobileSrc) {
-          img.srcset = `${mobileSrc} 400w, ${desktopSrc}`;
-        }
-        img.alt = imgLabel;
-        img.title = imgLabel;
-        img.draggable = false;
-        img.setAttribute("draggable", "false");
-        img.loading = "lazy";
-        img.decoding = "async";
-
-        thumb.appendChild(img);
-
-        const moreBadge = document.createElement("span");
-        moreBadge.className = "media-card-badge bg-[#4570B6]";
-        moreBadge.textContent = moreLabel;
-        thumb.appendChild(moreBadge);
-
-        const bodyBox = document.createElement("div");
-        bodyBox.className = "media-card-body";
-
-        const titleEl = document.createElement("h3");
-        titleEl.className = "media-card-title";
-        titleEl.textContent = item.title || "";
-
-        const descEl = document.createElement("p");
-        descEl.className = "media-card-excerpt";
-        descEl.textContent = item.ext_list_des || "";
-
-        bodyBox.appendChild(titleEl);
-        if (item.ext_list_des) {
-          bodyBox.appendChild(descEl);
-        }
-
-        const metaTag = (item.ext_type_tags || "").trim();
-        const metaDate = (item.date || "").trim().slice(0, 10);
-        if (metaTag || metaDate) {
-          const metaEl = document.createElement("p");
-          metaEl.className = "media-card-meta";
-          if (metaTag) {
-            const tagSpan = document.createElement("span");
-            tagSpan.textContent = metaTag;
-            metaEl.appendChild(tagSpan);
-          }
-          if (metaTag && metaDate) {
-            const dotSpan = document.createElement("span");
-            dotSpan.setAttribute("aria-hidden", "true");
-            dotSpan.textContent = "·";
-            metaEl.appendChild(dotSpan);
-          }
-          if (metaDate) {
-            const dateSpan = document.createElement("span");
-            dateSpan.textContent = metaDate;
-            metaEl.appendChild(dateSpan);
-          }
-          bodyBox.appendChild(metaEl);
-        }
-
-        link.appendChild(thumb);
-        link.appendChild(bodyBox);
-        article.appendChild(link);
-        fragment.appendChild(article);
-      });
-
-      listEl.innerHTML = "";
-      listEl.appendChild(fragment);
-      updateBlogSchema(items, baseHref, siteOrigin);
-    } catch {
-      listEl.setAttribute("aria-busy", "false");
-      renderStatusMessage(listEl, errorText);
-    }
-  }
-
-  initBlogList();
-</script>
 
 <style lang="scss">
   .blog-page {

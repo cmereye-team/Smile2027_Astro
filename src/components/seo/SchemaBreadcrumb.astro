@@ -1,7 +1,7 @@
 ---
 /**
  * SchemaBreadcrumb.astro
- * 麵包屑結構化數據 BreadcrumbList
+ * 麵包屑結構化數據 BreadcrumbList (所有非根路徑統一尾斜線以對齊 trailingSlash: "always")
  */
 interface Item {
   name: string;
@@ -15,6 +15,19 @@ interface Props {
 const { items = [] } = Astro.props;
 const siteUrl = Astro.site?.origin || "https://smile.hkcmereye.com";
 
+function normalizeItemUrl(rawUrl: string): string {
+  const resolved = rawUrl.startsWith("http")
+    ? new URL(rawUrl)
+    : new URL(rawUrl, siteUrl);
+  if (
+    !resolved.pathname.endsWith("/") &&
+    !/\.[a-z0-9]+$/i.test(resolved.pathname)
+  ) {
+    resolved.pathname = `${resolved.pathname}/`;
+  }
+  return resolved.href;
+}
+
 const breadcrumbData = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
@@ -22,8 +35,8 @@ const breadcrumbData = {
     "@type": "ListItem",
     "position": index + 1,
     "name": item.name,
-    "item": item.url.startsWith("http") ? item.url : new URL(item.url, siteUrl).href
-  }))
+    "item": normalizeItemUrl(item.url),
+  })),
 };
 ---
 

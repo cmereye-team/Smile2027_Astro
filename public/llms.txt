@@ -11,16 +11,18 @@
 ## 核心業務與服務頁面 (Core Procedures & Services)
 
 - [首頁](https://smile.hkcmereye.com/): 香港希瑪微笑矯視中心官方網站
-- [SMILE Pro 2.0 微笑激光矯視](https://smile.hkcmereye.com/smilePro): 蔡司 VisuMax 800 單眼 10 秒微創矯視，配備視軸輔助與散光導航
-- [SMILE 微笑激光矯視](https://smile.hkcmereye.com/vision-correction/relex-smile): 2-4mm 微創切口屈光矯視手術
-- [ICL 植入式隱形眼鏡](https://smile.hkcmereye.com/vision-correction-icl): 適合高度近視與散光，不切削角膜組織的高清晶體植入
-- [老花矯視方案](https://smile.hkcmereye.com/vision-correction-presbyopia): PRESBYOND LBV / 雙眼老花與近視散光綜合解決方案
-- [LASIK 激光矯視](https://smile.hkcmereye.com/vision-correction-lasik): 飛秒激光角膜瓣準分子激光屈光手術
-- [收費詳情](https://smile.hkcmereye.com/fee): 手術項目及術後護理透明收費清單
-- [常見問題 FAQ](https://smile.hkcmereye.com/FreQuestions): 術前檢查須知、手術流程與術後覆診護理指南
-- [診症須知](https://smile.hkcmereye.com/patient-info): 術前停止佩戴隱形眼鏡指引與就診流程
-- [醫療團隊](https://smile.hkcmereye.com/our-medical-team): 眼科專科醫生與註冊視光師團隊
-- [關於希瑪](https://smile.hkcmereye.com/group-profile): 集團背景、醫療理念及門市環境
-- [個案分享 (影片)](https://smile.hkcmereye.com/video): 真實用家與名人矯視個案分享
-- [預約與講座報名](https://smile.hkcmereye.com/ophthalmicInfo/AppointForm): 矯視講座與術前檢查預約登記
-- [聯絡我們](https://smile.hkcmereye.com/contact-us): 門市地址、交通指南與諮詢熱線
+- [SMILE Pro 2.0 微笑激光矯視](https://smile.hkcmereye.com/smilePro/): SMILE Pro 1.0 / 2.0 微笑激光矯視服務簡介、流程及術前評估
+- [SMILE Pro Care 矯視方案](https://smile.hkcmereye.com/smileProCare/): SMILE Pro Care 1.0 / 2.0 矯視及術後護理方案
+- [SMILE 微笑激光矯視](https://smile.hkcmereye.com/vision-correction/relex-smile/): 微笑激光矯視原理、適用度數及手術須知
+- [ICL 植入式隱形眼鏡](https://smile.hkcmereye.com/vision-correction-icl/): 植入式隱形眼鏡矯視介紹與適用人士
+- [老花矯視方案](https://smile.hkcmereye.com/vision-correction-presbyopia/): 老花矯視方案（PRESBYOND LBV / CLEAR-Vision / ICL Viva V6）
+- [LASIK 激光矯視](https://smile.hkcmereye.com/vision-correction-lasik/): LASIK 激光矯視原理及流程說明
+- [收費詳情](https://smile.hkcmereye.com/fee/): 手術項目及術後護理透明收費清單
+- [常見問題 FAQ](https://smile.hkcmereye.com/FreQuestions/): 術前檢查須知、手術流程與術後覆診護理指南
+- [診症須知](https://smile.hkcmereye.com/patient-info/): 術前停止佩戴隱形眼鏡指引與就診流程
+- [醫療團隊](https://smile.hkcmereye.com/our-medical-team/): 眼科專科醫生團隊及資歷介紹
+- [中心設備](https://smile.hkcmereye.com/medical-equipment/): 矯視手術激光系統及術前眼睛檢查儀器清單
+- [關於希瑪](https://smile.hkcmereye.com/group-profile/): 集團背景、醫療理念及門市環境
+- [個案分享 (影片)](https://smile.hkcmereye.com/video/): 真實用家與名人矯視個案分享
+- [預約與講座報名](https://smile.hkcmereye.com/ophthalmicInfo/AppointForm/): 矯視講座與術前檢查預約登記
+- [聯絡我們](https://smile.hkcmereye.com/contact-us/): 門市地址、交通指南與諮詢熱線

@@ -1,0 +1,342 @@
+---
+/*
+ * @FilePath: /src/pages/404.astro
+ * @Description: 自定義 404 錯誤頁面 (noindex, nofollow 防止 GSC 索引 + 共享 .site-container + 無障礙導航與診所聯絡資訊)
+ */
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const seo = {
+  title: "找不到此頁面 (404) | 香港希瑪微笑矯視中心",
+  description:
+    "抱歉，您訪問的頁面不存在或已更改位置。請返回香港希瑪微笑矯視中心首頁，瀏覽 SMILE Pro 2.0 微笑激光矯視、收費詳情及網上預約服務。",
+  keywords: "",
+};
+
+const quickLinks = [
+  {
+    href: "/smilePro/",
+    label: "SMILE Pro 2.0 微笑激光矯視",
+    desc: "了解 10 秒微創矯視技術與流程",
+  },
+  {
+    href: "/fee/",
+    label: "收費詳情",
+    desc: "查看各項矯視方案價目表",
+  },
+  {
+    href: "/booking/",
+    label: "預約講座 / 諮詢",
+    desc: "網上預約矯視講座或專人解答",
+  },
+  {
+    href: "/contact-us/",
+    label: "聯絡我們",
+    desc: "查詢中環及旺角門市地址與地圖",
+  },
+];
+---
+
+<BaseLayout seo={seo} showClinicSchema={false}>
+  <section class="not-found-page" aria-labelledby="not-found-heading">
+    <div class="site-container">
+      <div class="not-found-card">
+        <p class="not-found-code" aria-hidden="true">404</p>
+        <h1 id="not-found-heading" class="not-found-title">
+          抱歉，找不到此頁面
+        </h1>
+        <p class="not-found-subtitle">
+          您訪問的網址可能已更改、移除或暫時無法使用。<br />
+          您访问的网址可能已更改、移除或暂时无法使用。
+        </p>
+
+        <div class="not-found-primary-actions">
+          <a href="/" class="not-found-btn not-found-btn--primary" title="返回繁體首頁">
+            返回繁體首頁
+          </a>
+          <a href="/cn/" class="not-found-btn not-found-btn--outline" title="返回简体首页">
+            返回简体首页
+          </a>
+        </div>
+
+        <nav class="not-found-nav" aria-label="常用頁面快捷導航">
+          <h2 class="not-found-section-title">常用頁面導航</h2>
+          <ul class="not-found-link-grid">
+            {
+              quickLinks.map((item) => (
+                <li>
+                  <a href={item.href} class="not-found-link-card" title={item.label}>
+                    <span class="not-found-link-label">{item.label}</span>
+                    <span class="not-found-link-desc">{item.desc}</span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+
+        <div class="not-found-contact" aria-labelledby="not-found-contact-heading">
+          <h2 id="not-found-contact-heading" class="not-found-section-title">
+            診所聯絡資訊
+          </h2>
+          <div class="not-found-contact-grid">
+            <div class="not-found-contact-item">
+              <p class="not-found-contact-label">希瑪微笑矯視中心服務熱線</p>
+              <p class="not-found-contact-value">
+                <a href="tel:+85238925099" class="not-found-tel" title="致電希瑪微笑矯視中心">
+                  +852 3892 5099
+                </a>
+              </p>
+              <p class="not-found-contact-hours">
+                星期一至五 09:00-19:00｜星期六 09:00-18:00｜星期日及公眾假期休息
+              </p>
+            </div>
+            <div class="not-found-contact-item">
+              <p class="not-found-contact-label">雙旗艦門市地址</p>
+              <p class="not-found-contact-address">
+                中環：香港中環畢打街 1-3 號中建大廈 1512 室（港鐵中環站 G 出口）
+              </p>
+              <p class="not-found-contact-address">
+                旺角：九龍旺角彌敦道 625 及 639 號雅蘭中心一期 1725B 室（港鐵旺角站 E1 出口）
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style lang="scss">
+  .not-found-page {
+    padding: 4rem 0 5rem;
+    background: linear-gradient(180deg, #f5f8fc 0%, #ffffff 100%);
+  }
+
+  .not-found-card {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 3rem 2.5rem;
+    background: #ffffff;
+    border: 1px solid #dbe6f5;
+    border-radius: 24px;
+    box-shadow: 0 12px 32px rgb(69 112 182 / 8%);
+    text-align: center;
+  }
+
+  .not-found-code {
+    margin: 0 0 0.5rem;
+    font-family: var(--font-en), sans-serif;
+    font-size: clamp(3.5rem, 8vw, 5.5rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.06em;
+    color: #4570b6;
+  }
+
+  .not-found-title {
+    margin: 0 0 1rem;
+    font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 600;
+    line-height: 1.35;
+    color: #1f2937;
+  }
+
+  .not-found-subtitle {
+    margin: 0 auto 2rem;
+    max-width: 600px;
+    font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #4b5563;
+  }
+
+  .not-found-primary-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2.75rem;
+  }
+
+  .not-found-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 176px;
+    padding: 0.875rem 1.75rem;
+    border-radius: 9999px;
+    font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.2;
+    text-decoration: none;
+    transition: transform var(--dur-fast) var(--ease-out), opacity var(--dur-fast) var(--ease-out);
+
+    &:hover,
+    &:focus-visible {
+      transform: translateY(-2px);
+      opacity: 0.92;
+    }
+
+    &:focus-visible {
+      outline: 2px solid #4570b6;
+      outline-offset: 3px;
+    }
+  }
+
+  .not-found-btn--primary {
+    background-color: #4570b6;
+    color: #ffffff;
+    border: 2px solid #4570b6;
+  }
+
+  .not-found-btn--outline {
+    background-color: #ffffff;
+    color: #355995;
+    border: 2px solid #4570b6;
+  }
+
+  .not-found-section-title {
+    margin: 0 0 1.25rem;
+    font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #355995;
+  }
+
+  .not-found-nav {
+    margin-bottom: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e5edf8;
+  }
+
+  .not-found-link-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: left;
+  }
+
+  .not-found-link-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    height: 100%;
+    padding: 1.125rem 1.25rem;
+    background: #f5f8fc;
+    border: 1px solid #dbe6f5;
+    border-radius: 14px;
+    text-decoration: none;
+    transition: transform var(--dur-fast) var(--ease-out), opacity var(--dur-fast) var(--ease-out);
+
+    &:hover,
+    &:focus-visible {
+      transform: translateY(-2px);
+      border-color: #4570b6;
+    }
+
+    &:focus-visible {
+      outline: 2px solid #4570b6;
+      outline-offset: 2px;
+    }
+  }
+
+  .not-found-link-label {
+    font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #355995;
+  }
+
+  .not-found-link-desc {
+    font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #4b5563;
+  }
+
+  .not-found-contact {
+    padding-top: 2rem;
+    border-top: 1px solid #e5edf8;
+  }
+
+  .not-found-contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+    text-align: left;
+  }
+
+  .not-found-contact-item {
+    padding: 1.25rem;
+    background: #f8fafd;
+    border-radius: 14px;
+    border: 1px solid #e5edf8;
+  }
+
+  .not-found-contact-label {
+    margin: 0 0 0.5rem;
+    font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #355995;
+  }
+
+  .not-found-contact-value {
+    margin: 0 0 0.5rem;
+  }
+
+  .not-found-tel {
+    font-family: var(--font-en), sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #355995;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .not-found-contact-hours,
+  .not-found-contact-address {
+    margin: 0 0 0.35rem;
+    font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+    font-size: 0.875rem;
+    line-height: 1.65;
+    color: #374151;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .not-found-page {
+      padding: 2.5rem 0 3.5rem;
+    }
+
+    .not-found-card {
+      padding: 2rem 1.25rem;
+      border-radius: 18px;
+    }
+
+    .not-found-link-grid,
+    .not-found-contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .not-found-btn,
+    .not-found-link-card {
+      transition: none;
+
+      &:hover,
+      &:focus-visible {
+        transform: none;
+      }
+    }
+  }
+</style>

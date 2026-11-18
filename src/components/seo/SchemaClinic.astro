@@ -2,7 +2,7 @@
 /**
  * SchemaClinic.astro
  * Google Local SEO, AI Knowledge Graph & E-E-A-T 結構化數據矩陣
- * 包含 WebSite, Organization, Person(林順潮專科醫生), MedicalWebPage (author/dates) 及 雙旗艦門市 PostalAddress
+ * 包含 WebSite, Organization, Person(林順潮專科醫生), MedicalWebPage (author/dates) 及 雙旗艦門市 PostalAddress + GeoCoordinates
  */
 interface Props {
   lang?: string;
@@ -15,11 +15,33 @@ const { lang = "zh-hk", pageUrl, pageTitle, pageDescription } = Astro.props;
 const isCn = lang === "zh-cn";
 const siteUrl = Astro.site?.origin || "https://smile.hkcmereye.com";
 const currentUrl = pageUrl || new URL(Astro.url.pathname, siteUrl).href;
+const buildDate = new Date().toISOString().slice(0, 10);
 const currentTitle =
   pageTitle ||
   (isCn
     ? "香港希玛微笑矫视中心 - SMILE Pro 2.0 / ICL / 激光矫视"
     : "香港希瑪微笑矯視中心 - SMILE Pro 2.0 / ICL / 激光矯視");
+
+const clinicSpecialties = [
+  "https://schema.org/Ophthalmology",
+  "https://schema.org/Optometric",
+  "https://schema.org/Surgical",
+];
+
+const openingHours = [
+  {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "opens": "09:00",
+    "closes": "19:00",
+  },
+  {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Saturday"],
+    "opens": "09:00",
+    "closes": "18:00",
+  },
+];
 
 const schemaGraph = {
   "@context": "https://schema.org",
@@ -27,55 +49,58 @@ const schemaGraph = {
     // 1. WebSite 實體 (Anchor brand in AI knowledge graphs)
     {
       "@type": "WebSite",
-      "@id": "https://smile.hkcmereye.com/#website",
-      "url": "https://smile.hkcmereye.com",
+      "@id": `${siteUrl}/#website`,
+      "url": `${siteUrl}/`,
       "name": isCn ? "香港希玛微笑矫视中心 CMER Smile" : "香港希瑪微笑矯視中心 CMER Smile",
       "alternateName": "CMER Smile Refractive Surgery Centre",
       "inLanguage": isCn ? "zh-CN" : "zh-HK",
       "publisher": {
-        "@id": "https://smile.hkcmereye.com/#organization"
-      }
+        "@id": `${siteUrl}/#organization`,
+      },
     },
-    // 2. Organization / MedicalOrganization 實體
+    // 2. Organization / MedicalOrganization 實體 (本品牌 + 單層關聯上市母集團 3309.HK)
     {
       "@type": ["Organization", "MedicalOrganization"],
-      "@id": "https://smile.hkcmereye.com/#organization",
-      "name": isCn ? "香港希玛眼科医疗控股有限公司" : "香港希瑪眼科醫療控股有限公司",
-      "alternateName": ["希瑪微笑矯視中心", "CMER Smile", "CMER Eye Care"],
-      "url": "https://smile.hkcmereye.com",
+      "@id": `${siteUrl}/#organization`,
+      "name": isCn ? "香港希玛微笑矫视中心" : "香港希瑪微笑矯視中心",
+      "alternateName": isCn
+        ? ["希玛微笑矫视中心", "CMER Smile", "CMER SMILE Refractive Surgery Centre"]
+        : ["希瑪微笑矯視中心", "CMER Smile", "CMER SMILE Refractive Surgery Centre"],
+      "url": `${siteUrl}/`,
       "logo": `${siteUrl}/icon-512.png`,
       "founder": {
-        "@id": "https://smile.hkcmereye.com/#founder"
+        "@id": `${siteUrl}/#founder`,
+      },
+      "parentOrganization": {
+        "@type": ["Corporation", "MedicalOrganization"],
+        "name": isCn ? "希玛医疗控股有限公司" : "希瑪醫療控股有限公司",
+        "legalName": "C-MER Medical Holdings Limited",
+        "alternateName": isCn
+          ? ["香港希玛医疗", "希玛林顺潮眼科中心", "希玛眼科", "3309.HK"]
+          : ["香港希瑪醫療", "希瑪林順潮眼科中心", "希瑪眼科", "3309.HK"],
+        "tickerSymbol": "HKG 3309",
+        "url": "https://hkcmereye.com/",
       },
       "sameAs": [
         "https://www.facebook.com/cmereyecenter",
         "https://www.instagram.com/cmer_eye",
-        "https://www.youtube.com/@cmersmileeyecenter6303"
-      ]
+        "https://www.youtube.com/@cmersmileeyecenter6303",
+      ],
     },
     // 3. Person / Physician 專科權威背書 (E-E-A-T Author & Provenance)
     {
       "@type": ["Person", "Physician"],
-      "@id": "https://smile.hkcmereye.com/#founder",
+      "@id": `${siteUrl}/#founder`,
       "name": isCn ? "林顺潮" : "林順潮",
       "alternateName": "Dennis Lam",
       "jobTitle": isCn ? "眼科专科医生 / 希玛眼科医疗集团主席" : "眼科專科醫生 / 希瑪眼科醫療集團主席",
-      "medicalSpecialty": [
-        {
-          "@type": "MedicalSpecialty",
-          "name": "Ophthalmology"
-        },
-        {
-          "@type": "MedicalSpecialty",
-          "name": "RefractiveSurgery"
-        }
-      ],
+      "medicalSpecialty": clinicSpecialties,
       "worksFor": {
-        "@id": "https://smile.hkcmereye.com/#organization"
+        "@id": `${siteUrl}/#organization`,
       },
-      "description": isCn 
+      "description": isCn
         ? "亚太眼科学会前会长、希玛眼科医疗集团创办人及主席，具30余年屈光与白内障手术权威经验。"
-        : "亞太眼科學會前會長、希瑪眼科醫療集團創辦人及主席，具30餘年屈光與白內障手術權威經驗。"
+        : "亞太眼科學會前會長、希瑪眼科醫療集團創辦人及主席，具30餘年屈光與白內障手術權威經驗。",
     },
     // 4. MedicalWebPage 內容實體 (Author, DatePublished, DateModified)
     {
@@ -85,113 +110,82 @@ const schemaGraph = {
       "name": currentTitle,
       ...(pageDescription ? { "description": pageDescription } : {}),
       "inLanguage": isCn ? "zh-CN" : "zh-HK",
-      "datePublished": "2024-01-01T08:00:00+08:00",
-      "dateModified": "2026-09-04T09:00:00+08:00",
+      "datePublished": "2024-01-01",
+      "dateModified": buildDate,
       "author": {
-        "@id": "https://smile.hkcmereye.com/#founder"
+        "@id": `${siteUrl}/#founder`,
       },
       "publisher": {
-        "@id": "https://smile.hkcmereye.com/#organization"
+        "@id": `${siteUrl}/#organization`,
       },
       "isPartOf": {
-        "@id": "https://smile.hkcmereye.com/#website"
-      }
+        "@id": `${siteUrl}/#website`,
+      },
     },
-    // 5. 中環門市 (PostalAddress & OpeningHours)
+    // 5. 中環門市 (PostalAddress, GeoCoordinates & OpeningHours)
     {
       "@type": "MedicalClinic",
-      "@id": "https://smile.hkcmereye.com/#central-clinic",
+      "@id": `${siteUrl}/#central-clinic`,
       "name": isCn ? "希玛微笑矫视中心 (中环)" : "希瑪微笑矯視中心 (中環)",
       "alternateName": "CMER SMILE Refractive Surgery Centre (Central)",
       "parentOrganization": {
-        "@id": "https://smile.hkcmereye.com/#organization"
+        "@id": `${siteUrl}/#organization`,
       },
-      "url": "https://smile.hkcmereye.com",
+      "url": `${siteUrl}/`,
+      "image": `${siteUrl}/icon-512.png`,
       "telephone": "+852-3956-2026",
-      "medicalSpecialty": [
-        {
-          "@type": "MedicalSpecialty",
-          "name": "Ophthalmology"
-        },
-        {
-          "@type": "MedicalSpecialty",
-          "name": "RefractiveSurgery"
-        }
-      ],
+      "priceRange": "$$$",
+      "medicalSpecialty": clinicSpecialties,
       "address": {
         "@type": "PostalAddress",
         "streetAddress": isCn ? "中环毕打街1-3号中建大厦1512室" : "香港中環畢打街1-3號中建大廈1512室",
         "addressLocality": "Central",
         "addressRegion": "Hong Kong",
-        "addressCountry": "HK"
+        "addressCountry": "HK",
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 22.28124,
+        "longitude": 114.15711,
       },
       "hasMap": "https://maps.google.com/?q=Central+Building+Pedder+Street",
       "currenciesAccepted": "HKD",
       "paymentAccepted": "Cash, Credit Card, EPS, Octopus, Alipay, WeChat Pay",
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-          "opens": "09:30",
-          "closes": "18:30"
-        },
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Saturday"],
-          "opens": "09:30",
-          "closes": "18:00"
-        }
-      ]
+      "openingHoursSpecification": openingHours,
     },
-    // 6. 旺角門市 (PostalAddress & OpeningHours)
+    // 6. 旺角門市 (PostalAddress, GeoCoordinates & OpeningHours)
     {
       "@type": "MedicalClinic",
-      "@id": "https://smile.hkcmereye.com/#mongkok-clinic",
+      "@id": `${siteUrl}/#mongkok-clinic`,
       "name": isCn ? "希玛微笑矫视中心 (旺角)" : "希瑪微笑矯視中心 (旺角)",
       "alternateName": "CMER SMILE Refractive Surgery Centre (Mong Kok)",
       "parentOrganization": {
-        "@id": "https://smile.hkcmereye.com/#organization"
+        "@id": `${siteUrl}/#organization`,
       },
-      "url": "https://smile.hkcmereye.com",
+      "url": `${siteUrl}/`,
+      "image": `${siteUrl}/icon-512.png`,
       "telephone": "+852-3892-5099",
-      "medicalSpecialty": [
-        {
-          "@type": "MedicalSpecialty",
-          "name": "Ophthalmology"
-        },
-        {
-          "@type": "MedicalSpecialty",
-          "name": "RefractiveSurgery"
-        }
-      ],
+      "priceRange": "$$$",
+      "medicalSpecialty": clinicSpecialties,
       "address": {
         "@type": "PostalAddress",
         "streetAddress": isCn ? "旺角弥敦道625及639号雅兰中心一期1725B室" : "九龍旺角彌敦道625及639號雅蘭中心一期1725B室",
         "addressLocality": "Mong Kok",
         "addressRegion": "Hong Kong",
-        "addressCountry": "HK"
+        "addressCountry": "HK",
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 22.3178,
+        "longitude": 114.1694,
       },
       "hasMap": "https://maps.google.com/?q=Grand+Plaza+625+Nathan+Road+Mong+Kok",
       "currenciesAccepted": "HKD",
       "paymentAccepted": "Cash, Credit Card, EPS, Octopus, Alipay, WeChat Pay",
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-          "opens": "09:30",
-          "closes": "18:30"
-        },
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Saturday"],
-          "opens": "09:30",
-          "closes": "18:00"
-        }
-      ]
-    }
-  ]
+      "openingHoursSpecification": openingHours,
+    },
+  ],
 };
 ---
 
 <script type="application/ld+json" is:inline set:html={JSON.stringify(schemaGraph)} />
-
