@@ -1,0 +1,304 @@
+---
+/**
+ * SchemaFeeCatalog.astro
+ * 收費詳情頁專用結構化數據 (OfferCatalog + MedicalProcedure + Offer / PriceSpecification)
+ * - 嚴格遵循 Google Search Central 醫療服務規範：不使用電商 Product 標記
+ * - 所有價格數字直接從 feeData.ts 動態解析，確保 Schema 與頁面可見價目 100% 同源同步
+ */
+import type { FeeData } from "@/data/feeData";
+
+interface Props {
+  fee: FeeData;
+  lang?: string;
+}
+
+const { fee, lang = "zh-hk" } = Astro.props;
+const isCn = lang === "zh-cn";
+const siteUrl = Astro.site?.origin || "https://smile.hkcmereye.com";
+const pageUrl = new URL(isCn ? "/cn/fee" : "/fee", siteUrl).href;
+
+function stripHtml(raw: string): string {
+  return raw
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .replace(/([\u4e00-\u9fff])\s+([\u4e00-\u9fff])/g, "$1$2")
+    .replace(/([\u4e00-\u9fff])\s+([\u4e00-\u9fff])/g, "$1$2")
+    .trim();
+}
+
+function parseFirstPrice(raw: string): number {
+  const match = raw.match(/\$([\d,]+)/);
+  if (!match) {
+    throw new Error(`[SchemaFeeCatalog] Unable to parse HKD price from: ${raw}`);
+  }
+  return Number(match[1].replace(/,/g, ""));
+}
+
+function parseAllPrices(raw: string): number[] {
+  const matches = [...raw.matchAll(/\$([\d,]+)/g)];
+  if (!matches.length) {
+    throw new Error(`[SchemaFeeCatalog] Unable to parse HKD prices from: ${raw}`);
+  }
+  return matches.map((m) => Number(m[1].replace(/,/g, "")));
+}
+
+function parseRange(raw: string): { minPrice: number; maxPrice: number } {
+  const prices = parseAllPrices(raw);
+  if (prices.length < 2) {
+    throw new Error(`[SchemaFeeCatalog] Expected price range from: ${raw}`);
+  }
+  return { minPrice: prices[0], maxPrice: prices[1] };
+}
+
+const providerRef = { "@id": `${siteUrl}/#organization` };
+const currency = "HKD";
+
+const pro1CarePrices = parseAllPrices(fee.table1.rows.pro1CarePrice);
+const pro2CarePrices = parseAllPrices(fee.table1.rows.pro2CarePrice);
+const iclV4cPrices = parseAllPrices(fee.table1.rows.iclV4cPrice);
+const iclV5Prices = parseAllPrices(fee.table1.rows.iclV5Price);
+const xtraSingle = parseFirstPrice(fee.table1.rows.xtraSinglePrice);
+const xtraBoth = parseFirstPrice(fee.table1.rows.xtraBothPrice);
+const clearSingleNoAst = parseRange(fee.table2.cmerClear.singleFocalPriceNoAst);
+const clearSingleAst = parseRange(fee.table2.cmerClear.singleFocalPriceAst);
+const clearMultiNoAst = parseRange(fee.table2.cmerClear.multiFocalPriceNoAst);
+const clearMultiAst = parseRange(fee.table2.cmerClear.multiFocalPriceAst);
+const lbvStandard = parseFirstPrice(fee.table2.lbv.priceStandard);
+const lbvEps = parseFirstPrice(fee.table2.lbv.priceEps);
+const iclVivaPrice = parseFirstPrice(fee.table2.iclViva.price);
+
+function buildFixedOffer(opts: {
+  name: string;
+  price: number;
+  epsPrice?: number;
+  description: string;
+  url: string;
+}) {
+  const base: Record<string, unknown> = {
+    "@type": "Offer",
+    name: opts.name,
+    url: opts.url,
+    price: opts.price,
+    priceCurrency: currency,
+    description: opts.description,
+    offeredBy: providerRef,
+    itemOffered: {
+      "@type": "MedicalProcedure",
+      name: opts.name,
+      procedureType: "SurgicalProcedure",
+      relevantSpecialty: {
+        "@type": "MedicalSpecialty",
+        name: "Ophthalmology",
+      },
+    },
+  };
+
+  if (opts.epsPrice !== undefined) {
+    base.priceSpecification = [
+      {
+        "@type": "PriceSpecification",
+        name: isCn ? "标准价钱（双眼）" : "標準價錢（雙眼）",
+        price: opts.price,
+        priceCurrency: currency,
+      },
+      {
+        "@type": "PriceSpecification",
+        name: isCn ? "EPS用户全数支付优惠价（双眼）" : "EPS用戶全數支付優惠價（雙眼）",
+        price: opts.epsPrice,
+        priceCurrency: currency,
+      },
+    ];
+  }
+
+  return base;
+}
+
+function buildRangeOffer(opts: {
+  name: string;
+  minPrice: number;
+  maxPrice: number;
+  description: string;
+  url: string;
+}) {
+  return {
+    "@type": "Offer",
+    name: opts.name,
+    url: opts.url,
+    description: opts.description,
+    offeredBy: providerRef,
+    priceSpecification: {
+      "@type": "PriceSpecification",
+      minPrice: opts.minPrice,
+      maxPrice: opts.maxPrice,
+      priceCurrency: currency,
+    },
+    itemOffered: {
+      "@type": "MedicalProcedure",
+      name: opts.name,
+      procedureType: "SurgicalProcedure",
+      relevantSpecialty: {
+        "@type": "MedicalSpecialty",
+        name: "Ophthalmology",
+      },
+    },
+  };
+}
+
+const catalogData = {
+  "@context": "https://schema.org",
+  "@type": "OfferCatalog",
+  "@id": `${pageUrl}#offer-catalog`,
+  name: isCn ? "香港希玛微笑矫视中心收费详情与价目表" : "香港希瑪微笑矯視中心收費詳情與價目表",
+  description: isCn
+    ? "香港希玛微笑矫视中心公开透明收费清单，涵盖 SMILE Pro 1.0/2.0、SMILE、ICL 植入式隐形眼镜、LASIK/TPRK 及老花矫视手术价钱（港元 HKD，非指定医生价钱）。"
+    : "香港希瑪微笑矯視中心公開透明收費清單，涵蓋 SMILE Pro 1.0/2.0、SMILE、ICL 植入式隱形眼鏡、LASIK/TPRK 及老花矯視手術價錢（港元 HKD，非指定醫生價錢）。",
+  url: pageUrl,
+  provider: providerRef,
+  itemListElement: [
+    // 一、激光與 ICL 矯視
+    {
+      "@type": "OfferCatalog",
+      name: isCn ? "激光与 ICL 矫视收费" : "激光與 ICL 矯視收費",
+      itemListElement: [
+        buildFixedOffer({
+          name: stripHtml(fee.table1.headers.pro1Care),
+          price: pro1CarePrices[0],
+          epsPrice: pro1CarePrices[1],
+          description: isCn
+            ? `双眼价钱 HK$${pro1CarePrices[0].toLocaleString()}（EPS用户 HK$${pro1CarePrices[1].toLocaleString()}），术前检查 ${fee.table1.rows.examPrice100}，含1次眼睛水润护理、1次术后眼部彩光护理、一年内5次医生免费覆诊、增进手术及无限视光检查。`
+            : `雙眼價錢 HK$${pro1CarePrices[0].toLocaleString()}（EPS用戶 HK$${pro1CarePrices[1].toLocaleString()}），術前檢查 ${fee.table1.rows.examPrice100}，含1次眼睛水潤護理、1次術後眼部彩光護理、一年內5次醫生免費覆診、增進手術及無限視光檢查。`,
+          url: `${pageUrl}#table1`,
+        }),
+        buildFixedOffer({
+          name: stripHtml(fee.table1.headers.pro1),
+          price: parseFirstPrice(fee.table1.rows.pro1Price),
+          description: isCn
+            ? `双眼价钱 ${stripHtml(fee.table1.rows.pro1Price)}，术前检查 ${fee.table1.rows.examPrice100}，含1次眼睛水润护理、一年内3次医生免费覆诊、增进手术及无限视光检查。`
+            : `雙眼價錢 ${stripHtml(fee.table1.rows.pro1Price)}，術前檢查 ${fee.table1.rows.examPrice100}，含1次眼睛水潤護理、一年內3次醫生免費覆診、增進手術及無限視光檢查。`,
+          url: `${pageUrl}#table1`,
+        }),
+        buildFixedOffer({
+          name: stripHtml(fee.table1.headers.pro2Care),
+          price: pro2CarePrices[0],
+          epsPrice: pro2CarePrices[1],
+          description: isCn
+            ? `双眼价钱 HK$${pro2CarePrices[0].toLocaleString()}（EPS用户 HK$${pro2CarePrices[1].toLocaleString()}），术前检查 ${fee.table1.rows.examPrice100}，含1次眼睛水润护理、1次术后眼部彩光护理、一年内5次医生免费覆诊、增进手术及无限视光检查。`
+            : `雙眼價錢 HK$${pro2CarePrices[0].toLocaleString()}（EPS用戶 HK$${pro2CarePrices[1].toLocaleString()}），術前檢查 ${fee.table1.rows.examPrice100}，含1次眼睛水潤護理、1次術後眼部彩光護理、一年內5次醫生免費覆診、增進手術及無限視光檢查。`,
+          url: `${pageUrl}#table1`,
+        }),
+        buildFixedOffer({
+          name: stripHtml(fee.table1.headers.pro2),
+          price: parseFirstPrice(fee.table1.rows.pro2Price),
+          description: isCn
+            ? `双眼价钱 ${stripHtml(fee.table1.rows.pro2Price)}，术前检查 ${fee.table1.rows.examPrice100}，含1次眼睛水润护理、一年内3次医生免费覆诊、增进手术及无限视光检查。`
+            : `雙眼價錢 ${stripHtml(fee.table1.rows.pro2Price)}，術前檢查 ${fee.table1.rows.examPrice100}，含1次眼睛水潤護理、一年內3次醫生免費覆診、增進手術及無限視光檢查。`,
+          url: `${pageUrl}#table1`,
+        }),
+        buildFixedOffer({
+          name: stripHtml(fee.table1.headers.iclV4c),
+          price: iclV4cPrices[0],
+          description: isCn
+            ? `双眼价钱 HK$${iclV4cPrices[0].toLocaleString()}（散光 +$${iclV4cPrices[1].toLocaleString()}），术前检查 ${fee.table1.rows.examPrice500}，含一年半内6次医生免费覆诊及无限视光检查。`
+            : `雙眼價錢 HK$${iclV4cPrices[0].toLocaleString()}（散光 +$${iclV4cPrices[1].toLocaleString()}），術前檢查 ${fee.table1.rows.examPrice500}，含一年半內6次醫生免費覆診及無限視光檢查。`,
+          url: `${pageUrl}#table1`,
+        }),
+        buildFixedOffer({
+          name: stripHtml(fee.table1.headers.iclV5),
+          price: iclV5Prices[0],
+          description: isCn
+            ? `双眼价钱 HK$${iclV5Prices[0].toLocaleString()}（散光 +$${iclV5Prices[1].toLocaleString()}），术前检查 ${fee.table1.rows.examPrice500}，含一年半内6次医生免费覆诊及无限视光检查。`
+            : `雙眼價錢 HK$${iclV5Prices[0].toLocaleString()}（散光 +$${iclV5Prices[1].toLocaleString()}），術前檢查 ${fee.table1.rows.examPrice500}，含一年半內6次醫生免費覆診及無限視光檢查。`,
+          url: `${pageUrl}#table1`,
+        }),
+        buildFixedOffer({
+          name: stripHtml(fee.table1.headers.smile),
+          price: parseFirstPrice(fee.table1.rows.smilePrice),
+          description: isCn
+            ? `双眼价钱 ${stripHtml(fee.table1.rows.smilePrice)}，术前检查 ${fee.table1.rows.examPrice100}，含1次眼睛水润护理、一年内3次医生免费覆诊、增进手术及无限视光检查。`
+            : `雙眼價錢 ${stripHtml(fee.table1.rows.smilePrice)}，術前檢查 ${fee.table1.rows.examPrice100}，含1次眼睛水潤護理、一年內3次醫生免費覆診、增進手術及無限視光檢查。`,
+          url: `${pageUrl}#table1`,
+        }),
+        buildFixedOffer({
+          name: stripHtml(fee.table1.headers.lasik),
+          price: parseFirstPrice(fee.table1.rows.lasikPrice),
+          description: isCn
+            ? `双眼价钱 ${stripHtml(fee.table1.rows.lasikPrice)}，术前检查 ${fee.table1.rows.examPrice100}，含1次眼睛水润护理、一年内3次医生免费覆诊、增进手术及无限视光检查。`
+            : `雙眼價錢 ${stripHtml(fee.table1.rows.lasikPrice)}，術前檢查 ${fee.table1.rows.examPrice100}，含1次眼睛水潤護理、一年內3次醫生免費覆診、增進手術及無限視光檢查。`,
+          url: `${pageUrl}#table1`,
+        }),
+        buildRangeOffer({
+          name: stripHtml(fee.table1.rows.smileXtraTitle),
+          minPrice: xtraSingle,
+          maxPrice: xtraBoth,
+          description: isCn
+            ? `额外项目：单眼 ${fee.table1.rows.xtraSinglePrice}，双眼 ${fee.table1.rows.xtraBothPrice}。`
+            : `額外項目：單眼 ${fee.table1.rows.xtraSinglePrice}，雙眼 ${fee.table1.rows.xtraBothPrice}。`,
+          url: `${pageUrl}#table1`,
+        }),
+      ],
+    },
+    // 二、老花矯視
+    {
+      "@type": "OfferCatalog",
+      name: fee.table2.title,
+      itemListElement: [
+        buildRangeOffer({
+          name: `${stripHtml(fee.table2.cmerClear.title)} - ${stripHtml(fee.table2.cmerClear.singleFocalTitle)}（${fee.table2.cmerClear.noAstigmatism}）`,
+          minPrice: clearSingleNoAst.minPrice,
+          maxPrice: clearSingleNoAst.maxPrice,
+          description: isCn
+            ? `单眼价钱 ${fee.table2.cmerClear.singleFocalPriceNoAst}，术前检查费用 ${fee.table2.cmerClear.examPrice}。`
+            : `單眼價錢 ${fee.table2.cmerClear.singleFocalPriceNoAst}，術前檢查費用 ${fee.table2.cmerClear.examPrice}。`,
+          url: `${pageUrl}#table2`,
+        }),
+        buildRangeOffer({
+          name: `${stripHtml(fee.table2.cmerClear.title)} - ${stripHtml(fee.table2.cmerClear.singleFocalTitle)}（${fee.table2.cmerClear.withAstigmatism}）`,
+          minPrice: clearSingleAst.minPrice,
+          maxPrice: clearSingleAst.maxPrice,
+          description: isCn
+            ? `单眼价钱 ${fee.table2.cmerClear.singleFocalPriceAst}，术前检查费用 ${fee.table2.cmerClear.examPrice}。`
+            : `單眼價錢 ${fee.table2.cmerClear.singleFocalPriceAst}，術前檢查費用 ${fee.table2.cmerClear.examPrice}。`,
+          url: `${pageUrl}#table2`,
+        }),
+        buildRangeOffer({
+          name: `${stripHtml(fee.table2.cmerClear.title)} - ${stripHtml(fee.table2.cmerClear.multiFocalTitle)}（${fee.table2.cmerClear.noAstigmatism}）`,
+          minPrice: clearMultiNoAst.minPrice,
+          maxPrice: clearMultiNoAst.maxPrice,
+          description: isCn
+            ? `单眼价钱 ${fee.table2.cmerClear.multiFocalPriceNoAst}，术前检查费用 ${fee.table2.cmerClear.examPrice}。`
+            : `單眼價錢 ${fee.table2.cmerClear.multiFocalPriceNoAst}，術前檢查費用 ${fee.table2.cmerClear.examPrice}。`,
+          url: `${pageUrl}#table2`,
+        }),
+        buildRangeOffer({
+          name: `${stripHtml(fee.table2.cmerClear.title)} - ${stripHtml(fee.table2.cmerClear.multiFocalTitle)}（${fee.table2.cmerClear.withAstigmatism}）`,
+          minPrice: clearMultiAst.minPrice,
+          maxPrice: clearMultiAst.maxPrice,
+          description: isCn
+            ? `单眼价钱 ${fee.table2.cmerClear.multiFocalPriceAst}，术前检查费用 ${fee.table2.cmerClear.examPrice}。`
+            : `單眼價錢 ${fee.table2.cmerClear.multiFocalPriceAst}，術前檢查費用 ${fee.table2.cmerClear.examPrice}。`,
+          url: `${pageUrl}#table2`,
+        }),
+        buildFixedOffer({
+          name: stripHtml(fee.table2.lbv.title),
+          price: lbvStandard,
+          epsPrice: lbvEps,
+          description: isCn
+            ? `双眼价钱 HK$${lbvStandard.toLocaleString()}（EPS用户 HK$${lbvEps.toLocaleString()}），术前检查 ${fee.table2.lbv.examPrice}，含1次眼睛水润护理、1次术后眼部彩光护理、半年内5次医生免费覆诊、增进手术及无限视光检查。`
+            : `雙眼價錢 HK$${lbvStandard.toLocaleString()}（EPS用戶 HK$${lbvEps.toLocaleString()}），術前檢查 ${fee.table2.lbv.examPrice}，含1次眼睛水潤護理、1次術後眼部彩光護理、半年內5次醫生免費覆診、增進手術及無限視光檢查。`,
+          url: `${pageUrl}#table2`,
+        }),
+        buildFixedOffer({
+          name: stripHtml(fee.table2.iclViva.title),
+          price: iclVivaPrice,
+          description: isCn
+            ? `双眼价钱 ${fee.table2.iclViva.price}，术前检查费用 ${fee.table2.iclViva.examPrice}。`
+            : `雙眼價錢 ${fee.table2.iclViva.price}，術前檢查費用 ${fee.table2.iclViva.examPrice}。`,
+          url: `${pageUrl}#table2`,
+        }),
+      ],
+    },
+  ],
+};
+---
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(catalogData)} />

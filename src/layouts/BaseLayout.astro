@@ -96,7 +96,13 @@ if (tdkKey && dict.tdk[tdkKey]) {
     </script>
 
     <!-- Schema.org 診所實體標記 (Local SEO / E-E-A-T) -->
-    {showClinicSchema && <SchemaClinic lang={lang} />}
+    {showClinicSchema && (
+      <SchemaClinic
+        lang={lang}
+        pageTitle={finalSeo.title}
+        pageDescription={finalSeo.description}
+      />
+    )}
 
     <!-- 頁面自定義 Head 內容 (如專屬 LCP Preload 標籤) -->
     <slot name="head" />

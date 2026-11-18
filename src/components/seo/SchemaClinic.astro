@@ -6,10 +6,20 @@
  */
 interface Props {
   lang?: string;
+  pageUrl?: string;
+  pageTitle?: string;
+  pageDescription?: string;
 }
 
-const { lang = "zh-hk" } = Astro.props;
+const { lang = "zh-hk", pageUrl, pageTitle, pageDescription } = Astro.props;
 const isCn = lang === "zh-cn";
+const siteUrl = Astro.site?.origin || "https://smile.hkcmereye.com";
+const currentUrl = pageUrl || new URL(Astro.url.pathname, siteUrl).href;
+const currentTitle =
+  pageTitle ||
+  (isCn
+    ? "香港希玛微笑矫视中心 - SMILE Pro 2.0 / ICL / 激光矫视"
+    : "香港希瑪微笑矯視中心 - SMILE Pro 2.0 / ICL / 激光矯視");
 
 const schemaGraph = {
   "@context": "https://schema.org",
@@ -33,7 +43,7 @@ const schemaGraph = {
       "name": isCn ? "香港希玛眼科医疗控股有限公司" : "香港希瑪眼科醫療控股有限公司",
       "alternateName": ["希瑪微笑矯視中心", "CMER Smile", "CMER Eye Care"],
       "url": "https://smile.hkcmereye.com",
-      "logo": "https://smile.hkcmereye.com/favicon.png",
+      "logo": `${siteUrl}/icon-512.png`,
       "founder": {
         "@id": "https://smile.hkcmereye.com/#founder"
       },
@@ -70,9 +80,10 @@ const schemaGraph = {
     // 4. MedicalWebPage 內容實體 (Author, DatePublished, DateModified)
     {
       "@type": "MedicalWebPage",
-      "@id": "https://smile.hkcmereye.com/#webpage",
-      "url": "https://smile.hkcmereye.com",
-      "name": isCn ? "香港希玛微笑矫视中心 - SMILE Pro 2.0 / ICL / 激光矫视" : "香港希瑪微笑矯視中心 - SMILE Pro 2.0 / ICL / 激光矯視",
+      "@id": `${currentUrl}#webpage`,
+      "url": currentUrl,
+      "name": currentTitle,
+      ...(pageDescription ? { "description": pageDescription } : {}),
       "inLanguage": isCn ? "zh-CN" : "zh-HK",
       "datePublished": "2024-01-01T08:00:00+08:00",
       "dateModified": "2026-09-04T09:00:00+08:00",
@@ -160,7 +171,7 @@ const schemaGraph = {
         "addressRegion": "Hong Kong",
         "addressCountry": "HK"
       },
-      "hasMap": "https://maps.google.com/?q=Grand+Century+Place+Mong+Kok",
+      "hasMap": "https://maps.google.com/?q=Grand+Plaza+625+Nathan+Road+Mong+Kok",
       "currenciesAccepted": "HKD",
       "paymentAccepted": "Cash, Credit Card, EPS, Octopus, Alipay, WeChat Pay",
       "openingHoursSpecification": [

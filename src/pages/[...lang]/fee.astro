@@ -6,7 +6,7 @@
  * @Description: 收費詳情頁面 (100% 官方真值對齊 + 居中佈局 + W-14 轉換追蹤 + 完整 Schema)
  */
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import SchemaProcedure from "@/components/seo/SchemaProcedure.astro";
+import SchemaFeeCatalog from "@/components/seo/SchemaFeeCatalog.astro";
 import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
 import { i18nPaths, getLangFromUrl } from "@/i18n/utils";
 import { FEE_ZH_HK, FEE_ZH_CN } from "@/data/feeData";
@@ -21,10 +21,7 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
 ---
 
 <BaseLayout tdkKey="fee">
-  <SchemaProcedure
-    name={isCn ? "近视手术与矫视收费详情" : "矯視收費詳情與價目表"}
-    description={isCn ? "希玛微笑矫视中心价目清晰，绝无其他额外收费。立即查看各项激光矫视价钱。" : "希瑪微笑矯視中心價目清晰，絕無其他額外收費。立即查看各項激光矯視價錢。"}
-  />
+  <SchemaFeeCatalog fee={fee} lang={lang} />
   <SchemaBreadcrumb
     items={[
       { name: fee.breadcrumb.home, url: isCn ? "/cn/" : "/" },
@@ -56,20 +53,59 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
       </section>
 
       {/* 表格一：激光矯視與 ICL 收費對比 */}
-      <div id="table1" class="feeV2-Bg overflow-hidden scroll-mt-20 md:scroll-mt-40">
-        <section class="smilepro-difference">
-          <table class="table custom-comparison-table site-container">
+      <div id="table1" class="feeV2-Bg overflow-x-clip scroll-mt-20 md:scroll-mt-40">
+        {/* 頁內快捷分段導航（近視/散光矯視 vs 老花矯視） */}
+        <nav class="fee-quick-nav site-container" aria-label={isCn ? "收费分类快速跳转" : "收費分類快速跳轉"}>
+          <a href="#table1" class="fee-quick-link is-active">
+            {isCn ? "激光 / ICL 矫视" : "激光 / ICL 矯視"}
+          </a>
+          <a href="#table2" class="fee-quick-link">
+            {fee.table2.title}
+          </a>
+        </nav>
+
+        <div class="fee-table1-wrap">
+          {/* 純 CSS 療程分類篩選藥丸（0 JS，移動端一鍵縮窄欄位免橫滑） */}
+          <input type="radio" name="fee-filter" id="fee-filter-all" class="sr-only" checked />
+          <input type="radio" name="fee-filter" id="fee-filter-pro" class="sr-only" />
+          <input type="radio" name="fee-filter" id="fee-filter-icl" class="sr-only" />
+          <input type="radio" name="fee-filter" id="fee-filter-laser" class="sr-only" />
+
+          <div class="fee-filter-bar site-container" role="tablist" aria-label={isCn ? "筛选矫视方案" : "篩選矯視方案"}>
+            <label for="fee-filter-all" class="fee-filter-pill fee-filter-pill-all" role="tab">
+              {isCn ? "全部方案 (8)" : "全部方案 (8)"}
+            </label>
+            <label for="fee-filter-pro" class="fee-filter-pill fee-filter-pill-pro" role="tab">
+              SMILE Pro (4)
+            </label>
+            <label for="fee-filter-icl" class="fee-filter-pill fee-filter-pill-icl" role="tab">
+              ICL (2)
+            </label>
+            <label for="fee-filter-laser" class="fee-filter-pill fee-filter-pill-laser" role="tab">
+              SMILE / LASIK (2)
+            </label>
+          </div>
+
+          <p class="fee-scroll-hint site-container" aria-hidden="true">
+            <span>←</span> {isCn ? "左右滑动查看完整方案，或点上方分类筛选" : "左右滑動查看完整方案，或點上方分類篩選"} <span>→</span>
+          </p>
+
+          <section class="smilepro-difference">
+            <table class="table custom-comparison-table site-container">
+            <caption class="sr-only">
+              {isCn ? "激光及 ICL 矫视收费详情（香港价钱）" : "激光及 ICL 矯視收費詳情（香港價錢）"}
+            </caption>
             <thead>
               <tr>
-                <th set:html={fee.table1.originNote} />
-                <th set:html={fee.table1.headers.pro1Care} />
-                <th set:html={fee.table1.headers.pro1} />
-                <th set:html={fee.table1.headers.pro2Care} />
-                <th set:html={fee.table1.headers.pro2} />
-                <th set:html={fee.table1.headers.iclV4c} />
-                <th set:html={fee.table1.headers.iclV5} />
-                <th set:html={fee.table1.headers.smile} />
-                <th set:html={fee.table1.headers.lasik} />
+                <th scope="col" set:html={fee.table1.originNote} />
+                <th scope="col" set:html={fee.table1.headers.pro1Care} />
+                <th scope="col" set:html={fee.table1.headers.pro1} />
+                <th scope="col" set:html={fee.table1.headers.pro2Care} />
+                <th scope="col" set:html={fee.table1.headers.pro2} />
+                <th scope="col" set:html={fee.table1.headers.iclV4c} />
+                <th scope="col" set:html={fee.table1.headers.iclV5} />
+                <th scope="col" set:html={fee.table1.headers.smile} />
+                <th scope="col" set:html={fee.table1.headers.lasik} />
               </tr>
             </thead>
             <tbody>
@@ -321,7 +357,8 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
               </tr>
             </tbody>
           </table>
-        </section>
+          </section>
+        </div>
 
         {/* 獨立板塊：SMILE XTRA 角膜膠原交聯術（佈局與上方橫滾表格解耦，移動端不橫向滾動） */}
         <div class="smile-xtra-section site-container">
@@ -350,10 +387,13 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
 
           {/* 2.1 CMER CLEAR-Vision */}
           <table class="table table-clear custom-comparison-table site-container">
+            <caption class="sr-only">
+              {isCn ? "老花矫视 - CMER CLEAR-Vision 人工晶体置换术收费" : "老花矯視 - CMER CLEAR-Vision 人工晶體置換術收費"}
+            </caption>
             <thead>
               <tr>
-                <th set:html={fee.table1.originNote} />
-                <th colspan="2" class="tablePink">
+                <th scope="col" set:html={fee.table1.originNote} />
+                <th scope="colgroup" colspan="2" class="tablePink">
                   <h3 set:html={fee.table2.cmerClear.title} />
                 </th>
               </tr>
@@ -366,27 +406,30 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
               </tr>
               <tr>
                 <td set:html={fee.table2.cmerClear.singleFocalTitle} />
-                <td class="bg-clear-body">{fee.table2.cmerClear.singleFocalPriceNoAst}</td>
-                <td class="bg-clear-body">{fee.table2.cmerClear.singleFocalPriceAst}</td>
+                <td class="bg-clear-body fee-price-cell">{fee.table2.cmerClear.singleFocalPriceNoAst}</td>
+                <td class="bg-clear-body fee-price-cell">{fee.table2.cmerClear.singleFocalPriceAst}</td>
               </tr>
               <tr>
                 <td set:html={fee.table2.cmerClear.multiFocalTitle} />
-                <td class="bg-clear-body">{fee.table2.cmerClear.multiFocalPriceNoAst}</td>
-                <td class="bg-clear-body">{fee.table2.cmerClear.multiFocalPriceAst}</td>
+                <td class="bg-clear-body fee-price-cell">{fee.table2.cmerClear.multiFocalPriceNoAst}</td>
+                <td class="bg-clear-body fee-price-cell">{fee.table2.cmerClear.multiFocalPriceAst}</td>
               </tr>
               <tr>
                 <td set:html={fee.table2.cmerClear.examTitle} />
-                <td colspan="2" class="bg-clear-body">{fee.table2.cmerClear.examPrice}</td>
+                <td colspan="2" class="bg-clear-body fee-price-cell">{fee.table2.cmerClear.examPrice}</td>
               </tr>
             </tbody>
           </table>
 
           {/* 2.2 Presbyond LBV */}
           <table class="table custom-comparison-table site-container">
+            <caption class="sr-only">
+              {isCn ? "老花矫视 - Presbyond LBV 视觉融合老花激光手术收费" : "老花矯視 - Presbyond LBV 視覺融合老花激光手術收費"}
+            </caption>
             <thead>
               <tr>
-                <th set:html={fee.table1.originNote} />
-                <th colspan="2" class="bg-lbv-head">
+                <th scope="col" set:html={fee.table1.originNote} />
+                <th scope="colgroup" colspan="2" class="bg-lbv-head">
                   <h3 set:html={fee.table2.lbv.title} />
                 </th>
               </tr>
@@ -394,12 +437,12 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
             <tbody>
               <tr>
                 <td set:html={fee.table2.lbv.priceTitle} />
-                <td class="bg-lbv-body" set:html={fee.table2.lbv.priceStandard} />
-                <td class="bg-lbv-body bl-d0d0d0" set:html={fee.table2.lbv.priceEps} />
+                <td class="bg-lbv-body fee-price-cell" set:html={fee.table2.lbv.priceStandard} />
+                <td class="bg-lbv-body bl-d0d0d0 fee-price-cell" set:html={fee.table2.lbv.priceEps} />
               </tr>
               <tr>
                 <td set:html={fee.table2.lbv.examTitle} />
-                <td colspan="2" class="bg-lbv-body">{fee.table2.lbv.examPrice}</td>
+                <td colspan="2" class="bg-lbv-body fee-price-cell">{fee.table2.lbv.examPrice}</td>
               </tr>
               <tr>
                 <td set:html={fee.table2.lbv.hydrationTitle} />
@@ -463,10 +506,13 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
 
           {/* 2.3 ICL Viva V6 */}
           <table class="table custom-comparison-table custom-table-extro site-container">
+            <caption class="sr-only">
+              {isCn ? "老花矫视 - ICL Viva V6 植入式隐形眼镜收费" : "老花矯視 - ICL Viva V6 植入式隱形眼鏡收費"}
+            </caption>
             <thead>
               <tr>
-                <th set:html={fee.table1.originNote} />
-                <th colspan="2" class="bg-icl-head">
+                <th scope="col" set:html={fee.table1.originNote} />
+                <th scope="colgroup" colspan="2" class="bg-icl-head">
                   <h3 set:html={fee.table2.iclViva.title} />
                 </th>
               </tr>
@@ -474,11 +520,11 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
             <tbody>
               <tr>
                 <td set:html={fee.table2.iclViva.priceTitle} />
-                <td class="bg-icl-body">{fee.table2.iclViva.price}</td>
+                <td class="bg-icl-body fee-price-cell">{fee.table2.iclViva.price}</td>
               </tr>
               <tr>
                 <td set:html={fee.table2.iclViva.examTitle} />
-                <td class="bg-icl-body">{fee.table2.iclViva.examPrice}</td>
+                <td class="bg-icl-body fee-price-cell">{fee.table2.iclViva.examPrice}</td>
               </tr>
             </tbody>
           </table>
@@ -520,36 +566,281 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
           </a>
         </div>
 
-        {/* 底部註釋與細則說明 */}
+        {/* 底部註釋與細則說明（結構化條列排版，100% 保留官方原始文案與符號對照） */}
         <div class="ellipse_explain_bg">
           <div class="ellipse_explain site-container">
-            <span>{fee.footnotes.text1}</span>
-            <span>
-              <sup>^</sup>{fee.footnotes.text2}<br />
-              {fee.footnotes.text2_1}{fee.footnotes.text2_2}<br />
-            </span>
-            <span><sup>*</sup>{fee.footnotes.text2_3}</span>
-            <span>
-              <sup>^^</sup>{fee.footnotes.text3}<br />
-              {fee.footnotes.text3_1}{fee.footnotes.text3_2}<br />
-              <sup>#</sup>{fee.footnotes.text3_3}<br />
-              <sup>##</sup>{fee.footnotes.text3_4}<br />
-              <sup>※</sup>{fee.footnotes.text3_5}<br />
-              <sup>//</sup>{fee.footnotes.text3_6}<br />
-              <sup>###</sup>{fee.footnotes.text3_7}
-            </span>
-            <br />
-            <span>{fee.footnotes.text4}</span>
-            <br />
-            <span>{fee.footnotes.text5}</span>
-            <br />
-            <span>{fee.footnotes.text6}</span>
+            <p class="fee-fn-lead">{fee.footnotes.text1}</p>
+            <ul class="fee-fn-list">
+              <li>
+                <span class="fn-mark">^</span>
+                <span class="fn-body">
+                  {fee.footnotes.text2}<br />
+                  {fee.footnotes.text2_1}{fee.footnotes.text2_2}
+                </span>
+              </li>
+              <li>
+                <span class="fn-mark">*</span>
+                <span class="fn-body">{fee.footnotes.text2_3}</span>
+              </li>
+              <li>
+                <span class="fn-mark">^^</span>
+                <span class="fn-body">
+                  {fee.footnotes.text3}<br />
+                  {fee.footnotes.text3_1}{fee.footnotes.text3_2}
+                </span>
+              </li>
+              <li>
+                <span class="fn-mark">#</span>
+                <span class="fn-body">{fee.footnotes.text3_3}</span>
+              </li>
+              <li>
+                <span class="fn-mark">##</span>
+                <span class="fn-body">{fee.footnotes.text3_4}</span>
+              </li>
+              <li>
+                <span class="fn-mark">※</span>
+                <span class="fn-body">{fee.footnotes.text3_5}</span>
+              </li>
+              <li>
+                <span class="fn-mark">//</span>
+                <span class="fn-body">{fee.footnotes.text3_6}</span>
+              </li>
+              <li>
+                <span class="fn-mark">###</span>
+                <span class="fn-body">{fee.footnotes.text3_7}</span>
+              </li>
+            </ul>
+            <div class="fee-fn-extra">
+              <p>{fee.footnotes.text4}</p>
+              <p>{fee.footnotes.text5}</p>
+              <p>{fee.footnotes.text6}</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </BaseLayout>
+
+<script>
+  function initFeeFilterToggle() {
+    const allRadio = document.getElementById("fee-filter-all") as HTMLInputElement | null;
+    const scroller = document.querySelector<HTMLElement>(".fee-table1-wrap .smilepro-difference");
+    if (!allRadio) return;
+
+    const mobileQuery = window.matchMedia("(max-width: 991px)");
+    const filterColMap: Record<string, number> = {
+      "fee-filter-pro": 1,
+      "fee-filter-icl": 5,
+      "fee-filter-laser": 7,
+    };
+
+    let momentumRaf: number | null = null;
+    const stopMomentum = () => {
+      if (momentumRaf !== null) {
+        window.cancelAnimationFrame(momentumRaf);
+        momentumRaf = null;
+      }
+    };
+
+    const getActiveFilterId = (): string | null => {
+      const checked = document.querySelector<HTMLInputElement>('input[name="fee-filter"]:checked');
+      if (!checked || checked.id === "fee-filter-all") return null;
+      return checked.id;
+    };
+
+    // 切回「全部」時，精準錨定在用戶剛才觀看的分類位置，避免畫面跳回第 1 欄
+    const unlockToAllAnchored = (activeId: string): number => {
+      if (!scroller) {
+        allRadio.checked = true;
+        return 0;
+      }
+
+      if (activeId === "fee-filter-pro") {
+        // SMILE Pro 原本即與全部模式同欄寬，直接保留原 scrollLeft（0px 跳動）
+        const prevLeft = scroller.scrollLeft;
+        allRadio.checked = true;
+        scroller.scrollLeft = prevLeft;
+        return prevLeft;
+      }
+
+      allRadio.checked = true;
+      const maxScroll = Math.max(0, scroller.scrollWidth - scroller.clientWidth);
+
+      if (activeId === "fee-filter-laser") {
+        scroller.scrollLeft = maxScroll;
+        return maxScroll;
+      }
+
+      const colIdx = filterColMap[activeId];
+      const headerCells = scroller.querySelectorAll<HTMLTableCellElement>("thead tr th");
+      const stickyCell = headerCells[0];
+      const targetCell = colIdx !== undefined ? headerCells[colIdx] : undefined;
+      if (!stickyCell || !targetCell) return scroller.scrollLeft;
+
+      const stickyRect = stickyCell.getBoundingClientRect();
+      const targetRect = targetCell.getBoundingClientRect();
+      const rawTarget = scroller.scrollLeft + (targetRect.left - stickyRect.right);
+      const anchored = Math.min(maxScroll, Math.max(0, Math.round(rawTarget)));
+      scroller.scrollLeft = anchored;
+      return anchored;
+    };
+
+    document.querySelectorAll<HTMLLabelElement>(".fee-filter-pill").forEach((pill) => {
+      if (pill.dataset.bound) return;
+      pill.dataset.bound = "true";
+      pill.addEventListener("click", (e) => {
+        const targetId = pill.getAttribute("for");
+        if (!targetId || targetId === "fee-filter-all") return;
+        const radio = document.getElementById(targetId) as HTMLInputElement | null;
+        if (!radio) return;
+
+        stopMomentum();
+        if (radio.checked) {
+          e.preventDefault();
+          unlockToAllAnchored(targetId);
+        } else if (scroller && mobileQuery.matches) {
+          window.requestAnimationFrame(() => {
+            scroller.scrollLeft = 0;
+          });
+        }
+      });
+    });
+
+    if (scroller && !scroller.dataset.swipeBound) {
+      scroller.dataset.swipeBound = "true";
+
+      let startX = 0;
+      let startY = 0;
+      let dragAnchorX = 0;
+      let dragBaseLeft = 0;
+      let lastX = 0;
+      let lastTime = 0;
+      let velocity = 0;
+      let mode: "undecided" | "vertical" | "manual" | "native" = "undecided";
+
+      scroller.addEventListener(
+        "touchstart",
+        (e) => {
+          stopMomentum();
+          mode = "undecided";
+          velocity = 0;
+          if (!mobileQuery.matches) return;
+          const t = e.touches[0];
+          if (!t) return;
+          startX = t.clientX;
+          startY = t.clientY;
+          lastX = t.clientX;
+          lastTime = performance.now();
+        },
+        { passive: true },
+      );
+
+      scroller.addEventListener(
+        "touchmove",
+        (e) => {
+          if (!mobileQuery.matches || mode === "vertical" || mode === "native") return;
+          const t = e.touches[0];
+          if (!t) return;
+
+          if (mode === "undecided") {
+            const activeId = getActiveFilterId();
+            if (!activeId) {
+              mode = "native";
+              return;
+            }
+            const dx = t.clientX - startX;
+            const dy = t.clientY - startY;
+            if (Math.abs(dy) > 10 && Math.abs(dy) >= Math.abs(dx)) {
+              mode = "vertical";
+              return;
+            }
+            if (Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+              if (activeId === "fee-filter-pro") {
+                unlockToAllAnchored(activeId);
+                mode = "native";
+                return;
+              }
+              // ICL / SMILE-LASIK 原本為 3 欄滿版無滾動，解鎖同時接管本次拖動與慣性，無需二次滑動
+              e.preventDefault();
+              dragBaseLeft = unlockToAllAnchored(activeId);
+              dragAnchorX = t.clientX;
+              lastX = t.clientX;
+              lastTime = performance.now();
+              velocity = 0;
+              mode = "manual";
+            }
+            return;
+          }
+
+          if (mode === "manual") {
+            e.preventDefault();
+            const now = performance.now();
+            const dt = Math.max(1, now - lastTime);
+            const maxScroll = Math.max(0, scroller.scrollWidth - scroller.clientWidth);
+            const nextLeft = Math.min(maxScroll, Math.max(0, dragBaseLeft - (t.clientX - dragAnchorX)));
+            scroller.scrollLeft = nextLeft;
+            const instV = (lastX - t.clientX) / dt;
+            velocity = velocity * 0.4 + instV * 0.6;
+            lastX = t.clientX;
+            lastTime = now;
+          }
+        },
+        { passive: false },
+      );
+
+      const finishTouch = () => {
+        if (mode === "manual" && Math.abs(velocity) > 0.12) {
+          let v = Math.max(-2.5, Math.min(2.5, velocity));
+          let prev = performance.now();
+          const step = (now: number) => {
+            const dt = Math.min(32, Math.max(1, now - prev));
+            prev = now;
+            const maxScroll = Math.max(0, scroller.scrollWidth - scroller.clientWidth);
+            const next = scroller.scrollLeft + v * dt;
+            if (next <= 0 || next >= maxScroll || Math.abs(v) < 0.03) {
+              scroller.scrollLeft = Math.min(maxScroll, Math.max(0, next));
+              momentumRaf = null;
+              return;
+            }
+            scroller.scrollLeft = next;
+            v *= Math.pow(0.92, dt / 16);
+            momentumRaf = window.requestAnimationFrame(step);
+          };
+          momentumRaf = window.requestAnimationFrame(step);
+        }
+        mode = "undecided";
+      };
+
+      scroller.addEventListener("touchend", finishTouch, { passive: true });
+      scroller.addEventListener("touchcancel", finishTouch, { passive: true });
+
+      // 兼顧桌面模擬器觸控板橫向滾輪 / 滾動條拖動
+      scroller.addEventListener(
+        "wheel",
+        (e) => {
+          if (!mobileQuery.matches) return;
+          const activeId = getActiveFilterId();
+          if (!activeId) return;
+          if (Math.abs(e.deltaX) > 10 && Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+            const base = unlockToAllAnchored(activeId);
+            if (activeId !== "fee-filter-pro") {
+              scroller.scrollLeft = base + e.deltaX;
+            }
+          }
+        },
+        { passive: true },
+      );
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initFeeFilterToggle);
+  } else {
+    initFeeFilterToggle();
+  }
+  document.addEventListener("astro:page-load", initFeeFilterToggle);
+</script>
 
 <style lang="scss">
 
@@ -772,11 +1063,24 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
   }
   // 表格
   .smilepro-difference {
-    // margin-top: 30.77vw;
-    overflow: scroll;
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
     position: relative;
+    scrollbar-width: thin;
+    scrollbar-color: #8cb3f3 #eef5fc;
+
     &::-webkit-scrollbar {
-      display: none;
+      height: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #eef5fc;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #8cb3f3;
+      border-radius: 999px;
     }
     .custom-comparison-table {
       // margin-top: 7.69vw;
@@ -836,7 +1140,8 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
       position: sticky;
       left: 0;
       opacity: 1;
-      z-index: 2;
+      z-index: 5;
+      box-shadow: 4px 0 8px -4px rgba(69, 112, 182, 0.22);
     }
     .custom-comparison-table thead th {
       border-bottom: none;
@@ -940,13 +1245,9 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
       background: #fbfcf1;
     }
   }
-  // 表格二
-  .smilepro-difference-two {
-    margin-top: 70px;
-  }
   .smilepro-difference {
     .custom-table-extro {
-      width: 100vw;
+      width: 100%;
       thead {
         tr {
           th {
@@ -992,12 +1293,31 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
   }
 }
 @media screen and (max-width: 991px) {
+  // 表格二（移動端老花矯視各小表間距、h3 標題與價格字階）
+  .smilepro-difference-two {
+    margin-top: 70px;
+
+    .custom-comparison-table + .custom-comparison-table {
+      margin-top: 30px;
+    }
+
+    .custom-comparison-table thead th h3 {
+      font-size: 18px;
+      line-height: normal;
+    }
+
+    .custom-comparison-table tbody tr td.fee-price-cell {
+      font-size: 16px;
+      line-height: 1.35;
+      letter-spacing: normal;
+    }
+  }
   .ellipse_explain_bg {
     // background: url("https://statichk.cmermedical.com/imgs/2024/08/523108db1c129793.png")
     //   no-repeat;
     // background-size: 100% 100%;
     box-sizing: border-box;
-    padding: 40px 7.69vw;
+    padding: 40px 0;
     margin-bottom: 55px;
   }
   .ellipse_explain {
@@ -1422,6 +1742,10 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
   // 表格二
   .smilepro-difference-two {
     margin-top: 136px;
+
+    .custom-comparison-table + .custom-comparison-table {
+      margin-top: 30px;
+    }
   }
   .smilepro-difference {
     .custom-table-extro {
@@ -1524,6 +1848,343 @@ const fee = isCn ? FEE_ZH_CN : FEE_ZH_HK;
       svg {
         width: 30px;
         height: 30px;
+      }
+    }
+  }
+}
+
+// 1. 頁內快捷分段導航（激光 / ICL 矯視 vs 老花矯視）
+.fee-quick-nav {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  padding-top: 20px;
+  padding-bottom: 12px;
+
+  .fee-quick-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1.5px solid #4570b6;
+    background: #fff;
+    color: #4570b6;
+    font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+
+    &.is-active,
+    &:hover {
+      background: #4570b6;
+      color: #fff;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    max-width: 560px;
+    gap: 16px;
+    padding-top: 32px;
+    padding-bottom: 20px;
+
+    .fee-quick-link {
+      padding: 12px 24px;
+      font-size: 18px;
+      border-radius: 12px;
+    }
+  }
+}
+
+// 2. 療程分類篩選藥丸 + 移動端無縫滑動定位（移動端保持 8 欄連續橫滑、零回流切換；PC 端精準聚焦指定欄位）
+.fee-table1-wrap {
+  .fee-filter-bar {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 6px;
+    padding-top: 4px;
+    padding-bottom: 12px;
+
+    @media screen and (min-width: 992px) {
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+  }
+
+  .fee-filter-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid #8cb3f3;
+    background: #fff;
+    color: #4570b6;
+    font-family: var(--font-en), var(--font-hk), sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.3;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+
+    &:hover {
+      background: #eaf2ff;
+    }
+
+    @media screen and (min-width: 992px) {
+      padding: 8px 18px;
+      font-size: 15px;
+    }
+  }
+
+  .fee-filter-pill-all {
+    display: none;
+
+    @media screen and (min-width: 992px) {
+      display: inline-flex;
+    }
+  }
+
+  .fee-scroll-hint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin: 0 auto 10px;
+    color: #4570b6;
+    font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.4;
+    opacity: 0.85;
+
+    @media screen and (min-width: 992px) {
+      display: none;
+    }
+  }
+
+  // 選中藥丸高亮（子分類選中時於右側顯示 ×，提示再次點擊或橫滑即可恢復全部）
+  &:has(#fee-filter-all:checked) .fee-filter-pill-all,
+  &:has(#fee-filter-pro:checked) .fee-filter-pill-pro,
+  &:has(#fee-filter-icl:checked) .fee-filter-pill-icl,
+  &:has(#fee-filter-laser:checked) .fee-filter-pill-laser {
+    background: #4570b6;
+    border-color: #4570b6;
+    color: #fff;
+  }
+
+  &:has(#fee-filter-pro:checked) .fee-filter-pill-pro::after,
+  &:has(#fee-filter-icl:checked) .fee-filter-pill-icl::after,
+  &:has(#fee-filter-laser:checked) .fee-filter-pill-laser::after {
+    content: "×";
+    font-size: 14px;
+    line-height: 1;
+    opacity: 0.9;
+  }
+
+  // SMILE Pro (顯示第 2~5 欄，隱藏第 6~9 欄)
+  &:has(#fee-filter-pro:checked) .custom-comparison-table {
+    tr > :nth-child(n + 6) {
+      display: none;
+    }
+  }
+
+  // ICL (顯示第 6~7 欄，隱藏第 2~5、8~9 欄；移動端 3 欄撐滿寬度方便對比，左右滑動可無縫解鎖回全部)
+  &:has(#fee-filter-icl:checked) .custom-comparison-table {
+    tr > :nth-child(2),
+    tr > :nth-child(3),
+    tr > :nth-child(4),
+    tr > :nth-child(5),
+    tr > :nth-child(8),
+    tr > :nth-child(9) {
+      display: none;
+    }
+
+    @media screen and (max-width: 991px) {
+      width: 100%;
+      table-layout: fixed;
+
+      thead th:nth-child(1) {
+        width: 30%;
+        min-width: 0;
+        padding: 0 6px;
+        box-shadow: none;
+      }
+
+      tbody tr > td:nth-child(1) {
+        display: table-cell;
+        width: 30%;
+        min-width: 0;
+        padding: 0 6px;
+        vertical-align: middle;
+        line-height: 1.3;
+        box-shadow: none;
+      }
+
+      thead th:nth-child(6),
+      thead th:nth-child(7),
+      tbody td:nth-child(6),
+      tbody td:nth-child(7) {
+        width: 35%;
+        min-width: 0;
+      }
+    }
+  }
+
+  // SMILE / LASIK (顯示第 8~9 欄，隱藏第 2~7 欄；移動端 3 欄撐滿寬度方便對比，左右滑動可無縫解鎖回全部)
+  &:has(#fee-filter-laser:checked) .custom-comparison-table {
+    tr > :nth-child(2),
+    tr > :nth-child(3),
+    tr > :nth-child(4),
+    tr > :nth-child(5),
+    tr > :nth-child(6),
+    tr > :nth-child(7) {
+      display: none;
+    }
+
+    @media screen and (max-width: 991px) {
+      width: 100%;
+      table-layout: fixed;
+
+      thead th:nth-child(1) {
+        width: 30%;
+        min-width: 0;
+        padding: 0 6px;
+        box-shadow: none;
+      }
+
+      tbody tr > td:nth-child(1) {
+        display: table-cell;
+        width: 30%;
+        min-width: 0;
+        padding: 0 6px;
+        vertical-align: middle;
+        line-height: 1.3;
+        box-shadow: none;
+      }
+
+      thead th:nth-child(8),
+      thead th:nth-child(9),
+      tbody td:nth-child(8),
+      tbody td:nth-child(9) {
+        width: 35%;
+        min-width: 0;
+      }
+    }
+  }
+
+  @media screen and (min-width: 992px) {
+    .custom-comparison-table thead th:nth-child(1),
+    .custom-comparison-table tbody tr td:nth-child(1) {
+      box-shadow: none;
+    }
+  }
+}
+
+// 3. 底部結構化條款與符號腳註清單
+.ellipse_explain {
+  .fee-fn-lead {
+    margin: 0 0 12px;
+    color: #4570b6;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.6;
+  }
+
+  .fee-fn-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    li {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 8px;
+      align-items: start;
+      font-size: 12px;
+      line-height: 1.65;
+      color: #60605f;
+    }
+
+    .fn-mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 20px;
+      padding: 0 4px;
+      border-radius: 4px;
+      background: rgba(69, 112, 182, 0.12);
+      color: #4570b6;
+      font-family: var(--font-en), sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-top: 1px;
+    }
+
+    .fn-body {
+      display: block;
+      text-align: left;
+    }
+  }
+
+  .fee-fn-extra {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px dashed rgba(69, 112, 182, 0.25);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.65;
+      color: #6d6e71;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .fee-fn-lead {
+      font-size: 16px;
+      margin-bottom: 16px;
+    }
+
+    .fee-fn-list {
+      gap: 10px;
+
+      li {
+        grid-template-columns: 44px 1fr;
+        gap: 12px;
+        font-size: 14px;
+        line-height: 1.75;
+      }
+
+      .fn-mark {
+        font-size: 13px;
+        min-height: 24px;
+      }
+    }
+
+    .fee-fn-extra {
+      margin-top: 18px;
+      padding-top: 14px;
+      gap: 8px;
+
+      p {
+        font-size: 14px;
+        line-height: 1.75;
       }
     }
   }
