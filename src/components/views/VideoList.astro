@@ -28,6 +28,7 @@ const typeConfig: Record<VideoType, { bg: string; label: string; color: string }
         <input
           id="video-search"
           type="search"
+          aria-label={dict.page.video.search}
           placeholder={dict.page.video.search}
           class="w-full focus:outline-none text-desc text-base font-normal leading-normal tracking-wider"
           maxlength="20"
@@ -60,6 +61,7 @@ const typeConfig: Record<VideoType, { bg: string; label: string; color: string }
     }
   </div>
 
+  <h2 class="sr-only">{dict.common.menu.news.case}</h2>
   <div class="media-fluid-section">
     <div class="video-list media-fluid-grid">
       {
@@ -111,17 +113,21 @@ const typeConfig: Record<VideoType, { bg: string; label: string; color: string }
                       {currentConfig.label}
                     </span>
                   )}
-                  <div class="media-card-body video-card-scrim">
+                  <div
+                    class="media-card-body video-card-scrim"
+                    data-card-scrim
+                    style={currentConfig ? `--accent-color: ${currentConfig.color}` : ""}
+                  >
                     <h3
                       set:html={item.title}
                       class="video-title media-card-title"
                       style={currentConfig ? `--title-color: ${currentConfig.color}` : ""}
                     />
-                    {(item.name || item.enName) && (
+                    <span class="video-card-divider" aria-hidden="true" />
+                    {(item.name?.trim() || item.enName?.trim()) && (
                       <p class="media-card-meta">
-                        {item.name && <span>{item.name}</span>}
-                        {item.name && item.enName && <span aria-hidden="true">·</span>}
-                        {item.enName && <span>{item.enName}</span>}
+                        {item.name?.trim() && <span class="video-card-name-zh">{item.name.trim()}</span>}
+                        {item.enName?.trim() && <span class="video-card-name-en">{item.enName.trim()}</span>}
                       </p>
                     )}
                   </div>
@@ -195,6 +201,7 @@ const typeConfig: Record<VideoType, { bg: string; label: string; color: string }
 
           const labelEl = htmlCard.querySelector("[data-label]") as HTMLElement | null;
           const titleEl = htmlCard.querySelector(".video-title") as HTMLElement | null;
+          const scrimEl = htmlCard.querySelector("[data-card-scrim]") as HTMLElement | null;
 
           if (labelEl) {
             const targetBg = labelEl.getAttribute(`data-${currentType}-bg`);
@@ -210,6 +217,10 @@ const typeConfig: Record<VideoType, { bg: string; label: string; color: string }
             if (titleEl && targetColor) {
               titleEl.style.setProperty("--title-color", targetColor);
             }
+
+            if (scrimEl && targetColor) {
+              scrimEl.style.setProperty("--accent-color", targetColor);
+            }
           }
         } else {
           htmlCard.style.display = "none";
@@ -222,23 +233,120 @@ const typeConfig: Record<VideoType, { bg: string; label: string; color: string }
   document.addEventListener("astro:page-load", initVideoFilter);
 </script>
 <style>
+  .media-pill-tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    width: 100%;
+    margin-bottom: 36px;
+    border-bottom: 1px solid #c8d5ea;
+  }
+
+  .media-pill-tab {
+    display: inline-flex;
+    flex: 1 1 0;
+    min-width: 0;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 8px;
+    border: 0;
+    border-radius: 0;
+    background-color: transparent;
+    color: var(--color-primary);
+    font-family: var(--font-en), var(--font-hk), sans-serif;
+    font-size: clamp(15px, 4.2vw, 18px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.08em;
+    text-indent: 0.08em;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      background-color var(--dur-fast) var(--ease-out),
+      color var(--dur-fast) var(--ease-out);
+  }
+
+  .media-pill-tab:hover {
+    background-color: #f4f8fc;
+  }
+
+  .media-pill-tab.is-active,
+  .media-pill-tab.is-active:hover {
+    background-color: var(--color-primary);
+    color: #ffffff;
+  }
+
+  @media (min-width: 640px) {
+    .media-pill-tab {
+      padding: 22px 12px;
+      font-size: 22px;
+      line-height: 1.1;
+      letter-spacing: 0.16em;
+      text-indent: 0.16em;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .media-pill-tabs {
+      margin-bottom: 52px;
+    }
+
+    .media-pill-tab {
+      min-height: 85px;
+      padding: 27px 16px;
+      font-size: 30px;
+      line-height: 1;
+      letter-spacing: 7.5px;
+      text-indent: 7.5px;
+    }
+  }
+
   .video-list.media-fluid-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 14px;
     align-items: start;
   }
 
+  @media (min-width: 768px) {
+    .video-list.media-fluid-grid {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 24px 20px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .video-list.media-fluid-grid {
+      gap: 28px 24px;
+    }
+  }
+
   .video-media-card {
+    container-type: inline-size;
     border: 0;
+    border-radius: 0;
   }
 
   .video-media-card .media-card-thumb {
-    aspect-ratio: auto;
+    aspect-ratio: 265 / 439;
   }
 
   .video-media-card .media-card-thumb img {
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: cover;
     display: block;
+  }
+
+  .video-media-card .media-card-badge {
+    top: clamp(8px, 5.5cqi, 22px);
+    right: clamp(8px, 5cqi, 20px);
+    padding: clamp(3px, 1.8cqi, 8px) clamp(11px, 6.8cqi, 26px);
+    border-radius: 9999px;
+    font-family: var(--font-en), "Poppins", sans-serif;
+    font-size: clamp(13px, 7.2cqi, 22px);
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0;
   }
 
   .video-media-card .video-card-scrim {
@@ -246,28 +354,61 @@ const typeConfig: Record<VideoType, { bg: string; label: string; color: string }
     inset-inline: 0;
     bottom: 0;
     z-index: 2;
-    padding: 48px 16px 16px;
+    padding:
+      clamp(36px, 22cqi, 64px)
+      clamp(12px, 7cqi, 28px)
+      clamp(14px, 8.5cqi, 32px)
+      clamp(14px, 9.5cqi, 36px);
     background: linear-gradient(
       180deg,
       rgba(0, 0, 0, 0) 0%,
-      rgba(0, 0, 0, 0.58) 45%,
-      rgba(0, 0, 0, 0.85) 100%
+      rgba(0, 0, 0, 0.42) 48%,
+      rgba(0, 0, 0, 0.78) 100%
     );
-    gap: 4px;
+    gap: 0;
   }
 
   .video-media-card .media-card-title {
     color: #ffffff;
+    font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+    font-size: clamp(12.5px, 6.4cqi, 21px);
+    font-weight: 700;
+    line-height: 1.44;
+    letter-spacing: 0.06em;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+  }
+
+  .video-media-card .video-card-divider {
+    display: block;
+    width: clamp(44px, 25cqi, 84px);
+    height: clamp(2px, 1cqi, 3px);
+    margin: clamp(8px, 4cqi, 15px) 0;
+    background-color: var(--accent-color, var(--color-primary));
   }
 
   .video-media-card .media-card-meta {
     margin: 0;
-    padding-top: 2px;
-    color: rgba(255, 255, 255, 0.92);
+    padding-top: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.35em;
+    color: #ffffff;
+    font-family: var(--font-hk), "Noto Sans HK", sans-serif;
+    font-size: clamp(13.5px, 6.8cqi, 23px);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: 0.06em;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
   }
 
-  .video-title :global(br) {
-    display: none;
+  .video-media-card .video-card-name-en {
+    font-family: var(--font-en), "Poppins", sans-serif;
+    font-weight: 700;
+  }
+
+  :global(html[lang="zh-cn"]) .video-media-card .media-card-title,
+  :global(html[lang="zh-cn"]) .video-media-card .video-card-name-zh {
+    font-family: var(--font-sc), "Noto Sans SC", sans-serif;
   }
 </style>

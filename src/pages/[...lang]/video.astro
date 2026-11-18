@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
 import VideoList from "@/components/views/VideoList.astro";
 import { i18nPaths, useI18n, getLangFromUrl, getLocalizedHref } from "@/i18n/utils";
 export function getStaticPaths() {
@@ -7,31 +8,54 @@ export function getStaticPaths() {
 }
 const { dict } = useI18n(Astro.url);
 const lang = getLangFromUrl(Astro.url);
+const isCn = lang === "zh-cn";
 const homeUrl = getLocalizedHref("/", lang);
 ---
 
 <BaseLayout tdkKey="video">
+  <Fragment slot="head">
+    <link
+      rel="preload"
+      as="image"
+      href="https://statichk.cmermedical.com/smile/orthopedic-video/videoBanner-mb.avif"
+      media="(max-width: 991px)"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="https://statichk.cmermedical.com/smile/orthopedic-video/videoBanner-pc.avif"
+      media="(min-width: 992px)"
+      fetchpriority="high"
+    />
+  </Fragment>
+  <SchemaBreadcrumb
+    items={[
+      { name: dict.common.menu.home, url: isCn ? "/cn/" : "/" },
+      { name: dict.common.menu.news.case, url: isCn ? "/cn/video/" : "/video/" },
+    ]}
+  />
   <section class="video-banner-section" aria-label={dict.common.menu.news.case}>
     <div class="site-container">
       <div class="smile-NewBanner">
-        <img
-          class="smile-NewBanner-img"
-          decoding="async"
-          src="https://statichk.cmermedical.com/smile/orthopedic-video/videoBanner-pc.avif"
-          alt={dict.common.menu.news.case}
-          title={dict.common.menu.news.case}
-          loading="eager"
-          fetchpriority="high"
-          width="388"
-          height="453"
-          srcset="
-            https://statichk.cmermedical.com/smile/orthopedic-video/videoBanner-mb.avif 400w,
-            https://statichk.cmermedical.com/smile/orthopedic-video/videoBanner-mb.avif 640w,
-            https://statichk.cmermedical.com/smile/orthopedic-video/videoBanner-pc.avif
-          "
-          sizes="(max-width: 992px) 100vw, 1216px"
-          draggable="false"
-        />
+        <picture class="contents">
+          <source
+            media="(max-width: 991px)"
+            srcset="https://statichk.cmermedical.com/smile/orthopedic-video/videoBanner-mb.avif"
+          />
+          <img
+            class="smile-NewBanner-img"
+            decoding="async"
+            src="https://statichk.cmermedical.com/smile/orthopedic-video/videoBanner-pc.avif"
+            alt={dict.common.menu.news.case}
+            title={dict.common.menu.news.case}
+            loading="eager"
+            fetchpriority="high"
+            width="388"
+            height="453"
+            draggable="false"
+          />
+        </picture>
         <div class="smile-NewBanner-Title">
           <span class="smile-NewBanner-eyebrow">VIDEO</span>
           <h1 class="smile-NewBanner-heading">
