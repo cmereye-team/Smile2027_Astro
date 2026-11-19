@@ -4,6 +4,7 @@
  * @FilePath: /src/data/feeData.ts
  * @Description: 收費詳情頁面數據字典 (100% 官方真值對齊 + 繁簡雙語 + W-14 追蹤)
  */
+import { buildWhatsAppUrl } from "@/utils/whatsapp";
 
 export interface FeeData {
   breadcrumb: {
@@ -221,7 +222,7 @@ export const FEE_ZH_HK: FeeData = {
   },
   cta: {
     btnText: "立即預約",
-    whatsappUrl: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-14)%E5%B8%8C%E7%91%AA%E7%9F%AF%E8%A6%96",
+    whatsappUrl: buildWhatsAppUrl("我想預約(W-14)希瑪矯視"),
   },
   footnotes: {
     text1: "以上為非指定醫生價錢",
@@ -340,7 +341,7 @@ export const FEE_ZH_CN: FeeData = {
   },
   cta: {
     btnText: "立即预约",
-    whatsappUrl: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-14)%E5%B8%8C%E7%91%AA%E7%9F%AF%E8%A6%96",
+    whatsappUrl: buildWhatsAppUrl("我想預約(W-14)希瑪矯視"),
   },
   footnotes: {
     text1: "以上为非指定医生价钱",

@@ -16,6 +16,7 @@ import {
   SMILE_PRO_ZH_CN,
   SMILE_PRO_SHARE_DATA,
 } from "@/data/smileProData";
+import { buildWhatsAppUrl } from "@/utils/whatsapp";
 import "@/styles/swiper-base.css";
 
 export function getStaticPaths() {
@@ -27,10 +28,12 @@ const isCn = lang === "zh-cn";
 const content = isCn ? SMILE_PRO_ZH_CN : SMILE_PRO_ZH_HK;
 
 // WhatsApp 官方 W-05 轉換埋點 (嚴格遵循 docs/WHATSAPP_TRACKING_MATRIX.md)
-const bannerWhatsappUrl =
-  "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-05)%20SMILE%20Pro%E7%9F%AF%E8%A6%96%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5%E5%8F%8A%E8%AB%AE%E8%A9%A2%E5%86%AC%E6%97%A5%E5%84%AA%E6%83%A0";
-const whatsappUrl =
-  "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-05)%20SMILE%20Pro%E7%9F%AF%E8%A6%96%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5%E5%8F%8A%E8%AB%AE%E8%A9%A2";
+const bannerWhatsappUrl = buildWhatsAppUrl(
+  "我想預約(W-05) SMILE Pro矯視術前檢查及諮詢冬日優惠"
+);
+const whatsappUrl = buildWhatsAppUrl(
+  "我想預約(W-05) SMILE Pro矯視術前檢查及諮詢"
+);
 
 const feeUrl = getLocalizedHref("/fee#table1", lang);
 const careUrl = getLocalizedHref("/smileProCare", lang);

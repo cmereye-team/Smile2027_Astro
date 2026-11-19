@@ -7,10 +7,12 @@
  */
 import { useI18n, getLocalizedHref } from "@/i18n/utils";
 import { getHeaderNavigation } from "@/config/navigation";
+import { buildWhatsAppUrl } from "@/utils/whatsapp";
 
 const currentPath = Astro.url.pathname;
 const { dict, lang } = useI18n(Astro.url);
 const menuList = getHeaderNavigation(dict);
+const whatsappW15Url = buildWhatsAppUrl("我想預約(W-15)矯視前檢查及諮詢");
 
 const langList = [
   {
@@ -67,7 +69,7 @@ const targetLangTitle = lang === "zh-hk" ? "切换为简体中文" : "切換為�
       <div class="header-top-bar">
         <!-- 綠色膠囊按鈕：Whatsapp 預約 (僅桌面端顯示，移動端隱藏) -->
         <a
-          href="https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-15)%E7%9F%AF%E8%A6%96%E5%89%8D%E6%AA%A2%E6%9F%A5%E5%8F%8A%E8%AB%AE%E8%A9%A2"
+          href={whatsappW15Url}
           target="_blank"
           rel="noopener noreferrer"
           class="btn-capsule btn-capsule-whatsapp"
@@ -233,7 +235,7 @@ const targetLangTitle = lang === "zh-hk" ? "切换为简体中文" : "切換為�
         <div class="mobile-nav-footer">
           <div class="mobile-cta-grid">
             <a
-              href="https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-15)%E7%9F%AF%E8%A6%96%E5%89%8D%E6%AA%A2%E6%9F%A5%E5%8F%8A%E8%AB%AE%E8%A9%A2"
+              href={whatsappW15Url}
               target="_blank"
               rel="noopener noreferrer"
               class="mobile-cta-btn mobile-cta-whatsapp"

@@ -7,6 +7,7 @@
  */
 import { getLangFromUrl, useI18n, getLocalizedHref } from "@/i18n/utils";
 import { evaluateListHk, evaluateListCn } from "@/data/evaluateData";
+import { buildWhatsAppUrl } from "@/utils/whatsapp";
 import "@/styles/swiper-base.css";
 
 const lang = getLangFromUrl(Astro.url);
@@ -15,7 +16,7 @@ const isCn = lang === "zh-cn";
 const evaluateList = isCn ? evaluateListCn : evaluateListHk;
 
 // WhatsApp 轉化參數矩陣：首頁預約術前檢查使用 W-15
-const whatsappUrl = "https://api.whatsapp.com/send?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-15)%E7%9F%AF%E8%A6%96%E5%89%8D%E6%AA%A2%E6%9F%A5%E5%8F%8A%E8%A9%AE%E8%A9%A2";
+const whatsappUrl = buildWhatsAppUrl("我想預約(W-15)矯視前檢查及諮詢");
 const appointFormUrl = getLocalizedHref("/ophthalmicInfo/AppointForm", lang);
 
 const sectionTitle = dict.home.reviews.title;

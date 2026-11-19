@@ -5,6 +5,7 @@
  * @Description: 全站焦點 Banner 與最新情報輪播數據模組 (共享 CMS 官方接口 + 離線靜態回退)
  */
 import { getLocalizedHref } from "@/i18n/utils";
+import { buildWhatsAppUrl } from "@/utils/whatsapp";
 
 const NEW_CMS_URL = "https://cms.cmermedical.com.hk";
 
@@ -56,7 +57,7 @@ export const DEFAULT_FALLBACK_BANNERS: Record<string, BannerItem[]> = {
       id: "banner-1",
       pcImg: "https://static.cmermedical.com.hk/smile/uploads/2026/11/11/gnjyyi02_iwEZAqNqcGcDAQTRBQAF0QHgBrDC7hFoTYc2XwrCvXZrxcoBB9.webp",
       mbImg: "https://static.cmermedical.com.hk/smile/uploads/2026/11/11/trqms04n_iwEZAqNqcGcDAQTRAUsF0QFLBrBoxJln_el2TgrCvXZrxcoAB9.webp",
-      link: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-G01)%20%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5/%E7%9F%AF%E8%A6%96%E8%AC%9B%E5%BA%A7",
+      link: buildWhatsAppUrl("我想預約(W-G01) 術前檢查/矯視講座"),
       title: "微笑激光矯視冬日最新價格",
       subtitle: "SMILE/SMILE PRO微笑激光矯視冬日最新價格",
       isExternal: true,
@@ -76,7 +77,7 @@ export const DEFAULT_FALLBACK_BANNERS: Record<string, BannerItem[]> = {
       id: "banner-1",
       pcImg: "https://static.cmermedical.com.hk/smile/uploads/2026/11/11/gnjyyi02_iwEZAqNqcGcDAQTRBQAF0QHgBrDC7hFoTYc2XwrCvXZrxcoBB9.webp",
       mbImg: "https://static.cmermedical.com.hk/smile/uploads/2026/11/11/trqms04n_iwEZAqNqcGcDAQTRAUsF0QFLBrBoxJln_el2TgrCvXZrxcoAB9.webp",
-      link: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-G01)%20%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5/%E7%9F%AF%E8%A6%96%E8%AC%9B%E5%BA%A7",
+      link: buildWhatsAppUrl("我想預約(W-G01) 術前檢查/矯視講座"),
       title: "微笑激光矫视冬日最新价格",
       subtitle: "SMILE/SMILE PRO微笑激光矫视冬日最新价格",
       isExternal: true,
@@ -98,7 +99,7 @@ export const SMILE2024_STATIC_BANNERS: BannerItem[] = [
     id: "static-1",
     pcImg: "https://static.cmermedical.com.hk/smile/assets/smileV2/smile-swiper-01.avif",
     mbImg: "https://static.cmermedical.com.hk/smile/assets/smileV2/smile-swiper-01.avif",
-    link: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-05)%E7%9F%AF%E8%A6%96%E8%AC%9B%E5%BA%A7/%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5",
+    link: buildWhatsAppUrl("我想預約(W-05)矯視講座/術前檢查"),
     title: "微笑激光矯視冬日最新價格",
     subtitle: "最新情報",
     isExternal: true,
@@ -116,7 +117,7 @@ export const SMILE2024_STATIC_BANNERS: BannerItem[] = [
     id: "static-3",
     pcImg: "https://static.cmermedical.com.hk/smile/assets/smileV2/smile-swiper-03.avif",
     mbImg: "https://static.cmermedical.com.hk/smile/assets/smileV2/smile-swiper-03.avif",
-    link: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-05)%E7%9F%AF%E8%A6%96%E8%AC%9B%E5%BA%A7/%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5",
+    link: buildWhatsAppUrl("我想預約(W-05)矯視講座/術前檢查"),
     title: "ICL植入式隱形眼鏡",
     subtitle: "最新情報",
     isExternal: true,

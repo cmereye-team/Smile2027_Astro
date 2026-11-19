@@ -2,6 +2,7 @@
  * @FilePath: /src/data/smileProCareData.ts
  * @Description: SMILE Pro Care 1.0/2.0 專頁真值數據字典 (100% 對齊舊站 pages/smileProCare/index.vue 與線上官網文案及 WhatsApp 追蹤埋點)
  */
+import { buildWhatsAppUrl } from "@/utils/whatsapp";
 
 export interface ComparisonRow {
   serviceHtml: string;
@@ -75,8 +76,10 @@ const SHARED_CONTENT: Omit<SmileProCareData, "breadcrumb"> = {
       '希瑪專屬全方位矯視保障，為您<br class="block md:hidden" />帶來更極致、安心的體驗。',
     ctaLine1: "立即了解",
     ctaLine2: "SMILE Pro 2.0 Care",
-    ctaUrl:
-      "https://api.whatsapp.com/send/?phone=85297962992&text=%E6%88%91%E6%83%B3%E4%BA%86%E8%A7%A3(WSPC-2025)%20%E5%B8%8C%E7%91%AASMILE%20Pro%20Care%E7%9F%AF%E8%A6%96%E7%A6%AE%E5%93%81%E8%A8%88%E5%8A%83",
+    ctaUrl: buildWhatsAppUrl(
+      "我想了解(WSPC-2025) 希瑪SMILE Pro Care矯視禮品計劃",
+      "care"
+    ),
     scrollHint: "了解計劃詳情",
   },
   intro: {
@@ -156,8 +159,10 @@ const SHARED_CONTENT: Omit<SmileProCareData, "breadcrumb"> = {
     descHtml:
       'SMILE Pro Care微笑激光矯視最適合<strong class="font-bold">重視矯視體驗</strong>，又希望一個價錢有更長遠的保障，讓眼睛享受更多的你。',
     ctaText: "立即預約SMILE Pro Care",
-    ctaUrl:
-      "https://api.whatsapp.com/send/?phone=85297962992&text=我想預約(WSPC-01) 希瑪SMILE Pro Care矯視",
+    ctaUrl: buildWhatsAppUrl(
+      "我想預約(WSPC-01) 希瑪SMILE Pro Care矯視",
+      "care"
+    ),
   },
 };
 

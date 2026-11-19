@@ -4,6 +4,11 @@
  * @FilePath: /src/data/presbyopiaData.ts
  * @Description: 老花矯視專頁數據字典 (100% 官方真值對齊 + 繁簡雙語支援)
  */
+import { buildWhatsAppUrl } from "@/utils/whatsapp";
+
+const WHATSAPP_W06_URL = buildWhatsAppUrl(
+  "我想預約(W-06) CMER CLEAR-Vision術前檢查及諮詢"
+);
 
 export interface PresbyopiaSchemeItem {
   id?: string;
@@ -266,7 +271,7 @@ export const PRESBYOPIA_ZH_HK: PresbyopiaData = {
       },
     ],
     ctaBtnText: "預約諮詢合適矯視方案",
-    whatsappUrl: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-06)%20CMER%20CLEAR-Vision%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5%E5%8F%8A%E8%AB%AE%E8%A9%A2",
+    whatsappUrl: WHATSAPP_W06_URL,
   },
   fee: {
     title: "老花矯視費用",
@@ -468,7 +473,7 @@ export const PRESBYOPIA_ZH_HK: PresbyopiaData = {
     lectureHref: "/ophthalmicInfo/AppointForm",
     lectureIcon: "https://static.cmermedical.com.hk/smile/assets/clear-visionV2/clearAppointment/laohua.svg",
     consultText: "預約諮詢",
-    consultHref: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-06)%20CMER%20CLEAR-Vision%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5%E5%8F%8A%E8%AB%AE%E8%A9%A2",
+    consultHref: WHATSAPP_W06_URL,
     consultIcon: "https://static.cmermedical.com.hk/smile/assets/clear-visionV2/clearAppointment/zixun.svg",
   },
   suitable: {
@@ -632,7 +637,7 @@ export const PRESBYOPIA_ZH_CN: PresbyopiaData = {
       },
     ],
     ctaBtnText: "预约咨询合适矫视方案",
-    whatsappUrl: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-06)%20CMER%20CLEAR-Vision%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5%E5%8F%8A%E8%AB%AE%E8%A9%A2",
+    whatsappUrl: WHATSAPP_W06_URL,
   },
   fee: {
     title: "老花矫视费用",
@@ -834,7 +839,7 @@ export const PRESBYOPIA_ZH_CN: PresbyopiaData = {
     lectureHref: "/cn/ophthalmicInfo/AppointForm/",
     lectureIcon: "https://static.cmermedical.com.hk/smile/assets/clear-visionV2/clearAppointment/laohua.svg",
     consultText: "预约咨询",
-    consultHref: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-06)%20CMER%20CLEAR-Vision%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5%E5%8F%8A%E8%AB%AE%E8%A9%A2",
+    consultHref: WHATSAPP_W06_URL,
     consultIcon: "https://static.cmermedical.com.hk/smile/assets/clear-visionV2/clearAppointment/zixun.svg",
   },
   suitable: {

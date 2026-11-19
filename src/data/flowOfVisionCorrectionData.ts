@@ -2,6 +2,7 @@
  * @FilePath: /src/data/flowOfVisionCorrectionData.ts
  * @Description: 矯視流程專頁真值數據字典 (100% 精確對齊舊站 pages/flow-of-vision-correction/index.vue 及 Notice/techProcess 組件)
  */
+import { buildWhatsAppUrl } from "@/utils/whatsapp";
 
 export interface FlowStepItem {
   img: string;
@@ -138,7 +139,7 @@ export const FLOW_ZH_HK: FlowOfVisionCorrectionData = {
   },
   cta: {
     whatsappUrl:
-      "https://api.whatsapp.com/send/?phone=85269408569&text=我想預約/查詢(MW-01) 術前檢查/矯視講座",
+      buildWhatsAppUrl("我想預約/查詢(MW-01) 術前檢查/矯視講座"),
     icon: "https://static.cmermedical.com.hk/smile/assets/imgs/2022/12/f3fcc54f4a9b0108.png",
     label: "立即預約/查詢",
     phone: "6940 8569",
@@ -236,7 +237,7 @@ export const FLOW_ZH_CN: FlowOfVisionCorrectionData = {
   },
   cta: {
     whatsappUrl:
-      "https://api.whatsapp.com/send/?phone=85269408569&text=我想預約/查詢(MW-01) 術前檢查/矯視講座",
+      buildWhatsAppUrl("我想預約/查詢(MW-01) 術前檢查/矯視講座"),
     icon: "https://static.cmermedical.com.hk/smile/assets/imgs/2022/12/f3fcc54f4a9b0108.png",
     label: "立即预约/查询",
     phone: "6940 8569",

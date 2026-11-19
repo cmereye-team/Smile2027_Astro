@@ -4,6 +4,7 @@
  * @FilePath: /src/data/lasikData.ts
  * @Description: LASIK 激光矯視 V2 專頁數據字典 (100% 對齊線上 vision-correction-lasikV2 真值文案與 W-07 埋點)
  */
+import { buildWhatsAppUrl } from "@/utils/whatsapp";
 
 export interface LasikPrincipleStep {
   num: string;
@@ -64,8 +65,9 @@ export interface LasikData {
   };
 }
 
-const WHATSAPP_URL =
-  "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-07)%20LASIK%E6%BF%80%E5%85%89%E7%9F%AF%E8%A6%96%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5%E5%8F%8A%E8%AB%AE%E8%A9%A2";
+const WHATSAPP_URL = buildWhatsAppUrl(
+  "我想預約(W-07) LASIK激光矯視術前檢查及諮詢"
+);
 
 export const LASIK_ZH_HK: LasikData = {
   breadcrumb: {

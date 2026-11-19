@@ -1,4 +1,10 @@
 export type { RelexSmileShareItem } from "@/data/videoData";
+import { buildWhatsAppUrl } from "@/utils/whatsapp";
+
+const WHATSAPP_W04_URL = buildWhatsAppUrl(
+  "我想預約(W-04) SMILE矯視術前檢查及諮詢"
+);
+const WHATSAPP_XTRA_URL = buildWhatsAppUrl("想了解SMILE XTRA角膜膠原交聯術");
 
 export interface RelexSmileStep {
   number: string;
@@ -113,7 +119,7 @@ export const RELEX_SMILE_ZH_HK: RelexSmileData = {
     titleSuffix: "矯正原理",
     desc: "SMILE微笑矯視是一項突破性的微創矯正技術。本中心的 SMILE 微笑矯視使用<span>Carl Zeiss VisuMax</span>激光最新2.0系統，原理是在<span>不用打開角膜瓣</span>的情況下，以全飛秒激光掃描製作角膜組織膜片，再通過2-2.5mm的小切口把膜片取出，以達到視力矯正的效果。此技術可以為客人<span>矯正近視、散光及老花</span>問題，減低對眼鏡的依賴。",
     btn: "預約諮詢",
-    whatsappUrl: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-04)%20SMILE%E7%9F%AF%E8%A6%96%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5%E5%8F%8A%E8%AB%AE%E8%A9%A2",
+    whatsappUrl: WHATSAPP_W04_URL,
   },
   steps: {
     titlePrefix: "SMILE",
@@ -235,7 +241,7 @@ export const RELEX_SMILE_ZH_HK: RelexSmileData = {
     desc1: "如以上條件都與你的情況相符，你已符合進行SMILE微笑矯視的基本條件。",
     desc2: "若不確定，歡迎預約諮詢。",
     btn: "預約諮詢",
-    whatsappUrl: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-04)%20SMILE%E7%9F%AF%E8%A6%96%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5%E5%8F%8A%E8%AB%AE%E8%A9%A2",
+    whatsappUrl: WHATSAPP_W04_URL,
   },
   xtra: {
     title: "SMILE XTRA角膜膠原交聯術",
@@ -246,7 +252,7 @@ export const RELEX_SMILE_ZH_HK: RelexSmileData = {
     card2TitleHtml: "我需要接受 <span>SMILE XTRA</span>？",
     card2Text: "如果你的眼晴度數較深、角膜比較薄，希望強化角膜以減低角膜變形及度數反彈的機會，經評估後，醫生會作出判斷是否需要接受SMILE XTRA角膜膠原交聯術",
     btn: "了解更多",
-    whatsappUrl: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%83%B3%E4%BA%86%E8%A7%A3SMILE%20XTRA%E8%A7%92%E8%86%9C%E8%86%A0%E5%8E%9F%E4%BA%A4%E8%81%AF%E8%A1%93",
+    whatsappUrl: WHATSAPP_XTRA_URL,
   },
   exercise: {
     title: "SMILE微笑矯視前小練習",
@@ -310,7 +316,7 @@ export const RELEX_SMILE_ZH_CN: RelexSmileData = {
     titleSuffix: "矫正原理",
     desc: "SMILE微笑矫视是一项突破性的微创矫正技术。本中心的 SMILE 微笑矫视使用<span>Carl Zeiss VisuMax</span>激光最新2.0系统，原理是在<span>不用打开角膜瓣</span>的情况下，以全飞秒激光扫描制作角膜组织膜片，再通过2-2.5mm的小切口把膜片取出，以达到视力矫正的效果。此技术可以为客人<span>矫正近视、散光及老花</span>问题，减低对眼镜的依赖。",
     btn: "预约咨询",
-    whatsappUrl: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-04)%20SMILE%E7%9F%AF%E8%A6%96%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5%E5%8F%8A%E8%AB%AE%E8%A9%A2",
+    whatsappUrl: WHATSAPP_W04_URL,
   },
   steps: {
     titlePrefix: "SMILE",
@@ -432,7 +438,7 @@ export const RELEX_SMILE_ZH_CN: RelexSmileData = {
     desc1: "如以上条件都与你的情况相符，你已符合进行SMILE微笑矫视的基本条件。",
     desc2: "若不确定，欢迎预约咨询。",
     btn: "预约咨询",
-    whatsappUrl: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-04)%20SMILE%E7%9F%AF%E8%A6%96%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5%E5%8F%8A%E8%AB%AE%E8%A9%A2",
+    whatsappUrl: WHATSAPP_W04_URL,
   },
   xtra: {
     title: "SMILE XTRA角膜胶原交联术",
@@ -443,7 +449,7 @@ export const RELEX_SMILE_ZH_CN: RelexSmileData = {
     card2TitleHtml: "我需要接受 <span>SMILE XTRA</span>？",
     card2Text: "如果你的眼晴度数较深、角膜比较薄，希望强化角膜以减低角膜变形及度数反弹的机会，经评估后，医生会作出判断是否需要接受SMILE XTRA角膜胶原交联术",
     btn: "了解更多",
-    whatsappUrl: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%83%B3%E4%BA%86%E8%A7%A3SMILE%20XTRA%E8%A7%92%E8%86%9C%E8%86%A0%E5%8E%9F%E4%BA%A4%E8%81%AF%E8%A1%93",
+    whatsappUrl: WHATSAPP_XTRA_URL,
   },
   exercise: {
     title: "SMILE微笑矫视前小练习",

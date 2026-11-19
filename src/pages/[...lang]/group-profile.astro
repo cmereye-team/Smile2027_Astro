@@ -9,6 +9,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import SchemaBreadcrumb from "@/components/seo/SchemaBreadcrumb.astro";
 import GroupProfileEnvironment from "@/components/views/GroupProfileEnvironment.astro";
 import { i18nPaths, useI18n, getLangFromUrl } from "@/i18n/utils";
+import { buildWhatsAppUrl } from "@/utils/whatsapp";
 import "@/styles/swiper-base.css";
 import "@/styles/pages/group-profile.scss";
 
@@ -20,6 +21,7 @@ export function getStaticPaths() {
 const { dict } = useI18n(Astro.url);
 const lang = getLangFromUrl(Astro.url);
 const isCn = lang === "zh-cn";
+const ambassadorWhatsappUrl = buildWhatsAppUrl("Hello 希瑪關懷大使", "85296036825");
 
 // 榮獲權威獎項與國際認證徽章 (10 項)
 const awardBadges = [
@@ -292,7 +294,7 @@ const awardBadges = [
 
             {/* 官方 WhatsApp 諮詢按鈕 */}
             <a
-              href="https://api.whatsapp.com/send/?phone=85296036825&text=Hello%20%E5%B8%8C%E7%91%AA%E9%97%9C%E6%87%B7%E5%A4%A7%E4%BD%BF"
+              href={ambassadorWhatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               class="care-ambassador-whatsapp-btn"

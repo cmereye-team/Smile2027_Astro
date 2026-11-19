@@ -7,6 +7,7 @@
  */
 import { useI18n, useTranslations, getLocalizedHref } from "@/i18n/utils";
 import { Icon } from "astro-icon/components";
+import { buildWhatsAppUrl } from "@/utils/whatsapp";
 
 const { lang } = useI18n(Astro.url);
 const t = useTranslations(lang);
@@ -27,7 +28,7 @@ const navList = [
   {
     icon: "social/whatsapp-o",
     label: t("common.bottom.service"),
-    href: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3(WM-BAW01)%E4%BA%86%E8%A7%A3%E5%B8%8C%E7%91%AA%E7%9F%AF%E8%A6%96%E6%9C%8D%E5%8B%99",
+    href: buildWhatsAppUrl("我想(WM-BAW01)了解希瑪矯視服務"),
     cta: "whatsapp",
   },
   {

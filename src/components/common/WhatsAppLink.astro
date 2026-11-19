@@ -1,0 +1,41 @@
+---
+import { buildWhatsAppUrl, type PhoneType } from '@/utils/whatsapp';
+
+interface Props {
+  text: string;
+  phoneType?: PhoneType | string;
+  class?: string;
+  dataCta?: string;
+  'data-cta'?: string;
+  title?: string;
+  'aria-label'?: string;
+  target?: string;
+  rel?: string;
+  [key: string]: any;
+}
+
+const {
+  text,
+  phoneType = 'main',
+  class: className,
+  dataCta,
+  'data-cta': dataCtaAttr,
+  target = '_blank',
+  rel = 'noopener noreferrer',
+  ...rest
+} = Astro.props;
+
+const href = buildWhatsAppUrl(text, phoneType);
+const finalCta = dataCtaAttr || dataCta || 'whatsapp';
+---
+
+<a
+  href={href}
+  class={className}
+  target={target}
+  rel={rel}
+  data-cta={finalCta}
+  {...rest}
+>
+  <slot>WhatsApp 預約</slot>
+</a>

@@ -4,6 +4,7 @@
  * @FilePath: /src/data/patientInfoData.ts
  * @Description: 診症須知專頁真值數據字典 (100% 精確對齊線上官網 https://smile.hkcmereye.com/patient-info 與 /cn/patient-info)
  */
+import { buildWhatsAppUrl } from "@/utils/whatsapp";
 
 export interface PatientInfoTab {
   label: string;
@@ -176,7 +177,7 @@ const PATIENT_INFO_VERBATIM: PatientInfoData = {
     cta: {
       text: "預約矯視前檢查",
       whatsappUrl:
-        "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-16)%E7%9F%AF%E8%A6%96%E5%89%8D%E6%AA%A2%E6%9F%A5",
+        buildWhatsAppUrl("我想預約(W-16)矯視前檢查"),
     },
     notes: {
       title: "備註:",
@@ -480,7 +481,7 @@ export const PATIENT_INFO_ZH_CN: PatientInfoData = {
     cta: {
       text: "预约矫视前检查",
       whatsappUrl:
-        "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-16)%E7%9F%AF%E8%A6%96%E5%89%8D%E6%AA%A2%E6%9F%A5",
+        buildWhatsAppUrl("我想預約(W-16)矯視前檢查"),
     },
     notes: {
       title: "备注:",

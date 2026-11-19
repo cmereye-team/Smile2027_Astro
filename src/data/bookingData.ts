@@ -4,6 +4,7 @@
  * @FilePath: /src/data/bookingData.ts
  * @Description: 預約服務與預約講座表單真值數據字典 (100% 精確對齊線上真值與舊站 Nuxt 原型)
  */
+import { buildWhatsAppUrl } from "@/utils/whatsapp";
 
 export interface ScheduleItem {
   id: number;
@@ -207,7 +208,7 @@ export const BOOKING_ZH_HK: BookingData = {
     whatsappCta: "立即預約/查詢",
     whatsappPhone: "6940 8569",
     whatsappIcon: "https://static.cmermedical.com.hk/smile/assets/imgs/2022/12/f3fcc54f4a9b0108.png",
-    whatsappUrl: "https://api.whatsapp.com/send/?phone=85269408569&text=我想預約/查詢(MW-01) 術前檢查/矯視講座",
+    whatsappUrl: buildWhatsAppUrl("我想預約/查詢(MW-01) 術前檢查/矯視講座"),
   },
   appointForm: {
     title: "SMILE Pro 1.0/2.0 微笑激光矯視、<br class='block md:hidden' />ICL植入式隱形眼鏡、<br class='hidden md:block' />SMILE 微笑<br class='block md:hidden' />激光矯視、老花矯視講座",
@@ -311,7 +312,7 @@ export const BOOKING_ZH_CN: BookingData = {
     whatsappCta: "立即预约/查询",
     whatsappPhone: "6940 8569",
     whatsappIcon: "https://static.cmermedical.com.hk/smile/assets/imgs/2022/12/f3fcc54f4a9b0108.png",
-    whatsappUrl: "https://api.whatsapp.com/send/?phone=85269408569&text=我想預約/查詢(MW-01) 術前檢查/矯視講座",
+    whatsappUrl: buildWhatsAppUrl("我想預約/查詢(MW-01) 術前檢查/矯視講座"),
   },
   appointForm: {
     title: "SMILE Pro 1.0/2.0 微笑激光矫视、<br class='block md:hidden' />ICL植入式隐形眼镜、<br class='hidden md:block' />SMILE 微笑<br class='block md:hidden' />激光矫视、老花矫视讲座",

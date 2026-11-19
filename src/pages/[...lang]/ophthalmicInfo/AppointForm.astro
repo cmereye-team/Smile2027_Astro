@@ -15,6 +15,7 @@ import {
   DEFAULT_SCHEDULES,
   DEFAULT_CALENDARS,
 } from "@/data/bookingData";
+import { buildWhatsAppUrl } from "@/utils/whatsapp";
 
 export function getStaticPaths() {
   return [...i18nPaths];
@@ -23,6 +24,7 @@ export function getStaticPaths() {
 const lang = getLangFromUrl(Astro.url);
 const isCn = lang === "zh-cn";
 const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
+const whatsappWG01Url = buildWhatsAppUrl("我想預約(W-G01) 術前檢查/矯視講座");
 ---
 
 <BaseLayout tdkKey="appointForm">
@@ -266,14 +268,14 @@ const content = isCn ? BOOKING_ZH_CN : BOOKING_ZH_HK;
                     </p>
                     <div class="booking-error-alert__actions">
                       <a
-                        href="https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-G01)%20%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5/%E7%9F%AF%E8%A6%96%E8%AC%9B%E5%BA%A7"
+                        href={whatsappWG01Url}
                         target="_blank"
                         rel="noopener noreferrer"
                         class="booking-error-alert__wa"
                         data-cta="whatsapp"
-                        title={isCn ? "WhatsApp 预约讲座 (+852 6940 8569)" : "WhatsApp 預約講座 (+852 6940 8569)"}
+                        title={isCn ? "WhatsApp 预约讲座" : "WhatsApp 預約講座"}
                       >
-                        {isCn ? "WhatsApp 预约 (+852 6940 8569)" : "WhatsApp 預約 (+852 6940 8569)"}
+                        {isCn ? "WhatsApp 预约" : "WhatsApp 預約"}
                       </a>
                       <a
                         href="tel:+85239562026"

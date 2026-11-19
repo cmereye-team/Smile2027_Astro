@@ -15,6 +15,7 @@ import IndexAwards from "@/components/views/IndexAwards.astro";
 import IndexEnvironment from "@/components/views/IndexEnvironment.astro";
 import FourFeatureShield from "@/components/views/FourFeatureShield.astro";
 import { getBanners } from "@/data/bannerData";
+import { buildWhatsAppUrl } from "@/utils/whatsapp";
 
 export async function getStaticPaths() {
   return [
@@ -30,6 +31,7 @@ const { dict } = useI18n(Astro.url);
 const isCn = lang === "zh-cn";
 const banners = await getBanners(lang);
 const heroBanner = banners && banners.length > 0 ? banners[0] : null;
+const whatsappW15Url = buildWhatsAppUrl("我想預約(W-15)矯視前檢查及諮詢");
 
 // 5 大核心服務 (對標線上原版 home.vue 1:1，支援繁簡自適應)
 const serverList = [
@@ -150,7 +152,7 @@ const serverList = [
             <a
               target="_blank"
               rel="noopener noreferrer"
-              href="https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-15)%E7%9F%AF%E8%A6%96%E5%89%8D%E6%AA%A2%E6%9F%A5%E5%8F%8A%E8%AB%AE%E8%A9%A2"
+              href={whatsappW15Url}
               class="centerSevice-btn centerSevice-btnTwo"
               data-cta="whatsapp"
               title="立即透過 WhatsApp 預約術前眼睛檢查及諮詢 (W-15)"

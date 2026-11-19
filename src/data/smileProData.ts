@@ -5,6 +5,11 @@
  * @Description: SMILE Pro 2.0 微笑激光矯視數據字典 (100% 官方真值對齊 + 繁簡雙語支援)
  */
 export type { ShareItem } from "@/data/videoData";
+import { buildWhatsAppUrl } from "@/utils/whatsapp";
+
+const WHATSAPP_W05_URL = buildWhatsAppUrl(
+  "我想預約(W-05) SMILE Pro矯視術前檢查及諮詢"
+);
 
 export interface SmileProStep {
   image: string;
@@ -249,7 +254,7 @@ export const SMILE_PRO_ZH_HK: SmileProData = {
     p2Span3: "安全保障",
     p2Text4: "。憑藉矯視中心與嚴謹護理，眾多客戶於術後獲得理想且穩定的視力效果，讓日常生活更輕鬆便利。",
     btn: "預約諮詢",
-    whatsappUrl: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-05)%20SMILE%20Pro%E7%9F%AF%E8%A6%96%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5%E5%8F%8A%E8%AB%AE%E8%A9%A2",
+    whatsappUrl: WHATSAPP_W05_URL,
   },
   fourFeature: {
     titlePrefix: "SMILE Pro 1.0/2.0",
@@ -375,7 +380,7 @@ export const SMILE_PRO_ZH_HK: SmileProData = {
       },
     ],
     btn: "預約諮詢",
-    whatsappUrl: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-05)%20SMILE%20Pro%E7%9F%AF%E8%A6%96%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5%E5%8F%8A%E8%AB%AE%E8%A9%A2",
+    whatsappUrl: WHATSAPP_W05_URL,
   },
   steps2: {
     title: "SMILE Pro 2.0 微笑激光矯視過程",
@@ -461,7 +466,7 @@ export const SMILE_PRO_ZH_HK: SmileProData = {
       },
     ],
     btn: "預約諮詢",
-    whatsappUrl: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-05)%20SMILE%20Pro%E7%9F%AF%E8%A6%96%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5%E5%8F%8A%E8%AB%AE%E8%A9%A2",
+    whatsappUrl: WHATSAPP_W05_URL,
   },
 };
 
@@ -539,7 +544,7 @@ export const SMILE_PRO_ZH_CN: SmileProData = {
     p2Span3: "安全保障",
     p2Text4: "。此外，众多客户对术后效果表示满意，视力稳定，让日常生活更轻松便利。",
     btn: "预约咨询",
-    whatsappUrl: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-05)%20SMILE%20Pro%E7%9F%AF%E8%A6%96%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5%E5%8F%8A%E8%AB%AE%E8%A9%A2",
+    whatsappUrl: WHATSAPP_W05_URL,
   },
   fourFeature: {
     titlePrefix: "SMILE Pro 1.0/2.0",
@@ -665,7 +670,7 @@ export const SMILE_PRO_ZH_CN: SmileProData = {
       },
     ],
     btn: "预约咨询",
-    whatsappUrl: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-05)%20SMILE%20Pro%E7%9F%AF%E8%A6%96%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5%E5%8F%8A%E8%AB%AE%E8%A9%A2",
+    whatsappUrl: WHATSAPP_W05_URL,
   },
   steps2: {
     title: "SMILE Pro 2.0 微笑激光矯視過程",
@@ -751,6 +756,6 @@ export const SMILE_PRO_ZH_CN: SmileProData = {
       },
     ],
     btn: "预约咨询",
-    whatsappUrl: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-05)%20SMILE%20Pro%E7%9F%AF%E8%A6%96%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5%E5%8F%8A%E8%AB%AE%E8%A9%A2",
+    whatsappUrl: WHATSAPP_W05_URL,
   },
 };
