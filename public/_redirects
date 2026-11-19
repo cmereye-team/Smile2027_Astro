@@ -1,3 +1,5 @@
 /sitemap-index.xml /sitemap.xml 301
 /cn/blog/:id /cn/blog-article/ 200
 /blog/:id /blog-article/ 200
+/kpzs/* /blog/ 301
+/smilePro%3F* /smilePro/ 301
