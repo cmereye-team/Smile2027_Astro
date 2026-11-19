@@ -147,7 +147,7 @@
 // 3. 醫生團隊波浪背景與成員卡片 (Container 罐頭風格 + 純 CSS 雙層異形偽類錯開 + 等高網格)
 // --------------------------------------------------------------------------
 .doctor-team-member {
-  background: url("https://statichk.cmermedical.com/imgs/2024/04/7f498c9a45d803a7.png") no-repeat;
+  background: url("https://static.cmermedical.com.hk/smile/assets/imgs/2024/04/7f498c9a45d803a7.png") no-repeat;
   width: 100%;
   background-size: 100% 100%;
   background-position: center;
@@ -303,7 +303,7 @@
 
   // 移動端響應式精確適配 (比例對齊 2024 官網視覺)
   @media (max-width: 1023px) {
-    background-image: url("https://statichk.cmermedical.com/imgs/2024/05/c4109fd202815835.png");
+    background-image: url("https://static.cmermedical.com.hk/smile/assets/imgs/2024/05/c4109fd202815835.png");
     padding: 130px 0 40px;
     margin-top: 100px;
     // 頂部圓形懸浮徽章 (眼科 醫療團隊 - 投影改正下方 35px)
@@ -411,15 +411,61 @@
       }
     }
 
-    // 針對折疊屏與平板類內屏 (600px - 1023px) 的優雅流暢雙列過渡
-    @media (min-width: 600px) and (max-width: 1023px) {
+    // 針對折疊屏展開 (600px - 767px)：2 欄上圖下文，資歷卡滿列寬防擠壓
+    @media (min-width: 600px) and (max-width: 767px) {
+      .doctor-list-wrapper {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 32px 20px;
+
+        .doctor-item,
+        .doctor-item:nth-child(even) {
+          flex-direction: column;
+          align-items: center;
+
+          .doc-img-box {
+            flex: 0 0 auto;
+            width: 150px;
+            max-width: 150px;
+
+            &::after {
+              border-radius: 0 20px 0 20px;
+              transform: translate(-6px, -6px);
+            }
+
+            &::before {
+              border-radius: 0 20px 0 20px;
+              transform: translate(6px, 6px);
+            }
+          }
+
+          .doc-info-card {
+            width: 100%;
+            left: 0;
+            right: auto;
+            margin-top: -10px;
+            border-radius: 20px 20px 0 0;
+            padding: 18px 16px 16px;
+            box-sizing: border-box;
+          }
+        }
+      }
+    }
+
+    // 針對大折疊屏橫放與平板 (768px - 1023px)：2 欄左圖右文
+    @media (min-width: 768px) and (max-width: 1023px) {
       .doctor-list-wrapper {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 40px 24px;
 
         .doctor-item {
+          .doc-img-box {
+            flex: 0 0 124px;
+            width: 124px;
+            min-width: 120px;
+          }
+
           &:nth-child(even) {
-            flex-direction: row; // 雙列時維持一致的朝向，防止割裂
+            flex-direction: row;
 
             .doc-img-box {
               &::after {

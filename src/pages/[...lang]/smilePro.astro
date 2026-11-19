@@ -716,7 +716,7 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
                       {row.iconType === "nav" && (
                         <img
                           draggable="false"
-                          src="https://statichk.cmermedical.com/smile/smileproV2/table/smilepro-table-up.svg"
+                          src="https://static.cmermedical.com.hk/smile/assets/smileproV2/table/smilepro-table-up.svg"
                           alt="SMILE PRO 2.0 精準度提升"
                           title="SMILE PRO 2.0 精準度提升"
                           width="144"
@@ -1513,7 +1513,7 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
 
         .smilepro-four-feature-Box-List {
           margin-top: 40px;
-          background-image: url("https://statichk.cmermedical.com/smile/smileproV2/smilepro-four-feature/smilepro-four-feature-mobileBg4.avif");
+          background-image: url("https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-four-feature/smilepro-four-feature-mobileBg4.avif");
           background-repeat: no-repeat;
           background-position: right top;
           background-size: 72%;
@@ -1550,6 +1550,47 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
                 line-height: 1.65;
                 letter-spacing: 0.04em;
               }
+            }
+          }
+        }
+      }
+    }
+
+    @media screen and (min-width: 600px) and (max-width: 991px) {
+      padding: 0;
+
+      .smilepro-four-feature-Box {
+        max-width: 100%;
+
+        .smilepro-four-feature-Box-top {
+          text-align: center;
+
+          h2 {
+            text-align: center;
+            font-size: 26px;
+          }
+
+          p {
+            text-align: center;
+            font-size: 16px;
+          }
+        }
+
+        .smilepro-four-feature-Box-List {
+          margin-top: 32px;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 24px 28px;
+          background-size: 42%;
+
+          .smilepro-four-feature-Box-List-item {
+            min-width: 0;
+            align-items: flex-start;
+            gap: 16px;
+
+            .smilepro-four-feature-Box-List-item-number {
+              width: 62px;
+              font-size: 52px;
+              line-height: 0.9;
             }
           }
         }
@@ -1603,7 +1644,7 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
       &::after {
         content: "";
         position: absolute;
-        background-image: url("https://statichk.cmermedical.com/smile/smileproV2/smilepro-four-feature/smilepro-four-feature-pcBg.webp");
+        background-image: url("https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-four-feature/smilepro-four-feature-pcBg.webp");
         background-repeat: no-repeat;
         background-size: 100%;
         right: max((100vw - 1320px) / 2, 0px);
@@ -1837,7 +1878,7 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
 
           &::after {
             content: "";
-            background: url("https://statichk.cmermedical.com/smile/smileproV2/table/smilepro-table-mobile-titleBgnew.png")
+            background: url("https://static.cmermedical.com.hk/smile/assets/smileproV2/table/smilepro-table-mobile-titleBgnew.png")
               no-repeat;
             width: 110.062px;
             height: 49px;
@@ -1969,7 +2010,7 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
           position: relative;
 
           &::after {
-            content: url("https://statichk.cmermedical.com/smile/smileproV2/table/smilepro-table-pc-titleBg.png");
+            content: url("https://static.cmermedical.com.hk/smile/assets/smileproV2/table/smilepro-table-pc-titleBg.png");
             position: absolute;
             top: -64px;
             right: -54px;
@@ -2134,7 +2175,7 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
           width: 146.775px;
           height: 120.004px;
           flex-shrink: 0;
-          background-image: url("https://statichk.cmermedical.com/smile/smileproV2/evaluate/smilepro-evaluate-title-mobile1.png");
+          background-image: url("https://static.cmermedical.com.hk/smile/assets/smileproV2/evaluate/smilepro-evaluate-title-mobile1.png");
           background-repeat: no-repeat;
           background-size: cover;
           position: relative;
@@ -2152,7 +2193,7 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
             content: "";
             width: 90px;
             height: 65px;
-            background-image: url("https://statichk.cmermedical.com/smile/smileproV2/evaluate/smilepro-evaluate-title-mobile2.png");
+            background-image: url("https://static.cmermedical.com.hk/smile/assets/smileproV2/evaluate/smilepro-evaluate-title-mobile2.png");
             top: -28px;
             left: -58px;
           }
@@ -2169,7 +2210,7 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
             position: absolute;
             left: 0;
             top: 0;
-            background-image: url("https://statichk.cmermedical.com/smile/smileproV2/smilepro-yjjz-bg-active.png");
+            background-image: url("https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-yjjz-bg-active.png");
             background-repeat: no-repeat;
             width: 180.251px !important;
             height: 333px;
@@ -2193,7 +2234,7 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
                 align-items: center;
 
                 & > div {
-                  background-image: url("https://statichk.cmermedical.com/smile/smileproV2/smilepro-yjjz-bg.png");
+                  background-image: url("https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-yjjz-bg.png");
                   background-repeat: no-repeat;
                   background-color: white;
                   width: 165px !important;
@@ -2342,6 +2383,14 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
       }
     }
 
+    @media screen and (min-width: 600px) and (max-width: 991px) {
+      .smile-pro-evaluateV2-Box .smile-pro-evaluateV2-Box-content {
+        margin-left: auto;
+        margin-right: auto;
+        padding-inline: 15px;
+      }
+    }
+
     @media screen and (max-width: 389px) {
       padding-top: 11.28vw;
       padding-bottom: 7.69vw;
@@ -2438,7 +2487,7 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
         position: absolute;
         bottom: 88px;
         right: 156px;
-        background-image: url("https://statichk.cmermedical.com/smile/smileproV2/smilepro-evaluate-title-pc03.png");
+        background-image: url("https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-evaluate-title-pc03.png");
         background-repeat: no-repeat;
         width: clamp(200px, 31.4vw, 328px);
         height: clamp(150px, 25.72vw, 268px);
@@ -2457,7 +2506,7 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
           width: 285px;
           height: 234px;
           flex-shrink: 0;
-          background-image: url("https://statichk.cmermedical.com/smile/smileproV2/smilepro-evaluate-title-pc1.png");
+          background-image: url("https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-evaluate-title-pc1.png");
           background-repeat: no-repeat;
           background-size: cover;
           position: absolute;
@@ -2480,7 +2529,7 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
             width: 163px;
             height: 118px;
             flex-shrink: 0;
-            background-image: url("https://statichk.cmermedical.com/smile/smileproV2/smilepro-evaluate-title-pc2.png");
+            background-image: url("https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-evaluate-title-pc2.png");
             top: -59px;
             left: -84px;
           }
@@ -2505,7 +2554,7 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
             position: absolute;
             left: -1px;
             top: 0;
-            background-image: url("https://statichk.cmermedical.com/smile/smileproV2/smilepro-yjjz-bg-pc-active.png");
+            background-image: url("https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-yjjz-bg-pc-active.png");
             background-repeat: no-repeat;
             background-size: 100% 100%;
             width: var(--eval-active-w) !important;
@@ -2533,7 +2582,7 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
               }
 
               .swiperWrap-item > div {
-                background-image: url("https://statichk.cmermedical.com/smile/smileproV2/smilepro-yjjz-bg-pc.png");
+                background-image: url("https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-yjjz-bg-pc.png");
                 background-repeat: no-repeat;
                 background-size: 100% 100%;
                 width: 100% !important;

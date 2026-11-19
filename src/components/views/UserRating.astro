@@ -281,7 +281,7 @@ const bookingTitle = dict.home.book.title;
           .UserRatingBox-top {
             width: 100%;
             height: clamp(400px, 40vw, 760px);
-            background: url("https://statichk.cmermedical.com/smile/VisionCorrectionCenter/UserRating/UserRating-top-pc.avif")
+            background: url("https://static.cmermedical.com.hk/smile/assets/VisionCorrectionCenter/UserRating/UserRating-top-pc.avif")
               no-repeat;
             background-size: cover;
             background-position: center top;
@@ -296,7 +296,7 @@ const bookingTitle = dict.home.book.title;
               padding: clamp(45px, 5vw, 95px) clamp(50px, 5.8vw, 110px) 0;
               width: clamp(330px, 34vw, 650px);
               height: clamp(330px, 34.5vw, 660px);
-              background: url("https://statichk.cmermedical.com/smile/VisionCorrectionCenter/UserRating/UserRating-top-rate-pc.avif")
+              background: url("https://static.cmermedical.com.hk/smile/assets/VisionCorrectionCenter/UserRating/UserRating-top-rate-pc.avif")
                 no-repeat;
               background-size: cover;
               position: relative;
@@ -309,7 +309,7 @@ const bookingTitle = dict.home.book.title;
                 height: clamp(80px, 8.3vw, 160px);
                 left: clamp(-149px, -7.8vw, -75px);
                 bottom: clamp(-83px, -4.3vw, -42px);
-                background: url("https://statichk.cmermedical.com/smile/VisionCorrectionCenter/UserRating/UserRating-top-rate-pc-before.jpg")
+                background: url("https://static.cmermedical.com.hk/smile/assets/VisionCorrectionCenter/UserRating/UserRating-top-rate-pc-before.jpg")
                   no-repeat;
                 background-size: cover;
               }
@@ -600,7 +600,7 @@ const bookingTitle = dict.home.book.title;
           .UserRatingBox-top {
             width: 100%;
             height: clamp(422.5px, 216.67vw, 845px);
-            background: url("https://statichk.cmermedical.com/smile/VisionCorrectionCenter/UserRating/UserRating-top-mb.webp")
+            background: url("https://static.cmermedical.com.hk/smile/assets/VisionCorrectionCenter/UserRating/UserRating-top-mb.webp")
               no-repeat;
             background-size: cover;
             background-position: 0 center;
@@ -611,7 +611,7 @@ const bookingTitle = dict.home.book.title;
               margin: 0 auto 0;
               width: clamp(180.5px, 92.56vw, 361px);
               height: clamp(218px, 111.79vw, 436px);
-              background: url("https://statichk.cmermedical.com/smile/VisionCorrectionCenter/UserRating/UserRating-top-rate-mb.png")
+              background: url("https://static.cmermedical.com.hk/smile/assets/VisionCorrectionCenter/UserRating/UserRating-top-rate-mb.png")
                 no-repeat;
               background-size: cover;
               position: relative;
@@ -624,7 +624,7 @@ const bookingTitle = dict.home.book.title;
                 height: clamp(32.5px, 16.67vw, 65px);
                 right: clamp(8.5px, 4.36vw, 17px);
                 top: clamp(-24px, -6.15vw, 12px);
-                background: url("https://statichk.cmermedical.com/smile/VisionCorrectionCenter/UserRating/UserRating-top-rate-mb-before.jpg")
+                background: url("https://static.cmermedical.com.hk/smile/assets/VisionCorrectionCenter/UserRating/UserRating-top-rate-mb-before.jpg")
                   no-repeat;
                 background-size: cover;
               }
@@ -874,6 +874,88 @@ const bookingTitle = dict.home.book.title;
                         stroke: #4570b6 !important;
                       }
                     }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /* 折疊屏與中型平板過渡端 (600px ~ 991px) */
+  @media (min-width: 600px) and (max-width: 991px) {
+    .UserRating {
+      .UserRatingContainer {
+        .UserRatingBox {
+          .UserRatingBox-top {
+            height: auto;
+            min-height: 440px;
+            padding: 40px 15px 48px;
+
+            .UserRatingBox-top-content {
+              width: 100%;
+              max-width: 580px;
+              height: auto;
+              background: #fff;
+              border-radius: 24px;
+              padding: 32px 28px;
+              box-shadow: 0 12px 32px rgba(69, 112, 182, 0.12);
+              box-sizing: border-box;
+
+              &::before {
+                width: 72px;
+                height: 48px;
+                right: 20px;
+                top: -18px;
+                border-radius: 8px;
+              }
+
+              .swiperWrapList {
+                height: 320px;
+              }
+            }
+          }
+
+          .UserRatingBox-bottom {
+            .UserRatingBox-bottom-top {
+              padding-bottom: 48px;
+              max-width: 720px;
+              margin: 0 auto;
+
+              .UserRatingBox-Link {
+                position: static;
+                transform: none;
+                width: auto;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 36px;
+                margin-top: 28px;
+
+                a {
+                  width: 148px;
+                  height: 148px;
+                  gap: 10px;
+                }
+
+                .UserShareBox-Link-btnone {
+                  .btn-action-icon {
+                    width: 56px;
+                    height: 34px;
+                  }
+                }
+
+                .UserShareBox-Link-btntwo {
+                  position: static;
+                  top: auto;
+                  left: auto;
+
+                  svg,
+                  img.btn-action-icon {
+                    width: 48px;
+                    height: 36px;
                   }
                 }
               }

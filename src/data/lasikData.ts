@@ -95,28 +95,28 @@ export const LASIK_ZH_HK: LasikData = {
     steps: [
       {
         num: "01",
-        img: "https://statichk.cmermedical.com/smile/lasik/lasik-principle-01.svg",
+        img: "https://static.cmermedical.com.hk/smile/assets/lasik/lasik-principle-01.svg",
         alt: "步驟1",
         width: 116,
         height: 116,
       },
       {
         num: "02",
-        img: "https://statichk.cmermedical.com/smile/lasik/lasik-principle-02.svg",
+        img: "https://static.cmermedical.com.hk/smile/assets/lasik/lasik-principle-02.svg",
         alt: "步驟2",
         width: 116,
         height: 78,
       },
       {
         num: "03",
-        img: "https://statichk.cmermedical.com/smile/lasik/lasik-principle-03.svg",
+        img: "https://static.cmermedical.com.hk/smile/assets/lasik/lasik-principle-03.svg",
         alt: "步驟3",
         width: 116,
         height: 116,
       },
       {
         num: "04",
-        img: "https://statichk.cmermedical.com/smile/lasik/lasik-principle-04.svg",
+        img: "https://static.cmermedical.com.hk/smile/assets/lasik/lasik-principle-04.svg",
         alt: "步驟4",
         width: 119,
         height: 61,
@@ -128,22 +128,22 @@ export const LASIK_ZH_HK: LasikData = {
     title: "LASIK激光矯視的好處",
     items: [
       {
-        icon: "https://statichk.cmermedical.com/smile/lasik/lasik-benefits-01.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/lasik/lasik-benefits-01.svg",
         title: "術後恢復快",
         lines: ["最快術後數天可如常", "生活、工作"],
       },
       {
-        icon: "https://statichk.cmermedical.com/smile/lasik/lasik-benefits-02.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/lasik/lasik-benefits-02.svg",
         title: "手術時間短",
         lines: ["最快20-30分鐘", "內完成矯視"],
       },
       {
-        icon: "https://statichk.cmermedical.com/smile/lasik/lasik-benefits-03.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/lasik/lasik-benefits-03.svg",
         title: "矯視過程輕鬆",
         lines: ["快捷、安全少有", "不適"],
       },
       {
-        icon: "https://statichk.cmermedical.com/smile/lasik/lasik-benefits-04.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/lasik/lasik-benefits-04.svg",
         title: "效果穩定",
         lines: ["視力改善", "滿意度高"],
       },
@@ -154,27 +154,27 @@ export const LASIK_ZH_HK: LasikData = {
     desc: "無論追求效率還是悠閒自在，\nLASIK激光矯視都讓你清楚\n見證往後每一刻。",
     items: [
       {
-        icon: "https://statichk.cmermedical.com/smile/lasik/lasik-suitable-01.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/lasik/lasik-suitable-01.svg",
         pcText: ["近視1,400度以下", "遠視/散光600度以下"],
         mbText: ["近視1,400度以下", "遠視/散光600度", "以下"],
       },
       {
-        icon: "https://statichk.cmermedical.com/smile/lasik/lasik-suitable-02.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/lasik/lasik-suitable-02.svg",
         pcText: ["投考或從事紀律部隊/", "航空業界人士"],
         mbText: ["投考或從事", "紀律部隊/航", "空業界人士"],
       },
       {
-        icon: "https://statichk.cmermedical.com/smile/lasik/lasik-suitable-03.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/lasik/lasik-suitable-03.svg",
         pcText: ["熱愛運動"],
         mbText: ["熱愛運動"],
       },
       {
-        icon: "https://statichk.cmermedical.com/smile/lasik/lasik-suitable-04.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/lasik/lasik-suitable-04.svg",
         pcText: ["不愛戴隱形眼鏡", "或眼鏡人士"],
         mbText: ["不愛戴隱形眼鏡", "或眼鏡人士"],
       },
       {
-        icon: "https://statichk.cmermedical.com/smile/lasik/lasik-suitable-05.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/lasik/lasik-suitable-05.svg",
         pcText: ["擔心長期配戴隱形眼鏡", "影響眼睛健康人士"],
         mbText: ["擔心長期配戴", "隱形眼鏡影響", "眼睛健康人士"],
       },
@@ -214,28 +214,28 @@ export const LASIK_ZH_CN: LasikData = {
     steps: [
       {
         num: "01",
-        img: "https://statichk.cmermedical.com/smile/lasik/lasik-principle-01.svg",
+        img: "https://static.cmermedical.com.hk/smile/assets/lasik/lasik-principle-01.svg",
         alt: "步骤1",
         width: 116,
         height: 116,
       },
       {
         num: "02",
-        img: "https://statichk.cmermedical.com/smile/lasik/lasik-principle-02.svg",
+        img: "https://static.cmermedical.com.hk/smile/assets/lasik/lasik-principle-02.svg",
         alt: "步骤2",
         width: 116,
         height: 78,
       },
       {
         num: "03",
-        img: "https://statichk.cmermedical.com/smile/lasik/lasik-principle-03.svg",
+        img: "https://static.cmermedical.com.hk/smile/assets/lasik/lasik-principle-03.svg",
         alt: "步骤3",
         width: 116,
         height: 116,
       },
       {
         num: "04",
-        img: "https://statichk.cmermedical.com/smile/lasik/lasik-principle-04.svg",
+        img: "https://static.cmermedical.com.hk/smile/assets/lasik/lasik-principle-04.svg",
         alt: "步骤4",
         width: 119,
         height: 61,
@@ -247,22 +247,22 @@ export const LASIK_ZH_CN: LasikData = {
     title: "LASIK激光矫视的好处",
     items: [
       {
-        icon: "https://statichk.cmermedical.com/smile/lasik/lasik-benefits-01.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/lasik/lasik-benefits-01.svg",
         title: "术后恢复快",
         lines: ["最快术后数天可如常", "生活、工作"],
       },
       {
-        icon: "https://statichk.cmermedical.com/smile/lasik/lasik-benefits-02.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/lasik/lasik-benefits-02.svg",
         title: "手术时间短",
         lines: ["最快20-30分钟", "内完成矫视"],
       },
       {
-        icon: "https://statichk.cmermedical.com/smile/lasik/lasik-benefits-03.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/lasik/lasik-benefits-03.svg",
         title: "矫视过程轻松",
         lines: ["快捷、安全少有", "不适"],
       },
       {
-        icon: "https://statichk.cmermedical.com/smile/lasik/lasik-benefits-04.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/lasik/lasik-benefits-04.svg",
         title: "效果稳定",
         lines: ["视力改善", "满意度高"],
       },
@@ -273,27 +273,27 @@ export const LASIK_ZH_CN: LasikData = {
     desc: "无论追求效率还是悠闲自在，\nLASIK激光矫视都让你清楚\n见证往后每一刻。",
     items: [
       {
-        icon: "https://statichk.cmermedical.com/smile/lasik/lasik-suitable-01.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/lasik/lasik-suitable-01.svg",
         pcText: ["近视1,400度以下", "远视/散光600度以下"],
         mbText: ["近视1,400度以下", "远视/散光600度", "以下"],
       },
       {
-        icon: "https://statichk.cmermedical.com/smile/lasik/lasik-suitable-02.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/lasik/lasik-suitable-02.svg",
         pcText: ["投考或从事纪律部队/", "航空业界人士"],
         mbText: ["投考或从事", "纪律部队/航", "空业界人士"],
       },
       {
-        icon: "https://statichk.cmermedical.com/smile/lasik/lasik-suitable-03.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/lasik/lasik-suitable-03.svg",
         pcText: ["热爱运动"],
         mbText: ["热爱运动"],
       },
       {
-        icon: "https://statichk.cmermedical.com/smile/lasik/lasik-suitable-04.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/lasik/lasik-suitable-04.svg",
         pcText: ["不爱戴隐形眼镜", "或眼镜人士"],
         mbText: ["不爱戴隐形眼镜", "或眼镜人士"],
       },
       {
-        icon: "https://statichk.cmermedical.com/smile/lasik/lasik-suitable-05.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/lasik/lasik-suitable-05.svg",
         pcText: ["担心长期配戴隐形眼镜", "影响眼睛健康人士"],
         mbText: ["担心长期配戴", "隐形眼镜影响", "眼睛健康人士"],
       },

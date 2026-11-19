@@ -4,7 +4,7 @@
  * @FilePath: /src/data/smileProData.ts
  * @Description: SMILE Pro 2.0 微笑激光矯視數據字典 (100% 官方真值對齊 + 繁簡雙語支援)
  */
-import type { ShareItem } from "@/data/shareData";
+export type { ShareItem } from "@/data/videoData";
 
 export interface SmileProStep {
   image: string;
@@ -173,181 +173,7 @@ export interface SmileProData {
   };
 }
 
-export const SMILE_PRO_SHARE_DATA: ShareItem[] = [
-  {
-    "type": "SMILE Pro",
-    "href": "https://youtu.be/YAGjW1TSCqg",
-    "img": "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro-028-v1.avif",
-    "text": [
-      "同隱形眼鏡正式分手～"
-    ],
-    "nameEn": "Cathy",
-    "nameCn": "王嘉慧"
-  },
-  {
-    "type": "SMILE Pro",
-    "href": "https://youtu.be/NtULZl7qUEg",
-    "img": "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro-027-v1.avif",
-    "text": [
-      "真實用家共同見證",
-      "「真實」自己"
-    ],
-    "nameEn": "",
-    "nameCn": "群星"
-  },
-  {
-    "type": "SMILE Pro",
-    "href": "https://youtu.be/LvVdc3l7XpE",
-    "img": "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro-026-v1.avif",
-    "text": [
-      "清楚咗 唱Live都放鬆咗"
-    ],
-    "nameEn": "Aerent",
-    "nameCn": "文凱婷"
-  },
-  {
-    "type": "SMILE Pro",
-    "href": "https://youtu.be/kPM1KMcAwss",
-    "img": "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro-025-v1.avif",
-    "text": [
-      "做SMILE Pro梗係搵",
-      "希瑪!"
-    ],
-    "nameEn": "GM",
-    "nameCn": "曾展望"
-  },
-  {
-    "type": "SMILE Pro",
-    "href": "https://youtu.be/Z-jpOoOpMEg",
-    "img": "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro-024-v1.avif",
-    "text": [
-      "穿搭由眼睛開始自由"
-    ],
-    "nameEn": "Gi",
-    "nameCn": "樊沛珈"
-  },
-  {
-    "type": "SMILE Pro",
-    "href": "https://youtu.be/iNu-uMliXNA",
-    "img": "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro-023-v1.avif",
-    "text": [
-      "唔使再忍受除戴Con嘅",
-      "痛苦"
-    ],
-    "nameEn": "Nicholas",
-    "nameCn": "阮浩棕"
-  },
-  {
-    "type": "SMILE Pro",
-    "href": "https://youtu.be/tcvQgB4IXDk",
-    "img": "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro-022-v1.avif",
-    "text": [
-      "做咗SMILE Pro 2年",
-      "都仲睇得咁清楚"
-    ],
-    "nameEn": "Maggie",
-    "nameCn": "米姬"
-  },
-  {
-    "type": "SMILE Pro",
-    "href": "https://youtu.be/Z5ut-9tIhmo",
-    "img": "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro-021.avif",
-    "text": [
-      "唔洗矇查查周圍搵眼鏡"
-    ],
-    "nameEn": "Sarah",
-    "nameCn": "李蒨怡"
-  },
-  {
-    "type": "SMILE Pro",
-    "href": "https://youtu.be/857FwJQu7OA",
-    "img": "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro-020.avif",
-    "text": [
-      "無咗眼鏡都一樣做到唔",
-      "同活動"
-    ],
-    "nameEn": "Jay",
-    "nameCn": "沈以諾"
-  },
-  {
-    "type": "SMILE Pro",
-    "href": "https://youtu.be/TBI6J31JwJQ",
-    "img": "https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShareItem2.avif",
-    "text": [
-      "做咗就可以好似我依家",
-      "咁方便㗎喇"
-    ],
-    "nameEn": "Carmen",
-    "nameCn": "倪嘉雯"
-  },
-  {
-    "type": "SMILE Pro",
-    "href": "https://youtu.be/vxeN1wXeZ5M",
-    "img": "https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShareItem3.avif",
-    "text": [
-      "好舒服之下就完成咗成",
-      "個過程"
-    ],
-    "nameEn": "Maggie",
-    "nameCn": "米姬"
-  },
-  {
-    "type": "SMILE Pro",
-    "href": "https://youtu.be/10KYv_gGgWM",
-    "img": "https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShareItem5.avif",
-    "text": [
-      "無哂Con帶嚟嘅麻煩，",
-      "促進咗眼神交流"
-    ],
-    "nameEn": " ",
-    "nameCn": "Anson Au"
-  },
-  {
-    "type": "SMILE Pro",
-    "href": "https://www.youtube.com/watch?v=1p5Qm_772jI",
-    "img": "https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShareItem7.avif",
-    "text": [
-      "做完SMILE Pro",
-      "上舞台都唔會驚光"
-    ],
-    "nameEn": " ",
-    "nameCn": "細貓"
-  },
-  {
-    "type": "SMILE Pro",
-    "href": "https://youtu.be/kVEJ-PN4AJo",
-    "img": "https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShareItem8.avif",
-    "text": [
-      "我問自己點解唔早啲做",
-      "SMILE Pro呢!"
-    ],
-    "nameEn": " ",
-    "nameCn": "Cindy Wong"
-  },
-  {
-    "type": "SMILE Pro",
-    "href": "https://youtu.be/VoGlE1dJPhc",
-    "img": "https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShareItem9.avif",
-    "text": [
-      "做完幾個月視力都維持",
-      "到非常之清"
-    ],
-    "nameEn": "Pinky",
-    "nameCn": ""
-  },
-  {
-    "type": "SMILE Pro",
-    "href": "https://youtu.be/1Ic0z7wiVv8",
-    "img": "https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShareItem10.avif",
-    "text": [
-      "唔洗花時間戴Con，可",
-      "以直接出門練習，非常",
-      "方便"
-    ],
-    "nameEn": "Tiffany",
-    "nameCn": "鄧伊程"
-  }
-];
+export { SMILE_PRO_SHARE_DATA } from "@/data/videoData";
 
 export const SMILE_PRO_ZH_HK: SmileProData = {
   breadcrumb: {
@@ -356,9 +182,9 @@ export const SMILE_PRO_ZH_HK: SmileProData = {
     current: "SMILE Pro 2.0 微笑激光矯視",
   },
   banner: {
-    noticeImgPc: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-banner-03-pc-v1.webp",
-    noticeImgMb: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-banner-03-mb-v1.webp",
-    noticeMarqueeImg: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-notice-mb-03-v2.webp",
+    noticeImgPc: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-banner-03-pc-v1.webp",
+    noticeImgMb: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-banner-03-mb-v1.webp",
+    noticeMarqueeImg: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-notice-mb-03-v2.webp",
     heroImgPc: "https://static.cmermedical.com.hk/smile/uploads/2026/11/11/gnjyyi02_iwEZAqNqcGcDAQTRBQAF0QHgBrDC7hFoTYc2XwrCvXZrxcoBB9.webp",
     heroImgMb: "https://static.cmermedical.com.hk/smile/uploads/2026/11/11/trqms04n_iwEZAqNqcGcDAQTRAUsF0QFLBrBoxJln_el2TgrCvXZrxcoAB9.webp",
     heroAlt: "SMILE PRO 1.0/2.0 冬日最新價格",
@@ -370,7 +196,7 @@ export const SMILE_PRO_ZH_HK: SmileProData = {
   summary: {
     titlePrefix: "SMILE®Pro",
     titleStrong: "微笑激光矯視",
-    fullUpgradedImg: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-full-upgraded-v2.svg",
+    fullUpgradedImg: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-full-upgraded-v2.svg",
     p1: {
       text1: "SMILE® Pro 微笑矯視為現時最新的",
       strong1: "微創",
@@ -393,12 +219,12 @@ export const SMILE_PRO_ZH_HK: SmileProData = {
       strong8: "SMILE® Pro Care 1.0 / 2.0",
       text10: " 。全方位滿足不同需求，給您最安心的微創矯視體驗！ ",
     },
-    introImgPc: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-intro-01-pc-v1.webp",
-    introImgMb: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-intro-01-mb-v1.webp",
+    introImgPc: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-intro-01-pc-v1.webp",
+    introImgMb: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-intro-01-mb-v1.webp",
     videoUrl: "https://www.youtube.com/embed/IxvWmeOd18c",
   },
   pro2Intro: {
-    logoImg: "https://statichk.cmermedical.com/smile/smileproV2/icon-smile-pro-2-v1.webp",
+    logoImg: "https://static.cmermedical.com.hk/smile/assets/smileproV2/icon-smile-pro-2-v1.webp",
     certText: "蔡司ZEISS官方認證",
     title: "SMILE PRO 2.0 微笑激光矯視",
     desc: "為了給您更精準的視覺體驗，希瑪矯視作為<a href=\"https://www.zeiss.com.hk/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"pro2-authority-link\" title=\"前往蔡司香港官方網站（另開新分頁）\" aria-label=\"前往蔡司香港官方網站（另開新分頁）\">蔡司官方夥伴</a>，已全面升級引入 <a href=\"https://www.zeiss.com/meditec/en/products/refractive-lasers/visumax-800.html\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"pro2-authority-link\" title=\"查看 ZEISS VISUMAX 800 官方設備介紹（另開新分頁）\" aria-label=\"查看 ZEISS VISUMAX 800 官方設備介紹（另開新分頁）\"><strong class=\"font-bold text-primary\">SMILE® Pro 2.0</strong></a>！",
@@ -409,8 +235,8 @@ export const SMILE_PRO_ZH_HK: SmileProData = {
   },
   whyChoose: {
     title: "為何選擇希瑪?",
-    img: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-why-pc.avif",
-    imgMobile: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-why-mobile.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/icl-why-pc.avif",
+    imgMobile: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/icl-why-mobile.avif",
     alt: "希瑪眼科微笑矯視中心診所環境",
     p1Text1: "希瑪微笑矯視中心憑藉尖端科技與卓越的客戶體驗，成為大眾進行 SMILE® Pro 1.0/2.0 矯視的首選。作為",
     p1Span: "香港首間獲蔡司（ZEISS）頒發《全飛秒屈光手術 卓越手術中心》認證的矯視中心",
@@ -471,14 +297,14 @@ export const SMILE_PRO_ZH_HK: SmileProData = {
       careLinkText: "什麼是SMILE Pro 2.0 Care？",
       upgrades: [
         {
-          icon: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-price-upgrade-01-v2.svg",
+          icon: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-price-upgrade-01-v2.svg",
           text: "自動追蹤",
-          badge: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-upgrade.svg",
+          badge: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-upgrade.svg",
         },
         {
-          icon: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-price-upgrade-02-v2.svg",
+          icon: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-price-upgrade-02-v2.svg",
           text: "精準度提升",
-          badge: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-upgrade.svg",
+          badge: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-upgrade.svg",
         },
       ],
       preCheckTitle: "術前檢查費用",
@@ -555,19 +381,19 @@ export const SMILE_PRO_ZH_HK: SmileProData = {
     title: "SMILE Pro 2.0 微笑激光矯視過程",
     list: [
       {
-        image: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-step-0201-v1.webp",
+        image: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-step-0201-v1.webp",
         text: "以「虹膜辨識」功能，即時追蹤並⾃動校正散光軸向",
       },
       {
-        image: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-step-0202-v1.webp",
+        image: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-step-0202-v1.webp",
         text: "全飛秒激光直接切割角膜中層",
       },
       {
-        image: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-step-0103-v1.webp",
+        image: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-step-0103-v1.webp",
         text: "製作一個約 2-2.5mm 的小切口",
       },
       {
-        image: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-step-0104-v1.webp",
+        image: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-step-0104-v1.webp",
         text: "將切割了的角膜 透鏡從切口抽出",
       },
     ],
@@ -576,27 +402,27 @@ export const SMILE_PRO_ZH_HK: SmileProData = {
     title: "SMILE Pro 1.0 微笑激光矯視過程",
     list: [
       {
-        image: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-step-0101-v1.webp",
+        image: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-step-0101-v1.webp",
         text: "以「視軸輔助導航」功能，精準輔助人手鎖定視軸中心點",
       },
       {
-        image: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-step-0102-v1.webp",
+        image: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-step-0102-v1.webp",
         text: "全飛秒激光直接切割角膜中層",
       },
       {
-        image: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-step-0103-v1.webp",
+        image: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-step-0103-v1.webp",
         text: "製作一個約 2-2.5mm 的小切口",
       },
       {
-        image: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-step-0104-v1.webp",
+        image: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-step-0104-v1.webp",
         text: "將切割了的角膜透鏡從切口抽出",
       },
     ],
   },
   suitable: {
     title: "你適合做SMILE Pro 1.0/2.0嗎?",
-    imgPc: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-process-cover-pc.webp",
-    imgMb: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-process-cover-mb.webp",
+    imgPc: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-process-cover-pc.webp",
+    imgMb: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-process-cover-mb.webp",
     items: [
       "①年滿<strong>二十一歲</strong>",
       "②暗室瞳孔直徑<strong>偏大</strong>",
@@ -646,9 +472,9 @@ export const SMILE_PRO_ZH_CN: SmileProData = {
     current: "SMILE Pro 2.0 微笑激光矫视",
   },
   banner: {
-    noticeImgPc: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-banner-03-pc-v1.webp",
-    noticeImgMb: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-banner-03-mb-v1.webp",
-    noticeMarqueeImg: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-notice-mb-03-v2.webp",
+    noticeImgPc: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-banner-03-pc-v1.webp",
+    noticeImgMb: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-banner-03-mb-v1.webp",
+    noticeMarqueeImg: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-notice-mb-03-v2.webp",
     heroImgPc: "https://static.cmermedical.com.hk/smile/uploads/2026/11/11/gnjyyi02_iwEZAqNqcGcDAQTRBQAF0QHgBrDC7hFoTYc2XwrCvXZrxcoBB9.webp",
     heroImgMb: "https://static.cmermedical.com.hk/smile/uploads/2026/11/11/trqms04n_iwEZAqNqcGcDAQTRAUsF0QFLBrBoxJln_el2TgrCvXZrxcoAB9.webp",
     heroAlt: "SMILE PRO 1.0/2.0 冬日最新价格",
@@ -660,7 +486,7 @@ export const SMILE_PRO_ZH_CN: SmileProData = {
   summary: {
     titlePrefix: "SMILE®Pro",
     titleStrong: "微笑激光矫视",
-    fullUpgradedImg: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-full-upgraded-v2.svg",
+    fullUpgradedImg: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-full-upgraded-v2.svg",
     p1: {
       text1: "SMILE® Pro 微笑矫视为现时最新的",
       strong1: "微创",
@@ -683,12 +509,12 @@ export const SMILE_PRO_ZH_CN: SmileProData = {
       strong8: "SMILE® Pro Care 1.0 / 2.0",
       text10: " 。全方位满足不同需求，给您最安心的微创矫视体验！ ",
     },
-    introImgPc: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-intro-01-pc-v1.webp",
-    introImgMb: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-intro-01-mb-v1.webp",
+    introImgPc: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-intro-01-pc-v1.webp",
+    introImgMb: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-intro-01-mb-v1.webp",
     videoUrl: "https://www.youtube.com/embed/IxvWmeOd18c",
   },
   pro2Intro: {
-    logoImg: "https://statichk.cmermedical.com/smile/smileproV2/icon-smile-pro-2-v1.webp",
+    logoImg: "https://static.cmermedical.com.hk/smile/assets/smileproV2/icon-smile-pro-2-v1.webp",
     certText: "蔡司ZEISS官方认证",
     title: "SMILE PRO 2.0 微笑激光矫视",
     desc: "为了给您更精准的视觉体验，希玛矫视作为<a href=\"https://www.zeiss.com.hk/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"pro2-authority-link\" title=\"前往蔡司香港官方网站（另开新分页面）\" aria-label=\"前往蔡司香港官方网站（另开新分页面）\">蔡司官方伙伴</a>，已全面升级引入 <a href=\"https://www.zeiss.com/meditec/en/products/refractive-lasers/visumax-800.html\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"pro2-authority-link\" title=\"查看 ZEISS VISUMAX 800 官方设备介绍（另开新分页面）\" aria-label=\"查看 ZEISS VISUMAX 800 官方设备介绍（另开新分页面）\"><strong class=\"font-bold text-primary\">SMILE® Pro 2.0</strong></a>！",
@@ -699,8 +525,8 @@ export const SMILE_PRO_ZH_CN: SmileProData = {
   },
   whyChoose: {
     title: "为何选择希玛?",
-    img: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-why-pc.avif",
-    imgMobile: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-why-mobile.avif",
+    img: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/icl-why-pc.avif",
+    imgMobile: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/icl-why-mobile.avif",
     alt: "希玛眼科微笑矫视中心诊所环境",
     p1Text1: "希玛微笑矫视中心以尖端科技和卓越的客户体验；同时作为",
     p1Span: "首间获Zeiss蔡司颁发《全飞秒屈光手术 卓越手术中心》",
@@ -761,14 +587,14 @@ export const SMILE_PRO_ZH_CN: SmileProData = {
       careLinkText: "什么是SMILE Pro 2.0 Care？",
       upgrades: [
         {
-          icon: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-price-upgrade-01-v2.svg",
+          icon: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-price-upgrade-01-v2.svg",
           text: "自动追踪",
-          badge: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-upgrade.svg",
+          badge: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-upgrade.svg",
         },
         {
-          icon: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-price-upgrade-02-v2.svg",
+          icon: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-price-upgrade-02-v2.svg",
           text: "精准度提升",
-          badge: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-upgrade.svg",
+          badge: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-upgrade.svg",
         },
       ],
       preCheckTitle: "术前检查费用",
@@ -845,19 +671,19 @@ export const SMILE_PRO_ZH_CN: SmileProData = {
     title: "SMILE Pro 2.0 微笑激光矯視過程",
     list: [
       {
-        image: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-step-0201-v1.webp",
+        image: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-step-0201-v1.webp",
         text: "以「虹膜辨识」功能，即时追踪并自动校正散光轴向",
       },
       {
-        image: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-step-0202-v1.webp",
+        image: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-step-0202-v1.webp",
         text: "全飞秒激光直接切割角膜中层",
       },
       {
-        image: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-step-0103-v1.webp",
+        image: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-step-0103-v1.webp",
         text: "制作一个约 2-2.5mm 的小切口",
       },
       {
-        image: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-step-0104-v1.webp",
+        image: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-step-0104-v1.webp",
         text: "将切割了的角膜透镜从切口抽出",
       },
     ],
@@ -866,27 +692,27 @@ export const SMILE_PRO_ZH_CN: SmileProData = {
     title: "SMILE Pro 1.0 微笑激光矯視過程",
     list: [
       {
-        image: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-step-0101-v1.webp",
+        image: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-step-0101-v1.webp",
         text: "以「视轴辅助导航」功能，精准辅助人手锁定视轴中心点",
       },
       {
-        image: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-step-0102-v1.webp",
+        image: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-step-0102-v1.webp",
         text: "全飞秒激光直接切割角膜中层",
       },
       {
-        image: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-step-0103-v1.webp",
+        image: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-step-0103-v1.webp",
         text: "制作一个约 2-2.5mm 的小切口",
       },
       {
-        image: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-step-0104-v1.webp",
+        image: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-step-0104-v1.webp",
         text: "将切割了的角膜透镜从切口抽出",
       },
     ],
   },
   suitable: {
     title: "你適合做SMILE Pro 1.0/2.0嗎?",
-    imgPc: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-process-cover-pc.webp",
-    imgMb: "https://statichk.cmermedical.com/smile/smileproV2/smilepro-process-cover-mb.webp",
+    imgPc: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-process-cover-pc.webp",
+    imgMb: "https://static.cmermedical.com.hk/smile/assets/smileproV2/smilepro-process-cover-mb.webp",
     items: [
       "①年满<strong>二十一岁</strong>",
       "②暗室瞳孔直径<strong>偏大</strong>",

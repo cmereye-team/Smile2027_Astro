@@ -43,7 +43,7 @@ const newsList = [
       <aside class="footer-card new-Footer-v2-address" aria-label={isCn ? "诊所门市资讯与营业时间" : "診所門市資訊與營業時間"}>
         <a class="footer-logo new-Footer-v2-logo" href={getLocalizedHref("/", lang)} title="香港希瑪微笑矯視中心官方首頁" aria-label="香港希瑪微笑矯視中心官方首頁">
           <img draggable="false"
-            src="https://statichk.cmermedical.com/smile/smileproV2/Smile-footer-mobile-LogoV2.svg"
+            src="https://static.cmermedical.com.hk/smile/assets/smileproV2/Smile-footer-mobile-LogoV2.svg"
             alt="香港希瑪微笑矯視中心 (CMER SMILE Refractive Center)"
             title="香港希瑪微笑矯視中心 (CMER SMILE Refractive Center)"
             width="492"
@@ -87,7 +87,7 @@ const newsList = [
                 aria-label="Google 地圖查看中環門市"
               >
                 <img decoding="async" draggable="false"
-                  src="https://statichk.cmermedical.com/smile/new-footerV2-address-pc.avif"
+                  src="https://static.cmermedical.com.hk/smile/assets/new-footerV2-address-pc.avif"
                   alt={isCn ? "香港中环中建大厦门市地图导航" : "香港中環中建大廈門市地圖導航"}
                   title={isCn ? "Google 地图查看中环门市" : "Google 地圖查看中環門市"}
                   width="58"
@@ -113,7 +113,7 @@ const newsList = [
                 aria-label="Google 地圖查看旺角門市"
               >
                 <img decoding="async" draggable="false"
-                  src="https://statichk.cmermedical.com/smile/new-footerV2-address-pc.avif"
+                  src="https://static.cmermedical.com.hk/smile/assets/new-footerV2-address-pc.avif"
                   alt={isCn ? "香港旺角雅兰中心门市地图导航" : "香港旺角雅蘭中心門市地圖導航"}
                   title={isCn ? "Google 地图查看旺角门市" : "Google 地圖查看旺角門市"}
                   width="58"
@@ -363,7 +363,7 @@ const newsList = [
 
     &::after {
       background-repeat: no-repeat;
-      content: url("https://statichk.cmermedical.com/smile/smileproV2/newFooterV2-bgicon.png");
+      content: url("https://static.cmermedical.com.hk/smile/assets/smileproV2/newFooterV2-bgicon.png");
       position: absolute;
       right: -15px;
       bottom: -10px;
@@ -381,7 +381,7 @@ const newsList = [
       box-shadow: 0 10px 30px rgba(69, 112, 182, 0.08);
 
       &::after {
-        content: url("https://statichk.cmermedical.com/smile/newFooterV2-bgicon-pc.avif");
+        content: url("https://static.cmermedical.com.hk/smile/assets/newFooterV2-bgicon-pc.avif");
         right: clamp(16px, 2.5vw, 50px);
         bottom: -20px;
         pointer-events: none;
@@ -764,6 +764,54 @@ const newsList = [
           gap: 12px;
         }
       }
+    }
+  }
+
+  /* 摺疊屏 / 平板中段視口優化 (600–719px，如 626×890 豎屏) */
+  @media screen and (min-width: 600px) and (max-width: 719px) {
+    .footer-card {
+      max-width: 560px;
+      padding: 30px 28px 26px;
+    }
+
+    .footer-logo {
+      max-width: 300px;
+    }
+
+    .footer-locations {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+
+      .footer-location-item {
+        margin-bottom: 0;
+      }
+    }
+
+    .footer-nav {
+      gap: 56px;
+    }
+  }
+
+  /* 摺疊屏展開 / 橫屏中段視口優化 (720–991px，如 890×626 / Z Fold 展開 / iPad mini) */
+  @media screen and (min-width: 720px) and (max-width: 991px) {
+    .footer-main {
+      display: flex;
+      align-items: flex-start;
+      gap: 32px;
+    }
+
+    .footer-card {
+      flex: 0 0 360px;
+      max-width: 360px;
+      margin: 0;
+    }
+
+    .footer-nav {
+      margin-top: 8px;
+      flex: 1;
+      justify-content: space-around;
+      gap: 24px;
     }
   }
 

@@ -197,8 +197,8 @@ export const PRESBYOPIA_ZH_HK: PresbyopiaData = {
     p2Link2Text: "ICL Viva V6",
     p2Link2Href: "#CorrectionProgram",
     p3: "如你正受以下老花問題困擾，可參考本頁有關老花矯視服務的詳盡介紹。",
-    imgPc: "https://statichk.cmermedical.com/smile/clear-visionV2/ClearVisionBanner-bg-pc1.avif",
-    imgMb: "https://statichk.cmermedical.com/smile/clear-visionV2/ClearVisionBanner-bg-mb.webp",
+    imgPc: "https://static.cmermedical.com.hk/smile/assets/clear-visionV2/ClearVisionBanner-bg-pc1.avif",
+    imgMb: "https://static.cmermedical.com.hk/smile/assets/clear-visionV2/ClearVisionBanner-bg-mb.webp",
     imgAlt: "香港希瑪微笑矯視中心 - 老花矯視服務、症狀與方案介紹",
     badgeSpan1: "<i>「</i>6<i>」</i>字同<i>「</i> 8<i>」</i>字",
     badgeSpan2: "不能夠一眼分清？",
@@ -217,15 +217,15 @@ export const PRESBYOPIA_ZH_HK: PresbyopiaData = {
   },
   schemes: {
     title: "老花矯視方案",
-    showImgPc: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/CorrectionProgram/CorrectionProgram-Box-show-pc.avif",
-    showImgMb: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/CorrectionProgram/CorrectionProgram-Box-hide-mb.avif",
-    bgMb: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/CorrectionProgram/CorrectionProgram-Box-hide-mbBg.avif",
+    showImgPc: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/CorrectionProgram/CorrectionProgram-Box-show-pc.avif",
+    showImgMb: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/CorrectionProgram/CorrectionProgram-Box-hide-mb.avif",
+    bgMb: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/CorrectionProgram/CorrectionProgram-Box-hide-mbBg.avif",
     items: [
       {
         id: "scheme-01",
         targetId: "CorrectionProgramTwo",
-        imgWp: "https://statichk.cmermedical.com/smile/clear-visionV2/clear-solution-01-v1.webp",
-        imgJpg: "https://statichk.cmermedical.com/smile/clear-visionV2/clear-solution-01-v1.jpg",
+        imgWp: "https://static.cmermedical.com.hk/smile/assets/clear-visionV2/clear-solution-01-v1.webp",
+        imgJpg: "https://static.cmermedical.com.hk/smile/assets/clear-visionV2/clear-solution-01-v1.jpg",
         imgAlt: "PRESBYOND LBV 视觉融合老花激光手术设备 - 蔡司 MEL 90",
         suitTag: "適合",
         suitList: ["• 39歲以上有老花", "• 未有白內障"],
@@ -234,8 +234,8 @@ export const PRESBYOPIA_ZH_HK: PresbyopiaData = {
       },
       {
         id: "scheme-02",
-        imgWp: "https://statichk.cmermedical.com/cmermedical/image/20260317/image22.webp",
-        imgJpg: "https://statichk.cmermedical.com/cmermedical/image/20260317/image22.webp",
+        imgWp: "https://static.cmermedical.com.hk/smile/assets/cmermedical/image/20260317/image22.webp",
+        imgJpg: "https://static.cmermedical.com.hk/smile/assets/cmermedical/image/20260317/image22.webp",
         imgAlt: "CMER CLEAR-Vision 人工晶体置换术 - 白内障与老花矫正人工晶体",
         suitTag: "適合",
         suitList: ["• 39歲以上有老花", "• 同時有近視/遠視/散光問題"],
@@ -244,8 +244,8 @@ export const PRESBYOPIA_ZH_HK: PresbyopiaData = {
       },
       {
         id: "scheme-03",
-        imgWp: "https://statichk.cmermedical.com/cmermedical/image/20260317/image23.webp",
-        imgJpg: "https://statichk.cmermedical.com/cmermedical/image/20260317/image23.webp",
+        imgWp: "https://static.cmermedical.com.hk/smile/assets/cmermedical/image/20260317/image23.webp",
+        imgJpg: "https://static.cmermedical.com.hk/smile/assets/cmermedical/image/20260317/image23.webp",
         imgAlt: "ICL Viva V6 延展景深 EDoF 植入式隐形眼镜老花矫视",
         suitTag: "適合",
         suitList: ["• 39歲或以上有老花", "• 1,000度以下近視", "• 未有白內障"],
@@ -335,8 +335,8 @@ export const PRESBYOPIA_ZH_HK: PresbyopiaData = {
   },
   battle: {
     title: "老花矯視技術好處對比",
-    bgPc: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/visionBattle/visionBattle-newpcBg.avif",
-    bgMb: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/visionBattle/visionBattle-mbBg.avif",
+    bgPc: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/visionBattle/visionBattle-newpcBg.avif",
+    bgMb: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/visionBattle/visionBattle-mbBg.avif",
     items: [
       {
         title: "PRESBYOND <br /> Laser Blended Vision <br /> 視覺融合老花激光手術",
@@ -453,12 +453,12 @@ export const PRESBYOPIA_ZH_HK: PresbyopiaData = {
     slides: [
       {
         title: "室外",
-        img: "https://statichk.cmermedical.com/cmermedical/image/20260317/banner2.webp",
+        img: "https://static.cmermedical.com.hk/smile/assets/cmermedical/image/20260317/banner2.webp",
         alt: "老花矯視術後室外遠中近全距離視力效果模擬預覽",
       },
       {
         title: "室內",
-        img: "https://statichk.cmermedical.com/cmermedical/image/20260317/banner3.webp",
+        img: "https://static.cmermedical.com.hk/smile/assets/cmermedical/image/20260317/banner3.webp",
         alt: "老花矯視術後室內閱讀與辦公視力效果模擬預覽",
       },
     ],
@@ -466,33 +466,33 @@ export const PRESBYOPIA_ZH_HK: PresbyopiaData = {
   appointment: {
     lectureText: "預約老花講座",
     lectureHref: "/ophthalmicInfo/AppointForm",
-    lectureIcon: "https://statichk.cmermedical.com/smile/clear-visionV2/clearAppointment/laohua.svg",
+    lectureIcon: "https://static.cmermedical.com.hk/smile/assets/clear-visionV2/clearAppointment/laohua.svg",
     consultText: "預約諮詢",
     consultHref: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-06)%20CMER%20CLEAR-Vision%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5%E5%8F%8A%E8%AB%AE%E8%A9%A2",
-    consultIcon: "https://statichk.cmermedical.com/smile/clear-visionV2/clearAppointment/zixun.svg",
+    consultIcon: "https://static.cmermedical.com.hk/smile/assets/clear-visionV2/clearAppointment/zixun.svg",
   },
   suitable: {
     title: "合適對象",
     subtitleHtml: "無論追求效率還是悠閒自在，<br class=\"d-none d-lg-block\" />老花矯視都讓你清楚見證<br class=\"d-none d-lg-block\" />往後每一刻。",
-    bgRightPc: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/SuitableObject/SuitableObject-pc-bgRight.svg",
-    bgRightMb: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/SuitableObject/SuitableObject-mb-bgRight.svg",
-    bgLeft1: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/SuitableObject/SuitableObject-pc-bgLeft1.svg",
-    bgLeft2: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/SuitableObject/SuitableObject-pc-bgLeft2.svg",
+    bgRightPc: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/SuitableObject/SuitableObject-pc-bgRight.svg",
+    bgRightMb: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/SuitableObject/SuitableObject-mb-bgRight.svg",
+    bgLeft1: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/SuitableObject/SuitableObject-pc-bgLeft1.svg",
+    bgLeft2: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/SuitableObject/SuitableObject-pc-bgLeft2.svg",
     items: [
       {
-        icon: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/SuitableObject/SuitableObject-itemImg-10.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/SuitableObject/SuitableObject-itemImg-10.svg",
         html: "39歲以上",
       },
       {
-        icon: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/SuitableObject/SuitableObject-itemImg-2.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/SuitableObject/SuitableObject-itemImg-2.svg",
         html: "熱愛運動",
       },
       {
-        icon: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/SuitableObject/SuitableObject-itemImg-3.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/SuitableObject/SuitableObject-itemImg-3.svg",
         html: "佩戴多副矯正度數眼鏡<br /><span>(近視、遠視、<br />散光、老花)</span>",
       },
       {
-        icon: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/SuitableObject/SuitableObject-itemImg-4.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/SuitableObject/SuitableObject-itemImg-4.svg",
         html: "不愛佩戴眼鏡<br />或隱形眼鏡",
       },
     ],
@@ -563,8 +563,8 @@ export const PRESBYOPIA_ZH_CN: PresbyopiaData = {
     p2Link2Text: "ICL Viva V6",
     p2Link2Href: "#CorrectionProgram",
     p3: "如你正受以下老花问题困扰，可参考本页有关老花矫视服务的详尽介绍。",
-    imgPc: "https://statichk.cmermedical.com/smile/clear-visionV2/ClearVisionBanner-bg-pc1.avif",
-    imgMb: "https://statichk.cmermedical.com/smile/clear-visionV2/ClearVisionBanner-bg-mb.webp",
+    imgPc: "https://static.cmermedical.com.hk/smile/assets/clear-visionV2/ClearVisionBanner-bg-pc1.avif",
+    imgMb: "https://static.cmermedical.com.hk/smile/assets/clear-visionV2/ClearVisionBanner-bg-mb.webp",
     imgAlt: "香港希玛微笑矫视中心 - 老花矫视服务、症状与方案介绍",
     badgeSpan1: "<i>「</i>6<i>」</i>字同<i>「</i> 8<i>」</i>字",
     badgeSpan2: "不能够一眼分清？",
@@ -583,15 +583,15 @@ export const PRESBYOPIA_ZH_CN: PresbyopiaData = {
   },
   schemes: {
     title: "老花矫视方案",
-    showImgPc: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/CorrectionProgram/CorrectionProgram-Box-show-pc.avif",
-    showImgMb: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/CorrectionProgram/CorrectionProgram-Box-hide-mb.avif",
-    bgMb: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/CorrectionProgram/CorrectionProgram-Box-hide-mbBg.avif",
+    showImgPc: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/CorrectionProgram/CorrectionProgram-Box-show-pc.avif",
+    showImgMb: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/CorrectionProgram/CorrectionProgram-Box-hide-mb.avif",
+    bgMb: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/CorrectionProgram/CorrectionProgram-Box-hide-mbBg.avif",
     items: [
       {
         id: "scheme-01",
         targetId: "CorrectionProgramTwo",
-        imgWp: "https://statichk.cmermedical.com/smile/clear-visionV2/clear-solution-01-v1.webp",
-        imgJpg: "https://statichk.cmermedical.com/smile/clear-visionV2/clear-solution-01-v1.jpg",
+        imgWp: "https://static.cmermedical.com.hk/smile/assets/clear-visionV2/clear-solution-01-v1.webp",
+        imgJpg: "https://static.cmermedical.com.hk/smile/assets/clear-visionV2/clear-solution-01-v1.jpg",
         imgAlt: "PRESBYOND LBV 视觉融合老花激光手术设备 - 蔡司 MEL 90",
         suitTag: "适合",
         suitList: ["• 39岁以上有老花", "• 未有白内障"],
@@ -600,8 +600,8 @@ export const PRESBYOPIA_ZH_CN: PresbyopiaData = {
       },
       {
         id: "scheme-02",
-        imgWp: "https://statichk.cmermedical.com/cmermedical/image/20260317/image22.webp",
-        imgJpg: "https://statichk.cmermedical.com/cmermedical/image/20260317/image22.webp",
+        imgWp: "https://static.cmermedical.com.hk/smile/assets/cmermedical/image/20260317/image22.webp",
+        imgJpg: "https://static.cmermedical.com.hk/smile/assets/cmermedical/image/20260317/image22.webp",
         imgAlt: "CMER CLEAR-Vision 人工晶体置换术 - 白内障与老花矫正人工晶体",
         suitTag: "适合",
         suitList: ["• 39岁以上有老花", "• 同时有近视/远视/散光问题"],
@@ -610,8 +610,8 @@ export const PRESBYOPIA_ZH_CN: PresbyopiaData = {
       },
       {
         id: "scheme-03",
-        imgWp: "https://statichk.cmermedical.com/cmermedical/image/20260317/image23.webp",
-        imgJpg: "https://statichk.cmermedical.com/cmermedical/image/20260317/image23.webp",
+        imgWp: "https://static.cmermedical.com.hk/smile/assets/cmermedical/image/20260317/image23.webp",
+        imgJpg: "https://static.cmermedical.com.hk/smile/assets/cmermedical/image/20260317/image23.webp",
         imgAlt: "ICL Viva V6 延展景深 EDoF 植入式隐形眼镜老花矫视",
         suitTag: "适合",
         suitList: ["• 39岁或以上有老花", "• 1,000度以下近视", "• 未有白内障"],
@@ -701,8 +701,8 @@ export const PRESBYOPIA_ZH_CN: PresbyopiaData = {
   },
   battle: {
     title: "老花矫视技术好处对比",
-    bgPc: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/visionBattle/visionBattle-newpcBg.avif",
-    bgMb: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/visionBattle/visionBattle-mbBg.avif",
+    bgPc: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/visionBattle/visionBattle-newpcBg.avif",
+    bgMb: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/visionBattle/visionBattle-mbBg.avif",
     items: [
       {
         title: "PRESBYOND <br /> Laser Blended Vision <br /> 视觉融合老花激光手术",
@@ -819,12 +819,12 @@ export const PRESBYOPIA_ZH_CN: PresbyopiaData = {
     slides: [
       {
         title: "室外",
-        img: "https://statichk.cmermedical.com/cmermedical/image/20260317/banner2.webp",
+        img: "https://static.cmermedical.com.hk/smile/assets/cmermedical/image/20260317/banner2.webp",
         alt: "老花矫视术后室外远中近全距离视力效果模拟预览",
       },
       {
         title: "室内",
-        img: "https://statichk.cmermedical.com/cmermedical/image/20260317/banner3.webp",
+        img: "https://static.cmermedical.com.hk/smile/assets/cmermedical/image/20260317/banner3.webp",
         alt: "老花矫视术后室内阅读与办公视力效果模拟预览",
       },
     ],
@@ -832,33 +832,33 @@ export const PRESBYOPIA_ZH_CN: PresbyopiaData = {
   appointment: {
     lectureText: "预约老花讲座",
     lectureHref: "/cn/ophthalmicInfo/AppointForm/",
-    lectureIcon: "https://statichk.cmermedical.com/smile/clear-visionV2/clearAppointment/laohua.svg",
+    lectureIcon: "https://static.cmermedical.com.hk/smile/assets/clear-visionV2/clearAppointment/laohua.svg",
     consultText: "预约咨询",
     consultHref: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-06)%20CMER%20CLEAR-Vision%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5%E5%8F%8A%E8%AB%AE%E8%A9%A2",
-    consultIcon: "https://statichk.cmermedical.com/smile/clear-visionV2/clearAppointment/zixun.svg",
+    consultIcon: "https://static.cmermedical.com.hk/smile/assets/clear-visionV2/clearAppointment/zixun.svg",
   },
   suitable: {
     title: "合适对象",
     subtitleHtml: "无论追求效率还是悠闲自在，<br class=\"d-none d-lg-block\" />老花矫视都让你清楚见证<br class=\"d-none d-lg-block\" />往后每一刻。",
-    bgRightPc: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/SuitableObject/SuitableObject-pc-bgRight.svg",
-    bgRightMb: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/SuitableObject/SuitableObject-mb-bgRight.svg",
-    bgLeft1: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/SuitableObject/SuitableObject-pc-bgLeft1.svg",
-    bgLeft2: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/SuitableObject/SuitableObject-pc-bgLeft2.svg",
+    bgRightPc: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/SuitableObject/SuitableObject-pc-bgRight.svg",
+    bgRightMb: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/SuitableObject/SuitableObject-mb-bgRight.svg",
+    bgLeft1: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/SuitableObject/SuitableObject-pc-bgLeft1.svg",
+    bgLeft2: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/SuitableObject/SuitableObject-pc-bgLeft2.svg",
     items: [
       {
-        icon: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/SuitableObject/SuitableObject-itemImg-10.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/SuitableObject/SuitableObject-itemImg-10.svg",
         html: "39岁以上",
       },
       {
-        icon: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/SuitableObject/SuitableObject-itemImg-2.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/SuitableObject/SuitableObject-itemImg-2.svg",
         html: "热爱运动",
       },
       {
-        icon: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/SuitableObject/SuitableObject-itemImg-3.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/SuitableObject/SuitableObject-itemImg-3.svg",
         html: "佩戴多副矫正度数眼镜<br /><span>(近视、远视、<br />散光、老花)</span>",
       },
       {
-        icon: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/SuitableObject/SuitableObject-itemImg-4.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/SuitableObject/SuitableObject-itemImg-4.svg",
         html: "不爱佩戴眼镜<br />或隐形眼镜",
       },
     ],

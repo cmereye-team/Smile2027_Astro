@@ -658,6 +658,67 @@
     }
   }
 
+  /* 折疊屏與平板中斷點收斂 (600px – 991px) */
+  @media (min-width: 600px) and (max-width: 991px) {
+    padding: 48px 15px 40px;
+    margin-top: 24px;
+    box-sizing: border-box;
+
+    .visionBattle-Bg {
+      width: 100%;
+      min-width: 0;
+      height: 100%;
+    }
+
+    .visionBattle-Box {
+      .visionBattle-Box-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+        align-items: stretch;
+
+        & > .visionBattle-Box-list-item:nth-child(n) {
+          border: 1px solid #d4e4ff;
+          border-radius: 20px;
+          background: #fff;
+          padding: 24px 20px;
+          box-shadow: 0 4px 16px rgba(69, 112, 182, 0.08);
+          box-sizing: border-box;
+
+          &::before {
+            display: none;
+          }
+
+          h3 {
+            margin: 0 auto 16px;
+            padding: 0;
+            font-size: 20px;
+          }
+
+          .visionBattle-Box-list-item-content {
+            width: 100%;
+            margin: 0;
+
+            p span {
+              letter-spacing: 0.4px;
+            }
+          }
+
+          .visionBattle-Box-list-item-VS {
+            display: none;
+          }
+        }
+
+        & > .visionBattle-Box-list-item:nth-child(3) {
+          grid-column: 1 / -1;
+          max-width: 560px;
+          width: 100%;
+          margin: 0 auto;
+        }
+      }
+    }
+  }
+
   /* 桌面端媒體查詢收斂 (Desktop ≥ 992px) */
   @media (min-width: 992px) {
     margin: 0 auto;
@@ -751,7 +812,7 @@
             width: 358px;
             height: auto;
             aspect-ratio: 1 / 1;
-            background: url("https://statichk.cmermedical.com/cmermedical/image/20260317/bg2.png") no-repeat;
+            background: url("https://static.cmermedical.com.hk/smile/assets/cmermedical/image/20260317/bg2.png") no-repeat;
             background-size: 100% 100%;
           }
         }
@@ -800,7 +861,7 @@
           width: 300px;
           height: auto;
           aspect-ratio: 1 / 1;
-          background: url("https://statichk.cmermedical.com/cmermedical/image/20260317/bg1.png") no-repeat;
+          background: url("https://static.cmermedical.com.hk/smile/assets/cmermedical/image/20260317/bg1.png") no-repeat;
           background-size: 100% 100%;
           rotate: 0deg;
         }
@@ -812,7 +873,7 @@
           width: 400px;
           height: auto;
           aspect-ratio: 1 / 1;
-          background: url("https://statichk.cmermedical.com/cmermedical/image/20260317/bg3.png") no-repeat;
+          background: url("https://static.cmermedical.com.hk/smile/assets/cmermedical/image/20260317/bg3.png") no-repeat;
           background-size: 100% 100%;
         }
       }
@@ -881,7 +942,7 @@
       position: absolute;
       top: -4.62vw;
       left: -25.64vw;
-      background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/SuitableObject/SuitableObject-mb-line.svg") no-repeat;
+      background: url("https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/SuitableObject/SuitableObject-mb-line.svg") no-repeat;
       background-size: 100% auto;
       width: 174.62vw;
       height: 76.92vw;
@@ -905,7 +966,7 @@
         position: absolute;
         top: -4.36vw;
         left: -4.36vw;
-        background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/SuitableObject/SuitableObject-man-mb.svg") no-repeat;
+        background: url("https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/SuitableObject/SuitableObject-man-mb.svg") no-repeat;
         background-size: 100% auto;
         width: 21.28vw;
         height: 46.41vw;
@@ -1043,6 +1104,93 @@
     }
   }
 
+  /* 折疊屏展開 / 中等視口重排 (600px - 991px)：淘汰 44.62vw 絕對定位巨圓，改為居中標題圓 + 2x2 網格 */
+  @media (min-width: 600px) and (max-width: 991px) {
+    padding-top: 40px;
+
+    .SuitableObject-Box {
+      padding-bottom: 48px;
+
+      &::after {
+        width: 100%;
+        height: 320px;
+        left: 0;
+        top: 120px;
+      }
+
+      .SuitableObject-Box-title {
+        width: 300px;
+        height: 300px;
+        padding-top: 52px;
+        border-width: 1.5px;
+
+        &::before {
+          width: 84px;
+          height: 160px;
+          top: -36px;
+          left: -18px;
+        }
+
+        p {
+          max-width: 240px;
+        }
+      }
+
+      .SuitableObject-Box-List {
+        position: relative;
+        top: 0;
+        left: auto;
+        transform: none;
+        width: 100%;
+        max-width: 480px;
+        min-height: 0;
+        margin: -36px auto 0;
+        display: grid;
+        grid-template-columns: repeat(2, 200px);
+        justify-content: center;
+        gap: 20px 32px;
+
+        & > .SuitableObject-Box-List-item:nth-child(n) {
+          position: relative;
+          left: auto;
+          right: auto;
+          top: auto;
+          width: 200px;
+          height: 200px;
+          border-width: 1.5px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          padding: 16px;
+          box-sizing: border-box;
+
+          img {
+            position: static;
+            left: auto;
+            top: auto;
+            transform: none;
+            width: 56px;
+            max-width: 56px;
+            height: 56px;
+            object-fit: contain;
+          }
+
+          p {
+            position: static;
+            left: auto;
+            top: auto;
+            transform: none;
+            font-size: 15px;
+            line-height: 1.4;
+            white-space: normal;
+          }
+        }
+      }
+    }
+  }
+
   /* 桌面端媒體查詢收斂 (Desktop ≥ 992px) */
   @media (min-width: 992px) {
     width: 100%;
@@ -1084,7 +1232,7 @@
       &::after {
         top: clamp(-383px, -19.95vw, -191.5px);
         left: clamp(-445px, -23.18vw, -222.5px);
-        background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/SuitableObject/SuitableObject-pc-line.svg") no-repeat;
+        background: url("https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/SuitableObject/SuitableObject-pc-line.svg") no-repeat;
         background-size: 100% auto;
         width: clamp(1044.5px, 108.8vw, 2089px);
         height: clamp(470px, 48.96vw, 940px);
@@ -1111,7 +1259,7 @@
           position: absolute;
           top: clamp(71px, 7.4vw, 142px);
           right: clamp(-40px, -2.08vw, -20px);
-          background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/SuitableObject/SuitableObject-woman-mb.svg") no-repeat;
+          background: url("https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/SuitableObject/SuitableObject-woman-mb.svg") no-repeat;
           background-size: 100% auto;
           width: clamp(112px, 11.67vw, 224px);
           height: clamp(130.5px, 13.59vw, 261px);
@@ -1243,13 +1391,13 @@
       position: relative;
       width: 100%;
       height: 100%;
-      background: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/CorrectionProgram/CorrectionProgram-Box-hide-mbBg.avif") no-repeat center top;
+      background: url("https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/CorrectionProgram/CorrectionProgram-Box-hide-mbBg.avif") no-repeat center top;
       background-size: 100% 100%;
       padding: 0 0 clamp(32px, 5vw, 60px);
 
       @media (min-width: 992px) {
         height: auto;
-        background-image: url("https://statichk.cmermedical.com/smile/vision-correction-iclV2/CorrectionProgram/CorrectionProgram-Box-hide-pc.avif");
+        background-image: url("https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/CorrectionProgram/CorrectionProgram-Box-hide-pc.avif");
         background-size: cover;
         background-position: center center;
         padding: clamp(40px, 4vw, 70px) 0 clamp(48px, 5vw, 80px);
@@ -1285,6 +1433,12 @@
         padding-bottom: 24px;
         width: 100%;
 
+        @media (min-width: 600px) and (max-width: 991px) {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 24px;
+        }
+
         @media (min-width: 992px) {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
@@ -1304,6 +1458,13 @@
         display: flex;
         flex-direction: column;
         box-shadow: 0 4px 16px rgba(69, 112, 182, 0.08);
+
+        @media (min-width: 600px) and (max-width: 991px) {
+          width: 100%;
+          max-width: none;
+          margin: 0;
+          height: 100%;
+        }
 
         @media (min-width: 992px) {
           width: 100%;
@@ -1586,7 +1747,7 @@
 .clearAppointment {
   width: 100%;
   height: 85.64vw;
-  background: url("https://statichk.cmermedical.com/smile/clear-visionV2/clearAppointment/clearAppointment-mbBg.avif") no-repeat;
+  background: url("https://static.cmermedical.com.hk/smile/assets/clear-visionV2/clearAppointment/clearAppointment-mbBg.avif") no-repeat;
   background-size: 100% auto;
   display: flex;
   flex-direction: column;
@@ -1688,7 +1849,7 @@
 
   @media (min-width: 992px) {
     height: clamp(213px, 22.19vw, 426px);
-    background-image: url("https://statichk.cmermedical.com/smile/clear-visionV2/clearAppointment/clearAppointment-mbPc.avif");
+    background-image: url("https://static.cmermedical.com.hk/smile/assets/clear-visionV2/clearAppointment/clearAppointment-mbPc.avif");
     flex-direction: row;
 
     .clearAppointment-Box {
@@ -1798,7 +1959,7 @@
 
       &::after {
         content: "";
-        background: url("https://statichk.cmermedical.com/smile/smileproV2/table/smilepro-table-mobile-titleBgnew.png") no-repeat;
+        background: url("https://static.cmermedical.com.hk/smile/assets/smileproV2/table/smilepro-table-mobile-titleBgnew.png") no-repeat;
         width: 110.062px;
         height: 49px;
         position: absolute;
@@ -1920,7 +2081,7 @@
         line-height: 1;
 
         &::after {
-          content: url("https://statichk.cmermedical.com/smile/smileproV2/table/smilepro-table-pc-titleBg.png");
+          content: url("https://static.cmermedical.com.hk/smile/assets/smileproV2/table/smilepro-table-pc-titleBg.png");
           width: auto;
           height: auto;
           background: none;

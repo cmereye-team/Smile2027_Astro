@@ -4,7 +4,7 @@
  * @FilePath: /src/data/visionCorrectionIclData.ts
  * @Description: ICL 植入式隱形眼鏡數據字典 (100% 官方真值對齊 + 繁簡雙語支援)
  */
-import type { RelexSmileShareItem } from "@/data/relexSmileData";
+export type { RelexSmileShareItem } from "@/data/videoData";
 
 export interface IclStep {
   number: string;
@@ -202,107 +202,7 @@ export interface IclData {
 const WHATSAPP_W13_URL =
   "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-13)%20ICL%E6%A4%8D%E5%85%A5%E5%BC%8F%E9%9A%B1%E5%BD%A2%E7%9C%BC%E9%8F%A1%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5%E5%8F%8A%E8%AB%AE%E8%A9%A2";
 
-export const ICL_SHARE_DATA: RelexSmileShareItem[] = [
-  {
-    type: "ICL",
-    href: "https://youtu.be/NtULZl7qUEg",
-    squareimg: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro-027-v1.avif",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/smilepro/smilepro-027-v1.avif",
-    text: ["真實用家共同見證", "「真實」自己"],
-    nameEn: "",
-    nameCn: "群星",
-  },
-  {
-    type: "ICL",
-    href: "https://youtu.be/M4-FA9U3VPo",
-    squareimg: "https://statichk.cmermedical.com/smile/orthopedic-video/icl/icl-012-v1.avif",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/icl/icl-012-v1.avif",
-    text: ["全天候高清視力", "我靠ICL!"],
-    nameEn: "Celina",
-    nameCn: "陳楨怡",
-  },
-  {
-    type: "ICL",
-    href: "https://youtu.be/D91jSXnpeNc",
-    squareimg: "https://statichk.cmermedical.com/smile/orthopedic-video/icl/icl-011.avif",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/icl/icl-011.avif",
-    text: ["ICL矯視過程講解及", "注意事項"],
-    nameEn: "Ting Yan",
-    nameCn: "梁庭欣",
-  },
-  {
-    type: "ICL",
-    href: "https://youtu.be/PmZk2TtrNBc",
-    squareimg: "https://statichk.cmermedical.com/smile/orthopedic-video/icl/icl-010.avif",
-    img: "https://statichk.cmermedical.com/smile/orthopedic-video/icl/icl-010.avif",
-    text: ["一個「選擇」", "睇見自己嘅光芒"],
-    nameEn: "Ting Yan",
-    nameCn: "梁庭欣",
-  },
-  {
-    type: "ICL",
-    href: "https://youtu.be/fNSShYa7nKk",
-    squareimg: "https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShareItem1.avif",
-    img: "https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShareItem1.avif",
-    text: ["依家一擘大眼就見到", "好清楚嘅世界，好立體"],
-    nameEn: "Kathy",
-    nameCn: "王頌茵",
-  },
-  {
-    type: "ICL",
-    href: "https://www.youtube.com/watch?v=T9g2qoFI9nU",
-    squareimg: "https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShareItem-icl1.avif",
-    img: "https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShareItem-icl1.avif",
-    text: ["夜間高清視力對", "夜晚揸車好重要"],
-    nameEn: "Lily",
-    nameCn: "",
-  },
-  {
-    type: "ICL",
-    href: "https://youtu.be/I2sl4GWqg1w",
-    squareimg: "https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShareItem4.avif",
-    img: "https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShareItem4.avif",
-    text: ["眼鏡由「必須品」", "變「奢侈品」"],
-    nameEn: " ",
-    nameCn: "麥沛東",
-  },
-  {
-    type: "ICL",
-    href: "https://www.youtube.com/watch?v=2t7JjTab4xA",
-    squareimg: "https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShareItem-icl2.avif",
-    img: "https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShareItem-icl2.avif",
-    text: ["好Surprise 做完之後", "24小時都睇得咁清"],
-    nameEn: "Phil",
-    nameCn: "林奕匡",
-  },
-  {
-    type: "ICL",
-    href: "https://www.youtube.com/watch?v=5ihrzFvOy38",
-    squareimg: "https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShareItem-icl3.avif",
-    img: "https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShareItem-icl3.avif",
-    text: ["每日起身唔洗戴Con", "慳好多時間 好方便"],
-    nameEn: "Serene Lim ",
-    nameCn: "林宣妤",
-  },
-  {
-    type: "ICL",
-    href: "https://www.youtube.com/watch?v=CEbbKFeFdnc",
-    squareimg: "https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShareItem-icl4.avif",
-    img: "https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShareItem-icl4.avif",
-    text: ["眼鏡選擇多好多,", "世界限制少好多"],
-    nameEn: "Kwan Gor",
-    nameCn: "吳業坤",
-  },
-  {
-    type: "ICL",
-    href: "https://www.youtube.com/watch?v=e-c_qRuvWTA",
-    squareimg: "https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShareItem-icl5.avif",
-    img: "https://statichk.cmermedical.com/smile/VisionCorrectionCenter/userShare/boxShareItem-icl5.avif",
-    text: ["做咗ICL 夜晚湊小朋友", "唔洗開燈都睇得清楚"],
-    nameEn: "Tiffany Poon",
-    nameCn: "",
-  },
-];
+export { ICL_SHARE_DATA } from "@/data/videoData";
 
 export const VISION_CORRECTION_ICL_ZH_HK: IclData = {
   breadcrumb: {
@@ -320,8 +220,8 @@ export const VISION_CORRECTION_ICL_ZH_HK: IclData = {
       "• 1,000度以下的遠視",
       "• 600度以下的散光",
     ],
-    imgPc: "https://statichk.cmermedical.com/smile/icl/banner-lens-pc-v1.webp",
-    imgMb: "https://statichk.cmermedical.com/smile/icl/banner-lens-m-v1.webp",
+    imgPc: "https://static.cmermedical.com.hk/smile/assets/icl/banner-lens-pc-v1.webp",
+    imgMb: "https://static.cmermedical.com.hk/smile/assets/icl/banner-lens-m-v1.webp",
   },
   center: {
     title: "植入式隱形眼鏡",
@@ -340,8 +240,8 @@ export const VISION_CORRECTION_ICL_ZH_HK: IclData = {
   },
   whyChoose: {
     title: "為何選擇希瑪？",
-    imgPc: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-why-pc.avif",
-    imgMb: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-why-mobile.avif",
+    imgPc: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/icl-why-pc.avif",
+    imgMb: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/icl-why-mobile.avif",
     one: {
       text1: '希瑪自創辦以來與<a class="authority-link" target="_blank" rel="noopener noreferrer" href="https://www.staarsurgical.com/">STAAR Surgical</a>公司建立良好的合作關係',
       text2: "逾10年。",
@@ -450,32 +350,32 @@ export const VISION_CORRECTION_ICL_ZH_HK: IclData = {
     title: "矯視的好處",
     items: [
       {
-        icon: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/good/icl-good-1.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/good/icl-good-1.svg",
         title: "術後復原快",
         text: ["手術以微創技術進行", "術後復原期短"],
       },
       {
-        icon: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/good/icl-good-2.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/good/icl-good-2.svg",
         title: "手術時間短",
         text: ["最快20-30分鐘", "內完成矯視"],
       },
       {
-        icon: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/good/icl-good-3.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/good/icl-good-3.svg",
         title: "為生活帶來便利",
         text: ["矯視後可減低對眼鏡", "或隱形眼鏡的依賴"],
       },
       {
-        icon: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/good/icl-good-4.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/good/icl-good-4.svg",
         title: "物料安全",
         text: ["2005年已通過", "美國FDA認證"],
       },
       {
-        icon: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/good/icl-good-5.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/good/icl-good-5.svg",
         title: "不會導致乾眼症",
         text: ["過程無須切削角膜", "因此不會導致乾眼症"],
       },
       {
-        icon: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/good/icl-good-6.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/good/icl-good-6.svg",
         title: "度身訂造治療方案",
         text: ["是一項可還原技術，客人", "可按需要選擇取出ICL"],
       },
@@ -489,7 +389,7 @@ export const VISION_CORRECTION_ICL_ZH_HK: IclData = {
       {
         tag: "ICL",
         title: "夜間視力",
-        boxImg: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/peculiarity/icl-tese-img1.avif",
+        boxImg: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/peculiarity/icl-tese-img1.avif",
         boxTitleText: ["夜間視力"],
         boxDes: ["提供絕佳夜間", "視力"],
         footerNum: "001",
@@ -497,7 +397,7 @@ export const VISION_CORRECTION_ICL_ZH_HK: IclData = {
       {
         tag: "ICL",
         title: "可取出",
-        boxImg: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/peculiarity/icl-tese-img2.avif",
+        boxImg: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/peculiarity/icl-tese-img2.avif",
         boxTitleText: ["可取出"],
         boxDes: ["可按需要", "選擇取出鏡片"],
         footerNum: "002",
@@ -505,7 +405,7 @@ export const VISION_CORRECTION_ICL_ZH_HK: IclData = {
       {
         tag: "ICL",
         title: "生物相容性",
-        boxImg: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/peculiarity/icl-tese-img3.avif",
+        boxImg: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/peculiarity/icl-tese-img3.avif",
         boxTitleText: ["生物相容性"],
         boxDes: ["ICL鏡片由含有", "膠原蛋白材質", "製成， 與眼球", "互相兼容"],
         footerNum: "003",
@@ -513,7 +413,7 @@ export const VISION_CORRECTION_ICL_ZH_HK: IclData = {
       {
         tag: "ICL",
         title: "紫外線防護",
-        boxImg: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/peculiarity/icl-tese-img4.avif",
+        boxImg: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/peculiarity/icl-tese-img4.avif",
         boxTitleText: ["紫外線防護"],
         boxDes: ["鏡片有紫外線", "防護功能"],
         footerNum: "004",
@@ -521,7 +421,7 @@ export const VISION_CORRECTION_ICL_ZH_HK: IclData = {
       {
         tag: "ICL",
         title: "手術與恢復皆快速",
-        boxImg: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/peculiarity/icl-tese-img5.avif",
+        boxImg: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/peculiarity/icl-tese-img5.avif",
         boxTitleText: ["手術與恢復", "皆快速"],
         boxDes: [
           "手術時間短 ",
@@ -534,7 +434,7 @@ export const VISION_CORRECTION_ICL_ZH_HK: IclData = {
       {
         tag: "ICL",
         title: "與時俱進的靈活度",
-        boxImg: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/peculiarity/icl-tese-img6.avif",
+        boxImg: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/peculiarity/icl-tese-img6.avif",
         boxTitleText: ["與時俱進的", "靈活度"],
         boxDes: ["ICL鏡片既可", "永久存放眼內", "亦可還原"],
         footerNum: "006",
@@ -542,7 +442,7 @@ export const VISION_CORRECTION_ICL_ZH_HK: IclData = {
       {
         tag: "ICL",
         title: "柔軟服貼",
-        boxImg: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/peculiarity/icl-tese-img7.avif",
+        boxImg: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/peculiarity/icl-tese-img7.avif",
         boxTitleText: ["柔軟服貼"],
         boxDes: ["鏡片柔軟靈活", "易於植入"],
         footerNum: "007",
@@ -555,32 +455,32 @@ export const VISION_CORRECTION_ICL_ZH_HK: IclData = {
     list: [
       {
         number: "01",
-        imagePc: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-pc-intro1.webp",
-        image: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-mobile-intro1.webp",
+        imagePc: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/intro/icl-pc-intro1.webp",
+        image: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/intro/icl-mobile-intro1.webp",
         text: "進行手術前，醫生先在客人眼睛上滴麻醉及放大瞳孔眼藥水。",
       },
       {
         number: "02",
-        imagePc: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-pc-intro2.avif",
-        image: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-pc-intro2.avif",
+        imagePc: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/intro/icl-pc-intro2.avif",
+        image: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/intro/icl-pc-intro2.avif",
         text: "在角膜緣製作一個約3毫米的小開口，將摺疊的晶體植入眼球。",
       },
       {
         number: "03",
-        imagePc: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-pc-intro3.avif",
-        image: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-pc-intro3.avif",
+        imagePc: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/intro/icl-pc-intro3.avif",
+        image: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/intro/icl-pc-intro3.avif",
         text: "植入晶體後，醫生會調整晶體的位置，確保在適宜的位置。",
       },
       {
         number: "04",
-        imagePc: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-pc-intro4.avif",
-        image: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-pc-intro4.avif",
+        imagePc: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/intro/icl-pc-intro4.avif",
+        image: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/intro/icl-pc-intro4.avif",
         text: "手術結束後，需按醫生指示滴眼藥水。一般矯視後第二天已能恢復視力。",
       },
       {
         number: "05",
-        imagePc: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-pc-intro5.avif",
-        image: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-pc-intro5.avif",
+        imagePc: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/intro/icl-pc-intro5.avif",
+        image: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/intro/icl-pc-intro5.avif",
         text: "完成手術後，需按指示定期覆診以追蹤視力。",
       },
     ],
@@ -604,23 +504,23 @@ export const VISION_CORRECTION_ICL_ZH_HK: IclData = {
     items: [
       {
         desc: ["高度近遠視", "或深度數", "散光人士"],
-        image: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/hsdx/icl-heshiduixiang-pc1.avif",
+        image: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/hsdx/icl-heshiduixiang-pc1.avif",
       },
       {
         desc: ["熱愛運動/", "注重儀表人士"],
-        image: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/hsdx/icl-heshiduixiang-pc2.avif",
+        image: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/hsdx/icl-heshiduixiang-pc2.avif",
       },
       {
         desc: ["因佩戴隱形眼", "鏡導致乾眼症", "人士"],
-        image: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/hsdx/icl-heshiduixiang-pc3.avif",
+        image: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/hsdx/icl-heshiduixiang-pc3.avif",
       },
       {
         desc: ["希望減低對眼", "鏡或隱形眼鏡", "依賴的人士"],
-        image: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/hsdx/icl-heshiduixiang-pc4.avif",
+        image: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/hsdx/icl-heshiduixiang-pc4.avif",
       },
       {
         desc: ["因角膜厚度", "偏薄/角膜形狀", "欠佳而不適合接", "受激光矯視人士"],
-        image: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/hsdx/icl-heshiduixiang-pc5.avif",
+        image: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/hsdx/icl-heshiduixiang-pc5.avif",
       },
     ],
   },
@@ -675,8 +575,8 @@ export const VISION_CORRECTION_ICL_ZH_CN: IclData = {
       "• 1,000度以下的远视",
       "• 600度以下的散光",
     ],
-    imgPc: "https://statichk.cmermedical.com/smile/icl/banner-lens-pc-v1.webp",
-    imgMb: "https://statichk.cmermedical.com/smile/icl/banner-lens-m-v1.webp",
+    imgPc: "https://static.cmermedical.com.hk/smile/assets/icl/banner-lens-pc-v1.webp",
+    imgMb: "https://static.cmermedical.com.hk/smile/assets/icl/banner-lens-m-v1.webp",
   },
   center: {
     title: "植入式隐形眼镜",
@@ -695,8 +595,8 @@ export const VISION_CORRECTION_ICL_ZH_CN: IclData = {
   },
   whyChoose: {
     title: "为何选择希玛？",
-    imgPc: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-why-pc.avif",
-    imgMb: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/icl-why-mobile.avif",
+    imgPc: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/icl-why-pc.avif",
+    imgMb: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/icl-why-mobile.avif",
     one: {
       text1: '希玛自创办以来与<a class="authority-link" target="_blank" rel="noopener noreferrer" href="https://www.staarsurgical.com/">STAAR Surgical</a>公司建立良好的合作关系',
       text2: "逾10年。",
@@ -805,32 +705,32 @@ export const VISION_CORRECTION_ICL_ZH_CN: IclData = {
     title: "矫视的好处",
     items: [
       {
-        icon: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/good/icl-good-1.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/good/icl-good-1.svg",
         title: "术后复原快",
         text: ["手术以微创技术进行", "术后复原期短"],
       },
       {
-        icon: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/good/icl-good-2.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/good/icl-good-2.svg",
         title: "手术时间短",
         text: ["最快20-30分钟", "内完成矫视"],
       },
       {
-        icon: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/good/icl-good-3.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/good/icl-good-3.svg",
         title: "为生活带来便利",
         text: ["矫视后可减低对眼镜", "或隐形眼镜的依赖"],
       },
       {
-        icon: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/good/icl-good-4.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/good/icl-good-4.svg",
         title: "物料安全",
         text: ["2005年已通过", "美国FDA认证"],
       },
       {
-        icon: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/good/icl-good-5.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/good/icl-good-5.svg",
         title: "不会导致干眼症",
         text: ["过程无须切削角膜", "因此不会导致干眼症"],
       },
       {
-        icon: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/good/icl-good-6.svg",
+        icon: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/good/icl-good-6.svg",
         title: "量身订造治疗方案",
         text: ["是一项可还原技术，客人", "可按需要选择取出ICL"],
       },
@@ -844,7 +744,7 @@ export const VISION_CORRECTION_ICL_ZH_CN: IclData = {
       {
         tag: "ICL",
         title: "夜间视力",
-        boxImg: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/peculiarity/icl-tese-img1.avif",
+        boxImg: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/peculiarity/icl-tese-img1.avif",
         boxTitleText: ["夜間視力"],
         boxDes: ["提供絕佳夜間", "視力"],
         footerNum: "001",
@@ -852,7 +752,7 @@ export const VISION_CORRECTION_ICL_ZH_CN: IclData = {
       {
         tag: "ICL",
         title: "可取出",
-        boxImg: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/peculiarity/icl-tese-img2.avif",
+        boxImg: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/peculiarity/icl-tese-img2.avif",
         boxTitleText: ["可取出"],
         boxDes: ["可按需要", "選擇取出鏡片"],
         footerNum: "002",
@@ -860,7 +760,7 @@ export const VISION_CORRECTION_ICL_ZH_CN: IclData = {
       {
         tag: "ICL",
         title: "生物相容性",
-        boxImg: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/peculiarity/icl-tese-img3.avif",
+        boxImg: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/peculiarity/icl-tese-img3.avif",
         boxTitleText: ["生物相容性"],
         boxDes: ["ICL鏡片由含有", "膠原蛋白材質", "製成， 與眼球", "互相兼容"],
         footerNum: "003",
@@ -868,7 +768,7 @@ export const VISION_CORRECTION_ICL_ZH_CN: IclData = {
       {
         tag: "ICL",
         title: "紫外线防护",
-        boxImg: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/peculiarity/icl-tese-img4.avif",
+        boxImg: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/peculiarity/icl-tese-img4.avif",
         boxTitleText: ["紫外線防護"],
         boxDes: ["鏡片有紫外線", "防護功能"],
         footerNum: "004",
@@ -876,7 +776,7 @@ export const VISION_CORRECTION_ICL_ZH_CN: IclData = {
       {
         tag: "ICL",
         title: "手术与恢复皆快速",
-        boxImg: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/peculiarity/icl-tese-img5.avif",
+        boxImg: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/peculiarity/icl-tese-img5.avif",
         boxTitleText: ["手術與恢復", "皆快速"],
         boxDes: [
           "手術時間短 ",
@@ -889,7 +789,7 @@ export const VISION_CORRECTION_ICL_ZH_CN: IclData = {
       {
         tag: "ICL",
         title: "与时俱进的灵活性",
-        boxImg: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/peculiarity/icl-tese-img6.avif",
+        boxImg: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/peculiarity/icl-tese-img6.avif",
         boxTitleText: ["與時俱進的", "靈活度"],
         boxDes: ["ICL鏡片既可", "永久存放眼內", "亦可還原"],
         footerNum: "006",
@@ -897,7 +797,7 @@ export const VISION_CORRECTION_ICL_ZH_CN: IclData = {
       {
         tag: "ICL",
         title: "柔软服贴",
-        boxImg: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/peculiarity/icl-tese-img7.avif",
+        boxImg: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/peculiarity/icl-tese-img7.avif",
         boxTitleText: ["柔軟服貼"],
         boxDes: ["鏡片柔軟靈活", "易於植入"],
         footerNum: "007",
@@ -910,32 +810,32 @@ export const VISION_CORRECTION_ICL_ZH_CN: IclData = {
     list: [
       {
         number: "01",
-        imagePc: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-pc-intro1.webp",
-        image: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-mobile-intro1.webp",
+        imagePc: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/intro/icl-pc-intro1.webp",
+        image: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/intro/icl-mobile-intro1.webp",
         text: "进行手术前，医生先在客人眼睛上滴麻醉及放大瞳孔眼药水。",
       },
       {
         number: "02",
-        imagePc: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-pc-intro2.avif",
-        image: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-pc-intro2.avif",
+        imagePc: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/intro/icl-pc-intro2.avif",
+        image: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/intro/icl-pc-intro2.avif",
         text: "在角膜缘制作一个约3毫米的小开口，将摺叠的晶体植入眼球。",
       },
       {
         number: "03",
-        imagePc: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-pc-intro3.avif",
-        image: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-pc-intro3.avif",
+        imagePc: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/intro/icl-pc-intro3.avif",
+        image: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/intro/icl-pc-intro3.avif",
         text: "植入晶体后，医生会调整晶体的位置，确保在适宜的位置。",
       },
       {
         number: "04",
-        imagePc: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-pc-intro4.avif",
-        image: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-pc-intro4.avif",
+        imagePc: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/intro/icl-pc-intro4.avif",
+        image: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/intro/icl-pc-intro4.avif",
         text: "手术结束后，需按医生指示滴眼药水。一般矫视后第二天已能恢复视力。",
       },
       {
         number: "05",
-        imagePc: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-pc-intro5.avif",
-        image: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/intro/icl-pc-intro5.avif",
+        imagePc: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/intro/icl-pc-intro5.avif",
+        image: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/intro/icl-pc-intro5.avif",
         text: "完成手术后，需按指示定期覆诊以追踪视力。",
       },
     ],
@@ -959,23 +859,23 @@ export const VISION_CORRECTION_ICL_ZH_CN: IclData = {
     items: [
       {
         desc: ["高度近远视", "或深度数", "散光人士"],
-        image: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/hsdx/icl-heshiduixiang-pc1.avif",
+        image: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/hsdx/icl-heshiduixiang-pc1.avif",
       },
       {
         desc: ["热爱运动/", "注重仪表人士"],
-        image: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/hsdx/icl-heshiduixiang-pc2.avif",
+        image: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/hsdx/icl-heshiduixiang-pc2.avif",
       },
       {
         desc: ["因佩戴隐形眼", "镜导致干眼症", "人士"],
-        image: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/hsdx/icl-heshiduixiang-pc3.avif",
+        image: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/hsdx/icl-heshiduixiang-pc3.avif",
       },
       {
         desc: ["希望减低对眼", "镜或隐形眼镜", "依赖的人士"],
-        image: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/hsdx/icl-heshiduixiang-pc4.avif",
+        image: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/hsdx/icl-heshiduixiang-pc4.avif",
       },
       {
         desc: ["因角膜厚度", "偏薄/角膜形状", "欠佳而不适合接", "受激光矫视人士"],
-        image: "https://statichk.cmermedical.com/smile/vision-correction-iclV2/hsdx/icl-heshiduixiang-pc5.avif",
+        image: "https://static.cmermedical.com.hk/smile/assets/vision-correction-iclV2/hsdx/icl-heshiduixiang-pc5.avif",
       },
     ],
   },

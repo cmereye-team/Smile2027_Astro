@@ -125,7 +125,7 @@
       align-items: flex-start;
       border-top: 1px solid #4570b6;
       height: 370px;
-      background: url("https://statichk.cmermedical.com/smile/VisionCorrectionCenter/centerSevice/centerSeviceNewList-bg.avif");
+      background: url("https://static.cmermedical.com.hk/smile/assets/VisionCorrectionCenter/centerSevice/centerSeviceNewList-bg.avif");
       background-repeat: no-repeat;
       background-position: center 100%;
       .centerSeviceNewItem {
@@ -991,6 +991,101 @@
             line-height: 1.5;
             letter-spacing: 0.5px;
           }
+        }
+      }
+    }
+  }
+}
+
+/* 折疊屏 / 中間寬度段 (600px - 991px) 佈局優化：不影響 <=599px 與 >=992px */
+@media (min-width: 600px) and (max-width: 991px) {
+  .centerIntro {
+    .centerIntroBox {
+      .centerIntroBox-bottom {
+        max-width: 720px;
+        text-align: center;
+      }
+    }
+  }
+
+  .centerSevice {
+    .centerSeviceNewList {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      border: none;
+      padding: 0 15px;
+      box-sizing: border-box;
+
+      .centerSeviceNewItem {
+        flex-direction: column;
+        border: 1.5px solid #4570b6;
+        border-radius: 14px;
+        overflow: hidden;
+        min-height: 0;
+
+        &:last-child {
+          border-bottom: 1.5px solid #4570b6;
+        }
+
+        &:last-child:nth-child(odd) {
+          grid-column: 1 / -1;
+          max-width: 440px;
+          margin: 0 auto;
+          width: 100%;
+        }
+
+        h3,
+        h4 {
+          width: 100%;
+          min-width: 0;
+          min-height: 58px;
+          border-right: none;
+          border-bottom: 1.5px solid #4570b6;
+          padding: 12px 16px;
+          font-size: 20px;
+        }
+
+        .centerSeviceNewItem-text {
+          width: 100%;
+          min-height: 84px;
+          padding: 16px 40px 16px 18px;
+          border-bottom: none;
+          font-size: 16px;
+
+          p {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+
+  .fourFeature {
+    .fourFeature-Box {
+      .fourFeature-Box-title {
+        .fourFeature-Box-title-right {
+          p {
+            font-size: 14px;
+          }
+        }
+      }
+
+      .fourFeature-Box-List {
+        max-width: 640px;
+        width: 100%;
+        margin-top: 28px;
+
+        .fourFeature-Box-List-item {
+          width: 100%;
+          height: auto;
+          min-height: 220px;
+          padding: 24px 16px;
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
         }
       }
     }

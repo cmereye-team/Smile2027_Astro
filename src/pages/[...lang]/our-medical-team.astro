@@ -22,24 +22,24 @@ const isCn = lang === "zh-cn";
 
 // 12 位專科醫生官方肖像照片 (按順序精確對齊)
 const doctorImages = [
-  "https://statichk.cmermedical.com/smile/our-medical-team/e4fe994560f1f0cb.webp", // 李佑榮
-  "https://statichk.cmermedical.com/imgs/2024/04/4fa9ad28827023df.png", // 黎浩樺
-  "https://statichk.cmermedical.com/imgs/2024/04/35a8ebff87489352.png", // 李德倫
-  "https://statichk.cmermedical.com/imgs/2024/04/23dd6d5e7647a6b5.png", // 黃禮文
-  "https://statichk.cmermedical.com/imgs/2024/04/5dea1f2a9eaa115d.png", // 張瀞之
-  "https://statichk.cmermedical.com/imgs/2024/04/d2d8ef48f7e7d66f.png", // 林寶生
-  "https://statichk.cmermedical.com/imgs/2024/04/12f6f365602dfa65.png", // 林己明
-  "https://statichk.cmermedical.com/imgs/2024/04/49af412bf2fd0d24.png", // 陳偉樂
-  "https://statichk.cmermedical.com/imgs/2024/04/a7d90bf031d2130e.png", // 梁苑珊
-  "https://statichk.cmermedical.com/imgs/2024/04/3b91d69903c22a94.png", // 鄒樞韻
-  "https://statichk.cmermedical.com/imgs/2024/05/5e65910e0c55b6a4.png", // 尹浩柟
-  "https://statichk.cmermedical.com/imgs/2024/05/3f1a1dea7d3a56a9.png", // 鄒樂韻
+  "https://static.cmermedical.com.hk/smile/assets/our-medical-team/e4fe994560f1f0cb.webp", // 李佑榮
+  "https://static.cmermedical.com.hk/smile/assets/imgs/2024/04/4fa9ad28827023df.png", // 黎浩樺
+  "https://static.cmermedical.com.hk/smile/assets/imgs/2024/04/35a8ebff87489352.png", // 李德倫
+  "https://static.cmermedical.com.hk/smile/assets/imgs/2024/04/23dd6d5e7647a6b5.png", // 黃禮文
+  "https://static.cmermedical.com.hk/smile/assets/imgs/2024/04/5dea1f2a9eaa115d.png", // 張瀞之
+  "https://static.cmermedical.com.hk/smile/assets/imgs/2024/04/d2d8ef48f7e7d66f.png", // 林寶生
+  "https://static.cmermedical.com.hk/smile/assets/imgs/2024/04/12f6f365602dfa65.png", // 林己明
+  "https://static.cmermedical.com.hk/smile/assets/imgs/2024/04/49af412bf2fd0d24.png", // 陳偉樂
+  "https://static.cmermedical.com.hk/smile/assets/imgs/2024/04/a7d90bf031d2130e.png", // 梁苑珊
+  "https://static.cmermedical.com.hk/smile/assets/imgs/2024/04/3b91d69903c22a94.png", // 鄒樞韻
+  "https://static.cmermedical.com.hk/smile/assets/imgs/2024/05/5e65910e0c55b6a4.png", // 尹浩柟
+  "https://static.cmermedical.com.hk/smile/assets/imgs/2024/05/3f1a1dea7d3a56a9.png", // 鄒樂韻
 ];
 
 // 組裝醫生陣列
 const doctorsList = (dict.about.doctor.list || []).map((doc: any, index: number) => ({
   ...doc,
-  img: doctorImages[index] || "https://statichk.cmermedical.com/imgs/2024/04/4fa9ad28827023df.png",
+  img: doctorImages[index] || "https://static.cmermedical.com.hk/smile/assets/imgs/2024/04/4fa9ad28827023df.png",
 }));
 
 const breadcrumbItems = [
@@ -64,8 +64,8 @@ const breadcrumbItems = [
         <header
           class="page-banner-card"
           style={{
-            "--banner-bg-pc": "url('https://statichk.cmermedical.com/smile/323517741e434c1d.webp')",
-            "--banner-bg-mb": "url('https://statichk.cmermedical.com/imgs/2024/04/c58f958bc4b6ee29.png')",
+            "--banner-bg-pc": "url('https://static.cmermedical.com.hk/smile/assets/323517741e434c1d.webp')",
+            "--banner-bg-mb": "url('https://static.cmermedical.com.hk/smile/assets/imgs/2024/04/c58f958bc4b6ee29.png')",
           }}
         >
           <div class="page-banner-content">
@@ -80,11 +80,11 @@ const breadcrumbItems = [
 
     {/* 2. 創辦人專區 (林順潮醫生 - Container 罐頭約束) */}
     <section class="founder-section" aria-labelledby="heading-founder">
-      <div class="container mx-auto px-4">
+      <div class="site-container">
         <div class="doctor-team-content">
           <div class="founder-img-col">
             <img draggable="false"
-              src="https://statichk.cmermedical.com/smile/our-medical-team/1395086f2ba74e80.webp"
+              src="https://static.cmermedical.com.hk/smile/assets/our-medical-team/1395086f2ba74e80.webp"
               alt={isCn ? "香港希玛国际眼科医疗集团创办人 - 林顺潮医生" : "香港希瑪國際眼科醫療集團創辦人 - 林順潮醫生"}
               title={isCn ? "香港希玛国际眼科医疗集团创办人 - 林顺潮医生" : "香港希瑪國際眼科醫療集團創辦人 - 林順潮醫生"}
               width="400"
@@ -166,7 +166,7 @@ const breadcrumbItems = [
         </h2>
       </div>
 
-      <div class="container mx-auto px-4">
+      <div class="site-container">
         {/* 醫生卡片列表 */}
         <div class="doctor-list-wrapper">
           {doctorsList.map((doctor: any, idx: number) => (

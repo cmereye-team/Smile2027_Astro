@@ -113,8 +113,8 @@ export interface PatientInfoData {
 
 const PATIENT_INFO_VERBATIM: PatientInfoData = {
   banner: {
-    imgPc: "https://statichk.cmermedical.com/smile/patient-info/patient-info-BannerPc.avif",
-    imgMb: "https://statichk.cmermedical.com/smile/patient-info/patient-info-BannerMb.avif",
+    imgPc: "https://static.cmermedical.com.hk/smile/assets/patient-info/patient-info-BannerPc.avif",
+    imgMb: "https://static.cmermedical.com.hk/smile/assets/patient-info/patient-info-BannerMb.avif",
     tagHtml: "Information<br />\n        Notes",
     title: "診症須知",
   },
@@ -133,40 +133,40 @@ const PATIENT_INFO_VERBATIM: PatientInfoData = {
       '由於隱形眼鏡有機會把角膜擠壓，令量度出來的數據不準確，<br class="d-none d-lg-block" />故進行眼睛檢查及矯視前，請提前停止佩戴。',
     dateLabel: "以下為不同隱形眼鏡的停止佩戴日數：",
     images: [
-      "https://statichk.cmermedical.com/smile/patient-info/check-eye-list1.png",
-      "https://statichk.cmermedical.com/smile/patient-info/check-eye-list2.png",
-      "https://statichk.cmermedical.com/smile/patient-info/check-eye-list3.png",
-      "https://statichk.cmermedical.com/smile/patient-info/check-eye-list4.png",
+      "https://static.cmermedical.com.hk/smile/assets/patient-info/check-eye-list1.png",
+      "https://static.cmermedical.com.hk/smile/assets/patient-info/check-eye-list2.png",
+      "https://static.cmermedical.com.hk/smile/assets/patient-info/check-eye-list3.png",
+      "https://static.cmermedical.com.hk/smile/assets/patient-info/check-eye-list4.png",
     ],
   },
   correctedVisionBefore: {
-    icon: "https://statichk.cmermedical.com/smile/patient-info/LightBulb.svg",
+    icon: "https://static.cmermedical.com.hk/smile/assets/patient-info/LightBulb.svg",
     iframeTitle: "矯視前停con知多啲",
     iframeSrc: "https://www.youtube.com/embed/chqX2VLCqio?si=EMeTCDqYcPEMdsrL",
     processTitle: "矯視前檢查流程",
     steps: [
       {
-        img: "https://statichk.cmermedical.com/smile/patient-info/CorrectedVisionBefore-Process-img1.svg",
+        img: "https://static.cmermedical.com.hk/smile/assets/patient-info/CorrectedVisionBefore-Process-img1.svg",
         textHtml: "前台登記及<br />初步眼睛檢查",
-        icon: "https://statichk.cmermedical.com/smile/patient-info/01.png",
+        icon: "https://static.cmermedical.com.hk/smile/assets/patient-info/01.png",
       },
       {
-        img: "https://statichk.cmermedical.com/smile/patient-info/CorrectedVisionBefore-Process-img2.svg",
+        img: "https://static.cmermedical.com.hk/smile/assets/patient-info/CorrectedVisionBefore-Process-img2.svg",
         textHtml: "詳細屈光檢查",
-        icon: "https://statichk.cmermedical.com/smile/patient-info/02.png",
+        icon: "https://static.cmermedical.com.hk/smile/assets/patient-info/02.png",
       },
       {
-        img: "https://statichk.cmermedical.com/smile/patient-info/CorrectedVisionBefore-Process-img4.svg",
+        img: "https://static.cmermedical.com.hk/smile/assets/patient-info/CorrectedVisionBefore-Process-img4.svg",
         textHtml: "全面眼底檢查",
-        icon: "https://statichk.cmermedical.com/smile/patient-info/04.png",
+        icon: "https://static.cmermedical.com.hk/smile/assets/patient-info/04.png",
       },
       {
-        img: "https://statichk.cmermedical.com/smile/patient-info/CorrectedVisionBefore-Process-img3.svg",
+        img: "https://static.cmermedical.com.hk/smile/assets/patient-info/CorrectedVisionBefore-Process-img3.svg",
         textHtml: "散曈",
-        icon: "https://statichk.cmermedical.com/smile/patient-info/03.png",
+        icon: "https://static.cmermedical.com.hk/smile/assets/patient-info/03.png",
       },
     ],
-    lineImg: "https://statichk.cmermedical.com/smile/patient-info/CorrectedVisionBefore-line.png",
+    lineImg: "https://static.cmermedical.com.hk/smile/assets/patient-info/CorrectedVisionBefore-line.png",
     suitable: {
       unsuitableTitle: "不合適",
       unsuitableDesc: "應盡快接受相關治療",
@@ -207,22 +207,22 @@ const PATIENT_INFO_VERBATIM: PatientInfoData = {
       { step: "Step 4", labelHtml: "取藥及講解術後<br />藥水用法" },
       { step: "Step 5", labelHtml: "矯視療程" },
     ],
-    noticeIcon: "https://statichk.cmermedical.com/smile/patient-info/yellowWarning.svg",
+    noticeIcon: "https://static.cmermedical.com.hk/smile/assets/patient-info/yellowWarning.svg",
     noticeTitle: "矯視當日注意事項",
     cards: [
       {
         title: "矯視前",
         items: [
           {
-            img: "https://statichk.cmermedical.com/smile/patient-info/Notice-item1-1.avif",
+            img: "https://static.cmermedical.com.hk/smile/assets/patient-info/Notice-item1-1.avif",
             textHtml: "預先洗頭<br />避免術後雙眼入水",
           },
           {
-            img: "https://statichk.cmermedical.com/smile/patient-info/Notice-item1-2.avif",
+            img: "https://static.cmermedical.com.hk/smile/assets/patient-info/Notice-item1-2.avif",
             textHtml: "穿著寬鬆、開扣的<br />衣服,避免術後換衣服<br />會觸碰雙眼",
           },
           {
-            img: "https://statichk.cmermedical.com/smile/patient-info/Notice-item1-3.avif",
+            img: "https://static.cmermedical.com.hk/smile/assets/patient-info/Notice-item1-3.avif",
             textHtml: "建議矯視當日由親友陪同",
           },
         ],
@@ -232,15 +232,15 @@ const PATIENT_INFO_VERBATIM: PatientInfoData = {
         extraClass: "visionProcess-Notice-Card-section2",
         items: [
           {
-            img: "https://statichk.cmermedical.com/smile/patient-info/Notice-item2-1.avif",
+            img: "https://static.cmermedical.com.hk/smile/assets/patient-info/Notice-item2-1.avif",
             textHtml: "不要郁動和說話",
           },
           {
-            img: "https://statichk.cmermedical.com/smile/patient-info/Notice-item2-2.avif",
+            img: "https://static.cmermedical.com.hk/smile/assets/patient-info/Notice-item2-2.avif",
             textHtml: "請遵照醫生指示",
           },
           {
-            img: "https://statichk.cmermedical.com/smile/patient-info/Notice-item2-3.avif",
+            img: "https://static.cmermedical.com.hk/smile/assets/patient-info/Notice-item2-3.avif",
             textHtml: "放鬆心情，不要緊張",
           },
         ],
@@ -250,11 +250,11 @@ const PATIENT_INFO_VERBATIM: PatientInfoData = {
         extraClass: "visionProcess-Notice-Card-section3",
         items: [
           {
-            img: "https://statichk.cmermedical.com/smile/patient-info/Notice-item3-1.avif",
+            img: "https://static.cmermedical.com.hk/smile/assets/patient-info/Notice-item3-1.avif",
             textHtml: "眼部化妝品",
           },
           {
-            img: "https://statichk.cmermedical.com/smile/patient-info/Notice-item3-2.avif",
+            img: "https://static.cmermedical.com.hk/smile/assets/patient-info/Notice-item3-2.avif",
             textHtml: "任何香水、香薰或<br />揮發性用品",
           },
         ],
@@ -265,27 +265,27 @@ const PATIENT_INFO_VERBATIM: PatientInfoData = {
     title: "矯視後覆診",
     followUpItems: [
       {
-        img: "https://statichk.cmermedical.com/smile/patient-info/section-last-img1.avif",
+        img: "https://static.cmermedical.com.hk/smile/assets/patient-info/section-last-img1.avif",
         alt: "翌日",
         label: "翌日",
       },
       {
-        img: "https://statichk.cmermedical.com/smile/patient-info/section-last-img2.avif",
+        img: "https://static.cmermedical.com.hk/smile/assets/patient-info/section-last-img2.avif",
         alt: "一星期",
         label: "一星期",
       },
       {
-        img: "https://statichk.cmermedical.com/smile/patient-info/section-last-img3.avif",
+        img: "https://static.cmermedical.com.hk/smile/assets/patient-info/section-last-img3.avif",
         alt: "一個月",
         label: "一個月",
       },
       {
-        img: "https://statichk.cmermedical.com/smile/patient-info/section-last-img4.avif",
+        img: "https://static.cmermedical.com.hk/smile/assets/patient-info/section-last-img4.avif",
         alt: "三個月 ",
         label: "三個月",
       },
       {
-        img: "https://statichk.cmermedical.com/smile/patient-info/section-last-img5.avif",
+        img: "https://static.cmermedical.com.hk/smile/assets/patient-info/section-last-img5.avif",
         alt: "六個月",
         label: "六個月",
         note: "（或按醫生之需要覆診指示）",
@@ -296,7 +296,7 @@ const PATIENT_INFO_VERBATIM: PatientInfoData = {
       "已包含的覆診次數因不同矯視服務及不同矯視套餐而有所不同，詳情可參考收費詳情頁或聯絡查詢",
     careVideoTitle: "矯視後護理及注意事項",
     careVideoSrc: "https://www.youtube.com/embed/xqyN2Scg_OA?si=ZCNws4P2XJgDv2EM",
-    careIcon: "https://statichk.cmermedical.com/smile/patient-info/section-last-3-title.avif",
+    careIcon: "https://static.cmermedical.com.hk/smile/assets/patient-info/section-last-3-title.avif",
     careTitle: "矯視後護理",
     careCards: [
       {
@@ -417,8 +417,8 @@ export const PATIENT_INFO_ZH_HK: PatientInfoData = PATIENT_INFO_VERBATIM;
 
 export const PATIENT_INFO_ZH_CN: PatientInfoData = {
   banner: {
-    imgPc: "https://statichk.cmermedical.com/smile/patient-info/patient-info-BannerPc.avif",
-    imgMb: "https://statichk.cmermedical.com/smile/patient-info/patient-info-BannerMb.avif",
+    imgPc: "https://static.cmermedical.com.hk/smile/assets/patient-info/patient-info-BannerPc.avif",
+    imgMb: "https://static.cmermedical.com.hk/smile/assets/patient-info/patient-info-BannerMb.avif",
     tagHtml: "Information<br />\n        Notes",
     title: "诊症须知",
   },
@@ -437,40 +437,40 @@ export const PATIENT_INFO_ZH_CN: PatientInfoData = {
       '由于隐形眼镜有机会把角膜挤压，令量度出来的数据不准确，<br class="d-none d-lg-block" />故进行眼睛检查及矫视前，请提前停止佩戴。',
     dateLabel: "以下为不同隐形眼镜的停止佩戴日数：",
     images: [
-      "https://statichk.cmermedical.com/smile/patient-info/check-eye-list1.png",
-      "https://statichk.cmermedical.com/smile/patient-info/check-eye-list2.png",
-      "https://statichk.cmermedical.com/smile/patient-info/check-eye-list3.png",
-      "https://statichk.cmermedical.com/smile/patient-info/check-eye-list4.png",
+      "https://static.cmermedical.com.hk/smile/assets/patient-info/check-eye-list1.png",
+      "https://static.cmermedical.com.hk/smile/assets/patient-info/check-eye-list2.png",
+      "https://static.cmermedical.com.hk/smile/assets/patient-info/check-eye-list3.png",
+      "https://static.cmermedical.com.hk/smile/assets/patient-info/check-eye-list4.png",
     ],
   },
   correctedVisionBefore: {
-    icon: "https://statichk.cmermedical.com/smile/patient-info/LightBulb.svg",
+    icon: "https://static.cmermedical.com.hk/smile/assets/patient-info/LightBulb.svg",
     iframeTitle: "矫视前停戴隐形眼镜须知",
     iframeSrc: "https://www.youtube.com/embed/chqX2VLCqio?si=EMeTCDqYcPEMdsrL",
     processTitle: "矫视前检查流程",
     steps: [
       {
-        img: "https://statichk.cmermedical.com/smile/patient-info/CorrectedVisionBefore-Process-img1.svg",
+        img: "https://static.cmermedical.com.hk/smile/assets/patient-info/CorrectedVisionBefore-Process-img1.svg",
         textHtml: "前台登记及<br />初步眼睛检查",
-        icon: "https://statichk.cmermedical.com/smile/patient-info/01.png",
+        icon: "https://static.cmermedical.com.hk/smile/assets/patient-info/01.png",
       },
       {
-        img: "https://statichk.cmermedical.com/smile/patient-info/CorrectedVisionBefore-Process-img2.svg",
+        img: "https://static.cmermedical.com.hk/smile/assets/patient-info/CorrectedVisionBefore-Process-img2.svg",
         textHtml: "详细屈光检查",
-        icon: "https://statichk.cmermedical.com/smile/patient-info/02.png",
+        icon: "https://static.cmermedical.com.hk/smile/assets/patient-info/02.png",
       },
       {
-        img: "https://statichk.cmermedical.com/smile/patient-info/CorrectedVisionBefore-Process-img4.svg",
+        img: "https://static.cmermedical.com.hk/smile/assets/patient-info/CorrectedVisionBefore-Process-img4.svg",
         textHtml: "全面眼底检查",
-        icon: "https://statichk.cmermedical.com/smile/patient-info/04.png",
+        icon: "https://static.cmermedical.com.hk/smile/assets/patient-info/04.png",
       },
       {
-        img: "https://statichk.cmermedical.com/smile/patient-info/CorrectedVisionBefore-Process-img3.svg",
+        img: "https://static.cmermedical.com.hk/smile/assets/patient-info/CorrectedVisionBefore-Process-img3.svg",
         textHtml: "散瞳",
-        icon: "https://statichk.cmermedical.com/smile/patient-info/03.png",
+        icon: "https://static.cmermedical.com.hk/smile/assets/patient-info/03.png",
       },
     ],
-    lineImg: "https://statichk.cmermedical.com/smile/patient-info/CorrectedVisionBefore-line.png",
+    lineImg: "https://static.cmermedical.com.hk/smile/assets/patient-info/CorrectedVisionBefore-line.png",
     suitable: {
       unsuitableTitle: "不合适",
       unsuitableDesc: "应尽快接受相关治疗",
@@ -511,22 +511,22 @@ export const PATIENT_INFO_ZH_CN: PatientInfoData = {
       { step: "Step 4", labelHtml: "取药及讲解术后<br />药水用法" },
       { step: "Step 5", labelHtml: "矫视疗程" },
     ],
-    noticeIcon: "https://statichk.cmermedical.com/smile/patient-info/yellowWarning.svg",
+    noticeIcon: "https://static.cmermedical.com.hk/smile/assets/patient-info/yellowWarning.svg",
     noticeTitle: "矫视当日注意事项",
     cards: [
       {
         title: "矫视前",
         items: [
           {
-            img: "https://statichk.cmermedical.com/smile/patient-info/Notice-item1-1.avif",
+            img: "https://static.cmermedical.com.hk/smile/assets/patient-info/Notice-item1-1.avif",
             textHtml: "预先洗头<br />避免术后双眼入水",
           },
           {
-            img: "https://statichk.cmermedical.com/smile/patient-info/Notice-item1-2.avif",
+            img: "https://static.cmermedical.com.hk/smile/assets/patient-info/Notice-item1-2.avif",
             textHtml: "穿着宽松、开扣的<br />衣服，避免术后换衣服<br />会触碰双眼",
           },
           {
-            img: "https://statichk.cmermedical.com/smile/patient-info/Notice-item1-3.avif",
+            img: "https://static.cmermedical.com.hk/smile/assets/patient-info/Notice-item1-3.avif",
             textHtml: "建议矫视当日由亲友陪同",
           },
         ],
@@ -536,15 +536,15 @@ export const PATIENT_INFO_ZH_CN: PatientInfoData = {
         extraClass: "visionProcess-Notice-Card-section2",
         items: [
           {
-            img: "https://statichk.cmermedical.com/smile/patient-info/Notice-item2-1.avif",
+            img: "https://static.cmermedical.com.hk/smile/assets/patient-info/Notice-item2-1.avif",
             textHtml: "不要移动和说话",
           },
           {
-            img: "https://statichk.cmermedical.com/smile/patient-info/Notice-item2-2.avif",
+            img: "https://static.cmermedical.com.hk/smile/assets/patient-info/Notice-item2-2.avif",
             textHtml: "请遵照医生指示",
           },
           {
-            img: "https://statichk.cmermedical.com/smile/patient-info/Notice-item2-3.avif",
+            img: "https://static.cmermedical.com.hk/smile/assets/patient-info/Notice-item2-3.avif",
             textHtml: "放松心情，不要紧张",
           },
         ],
@@ -554,11 +554,11 @@ export const PATIENT_INFO_ZH_CN: PatientInfoData = {
         extraClass: "visionProcess-Notice-Card-section3",
         items: [
           {
-            img: "https://statichk.cmermedical.com/smile/patient-info/Notice-item3-1.avif",
+            img: "https://static.cmermedical.com.hk/smile/assets/patient-info/Notice-item3-1.avif",
             textHtml: "眼部化妆品",
           },
           {
-            img: "https://statichk.cmermedical.com/smile/patient-info/Notice-item3-2.avif",
+            img: "https://static.cmermedical.com.hk/smile/assets/patient-info/Notice-item3-2.avif",
             textHtml: "任何香水、香薰或<br />挥发性用品",
           },
         ],
@@ -569,27 +569,27 @@ export const PATIENT_INFO_ZH_CN: PatientInfoData = {
     title: "矫视后复诊",
     followUpItems: [
       {
-        img: "https://statichk.cmermedical.com/smile/patient-info/section-last-img1.avif",
+        img: "https://static.cmermedical.com.hk/smile/assets/patient-info/section-last-img1.avif",
         alt: "翌日",
         label: "翌日",
       },
       {
-        img: "https://statichk.cmermedical.com/smile/patient-info/section-last-img2.avif",
+        img: "https://static.cmermedical.com.hk/smile/assets/patient-info/section-last-img2.avif",
         alt: "一星期",
         label: "一星期",
       },
       {
-        img: "https://statichk.cmermedical.com/smile/patient-info/section-last-img3.avif",
+        img: "https://static.cmermedical.com.hk/smile/assets/patient-info/section-last-img3.avif",
         alt: "一个月",
         label: "一个月",
       },
       {
-        img: "https://statichk.cmermedical.com/smile/patient-info/section-last-img4.avif",
+        img: "https://static.cmermedical.com.hk/smile/assets/patient-info/section-last-img4.avif",
         alt: "三个月",
         label: "三个月",
       },
       {
-        img: "https://statichk.cmermedical.com/smile/patient-info/section-last-img5.avif",
+        img: "https://static.cmermedical.com.hk/smile/assets/patient-info/section-last-img5.avif",
         alt: "六个月",
         label: "六个月",
         note: "（或按医生之需要复诊指示）",
@@ -600,7 +600,7 @@ export const PATIENT_INFO_ZH_CN: PatientInfoData = {
       "已包含的复诊次数因不同矫视服务及不同矫视套餐而有所不同，详情可参考收费详情页或联络查询",
     careVideoTitle: "矫视后护理及注意事项",
     careVideoSrc: "https://www.youtube.com/embed/xqyN2Scg_OA?si=ZCNws4P2XJgDv2EM",
-    careIcon: "https://statichk.cmermedical.com/smile/patient-info/section-last-3-title.avif",
+    careIcon: "https://static.cmermedical.com.hk/smile/assets/patient-info/section-last-3-title.avif",
     careTitle: "矫视后护理",
     careCards: [
       {

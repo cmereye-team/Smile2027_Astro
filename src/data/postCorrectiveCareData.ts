@@ -45,9 +45,9 @@ export const POST_CARE_ZH_HK: PostCorrectiveCareData = {
   banner: {
     title: "矯視後覆診",
     bgDesktop:
-      "https://statichk.cmermedical.com/imgs/2023/04/8f47623cd90f0a16.jpg",
+      "https://static.cmermedical.com.hk/smile/assets/imgs/2023/04/8f47623cd90f0a16.jpg",
     bgMobile:
-      "https://statichk.cmermedical.com/imgs/2023/04/8fa6057ae84f4a7d.jpg",
+      "https://static.cmermedical.com.hk/smile/assets/imgs/2023/04/8fa6057ae84f4a7d.jpg",
   },
   followUp: {
     title: "矯視後覆診",
@@ -88,7 +88,7 @@ export const POST_CARE_ZH_HK: PostCorrectiveCareData = {
   cta: {
     whatsappUrl:
       "https://api.whatsapp.com/send/?phone=85269408569&text=我想預約/查詢(MW-01) 術前檢查/矯視講座",
-    icon: "https://statichk.cmermedical.com/imgs/2022/12/f3fcc54f4a9b0108.png",
+    icon: "https://static.cmermedical.com.hk/smile/assets/imgs/2022/12/f3fcc54f4a9b0108.png",
     label: "立即預約/查詢",
     phone: "6940 8569",
   },
@@ -102,9 +102,9 @@ export const POST_CARE_ZH_CN: PostCorrectiveCareData = {
   banner: {
     title: "矫视后覆诊",
     bgDesktop:
-      "https://statichk.cmermedical.com/imgs/2023/04/8f47623cd90f0a16.jpg",
+      "https://static.cmermedical.com.hk/smile/assets/imgs/2023/04/8f47623cd90f0a16.jpg",
     bgMobile:
-      "https://statichk.cmermedical.com/imgs/2023/04/8fa6057ae84f4a7d.jpg",
+      "https://static.cmermedical.com.hk/smile/assets/imgs/2023/04/8fa6057ae84f4a7d.jpg",
   },
   followUp: {
     title: "矫视后覆诊",
@@ -145,7 +145,7 @@ export const POST_CARE_ZH_CN: PostCorrectiveCareData = {
   cta: {
     whatsappUrl:
       "https://api.whatsapp.com/send/?phone=85269408569&text=我想預約/查詢(MW-01) 術前檢查/矯視講座",
-    icon: "https://statichk.cmermedical.com/imgs/2022/12/f3fcc54f4a9b0108.png",
+    icon: "https://static.cmermedical.com.hk/smile/assets/imgs/2022/12/f3fcc54f4a9b0108.png",
     label: "立即预约/查询",
     phone: "6940 8569",
   },

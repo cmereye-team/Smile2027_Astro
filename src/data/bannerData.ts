@@ -96,8 +96,8 @@ export const DEFAULT_FALLBACK_BANNERS: Record<string, BannerItem[]> = {
 export const SMILE2024_STATIC_BANNERS: BannerItem[] = [
   {
     id: "static-1",
-    pcImg: "https://statichk.cmermedical.com/smile/smileV2/smile-swiper-01.avif",
-    mbImg: "https://statichk.cmermedical.com/smile/smileV2/smile-swiper-01.avif",
+    pcImg: "https://static.cmermedical.com.hk/smile/assets/smileV2/smile-swiper-01.avif",
+    mbImg: "https://static.cmermedical.com.hk/smile/assets/smileV2/smile-swiper-01.avif",
     link: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-05)%E7%9F%AF%E8%A6%96%E8%AC%9B%E5%BA%A7/%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5",
     title: "微笑激光矯視冬日最新價格",
     subtitle: "最新情報",
@@ -105,8 +105,8 @@ export const SMILE2024_STATIC_BANNERS: BannerItem[] = [
   },
   {
     id: "static-2",
-    pcImg: "https://statichk.cmermedical.com/smile/smileV2/smile-swiper-02.avif",
-    mbImg: "https://statichk.cmermedical.com/smile/smileV2/smile-swiper-02.avif",
+    pcImg: "https://static.cmermedical.com.hk/smile/assets/smileV2/smile-swiper-02.avif",
+    mbImg: "https://static.cmermedical.com.hk/smile/assets/smileV2/smile-swiper-02.avif",
     link: "/smilePro",
     title: "SMILE PRO 2.0",
     subtitle: "最新情報",
@@ -114,8 +114,8 @@ export const SMILE2024_STATIC_BANNERS: BannerItem[] = [
   },
   {
     id: "static-3",
-    pcImg: "https://statichk.cmermedical.com/smile/smileV2/smile-swiper-03.avif",
-    mbImg: "https://statichk.cmermedical.com/smile/smileV2/smile-swiper-03.avif",
+    pcImg: "https://static.cmermedical.com.hk/smile/assets/smileV2/smile-swiper-03.avif",
+    mbImg: "https://static.cmermedical.com.hk/smile/assets/smileV2/smile-swiper-03.avif",
     link: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84(W-05)%E7%9F%AF%E8%A6%96%E8%AC%9B%E5%BA%A7/%E8%A1%93%E5%89%8D%E6%AA%A2%E6%9F%A5",
     title: "ICL植入式隱形眼鏡",
     subtitle: "最新情報",
