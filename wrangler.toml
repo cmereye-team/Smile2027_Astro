@@ -2,3 +2,7 @@
 name = "smile2026"
 compatibility_date = "2026-04-01"
 pages_build_output_dir = "dist"
+
+[[kv_namespaces]]
+binding = "PROMO_KV"
+id = "f6b4eb80e5bf4ee2a5a0d9c4664905b8"
