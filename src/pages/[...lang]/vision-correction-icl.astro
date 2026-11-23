@@ -219,7 +219,12 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
         <div class="w-full max-w-[1100px] mx-auto">
           <div class="space-y-3 md:space-y-4">
             {content.fee.cards.map((card) => (
-              <div class="bg-white border border-[#4570B6] rounded-2xl p-5 md:p-8 flex flex-row justify-between items-center gap-2 transition-all group shadow-sm hover:shadow-md">
+              <a
+                href={feeUrl}
+                class="bg-white border border-[#4570B6] rounded-2xl p-5 md:p-8 flex flex-row justify-between items-center gap-2 transition-all group shadow-sm hover:shadow-md cursor-pointer no-underline block"
+                title={`${card.title.replace(/<[^>]+>/g, '')} - ${content.fee.btn}`}
+                data-cta="fee"
+              >
                 <div
                   class="text-[#6D6E71] text-base md:text-3xl font-bold flex-shrink-0"
                   set:html={card.title.replace("ICL植入式", 'ICL植入式<br class="md:hidden" />')}
@@ -233,7 +238,7 @@ const feeUrl = getLocalizedHref("/fee#table1", lang);
                     <p class="text-xs min-[360px]:text-sm md:text-xl">{card.extra}</p>
                   )}
                 </div>
-              </div>
+              </a>
             ))}
           </div>
           <div class="mt-8 md:mt-12 flex flex-col items-center">

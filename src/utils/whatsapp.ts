@@ -46,5 +46,5 @@ export function buildWhatsAppUrl(
     // 忽略格式異常，保留原文字
   }
   const encodedText = encodeURIComponent(cleanText);
-  return `https://wa.me/${phone}?text=${encodedText}`;
+  return `https://api.whatsapp.com/send/?phone=${phone}&text=${encodedText}`;
 }

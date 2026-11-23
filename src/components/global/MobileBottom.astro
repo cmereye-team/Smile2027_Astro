@@ -40,24 +40,29 @@ const navList = [
 ];
 ---
 
-<aside class="mobile-bottom-bar" aria-label="Mobile Quick Action Bar">
-  <!-- 底欄 4 按鈕網格 -->
+<aside class="mobile-bottom-bar foot" aria-label="Mobile Quick Action Bar" data-tracking="mobile_bottom_bar">
+  <!-- 底欄 4 按鈕網格 (兼具現代語義 data-cta/data-position 與 GTM 歷史選擇器相容) -->
   <div class="bottom-nav-grid">
     {
-      navList.map((item) => (
-        <a
-          href={getLocalizedHref(item.href, lang)}
-          title={item.label}
-          class="bottom-nav-btn"
-          data-cta={item.cta}
-          data-position="mobile_bottom_bar"
-        >
-          <div class="btn-inner">
-            <Icon name={item.icon} class="btn-icon" />
-            <span class="btn-label">{item.label}</span>
-          </div>
-        </a>
-      ))
+      navList.map((item) => {
+        const isExternal = item.href.startsWith("http");
+        return (
+          <a
+            href={getLocalizedHref(item.href, lang)}
+            title={item.label}
+            class:list={["bottom-nav-btn", "box", `bottom-nav-${item.cta}`]}
+            data-cta={item.cta}
+            data-position="mobile_bottom_bar"
+            target={isExternal ? "_blank" : undefined}
+            rel={isExternal ? "noopener noreferrer" : undefined}
+          >
+            <div class="btn-inner">
+              <Icon name={item.icon} class="btn-icon" />
+              <p class="btn-label">{item.label}</p>
+            </div>
+          </a>
+        );
+      })
     }
   </div>
 </aside>
@@ -144,6 +149,7 @@ const navList = [
     line-height: 1.2;
     letter-spacing: 0.05em;
     white-space: nowrap;
+    margin: 0;
   }
 
   /* -------------------------------------------------------------------------- */

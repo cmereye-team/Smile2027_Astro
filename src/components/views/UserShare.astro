@@ -172,9 +172,10 @@ function getColor(type: string) {
         });
 
         el.addEventListener("pointermove", (e) => {
+          // 放寬移動端手指抖動閾值至 20px，防止正常觸控點擊被誤殺為拖拽
           if (
-            Math.abs(e.clientX - startX) > 6 ||
-            Math.abs(e.clientY - startY) > 6
+            Math.abs(e.clientX - startX) > 20 ||
+            Math.abs(e.clientY - startY) > 20
           ) {
             isDragging = true;
           }

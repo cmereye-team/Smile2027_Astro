@@ -719,6 +719,22 @@ const whatsappWG01Url = buildWhatsAppUrl("我想預約(W-G01) 術前檢查/矯�
             if (dateWrap) dateWrap.classList.add("hidden");
             if (selectionSummary) selectionSummary.classList.add("hidden");
             if (userDetailsForm) userDetailsForm.classList.add("hidden");
+
+            // 觸發 GTM 雙軌轉化：自定義事件 + 歷史記錄狀態相容
+            try {
+              window.dataLayer = window.dataLayer || [];
+              window.dataLayer.push({
+                event: "form_submission_success",
+                form_name: "lecture_booking",
+                service_name: addressName,
+                booking_slot: subdateStr
+              });
+              const currentUrl = new URL(window.location.href);
+              currentUrl.searchParams.set("messageFrom", "1");
+              window.history.pushState({ formSubmitted: true }, "", currentUrl.toString());
+            } catch (_trackErr) {
+              // 忽略追蹤異常，保障核心表單流程
+            }
           } else {
             const serverMsg =
               result && typeof result.data === "string" && result.data.trim()
