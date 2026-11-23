@@ -120,34 +120,17 @@ const {
       closePromoDialog();
     });
 
-    // 測試模式判定：URL 帶 ?test_promo=1 或 ?promo=1 可強制即時預覽
-    const urlParams = new URLSearchParams(window.location.search);
-    const isTestMode = urlParams.get("test_promo") === "1" || urlParams.get("promo") === "1";
-
-    // 檢查 Session 是否已關閉過 (測試模式下略過頻率限制)
-    if (!isTestMode) {
-      try {
-        if (sessionStorage.getItem("cmer_promo_dismissed") === "1") {
-          return;
-        }
-      } catch (_e) {
-        void _e;
+    // 檢查 Session 是否已關閉過 (每個訪客在同一工作階段僅彈出一次)
+    try {
+      if (sessionStorage.getItem("cmer_promo_dismissed") === "1") {
+        return;
       }
+    } catch (_e) {
+      void _e;
     }
 
-    // 取得並解析促銷配置 (優先查詢 Cloudflare KV 邊緣 API)
+    // 取得並解析促銷配置 (查詢 Cloudflare KV 邊緣端 API)
     async function evaluatePromoConfig() {
-      // 若為測試模式，直接使用測試預設資料
-      if (isTestMode) {
-        return {
-          enabled: true,
-          imageUrl: "https://statichk.cmermedical.com/smile/smileProCare/smileprocare.webp",
-          targetUrl: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E4%BA%86%E8%A7%A3(W-Promo)%E5%B8%8C%E7%91%AA%E6%9C%80%E6%96%B0%E7%9F%AF%E8%A6%96%E5%84%AA%E6%83%A0",
-          alt: "希瑪矯視限時優惠 (測試預覽)",
-          targetPages: ["*"]
-        };
-      }
-
       try {
         // 向 Cloudflare Pages Function 邊緣端查詢 KV 儲存的促銷狀態
         const endpoint = `/api/promo?key=${encodeURIComponent(promoKey)}`;
@@ -217,7 +200,7 @@ const {
         }
         document.body.style.overflow = "hidden";
       }
-    }, isTestMode ? 500 : 3000);
+    }, 3000);
   })();
 </script>
 
