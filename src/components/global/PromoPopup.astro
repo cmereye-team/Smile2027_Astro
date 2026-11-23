@@ -166,7 +166,16 @@ const {
     // 主流程：延遲 3 秒後安全檢查並彈出 (避免干擾 FCP/LCP 首屏)
     setTimeout(async function () {
       const config = await evaluatePromoConfig();
-      if (!config || !config.enabled) return;
+      if (!config) return;
+
+      // 嚴格判定開啟狀態：支援布林值 true、字串 "true"、數值 1；其餘任何 false/flase/"false"/0 均視為停用
+      const isActuallyEnabled =
+        config.enabled === true ||
+        config.enabled === "true" ||
+        config.enabled === 1 ||
+        config.enabled === "1";
+
+      if (!isActuallyEnabled) return;
 
       // 檢查頁面路徑匹配
       const currentPath = window.location.pathname;
