@@ -40,8 +40,8 @@ const navList = [
 ];
 ---
 
-<aside class="mobile-bottom-bar foot" aria-label="Mobile Quick Action Bar" data-tracking="mobile_bottom_bar">
-  <!-- 底欄 4 按鈕網格 (兼具現代語義 data-cta/data-position 與 GTM 歷史選擇器相容) -->
+<aside class="mobile-bottom-bar" aria-label="Mobile Quick Action Bar">
+  <!-- 移動端底欄 4 按鈕網格 -->
   <div class="bottom-nav-grid">
     {
       navList.map((item) => {
@@ -50,9 +50,8 @@ const navList = [
           <a
             href={getLocalizedHref(item.href, lang)}
             title={item.label}
-            class:list={["bottom-nav-btn", "box", `bottom-nav-${item.cta}`]}
+            class:list={["bottom-nav-btn", `bottom-nav-${item.cta}`]}
             data-cta={item.cta}
-            data-position="mobile_bottom_bar"
             target={isExternal ? "_blank" : undefined}
             rel={isExternal ? "noopener noreferrer" : undefined}
           >
