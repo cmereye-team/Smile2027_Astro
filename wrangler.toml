@@ -1,0 +1,10 @@
+# Cloudflare Pages / Workers 項目配置
+name = "smile2026"
+compatibility_date = "2026-04-01"
+pages_build_output_dir = "dist"
+
+# Cloudflare Flagship 特徵開關原生綁定
+# Cloudflare Pages 雲端構建時將自動讀取此配置，並在 Pages Functions 注入 context.env.FLAGS
+[[flagship]]
+binding = "FLAGS"
+app_id = "d93e0fb8-9a1a-4f54-93e6-f365578eb3a7"

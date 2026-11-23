@@ -30,8 +30,12 @@ export const onRequestGet = async (context: {
     "Access-Control-Allow-Origin": "*",
   };
 
-  // 1. 若環境已綁定 Cloudflare Flagship Workers Binding (FLAGS 或 FLAGSHIP)
-  const binding = context.env.FLAGS || context.env.FLAGSHIP;
+  // 1. 若環境已綁定 Cloudflare Flagship Workers Binding (支援 FLAGS, FLAGSHIP 或以開關名作為綁定名的情況)
+  const binding =
+    context.env.FLAGS ||
+    context.env.FLAGSHIP ||
+    (context.env as Record<string, any>)["smilepromo_popup_active"];
+
   if (binding) {
     try {
       if (typeof binding.getObjectValue === "function") {
@@ -39,15 +43,39 @@ export const onRequestGet = async (context: {
         if (val !== null && val !== undefined) {
           return new Response(JSON.stringify(val), { headers });
         }
+        // 綁定成功存在，但開關處於 disabled 或返回預設 fallback (null)
+        return new Response(
+          JSON.stringify({
+            enabled: false,
+            status: "flag_disabled",
+            message: "Cloudflare Flagship binding active, but flag is currently disabled.",
+          }),
+          { headers }
+        );
       }
       if (typeof binding.get === "function") {
         const val = await binding.get(flagKey);
         if (val !== null && val !== undefined) {
           return new Response(JSON.stringify(val), { headers });
         }
+        return new Response(
+          JSON.stringify({
+            enabled: false,
+            status: "flag_disabled",
+            message: "Cloudflare Flagship binding active, but flag is currently disabled.",
+          }),
+          { headers }
+        );
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error("[Flagship Function] Binding evaluation error:", err);
+      return new Response(
+        JSON.stringify({
+          enabled: false,
+          error: err?.message || String(err),
+        }),
+        { headers }
+      );
     }
   }
 
