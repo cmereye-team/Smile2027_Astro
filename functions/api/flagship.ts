@@ -12,6 +12,12 @@ interface Env {
     get?: (key: string) => Promise<any>;
   };
   FLAGSHIP?: any;
+  PROMO_KV?: {
+    get: (key: string, type?: string) => Promise<any>;
+  };
+  KV?: {
+    get: (key: string, type?: string) => Promise<any>;
+  };
   CF_ACCOUNT_ID?: string;
   CF_API_TOKEN?: string;
 }
@@ -30,7 +36,20 @@ export const onRequestGet = async (context: {
     "Access-Control-Allow-Origin": "*",
   };
 
-  // 1. 若環境已綁定 Cloudflare Flagship Workers Binding (支援 FLAGS, FLAGSHIP 或以開關名作為綁定名的情況)
+  // 1. 若環境綁定了 Cloudflare KV (如 PROMO_KV 或 KV)，優先讀取 KV 內儲存的配置 (Pages 最原生、最穩定的後台視覺化開關)
+  const kv = context.env.PROMO_KV || context.env.KV;
+  if (kv && typeof kv.get === "function") {
+    try {
+      const kvVal = await kv.get(flagKey, "json");
+      if (kvVal !== null && kvVal !== undefined) {
+        return new Response(JSON.stringify(kvVal), { headers });
+      }
+    } catch (err) {
+      console.error("[Flagship Function] KV evaluation error:", err);
+    }
+  }
+
+  // 2. 若環境已綁定 Cloudflare Flagship Workers Binding (支援 FLAGS, FLAGSHIP 或以開關名作為綁定名的情況)
   const binding =
     context.env.FLAGS ||
     context.env.FLAGSHIP ||
@@ -79,7 +98,7 @@ export const onRequestGet = async (context: {
     }
   }
 
-  // 2. 若環境設置了 Cloudflare API Token 與 Account ID，調用 REST Evaluate API
+  // 3. 若環境設置了 Cloudflare API Token 與 Account ID，調用 REST Evaluate API
   const accountId = context.env.CF_ACCOUNT_ID;
   const apiToken = context.env.CF_API_TOKEN;
   if (accountId && apiToken) {
@@ -107,13 +126,13 @@ export const onRequestGet = async (context: {
     }
   }
 
-  // 3. 預設兜底：安全返回 disabled 狀態 (不阻斷前端頁面)
+  // 4. 預設兜底：安全返回 disabled 狀態 (不阻斷前端頁面)
   return new Response(
     JSON.stringify({
       enabled: false,
       flagKey,
       appId,
-      notice: "Flagship binding or API token not detected in Pages environment. Popup remains dormant.",
+      notice: "No KV binding (PROMO_KV) or Flagship API token detected. Popup remains dormant.",
     }),
     {
       status: 200,
