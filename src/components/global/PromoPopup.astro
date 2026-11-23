@@ -3,17 +3,15 @@
  * @Author: Antigravity AI
  * @Date: 2026-11-23
  * @FilePath: /src/components/global/PromoPopup.astro
- * @Description: Cloudflare Flagship 驅動的商業級全域促銷彈窗組件 (原生 <dialog> + 零 CLS + 雙軌容錯)
+ * @Description: Cloudflare KV 驅動的商業級全域促銷彈窗組件 (原生 <dialog> + 零 CLS + 邊緣即時生效)
  */
 
 interface Props {
-  appId?: string;
-  flagKey?: string;
+  promoKey?: string;
 }
 
 const {
-  appId = "d93e0fb8-9a1a-4f54-93e6-f365578eb3a7",
-  flagKey = "smilepromo_popup_active"
+  promoKey = "smilepromo_popup_active"
 } = Astro.props;
 ---
 
@@ -74,7 +72,7 @@ const {
   </div>
 </dialog>
 
-<script is:inline define:vars={{ appId, flagKey }}>
+<script is:inline define:vars={{ promoKey }}>
   (function () {
     const dialog = document.getElementById("cmer-promo-dialog");
     const closeBtn = document.getElementById("cmer-promo-close-btn");
@@ -113,7 +111,7 @@ const {
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
           event: "promo_popup_click",
-          cta_location: "flagship_modal",
+          cta_location: "promo_popup_modal",
           target_url: promoLink.href
         });
       } catch (_e) {
@@ -137,29 +135,28 @@ const {
       }
     }
 
-    // 取得並解析 Flag 配置 (支援 Edge API 與 測試預設值)
-    async function evaluatePromoFlag() {
+    // 取得並解析促銷配置 (優先查詢 Cloudflare KV 邊緣 API)
+    async function evaluatePromoConfig() {
       // 若為測試模式，直接使用測試預設資料
       if (isTestMode) {
         return {
           enabled: true,
           imageUrl: "https://statichk.cmermedical.com/smile/smileProCare/smileprocare.webp",
-          targetUrl: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E4%BA%86%E8%A7%A3(W-Flagship)%E5%B8%8C%E7%91%AA%E6%9C%80%E6%96%B0%E7%9F%AF%E8%A6%96%E5%84%AA%E6%83%A0",
+          targetUrl: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E4%BA%86%E8%A7%A3(W-Promo)%E5%B8%8C%E7%91%AA%E6%9C%80%E6%96%B0%E7%9F%AF%E8%A6%96%E5%84%AA%E6%83%A0",
           alt: "希瑪矯視限時優惠 (測試預覽)",
           targetPages: ["*"]
         };
       }
 
       try {
-        // 向 Cloudflare Pages Function 邊緣端查詢 Flagship 狀態
-        const endpoint = `/api/flagship?appId=${encodeURIComponent(appId)}&flag=${encodeURIComponent(flagKey)}`;
+        // 向 Cloudflare Pages Function 邊緣端查詢 KV 儲存的促銷狀態
+        const endpoint = `/api/promo?key=${encodeURIComponent(promoKey)}`;
         const res = await fetch(endpoint, {
           headers: { "Accept": "application/json" },
           cache: "no-store"
         });
         if (!res.ok) return null;
         const data = await res.json();
-        // 支援直接 JSON 物件或 OpenFeature variant 格式
         return data.value || data;
       } catch (_err) {
         return null;
@@ -168,7 +165,7 @@ const {
 
     // 主流程：延遲 3 秒後安全檢查並彈出 (避免干擾 FCP/LCP 首屏)
     setTimeout(async function () {
-      const config = await evaluatePromoFlag();
+      const config = await evaluatePromoConfig();
       if (!config || !config.enabled) return;
 
       // 檢查頁面路徑匹配
