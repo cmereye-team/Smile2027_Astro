@@ -27,13 +27,22 @@ export const onRequestGet = async (context: {
     "Access-Control-Allow-Origin": "*",
   };
 
-  // 1. 動態識別 Cloudflare KV 綁定 (優先 PROMO_KV / KV，或自動偵測任何具備 .get 方法的 KV 實例)
-  let kv: any = context.env.PROMO_KV || context.env.KV;
-  let boundName = context.env.PROMO_KV ? "PROMO_KV" : context.env.KV ? "KV" : "";
+  // 1. 動態識別 Cloudflare KV 綁定 (排除 ASSETS 等 Cloudflare 內部 RPC 代理)
+  let kv: any = null;
+  let boundName = "";
 
-  if (!kv || typeof kv.get !== "function") {
+  // 優先檢測標準名稱
+  if (context.env.PROMO_KV && typeof (context.env.PROMO_KV as any).get === "function") {
+    kv = context.env.PROMO_KV;
+    boundName = "PROMO_KV";
+  } else if (context.env.KV && typeof (context.env.KV as any).get === "function") {
+    kv = context.env.KV;
+    boundName = "KV";
+  } else {
+    // 遍歷所有非內部變數，尋找真正的 KV 實例 (嚴格排除 ASSETS 與 CF_PAGES)
     for (const [k, v] of Object.entries(context.env)) {
-      if (v && typeof (v as any).get === "function") {
+      if (k === "ASSETS" || k === "CF_PAGES") continue;
+      if (v && typeof (v as any).get === "function" && typeof (v as any).put === "function") {
         kv = v;
         boundName = k;
         break;
