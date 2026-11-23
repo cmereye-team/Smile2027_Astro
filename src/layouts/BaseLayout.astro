@@ -7,6 +7,7 @@ import MobileBottom from "@/components/global/MobileBottom.astro";
 import SidebarDesktop from "@/components/global/SidebarDesktop.astro";
 import Backtop from "@/components/global/Backtop.astro";
 import LiveChat from "@/components/global/LiveChat.astro";
+import PromoPopup from "@/components/global/PromoPopup.astro";
 import SEOHead from "@/components/seo/SEOHead.astro";
 import SchemaClinic from "@/components/seo/SchemaClinic.astro";
 import { useI18n } from "@/i18n/utils";
@@ -124,6 +125,7 @@ if (tdkKey && dict.tdk[tdkKey]) {
     <MobileBottom />
     <Footer />
     <LiveChat />
+    <PromoPopup />
 
     <!-- 共享滾動顯現微動效 (Shared Scroll Reveal) -->
     <script is:inline>

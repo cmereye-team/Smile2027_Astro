@@ -720,14 +720,26 @@ const whatsappWG01Url = buildWhatsAppUrl("我想預約(W-G01) 術前檢查/矯�
             if (selectionSummary) selectionSummary.classList.add("hidden");
             if (userDetailsForm) userDetailsForm.classList.add("hidden");
 
-            // 觸發 GTM 雙軌轉化：自定義事件 + 歷史記錄狀態相容
+            // 觸發 GTM 雙軌轉化 + Google Ads 增強型轉化 (Enhanced Conversions)
             try {
               window.dataLayer = window.dataLayer || [];
+              const rawTel = (formData.get("telphoneNumber") || "").toString().trim();
+              const formattedTel = rawTel ? (rawTel.startsWith("+") ? rawTel : "+852" + rawTel.replace(/^852/, "")) : "";
+              const rawEmail = (formData.get("email") || "").toString().trim().toLowerCase();
+              const rawName = (formData.get("name") || "").toString().trim();
+
               window.dataLayer.push({
                 event: "form_submission_success",
                 form_name: "lecture_booking",
                 service_name: addressName,
-                booking_slot: subdateStr
+                booking_slot: subdateStr,
+                user_data: {
+                  phone_number: formattedTel,
+                  email: rawEmail,
+                  address: {
+                    first_name: rawName
+                  }
+                }
               });
               const currentUrl = new URL(window.location.href);
               currentUrl.searchParams.set("messageFrom", "1");

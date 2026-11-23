@@ -1,0 +1,345 @@
+---
+/*
+ * @Author: Antigravity AI
+ * @Date: 2026-11-23
+ * @FilePath: /src/components/global/PromoPopup.astro
+ * @Description: Cloudflare Flagship 驅動的商業級全域促銷彈窗組件 (原生 <dialog> + 零 CLS + 雙軌容錯)
+ */
+
+interface Props {
+  appId?: string;
+  flagKey?: string;
+}
+
+const {
+  appId = "d93e0fb8-9a1a-4f54-93e6-f365578eb3a7",
+  flagKey = "smilepromo_popup_active"
+} = Astro.props;
+---
+
+<!-- 商業級原生促銷彈窗 (預設 display: none 由 JS 呼叫 showModal) -->
+<dialog
+  id="cmer-promo-dialog"
+  class="cmer-promo-dialog"
+  aria-labelledby="cmer-promo-title"
+  aria-modal="true"
+>
+  <div class="cmer-promo-container">
+    {/* 關閉按鈕 (無障礙 ≥44px 觸控熱區) */}
+    <button
+      type="button"
+      id="cmer-promo-close-btn"
+      class="cmer-promo-close-btn"
+      aria-label="關閉優惠宣傳彈窗"
+    >
+      <svg
+        class="w-6 h-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2.5"
+          d="M6 18L18 6M6 6l12 12"
+        />
+      </svg>
+    </button>
+
+    {/* 宣傳內容區塊 (無障礙隱藏標題 + 轉換超連結) */}
+    <h2 id="cmer-promo-title" class="sr-only">希瑪矯視限時優惠活動</h2>
+    
+    <a
+      id="cmer-promo-link"
+      href="#"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="cmer-promo-link"
+      data-cta="promo_popup"
+    >
+      <div class="cmer-promo-img-wrap">
+        <img
+          id="cmer-promo-img"
+          src=""
+          alt="希瑪矯視優惠活動"
+          loading="eager"
+          decoding="async"
+          class="cmer-promo-img"
+        />
+      </div>
+    </a>
+  </div>
+</dialog>
+
+<script is:inline define:vars={{ appId, flagKey }}>
+  (function () {
+    const dialog = document.getElementById("cmer-promo-dialog");
+    const closeBtn = document.getElementById("cmer-promo-close-btn");
+    const promoLink = document.getElementById("cmer-promo-link");
+    const promoImg = document.getElementById("cmer-promo-img");
+
+    if (!dialog || !closeBtn || !promoLink || !promoImg) return;
+
+    // 關閉邏輯
+    function closePromoDialog() {
+      if (typeof dialog.close === "function") {
+        dialog.close();
+      } else {
+        dialog.removeAttribute("open");
+      }
+      document.body.style.overflow = "";
+      try {
+        sessionStorage.setItem("cmer_promo_dismissed", "1");
+      } catch (_e) {
+        void _e;
+      }
+    }
+
+    closeBtn.addEventListener("click", closePromoDialog);
+
+    // 點擊背景遮罩關閉
+    dialog.addEventListener("click", function (e) {
+      if (e.target === dialog) {
+        closePromoDialog();
+      }
+    });
+
+    // 點擊彈窗內廣告連結時追蹤自定義位置並關閉彈窗
+    promoLink.addEventListener("click", function () {
+      try {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "promo_popup_click",
+          cta_location: "flagship_modal",
+          target_url: promoLink.href
+        });
+      } catch (_e) {
+        void _e;
+      }
+      closePromoDialog();
+    });
+
+    // 測試模式判定：URL 帶 ?test_promo=1 或 ?promo=1 可強制即時預覽
+    const urlParams = new URLSearchParams(window.location.search);
+    const isTestMode = urlParams.get("test_promo") === "1" || urlParams.get("promo") === "1";
+
+    // 檢查 Session 是否已關閉過 (測試模式下略過頻率限制)
+    if (!isTestMode) {
+      try {
+        if (sessionStorage.getItem("cmer_promo_dismissed") === "1") {
+          return;
+        }
+      } catch (_e) {
+        void _e;
+      }
+    }
+
+    // 取得並解析 Flag 配置 (支援 Edge API 與 測試預設值)
+    async function evaluatePromoFlag() {
+      // 若為測試模式，直接使用測試預設資料
+      if (isTestMode) {
+        return {
+          enabled: true,
+          imageUrl: "https://statichk.cmermedical.com/smile/smileProCare/smileprocare.webp",
+          targetUrl: "https://api.whatsapp.com/send/?phone=85269408569&text=%E6%88%91%E6%83%B3%E4%BA%86%E8%A7%A3(W-Flagship)%E5%B8%8C%E7%91%AA%E6%9C%80%E6%96%B0%E7%9F%AF%E8%A6%96%E5%84%AA%E6%83%A0",
+          alt: "希瑪矯視限時優惠 (測試預覽)",
+          targetPages: ["*"]
+        };
+      }
+
+      try {
+        // 向 Cloudflare Pages Function 邊緣端查詢 Flagship 狀態
+        const endpoint = `/api/flagship?appId=${encodeURIComponent(appId)}&flag=${encodeURIComponent(flagKey)}`;
+        const res = await fetch(endpoint, {
+          headers: { "Accept": "application/json" },
+          cache: "no-store"
+        });
+        if (!res.ok) return null;
+        const data = await res.json();
+        // 支援直接 JSON 物件或 OpenFeature variant 格式
+        return data.value || data;
+      } catch (_err) {
+        return null;
+      }
+    }
+
+    // 主流程：延遲 3 秒後安全檢查並彈出 (避免干擾 FCP/LCP 首屏)
+    setTimeout(async function () {
+      const config = await evaluatePromoFlag();
+      if (!config || !config.enabled) return;
+
+      // 檢查頁面路徑匹配
+      const currentPath = window.location.pathname;
+      const targetPages = Array.isArray(config.targetPages) ? config.targetPages : ["*"];
+      const isWildcard = targetPages.includes("*");
+      const isMatched = isWildcard || targetPages.some(function (p) {
+        const cleanP = p.replace(/\/+$/, "");
+        const cleanCurr = currentPath.replace(/\/+$/, "");
+        return cleanCurr === cleanP || (cleanP !== "" && cleanCurr.startsWith(cleanP));
+      });
+
+      if (!isMatched) return;
+
+      // 渲染彈窗圖片與連結
+      promoImg.src = config.imageUrl || "";
+      if (config.alt) {
+        promoImg.alt = config.alt;
+        const titleEl = document.getElementById("cmer-promo-title");
+        if (titleEl) titleEl.textContent = config.alt;
+      }
+      promoLink.href = config.targetUrl || "https://api.whatsapp.com/send/?phone=85269408569";
+
+      // 預載圖片完成後再流暢彈出，杜絕空白撕裂
+      promoImg.onload = function () {
+        if (typeof dialog.showModal === "function") {
+          dialog.showModal();
+        } else {
+          dialog.setAttribute("open", "");
+        }
+        document.body.style.overflow = "hidden";
+      };
+
+      // 若圖片已快取
+      if (promoImg.complete && promoImg.naturalWidth > 0) {
+        if (typeof dialog.showModal === "function") {
+          dialog.showModal();
+        } else {
+          dialog.setAttribute("open", "");
+        }
+        document.body.style.overflow = "hidden";
+      }
+    }, isTestMode ? 500 : 3000);
+  })();
+</script>
+
+<style lang="scss">
+  .cmer-promo-dialog {
+    padding: 0;
+    border: none;
+    background: transparent;
+    max-width: 90vw;
+    width: auto;
+    margin: auto;
+    overflow: visible;
+
+    &::backdrop {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      animation: promoFadeIn 0.25s ease-out;
+    }
+
+    &[open] {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: promoScaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  }
+
+  .cmer-promo-container {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 480px;
+  }
+
+  .cmer-promo-close-btn {
+    position: absolute;
+    top: -14px;
+    right: -14px;
+    z-index: 20;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    color: #4b5563;
+    border: 2px solid rgba(0, 0, 0, 0.08);
+    border-radius: 9999px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+
+    &:hover {
+      background-color: #f3f4f6;
+      color: #111827;
+      transform: scale(1.1);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    @media (max-width: 640px) {
+      top: -12px;
+      right: -8px;
+      width: 36px;
+      height: 36px;
+    }
+  }
+
+  .cmer-promo-link {
+    display: block;
+    outline: none;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+
+  .cmer-promo-img-wrap {
+    width: 100%;
+    max-width: 440px;
+    max-height: 75vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+
+    @media (max-width: 640px) {
+      max-width: 82vw;
+      max-height: 70vh;
+    }
+  }
+
+  .cmer-promo-img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 75vh;
+    object-fit: contain;
+    border-radius: 12px;
+    display: block;
+  }
+
+  @keyframes promoFadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes promoScaleUp {
+    from {
+      opacity: 0;
+      transform: scale(0.85);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+</style>
