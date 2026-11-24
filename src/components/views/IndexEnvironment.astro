@@ -81,6 +81,11 @@ const banners = [
     overflow: hidden;
     position: relative;
     background-color: #fff;
+    max-height: 280px;
+    @media (min-width: 560px) {
+      max-height: 340px;
+      height: 340px;
+    }
     @media (min-width: 1024px) {
       max-height: 450px;
       height: 450px;
@@ -95,9 +100,15 @@ const banners = [
 
     img {
       width: 100%;
+      height: 100%;
       aspect-ratio: 749 / 520;
       object-fit: cover;
       transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+      @media (min-width: 560px) {
+        aspect-ratio: auto;
+        height: 340px !important;
+        max-height: 340px !important;
+      }
       @media (min-width: 1024px) {
         aspect-ratio: auto;
         height: 450px !important;
@@ -123,6 +134,10 @@ const banners = [
       height: 100% !important;
       position: relative;
       overflow: hidden;
+      @media (min-width: 560px) {
+        max-height: 340px !important;
+        height: 340px !important;
+      }
       @media (min-width: 1024px) {
         max-height: 450px !important;
         height: 450px !important;
@@ -155,7 +170,7 @@ const banners = [
         spaceBetween: 0,
         slidesPerView: 1,
         breakpoints: {
-          768: {
+          560: {
             slidesPerView: 2,
           },
           1280: {

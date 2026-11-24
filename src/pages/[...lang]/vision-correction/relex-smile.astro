@@ -283,7 +283,7 @@ const visibleFaqs = [
             {content.fee.title}
           </h2>
           <div class="w-full">
-            <div class="space-y-2 md:space-y-4 max-w-[900px] mx-auto">
+            <div class="space-y-2 md:space-y-4 max-w-[560px] md:max-w-[720px] lg:max-w-[840px] mx-auto">
               {
                 content.fee.items.map((item) => (
                   <div class="bg-white border border-[#4570B6] rounded-2xl p-5 md:p-8 flex flex-row justify-between items-center transition-all group">
@@ -910,6 +910,8 @@ const visibleFaqs = [
     &-content {
       color: $text-color;
       position: relative;
+      max-width: 440px;
+      margin: 0 auto;
 
       img {
         width: 100%;

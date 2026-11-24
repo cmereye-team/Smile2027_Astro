@@ -505,6 +505,25 @@
       margin-top: 30px;
       display: block;
 
+      @media (min-width: 600px) {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 24px;
+
+        .icl-WhatChoose-content-one-img {
+          width: 45%;
+          max-width: 320px;
+          flex-shrink: 0;
+        }
+
+        .icl-WhatChoose-content-one-text {
+          width: auto;
+          flex: 1;
+          margin-top: 0;
+        }
+      }
+
       .icl-WhatChoose-content-one-text {
         width: 100%;
         margin-top: 30px;
@@ -2351,20 +2370,21 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  height: 36.66vw;
+  height: clamp(300px, 34vw, 460px);
   max-height: 800px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  @media screen and (max-width: 1140px) {
+  @media screen and (max-width: 599px) {
     margin-top: 0;
     margin-bottom: 40px;
     background: url("https://static.cmermedical.com.hk/smile/assets/service/icl/icl-newdongtai-mobile.webp")
-      no-repeat center / cover;
-    height: 209vw;
-    padding-top: 33.33vw;
+      no-repeat center top / cover;
+    height: auto;
+    min-height: 420px;
+    padding: 60px 20px 40px;
     display: block;
   }
 
@@ -2381,16 +2401,16 @@
     line-height: 1.3;
     padding: 13px 30px;
 
-    @media screen and (max-width: 1140px) {
-      top: 14.1vw;
-      font-size: 5.12vw;
-      line-height: 1.95;
-      padding: 5px 24px;
+    @media screen and (max-width: 599px) {
+      top: 16px;
+      font-size: 16px;
+      line-height: 1.5;
+      padding: 6px 18px;
     }
   }
 
   .latestNews-in {
-    width: 28.125vw;
+    width: clamp(320px, 40vw, 540px);
     max-width: 540px;
     display: flex;
     flex-direction: column;
@@ -2398,8 +2418,8 @@
     align-items: center;
     margin: 0 auto;
 
-    @media screen and (max-width: 1140px) {
-      width: 64.61vw;
+    @media screen and (max-width: 599px) {
+      width: 100%;
       display: block;
     }
 
@@ -2411,16 +2431,16 @@
       font-weight: 700;
       line-height: 1.3;
 
-      @media screen and (max-width: 1140px) {
-        font-size: 5.12vw;
-        line-height: 1.58;
+      @media screen and (max-width: 599px) {
+        font-size: 22px;
+        line-height: 1.4;
       }
 
       i {
         font-style: normal;
         font-family: var(--font-en);
 
-        @media screen and (max-width: 1140px) {
+        @media screen and (max-width: 599px) {
           display: block;
         }
       }
@@ -2438,34 +2458,31 @@
         background: #c13550;
         padding: 0 10px;
 
-        @media screen and (max-width: 1140px) {
-          margin-left: 26px;
-          font-size: 5.1vw;
-          line-height: 1.65;
-          padding: 0 5px;
+        @media screen and (max-width: 599px) {
+          margin-left: 0;
+          font-size: 18px;
+          line-height: 1.5;
+          padding: 2px 8px;
         }
       }
     }
 
     p {
-      margin-top: 4px;
-      margin-left: 83px;
+      margin-top: 12px;
       color: #6d6e71;
       text-align: justify;
       font-family: var(--font-hk);
-      font-size: 23px;
+      font-size: clamp(15px, 1.4vw, 20px);
       font-style: normal;
-      font-weight: 300;
-      line-height: 1.52;
-      letter-spacing: 4.6px;
+      font-weight: 400;
+      line-height: 1.6;
+      letter-spacing: 1.5px;
 
-      @media screen and (max-width: 1140px) {
-        margin-left: 0;
-        margin-top: 9px;
-        font-size: clamp(16px, 4.1vw, 18px);
-        font-weight: 500;
+      @media screen and (max-width: 599px) {
+        margin-top: 12px;
+        font-size: 15px;
         line-height: 1.6;
-        letter-spacing: 1px;
+        letter-spacing: 0.5px;
       }
     }
   }
@@ -2473,26 +2490,25 @@
   .latestNews-btn {
     border: 1px solid #c13550;
     border-radius: 50%;
-    width: 322px;
-    height: 322px;
-    margin-top: 24px;
+    width: clamp(140px, 16vw, 220px);
+    height: clamp(140px, 16vw, 220px);
     position: absolute;
-    top: 9.89vw;
-    right: 9.89vw;
+    top: 50%;
+    right: clamp(24px, 6vw, 80px);
+    transform: translateY(-50%);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 32px;
+    gap: 12px;
     transition: all 0.3s ease;
 
-    @media screen and (max-width: 1140px) {
+    @media screen and (max-width: 599px) {
       position: static;
-      width: 44.1vw;
-      height: 44.1vw;
-      margin-left: auto;
-      margin-right: 15px;
-      gap: 17px;
+      transform: none;
+      width: 140px;
+      height: 140px;
+      margin: 20px auto 0;
     }
 
     svg {
