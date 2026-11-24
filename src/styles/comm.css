@@ -107,6 +107,9 @@
   html {
     scroll-behavior: smooth;
     text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    touch-action: manipulation;
+    overflow-x: hidden;
   }
 
   body {
@@ -119,7 +122,8 @@
     color: var(--color-desc);
     background-color: #ffffff;
     line-height: 1.6;
-    overflow-x: clip;
+    overflow-x: hidden;
+    touch-action: manipulation;
   }
 
   /* 圖片與媒體默認防 CLS 抖動 */
@@ -1063,7 +1067,9 @@ html[lang="zh-cn"] .media-card .media-card-excerpt {
   .d-xl-block { display: block !important; }
 }
 
-
-
-
+/* 隱藏商務通移動端圓圈未讀消息數浮標 (替代原 GTM 自定義 HTML 標籤) */
+/* stylelint-disable-next-line selector-id-pattern */
+#LR-BUBBLE {
+  display: none !important;
+}
 
