@@ -767,7 +767,7 @@ const newsList = [
     }
   }
 
-  /* 摺疊屏 / 平板中段視口優化 (600–719px，如 626×890 豎屏) */
+  /* 摺疊屏 / 平板中段視口優化 (600–719px，如 626×890 豎屏 / Oppo Find N3 展開 672px) */
   @media screen and (min-width: 600px) and (max-width: 719px) {
     .footer-card {
       max-width: 560px;
@@ -779,12 +779,14 @@ const newsList = [
     }
 
     .footer-locations {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
+      /* 單列佈局限制文字寬度至 380px，確保右下角吉祥物 (-15px) 擁有充裕留白，絕不遮擋門市地址文字 */
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
 
       .footer-location-item {
         margin-bottom: 0;
+        max-width: 380px;
       }
     }
 

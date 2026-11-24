@@ -298,7 +298,7 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
           </div>
         </div>
         <div class="flex-1 w-full">
-          <picture class="block w-[78%] ml-auto">
+          <picture class="block w-full max-w-[460px] mx-auto lg:w-[78%] lg:ml-auto lg:mr-0">
             <source
               media="(min-width: 1024px)"
               srcset={content.summary.introImgPc}
@@ -313,7 +313,7 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
               class="w-full h-auto block"
             />
           </picture>
-          <div class="aspect-video w-[90%] mr-auto -mt-[14%] relative z-[1] shadow-md">
+          <div class="aspect-video w-full max-w-[500px] mx-auto lg:w-[90%] lg:mr-auto lg:ml-0 mt-4 lg:-mt-[14%] relative z-[1] shadow-md rounded-xl overflow-hidden">
             <VideoFacade
               videoId={content.summary.videoUrl}
               title={`${content.summary.titlePrefix} ${content.summary.titleStrong}`}
@@ -1364,7 +1364,8 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
 
   /* Section 3: 為何選擇希瑪 */
   .icl-WhatChoose {
-    padding: 40px 0;
+    padding: 40px 16px;
+    box-sizing: border-box;
 
     .icl-WhatChoose-title {
       color: $primary;
@@ -1430,7 +1431,7 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
       }
     }
 
-    @media screen and (min-width: 1024px) {
+    @media screen and (min-width: 640px) {
       .icl-WhatChoose-content-one {
         display: flex;
         align-items: center;

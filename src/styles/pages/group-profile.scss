@@ -413,11 +413,10 @@
   overflow: hidden;
   background: #f0f4f8;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  flex: 1 1 280px;
+  max-width: 380px;
   width: 100%;
-  max-width: 344px;
-  max-height: 194px;
   aspect-ratio: 344 / 194;
-  flex-shrink: 0;
 }
 
 .group-gallery-img {
@@ -555,7 +554,7 @@
   box-sizing: border-box;
   gap: clamp(24px, 3vw, 40px);
 
-  @media (min-width: 1024px) {
+  @media (min-width: 600px) {
     flex-direction: row;
   }
 }

@@ -1659,6 +1659,11 @@
               position: relative;
               width: 100%;
 
+              @media screen and (max-width: 1140px) {
+                max-width: 380px;
+                margin: 0 auto;
+              }
+
               .step-image-slide {
                 grid-area: 1 / 1;
                 opacity: 0;
@@ -1676,6 +1681,7 @@
                   @media screen and (max-width: 1140px) {
                     margin-bottom: 0;
                     border-radius: 10px;
+                    max-height: 280px;
                   }
                 }
               }
@@ -1720,6 +1726,15 @@
                 line-height: 1.65;
                 letter-spacing: 0.6px;
                 max-width: 100%;
+              }
+
+              @media screen and (min-width: 600px) and (max-width: 1140px) {
+                font-size: 19px;
+                line-height: 1.8;
+                font-weight: 500;
+                text-align: center;
+                max-width: 520px;
+                margin: 16px auto 0;
               }
             }
           }
@@ -2285,6 +2300,14 @@
         padding-bottom: 13px;
         border-left: none;
         border-top: 1.327px solid #4570b6;
+
+        @media screen and (min-width: 540px) {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          column-gap: 24px;
+          row-gap: 6px;
+          padding: 16px 20px;
+        }
 
         li {
           .CheckObject-number {

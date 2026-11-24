@@ -929,7 +929,27 @@ const visibleFaqs = [
   }
 
   .whyChoose {
+    &::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    &-img {
+      @media screen and (min-width: 600px) {
+        float: left;
+        width: 48%;
+        max-width: 420px;
+        margin-right: 28px;
+        margin-bottom: 16px;
+      }
+    }
+
     &-intro {
+      @media screen and (min-width: 600px) {
+        margin-top: 0;
+      }
+
       p {
         color: $text-color;
         font-weight: 300;
