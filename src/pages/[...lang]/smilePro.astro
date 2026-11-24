@@ -251,9 +251,9 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
       </nav>
 
       <div
-        class="summary overflow-hidden flex flex-col sm:flex-row gap-8 lg:gap-12 xl:gap-[68px] mb-23"
+        class="summary overflow-hidden flex flex-col min-[560px]:flex-row gap-6 min-[560px]:gap-8 lg:gap-12 xl:gap-[68px] mb-12 lg:mb-20 items-center"
       >
-        <div class="sm:w-1/2">
+        <div class="w-full min-[560px]:w-1/2">
           <div class="flex items-end gap-2 lg:gap-3 mb-4 lg:mb-6">
             <h1
               id="hero-h1-title"
@@ -272,7 +272,7 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
               class="w-[clamp(112px,33.84vw,152px)] lg:w-[232px] flex-1 pb-1"
             />
           </div>
-          <div class="summary-desc space-y-5 lg:space-y-10">
+          <div class="summary-desc space-y-4 lg:space-y-8 text-sm lg:text-base">
             <p>
               <span>{content.summary.p1.text1}</span>
               <strong>{content.summary.p1.strong1}</strong>
@@ -297,8 +297,8 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
             </p>
           </div>
         </div>
-        <div class="flex-1 w-full sm:w-1/2">
-          <picture class="block w-[80%] ml-auto">
+        <div class="w-full min-[560px]:w-1/2 relative">
+          <picture class="block w-[80%] max-w-[420px] ml-auto">
             <source
               media="(min-width: 1024px)"
               srcset={content.summary.introImgPc}
@@ -313,7 +313,7 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
               class="w-full h-auto block"
             />
           </picture>
-          <div class="aspect-video w-[92%] mr-auto -mt-[16%] lg:-mt-[18%] relative z-[1] shadow-md rounded-xl overflow-hidden">
+          <div class="aspect-video w-[92%] max-w-[440px] mr-auto -mt-[16%] lg:-mt-[18%] relative z-[1] shadow-md rounded-xl overflow-hidden">
             <VideoFacade
               videoId={content.summary.videoUrl}
               title={`${content.summary.titlePrefix} ${content.summary.titleStrong}`}

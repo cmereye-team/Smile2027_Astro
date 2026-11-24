@@ -129,13 +129,13 @@ const currentUrl = isCn
         </h2>
         <div
           role="list"
-          class="grid grid-cols-2 md:grid-cols-4 mb-5 md:mb-[72px] gap-x-[21.538vw] gap-y-14 md:gap-[7%]"
+          class="grid grid-cols-2 sm:grid-cols-4 mb-5 md:mb-[72px] gap-6 sm:gap-4 md:gap-[5%] max-w-4xl mx-auto"
         >
           {
             content.principle.steps.map((step) => (
               <div
                 role="listitem"
-                class="principle-item relative flex flex-col justify-between w-full"
+                class="principle-item relative flex flex-col justify-between w-full max-w-[160px] md:max-w-[200px] mx-auto"
               >
                 <span class="principle-num font-en">{step.num}</span>
                 <img
@@ -147,7 +147,7 @@ const currentUrl = isCn
                   draggable="false"
                   loading="lazy"
                   decoding="async"
-                  class="w-full"
+                  class="w-full max-w-[130px] md:max-w-[180px] mx-auto object-contain"
                 />
               </div>
             ))
@@ -168,7 +168,7 @@ const currentUrl = isCn
       <h2 id="lasik-benefits-heading" class="title-normal mb-7 md:mb-[52px]">
         {content.benefits.title}
       </h2>
-      <ul class="grid grid-cols-2 md:grid-cols-4 border-[#4570B6] border md:border-2">
+      <ul class="grid grid-cols-2 sm:grid-cols-4 border-[#4570B6] border md:border-2 max-w-4xl mx-auto">
         {
           content.benefits.items.map((item) => (
             <li class="benefits-item aspect-square flex justify-center items-center flex-col">
@@ -208,7 +208,7 @@ const currentUrl = isCn
       aria-labelledby="lasik-suitable-heading"
     >
       <div class="suitable-bg site-container text-base md:text-xl font-light mb-8 md:mb-[clamp(15rem,-2.391rem_+_36.23vw,27.5rem)] relative after:absolute after:bg-[url(https://static.cmermedical.com.hk/smile/assets/lasik/tumbling-e.svg)] after:bg-contain after:bg-no-repeat after:size-[22.564vw] md:after:size-[9.375vw] after:-rotate-[42deg] md:after:-rotate-[15deg] after:-top-20 after:right-1 md:after:-top-24 after:max-w-[180px] after:max-h-[180px]">
-        <div class="suitable-intro border-primary border md:border-[2px] bg-[linear-gradient(210deg,#FFF_13.8%,#F2F7FF_70.44%)] rounded-full aspect-square h-auto w-[80vw] md:w-[55vw] lg:w-[45vw] xl:w-1/2 pt-[24%] px-4 md:px-0 md:pt-[8%] xl:pt-[15%] -mb-[30%] md:-mb-[40%] mx-auto">
+        <div class="suitable-intro border-primary border md:border-[2px] bg-[linear-gradient(210deg,#FFF_13.8%,#F2F7FF_70.44%)] rounded-full aspect-square h-auto w-[80vw] sm:w-[340px] md:w-[400px] lg:w-[450px] pt-[24%] sm:pt-[70px] md:pt-[8%] xl:pt-[15%] -mb-[30%] sm:-mb-[90px] mx-auto">
           <h2 id="lasik-suitable-heading" class="title-normal mb-0 text-center">
             {content.suitable.title}
           </h2>
@@ -411,7 +411,10 @@ const currentUrl = isCn
           left: -12%;
           top: -18%;
           width: 25.641vw;
-          z-index: 10;
+          max-width: 140px;
+          max-height: 280px;
+          pointer-events: none;
+          z-index: 1;
         }
 
         &::after {
@@ -424,7 +427,16 @@ const currentUrl = isCn
         }
 
         #lasik-suitable-heading {
+          position: relative;
+          z-index: 2;
           text-align: center;
+        }
+
+        .suitable-desc {
+          position: relative;
+          z-index: 2;
+          max-width: 240px;
+          margin-inline: auto;
         }
       }
 

@@ -668,6 +668,32 @@ summary.faq-header::before {
   font-weight: 600;
 }
 
+/* -------------------------------------------------------------------------- */
+/* 全站語意化緊湊容器系統 (.fee-table-container / .table-compact-container) */
+/* 統一約制價目表、費用清單與表單居中卡片，杜絕大屏/折疊屏拉伸變形 */
+/* -------------------------------------------------------------------------- */
+.fee-table-container,
+.table-compact-container {
+  width: 100%;
+  margin-inline: auto;
+  max-width: var(--table-compact-w, 560px);
+}
+
+@media (min-width: 768px) {
+  .fee-table-container,
+  .table-compact-container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .fee-table-container,
+  .table-compact-container {
+    max-width: 840px;
+  }
+}
+
+
 .page-banner-card--light .page-banner-content .page-banner-eyebrow,
 .page-banner-card--light .page-banner-content .page-banner-title,
 .page-banner-card--light .page-banner-content .page-banner-subtitle,
