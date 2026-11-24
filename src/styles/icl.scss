@@ -505,28 +505,36 @@
       margin-top: 30px;
       display: block;
 
-      @media (min-width: 600px) {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        gap: 24px;
+      &::after {
+        content: "";
+        display: table;
+        clear: both;
+      }
 
-        .icl-WhatChoose-content-one-img {
-          width: 45%;
-          max-width: 320px;
-          flex-shrink: 0;
+      .icl-WhatChoose-content-one-img {
+        width: 100%;
+        margin-bottom: 20px;
+        border-radius: 16px;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: auto;
+          display: block;
+          border-radius: 16px;
         }
 
-        .icl-WhatChoose-content-one-text {
-          width: auto;
-          flex: 1;
-          margin-top: 0;
+        @media (min-width: 600px) {
+          float: left;
+          width: clamp(260px, 38vw, 380px);
+          margin-right: 28px;
+          margin-bottom: 16px;
         }
       }
 
       .icl-WhatChoose-content-one-text {
         width: 100%;
-        margin-top: 30px;
+        margin-top: 0;
 
         p {
           font-size: 16px;

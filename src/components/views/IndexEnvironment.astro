@@ -82,8 +82,8 @@ const banners = [
     position: relative;
     background-color: #fff;
     @media (min-width: 560px) {
-      max-height: 340px;
-      height: 340px;
+      max-height: 220px;
+      height: 220px;
     }
     @media (min-width: 1024px) {
       max-height: 450px;
@@ -104,8 +104,8 @@ const banners = [
       transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
       @media (min-width: 560px) {
         aspect-ratio: auto;
-        height: 340px !important;
-        max-height: 340px !important;
+        height: 220px !important;
+        max-height: 220px !important;
       }
       @media (min-width: 1024px) {
         aspect-ratio: auto;
@@ -133,8 +133,8 @@ const banners = [
       position: relative;
       overflow: hidden;
       @media (min-width: 560px) {
-        max-height: 340px !important;
-        height: 340px !important;
+        max-height: 220px !important;
+        height: 220px !important;
       }
       @media (min-width: 1024px) {
         max-height: 450px !important;
@@ -169,7 +169,10 @@ const banners = [
         slidesPerView: 1,
         breakpoints: {
           560: {
-            slidesPerView: 2,
+            slidesPerView: 2.2,
+          },
+          768: {
+            slidesPerView: 2.5,
           },
           1280: {
             slidesPerView: 2.2,
