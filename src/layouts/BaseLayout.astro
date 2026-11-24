@@ -55,7 +55,7 @@ if (tdkKey && dict.tdk[tdkKey]) {
       lang={lang}
     />
 
-    <!-- Google Tag Manager (G-FN8KFBR9XM) [手勢互動/延遲 4s 載入，遵循 Agents.md 第 7 節零 TBT 阻塞規範] -->
+    <!-- Google Tag Manager (GTM-5M8VLLM) [手勢互動/延遲 4s 載入，遵循 Agents.md 第 7 節零 TBT 阻塞規範] -->
     <script is:inline>
       (function () {
         let gtmLoaded = false;
@@ -67,50 +67,12 @@ if (tdkKey && dict.tdk[tdkKey]) {
           const f = document.getElementsByTagName("script")[0];
           const j = document.createElement("script");
           j.async = true;
-          j.src = "https://www.googletagmanager.com/gtm.js?id=G-FN8KFBR9XM";
+          j.src = "https://www.googletagmanager.com/gtm.js?id=GTM-5M8VLLM";
           if (f && f.parentNode) {
             f.parentNode.insertBefore(j, f);
           } else {
             document.head.appendChild(j);
           }
-
-          // Microsoft Clarity 官方追蹤 (rg9ql8pwwn) [隔離手勢延遲載入]
-          (function (c, l, a, r, i, t, y) {
-            /* eslint-disable prefer-rest-params */
-            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
-            /* eslint-enable prefer-rest-params */
-            t = l.createElement(r);
-            t.async = 1;
-            t.src = "https://www.clarity.ms/tag/" + i;
-            y = l.getElementsByTagName(r)[0];
-            y.parentNode.insertBefore(t, y);
-          })(window, document, "clarity", "script", "rg9ql8pwwn");
-
-          // Meta Pixel 官方追蹤 (722208518730423) [隔離手勢延遲載入]
-          /* eslint-disable prefer-rest-params, prefer-spread */
-          (function (f, b, e, v, n, t, s) {
-            if (f.fbq) return;
-            n = f.fbq = function () {
-              if (n.callMethod) {
-                n.callMethod.apply(n, arguments);
-              } else {
-                n.queue.push(arguments);
-              }
-            };
-            if (!f._fbq) f._fbq = n;
-            n.push = n;
-            n.loaded = true;
-            n.version = "2.0";
-            n.queue = [];
-            t = b.createElement(e);
-            t.async = true;
-            t.src = v;
-            s = b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t, s);
-          })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
-          /* eslint-enable prefer-rest-params, prefer-spread */
-          window.fbq("init", "722208518730423");
-          window.fbq("track", "PageView");
           ["scroll", "mousemove", "touchstart", "click"].forEach(function (e) {
             window.removeEventListener(e, loadGTM, { passive: true });
           });
@@ -147,7 +109,7 @@ if (tdkKey && dict.tdk[tdkKey]) {
     <!-- Google Tag Manager (noscript) -->
     <noscript
       ><iframe
-        src="https://www.googletagmanager.com/ns.html?id=G-FN8KFBR9XM"
+        src="https://www.googletagmanager.com/ns.html?id=GTM-5M8VLLM"
         height="0"
         width="0"
         style="display:none;visibility:hidden"></iframe></noscript
