@@ -395,36 +395,38 @@
   }
 }
 
-// 畫廊 3 圖 (嚴格限制原生尺寸 344 × 194 px + 無損 WebP)
+// 畫廊 3 圖 (≥540px / 折疊大屏展開一行三列均分，杜絕換行留白)
 .group-gallery-grid {
-  margin-top: clamp(30px, 4vw, 40px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: clamp(16px, 2vw, 24px);
+  margin-top: clamp(24px, 3.5vw, 40px);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(10px, 1.8vw, 24px);
   width: 100%;
   box-sizing: border-box;
+
+  @media (max-width: 539px) {
+    grid-template-columns: 1fr;
+    max-width: 344px;
+    margin-inline: auto;
+    gap: 16px;
+  }
 }
 
 .group-gallery-figure {
   margin: 0;
-  border-radius: clamp(18px, 2.5vw, 29px);
+  border-radius: clamp(12px, 1.8vw, 24px);
   overflow: hidden;
   background: #f0f4f8;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   width: 100%;
-  max-width: 344px;
-  max-height: 194px;
   aspect-ratio: 344 / 194;
-  flex-shrink: 0;
 }
 
 .group-gallery-img {
   width: 100%;
   height: 100%;
-  max-width: 344px;
-  max-height: 194px;
+  max-width: none;
+  max-height: none;
   object-fit: cover;
   display: block;
   transition: transform 0.5s ease;
@@ -555,7 +557,7 @@
   box-sizing: border-box;
   gap: clamp(24px, 3vw, 40px);
 
-  @media (min-width: 1024px) {
+  @media (min-width: 600px) {
     flex-direction: row;
   }
 }

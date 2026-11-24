@@ -47,14 +47,14 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
       rel="preload"
       as="image"
       href={content.banner.heroImgMb}
-      media="(max-width: 767px)"
+      media="(max-width: 599px)"
       fetchpriority="high"
     />
     <link
       rel="preload"
       as="image"
       href={content.banner.heroImgPc}
-      media="(min-width: 768px)"
+      media="(min-width: 600px)"
       fetchpriority="high"
     />
   </Fragment>
@@ -204,7 +204,7 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
       >
         <picture class="w-full">
           <source
-            media="(min-width: 768px)"
+            media="(min-width: 600px)"
             srcset={content.banner.heroImgPc}
             width="1280"
             height="480"
@@ -251,9 +251,9 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
       </nav>
 
       <div
-        class="summary overflow-hidden flex flex-col lg:flex-row gap-10 xl:gap-[68px] mb-23"
+        class="summary overflow-hidden flex flex-col sm:flex-row gap-8 lg:gap-12 xl:gap-[68px] mb-23"
       >
-        <div class="lg:w-1/2">
+        <div class="sm:w-1/2">
           <div class="flex items-end gap-2 lg:gap-3 mb-4 lg:mb-6">
             <h1
               id="hero-h1-title"
@@ -297,8 +297,8 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
             </p>
           </div>
         </div>
-        <div class="flex-1 w-full">
-          <picture class="block w-[78%] ml-auto">
+        <div class="flex-1 w-full sm:w-1/2">
+          <picture class="block w-[80%] ml-auto">
             <source
               media="(min-width: 1024px)"
               srcset={content.summary.introImgPc}
@@ -313,7 +313,7 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
               class="w-full h-auto block"
             />
           </picture>
-          <div class="aspect-video w-[90%] mr-auto -mt-[14%] relative z-[1] shadow-md">
+          <div class="aspect-video w-[92%] mr-auto -mt-[16%] lg:-mt-[18%] relative z-[1] shadow-md rounded-xl overflow-hidden">
             <VideoFacade
               videoId={content.summary.videoUrl}
               title={`${content.summary.titlePrefix} ${content.summary.titleStrong}`}
@@ -482,14 +482,14 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
         {content.price.title}
       </h2>
       <div
-        class="flex justify-center items-stretch flex-col md:flex-row gap-6 lg:gap-10 mb-8 lg:mb-14 max-w-5xl mx-auto"
+        class="flex justify-center items-stretch flex-col sm:flex-row gap-4 sm:gap-5 lg:gap-10 mb-8 lg:mb-14 max-w-5xl mx-auto"
       >
         {/* 卡片 1: SMILE Pro 2.0 費用 */}
         <div class="price-item flex-1 flex flex-col">
           <div class="mx-auto w-fit rounded-t-2xl bg-[#042562] text-white text-center text-base lg:text-[26px] font-bold tracking-widest px-7 py-2.5 lg:px-10 lg:py-3 -mb-px relative z-10">
             <h3>{content.price.card2.header}</h3>
           </div>
-          <div class="flex-1 rounded-2xl lg:rounded-3xl shadow-lg bg-[#042562] text-white p-4 lg:p-8 flex flex-col justify-between">
+          <div class="flex-1 rounded-2xl lg:rounded-3xl shadow-lg bg-[#042562] text-white p-4 sm:p-5 lg:p-8 flex flex-col justify-between">
             <div>
               <div class="font-bold tracking-wide mb-6 text-left">
                 <p class="flex flex-col mb-1">
@@ -500,10 +500,10 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
                   {content.price.card2.price.startsWith("HK") ? (
                     <>
                       <span class="text-[26px] lg:text-4xl tracking-tight">HK</span>
-                      <span class="text-[40px] sm:text-5xl lg:text-[56px]">{content.price.card2.price.slice(2)}</span>
+                      <span class="text-[34px] sm:text-4xl lg:text-[56px]">{content.price.card2.price.slice(2)}</span>
                     </>
                   ) : (
-                    <span class="text-[40px] sm:text-5xl lg:text-[56px]">{content.price.card2.price}</span>
+                    <span class="text-[34px] sm:text-4xl lg:text-[56px]">{content.price.card2.price}</span>
                   )}
                 </p>
               </div>
@@ -570,7 +570,7 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
           <div class="mx-auto w-fit rounded-t-2xl bg-gradient-to-r from-[#528BE9] to-[#4D80D4] text-white text-center text-base lg:text-[26px] font-bold tracking-widest px-7 py-2.5 lg:px-10 lg:py-3 -mb-px relative z-10">
             <h3>{content.price.card1.header}</h3>
           </div>
-          <div class="flex-1 rounded-2xl lg:rounded-3xl shadow-lg border border-blue-200 bg-white text-gray-800 p-4 lg:p-8 flex flex-col justify-between">
+          <div class="flex-1 rounded-2xl lg:rounded-3xl shadow-lg border border-blue-200 bg-white text-gray-800 p-4 sm:p-5 lg:p-8 flex flex-col justify-between">
             <div>
               <div class="font-bold tracking-wide mb-6 text-left">
                 <p class="flex flex-col mb-1">
@@ -581,10 +581,10 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
                   {content.price.card1.price.startsWith("HK") ? (
                     <>
                       <span class="text-[26px] lg:text-4xl tracking-tight">HK</span>
-                      <span class="text-[40px] sm:text-5xl lg:text-[56px]">{content.price.card1.price.slice(2)}</span>
+                      <span class="text-[34px] sm:text-4xl lg:text-[56px]">{content.price.card1.price.slice(2)}</span>
                     </>
                   ) : (
-                    <span class="text-[40px] sm:text-5xl lg:text-[56px]">{content.price.card1.price}</span>
+                    <span class="text-[34px] sm:text-4xl lg:text-[56px]">{content.price.card1.price}</span>
                   )}
                 </p>
               </div>
@@ -1133,11 +1133,13 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
     width: 100%;
     height: auto;
     aspect-ratio: 1 / 1;
+    max-height: 480px;
     object-fit: cover;
     object-position: center;
 
-    @media (min-width: 768px) {
+    @media (min-width: 600px) {
       aspect-ratio: 1280 / 480;
+      max-height: none;
       object-fit: cover;
       object-position: center;
     }
@@ -1364,7 +1366,8 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
 
   /* Section 3: 為何選擇希瑪 */
   .icl-WhatChoose {
-    padding: 40px 0;
+    padding: 40px 16px;
+    box-sizing: border-box;
 
     .icl-WhatChoose-title {
       color: $primary;
@@ -1430,7 +1433,7 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
       }
     }
 
-    @media screen and (min-width: 1024px) {
+    @media screen and (min-width: 640px) {
       .icl-WhatChoose-content-one {
         display: flex;
         align-items: center;

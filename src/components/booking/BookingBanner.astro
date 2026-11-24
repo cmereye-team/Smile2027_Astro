@@ -146,7 +146,7 @@ const ssgSignature = slides.map((s) => `${s.id}:${s.desktopImg}`).join("|");
               data-cta={slides[0].linkUrl.includes("whatsapp") ? "whatsapp" : "top_banner"}
             >
               <picture class="banner-picture">
-                <source media="(min-width: 768px)" srcset={slides[0].desktopImg} width="1920" height="720" />
+                <source media="(min-width: 600px)" srcset={slides[0].desktopImg} width="1920" height="720" />
                 <img
                   src={slides[0].mobileImg}
                   alt={slides[0].altText}
@@ -164,7 +164,7 @@ const ssgSignature = slides.map((s) => `${s.id}:${s.desktopImg}`).join("|");
           ) : (
             <div class="banner-item">
               <picture class="banner-picture">
-                <source media="(min-width: 768px)" srcset={slides[0].desktopImg} width="1920" height="720" />
+                <source media="(min-width: 600px)" srcset={slides[0].desktopImg} width="1920" height="720" />
                 <img
                   src={slides[0].mobileImg}
                   alt={slides[0].altText}
@@ -196,7 +196,7 @@ const ssgSignature = slides.map((s) => `${s.id}:${s.desktopImg}`).join("|");
                       data-cta={slide.linkUrl.includes("whatsapp") ? "whatsapp" : "top_banner"}
                     >
                       <picture class="banner-picture">
-                        <source media="(min-width: 768px)" srcset={slide.desktopImg} width="1920" height="720" />
+                        <source media="(min-width: 600px)" srcset={slide.desktopImg} width="1920" height="720" />
                         <img
                           src={slide.mobileImg}
                           alt={slide.altText}
@@ -214,7 +214,7 @@ const ssgSignature = slides.map((s) => `${s.id}:${s.desktopImg}`).join("|");
                   ) : (
                     <div class="banner-item">
                       <picture class="banner-picture">
-                        <source media="(min-width: 768px)" srcset={slide.desktopImg} width="1920" height="720" />
+                        <source media="(min-width: 600px)" srcset={slide.desktopImg} width="1920" height="720" />
                         <img
                           src={slide.mobileImg}
                           alt={slide.altText}
@@ -256,7 +256,7 @@ const ssgSignature = slides.map((s) => `${s.id}:${s.desktopImg}`).join("|");
     background-color: #f6fafd;
   }
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 600px) {
     .top-banner-content {
       aspect-ratio: 8 / 3;
     }
@@ -287,7 +287,7 @@ const ssgSignature = slides.map((s) => `${s.id}:${s.desktopImg}`).join("|");
     object-fit: cover;
   }
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 600px) {
     .main_banner :global(.banner-img) {
       aspect-ratio: 8 / 3;
     }
@@ -403,7 +403,7 @@ const ssgSignature = slides.map((s) => `${s.id}:${s.desktopImg}`).join("|");
     picture.className = "banner-picture";
 
     const source = document.createElement("source");
-    source.media = "(min-width: 768px)";
+    source.media = "(min-width: 600px)";
     source.srcset = desktopImg;
     source.width = 1920;
     source.height = 720;

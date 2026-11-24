@@ -36,9 +36,9 @@ const isMbRemote = typeof mbSrc === "string";
 
 <section class:list={["w-full overflow-hidden relative", className]}>
   <picture class="block w-full">
-    {/* PC 端專用超高清斷點 (>= 768px) */}
+    {/* PC 端專用超高清斷點 (>= 600px) */}
     <source
-      media="(min-width: 768px)"
+      media="(min-width: 600px)"
       srcset={isPcRemote ? pcSrc : (pcSrc as ImageMetadata).src}
       width={isPcRemote ? 1920 : (pcSrc as ImageMetadata).width}
       height={isPcRemote ? 720 : (pcSrc as ImageMetadata).height}
@@ -83,7 +83,7 @@ const isMbRemote = typeof mbSrc === "string";
     width: 100%;
     aspect-ratio: var(--mbRatio);
 
-    @media (min-width: 768px) {
+    @media (min-width: 600px) {
       aspect-ratio: var(--pcRatio);
     }
   }

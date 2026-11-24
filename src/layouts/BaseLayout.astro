@@ -7,7 +7,6 @@ import MobileBottom from "@/components/global/MobileBottom.astro";
 import SidebarDesktop from "@/components/global/SidebarDesktop.astro";
 import Backtop from "@/components/global/Backtop.astro";
 import LiveChat from "@/components/global/LiveChat.astro";
-import PromoPopup from "@/components/global/PromoPopup.astro";
 import SEOHead from "@/components/seo/SEOHead.astro";
 import SchemaClinic from "@/components/seo/SchemaClinic.astro";
 import { useI18n } from "@/i18n/utils";
@@ -84,15 +83,6 @@ if (tdkKey && dict.tdk[tdkKey]) {
       })();
     </script>
 
-    <!-- 全站靜態圖片禁用原生拖拽 -->
-    <script is:inline>
-      document.addEventListener("dragstart", function (e) {
-        if (e.target && (e.target.tagName === "IMG" || (e.target.closest && e.target.closest("img")))) {
-          e.preventDefault();
-        }
-      });
-    </script>
-
     <!-- Schema.org 診所實體標記 (Local SEO / E-E-A-T) -->
     {showClinicSchema && (
       <SchemaClinic
@@ -125,55 +115,18 @@ if (tdkKey && dict.tdk[tdkKey]) {
     <MobileBottom />
     <Footer />
     <LiveChat />
-    <PromoPopup />
 
-    <!-- 共享滾動顯現微動效 (Shared Scroll Reveal) -->
-    <script is:inline>
-      (function () {
-        if (typeof window === "undefined" || !("IntersectionObserver" in window)) return;
-        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-        function initScrollReveal() {
-          const main = document.getElementById("main-content");
-          if (!main) return;
-          const sections = main.querySelectorAll("section");
-          if (!sections.length) return;
-
-          const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-          const observer = new IntersectionObserver(
-            function (entries, obs) {
-              entries.forEach(function (entry) {
-                if (entry.isIntersecting) {
-                  entry.target.classList.add("is-revealed");
-                  obs.unobserve(entry.target);
-                }
-              });
-            },
-            { rootMargin: "0px 0px -40px 0px", threshold: 0.05 }
-          );
-
-          sections.forEach(function (section) {
-            const rect = section.getBoundingClientRect();
-            // 僅對初始處於可視區下方的區塊套用淡入上浮，首屏與 Hero 元素絕不隱藏
-            if (rect.top >= viewportHeight) {
-              section.classList.add("scroll-reveal");
-              observer.observe(section);
-            }
-          });
-        }
-
-        if (document.readyState === "loading") {
-          document.addEventListener("DOMContentLoaded", initScrollReveal, { once: true });
-        } else {
-          initScrollReveal();
-        }
-      })();
-    </script>
+    <!-- 共享滾動顯現微動效 (編譯打包外置模組，非阻塞延遲執行) -->
+    <script src="@/scripts/scroll-reveal.ts"></script>
   </body>
 </html>
 
 <style>
-  html,
+  html {
+    margin: 0;
+    width: 100%;
+  }
+
   body {
     margin: 0;
     width: 100%;
