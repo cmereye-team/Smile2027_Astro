@@ -173,63 +173,65 @@ const visibleFaqs = [
       {/* Section 3: 矯視步驟 (steps) */}
       <section class="steps" aria-labelledby="section-steps-heading">
         <div class="steps-bg bg-white">
-          <div class="steps-number" role="tablist" aria-label="矯視步驟">
-            {
-              content.steps.list.map((step, index) => (
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={index === 0 ? "true" : "false"}
-                  class:list={["step", { active: index === 0 }]}
-                  data-step-index={index}
-                >
-                  {step.number}
-                </button>
-              ))
-            }
-          </div>
-          <div class="steps-title text-primary">
-            <h2
-              id="section-steps-heading"
-              class="mb-0 text-xl md:text-[40px] font-black leading-6 md:leading-[50px] text-left"
-            >
-              <span class="block md:text-3xl font-bold font-en"
-                >{content.steps.titlePrefix}</span
+          <div class="steps-wrapper max-w-[440px] mx-auto relative">
+            <div class="steps-number" role="tablist" aria-label="矯視步驟">
+              {
+                content.steps.list.map((step, index) => (
+                  <button
+                    type="button"
+                    role="tab"
+                    aria-selected={index === 0 ? "true" : "false"}
+                    class:list={["step", { active: index === 0 }]}
+                    data-step-index={index}
+                  >
+                    {step.number}
+                  </button>
+                ))
+              }
+            </div>
+            <div class="steps-title text-primary">
+              <h2
+                id="section-steps-heading"
+                class="mb-0 text-xl md:text-[32px] font-black leading-6 md:leading-[40px] text-left"
               >
-              {content.steps.titleSuffix}
-            </h2>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="19"
-              height="20"
-              viewBox="0 0 19 20"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="m.727 1.231 16.866 16.867m.537-14.409v14.984H3.64"
-                stroke="currentColor"
-                stroke-width="1.342"
-                stroke-linecap="round"></path>
-            </svg>
-          </div>
-          <div class="steps-content">
-            <img draggable="false"
-              id="relex-step-img"
-              src={content.steps.list[0].image}
-              srcset={`${content.steps.list[0].image} 768w, ${content.steps.list[0].imagePc} 1200w`}
-              alt={content.steps.list[0].text}
-              title={content.steps.list[0].text}
-              width="649"
-              height="649"
-              loading="lazy"
-             decoding="async"/>
-            <p
-              id="relex-step-text"
-              class="steps-content-text steps-content-01"
-            >
-              {content.steps.list[0].text}
-            </p>
+                <span class="block text-base md:text-2xl font-bold font-en"
+                  >{content.steps.titlePrefix}</span
+                >
+                {content.steps.titleSuffix}
+              </h2>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="19"
+                height="20"
+                viewBox="0 0 19 20"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="m.727 1.231 16.866 16.867m.537-14.409v14.984H3.64"
+                  stroke="currentColor"
+                  stroke-width="1.342"
+                  stroke-linecap="round"></path>
+              </svg>
+            </div>
+            <div class="steps-content">
+              <img draggable="false"
+                id="relex-step-img"
+                src={content.steps.list[0].image}
+                srcset={`${content.steps.list[0].image} 768w, ${content.steps.list[0].imagePc} 1200w`}
+                alt={content.steps.list[0].text}
+                title={content.steps.list[0].text}
+                width="649"
+                height="649"
+                loading="lazy"
+               decoding="async"/>
+              <p
+                id="relex-step-text"
+                class="steps-content-text steps-content-01"
+              >
+                {content.steps.list[0].text}
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -272,7 +274,7 @@ const visibleFaqs = [
 
       {/* Section 6: SMILE微笑激光矯視費用 (fee) */}
       <section
-        class="fee-section md:bg-[#F6FAFD] py-8 px-2 md:px-2 md:pb-15 md:pt-20 mb-8 md:mt-[50px] md:mb-22 md:mt-[166px]"
+        class="fee-section md:bg-[#F6FAFD] py-8 px-2 md:px-4 md:pb-15 md:pt-16 mb-8 mt-0 lg:mt-12 xl:mt-[100px] md:mb-16"
         aria-labelledby="section-fee-heading"
       >
         <div class="w-full flex flex-col items-center mx-auto">
@@ -714,7 +716,14 @@ const visibleFaqs = [
       overflow-x: clip;
     }
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: 768px) and (max-width: 1439px) {
+      width: 100%;
+      max-width: 100%;
+      border-left: none;
+      border-right: none;
+    }
+
+    @media screen and (min-width: 1440px) {
       width: 768px;
       max-width: min(768px, 100vw);
       flex-shrink: 0;
@@ -848,28 +857,44 @@ const visibleFaqs = [
       white 50px 100%
     );
 
+    &-wrapper {
+      width: 100%;
+      max-width: 440px;
+      margin: 0 auto;
+      position: relative;
+    }
+
     &-title {
       display: flex;
       align-items: center;
       position: absolute;
-      gap: clamp(2.065rem, 1.572rem + 2.02vw, 4rem);
+      top: clamp(2.4rem, 4.8vw, 3.8rem);
+      left: 0;
+      z-index: 2;
+      gap: 12px;
+
+      h2 {
+        font-size: clamp(17px, 3.2vw, 26px);
+        line-height: 1.2;
+      }
 
       svg {
-        width: clamp(1.25rem, 0.795rem + 2.27vw, 2.5rem);
-        height: clamp(1.25rem, 0.795rem + 2.27vw, 2.5rem);
+        width: clamp(14px, 2.2vw, 22px);
+        height: clamp(14px, 2.2vw, 22px);
       }
     }
 
     &-bg {
       border-radius: 1rem 1rem 0 0;
-      padding: clamp(4.337rem, 3.881rem + 1.87vw, 6.125rem)
-        clamp(1.688rem, 1.21rem + 1.96vw, 3.563rem)
-        clamp(3.984rem, 2.594rem + 5.7vw, 9.438rem);
+      padding: clamp(3rem, 2.5rem + 1.87vw, 4.5rem)
+        clamp(1.2rem, 1rem + 1.96vw, 2.5rem)
+        clamp(3.5rem, 2.5rem + 3vw, 6rem);
     }
 
     &-number {
       display: flex;
       justify-content: space-between;
+      width: 100%;
 
       .step {
         cursor: pointer;
@@ -972,6 +997,12 @@ const visibleFaqs = [
         color: $primary-color;
         font-weight: 700;
       }
+    }
+  }
+
+  .fee-section {
+    @media screen and (max-width: 991px) {
+      margin-top: 0 !important;
     }
   }
 
@@ -1211,16 +1242,19 @@ const visibleFaqs = [
       position: relative;
       height: 488px;
 
-      @media screen and (max-width: 767px) {
+      @media screen and (max-width: 1023px) {
         height: auto;
         margin-bottom: 28px;
         display: flex;
         flex-direction: column;
-        gap: 0;
+        gap: 20px;
+        max-width: 580px;
+        margin-left: auto;
+        margin-right: auto;
       }
 
       &.unfolded {
-        @media screen and (min-width: 768px) {
+        @media screen and (min-width: 1024px) {
           animation: xtraHeightPc 1s ease forwards;
         }
       }
@@ -1235,19 +1269,21 @@ const visibleFaqs = [
           clamp(1.375rem, 0.97rem + 1.66vw, 2.962rem)
           clamp(2.138rem, 1.758rem + 1.56vw, 3.625rem);
 
-        @media screen and (max-width: 767px) {
+        @media screen and (max-width: 1023px) {
           position: relative;
           left: auto;
-          width: calc(100% - 24px);
-          padding: 22px 16px 24px;
+          width: 100%;
+          max-width: 100%;
+          padding: 24px 20px;
+          box-sizing: border-box;
         }
 
         &:nth-child(1) {
           z-index: 1;
 
-          @media screen and (max-width: 767px) {
+          @media screen and (max-width: 1023px) {
             margin-right: auto;
-            padding-bottom: 42px;
+            padding-bottom: 36px;
 
             &::after {
               content: "";
@@ -1270,7 +1306,7 @@ const visibleFaqs = [
           }
 
           &.unfolded {
-            @media screen and (min-width: 768px) {
+            @media screen and (min-width: 1024px) {
               animation: xtraBottomPc 1s ease forwards;
 
               &::after {
@@ -1292,19 +1328,19 @@ const visibleFaqs = [
         &:nth-child(2) {
           z-index: 3;
 
-          @media screen and (max-width: 767px) {
+          @media screen and (max-width: 1023px) {
             margin-left: auto;
-            margin-top: -24px;
-            transform: translate(-24px, -55%);
+            margin-top: 0;
+            transform: none;
             transition: transform 0.8s var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1));
 
             &.unfolded {
-              transform: translate(0, 0);
+              transform: none;
             }
           }
 
           &.unfolded {
-            @media screen and (min-width: 768px) {
+            @media screen and (min-width: 1024px) {
               animation: xtraTopPc 1s ease forwards;
             }
           }

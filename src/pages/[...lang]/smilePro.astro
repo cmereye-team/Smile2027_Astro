@@ -836,8 +836,8 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
       <h2 id="suitable-heading" class="title-normal mb-7 lg:mb-20">
         {content.suitable.title}
       </h2>
-      <div class="center flex-col lg:flex-row gap-5 md:gap-12 lg:gap-20 w-full lg:w-fit mx-auto">
-        <picture class="block w-full max-w-[580px] shrink-0">
+      <div class="center flex-col min-[600px]:flex-row gap-5 md:gap-8 lg:gap-20 w-full lg:w-fit mx-auto items-center">
+        <picture class="block w-full min-[600px]:w-[45%] max-w-[580px] shrink-0">
           <source
             media="(min-width: 1024px)"
             srcset={content.suitable.imgPc}
@@ -849,10 +849,10 @@ const userRatingSlides = [...content.userRating.list, ...content.userRating.list
             width="580"
             height="420"
             loading="lazy"
-            class="w-full max-w-[580px] h-auto mx-auto"
+            class="w-full h-auto mx-auto object-contain"
           />
         </picture>
-        <ol class="w-full lg:w-auto process-list space-y-2 lg:space-y-5">
+        <ol class="w-full min-[600px]:flex-1 lg:w-auto process-list space-y-2 lg:space-y-5">
           {
             content.suitable.items.map((item) => (
               <li set:html={item} />
