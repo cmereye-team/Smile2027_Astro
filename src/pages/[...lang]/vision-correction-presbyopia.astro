@@ -246,22 +246,22 @@ const simpleSchemes = content.schemes.items.filter((item) => item.isSimple);
                   </div>
                   <div class:list={[
                     "text-[#F59E0B] font-bold tracking-tight group-hover:scale-105 transition-transform",
-                    item.note1 ? "text-right flex flex-col" : (item.prices.length > 1 ? "flex flex-col md:flex-row md:gap-4" : "")
+                    item.note1 ? "text-right flex flex-col" : (item.prices.length > 1 ? "flex flex-col xl:flex-row xl:gap-4" : "")
                   ]}>
                     {item.prices.length > 1 ? (
                       item.prices.map((p) => (
-                        <span class="text-[20px] md:text-5xl">{p}</span>
+                        <span class="text-[18px] sm:text-[22px] md:text-[28px] lg:text-[38px] xl:text-[46px] whitespace-nowrap">{p}</span>
                       ))
                     ) : item.note1 ? (
                       <>
-                        <p class="text-[20px] md:text-5xl pb-1 md:pb-3">{item.prices[0]}</p>
+                        <p class="text-[20px] sm:text-[26px] md:text-[36px] lg:text-5xl whitespace-nowrap pb-1 md:pb-3">{item.prices[0]}</p>
                         <p class="text-[11px] min-[375px]:text-xs md:text-xl leading-snug font-bold" set:html={item.note1} />
                         {item.note2 && (
                           <p class="text-[#6D6E71] text-[11px] min-[375px]:text-xs md:text-xl leading-snug font-bold mt-0.5" set:html={item.note2} />
                         )}
                       </>
                     ) : (
-                      <span class="text-[20px] md:text-5xl">{item.prices[0]}</span>
+                      <span class="text-[20px] sm:text-[26px] md:text-[36px] lg:text-5xl whitespace-nowrap">{item.prices[0]}</span>
                     )}
                   </div>
                 </div>
